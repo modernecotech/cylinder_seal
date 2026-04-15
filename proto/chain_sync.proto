@@ -48,35 +48,58 @@ enum PaymentChannel {
     CHANNEL_ONLINE = 3;
 }
 
-// LedgerBlock is one unit in a user's personal chainblock
-message LedgerBlock {
+// JournalEntry is one unit in a user's personal append-only transaction journal.
+// This is NOT a blockchain — it's a device-local transaction log with super-peer validation.
+message JournalEntry {
     // UUIDv7 encoded as 16 bytes
-    bytes block_id = 1;
+    bytes entry_id = 1;
 
-    // Ed25519 public key of the user who owns this block (32 bytes)
+    // Ed25519 public key of the user who owns this entry (32 bytes)
     bytes user_public_key = 2;
 
-    // Monotonically increasing sequence number for this user
+    // Monotonically increasing sequence number for this user's journal
     uint64 sequence_number = 3;
 
-    // BLAKE2b-256 hash of the previous block (32 bytes)
-    // For genesis block: BLAKE2b-256(user_public_key)
-    bytes prev_block_hash = 4;
+    // BLAKE2b-256 hash of the previous entry (32 bytes)
+    // For genesis entry: BLAKE2b-256(user_public_key)
+    bytes prev_entry_hash = 4;
 
-    // One or more transactions in this block
+    // One or more transactions in this entry
     repeated Transaction transactions = 5;
 
-    // BLAKE2b-256 hash of (prev_block_hash || sequence_number || canonical CBOR of transactions)
-    bytes block_hash = 6;
+    // BLAKE2b-256 hash of (prev_entry_hash || sequence_number || canonical CBOR of transactions)
+    bytes entry_hash = 6;
 
-    // Ed25519 signature (64 bytes) by block owner over block_hash
+    // Ed25519 signature (64 bytes) by entry owner over entry_hash
     bytes signature = 7;
 
-    // Device-local UTC microseconds when block was created
+    // Device-local UTC microseconds when entry was created
     int64 created_at = 8;
 
     // Sync status tracked on device (not sent to super-peer)
     SyncStatus sync_status = 9;
+
+    // Device ID that created this entry
+    bytes device_id = 10;
+
+    // Vector clock for causal ordering
+    map<string, uint64> vector_clock = 11;
+
+    // Monotonic clock timestamp (nanoseconds)
+    int64 monotonic_created_nanos = 12;
+
+    // Optional user signature for high-value transactions
+    bytes user_signature = 13;
+
+    // Super-peer confirmations (3+ of 5 required)
+    repeated SuperPeerConfirmation super_peer_confirmations = 14;
+}
+
+// Confirmation signature from a super-peer validating a journal entry
+message SuperPeerConfirmation {
+    string super_peer_id = 1;
+    bytes signature = 2;
+    int64 confirmed_at = 3;
 }
 
 enum SyncStatus {
@@ -86,10 +109,10 @@ enum SyncStatus {
     SYNC_STATUS_CONFLICTED = 3;   // super-peer detected a conflict
 }
 
-// Acknowledgement from super-peer for a submitted block
+// Acknowledgement from super-peer for a submitted journal entry
 message SyncAck {
-    // Echo back the block_id for correlation
-    bytes block_id = 1;
+    // Echo back the entry_id for correlation
+    bytes entry_id = 1;
 
     // Status of the submission
     SyncAckStatus status = 2;
@@ -103,13 +126,13 @@ message SyncAck {
     // Updated credit score (nullable, may not have enough history)
     string credit_score = 5;
 
-    // Timestamp when super-peer confirmed the block
+    // Timestamp when super-peer confirmed the entry
     int64 confirmed_at = 6;
 }
 
 enum SyncAckStatus {
     ACK_STATUS_UNSPECIFIED = 0;
-    ACK_STATUS_CONFIRMED = 1;     // block accepted, added to ledger
+    ACK_STATUS_CONFIRMED = 1;     // entry accepted, added to journal
     ACK_STATUS_REJECTED = 2;      // malformed or validation failed
     ACK_STATUS_CONFLICTED = 3;    // double-spend or other conflict
     ACK_STATUS_PENDING = 4;       // accepted but awaiting human review
@@ -218,11 +241,11 @@ message DeviceReputation {
 }
 
 message AuditLogEntry {
-    // Immutable, signed audit log
+    // Immutable, signed audit log (append-only)
     uint64 sequence = 1;
     int64 timestamp = 2;
     int64 monotonic_nanos = 3;
-    string action = 4;  // BlockConfirmed, TransactionDoubleSpend, etc.
+    string action = 4;  // EntryConfirmed, TransactionDoubleSpend, etc.
     bytes user_id = 5;
     bytes details_json = 6;
     repeated string signed_by = 7;  // ["sp-africa", "sp-asia", "sp-americas"]
@@ -232,8 +255,8 @@ message AuditLogEntry {
 
 // Service for device ↔ super-peer sync
 service ChainSync {
-    // Bidirectional streaming: device sends blocks, super-peer streams back ACKs
-    rpc SyncChain(stream LedgerBlock) returns (stream SyncAck);
+    // Bidirectional streaming: device sends journal entries, super-peer streams back ACKs
+    rpc SyncChain(stream JournalEntry) returns (stream SyncAck);
 
     // Get current currency rates
     rpc GetCurrencyRates(CurrencyRateRequest) returns (CurrencyRateBundle);
@@ -327,13 +350,13 @@ message MerkleProofNode {
 // Super-peer to super-peer gossip (internal)
 // ============================================================================
 
-// Gossip notification of a confirmed block to other super-peers
-message BlockConfirmationGossip {
+// Gossip notification of a confirmed entry to other super-peers
+message EntryConfirmationGossip {
     // User's public key
     bytes user_public_key = 1;
 
-    // The block hash
-    bytes block_hash = 2;
+    // The entry hash
+    bytes entry_hash = 2;
 
     // Sequence number
     uint64 sequence_number = 3;
@@ -343,11 +366,11 @@ message BlockConfirmationGossip {
 }
 
 service SuperPeerGossip {
-    // Announce a confirmed block to peer nodes
-    rpc AnnounceBlock(BlockConfirmationGossip) returns (GossipAck);
+    // Announce a confirmed entry to peer nodes
+    rpc AnnounceEntry(EntryConfirmationGossip) returns (GossipAck);
 
-    // Replicate full ledger state (compressed CBOR dump)
-    rpc ReplicateLedger(ReplicationRequest) returns (ReplicationResponse);
+    // Replicate full journal state (compressed CBOR dump)
+    rpc ReplicateJournal(ReplicationRequest) returns (ReplicationResponse);
 }
 
 message GossipAck {
@@ -364,8 +387,8 @@ message ReplicationRequest {
 }
 
 message ReplicationResponse {
-    // Compressed CBOR dump of ledger entries
-    bytes ledger_dump = 1;
+    // Compressed CBOR dump of journal entries
+    bytes journal_dump = 1;
 
     // Timestamp of dump
     int64 created_at = 2;

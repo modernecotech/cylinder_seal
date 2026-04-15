@@ -165,47 +165,48 @@ pub enum PaymentChannel {
 
 // ============================================================================
 
-/// A LedgerBlock is one unit in a user's personal chainblock.
-/// The chain is append-only and can be verified independently.
+/// A JournalEntry is one unit in a user's personal append-only transaction journal.
+/// Each entry is a batch of transactions, sequentially numbered and cryptographically linked.
+/// This is NOT a blockchain — it's a device-local transaction log with super-peer validation.
 #[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct LedgerBlock {
-    /// UUIDv7 block identifier
-    pub block_id: Uuid,
+pub struct JournalEntry {
+    /// UUIDv7 entry identifier
+    pub entry_id: Uuid,
 
-    /// Ed25519 public key of the block owner (32 bytes) — user's master key
+    /// Ed25519 public key of the entry owner (32 bytes) — user's master key
     pub user_public_key: [u8; 32],
 
-    /// Device ID (UUID) that created this block
+    /// Device ID (UUID) that created this entry
     pub device_id: Uuid,
 
-    /// Monotonically increasing sequence number for this user
+    /// Monotonically increasing sequence number for this user's journal
     pub sequence_number: u64,
 
-    /// BLAKE2b-256 hash of the previous block (32 bytes)
-    /// For genesis block: BLAKE2b-256(user_public_key)
-    pub prev_block_hash: [u8; 32],
+    /// BLAKE2b-256 hash of the previous entry (32 bytes)
+    /// For genesis entry: BLAKE2b-256(user_public_key)
+    pub prev_entry_hash: [u8; 32],
 
     /// Vector clock for causal ordering
     /// Tracks logical time: {user_id -> sequence_number}
     /// Prevents "time travel" attacks (backward clock skew)
     pub vector_clock: HashMap<Uuid, u64>,
 
-    /// One or more transactions in this block
+    /// One or more transactions in this entry
     pub transactions: Vec<Transaction>,
 
-    /// BLAKE2b-256 hash of (prev_block_hash || sequence_number || vector_clock || transactions)
-    pub block_hash: [u8; 32],
+    /// BLAKE2b-256 hash of (prev_entry_hash || sequence_number || vector_clock || transactions)
+    pub entry_hash: [u8; 32],
 
-    /// Ed25519 signature (64 bytes) by device over block_hash
+    /// Ed25519 signature (64 bytes) by device over entry_hash
     pub device_signature: [u8; 64],
 
     /// User's master signature (optional, for high-value txs)
     pub user_signature: Option<[u8; 64]>,
 
-    /// Device-local UTC microseconds when block was created
+    /// Device-local UTC microseconds when entry was created
     pub created_at: i64,
 
-    /// Monotonic clock timestamp (nanoseconds) when block was created
+    /// Monotonic clock timestamp (nanoseconds) when entry was created
     pub monotonic_created_nanos: i64,
 
     /// Sync status (tracked on device, not necessarily sent to super-peer)
@@ -213,24 +214,24 @@ pub struct LedgerBlock {
 
     /// Super-peer confirmations (populated after sync)
     /// Contains signatures from 2+ super-peers for validity
-    pub super_peer_confirmations: Vec<SuperPeerSignature>,
+    pub super_peer_confirmations: Vec<SuperPeerConfirmation>,
 }
 
-/// Signature from a super-peer confirming this block
+/// Confirmation signature from a super-peer validating this journal entry
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
-pub struct SuperPeerSignature {
+pub struct SuperPeerConfirmation {
     pub super_peer_id: String,
     pub signature: [u8; 64],
     pub confirmed_at: i64,
 }
 
-impl LedgerBlock {
-    /// Create a new unsigned block
+impl JournalEntry {
+    /// Create a new unsigned journal entry
     pub fn new(
         user_public_key: [u8; 32],
         device_id: Uuid,
         sequence_number: u64,
-        prev_block_hash: [u8; 32],
+        prev_entry_hash: [u8; 32],
         transactions: Vec<Transaction>,
         mut vector_clock: HashMap<Uuid, u64>,
     ) -> Self {
@@ -239,14 +240,14 @@ impl LedgerBlock {
         vector_clock.insert(user_id_from_key, sequence_number);
 
         Self {
-            block_id: Uuid::new_v4(),
+            entry_id: Uuid::new_v4(),
             user_public_key,
             device_id,
             sequence_number,
-            prev_block_hash,
+            prev_entry_hash,
             vector_clock,
             transactions,
-            block_hash: [0u8; 32],
+            entry_hash: [0u8; 32],
             device_signature: [0u8; 64],
             user_signature: None,
             created_at: chrono::Utc::now().timestamp_micros(),
@@ -256,10 +257,10 @@ impl LedgerBlock {
         }
     }
 
-    /// Canonical CBOR encoding for hashing (excludes block_hash and signatures)
+    /// Canonical CBOR encoding for hashing (excludes entry_hash and signatures)
     pub fn canonical_cbor_for_hashing(&self) -> Result<Vec<u8>> {
         let hashable = (
-            &self.prev_block_hash,
+            &self.prev_entry_hash,
             self.sequence_number,
             &self.vector_clock,
             &self.transactions,
@@ -271,32 +272,32 @@ impl LedgerBlock {
             .map_err(|e| crate::error::CylinderSealError::SerializationError(e.to_string()))
     }
 
-    /// Compute and set the block hash
-    pub fn compute_block_hash(&mut self) -> Result<()> {
+    /// Compute and set the entry hash
+    pub fn compute_entry_hash(&mut self) -> Result<()> {
         let canonical = self.canonical_cbor_for_hashing()?;
-        self.block_hash = crypto::blake2b_256(&canonical);
+        self.entry_hash = crypto::blake2b_256(&canonical);
         Ok(())
     }
 
-    /// Sign the block with device private key (must call compute_block_hash first)
+    /// Sign the entry with device private key (must call compute_entry_hash first)
     pub fn sign_with_device_key(&mut self, device_private_key: &[u8; 32]) -> Result<()> {
-        self.device_signature = crypto::sign_message(&self.block_hash, device_private_key)?;
+        self.device_signature = crypto::sign_message(&self.entry_hash, device_private_key)?;
         Ok(())
     }
 
-    /// Sign the block with user master private key (for high-value txs)
+    /// Sign the entry with user master private key (for high-value txs)
     pub fn sign_with_user_key(&mut self, user_private_key: &[u8; 32]) -> Result<()> {
-        self.user_signature = Some(crypto::sign_message(&self.block_hash, user_private_key)?);
+        self.user_signature = Some(crypto::sign_message(&self.entry_hash, user_private_key)?);
         Ok(())
     }
 
-    /// Verify the block's hash and device signature
+    /// Verify the entry's hash and device signature
     pub fn verify(&self) -> Result<()> {
         // First, recompute the hash and verify it matches
         let canonical = self.canonical_cbor_for_hashing()?;
         let expected_hash = crypto::blake2b_256(&canonical);
 
-        if expected_hash != self.block_hash {
+        if expected_hash != self.entry_hash {
             return Err(crate::error::CylinderSealError::InvalidHash);
         }
 
@@ -308,15 +309,15 @@ impl LedgerBlock {
         Ok(())
     }
 
-    /// Check if this block has sufficient super-peer confirmations (2+)
+    /// Check if this entry has sufficient super-peer confirmations (2+)
     pub fn is_confirmed(&self) -> bool {
         self.super_peer_confirmations.len() >= 2
     }
 
-    /// Create a genesis block for a new user
+    /// Create a genesis entry for a new user's journal
     pub fn genesis(user_public_key: [u8; 32]) -> Self {
         let prev_hash = crypto::blake2b_256(&user_public_key);
-        let device_id = Uuid::nil(); // Genesis blocks have no device (super-peer generated)
+        let device_id = Uuid::nil(); // Genesis entries have no device (super-peer generated)
         Self::new(user_public_key, device_id, 0, prev_hash, vec![], HashMap::new())
     }
 }
@@ -478,13 +479,13 @@ mod tests {
     }
 
     #[test]
-    fn test_ledger_block_hashing() {
+    fn test_journal_entry_hashing() {
         let (pub_key, priv_key) = crypto::generate_keypair();
-        let mut block = LedgerBlock::genesis(pub_key);
+        let mut entry = JournalEntry::genesis(pub_key);
 
-        block.compute_block_hash().unwrap();
-        block.sign_with_device_key(&priv_key).unwrap();
-        assert!(block.verify().is_ok());
+        entry.compute_entry_hash().unwrap();
+        entry.sign_with_device_key(&priv_key).unwrap();
+        assert!(entry.verify().is_ok());
     }
 
     #[test]

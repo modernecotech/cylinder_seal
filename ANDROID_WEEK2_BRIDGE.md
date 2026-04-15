@@ -28,26 +28,26 @@ message Transaction {
 }
 ```
 
-### LedgerBlock Type
+### JournalEntry Type
 ```protobuf
-message LedgerBlock {
-  bytes block_id = 1;                 // UUID v7
+message JournalEntry {
+  bytes entry_id = 1;                 // UUID v7
   bytes user_public_key = 2;          // Ed25519, 32 bytes
   bytes device_id = 3;                // Which device created this
   int64 sequence_number = 4;          // Must increment by 1
-  bytes prev_block_hash = 5;          // BLAKE2b-256, 32 bytes
+  bytes prev_entry_hash = 5;          // BLAKE2b-256, 32 bytes
   map<string, int64> vector_clock = 6;// Causal ordering
   repeated Transaction transactions = 7;
-  bytes block_hash = 8;               // BLAKE2b-256, computed by device
-  bytes device_signature = 9;         // Ed25519 over block_hash
+  bytes entry_hash = 8;               // BLAKE2b-256, computed by device
+  bytes device_signature = 9;         // Ed25519 over entry_hash
   bytes user_signature = 10;          // Optional, for high-value txs
   int64 created_at = 11;              // Device UTC microseconds
   int64 monotonic_created_nanos = 12; // System.nanoTime()
   SyncStatus sync_status = 13;        // PENDING, CONFIRMED, CONFLICTED
-  repeated SuperPeerSignature super_peer_confirmations = 14;
+  repeated SuperPeerConfirmation super_peer_confirmations = 14;
 }
 
-message SuperPeerSignature {
+message SuperPeerConfirmation {
   string super_peer_id = 1;
   bytes signature = 2;                // 64 bytes
   int64 confirmed_at = 3;             // When peer confirmed
@@ -242,8 +242,8 @@ Device                          Super-Peer (Rust)
 User pays             → Derive nonce (hw-bound)
                       → Create Transaction
                       → Sign with device key (Keystore)
-                      → Create LedgerBlock
-                      → Sign block_hash
+                      → Create JournalEntry
+                      → Sign entry_hash
                       
 Block.serialize()     → Send via gRPC SyncChain →  Verify signature
                       ← SyncAck (2/5 confirmed)    Verify nonce chain
@@ -421,7 +421,7 @@ fun testOfflinePayment() {
 **Rust Code (Already Implemented)**:
 - `crates/cs-core/src/nonce.rs` — Nonce derivation with hardware binding
 - `crates/cs-core/src/hardware_binding.rs` — Device identity & reputation
-- `crates/cs-core/src/models.rs` — Transaction & LedgerBlock types
+- `crates/cs-core/src/models.rs` — Transaction & JournalEntry types
 - `crates/cs-core/src/crypto.rs` — BLAKE2b, Ed25519 primitives
 
 **Android Code (Week 2 Implementation)**:

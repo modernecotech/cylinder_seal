@@ -11,7 +11,7 @@
   - `device_attestation` for SafetyNet/Play Integrity
   - Correct canonical CBOR encoding for signing/hashing
 
-- [x] LedgerBlock struct with all hardened fields
+- [x] JournalEntry struct with all hardened fields
   - `vector_clock` propagated and updated
   - `monotonic_created_nanos` for monotonic time
   - `device_signature` and `user_signature` separation
@@ -78,7 +78,7 @@
 - [x] Device attestation validity tests
 - [x] Device reputation scoring tests
 - [x] Transaction signing and verification test
-- [x] LedgerBlock hashing test
+- [x] JournalEntry hashing test
 - [x] KYC tier limits test (corrected values)
 
 ---
@@ -155,7 +155,7 @@ crates/cs-core/Cargo.toml                  (+1 dependency: hex)
 The foundation is in place for Android implementation:
 
 ### Android Code Can Now:
-✅ Import Transaction, LedgerBlock models from cs-core  
+✅ Import Transaction, JournalEntry models from cs-core  
 ✅ Call `derive_nonce_with_hardware()` with device IDs  
 ✅ Verify nonce chains using `verify_nonce_chain()`  
 ✅ Bind all operations to DeviceHardwareIds  
@@ -168,12 +168,12 @@ The foundation is in place for Android implementation:
 3. Implement deterministic nonce derivation on Kotlin side
 4. Call SafetyNet/Play Integrity API for device attestation
 5. Create gRPC stubs from proto/ definitions
-6. Implement local SQLite chainblock with Room
+6. Implement local SQLite personal journal with Room
 
 ### Proto Contracts (should already exist):
 ```protobuf
 message Transaction { ... }
-message LedgerBlock { ... }
+message JournalEntry { ... }
 message DeviceAttestation { ... }
 ```
 
@@ -203,7 +203,7 @@ If proto/ folder is not yet populated with chain_sync.proto, see IMPLEMENTATION_
 
 3. **Genesis Block Device ID**: Uses Uuid::nil() for genesis blocks (created by super-peer). Real device IDs only appear in blocks created by devices.
 
-4. **Vector Clock Initialization**: LedgerBlock::new() auto-inserts user's own sequence. Subsequent devices' clocks must be synced via super-peer gossip (Week 8).
+4. **Vector Clock Initialization**: JournalEntry::new() auto-inserts user's own sequence. Subsequent devices' clocks must be synced via super-peer gossip (Week 8).
 
 ---
 

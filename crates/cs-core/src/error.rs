@@ -20,8 +20,8 @@ pub enum CylinderSealError {
     #[error("Invalid transaction: {0}")]
     InvalidTransaction(String),
 
-    #[error("Invalid ledger block: {0}")]
-    InvalidBlock(String),
+    #[error("Invalid journal entry: {0}")]
+    InvalidEntry(String),
 
     #[error("Out of sequence: expected {expected}, got {got}")]
     OutOfSequence { expected: u64, got: u64 },
