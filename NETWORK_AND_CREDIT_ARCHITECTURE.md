@@ -895,6 +895,144 @@ Amount in entry_hash_B is escrowed pending review
 
 ---
 
+## Peer Whisper Network: Mesh Synchronization
+
+### Overview: Offline Devices Sync Through Connected Peers
+
+The whisper network enables **offline-first devices to propagate their transaction data** through the peer network, reaching super-peers even if the originating device is never directly online.
+
+```
+SCENARIO: Device A is offline for 3 days
+          Device B comes online and is near Device A
+
+┌─────────────────────────────────────────────────────────┐
+│ Day 1: Device A (offline) makes 5 transactions          │
+│        Stores locally in SQLite PENDING state           │
+│        ↓ no internet, can't reach super-peers yet       │
+│                                                          │
+│ Day 2: Device B comes online                            │
+│        Device B sees Device A nearby (NFC range)        │
+│        Device B asks: "Any pending entries to sync?"    │
+│        ↓                                                  │
+│        Device A: "Yes! Here are my 5 pending entries"  │
+│        ↓                                                  │
+│        Device B: "I'm online, I'll relay these"         │
+│        ↓                                                  │
+│        Device B connects to super-peer S1               │
+│        Device B sends: EntryRelay {                     │
+│            original_device_pk: Device A's pubkey        │
+│            entries: [Device A's 5 transactions]         │
+│            relay_signature: signed by Device B          │
+│        }                                                  │
+│        ↓                                                  │
+│ Day 3: Device A comes online                            │
+│        S1 has already confirmed Device A's entries      │
+│        Device A syncs and sees: "✓ CONFIRMED"           │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Whisper Network Protocol
+
+**Message: EntryRelay** (Device → Super-Peer via relay device)
+
+```protobuf
+message EntryRelay {
+    bytes originating_device_pk = 1;    // Original device's Ed25519 pubkey
+    uint64 originating_nonce = 2;       // Device's current hardware-bound nonce
+    bytes relay_device_pk = 3;          // Relaying device's pubkey
+    repeated JournalEntry entries = 4;  // Up to 100 pending entries
+    int64 relay_timestamp = 5;          // When relay device synced
+    bytes relay_signature = 6;          // Ed25519 signature by relay device
+                                        // Signs: (originating_pk || entries)
+}
+
+rpc RelayEntries(EntryRelay) returns (RelayAck);
+
+message RelayAck {
+    bool accepted = 1;
+    repeated bytes accepted_entry_ids = 2;  // Which entries made it through
+    string status = 3;  // "queued for quorum", "conflict", etc
+}
+```
+
+### Advantages of Whisper Network
+
+1. **No Direct Internet Required**
+   - Device A doesn't need WiFi/cellular if Device B is nearby and online
+   - Reduces data plan costs in low-connectivity regions
+   
+2. **Faster Eventual Consistency**
+   - Entry confirmation happens within minutes of ANY peer going online
+   - Not waiting for the originating device to connect
+   
+3. **Resilience Against Network Outages**
+   - If the "last mile" to super-peers is down, entries still propagate through peer mesh
+   - Mesh healing: if one relay path is broken, entries find another path
+   
+4. **Reduced Battery Drain**
+   - Device A can stay offline longer (no need to sync frequently)
+   - Device B is already online, so relay overhead is minimal
+
+### Relay Signature & Tamper Detection
+
+The relay device signs the entries it forwards:
+
+```
+Relay signature covers: BLAKE2b(originating_device_pk ∥ entries_cbor)
+
+This allows super-peers to detect tampering:
+├─ If relay_signature fails Ed25519 verification: REJECT
+├─ If originating_nonce is out-of-order: QUARANTINE
+├─ If entries_cbor doesn't match relay_signature: REJECT
+└─ If relay_device_pk appears in spam list: RATE_LIMIT
+
+Relay device's credit score is affected if it relays many conflicted entries
+(incentivizes honest relaying)
+```
+
+### Whisper Network Flooding & Control
+
+To prevent spam/amplification attacks:
+
+```
+SuperPeer.RelayEntries(relay: EntryRelay):
+  ├─ Check relay_device_pk rate limit (max 10 relays/min)
+  ├─ Verify relay signature
+  ├─ Deduplicate: already received this entry_id? Skip.
+  ├─ Verify originating_nonce sequence is monotonic
+  ├─ If originating_device seen online elsewhere with higher nonce: REJECT
+  │  (prevents evil relay from submitting stale entries)
+  │
+  └─ If all checks pass:
+     ├─ Queue to quorum (3-of-5)
+     ├─ Gossip relay success to S2-S5
+     └─ Send RelayAck with accepted_entry_ids
+```
+
+### Example: Marketplace Vendor (Always Offline)
+
+```
+Scenario: Maria is a street vendor in rural Kenya
+├─ Sells vegetables, receives OWC from customers daily
+├─ Her phone is on (always) but has no data plan
+├─ Nearby vendor João has a data plan
+│
+└─ Daily sync flow:
+   ├─ 4pm: 10 customers buy from Maria (10 entries PENDING in her ledger)
+   ├─ 5pm: João comes by, NFC-taps Maria
+   ├─ João: "I'm online, syncing now?"
+   ├─ Maria: "Yes! Here are my 10 entries"
+   ├─ João syncs all 10 to super-peer
+   ├─ Super-peer: ✓ Quorum confirms
+   ├─ Maria's credit score: 72/100 (no change, just confirmation)
+   ├─ Maria never paid for data, but her entries reached the super-peers
+   │
+   └─ Later (when Maria gets WiFi):
+      └─ Maria's app shows: "✓ CONFIRMED" for all 10 entries
+```
+
+---
+
 ## Summary: The Business Model in One Diagram
 
 ```

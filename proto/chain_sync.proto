@@ -300,6 +300,10 @@ service ChainSync {
 
     // NEW: Get Merkle proof for balance verification
     rpc GetMerkleProof(MerkleProofRequest) returns (MerkleProofResponse);
+
+    // NEW: Relay entries from offline peers through online peers (whisper network)
+    // Online peer relays pending entries from offline peer to super-peer
+    rpc RelayEntries(EntryRelay) returns (RelayAck);
 }
 
 message KeyRotationAck {
@@ -366,6 +370,72 @@ message MerkleProofNode {
 }
 
 // ============================================================================
+// Whisper Network: Peer-to-Peer Entry Relay
+// ============================================================================
+
+// EntryRelay: Online peer relays pending entries from offline peer to super-peer
+// This enables offline-first devices to sync without direct internet connection
+message EntryRelay {
+    // Original device's Ed25519 public key (32 bytes)
+    // Identifies which device originated these entries
+    bytes originating_device_pk = 1;
+
+    // Original device's current hardware-bound nonce (32 bytes)
+    // Used to detect stale/replayed relays
+    bytes originating_nonce = 2;
+
+    // Relaying device's Ed25519 public key (32 bytes)
+    // The online peer that is relaying these entries
+    bytes relay_device_pk = 3;
+
+    // Pending journal entries from offline device (max 100 entries)
+    repeated JournalEntry entries = 4;
+
+    // Timestamp when relay device synced (UTC microseconds)
+    // Super-peer uses this to detect stale relays
+    int64 relay_timestamp = 5;
+
+    // Ed25519 signature (64 bytes) by relay device
+    // Signs: BLAKE2b(originating_device_pk || entries_cbor)
+    // Proves relay device intentionally forwarded these entries
+    bytes relay_signature = 6;
+
+    // Relay device's ID (UUIDv7, 16 bytes)
+    bytes relay_device_id = 7;
+}
+
+// RelayAck: Super-peer acknowledgement of relayed entries
+message RelayAck {
+    // Whether relay was accepted
+    bool accepted = 1;
+
+    // IDs of entries that were accepted and queued for quorum
+    repeated bytes accepted_entry_ids = 2;
+
+    // IDs of entries that were rejected (malformed, conflict, etc)
+    repeated bytes rejected_entry_ids = 3;
+
+    // Status for each entry
+    RelayStatus status = 4;
+
+    // If rejected, the reason
+    string error_message = 5;
+
+    // Relay device's updated reputation score (0-100)
+    // Decreases if relay device forwards conflicted entries
+    int32 relay_device_reputation = 6;
+}
+
+enum RelayStatus {
+    RELAY_STATUS_UNSPECIFIED = 0;
+    RELAY_STATUS_QUEUED = 1;          // Entries queued for 3-of-5 quorum
+    RELAY_STATUS_SIGNATURE_INVALID = 2; // Relay signature verification failed
+    RELAY_STATUS_NONCE_STALE = 3;       // Originating nonce is out-of-order
+    RELAY_STATUS_RATE_LIMITED = 4;      // Relay device exceeds rate limit
+    RELAY_STATUS_DUPLICATE = 5;         // Entries already received
+}
+
+// ============================================================================
 // Super-peer to super-peer gossip (internal)
 // ============================================================================
 
@@ -382,6 +452,23 @@ message EntryConfirmationGossip {
 
     // Timestamp when confirmed locally
     int64 confirmed_at = 4;
+
+    // NEW: Ledger state hash AFTER applying this entry
+    // BLAKE2b-256 of the full ledger state (deterministic)
+    // Enables Byzantine quorum to vote on ledger hash instead of timestamp
+    // Prevents clock-skew attacks and makes consensus deterministic
+    bytes ledger_hash_after_entry = 5;
+
+    // NEW: Previous ledger hash (before applying this entry)
+    // Allows super-peers to verify the state transition is valid
+    bytes ledger_hash_before_entry = 6;
+
+    // NEW: Number of super-peers who have confirmed this ledger hash
+    // Once >= 3, entry is confirmed (3-of-5 quorum)
+    int32 confirmation_count = 7;
+
+    // NEW: List of super-peer IDs who voted for this ledger hash
+    repeated string confirming_peer_ids = 8;
 }
 
 service SuperPeerGossip {

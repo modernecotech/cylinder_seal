@@ -18,30 +18,58 @@ CylinderSeal enables:
 - **Peer-to-peer lending** — lend to people in your network based on their CylinderSeal credit score
 - Works on **any Android smartphone** (even cheap, used phones)
 
-## Architecture: 3-Tier Network
+## Architecture: 3-Tier Network with Tendermint Consensus
 
 ```
-┌─────────────────────────────────┐
-│   Tier 2: Exchange & Rates      │
-│   - OWC Basket Calculation      │
-│   - Credit API (Monetization)   │
-│   - Fiat On-Ramps               │
-└──────────────┬──────────────────┘
-               │
-┌──────────────▼──────────────────┐
-│  Tier 1: Super-Peer Cluster     │
-│  - 5-Node Byzantine Quorum      │
-│  - Credit Scoring Engine        │
-│  - Gossip Protocol              │
-│  - gRPC Sync Service            │
-└──────────────┬──────────────────┘
-               │
-        ┌──────┴──────┐
-        │             │
-    ┌───▼────┐    ┌──▼────┐
-    │Device A│    │Device B│  (NFC/BLE, Offline)
-    │Ledger  │◄──►│Ledger  │
-    └────────┘    └────────┘
+┌──────────────────────────────────────────────────────┐
+│       TIER 2: Monetization & Exchange                │
+│  ┌────────────────────────────────────────────────┐  │
+│  │ • Credit API (MFIs, P2P lenders, Insurance)   │  │
+│  │ • OWC Rate Feeds (Forex aggregation)          │  │
+│  │ • Fiat On-Ramps (PayPal, Wise, M-Pesa)        │  │
+│  └────────────────────────────────────────────────┘  │
+└──────────────────┬───────────────────────────────────┘
+                   │ Query/Webhook
+┌──────────────────▼───────────────────────────────────┐
+│    TIER 1B: Tendermint Blockchain (Consensus)        │
+│  ┌────────────────────────────────────────────────┐  │
+│  │ CometBFT Consensus Engine                      │  │
+│  │  • 3-5+ Validators (scalable: 3→200 nodes)     │  │
+│  │  • 2/3 supermajority for instant finality      │  │
+│  │  • 1-2 second block time                       │  │
+│  │  • NO forks (Byzantine-secure)                 │  │
+│  │                                                 │  │
+│  │ Validators:                                     │  │
+│  │  ├─ V1 (Nigeria)   ─┐                          │  │
+│  │  ├─ V2 (Kenya)      ├─ BFT Consensus          │  │
+│  │  ├─ V3 (S. Africa) ─┤ (3-of-5 quorum)         │  │
+│  │  └─ V4 (Germany)   ─┤ Instant finality        │  │
+│  │                                                 │  │
+│  └────────────────────────────────────────────────┘  │
+└──────────────────┬───────────────────────────────────┘
+                   │ gRPC Sync
+┌──────────────────▼───────────────────────────────────┐
+│      TIER 1A: Super-Peer Services                    │
+│  ┌────────────────────────────────────────────────┐  │
+│  │ • Credit Scoring Engine (daily batch)          │  │
+│  │ • Whisper Network Relay (offline peer sync)    │  │
+│  │ • PostgreSQL Ledger (state machine)            │  │
+│  │ • Redis Cache (mempool, rate limits)           │  │
+│  │ • KYC/AML Integration                          │  │
+│  └────────────────────────────────────────────────┘  │
+└──────────────────┬───────────────────────────────────┘
+                   │
+        ┌──────────┴──────────┐
+        │                     │ NFC/BLE + gRPC
+    ┌───▼────┐            ┌──▼────┐
+    │Device A │◄──NFC/BLE──►│Device B│
+    │ SQLite  │ (Offline)   │ SQLite │
+    │ Ledger  │             │ Ledger │
+    └────────┘             └────────┘
+    
+    TIER 0: Peer-to-Peer Network (Offline-First)
+    └─ Personal journals on each device
+       └─ Whisper relay through online peers
 ```
 
 ### Tier 0: Peer Network (Android Devices)
@@ -64,31 +92,50 @@ Each user's smartphone is a **personal transaction journal**:
 5. Both devices store transaction in personal ledger
 6. Later when online: both sync to super-peers for confirmation
 
-### Tier 1: Super-Peer Cluster (Rust Backend)
+### Tier 1: Tendermint Blockchain + Super-Peer Services
 
-**Byzantine Quorum: 5 Nodes (3-of-5 required for confirmation)**
+**Consensus Layer: Tendermint BFT (Instant Finality)**
 
-Each super-peer runs:
-- **PostgreSQL 16**: Persistent ledger, credit profiles, audit logs
-- **Redis 7**: Session cache, nonce deduplication, rate limiting
-- **gRPC Service**: Bidirectional sync with devices
-- **Credit Scoring Engine**: Computes scores from transaction history (daily batch job)
-- **Gossip Protocol**: Detects double-spends across nodes, replicate journal state
+The network runs a **Tendermint blockchain** with 3-5+ validators:
+- **CometBFT Engine**: Byzantine Fault Tolerant consensus (proven in production)
+- **2/3 Supermajority**: Requires >66% validator agreement (tolerates <33% malicious)
+- **Instant Finality**: Entries confirmed in ~1 second, can NEVER be rolled back (no forks)
+- **Scalable**: Starts with 3 validators (MVP), expands to 7-21+ without architecture change
+- **Deterministic**: Entry ordering via block height (not clock-skew prone timestamps)
 
-**Offline Conflict Resolution** (Byzantine Consensus):
-- Device attempts double-spend while offline
-- Both super-peers receive conflicting entries (same seq, different txn)
-- Gossip protocol detects conflict across nodes
-- Timestamp heuristic determines winner (earlier timestamp wins)
-- If timestamps within 60s (clock skew): request signed NFC/BLE receipt as proof
-- Consensus achieved: 3+ peers agree, entry confirmed, credit score penalized for loser
+**Why Tendermint (not custom consensus)?**
+- ✅ Proven: $billions in value secured on Cosmos, Binance, Osmosis chains
+- ✅ Secure: Mathematically proven Byzantine resilience (<1/3 malicious nodes allowed)
+- ✅ Fast: 1-2 second finality (acceptable for P2P payments)
+- ✅ Scalable: Works with 3 nodes or 200+ nodes
+- ✅ Governed: Add/remove validators via on-chain voting (Phase 2+)
+- ✅ Interoperable: IBC protocol for cross-chain communication (Phase 3)
+
+**Super-Peer Services** (Run alongside Tendermint):
+
+Each super-peer (Tendermint validator) also runs:
+- **PostgreSQL 16**: Persistent ledger state, credit profiles, audit logs (state machine)
+- **Redis 7**: Mempool cache, nonce deduplication, rate limiting
+- **gRPC Service**: Bidirectional sync with Android devices
+- **Credit Scoring Engine**: Computes scores from transaction history (daily batch)
+- **Whisper Network Relay**: Routes offline peer transactions through online peers
+
+**Entry Confirmation Flow:**
+1. Device submits entry to Tendermint validator via gRPC
+2. Entry added to mempool (validated but not yet confirmed)
+3. Validator V1 includes entry in block proposal
+4. V1 broadcasts block to V2, V3, V4, V5
+5. If 2/3+ validators prevote+precommit: **BLOCK COMMITTED** (instant finality)
+6. Entry status updated: CONFIRMED (can never be rolled back)
+7. Device syncs and sees: ✓ CONFIRMED at block_height 12345
 
 **Every Super-Peer is an On/Off-Ramp** (Cash ↔ Digital):
-- User walks in with cash (KES, NGN, USD, etc.) → operator issues digital OWC
-- User shows balance on phone → operator dispenses cash
-- Each operator sets own exchange rate (market competition)
-- Creates network of informal money agents (anyone can run a super-peer)
-- No banks needed, no formal partnerships required
+- User walks in with cash (KES, NGN, USD, etc.) → operator issues digital OWC via Tendermint
+- User shows balance on phone → operator dispenses cash (checks Tendermint for balance)
+- Each operator sets own exchange rate (market competition drives efficiency)
+- Creates network of informal money agents (anyone can run a Tendermint validator node)
+- No traditional banks needed, no formal partnerships required
+- Security: Tendermint consensus prevents operator fraud (cannot double-issue OWC)
 
 ### Tier 2: Exchange & Monetization
 
@@ -525,8 +572,11 @@ cargo build --release -p cs-node
 - **[docs/SECURITY_VALIDATION.md](docs/SECURITY_VALIDATION.md)** — 4 defense layers with validation rules
 
 ### Architecture & Implementation
-- **[/.claude/plans/zazzy-finding-muffin.md](/.claude/plans/zazzy-finding-muffin.md)** — 3-tier system design, tech stack, phased roadmap
-- **[IMPLEMENTATION_ROADMAP.md](IMPLEMENTATION_ROADMAP.md)** — 16-week build plan, 4 implementation phases
+- **[CONSENSUS_DESIGN_FINAL.md](CONSENSUS_DESIGN_FINAL.md)** — **RECOMMENDED: Use Tendermint BFT from Day 1** — Instant finality, scales 3→200+ validators, proven in production, Byzantine-secure, cost comparison vs. custom consensus
+- **[CONSENSUS_ANALYSIS.md](CONSENSUS_ANALYSIS.md)** — Byzantine consensus trade-offs: custom 5-node vs. PBFT/Tendermint/PoA/Quorum Intersection, security analysis of each approach
+- **[/.claude/plans/zazzy-finding-muffin.md](/.claude/plans/zazzy-finding-muffin.md)** — 3-tier system design, tech stack, phased roadmap (pre-Tendermint architecture)
+- **[IMPLEMENTATION_ROADMAP.md](IMPLEMENTATION_ROADMAP.md)** — 16-week build plan (needs update: Tendermint path is 4-6 weeks for consensus layer)
+- **[WHISPER_NETWORK_IMPLEMENTATION.md](WHISPER_NETWORK_IMPLEMENTATION.md)** — Peer relay protocol: offline devices sync through online peers, Rust + Kotlin implementation, rate limiting & reputation scoring
 - **[WEEK1_STATUS.md](WEEK1_STATUS.md)** — Development progress and completion status
 
 ### Developer Resources
