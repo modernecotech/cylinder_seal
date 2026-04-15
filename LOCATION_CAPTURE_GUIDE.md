@@ -236,6 +236,25 @@ pub fn validate_transaction_location(tx: &Transaction) -> Result<()> {
 }
 ```
 
+### Geographic Anomaly Thresholds: Rationale
+
+**900 km/h base speed**: Cruising speed of commercial aircraft (Boeing 747 ~920 km/h). Conservative lower bound for "fastest possible legitimate travel."
+
+**2x buffer (1800 km / 2 hours)**: Applied to account for:
+- Multiple flight segments with layovers (device travels offline for portion)
+- Business travelers making same-day intercontinental trips
+- Relief workers/humanitarian aid workers in crisis zones
+- Plus ~2 hour error margin for clock skew across devices
+
+**Why not 1.5x?** Would flag ~10% of legitimate business travelers on Africa-Europe routes.
+**Why not 3x?** Would miss satellite spoofing attacks (could claim to be 5400+ km away in 2 hours).
+
+**5000m accuracy threshold**: Warns on locations with >5km error margin
+- GPS accuracy typically ±10-20m in open sky
+- Network-based location (cell triangulation) typically ±1000-5000m
+- Values >5000m suggest offline/cached location from >1 hour ago
+- Doesn't reject the transaction (still valid), but marks as lower-confidence for fraud scoring
+
 ### Device Reputation Anomalies
 
 Location-based anomalies are stored in `DeviceReputation.anomalies`:
@@ -243,10 +262,10 @@ Location-based anomalies are stored in `DeviceReputation.anomalies`:
 ```json
 {
     "anomalies": [
-        "geographic_jump",      // Too fast travel between locations
-        "unusual_time",         // Transaction at unusual hour
-        "high_frequency",       // Rapid sequence of transactions
-        "location_spoofing"     // Impossible coordinates or consistency
+        "geographic_jump",      // Too fast travel between locations (>1800 km / <2 hours)
+        "unusual_time",         // Transaction at unusual hour for user's timezone
+        "high_frequency",       // Rapid sequence of transactions (>10 per hour)
+        "location_spoofing"     // Impossible coordinates or consistency violations
     ]
 }
 ```

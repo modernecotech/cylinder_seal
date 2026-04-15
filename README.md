@@ -43,7 +43,8 @@ CylinderSeal enables:
 │  │  ├─ S1 (Nigeria)    ─┐                         │  │
 │  │  ├─ S2 (Kenya)       ├─ Vote on ledger hash    │  │
 │  │  ├─ S3 (S. Africa) ──┤ (3-of-5 required)      │  │
-│  │  └─ S4 (Germany)    ─┤ Instant finality       │  │
+│  │  ├─ S4 (Germany)     │ Instant finality       │  │
+│  │  └─ S5 (Singapore)  ─┤ Geographic diversity   │  │
 │  │                                                 │  │
 │  └────────────────────────────────────────────────┘  │
 └──────────────────┬───────────────────────────────────┘
@@ -118,6 +119,17 @@ The network uses **Byzantine State Machine Replication** with 3-5+ super-peers:
 - ✅ **Fast**: Instant finality without consensus rounds or proof-of-work
 - ✅ **Scalable**: 3-node MVP scales to 200+ nodes with same consensus mechanism
 - ✅ **Proven CS Theory**: Based on State Machine Replication (Lamport, Oki-Liskov 1988)
+
+**Super-Peer Geographic Distribution:**
+
+MVP deployment across 5 geographically diverse regions:
+- **S1 (Nigeria)**: West Africa hub, largest fintech market, Flutterwave headquarters
+- **S2 (Kenya)**: East Africa hub, M-Pesa originated here, mobile money infrastructure mature
+- **S3 (South Africa)**: Southern Africa hub, banking infrastructure + venture capital ecosystem
+- **S4 (Germany)**: European node for redundancy, GDPR compliance, timezone diversity
+- **S5 (Singapore)**: Asia node, tech infrastructure, bridge to Southeast Asia expansion
+
+**Rationale**: 3 African nodes cover core market (devices + MFI partnerships), 1 European node provides geographic redundancy + regulatory cover, 1 Asian node enables expansion. No single region/provider controls quorum.
 
 **Super-Peer Services:**
 

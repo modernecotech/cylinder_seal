@@ -319,7 +319,7 @@ credit_score = (
     + (velocity_check() * 15)         # Consistency (max 15 points)
     + (geographic_stability() * 15)   # Location consistency (max 15 points)
     + (device_reputation_avg() * 10)  # Device health (max 10 points)
-) / 100 * 100  # Normalize to 0-100
+) / 1.6  # Normalize to 0-100 (sum of max points = 160)
 
 ↓ Store in credit_profiles table:
 

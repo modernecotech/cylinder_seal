@@ -122,9 +122,10 @@
 
 2. **Geographic Anomaly Detection**:
    - Haversine distance from previous transaction
-   - Maximum realistic speed: ~900 km/h (aircraft)
-   - Add 2x buffer: 1800 km in 2 hours = max normal
-   - Violation → flag as device reputation anomaly
+   - **Base speed**: ~900 km/h (commercial aircraft cruising speed)
+   - **Applied buffer**: 2x → 1800 km in 2 hours maximum
+   - **Rationale for 2x buffer**: Accounts for flight connections/layovers + clock skew + business travel patterns
+   - Violation → flag as device reputation anomaly (doesn't reject, reduces credit score)
 
 3. **Device Reputation Impact**:
    - Anomalies stored in `DeviceReputation.anomalies`
