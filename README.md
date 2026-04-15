@@ -1,6 +1,6 @@
 # CylinderSeal
 
-A **complete peer-to-peer economic platform** for the 5+ billion people with smartphones but without access to traditional banking, credit, or digital commerce.
+A **complete peer-to-peer economic platform** for the 1.4 billion unbanked people worldwide — and the billions more who lack formal credit access.
 
 **Key Innovation**: Offline-first everything. Payment + credit building + marketplace + lending, all without internet or banks. Peers discover services nearby, transact securely, build credit reputation automatically.
 
@@ -1005,7 +1005,7 @@ This section exists because terms like "offline-first" and "personal ledgers" ca
 - **Informal money agent network** (similar to M-Pesa, but decentralized and anyone can operate a super-peer)
 - **Zero transaction costs** (no intermediaries, no fees, completely free end-to-end)
 - **Device-local transaction journals** with super-peer validation
-- Designed for the 5+ billion people WITH smartphones but WITHOUT access to:
+- Designed for the 1.4 billion unbanked adults (World Bank 2021) and billions more WITHOUT access to:
   - Fee-free digital payments (they pay 5-10% on remittances)
   - Traditional credit (no bank account = no credit score)
   - Microloans (banks don't serve the poor)

@@ -374,7 +374,7 @@ Each super-peer has identical credit profiles (Byzantine agreement):
 Traditional Financial System Exclusion:
 ─────────────────────────────────────
 
-80% of world population (4.5 billion people):
+1.4 billion unbanked adults (World Bank Global Findex 2021):
 ├─ No credit history (banks won't talk to them)
 ├─ No collateral (impossible to prove ownership)
 ├─ No employment record (informal sector workers)
@@ -538,7 +538,7 @@ Annual: 5-10 customers × $50K-500K = $250K-5M
 ### Revenue Projection (Year 1 Launch)
 
 ```
-Market Size: 80% of world unbanked (unratable)
+Market Size: 1.4B unbanked + ~1.5B credit-invisible adults
 ────────────────────────────────────────────
 
 Tier 1 Adopters (Months 1-6):
@@ -609,18 +609,18 @@ Equifax:
 
 CylinderSeal:
 ├─ 6 months to build credit score
-├─ Covers 4.5B unbanked/underbanked
+├─ Covers 1.4B unbanked + billions more credit-invisible
 ├─ Low infrastructure cost (super-peers are commodity servers)
 ├─ Works completely offline (no internet required)
 ├─ Device hardware binding prevents fraud (Sybil attacks)
 ├─ Tamper-proof (Byzantine consensus)
-└─ Revenue per user scales (80% of world = 4.5B SAM)
+└─ Revenue per user scales (~3B total addressable market)
 
 Valuation Projection:
 ├─ Year 3: $102.6M revenue, 75% gross margin = $77M EBITDA
 ├─ Comparable: Credit bureaus trade at 10-15x EBITDA
 ├─ Implied valuation: $770M-1.2B (unicorn territory)
-└─ Why: Creating $4.5B user market that credit bureaus can't serve
+└─ Why: Creating credit data for ~3B people that bureaus can't serve
 
 vs. FinTech Score Providers (Upstart, AI Lending):
 ────────────────────────────────────────────────
@@ -636,7 +636,7 @@ CylinderSeal:
 ├─ Covers people with ZERO financial history
 ├─ Behavioral + device reputation = stronger signal
 ├─ Lower ARPU per user ($0.25-1.00) but 10x TAM
-├─ Market: 4.5B people (9x larger)
+├─ Market: ~3B people (6x larger)
 ├─ Revenue: $100M+ in year 3 (leveraging volume)
 └─ Defensible by network effects (credit data improves with more users)
 ```
@@ -1043,7 +1043,7 @@ Scenario: Maria is a street vendor in rural Kenya
 │  ASSETS:           PRODUCTS:         CUSTOMERS:       REVENUE:     │
 │  ─────────────────  ────────────────  ───────────────  ───────────  │
 │                                                                      │
-│  • 4.5B unbanked   │ Credit Scores  │ Microfinance   │ $100M      │
+│  • 1.4B unbanked   │ Credit Scores  │ Microfinance   │ $100M      │
 │    people          │ (0-100)        │ institutions   │ Year 1     │
 │                    │                │               │            │
 │  • Device          │ Risk Profiles  │ Mobile money   │ $1B+       │
@@ -1087,7 +1087,7 @@ CylinderSeal's network architecture enables:
 
 3. **Credit Monetization** (Tier 2)
    - Real transaction history creates real credit scores in days (not years)
-   - Scores solve for 4.5B unbanked people (80% of world)
+   - Scores solve for 1.4B unbanked + billions more without formal credit history
    - MFIs, mobile money, P2P lenders pay for this data
 
 **Revenue Driver**: The credit rating itself is the product.
