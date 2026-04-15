@@ -1,14 +1,21 @@
-# CylinderSeal Security Documentation Index
+# CylinderSeal Documentation Index
 
 ## 📋 Start Here
 
-**New to the project?** Read in this order:
+**For VCs/Business:**
+1. **[VC_PITCH.md](VC_PITCH.md)** — Investor deck (20 min read)
+2. **[README.md](README.md)** — Project overview (5 min)
+3. **[SECURITY_SUMMARY.md](SECURITY_SUMMARY.md)** — Security/defensibility (15 min)
 
+**For Technical:**
 1. **[README.md](README.md)** — Project overview (5 min)
-2. **[SECURITY_SUMMARY.md](SECURITY_SUMMARY.md)** — What was hardened, why (15 min)
-3. **[docs/IRON_SECURITY.md](docs/IRON_SECURITY.md)** — Detailed technical specs (30 min)
-4. **[IMPLEMENTATION_ROADMAP.md](IMPLEMENTATION_ROADMAP.md)** — How to build it (30 min)
-5. **[docs/DEVELOPER_QUICK_REFERENCE.md](docs/DEVELOPER_QUICK_REFERENCE.md)** — While coding (reference)
+2. **[docs/IRON_SECURITY.md](docs/IRON_SECURITY.md)** — 12 hardening layers (30 min)
+3. **[IMPLEMENTATION_ROADMAP.md](IMPLEMENTATION_ROADMAP.md)** — Build plan (30 min)
+4. **[docs/DEVELOPER_QUICK_REFERENCE.md](docs/DEVELOPER_QUICK_REFERENCE.md)** — Coding patterns (reference)
+
+**For Everything:**
+- **[SECURITY_SUMMARY.md](SECURITY_SUMMARY.md)** — What was hardened, why (15 min)
+- **[TERMINOLOGY_REFACTORING.md](TERMINOLOGY_REFACTORING.md)** — Why "chainblock" → "journal entry" (5 min)
 
 ---
 
