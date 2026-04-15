@@ -282,6 +282,215 @@
             font-size: 14px;
             line-height: 1.8;
         }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+                height: auto;
+                min-height: 100vh;
+                justify-content: flex-start;
+                padding-top: 40px;
+                padding-bottom: 120px;
+                overflow-y: auto;
+            }
+
+            .slide h1 {
+                font-size: 32px;
+                margin-bottom: 20px;
+            }
+
+            .slide h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .slide h3 {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+
+            .slide p {
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+
+            .slide ul {
+                font-size: 14px;
+            }
+
+            .slide ul li {
+                margin: 10px 0;
+                padding-left: 25px;
+            }
+
+            .logo {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 20px;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin: 20px 0;
+            }
+
+            .stat-box {
+                padding: 15px 20px;
+            }
+
+            .stat-box .number {
+                font-size: 28px;
+                margin-bottom: 8px;
+            }
+
+            .stat-box .label {
+                font-size: 12px;
+            }
+
+            .tagline {
+                font-size: 18px;
+                margin: 15px 0;
+            }
+
+            .revenue-stream {
+                padding: 15px 20px;
+                margin: 15px 0;
+                font-size: 13px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .grid-2x2 {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin: 15px 0;
+            }
+
+            .diagram-box {
+                padding: 15px 20px;
+                margin: 15px 0;
+                font-size: 12px;
+                line-height: 1.6;
+            }
+
+            table {
+                margin: 15px auto;
+                max-width: 100%;
+                font-size: 13px;
+            }
+
+            table th, table td {
+                padding: 10px 8px;
+                font-size: 12px;
+            }
+
+            .controls {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                gap: 10px;
+                justify-content: space-between;
+            }
+
+            button {
+                padding: 10px 16px;
+                font-size: 13px;
+                flex: 1;
+                max-width: calc(50% - 5px);
+            }
+
+            .slide-number {
+                bottom: 10px;
+                left: 10px;
+                font-size: 13px;
+            }
+
+            svg {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .flow-diagram {
+                gap: 10px;
+                margin: 15px 0;
+            }
+
+            .flow-box {
+                padding: 10px 15px;
+                font-size: 12px;
+                min-width: 100px;
+            }
+
+            .flow-arrow {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide {
+                padding: 20px 15px;
+                padding-top: 30px;
+                padding-bottom: 110px;
+            }
+
+            .slide h1 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .slide h2 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .slide h3 {
+                font-size: 16px;
+            }
+
+            .slide p {
+                font-size: 13px;
+                margin-bottom: 12px;
+            }
+
+            .slide ul {
+                font-size: 12px;
+            }
+
+            .stat-box .number {
+                font-size: 24px;
+            }
+
+            .controls {
+                bottom: 5px;
+                right: 5px;
+                left: 5px;
+            }
+
+            button {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .slide-number {
+                font-size: 12px;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 15px;
+            }
+
+            .tagline {
+                font-size: 16px;
+                margin: 10px 0;
+            }
+        }
     </style>
 </head>
 <body>
