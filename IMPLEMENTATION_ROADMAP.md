@@ -431,9 +431,31 @@ android/feature/feature-settings/src/
 
 ---
 
+## Phase 5: Marketplace MVP (Weeks 17-24, Post-Security Deployment)
+
+**See: [MARKETPLACE_IMPLEMENTATION.md](MARKETPLACE_IMPLEMENTATION.md)**
+
+After security hardening is complete and the payment ledger is production-proven, deploy the P2P marketplace layer (Tier 0.5):
+
+| Timeline | Deliverable | Business Impact |
+|----------|-------------|-----------------|
+| Weeks 17-18 | Proto definitions + core models | Foundation for all marketplace features |
+| Weeks 19-20 | Android marketplace UI (buy/sell/review) | Users can list and discover services |
+| Weeks 21-22 | Super-peer backend + PostgreSQL schema + search index | Full-text search, seller ratings, order tracking |
+| Week 23 | Gossip protocol for listing discovery | Offline peer-to-peer service discovery |
+| Week 24 | IPFS image upload + integration | Photo evidence for products/services |
+| Weeks 25-28 | Seller reputation integration + dispute resolution | Ratings feed into credit score, economic incentive loop |
+
+**Marketplace Revenue Opportunity:**
+- Y1: $150K-500K (early adopters, slow ramp)
+- Y2: $3M-5M (marketplace reaches $1M GMV, 1-2% fees)
+- Y3: $50M+ (marketplace reaches $50M+ GMV, multiple revenue streams)
+
+---
+
 ## Next Steps
 
-**Immediately:**
+**Immediately (Weeks 1-16):**
 1. Assign 2 Rust engineers to cs-sync (consensus, validation)
 2. Assign 2 Android engineers to crypto, NFC, recovery
 3. Set up 5 HSM infrastructure (order immediately, lead time 4-6 weeks)
@@ -444,4 +466,9 @@ android/feature/feature-settings/src/
 - Daily standup on cs-core compilation
 - Draft deployment guide for 5 super-peers
 
-This is now a complete, bankable security architecture. Ready to build?
+**After Security MVP (Week 17+):**
+- Start marketplace team (2 Rust backend, 2 Android UI)
+- Begin proto design for listings + purchase orders
+- IPFS gateway setup for image hosting
+
+This is now a complete, bankable architecture: payment system → credit building → peer-to-peer marketplace → fintech platform. Ready to build?

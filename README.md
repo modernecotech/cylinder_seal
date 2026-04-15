@@ -1,22 +1,34 @@
 # CylinderSeal
 
-A **secure offline-first payment system** for the 5+ billion people with smartphones but without access to fee-free digital payments.
+A **complete peer-to-peer economic platform** for the 5+ billion people with smartphones but without access to traditional banking, credit, or digital commerce.
 
-**Key Innovation**: Every operator can be an on/off-ramp. No banks needed. Users walk in with cash, walk out with digital money that works everywhere offline.
+**Key Innovation**: Offline-first everything. Payment + credit building + marketplace + lending, all without internet or banks. Peers discover services nearby, transact securely, build credit reputation automatically.
 
-*Not blockchain. Not peer-to-peer infrastructure. Just pragmatic security + distributed liquidity.*
+*Not blockchain. Not peer-to-peer infrastructure. Just pragmatic security + distributed liquidity + peer discovery.*
 
 ## Overview
 
 CylinderSeal enables:
+
+**Financial Services:**
 - **Zero transaction costs** for in-ecosystem payments (no intermediaries to pay)
 - **Offline-first operation** via NFC/BLE for device-to-device payments (works without internet)
 - **One World Currency (OWC)** — a basket of top world currencies (stable, no speculation)
 - **Remittances** without Western Union / bank wire fees (just the real exchange rate)
-- **Instant credit building** — transaction history creates credit profile automatically
+- **Instant credit building** — transaction history creates credit profile automatically (7-30 days, not years)
 - **Microloans from day 1** — borrow against your transaction history (even with zero traditional credit history)
 - **Peer-to-peer lending** — lend to people in your network based on their CylinderSeal credit score
+
+**Peer Marketplace:**
+- **Discover local services** — search for taxi, food delivery, house cleaning, agricultural produce, etc. by category, price, distance
+- **Peer merchants** — anyone can list products/services with photos, prices, variants (size, color, delivery method)
+- **Seller reputation** — reviews from buyers feed into credit score (economic incentive to serve well)
+- **Offline browsing** — cache listings locally, discover services even without internet
+
+**Infrastructure:**
 - Works on **any Android smartphone** (even cheap, used phones)
+- **Zero setup cost** — no banks, no government IDs, no traditional credit checks
+- **Operates from day 1** — one device can start as buyer or seller immediately
 
 ## Architecture: 3-Tier Network with Byzantine State Replication
 
@@ -56,7 +68,9 @@ CylinderSeal enables:
 │  │ • Whisper Network Relay (offline peer sync)    │  │
 │  │ • PostgreSQL Ledger (state machine)            │  │
 │  │ • Redis Cache (mempool, rate limits)           │  │
+│  │ • Marketplace Search Index (FTS, geo-location)│  │
 │  │ • KYC/AML Integration                          │  │
+│  │ • Dispute Resolution (buyer/seller conflicts)  │  │
 │  └────────────────────────────────────────────────┘  │
 └──────────────────┬───────────────────────────────────┘
                    │
@@ -176,6 +190,132 @@ Each super-peer runs:
 - **Formal Exchange Services**: For high-volume institutional transfers
 - **KYC/AML Services**: Smile Identity, Veriff (regulatory compliance)
 - **Formal Fiat Partnerships**: Flutterwave, Wise, PayPal (convenience)
+
+### Tier 0.5: Peer-to-Peer Marketplace (Discovery Layer)
+
+**The Problem It Solves:**
+
+In developing economies, there is no centralized marketplace. Small vendors (food sellers, taxi drivers, plumbers, retailers) rely on:
+- Word-of-mouth (slow, limited reach)
+- Phone calls (requires knowing someone)
+- WhatsApp groups (cluttered, no search)
+- Street presence (geography-limited)
+
+**The Solution: Peer Marketplace via Gossip Network**
+
+Every peer can:
+1. **Create listings** (products/services) with photos, price, variants (size, color, delivery method)
+2. **Advertise locally** (via whisper network) — nearby peers see the listing in their app
+3. **Discover services** — search by category (fast food, taxi, cleaning, etc), price, location, seller rating
+4. **Purchase securely** — payment goes through normal quorum-voted ledger, seller reputation tied to credit score
+
+**Categories:**
+- Fast food delivery, restaurants, grocers
+- Taxi, delivery, logistics
+- Services (cleaning, plumbing, repair, labor)
+- Products (retail goods, handmade items)
+- Agricultural produce, livestock
+- Digital downloads, courses, designs
+- Real estate (rent, lodging, properties)
+- Healthcare (traditional medicine, wellness)
+- Education (tutoring, classes, coaching)
+
+**How Marketplace Transactions Work:**
+
+```
+Seller Creates Listing                      Buyer Searches & Discovers
+├─ Title, description, photos (IPFS)        ├─ Browse local cached listings (offline)
+├─ Price in OWC + variants                  ├─ Search by category, distance, price
+├─ Delivery methods (pickup, delivery)      ├─ View seller's credit score + reviews
+└─ Sign listing + gossip to peers           └─ Place order via NFC or online payment
+                                            
+                                            Order becomes Journal Entry
+                                            ├─ Payment confirmed via 3-of-5 quorum
+                                            ├─ Seller notified + receives payment
+                                            ├─ Buyer rates seller after delivery
+                                            └─ Rating feeds into seller's credit score
+```
+
+**Super-Peer Marketplace Features:**
+
+Each super-peer maintains:
+- **Full-text search index** (titles, descriptions) + geographic indexing (Haversine distance)
+- **Seller reputation system** — average rating from all reviews
+- **Order history & tracking** — status updates from seller
+- **Dispute resolution** — if buyer claims non-delivery or poor quality, resolve using reputation + evidence
+- **Revenue sharing** — CylinderSeal takes 1-2% transaction fee on marketplace purchases
+
+**Example Workflow: Buying Fresh Tomatoes**
+
+```
+Day 1 (Offline):
+  Buyer opens app → "Browse Marketplace"
+  Sees cached listings of nearby sellers
+  Filters: Category=Agricultural, Price<500 KES, Distance<5km
+  Finds "Fresh Farm Tomatoes from Ahmed" (4.8/5 stars, 12 reviews)
+  
+Day 2 (Online, ready to buy):
+  Buyer opens listing → clicks "Order 5kg"
+  App shows: Total = 400 OWC
+  Buyer clicks "Order" → selects delivery (Pickup @ Ahmed's stall)
+  Device creates Purchase entry:
+    {
+      buyer: Device B's public key,
+      seller: Ahmed's public key,
+      amount: 400 OWC,
+      listing_id: "Fresh Farm Tomatoes",
+      quantity: 5kg,
+      delivery_method: "PICKUP",
+      ordered_at: 2026-04-15 10:30 UTC
+    }
+  Entry signed + sent to super-peer
+  
+Super-Peer (quorum voting):
+  Entry receives 3-of-5 votes → CONFIRMED
+  Payment moved: Buyer balance -400, Ahmed balance +400
+  Notification sent to Ahmed (seller)
+  
+Day 3:
+  Ahmed prepares tomatoes, marks order as "SHIPPED"
+  Buyer receives notification
+  Buyer picks up tomatoes at Ahmed's stall
+  
+Day 4:
+  Buyer submits review: ⭐⭐⭐⭐⭐ "Fresh and delicious, good prices!"
+  Review gossips through network + stored on super-peers
+  Ahmed's average rating updates: 4.75 → 4.78
+  Ahmed's credit score bumps up (+0.5 points) due to positive reviews
+```
+
+**Why Reputation Matters:**
+
+Marketplace ratings feed directly into credit scoring:
+
+```
+credit_score = (
+    (days_active / 90) * 20
+    + (MIN(tx_count_30d / 20, 1) * 20)
+    + (MAX(100 - conflict_count*5, 0))
+    + (velocity_check() * 15)
+    + (geographic_stability() * 15)
+    + (device_reputation_avg() * 10)
+    + (marketplace_seller_rating() * 10)      ← NEW
+) / 1.7
+
+Result: High-quality sellers get higher credit scores
+        → Can borrow more money
+        → Get better loan terms
+        → Attract more customers (higher visibility in search)
+```
+
+**Economic Incentive Loop:**
+
+1. Ahmed sells quality tomatoes → gets 5-star reviews
+2. Reviews boost his credit score (72 → 75)
+3. Higher score = can borrow 10K OWC for farm expansion
+4. With more capital, he buys better seeds & equipment
+5. Produces even better tomatoes → more sales → higher score
+6. Compounds over time (credit-driven economic growth)
 
 ### How They Interact
 
