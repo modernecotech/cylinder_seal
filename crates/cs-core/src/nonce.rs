@@ -6,7 +6,7 @@
 //! - Chain-linked (depends on previous nonce for causality)
 //! - Cryptographically secure (HMAC-SHA256 based)
 
-use sha2::{Sha256, Digest};
+use sha2::Sha256;
 use hmac::{Hmac, Mac};
 use crate::error::Result;
 

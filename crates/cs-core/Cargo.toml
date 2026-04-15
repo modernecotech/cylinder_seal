@@ -17,6 +17,7 @@ rand.workspace = true
 sha2.workspace = true
 hmac.workspace = true
 hex.workspace = true
+serde-big-array.workspace = true
 thiserror.workspace = true
 anyhow.workspace = true
 rust_decimal.workspace = true

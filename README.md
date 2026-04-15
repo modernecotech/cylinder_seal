@@ -177,13 +177,13 @@ Each super-peer runs:
 **Credit API** (Where Revenue Comes From):
 - Microfinance institutions query credit scores ($0.50-2.00 per check)
 - Mobile money providers monitor agent reputation ($0.25-0.50/month per agent)
-- P2P lending platforms match borrowers with lenders (1-2% of volume)
+- P2P lending platforms match borrowers with lenders (per-profile licensing)
 - Insurance companies price premiums based on transaction history ($50K+/month)
 
 **OWC Rate Feeds** (Optional):
 - Aggregate forex APIs (Fixer, Twelve Data, etc.)
 - Calculate basket rate (USD, EUR, GBP, KES, NGN, BRL, etc.)
-- Apply spread (0.5-1.5% depending on volume)
+- Pass through real interbank rate (zero spread, zero markup)
 - Distribute to all super-peers (consensus on rates)
 
 **Optional Integrations** (for scale, not required for MVP):
@@ -246,8 +246,8 @@ Every peer can:
 
 | Factor | Uber/Amazon/eBay | CylinderSeal |
 |--------|-----------------|-------------|
-| **Commission** | 15-30% | 1-2% |
-| **Seller Income (100 OWC sale)** | 70-85 OWC | 98-99 OWC |
+| **Commission** | 15-30% | **0%** (completely free) |
+| **Seller Income (100 OWC sale)** | 70-85 OWC | **100 OWC** |
 | **Requires Internet** | Yes (always) | No (offline discovery) |
 | **Requires Credit Card** | Yes | No (OWC balances) |
 | **Reputation Portability** | Siloed per app | Portable across categories |
@@ -260,13 +260,13 @@ Every peer can:
 
 A taxi driver earning $100/day:
 - **Uber model**: Pays 25% = $25 commission → nets $75/day
-- **CylinderSeal model**: Pays 2% = $2 commission → nets $98/day
-- **Difference**: +31% take-home pay for drivers
+- **CylinderSeal model**: 0% fee → nets $100/day
+- **Difference**: +33% take-home pay for drivers
 
 A vendor selling $1000/month:
 - **Amazon model**: Pays 15% FBA fee + 8% referral + ads = $300+/month → nets $700/month
-- **CylinderSeal model**: Pays 2% = $20/month → nets $980/month
-- **Difference**: +40% take-home for small businesses
+- **CylinderSeal model**: 0% fee → nets $1000/month
+- **Difference**: +43% take-home for small businesses
 
 ---
 
@@ -305,7 +305,7 @@ Each super-peer maintains:
 - **Seller reputation system** — average rating from all reviews
 - **Order history & tracking** — status updates from seller
 - **Dispute resolution** — if buyer claims non-delivery or poor quality, resolve using reputation + evidence
-- **Revenue sharing** — CylinderSeal takes 1-2% transaction fee on marketplace purchases
+- **Completely free** — zero transaction fees; marketplace activity builds credit profiles (the monetizable asset)
 
 **Example Workflow: Buying Fresh Tomatoes**
 
@@ -381,7 +381,7 @@ Result: High-quality sellers get higher credit scores
 7. Compounds exponentially (credit-driven economic growth)
 
 **Contrast: Uber Driver's Dead End**
-- Driver earns $75/day (after 25% commission)
+- Driver earns $75/day (after Uber's 25% commission)
 - Completes 100 trips → 4.8★ rating
 - Rating is "stuck" at 4.8★ (can't go higher)
 - Can't borrow money based on rating (Uber doesn't offer lending)
@@ -414,7 +414,7 @@ CylinderSeal marketplace requires:
 
 Once a peer discovers services via CylinderSeal:
 - No app switching (all commerce + credit in one app)
-- No fee comparison (1-2% is unbeatable)
+- No fee comparison (0% is unbeatable)
 - No trust gap (reputation tied to credit score, not a black box)
 - No onboarding pain (merchants don't need forms, banks, KYC)
 
@@ -427,13 +427,13 @@ Compare:
 **Market Capture Dynamics:**
 
 Year 1: Informal market (word-of-mouth + WhatsApp)
-- CylinderSeal enters with 1-2% commission
-- Early adopters see 30-50% more income
+- CylinderSeal enters with zero fees
+- Early adopters keep 100% of income (vs 70-85% on incumbent platforms)
 - Network grows virally (gossip protocol, no marketing needed)
 
 Year 2: Formal platforms notice (Uber, Shopee try to enter Africa)
-- They offer 15-20% commission (50% cheaper than current pricing, but CylinderSeal exists)
-- CylinderSeal merchants won't switch (no network effect advantage for them)
+- They offer 15-20% commission (50% cheaper than current pricing, but CylinderSeal is free)
+- CylinderSeal merchants won't switch (zero fees + credit building = unbeatable)
 - Users have all services in one app + credit building (stickier than anything)
 
 Year 3: CylinderSeal has captured 80%+ of peer commerce in East Africa
@@ -480,12 +480,12 @@ Month 1:
   Can lend to Device B (peer-to-peer lending)
 
 Monetization:
-  MFI partner queries Device A's credit profile: $1.00 fee
-  Mobile money operator checks Device A's daily limit: $0.25/month fee
-  P2P lending platform uses Device A as lender: 1% of loan volume
+  MFI partner queries Device A's credit profile: $1.00 (B2B credit check)
+  Mobile money operator checks Device A's daily limit: $0.25/month (B2B subscription)
+  All transactions remain completely free for Device A and Device B
 ```
 
-See **[NETWORK_AND_CREDIT_ARCHITECTURE.md](NETWORK_AND_CREDIT_ARCHITECTURE.md)** for complete technical diagrams and detailed explanation of how credit data is shared and monetized across the network.
+See **[docs/NETWORK_AND_CREDIT_ARCHITECTURE.md](docs/NETWORK_AND_CREDIT_ARCHITECTURE.md)** for complete technical diagrams and detailed explanation of how credit data is shared and monetized across the network.
 
 **Core Financial Services:**
 1. **Payments** (Day 1) — Send money, pay merchants, remittances (works offline)
@@ -666,8 +666,8 @@ service ChainSync {
     // Get OWC rates (basket of currencies)
     rpc GetCurrencyRates(CurrencyRateRequest) returns (CurrencyRateBundle);
     
-    // Initiate fiat withdrawal/cash-out OR cash deposit
-    rpc ProcessCashTransaction(CashRequest) returns (CashReceipt);
+    // Initiate fiat withdrawal/cash-out
+    rpc InitiateWithdrawal(WithdrawalRequest) returns (WithdrawalStatus);
 }
 ```
 
@@ -693,7 +693,7 @@ Super-peer validation checks:
 - No dependency on banks, Flutterwave, or formal financial infrastructure
 
 **Jobs created:**
-- Super-peer operators (earn spread on cash ↔ digital conversion)
+- Super-peer operators (serve communities, earn federation licensing fees)
 - Similar to M-Pesa agents, but anyone can do it (no Safaricom permission needed)
 - Lower barrier to entry (just need some initial cash capital and a smartphone)
 
@@ -735,11 +735,10 @@ CylinderSeal uses **12 hardening layers** to prevent attack vectors:
 - **Deterministic Conflict Resolution**: No admin discretion, all nodes agree
 
 ### User Experience
-- **Graduated Security Tiers**: Risk-based authentication
-  - 0-20 OWC: No additional auth
-  - 20-100 OWC: Biometric fingerprint
-  - 100-500 OWC: 2FA + witness approval
-  - 500+ OWC: Super-peer approval required
+- **Graduated Security Tiers**: Risk-based authentication (thresholds vary by KYC tier)
+  - Anonymous: attestation + biometric required above 5 OWC, max 20 OWC per offline tx
+  - Phone-verified: attestation above 20 OWC, biometric above 50 OWC, max 100 OWC per offline tx
+  - Full KYC: attestation above 100 OWC, max 500 OWC per offline tx
 - **Transaction Witnesses**: Trusted contact co-approval for large transactions
 - **Merkle Proofs**: Users can cryptographically verify their balance
 
@@ -812,7 +811,7 @@ CylinderSeal uses **12 hardening layers** to prevent attack vectors:
 
 ### Adding a Feature
 
-1. **Design Phase**: Review plan in `/plan.md`
+1. **Design Phase**: Review architecture in this README and `docs/`
 2. **Protobuf**: Update `proto/chain_sync.proto` (contract)
 3. **Core Types**: Add models to `cs-core/src/models.rs`
 4. **Storage**: Implement repository trait
@@ -851,27 +850,30 @@ cargo build --release -p cs-node
 
 ## Documentation
 
+All documentation lives in `docs/` (design docs, guides, references) with the exception of this README and the VC pitch.
+
 ### Business & Strategy
-- **[vc_pitch.html](vc_pitch.html)** — Interactive investor presentation (16 slides): market size, revenue model, financial projections, valuation — open in browser, arrow keys to navigate
-- **[NETWORK_AND_CREDIT_ARCHITECTURE.md](NETWORK_AND_CREDIT_ARCHITECTURE.md)** — Complete peer + super-peer network design, credit scoring system, how credit data is monetized
+- **[vc_pitch.html](vc_pitch.html)** — Interactive investor presentation: market size, revenue model, financial projections — open in browser, arrow keys to navigate
+- **[docs/NETWORK_AND_CREDIT_ARCHITECTURE.md](docs/NETWORK_AND_CREDIT_ARCHITECTURE.md)** — Complete peer + super-peer network design, credit scoring system, revenue model
 
 ### Security
-- **[SECURITY_INDEX.md](SECURITY_INDEX.md)** — Navigation guide for all security docs
-- **[SECURITY_SUMMARY.md](SECURITY_SUMMARY.md)** — Executive summary (what was hardened, why)
-- **[docs/IRON_SECURITY.md](docs/IRON_SECURITY.md)** — 12 hardening layers with code examples
+- **[docs/SECURITY_SUMMARY.md](docs/SECURITY_SUMMARY.md)** — Executive summary: 12 hardening layers, attack complexity, regulatory status
+- **[docs/IRON_SECURITY.md](docs/IRON_SECURITY.md)** — Full technical spec: 12 hardening layers with code examples
 - **[docs/SECURITY_VALIDATION.md](docs/SECURITY_VALIDATION.md)** — 4 defense layers with validation rules
 
 ### Architecture & Implementation
-- **[QUORUM_STATE_VOTING_DESIGN.md](QUORUM_STATE_VOTING_DESIGN.md)** — **Consensus Architecture** — Byzantine State Machine Replication via deterministic ledger hash voting, instant finality, scales 3→200+ nodes, prevents clock-skew attacks, implementation checklist
-- **[/.claude/plans/zazzy-finding-muffin.md](/.claude/plans/zazzy-finding-muffin.md)** — 3-tier system design, tech stack, phased roadmap
-- **[IMPLEMENTATION_ROADMAP.md](IMPLEMENTATION_ROADMAP.md)** — 16-week build plan (consensus layer: state machine replication, 4-6 weeks MVP)
-- **[WHISPER_NETWORK_IMPLEMENTATION.md](WHISPER_NETWORK_IMPLEMENTATION.md)** — Peer relay protocol: offline devices sync through online peers, Rust + Kotlin implementation, rate limiting & reputation scoring
-- **[WEEK1_STATUS.md](WEEK1_STATUS.md)** — Development progress and completion status
+- **[docs/QUORUM_STATE_VOTING_DESIGN.md](docs/QUORUM_STATE_VOTING_DESIGN.md)** — **Consensus Architecture** — Byzantine State Machine Replication via deterministic ledger hash voting, instant finality, scales 3→200+ nodes
+- **[docs/IMPLEMENTATION_ROADMAP.md](docs/IMPLEMENTATION_ROADMAP.md)** — 16-week build plan (consensus layer: state machine replication, 4-6 weeks MVP)
+- **[docs/WHISPER_NETWORK_IMPLEMENTATION.md](docs/WHISPER_NETWORK_IMPLEMENTATION.md)** — Peer relay protocol: offline devices sync through online peers, Rust + Kotlin implementation
+- **[docs/MARKETPLACE_IMPLEMENTATION.md](docs/MARKETPLACE_IMPLEMENTATION.md)** — Phase 5-6: peer marketplace listings, orders, reviews, disputes
+- **[docs/WEEK1_STATUS.md](docs/WEEK1_STATUS.md)** — Development progress and completion status
 
 ### Developer Resources
 - **[docs/DEVELOPER_QUICK_REFERENCE.md](docs/DEVELOPER_QUICK_REFERENCE.md)** — Common patterns, debugging, security checklist
-- **[TERMINOLOGY_REFACTORING.md](TERMINOLOGY_REFACTORING.md)** — Why "chainblock" → "personal journal" (correct naming)
-- **[ANDROID_WEEK2_BRIDGE.md](ANDROID_WEEK2_BRIDGE.md)** — How Rust cs-core types integrate with Kotlin, proto field mappings
+- **[docs/TERMINOLOGY_REFACTORING.md](docs/TERMINOLOGY_REFACTORING.md)** — Why "chainblock" → "personal journal" (correct naming)
+- **[docs/ANDROID_WEEK2_BRIDGE.md](docs/ANDROID_WEEK2_BRIDGE.md)** — How Rust cs-core types integrate with Kotlin, proto field mappings
+- **[docs/LOCATION_CAPTURE_GUIDE.md](docs/LOCATION_CAPTURE_GUIDE.md)** — GPS/network location integration, fraud detection thresholds
+- **[docs/TESTING_STRATEGY.md](docs/TESTING_STRATEGY.md)** — Test pyramid, unit/integration/security test design
 
 ### Technical Reference
 - **[proto/chain_sync.proto](proto/chain_sync.proto)** — gRPC message schemas (Transaction, JournalEntry, credit messages)
@@ -884,32 +886,22 @@ cargo build --release -p cs-node
 
 CylinderSeal's core insight: **Credit ratings of unratable people = untapped $100B market**
 
-**The Three Revenue Streams:**
+**Revenue Model: Credit Data is the Product (All Transactions Are Free)**
 
-1. **B2B Credit Data** (Primary revenue)
-   - Sell credit profiles to MFIs ($0.50-2.00 per credit check)
-   - Subscription model for mobile money providers ($0.25-0.50 per agent/month)
-   - Revenue share with P2P lending platforms (1-2% of loan volume)
-   - Insurance company subscriptions ($50K+/month)
-   - **Year 3 projection**: $102.6M revenue
+All payments, marketplace transactions, and currency conversions are completely free for users. Revenue comes exclusively from B2B credit data licensing:
 
-2. **Transaction Spreads** (Secondary revenue)
-   - User converts cash → OWC at super-peer operator (2% spread)
-   - Platform takes 0.1% of spread on digital payments
-   - Competitive pressure keeps margins at 1-2% (still beats Western Union's 8%)
-
-3. **Microloan Origination** (Tertiary revenue)
-   - Originate loans from our capital pool (users borrow against credit scores)
-   - 1-2% origination fee
-   - Interest rate based on device reputation + transaction history
+1. **Credit Check Fees** — MFIs pay $0.50-2.00 per credit profile query for loan underwriting
+2. **Subscription Licensing** — Mobile money providers, banks, and fintechs pay monthly for API access to credit intelligence
+3. **Insurance Partnerships** — Insurers pay $50K+/month for microinsurance underwriting data
+4. **Enterprise Credit API** — Bulk credit data licensing for supply chain finance, P2P lending platforms
+5. **Super-Peer Operator Licensing** — Federation fees from NGOs, telcos, and retailers running super-peer nodes
 
 ### Unit Economics
 
 ```
-Per-User Lifetime Value:
+Per-User Lifetime Value (from B2B credit data only):
 ├─ Credit check fee: $1.00 × 5 checks/year × 5 years = $25
-├─ Transaction spread: 0.1% × $5,000/year × 5 years = $2.50
-├─ Microloan fees: $500 borrowed × 1% fee = $5
+├─ Insurance data licensing: ~$1.50/user/year × 5 years = $7.50
 └─ Total LTV per user: $32.50
 
 But multiply across market:
@@ -920,7 +912,7 @@ But multiply across market:
 
 **Operator Economics** (Super-Peer):
 - Cost to recruit: $1K
-- Lifetime value: $50K+ (from cash conversion spreads)
+- Lifetime value: $50K+ (from federation licensing)
 - **LTV/CAC ratio: 50x** (benchmark: 3x is healthy)
 - Payback period: **5 days**
 
@@ -934,15 +926,15 @@ But multiply across market:
 
 Open **[vc_pitch.html](vc_pitch.html)** in browser for interactive investor presentation (16 slides, keyboard navigation).
 
-See **[NETWORK_AND_CREDIT_ARCHITECTURE.md](NETWORK_AND_CREDIT_ARCHITECTURE.md)** for complete technical architecture of how credit data flows across the network and how it's monetized.
+See **[docs/NETWORK_AND_CREDIT_ARCHITECTURE.md](docs/NETWORK_AND_CREDIT_ARCHITECTURE.md)** for complete technical architecture of how credit data flows across the network and how it's monetized.
 
 ## Contributing
 
 ### Before You Code
 1. Read the [DEVELOPER_QUICK_REFERENCE.md](docs/DEVELOPER_QUICK_REFERENCE.md) (3 golden rules)
 2. Understand the [12 hardening layers](docs/IRON_SECURITY.md)
-3. Review [TERMINOLOGY_REFACTORING.md](TERMINOLOGY_REFACTORING.md) (correct naming)
-4. Understand the [on/off-ramp model](VC_PITCH.md#the-business-model) (why this works)
+3. Review [TERMINOLOGY_REFACTORING.md](docs/TERMINOLOGY_REFACTORING.md) (correct naming)
+4. Understand the [on/off-ramp model](#the-business-model-credit-data-is-the-revenue) (why this works)
 
 ### Commit Workflow
 1. Branch from `main` with descriptive name (e.g., `feat/nonce-validation`)
@@ -1011,7 +1003,7 @@ This section exists because terms like "offline-first" and "personal ledgers" ca
 - **Peer lending network** (lend to people you know based on verified credit history)
 - **Last-mile cash conversion** (local super-peer operators accept cash, issue digital balance)
 - **Informal money agent network** (similar to M-Pesa, but decentralized and anyone can operate a super-peer)
-- **Minimal transaction costs** (no intermediaries, no fees)
+- **Zero transaction costs** (no intermediaries, no fees, completely free end-to-end)
 - **Device-local transaction journals** with super-peer validation
 - Designed for the 5+ billion people WITH smartphones but WITHOUT access to:
   - Fee-free digital payments (they pay 5-10% on remittances)

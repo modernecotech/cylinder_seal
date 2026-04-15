@@ -25,8 +25,8 @@
   - Per-tier thresholds: attestation_threshold, biometric_threshold
   - Correct micro-OWC amounts (always i64, never f64)
 
-- [x] SuperPeerSignature struct for threshold signature tracking
-- [x] SyncStatus enum for block lifecycle tracking
+- [x] SuperPeerConfirmation struct for threshold signature tracking
+- [x] SyncStatus enum for entry lifecycle tracking
 - [x] PaymentChannel enum: NFC, BLE, Online
 
 ### Cryptographic Modules
@@ -201,7 +201,7 @@ If proto/ folder is not yet populated with chain_sync.proto, see IMPLEMENTATION_
 
 2. **Attestation Token Verification**: Hardware-binding.rs accepts tokens but doesn't verify them (super-peer responsibility). Android code (Week 2) gets tokens from Google Play Integrity API.
 
-3. **Genesis Block Device ID**: Uses Uuid::nil() for genesis blocks (created by super-peer). Real device IDs only appear in blocks created by devices.
+3. **Genesis Entry Device ID**: Uses Uuid::nil() for genesis entries (created by super-peer). Real device IDs only appear in entries created by devices.
 
 4. **Vector Clock Initialization**: JournalEntry::new() auto-inserts user's own sequence. Subsequent devices' clocks must be synced via super-peer gossip (Week 8).
 
@@ -236,7 +236,7 @@ If proto/ folder is not yet populated with chain_sync.proto, see IMPLEMENTATION_
 
 **Week 4**: gRPC Sync Service  
 - SyncChain bidirectional streaming
-- Block validation + conflict detection
+- Entry validation + conflict detection
 - Device daily limit enforcement
 - First super-peer (MVP single-node)
 

@@ -12,9 +12,9 @@ impl SyncService {
         Self {}
     }
 
-    /// Process an incoming ledger block from a device
-    pub async fn process_block(&self) -> Result<()> {
-        // TODO: implement block validation, conflict detection, storage
+    /// Process an incoming journal entry from a device
+    pub async fn process_entry(&self) -> Result<()> {
+        // TODO: implement entry validation, conflict detection, storage
         Ok(())
     }
 }

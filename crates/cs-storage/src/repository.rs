@@ -55,12 +55,13 @@ pub trait CurrencyRepository: Send + Sync {
 }
 
 /// Nonce store in Redis (replay prevention)
+/// Nonces are 32 bytes (HMAC-SHA256 output from hardware-bound derivation)
 pub trait NonceStore: Send + Sync {
     /// Check if a nonce has been used, and mark it as used
-    async fn check_and_set(&self, nonce: &[u8; 16], ttl_hours: u32) -> Result<bool>;
+    async fn check_and_set(&self, nonce: &[u8; 32], ttl_hours: u32) -> Result<bool>;
 
     /// Check if a nonce exists without marking
-    async fn exists(&self, nonce: &[u8; 16]) -> Result<bool>;
+    async fn exists(&self, nonce: &[u8; 32]) -> Result<bool>;
 }
 
 /// Session store in Redis

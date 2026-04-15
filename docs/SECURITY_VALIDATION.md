@@ -57,46 +57,46 @@ fun validateOfflineTransaction(
 ### Before Creating a JournalEntry
 
 ```kotlin
-fun validateBlockBeforeLocalStorage(
-    block: JournalEntry,
+fun validateEntryBeforeLocalStorage(
+    entry: JournalEntry,
     user: User,
     device: Device
 ): ValidationResult {
     // 1. Sequence number must increment
-    val lastBlock = getLastConfirmedBlock(user.id)
-    if (lastBlock != null && block.sequence_number != lastBlock.sequence_number + 1) {
+    val lastEntry = getLastConfirmedEntry(user.id)
+    if (lastEntry != null && entry.sequence_number != lastEntry.sequence_number + 1) {
         return ValidationError("Sequence number gap or backwards")
     }
 
     // 2. prev_entry_hash must match
-    if (lastBlock == null) {
-        // Genesis block
+    if (lastEntry == null) {
+        // Genesis entry
         val expectedHash = blake2b256(user.public_key)
-        if (block.prev_entry_hash != expectedHash) {
-            return ValidationError("Invalid genesis block hash")
+        if (entry.prev_entry_hash != expectedHash) {
+            return ValidationError("Invalid genesis entry hash")
         }
     } else {
-        if (block.prev_entry_hash != lastBlock.entry_hash) {
+        if (entry.prev_entry_hash != lastEntry.entry_hash) {
             return ValidationError("prev_entry_hash mismatch")
         }
     }
 
     // 3. Vector clock must be monotonically increasing
-    val lastVectorClock = lastBlock?.vector_clock ?: emptyMap()
-    for ((userId, clock) in block.vector_clock) {
+    val lastVectorClock = lastEntry?.vector_clock ?: emptyMap()
+    for ((userId, clock) in entry.vector_clock) {
         if (clock < (lastVectorClock[userId] ?: 0)) {
             return ValidationError("Vector clock went backward for user $userId")
         }
     }
 
     // 4. Monotonic clock must never go backward
-    if (lastBlock != null && 
-        block.monotonic_created_nanos < lastBlock.monotonic_created_nanos) {
-        return ValidationError("Block monotonic clock went backward")
+    if (lastEntry != null && 
+        entry.monotonic_created_nanos < lastEntry.monotonic_created_nanos) {
+        return ValidationError("Entry monotonic clock went backward")
     }
 
     // 5. Verify transaction signatures
-    for (tx in block.transactions) {
+    for (tx in entry.transactions) {
         if (!tx.verify_signature()) {
             return ValidationError("Transaction signature invalid")
         }
@@ -133,53 +133,53 @@ fun validateNonceChain(transactions: List<Transaction>): ValidationResult {
 
 ## Super-Peer Validation (Rust)
 
-### On Block Submission
+### On Entry Submission
 
 ```rust
-pub async fn validate_incoming_block(
-    block: &JournalEntry,
+pub async fn validate_incoming_entry(
+    entry: &JournalEntry,
     user_id: Uuid,
 ) -> Result<()> {
-    // 1. Verify block hash (recompute and compare)
-    let canonical = block.canonical_cbor_for_hashing()?;
+    // 1. Verify entry hash (recompute and compare)
+    let canonical = entry.canonical_cbor_for_hashing()?;
     let expected_hash = blake2b_256(&canonical);
-    if expected_hash != block.entry_hash {
+    if expected_hash != entry.entry_hash {
         return Err(InvalidHash);
     }
 
     // 2. Verify device signature
-    let device = self.storage.get_device(block.device_id).await?;
-    crypto::verify_signature(&block.entry_hash, &block.device_signature, &device.public_key)?;
+    let device = self.storage.get_device(entry.device_id).await?;
+    crypto::verify_signature(&entry.entry_hash, &entry.device_signature, &device.public_key)?;
 
     // 3. Check sequence number (must be next expected)
     let last_seq = self.storage.get_user_last_sequence(user_id).await?;
-    if block.sequence_number != last_seq + 1 {
+    if entry.sequence_number != last_seq + 1 {
         return Err(OutOfSequence {
             expected: last_seq + 1,
-            got: block.sequence_number,
+            got: entry.sequence_number,
         });
     }
 
     // 4. Check prev_entry_hash
-    let last_block = self.storage.get_last_confirmed_block(user_id).await?;
-    if let Some(last) = last_block {
-        if block.prev_entry_hash != last.entry_hash {
+    let last_entry = self.storage.get_last_confirmed_entry(user_id).await?;
+    if let Some(last) = last_entry {
+        if entry.prev_entry_hash != last.entry_hash {
             return Err(Conflict("prev_entry_hash mismatch".into()));
         }
     }
 
-    // 5. Detect double-spend (same user submitting 2 blocks with same prev_hash)
-    let pending = self.storage.get_pending_blocks(user_id).await?;
-    for pending_block in pending {
-        if pending_block.prev_entry_hash == block.prev_entry_hash {
+    // 5. Detect double-spend (same user submitting 2 entries with same prev_hash)
+    let pending = self.storage.get_pending_entries(user_id).await?;
+    for pending_entry in pending {
+        if pending_entry.prev_entry_hash == entry.prev_entry_hash {
             // Fork detected: two competing chains
-            return self.handle_double_spend(user_id, &pending_block, block).await;
+            return self.handle_double_spend(user_id, &pending_entry, entry).await;
         }
     }
 
     // 6. Validate vector clock (no backward steps)
-    let last_clock = last_block.map(|b| b.vector_clock.clone()).unwrap_or_default();
-    for (user, clock) in &block.vector_clock {
+    let last_clock = last_entry.map(|b| b.vector_clock.clone()).unwrap_or_default();
+    for (user, clock) in &entry.vector_clock {
         if let Some(last_val) = last_clock.get(user) {
             if clock < last_val {
                 return Err(Conflict("Vector clock went backward".into()));
@@ -188,10 +188,10 @@ pub async fn validate_incoming_block(
     }
 
     // 7. Check device daily spending (prevent multi-device fraud)
-    let device_spent_today = self.storage.get_device_daily_spending(block.device_id).await?;
+    let device_spent_today = self.storage.get_device_daily_spending(entry.device_id).await?;
     let mut total_spent = device_spent_today;
-    for tx in &block.transactions {
-        if tx.from_public_key == block.user_public_key {
+    for tx in &entry.transactions {
+        if tx.from_public_key == entry.user_public_key {
             total_spent += tx.amount_owc;
         }
     }
@@ -199,22 +199,22 @@ pub async fn validate_incoming_block(
     let user = self.storage.get_user(user_id).await?;
     if total_spent > user.kyc_tier.max_daily_offline_per_device() {
         // Check device reputation
-        if is_device_suspicious(block.device_id).await? {
+        if is_device_suspicious(entry.device_id).await? {
             return Err(KYCTierLimitExceeded);
         }
     }
 
     // 8. Verify nonce chain
-    let mut expected_prev_nonce = if last_block.is_none() {
-        blake2b_256(&block.user_public_key)
+    let mut expected_prev_nonce = if last_entry.is_none() {
+        blake2b_256(&entry.user_public_key)
     } else {
-        // Last tx's current_nonce from previous block
-        last_block.unwrap()
+        // Last tx's current_nonce from previous entry
+        last_entry.unwrap()
             .transactions.last().unwrap()
             .current_nonce
     };
 
-    for tx in &block.transactions {
+    for tx in &entry.transactions {
         if tx.previous_nonce != expected_prev_nonce {
             return Err(Conflict("Nonce chain broken".into()));
         }
@@ -222,7 +222,7 @@ pub async fn validate_incoming_block(
     }
 
     // 9. Validate transaction signatures
-    for tx in &block.transactions {
+    for tx in &entry.transactions {
         tx.verify_signature()?;
     }
 
@@ -236,33 +236,33 @@ pub async fn validate_incoming_block(
 pub async fn handle_double_spend(
     &self,
     user_id: Uuid,
-    block_a: &JournalEntry,
-    block_b: &JournalEntry,
+    entry_a: &JournalEntry,
+    entry_b: &JournalEntry,
 ) -> Result<()> {
-    // Both blocks have same prev_hash (fork detected)
+    // Both entries have same prev_hash (fork detected)
 
     // 1. Compare timestamps (earlier timestamp wins, soft heuristic)
-    let winner = if block_a.created_at < block_b.created_at {
-        block_a
-    } else if block_b.created_at < block_a.created_at {
-        block_b
+    let winner = if entry_a.created_at < entry_b.created_at {
+        entry_a
+    } else if entry_b.created_at < entry_a.created_at {
+        entry_b
     } else {
         // Timestamps equal: request NFC receipts as evidence
         // For now, reject both and escalate to human review
-        self.escalate_conflict(user_id, vec![block_a.clone(), block_b.clone()]).await?;
+        self.escalate_conflict(user_id, vec![entry_a.clone(), entry_b.clone()]).await?;
         return Ok(());
     };
 
     // Clock skew check: if timestamps within 60 seconds, it's ambiguous
-    let time_diff = (block_a.created_at - block_b.created_at).abs();
+    let time_diff = (entry_a.created_at - entry_b.created_at).abs();
     if time_diff < 60_000_000 {  // 60 seconds in microseconds
         // Request both devices submit NFC receipts with signed evidence
-        self.request_nfc_evidence(user_id, block_a, block_b).await?;
+        self.request_nfc_evidence(user_id, entry_a, entry_b).await?;
         return Ok(());
     }
 
     // Winner is determined; loser is quarantined
-    let loser = if winner == block_a { block_b } else { block_a };
+    let loser = if winner == entry_a { entry_b } else { entry_a };
     self.storage.mark_conflicted(loser.entry_hash, "double_spend").await?;
 
     // Notify both devices
@@ -279,40 +279,42 @@ pub async fn handle_double_spend(
 ### Super-Peer Confirmation (3-of-3 Byzantine Consensus)
 
 ```rust
-pub async fn confirm_block_with_consensus(
+pub async fn confirm_entry_with_consensus(
     &self,
-    block: &JournalEntry,
+    entry: &JournalEntry,
     user_id: Uuid,
 ) -> Result<()> {
-    // Get 3 super-peers (hardcoded or discovered)
+    // Get 5 super-peers (hardcoded or discovered)
     let peers = vec![
         "super-peer-africa.cylinderseal.io",
         "super-peer-asia.cylinderseal.io",
         "super-peer-americas.cylinderseal.io",
+        "super-peer-europe.cylinderseal.io",
+        "super-peer-oceania.cylinderseal.io",
     ];
 
     let mut confirmations = vec![];
 
     for peer in peers {
-        // Send block to peer for validation
-        match self.gossip_client.propose_block(peer, block).await {
+        // Send entry to peer for validation
+        match self.gossip_client.propose_entry(peer, entry).await {
             Ok(sig) => confirmations.push(sig),
             Err(e) => {
-                tracing::warn!("Peer {} rejected block: {}", peer, e);
+                tracing::warn!("Peer {} rejected entry: {}", peer, e);
             }
         }
     }
 
-    // Need 2+ confirmations
-    if confirmations.len() < 2 {
+    // Need 3+ confirmations (3-of-5 quorum)
+    if confirmations.len() < 3 {
         return Err(Conflict("Insufficient confirmations".into()));
     }
 
-    // Store confirmations with block
-    let mut confirmed_block = block.clone();
-    confirmed_block.super_peer_confirmations = confirmations;
+    // Store confirmations with entry
+    let mut confirmed_entry = entry.clone();
+    confirmed_entry.super_peer_confirmations = confirmations;
 
-    self.storage.confirm_block(&confirmed_block).await?;
+    self.storage.confirm_entry(&confirmed_entry).await?;
 
     Ok(())
 }
@@ -371,11 +373,11 @@ pub async fn compute_device_reputation(device_id: Uuid) -> Result<DeviceReputati
 1. **Device-level** (Kotlin): Offline validation before signing
    - KYC limits, device limits, monotonic clocks, nonce chains, attestation, biometric
 
-2. **First super-peer** (Rust): Block ingestion
+2. **First super-peer** (Rust): Entry ingestion
    - Hash verification, signature verification, sequence validation, conflict detection, nonce chain
 
-3. **Consensus layer** (3 super-peers): Byzantine tolerance
-   - 2+ confirmations required for finality
+3. **Consensus layer** (5 super-peers): Byzantine tolerance
+   - 3+ confirmations required for finality (3-of-5 quorum)
 
 4. **Gossip layer** (Peer-to-peer): Anomaly detection
    - Device reputation, geographic consistency, clock skew detection

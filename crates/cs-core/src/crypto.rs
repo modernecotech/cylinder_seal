@@ -1,7 +1,9 @@
-use blake2::{Blake2b, Digest};
+use blake2::{Blake2b, Digest, digest::consts::U32};
+
+/// BLAKE2b with 256-bit (32-byte) output
+type Blake2b256 = Blake2b<U32>;
 use ed25519_dalek::{Signer, SigningKey, VerifyingKey, Signature};
 use rand::rngs::OsRng;
-use std::str::FromStr;
 
 use crate::error::{CylinderSealError, Result};
 
@@ -12,7 +14,7 @@ const ED25519_SIGNATURE_SIZE: usize = 64;
 
 /// BLAKE2b-256 hash of arbitrary bytes
 pub fn blake2b_256(data: &[u8]) -> [u8; BLAKE2B_DIGEST_SIZE] {
-    let mut hasher = Blake2b::<blake2::consts::U32>::new();
+    let mut hasher = Blake2b256::new();
     hasher.update(data);
     let result = hasher.finalize();
     let mut hash = [0u8; BLAKE2B_DIGEST_SIZE];
@@ -20,8 +22,8 @@ pub fn blake2b_256(data: &[u8]) -> [u8; BLAKE2B_DIGEST_SIZE] {
     hash
 }
 
-/// Derive a user_id (UUIDv7-like) from their public key
-/// Returns: BLAKE2b-256(public_key) as the identity hash
+/// Derive a user identity hash from their public key
+/// Returns: BLAKE2b-256(public_key) — first 16 bytes used as UUID
 pub fn derive_user_id_from_public_key(public_key: &[u8; ED25519_PUBLIC_KEY_SIZE]) -> [u8; BLAKE2B_DIGEST_SIZE] {
     blake2b_256(public_key)
 }

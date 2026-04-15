@@ -11,7 +11,7 @@
 
 ### 1. ✅ Vector Clocks
 **Solves**: Clock skew attacks, time-travel attacks  
-**How**: Each block includes causal history. Attacker can't make old transactions look new.  
+**How**: Each entry includes causal history. Attacker can't make old transactions look new.  
 **Cost to User**: Zero (automatic, transparent)
 
 ### 2. ✅ Monotonic Clocks
@@ -56,8 +56,8 @@
 
 ### 10. ✅ 5-Super-Peer Byzantine Quorum (3-of-5)
 **Solves**: Single super-peer compromise  
-**How**: Need 2+ of 5 super-peers compromised to issue fake confirmations.  
-**Cost to User**: Slightly slower (5 confirmations needed instead of 1), ~2-3s vs instant
+**How**: Need 3+ of 5 super-peers to confirm; tolerates up to 2 compromised/offline nodes.  
+**Cost to User**: Slightly slower (3+ confirmations needed instead of 1), ~2-3s vs instant
 
 ### 11. ✅ Witness Signatures (For Large Txs)
 **Solves**: Unauthorized large transactions  
@@ -234,7 +234,7 @@ Effort: 🔴🔴🔴 Impossible (without quantum computers)
 | Operation | Latency Delta | Acceptable? |
 |-----------|---|---|
 | Transaction signing | +10ms (crypto) | ✅ Yes |
-| Block hashing | +5ms (crypto) | ✅ Yes |
+| Entry hashing | +5ms (crypto) | ✅ Yes |
 | Nonce derivation | +15ms (HMAC) | ✅ Yes |
 | Device attestation | +300ms (network) | ✅ Yes |
 | Super-peer validation | +50ms (extra checks) | ✅ Yes |
@@ -297,9 +297,9 @@ Effort: 🔴🔴🔴 Impossible (without quantum computers)
 **If this is your system:**
 
 1. **Read thoroughly:**
-   - `/docs/IRON_SECURITY.md` (technical details)
-   - `/docs/SECURITY_VALIDATION.md` (validation rules)
-   - `/IMPLEMENTATION_ROADMAP.md` (step-by-step)
+   - `IRON_SECURITY.md` (technical details)
+   - `SECURITY_VALIDATION.md` (validation rules)
+   - `IMPLEMENTATION_ROADMAP.md` (step-by-step)
 
 2. **Assemble team:**
    - 2 senior Rust engineers (super-peer)

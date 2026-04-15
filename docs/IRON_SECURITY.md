@@ -38,8 +38,8 @@ class KeyRotationService {
                 signature = signWithOldKey(...)
             )
             
-            // Create transition block with both keys valid
-            val transitionBlock = JournalEntry(
+            // Create transition entry with both keys valid
+            val transitionEntry = JournalEntry(
                 transitions = vec![rotationCert],
                 old_key_valid_until = now() + 7.days,  // Grace period
                 new_key_valid_from = now(),
@@ -154,7 +154,7 @@ SUPER-PEER-GLOBAL
 
 **Quorum Rules:**
 ```
-Block confirmation requires: 3+ of 5 super-peers agree AND sign
+Entry confirmation requires: 3+ of 5 super-peers agree AND sign
 
 Failure tolerance:
 - 1 super-peer down: ✅ System works (3 remain, need 3)
@@ -172,10 +172,10 @@ Attack scenario:
 
 **Consensus Protocol (Rust):**
 ```rust
-pub async fn commit_block_with_bft(
+pub async fn commit_entry_with_bft(
     &self,
-    block: &JournalEntry,
-) -> Result<ConfirmedBlock> {
+    entry: &JournalEntry,
+) -> Result<ConfirmedEntry> {
     let all_peers = vec![
         "sp-africa", "sp-asia", "sp-americas", "sp-europe", "sp-global"
     ];
@@ -185,7 +185,7 @@ pub async fn commit_block_with_bft(
 
     // Send to all 5 peers in parallel
     let futures = all_peers.iter().map(|peer| {
-        self.propose_block_to_peer(peer, block)
+        self.propose_entry_to_peer(peer, entry)
     });
 
     let results = futures::future::join_all(futures).await;
@@ -207,9 +207,9 @@ pub async fn commit_block_with_bft(
     }
 
     // Extract signatures
-    let sigs: Vec<SuperPeerSignature> = confirmations
+    let sigs: Vec<SuperPeerConfirmation> = confirmations
         .iter()
-        .map(|(peer, sig)| SuperPeerSignature {
+        .map(|(peer, sig)| SuperPeerConfirmation {
             super_peer_id: peer.to_string(),
             signature: *sig,
             confirmed_at: now(),
@@ -221,15 +221,15 @@ pub async fn commit_block_with_bft(
         self.verify_peer_signature(sig, peer_id)?;
     }
 
-    // Store confirmed block
-    let confirmed = ConfirmedBlock {
-        block: block.clone(),
+    // Store confirmed entry
+    let confirmed = ConfirmedEntry {
+        entry: entry.clone(),
         confirmations: sigs,
         threshold: 3,
         confirmed_at: now(),
     };
 
-    self.storage.store_confirmed_block(&confirmed).await?;
+    self.storage.store_confirmed_entry(&confirmed).await?;
 
     // Gossip to all peers (acknowledge)
     for peer in &all_peers {
@@ -569,49 +569,49 @@ If two blocks have same prev_hash (fork detected):
 **Implementation (Rust):**
 ```rust
 pub fn resolve_conflict_deterministic(
-    block_a: &JournalEntry,
-    block_b: &JournalEntry,
+    entry_a: &JournalEntry,
+    entry_b: &JournalEntry,
 ) -> ConflictResolution {
-    assert_eq!(block_a.prev_entry_hash, block_b.prev_entry_hash);
-    assert_eq!(block_a.user_public_key, block_b.user_public_key);
+    assert_eq!(entry_a.prev_entry_hash, entry_b.prev_entry_hash);
+    assert_eq!(entry_a.user_public_key, entry_b.user_public_key);
 
     // Rule 1: Higher sequence number wins
-    if block_a.sequence_number > block_b.sequence_number {
+    if entry_a.sequence_number > entry_b.sequence_number {
         return ConflictResolution {
-            winner: block_a.block_id,
-            loser: block_b.block_id,
+            winner: entry_a.entry_id,
+            loser: entry_b.entry_id,
             reason: "Higher sequence number",
         };
     }
 
-    if block_b.sequence_number > block_a.sequence_number {
+    if entry_b.sequence_number > entry_a.sequence_number {
         return ConflictResolution {
-            winner: block_b.block_id,
-            loser: block_a.block_id,
+            winner: entry_b.entry_id,
+            loser: entry_a.entry_id,
             reason: "Higher sequence number",
         };
     }
 
-    // Rule 2: If sequence numbers equal, use block hash (lexicographic)
+    // Rule 2: If sequence numbers equal, use entry hash (lexicographic)
     // This should NEVER happen, but we have a deterministic tiebreaker
-    if block_a.entry_hash < block_b.entry_hash {
+    if entry_a.entry_hash < entry_b.entry_hash {
         return ConflictResolution {
-            winner: block_a.block_id,
-            loser: block_b.block_id,
-            reason: "Block hash is lexicographically smaller",
+            winner: entry_a.entry_id,
+            loser: entry_b.entry_id,
+            reason: "Entry hash is lexicographically smaller",
         };
-    } else if block_b.entry_hash < block_a.entry_hash {
+    } else if entry_b.entry_hash < entry_a.entry_hash {
         return ConflictResolution {
-            winner: block_b.block_id,
-            loser: block_a.block_id,
-            reason: "Block hash is lexicographically smaller",
+            winner: entry_b.entry_id,
+            loser: entry_a.entry_id,
+            reason: "Entry hash is lexicographically smaller",
         };
     } else {
-        // Same block hash = same block!
+        // Same entry hash = same entry!
         return ConflictResolution {
-            winner: block_a.block_id,
-            loser: block_b.block_id,
-            reason: "Blocks are identical",
+            winner: entry_a.entry_id,
+            loser: entry_b.entry_id,
+            reason: "Entries are identical",
         };
     }
 }

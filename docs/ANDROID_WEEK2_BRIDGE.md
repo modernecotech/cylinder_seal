@@ -215,7 +215,7 @@ assert(tx.verifySignature() == null)  // Should not throw
 
 // Step 6: Send to recipient (NFC/BLE/online)
 // Or store in pending if offline
-ledger.append(Block(transactions = listOf(tx)))
+ledger.append(JournalEntry(transactions = listOf(tx)))
 ```
 
 ### 5. Get Device Attestation (SafetyNet/Play Integrity)
@@ -279,9 +279,9 @@ User pays             → Derive nonce (hw-bound)
                       → Create JournalEntry
                       → Sign entry_hash
                       
-Block.serialize()     → Send via gRPC SyncChain →  Verify signature
-                      ← SyncAck (2/5 confirmed)    Verify nonce chain
-                      ← Block confirmed             Verify sequence
+Entry.serialize()     → Send via gRPC SyncChain →  Verify signature
+                      ← SyncAck (3/5 confirmed)    Verify nonce chain
+                      ← Entry confirmed             Verify sequence
                                                     Add to ledger
                                                     Gossip to 4 peers
 ```

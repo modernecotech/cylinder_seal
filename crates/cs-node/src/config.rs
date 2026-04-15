@@ -72,11 +72,19 @@ pub struct LoggingConfig {
 }
 
 impl Config {
-    /// Load configuration from environment variables with sensible defaults
-    pub fn load(_config_path: &Option<String>, _environment: &Option<String>) -> Result<Self> {
-        // Load from environment variables with defaults
-        let env_str = env::var("ENVIRONMENT").unwrap_or_else(|_| "development".to_string());
+    /// Load configuration from environment variables with sensible defaults.
+    /// CLI arguments override environment variables when provided.
+    pub fn load(config_path: &Option<String>, environment: &Option<String>) -> Result<Self> {
+        // CLI --environment flag overrides ENVIRONMENT env var
+        let env_str = environment
+            .clone()
+            .or_else(|| env::var("ENVIRONMENT").ok())
+            .unwrap_or_else(|| "development".to_string());
         let environment = Environment::from_str(&env_str);
+
+        if let Some(path) = config_path {
+            tracing::info!("Config file loading not yet implemented, ignoring: {}", path);
+        }
 
         let server = ServerConfig {
             grpc_port: env::var("GRPC_PORT")

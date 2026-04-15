@@ -78,7 +78,7 @@ CREATE TABLE audit_log (
 
 ### Week 4: gRPC Sync Service (Single Super-Peer MVP)
 - [ ] `SyncChain` bidirectional stream implemented
-- [ ] Block validation (sequence, hash, signature)
+- [ ] Entry validation (sequence, hash, signature)
 - [ ] Conflict detection (fork detection)
 - [ ] Device daily limit checking
 - [ ] Audit log recording
@@ -152,7 +152,7 @@ CREATE TABLE audit_log (
 - [ ] Quorum: 3-of-5 required for confirmation
 
 **Rust:**
-- [ ] Consensus protocol (propose block to all 5)
+- [ ] Consensus protocol (propose entry to all 5)
 - [ ] Signature aggregation (need 3+)
 - [ ] Gossip announcements
 - [ ] Conflict resolution (deterministic)
@@ -446,10 +446,11 @@ After security hardening is complete and the payment ledger is production-proven
 | Week 24 | IPFS image upload + integration | Photo evidence for products/services |
 | Weeks 25-28 | Seller reputation integration + dispute resolution | Ratings feed into credit score, economic incentive loop |
 
-**Marketplace Revenue Opportunity:**
-- Y1: $150K-500K (early adopters, slow ramp)
-- Y2: $3M-5M (marketplace reaches $1M GMV, 1-2% fees)
-- Y3: $50M+ (marketplace reaches $50M+ GMV, multiple revenue streams)
+**Marketplace Impact on B2B Credit Revenue:**
+All marketplace transactions are completely free. Revenue comes from B2B credit data licensing:
+- Y1: Marketplace activity builds credit profiles for early MFI partnerships
+- Y2: $1M+ GMV generates thousands of active credit profiles for B2B licensing
+- Y3: $50M+ GMV = millions of rich credit profiles for enterprise API licensing
 
 ---
 

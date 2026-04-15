@@ -55,7 +55,7 @@
 │   │  OWC Rate Feed Aggregation (cs-exchange)                 │             │
 │   │  • Forex API feeds (Fixer, Twelve Data, etc)             │             │
 │   │  • OWC basket computation (USD, EUR, GBP, KES, NGN)      │             │
-│   │  • Spread calculation (0.5% - 1.5%)                       │             │
+│   │  • Real interbank rate (zero spread, zero markup)          │             │
 │   └──────────────────────────────────────────────────────────┘             │
 │                                                                              │
 │   ┌──────────────────────────────────────────────────────────┐             │
@@ -65,13 +65,13 @@
 │   │    - Supply chain finance platforms                       │             │
 │   │    - P2P lending networks                                 │             │
 │   │    - Mobile money providers (float/liquidity mgmt)        │             │
-│   │  • Per-user monthly fee or per-credit-check fee           │             │
+│   │  • Per-credit-check fee (B2B revenue)                     │             │
 │   └──────────────────────────────────────────────────────────┘             │
 │                                                                              │
 │   ┌──────────────────────────────────────────────────────────┐             │
 │   │  Fiat On-Ramps (Phase 2)                                 │             │
 │   │  • Flutterwave, Wise, M-Pesa integration                 │             │
-│   │  • Take 1-2% on conversion                                │             │
+│   │  • Free conversion at real rate (zero fees)                │             │
 │   └──────────────────────────────────────────────────────────┘             │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
@@ -424,7 +424,7 @@ B2B Customers (Tier 2 Integration Partners):
    ├─ Example: Kiva, Upstart
    ├─ Match lenders with borrowers based on credit scores
    ├─ CylinderSeal provides underlying credit data
-   └─ Price: Revenue share (1-2% of loan volume)
+   └─ Price: Per-profile licensing fee
 
 4. Mobile Money Providers
    ├─ M-Pesa, Airtel Money, Orange Money
@@ -497,18 +497,18 @@ Example: 1M agents × $0.50/month = $500K/month = $6M/year
 
 ───────────────────────────────────────────
 
-Model 3: Revenue Share (P2P Lending)
-────────────────────────────────────
+Model 3: Credit Data Licensing (P2P Lending)
+─────────────────────────────────────────────
 Customer: P2P lending platform
 Use Case: Loan origination with CylinderSeal credit underwriting
 
-Loan originated: 100,000 KES
-Annual interest: 15% = 15,000 KES
-CylinderSeal revenue share: 1% = 150 KES per loan
+Per-profile licensing: $1.50 per credit check
+Volume: 100K checks/month at scale
+Monthly revenue: 100,000 × $1.50 = $150K/month
+Annual: $1.8M
 
-Volume: 100K loans/month at scale
-Monthly revenue: 100,000 × 150 KES = 15M KES/month
-Annual: 180M KES (~$1.5M)
+Note: All transactions between borrowers and lenders are completely free.
+CylinderSeal earns from credit data licensing to the lending platform, not from transaction fees.
 
 ───────────────────────────────────────────
 
@@ -578,7 +578,7 @@ Phase 3 (Year 3):
 ├─ 10+ insurance companies
 │  • 10 × $50K/month = $500K/month
 ├─ DeFi integrations (new)
-│  • 0.5% of $100M TVL lending = $500K/month
+│  • Credit data licensing for DeFi underwriting = $500K/month
 └─ Total: $8.55M/month = $102.6M for year 3
 
 Cost of Goods Sold:

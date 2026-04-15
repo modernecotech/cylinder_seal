@@ -24,6 +24,8 @@ pub struct JournalEntryRecord {
 pub struct UserRecord {
     pub user_id: Uuid,
     pub public_key: Vec<u8>,
+    pub display_name: String,
+    pub phone_number: Option<String>,
     pub kyc_tier: String, // "anonymous", "phone_verified", "full_kyc"
     pub balance_owc: i64,
     pub credit_score: Option<Decimal>,
@@ -49,6 +51,6 @@ pub struct CurrencyRate {
     pub id: i64,
     pub currency_pair: String, // e.g., "OWC/KES"
     pub rate: Decimal,
-    pub source: String,         // "interbank" or "owc-spread-retail"
+    pub source: String,         // e.g., "interbank" (real rate, no markup)
     pub fetched_at: DateTime<Utc>,
 }

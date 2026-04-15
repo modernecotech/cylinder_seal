@@ -104,36 +104,39 @@ mod crypto_tests {
             "Signature must fail if tampered");
     }
 
-    // ✅ Nonce Derivation
+    // ✅ Nonce Derivation (hardware-bound)
     #[test]
     fn test_deterministic_nonce() {
+        let hw = HardwareIds::new("serial123".to_string(), "imei456".to_string());
         let prev_nonce = [42u8; 32];
         let counter = 1u64;
 
-        let nonce1 = derive_deterministic_nonce(&prev_nonce, counter);
-        let nonce2 = derive_deterministic_nonce(&prev_nonce, counter);
+        let nonce1 = derive_nonce_with_hardware(&prev_nonce, &hw, counter).unwrap();
+        let nonce2 = derive_nonce_with_hardware(&prev_nonce, &hw, counter).unwrap();
 
         assert_eq!(nonce1, nonce2, "Nonce derivation must be deterministic");
     }
 
     #[test]
     fn test_nonce_depends_on_previous() {
+        let hw = HardwareIds::new("serial123".to_string(), "imei456".to_string());
         let prev_nonce1 = [1u8; 32];
         let prev_nonce2 = [2u8; 32];
         let counter = 1u64;
 
-        let nonce1 = derive_deterministic_nonce(&prev_nonce1, counter);
-        let nonce2 = derive_deterministic_nonce(&prev_nonce2, counter);
+        let nonce1 = derive_nonce_with_hardware(&prev_nonce1, &hw, counter).unwrap();
+        let nonce2 = derive_nonce_with_hardware(&prev_nonce2, &hw, counter).unwrap();
 
         assert_ne!(nonce1, nonce2, "Different previous nonces must produce different nonces");
     }
 
     #[test]
     fn test_nonce_depends_on_counter() {
+        let hw = HardwareIds::new("serial123".to_string(), "imei456".to_string());
         let prev_nonce = [42u8; 32];
 
-        let nonce1 = derive_deterministic_nonce(&prev_nonce, 1);
-        let nonce2 = derive_deterministic_nonce(&prev_nonce, 2);
+        let nonce1 = derive_nonce_with_hardware(&prev_nonce, &hw, 1).unwrap();
+        let nonce2 = derive_nonce_with_hardware(&prev_nonce, &hw, 2).unwrap();
 
         assert_ne!(nonce1, nonce2, "Different counters must produce different nonces");
     }
@@ -147,16 +150,25 @@ mod transaction_tests {
     #[test]
     fn test_transaction_signature_fails_if_modified() {
         let (pub_key, priv_key) = generate_keypair();
+        let hw = HardwareIds::new("serial123".to_string(), "imei456".to_string());
+        let prev_nonce = [0u8; 32];
+        let current_nonce = derive_nonce_with_hardware(&prev_nonce, &hw, 1).unwrap();
+
         let mut tx = Transaction::new(
             pub_key,
-            [0u8; 32],  // recipient
-            50_000_000,  // amount
+            [0u8; 32],       // recipient
+            50_000_000,       // amount
             "KES".to_string(),
             Decimal::from_str("0.987654").unwrap(),
             PaymentChannel::NFC,
             "test".to_string(),
             Uuid::new_v4(),
-            [0u8; 32],  // prev nonce
+            prev_nonce,       // previous_nonce
+            current_nonce,    // current_nonce (hardware-derived)
+            -1.286389,        // latitude
+            36.817223,        // longitude
+            10,               // location_accuracy_meters
+            LocationSource::GPS,
         );
 
         tx.sign(&priv_key).unwrap();
@@ -172,17 +184,21 @@ mod transaction_tests {
     // ✅ Nonce Chain Validation
     #[test]
     fn test_nonce_chain_breaks_if_not_sequential() {
+        let hw = HardwareIds::new("serial123".to_string(), "imei456".to_string());
         let genesis_nonce = [0u8; 32];
 
-        let tx1_nonce = derive_deterministic_nonce(&genesis_nonce, 1);
-        let tx2_nonce = derive_deterministic_nonce(&genesis_nonce, 1);  // Wrong! Should derive from tx1_nonce
+        let tx1_nonce = derive_nonce_with_hardware(&genesis_nonce, &hw, 1).unwrap();
+        // Wrong! Should derive from tx1_nonce, not genesis_nonce again
+        let tx2_nonce_wrong = derive_nonce_with_hardware(&genesis_nonce, &hw, 2).unwrap();
+        let tx2_nonce_correct = derive_nonce_with_hardware(&tx1_nonce, &hw, 2).unwrap();
 
-        assert_ne!(tx1_nonce, tx2_nonce, "This should catch the error");
+        assert_ne!(tx2_nonce_wrong, tx2_nonce_correct,
+            "Nonce derived from wrong previous must differ from correct chain");
     }
 }
 
 #[cfg(test)]
-mod ledger_block_tests {
+mod journal_entry_tests {
     use super::*;
 
     // ✅ Vector Clock Monotonicity
@@ -199,11 +215,11 @@ mod ledger_block_tests {
             "Vector clock went backward");
     }
 
-    // ✅ Block Hash Integrity
+    // ✅ Entry Hash Integrity
     #[test]
     fn test_entry_hash_tamper_detection() {
         let (pub_key, priv_key) = generate_keypair();
-        let mut block = JournalEntry::new(
+        let mut entry = JournalEntry::new(
             pub_key,
             Uuid::new_v4(),  // device_id
             1,
@@ -212,14 +228,14 @@ mod ledger_block_tests {
             HashMap::new(),
         );
 
-        block.compute_entry_hash().unwrap();
-        block.sign_with_device_key(&priv_key).unwrap();
+        entry.compute_entry_hash().unwrap();
+        entry.sign_with_device_key(&priv_key).unwrap();
 
-        // Tamper with block
-        block.entry_hash[0] ^= 0xFF;
+        // Tamper with entry
+        entry.entry_hash[0] ^= 0xFF;
 
-        assert!(block.verify().is_err(),
-            "Block verification must fail if hash is tampered");
+        assert!(entry.verify(&pub_key).is_err(),
+            "Entry verification must fail if hash is tampered");
     }
 
     // ✅ Sequence Number Validation
@@ -235,19 +251,13 @@ mod ledger_block_tests {
     // ✅ Monotonic Clock Non-Decreasing
     #[test]
     fn test_monotonic_clock_never_goes_backward() {
-        let time1 = std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .unwrap()
-            .as_nanos() as i64;
-
+        // Uses Transaction::monotonic_clock() which is Instant-based
+        // (never goes backward, unlike SystemTime which can drift with NTP)
+        let time1 = Transaction::monotonic_clock();
         std::thread::sleep(std::time::Duration::from_millis(10));
+        let time2 = Transaction::monotonic_clock();
 
-        let time2 = std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .unwrap()
-            .as_nanos() as i64;
-
-        assert!(time2 >= time1,
+        assert!(time2 > time1,
             "Monotonic clock must never go backward");
     }
 }
@@ -373,38 +383,38 @@ class TransactionTests {
 @RunWith(RobolectricTestRunner::class)
 class JournalEntryTests {
 
-    // ✅ Block Hash Integrity
+    // ✅ Entry Hash Integrity
     @Test
-    fun testBlockHashVerification() {
-        val block = JournalEntry(/* ... */)
-        block.computeBlockHash()
-        block.signWithDeviceKey(privateKey)
+    fun testEntryHashVerification() {
+        val entry = JournalEntry(/* ... */)
+        entry.computeEntryHash()
+        entry.signWithDeviceKey(privateKey)
         
-        assertTrue(block.verify(), "Block must verify")
+        assertTrue(entry.verify(), "Entry must verify")
         
         // Tamper with amount
-        block.transactions[0].amount_owc = 999_000_000
+        entry.transactions[0].amount_owc = 999_000_000
         
-        assertFalse(block.verify(), "Tampered block must fail verification")
+        assertFalse(entry.verify(), "Tampered entry must fail verification")
     }
 
     // ✅ Sequence Validation
     @Test
     fun testSequenceMustIncrementByOne() {
-        val block1 = JournalEntry(sequence_number = 5)
-        val block2 = JournalEntry(sequence_number = 7)  // Gap!
+        val entry1 = JournalEntry(sequence_number = 5)
+        val entry2 = JournalEntry(sequence_number = 7)  // Gap!
         
-        assertNotEquals(block2.sequence_number, block1.sequence_number + 1)
+        assertNotEquals(entry2.sequence_number, entry1.sequence_number + 1)
     }
 
     // ✅ Vector Clock
     @Test
     fun testVectorClockMonotonicity() {
         val clock1 = mapOf(userId to 5L)
-        val block1 = JournalEntry(vector_clock = clock1)
+        val entry1 = JournalEntry(vector_clock = clock1)
         
         val clock2 = mapOf(userId to 4L)  // Backward!
-        val block2 = JournalEntry(vector_clock = clock2)
+        val entry2 = JournalEntry(vector_clock = clock2)
         
         assertTrue(clock1[userId]!! > clock2[userId]!!)
     }
@@ -432,7 +442,10 @@ async fn test_complete_offline_to_sync_flow() {
     // ════════════════════════════════════════════════════════════
     // Phase 1: Device 1 creates offline transaction
     // ════════════════════════════════════════════════════════════
-    let prev_nonce = [0u8; 32];  // Genesis
+    let hw = HardwareIds::new("serial123".to_string(), "imei456".to_string());
+    let prev_nonce = blake2b_256(&device1_pub);  // Genesis nonce
+    let current_nonce = derive_nonce_with_hardware(&prev_nonce, &hw, 1).unwrap();
+
     let mut tx = Transaction::new(
         device1_pub,
         device2_pub,
@@ -443,29 +456,34 @@ async fn test_complete_offline_to_sync_flow() {
         "Payment".to_string(),
         Uuid::new_v4(),
         prev_nonce,
+        current_nonce,
+        -1.286389,             // latitude (Nairobi)
+        36.817223,             // longitude
+        10,                    // location_accuracy_meters
+        LocationSource::GPS,
     );
 
     tx.sign(&device1_priv).expect("Signing failed");
     assert!(tx.verify_signature().is_ok(), "Signature verification failed");
 
     // ════════════════════════════════════════════════════════════
-    // Phase 2: Device 1 creates ledger block
+    // Phase 2: Device 1 creates journal entry
     // ════════════════════════════════════════════════════════════
-    let mut block = JournalEntry::new(
+    let mut entry = JournalEntry::new(
         device1_pub,
         Uuid::new_v4(),
-        0,  // Genesis block
+        0,  // Genesis entry
         blake2b_256(&device1_pub),
         vec![tx.clone()],
         HashMap::new(),
     );
 
-    block.compute_entry_hash().expect("Hash computation failed");
-    block.sign_with_device_key(&device1_priv).expect("Signing failed");
+    entry.compute_entry_hash().expect("Hash computation failed");
+    entry.sign_with_device_key(&device1_priv).expect("Signing failed");
 
-    // Verify block locally
-    assert!(block.verify().is_ok(), "Block verification failed");
-    assert_eq!(block.sync_status, SyncStatus::Pending);
+    // Verify entry locally (pass device key; for genesis, device key = user key)
+    assert!(entry.verify(&device1_pub).is_ok(), "Entry verification failed");
+    assert_eq!(entry.sync_status, SyncStatus::Pending);
 
     // ════════════════════════════════════════════════════════════
     // Phase 3: Device submits to super-peer
@@ -473,68 +491,77 @@ async fn test_complete_offline_to_sync_flow() {
     let storage = setup_test_db().await;
     let mut super_peer = MockSuperPeer::new(storage, sp_priv);
 
-    let result = super_peer.validate_block(&block).await;
+    let result = super_peer.validate_entry(&entry).await;
     assert!(result.is_ok(), "Super-peer validation failed: {:?}", result.err());
 
     // ════════════════════════════════════════════════════════════
-    // Phase 4: Super-peer confirms block
+    // Phase 4: Super-peer confirms entry
     // ════════════════════════════════════════════════════════════
-    let confirmed = super_peer.confirm_block(&block).await;
+    let confirmed = super_peer.confirm_entry(&entry).await;
     assert!(confirmed.is_ok());
 
     let confirmations = confirmed.unwrap().super_peer_confirmations;
     assert!(confirmations.len() >= 1, "Need at least 1 confirmation");
 
     // ════════════════════════════════════════════════════════════
-    // Phase 5: Device 2 syncs and gets the block
+    // Phase 5: Device 2 syncs and gets the entry
     // ════════════════════════════════════════════════════════════
-    let synced_block = super_peer.get_block(block.block_id).await;
-    assert!(synced_block.is_ok());
+    let synced_entry = super_peer.get_entry(entry.entry_id).await;
+    assert!(synced_entry.is_ok());
 
-    let synced = synced_block.unwrap();
-    assert_eq!(synced.entry_hash, block.entry_hash);
+    let synced = synced_entry.unwrap();
+    assert_eq!(synced.entry_hash, entry.entry_hash);
     assert!(synced.super_peer_confirmations.len() >= 1);
 }
 
 #[tokio::test]
 async fn test_double_spend_detection() {
-    // Create two competing blocks with same prev_hash
+    // Setup: create and confirm a genesis entry first
     let (pub_key, priv_key) = generate_keypair();
-    
-    let mut block_a = JournalEntry::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], HashMap::new());
-    let mut block_b = JournalEntry::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], HashMap::new());
+    let genesis_prev_hash = blake2b_256(&pub_key);
 
-    block_a.compute_entry_hash().unwrap();
-    block_a.sign_with_device_key(&priv_key).unwrap();
+    let mut genesis = JournalEntry::new(pub_key, Uuid::new_v4(), 0, genesis_prev_hash, vec![], HashMap::new());
+    genesis.compute_entry_hash().unwrap();
+    genesis.sign_with_device_key(&priv_key).unwrap();
 
-    block_b.compute_entry_hash().unwrap();
-    block_b.sign_with_device_key(&priv_key).unwrap();
-
-    // Submit both to super-peer
     let storage = setup_test_db().await;
     let super_peer = MockSuperPeer::new(storage, [0u8; 32]);
+    super_peer.validate_entry(&genesis).await.unwrap();
 
-    let result_a = super_peer.validate_block(&block_a).await;
+    // Attack: create two competing entries at sequence 1, both chaining from genesis
+    // This simulates the same user spending on two devices while offline
+    let mut entry_a = JournalEntry::new(pub_key, Uuid::new_v4(), 1, genesis.entry_hash, vec![], HashMap::new());
+    let mut entry_b = JournalEntry::new(pub_key, Uuid::new_v4(), 1, genesis.entry_hash, vec![], HashMap::new());
+
+    entry_a.compute_entry_hash().unwrap();
+    entry_a.sign_with_device_key(&priv_key).unwrap();
+
+    entry_b.compute_entry_hash().unwrap();
+    entry_b.sign_with_device_key(&priv_key).unwrap();
+
+    // First entry succeeds
+    let result_a = super_peer.validate_entry(&entry_a).await;
     assert!(result_a.is_ok());
 
-    let result_b = super_peer.validate_block(&block_b).await;
-    assert!(result_b.is_err(), "Second block should be rejected as double-spend");
+    // Second entry with same prev_entry_hash = fork detected = double-spend
+    let result_b = super_peer.validate_entry(&entry_b).await;
+    assert!(result_b.is_err(), "Second entry should be rejected as double-spend");
 }
 
 #[tokio::test]
 async fn test_out_of_sequence_rejection() {
     let (pub_key, priv_key) = generate_keypair();
 
-    // Create block with sequence 5 (but should be 0)
-    let mut block = JournalEntry::new(pub_key, Uuid::new_v4(), 5, [0u8; 32], vec![], HashMap::new());
-    block.compute_entry_hash().unwrap();
-    block.sign_with_device_key(&priv_key).unwrap();
+    // Create entry with sequence 5 (but should be 0)
+    let mut entry = JournalEntry::new(pub_key, Uuid::new_v4(), 5, [0u8; 32], vec![], HashMap::new());
+    entry.compute_entry_hash().unwrap();
+    entry.sign_with_device_key(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
     let super_peer = MockSuperPeer::new(storage, [0u8; 32]);
 
-    let result = super_peer.validate_block(&block).await;
-    assert!(result.is_err(), "Out-of-sequence block should be rejected");
+    let result = super_peer.validate_entry(&entry).await;
+    assert!(result.is_err(), "Out-of-sequence entry should be rejected");
     
     match result.err() {
         Some(CylinderSealError::OutOfSequence { expected: 0, got: 5 }) => (),
@@ -554,7 +581,7 @@ async fn test_nonce_chain_validation() {
     let mut tx2 = Transaction::new(/* ... */, [42u8; 32]);  // Wrong previous nonce!
     tx2.sign(&priv_key).unwrap();
 
-    let block = JournalEntry::new(
+    let entry = JournalEntry::new(
         pub_key,
         Uuid::new_v4(),
         0,
@@ -566,7 +593,7 @@ async fn test_nonce_chain_validation() {
     let storage = setup_test_db().await;
     let super_peer = MockSuperPeer::new(storage, [0u8; 32]);
 
-    let result = super_peer.validate_block(&block).await;
+    let result = super_peer.validate_entry(&entry).await;
     assert!(result.is_err(), "Nonce chain break should be detected");
 }
 
@@ -575,25 +602,25 @@ async fn test_vector_clock_backward_detection() {
     let user_id = Uuid::new_v4();
     let (pub_key, priv_key) = generate_keypair();
 
-    // Block 1: vector_clock has user_id: 5
+    // Entry 1: vector_clock has user_id: 5
     let mut clock1 = HashMap::new();
     clock1.insert(user_id, 5u64);
-    let mut block1 = JournalEntry::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], clock1);
-    block1.compute_entry_hash().unwrap();
-    block1.sign_with_device_key(&priv_key).unwrap();
+    let mut entry1 = JournalEntry::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], clock1);
+    entry1.compute_entry_hash().unwrap();
+    entry1.sign_with_device_key(&priv_key).unwrap();
 
-    // Block 2: vector_clock has user_id: 4 (went backward!)
+    // Entry 2: vector_clock has user_id: 4 (went backward!)
     let mut clock2 = HashMap::new();
     clock2.insert(user_id, 4u64);
-    let mut block2 = JournalEntry::new(pub_key, Uuid::new_v4(), 2, block1.entry_hash, vec![], clock2);
-    block2.compute_entry_hash().unwrap();
-    block2.sign_with_device_key(&priv_key).unwrap();
+    let mut entry2 = JournalEntry::new(pub_key, Uuid::new_v4(), 2, entry1.entry_hash, vec![], clock2);
+    entry2.compute_entry_hash().unwrap();
+    entry2.sign_with_device_key(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
     let super_peer = MockSuperPeer::new(storage, [0u8; 32]);
 
-    super_peer.validate_block(&block1).await.expect("Block 1 should be valid");
-    let result = super_peer.validate_block(&block2).await;
+    super_peer.validate_entry(&entry1).await.expect("Entry 1 should be valid");
+    let result = super_peer.validate_entry(&entry2).await;
 
     assert!(result.is_err(), "Vector clock backward should be detected");
 }
@@ -604,10 +631,12 @@ async fn test_device_daily_limit_enforcement() {
     let (pub_key, priv_key) = generate_keypair();
 
     // Create 11 transactions of 10 OWC each = 110 OWC (exceeds 100 OWC daily limit)
+    let hw = HardwareIds::new("serial123".to_string(), "imei456".to_string());
     let mut transactions = vec![];
     let mut prev_nonce = blake2b_256(&pub_key);
 
-    for _ in 0..11 {
+    for i in 0..11 {
+        let current_nonce = derive_nonce_with_hardware(&prev_nonce, &hw, i + 1).unwrap();
         let mut tx = Transaction::new(
             pub_key,
             [0u8; 32],
@@ -618,13 +647,18 @@ async fn test_device_daily_limit_enforcement() {
             "".to_string(),
             device_id,
             prev_nonce,
+            current_nonce,
+            -1.286389,
+            36.817223,
+            10,
+            LocationSource::GPS,
         );
         tx.sign(&priv_key).unwrap();
         prev_nonce = tx.current_nonce;
         transactions.push(tx);
     }
 
-    let mut block = JournalEntry::new(
+    let mut entry = JournalEntry::new(
         pub_key,
         device_id,
         0,
@@ -632,13 +666,13 @@ async fn test_device_daily_limit_enforcement() {
         transactions,
         HashMap::new(),
     );
-    block.compute_entry_hash().unwrap();
-    block.sign_with_device_key(&priv_key).unwrap();
+    entry.compute_entry_hash().unwrap();
+    entry.sign_with_device_key(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
     let super_peer = MockSuperPeer::new(storage, [0u8; 32]);
 
-    let result = super_peer.validate_block(&block).await;
+    let result = super_peer.validate_entry(&entry).await;
     assert!(result.is_err(), "Daily limit should be enforced");
 }
 ```
@@ -658,8 +692,9 @@ proptest! {
         prev_nonce in prop::array::uniform32(any::<u8>()),
         counter in any::<u64>()
     ) {
-        let nonce1 = derive_deterministic_nonce(&prev_nonce, counter);
-        let nonce2 = derive_deterministic_nonce(&prev_nonce, counter);
+        let hw = HardwareIds::new("serial123".to_string(), "imei456".to_string());
+        let nonce1 = derive_nonce_with_hardware(&prev_nonce, &hw, counter).unwrap();
+        let nonce2 = derive_nonce_with_hardware(&prev_nonce, &hw, counter).unwrap();
         
         prop_assert_eq!(nonce1, nonce2);
     }
@@ -732,17 +767,17 @@ async fn test_replay_attack_prevented() {
     let mut tx = Transaction::new(/* ... */);
     tx.sign(&priv_key).unwrap();
 
-    let block1 = create_block_with_tx(tx.clone());
+    let entry1 = create_entry_with_tx(tx.clone());
     let storage = setup_test_db().await;
     let super_peer = MockSuperPeer::new(storage, [0u8; 32]);
 
-    // Submit block with tx
-    super_peer.validate_block(&block1).await.ok();
+    // Submit entry with tx
+    super_peer.validate_entry(&entry1).await.ok();
 
-    // Try to replay: create new block with same tx (same nonce)
-    let block2 = create_block_with_tx(tx);  // Same tx, same nonce
+    // Try to replay: create new entry with same tx (same nonce)
+    let entry2 = create_entry_with_tx(tx);  // Same tx, same nonce
 
-    let result = super_peer.validate_block(&block2).await;
+    let result = super_peer.validate_entry(&entry2).await;
     assert!(result.is_err(), "Replay attack must be prevented");
 }
 
@@ -750,23 +785,23 @@ async fn test_replay_attack_prevented() {
 async fn test_clock_skew_attack_prevented() {
     let (pub_key, priv_key) = generate_keypair();
 
-    // Block 1: created at monotonic_time = 1000
-    let mut block1 = JournalEntry::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], HashMap::new());
-    block1.monotonic_created_nanos = 1000;
-    block1.compute_entry_hash().unwrap();
-    block1.sign_with_device_key(&priv_key).unwrap();
+    // Entry 1: created at monotonic_time = 1000
+    let mut entry1 = JournalEntry::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], HashMap::new());
+    entry1.monotonic_created_nanos = 1000;
+    entry1.compute_entry_hash().unwrap();
+    entry1.sign_with_device_key(&priv_key).unwrap();
 
-    // Block 2: attacker tries to set earlier monotonic_time = 500
-    let mut block2 = JournalEntry::new(pub_key, Uuid::new_v4(), 2, block1.entry_hash, vec![], HashMap::new());
-    block2.monotonic_created_nanos = 500;  // Goes backward!
-    block2.compute_entry_hash().unwrap();
-    block2.sign_with_device_key(&priv_key).unwrap();
+    // Entry 2: attacker tries to set earlier monotonic_time = 500
+    let mut entry2 = JournalEntry::new(pub_key, Uuid::new_v4(), 2, entry1.entry_hash, vec![], HashMap::new());
+    entry2.monotonic_created_nanos = 500;  // Goes backward!
+    entry2.compute_entry_hash().unwrap();
+    entry2.sign_with_device_key(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
     let super_peer = MockSuperPeer::new(storage, [0u8; 32]);
 
-    super_peer.validate_block(&block1).await.ok();
-    let result = super_peer.validate_block(&block2).await;
+    super_peer.validate_entry(&entry1).await.ok();
+    let result = super_peer.validate_entry(&entry2).await;
 
     assert!(result.is_err(), "Clock skew attack must be prevented");
 }
@@ -777,17 +812,9 @@ async fn test_device_cloning_detected() {
     let device_id = Uuid::new_v4();
 
     // Device creates transaction with nonce bound to its IMEI
-    let hw_ids = HardwareIds {
-        imei: "123456789".to_string(),
-        serial: "ABC123".to_string(),
-        // ...
-    };
-
-    let nonce1 = derive_nonce_with_hardware(
-        &[0u8; 32],
-        &hw_ids,
-        1
-    );
+    let hw_ids = HardwareIds::new("ABC123".to_string(), "123456789".to_string());
+    let prev_nonce = [0u8; 32];
+    let nonce1 = derive_nonce_with_hardware(&prev_nonce, &hw_ids, 1).unwrap();
 
     // Attacker clones device (IMEI copied) but submits transaction with different device_id
     let cloned_device_id = Uuid::new_v4();  // Different device ID
@@ -800,9 +827,13 @@ async fn test_device_cloning_detected() {
         PaymentChannel::Online,
         "".to_string(),
         cloned_device_id,  // Cloned device
-        [0u8; 32],
+        prev_nonce,
+        nonce1,
+        -1.286389,
+        36.817223,
+        10,
+        LocationSource::GPS,
     );
-    tx.current_nonce = nonce1;
     tx.sign(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
@@ -819,10 +850,12 @@ async fn test_key_compromise_limited_by_daily_limit() {
 
     // Attacker has compromised device key
     // Try to spend more than daily limit
+    let hw = HardwareIds::new("serial123".to_string(), "imei456".to_string());
     let mut transactions = vec![];
     let mut prev_nonce = [0u8; 32];
 
     for i in 0..11 {
+        let current_nonce = derive_nonce_with_hardware(&prev_nonce, &hw, i + 1).unwrap();
         let mut tx = Transaction::new(
             pub_key,
             [0u8; 32],
@@ -833,13 +866,18 @@ async fn test_key_compromise_limited_by_daily_limit() {
             format!("Tx {}", i),
             device_id,
             prev_nonce,
+            current_nonce,
+            -1.286389,
+            36.817223,
+            10,
+            LocationSource::GPS,
         );
         tx.sign(&priv_key).unwrap();
         prev_nonce = tx.current_nonce;
         transactions.push(tx);
     }
 
-    let mut block = JournalEntry::new(
+    let mut entry = JournalEntry::new(
         pub_key,
         device_id,
         0,
@@ -847,19 +885,23 @@ async fn test_key_compromise_limited_by_daily_limit() {
         transactions,
         HashMap::new(),
     );
-    block.compute_entry_hash().unwrap();
-    block.sign_with_device_key(&priv_key).unwrap();
+    entry.compute_entry_hash().unwrap();
+    entry.sign_with_device_key(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
     let super_peer = MockSuperPeer::new(storage, [0u8; 32]);
 
-    let result = super_peer.validate_block(&block).await;
+    let result = super_peer.validate_entry(&entry).await;
     assert!(result.is_err(), "Daily limit should prevent large fraud");
 }
 
 #[tokio::test]
 async fn test_witness_requirement_for_large_tx() {
     let (pub_key, priv_key) = generate_keypair();
+
+    let hw = HardwareIds::new("serial123".to_string(), "imei456".to_string());
+    let prev_nonce = [0u8; 32];
+    let current_nonce = derive_nonce_with_hardware(&prev_nonce, &hw, 1).unwrap();
 
     let mut tx = Transaction::new(
         pub_key,
@@ -870,19 +912,24 @@ async fn test_witness_requirement_for_large_tx() {
         PaymentChannel::Online,
         "Large payment".to_string(),
         Uuid::new_v4(),
-        [0u8; 32],
+        prev_nonce,
+        current_nonce,
+        -1.286389,
+        36.817223,
+        10,
+        LocationSource::GPS,
     );
     tx.sign(&priv_key).unwrap();
 
-    let mut block = JournalEntry::new(pub_key, Uuid::new_v4(), 0, [0u8; 32], vec![tx], HashMap::new());
-    block.compute_entry_hash().unwrap();
-    block.sign_with_device_key(&priv_key).unwrap();
+    let mut entry = JournalEntry::new(pub_key, Uuid::new_v4(), 0, [0u8; 32], vec![tx], HashMap::new());
+    entry.compute_entry_hash().unwrap();
+    entry.sign_with_device_key(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
     let super_peer = MockSuperPeer::new(storage, [0u8; 32]);
 
     // Validation should require witness signature
-    let result = super_peer.validate_large_transaction(&block.transactions[0]).await;
+    let result = super_peer.validate_large_transaction(&entry.transactions[0]).await;
     assert!(result.is_err(), "Large transaction must require witness");
 }
 ```
@@ -920,7 +967,7 @@ fn test_no_floats_in_amounts() {
 
     // This is correct:
     let amount: i64 = 1_500_000;  // 1.5 OWC in micro-OWC
-    let _tx = Transaction { amount_owc: amount };
+    assert!(amount > 0, "Amount must be positive i64 micro-OWC");
 }
 ```
 
@@ -943,18 +990,39 @@ pub async fn process_transaction(tx: &Transaction) -> Result<()> {
     Ok(())
 }
 
-/// GUARDRAIL: Panic if signature verification is skipped
+/// GUARDRAIL: Tampered transaction must fail signature verification
 #[test]
-#[should_panic]
-fn test_panic_if_skipping_signature_verification() {
+fn test_tampered_transaction_fails_verification() {
     let (pub_key, priv_key) = generate_keypair();
-    let mut tx = Transaction::new(/* ... */);
-    tx.sign(&priv_key).unwrap();
-    tx.amount_owc = 999_000_000;  // Tamper
+    let hw = HardwareIds::new("serial123".to_string(), "imei456".to_string());
+    let prev_nonce = [0u8; 32];
+    let current_nonce = derive_nonce_with_hardware(&prev_nonce, &hw, 1).unwrap();
 
-    // Process WITHOUT verifying (should panic in production)
-    assert!(!tx.signature.is_empty());  // Signature exists
-    // In production, this would assert that verification was called
+    let mut tx = Transaction::new(
+        pub_key,
+        [0u8; 32],
+        50_000_000,
+        "KES".to_string(),
+        Decimal::one(),
+        PaymentChannel::NFC,
+        "test".to_string(),
+        Uuid::new_v4(),
+        prev_nonce,
+        current_nonce,
+        -1.286389,
+        36.817223,
+        10,
+        LocationSource::GPS,
+    );
+    tx.sign(&priv_key).unwrap();
+    assert!(tx.verify_signature().is_ok(), "Valid signature should pass");
+
+    // Tamper with amount after signing
+    tx.amount_owc = 999_000_000;
+
+    // Verification MUST fail — this is the critical security invariant
+    assert!(tx.verify_signature().is_err(),
+        "Tampered transaction must fail signature verification");
 }
 ```
 
@@ -963,11 +1031,11 @@ fn test_panic_if_skipping_signature_verification() {
 ```rust
 /// GUARDRAIL: Sequence numbers must always increment by exactly 1
 pub async fn validate_sequence(
-    block: &JournalEntry,
-    last_block: &JournalEntry,
+    entry: &JournalEntry,
+    last_entry: &JournalEntry,
 ) -> Result<()> {
-    let expected = last_block.sequence_number + 1;
-    let actual = block.sequence_number;
+    let expected = last_entry.sequence_number + 1;
+    let actual = entry.sequence_number;
 
     if actual != expected {
         return Err(CylinderSealError::OutOfSequence {
@@ -981,7 +1049,7 @@ pub async fn validate_sequence(
         "Sequence validated: expected={}, actual={}, entry_hash={}",
         expected,
         actual,
-        hex::encode(block.entry_hash)
+        hex::encode(entry.entry_hash)
     );
 
     Ok(())
@@ -1001,23 +1069,23 @@ fn test_sequence_number_can_never_decrease() {
 ### 4. Cryptographic Invariant Guardrails
 
 ```rust
-/// GUARDRAIL: Block hash must match recomputed hash
-pub async fn validate_entry_hash(block: &JournalEntry) -> Result<()> {
-    let canonical = block.canonical_cbor_for_hashing()?;
+/// GUARDRAIL: Entry hash must match recomputed hash
+pub async fn validate_entry_hash(entry: &JournalEntry) -> Result<()> {
+    let canonical = entry.canonical_cbor_for_hashing()?;
     let expected_hash = blake2b_256(&canonical);
 
-    if expected_hash != block.entry_hash {
+    if expected_hash != entry.entry_hash {
         // This is a serious error - log, alert, quarantine
         tracing::error!(
-            "Block hash mismatch! expected={}, actual={}, user={:?}",
+            "Entry hash mismatch! expected={}, actual={}, user={:?}",
             hex::encode(expected_hash),
-            hex::encode(block.entry_hash),
-            block.user_public_key
+            hex::encode(entry.entry_hash),
+            entry.user_public_key
         );
 
         // Alert operations
         send_alert_to_opscall(
-            "CRITICAL: Block hash validation failed",
+            "CRITICAL: Entry hash validation failed",
             SeverityLevel::Critical,
         ).await?;
 
@@ -1116,45 +1184,50 @@ pub async fn validate_attestation_for_amount(
 ```rust
 /// GUARDRAIL: Double-spend detection
 pub async fn detect_double_spend(
-    block_a: &JournalEntry,
-    block_b: &JournalEntry,
+    entry_a: &JournalEntry,
+    entry_b: &JournalEntry,
 ) -> Result<ConflictResolution> {
-    if block_a.prev_entry_hash != block_b.prev_entry_hash {
+    if entry_a.prev_entry_hash != entry_b.prev_entry_hash {
         return Err(CylinderSealError::InternalError(
-            "Blocks don't have same parent".to_string(),
+            "Entries don't have same parent".to_string(),
         ));
     }
 
-    if block_a.user_public_key != block_b.user_public_key {
+    if entry_a.user_public_key != entry_b.user_public_key {
         return Err(CylinderSealError::InternalError(
-            "Blocks are from different users".to_string(),
+            "Entries are from different users".to_string(),
         ));
     }
 
     // Found fork - resolve deterministically
     tracing::warn!(
-        "DOUBLE-SPEND DETECTED: user={:?}, block_a={}, block_b={}",
-        block_a.user_public_key,
-        hex::encode(block_a.entry_hash),
-        hex::encode(block_b.entry_hash)
+        "DOUBLE-SPEND DETECTED: user={:?}, entry_a={}, entry_b={}",
+        entry_a.user_public_key,
+        hex::encode(entry_a.entry_hash),
+        hex::encode(entry_b.entry_hash)
     );
 
-    let winner = if block_a.sequence_number > block_b.sequence_number {
-        &block_a
-    } else if block_b.sequence_number > block_a.sequence_number {
-        &block_b
+    // In a double-spend, both entries compete for the same sequence slot,
+    // so sequence numbers are typically equal. The primary tiebreaker is
+    // the lexicographic entry hash, which is deterministic and ensures
+    // all super-peers reach the same conclusion without coordination.
+    let winner = if entry_a.sequence_number > entry_b.sequence_number {
+        &entry_a
+    } else if entry_b.sequence_number > entry_a.sequence_number {
+        &entry_b
     } else {
-        // Deterministic tiebreaker: lexicographic block hash
-        if block_a.entry_hash < block_b.entry_hash {
-            &block_a
+        // Deterministic tiebreaker: lexicographic entry hash
+        // This is the common case in double-spend scenarios
+        if entry_a.entry_hash < entry_b.entry_hash {
+            &entry_a
         } else {
-            &block_b
+            &entry_b
         }
     };
 
     Ok(ConflictResolution {
         winner_hash: winner.entry_hash,
-        loser_hash: if winner == &block_a { block_b.entry_hash } else { block_a.entry_hash },
+        loser_hash: if winner == &entry_a { entry_b.entry_hash } else { entry_a.entry_hash },
     })
 }
 ```

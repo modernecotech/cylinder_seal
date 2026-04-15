@@ -11,9 +11,9 @@ impl GossipClient {
         Self {}
     }
 
-    /// Announce a confirmed block to peer super-nodes
-    pub async fn announce_block(&self) -> Result<()> {
-        // TODO: send block hash + user_id to peers for conflict detection
+    /// Announce a confirmed journal entry to peer super-nodes
+    pub async fn announce_entry(&self) -> Result<()> {
+        // TODO: send entry hash + user_id to peers for conflict detection
         Ok(())
     }
 

@@ -600,12 +600,13 @@ pub async fn resolve_marketplace_dispute(
 
 ## Marketplace Revenue Model
 
-| Revenue Stream | Year 1 | Year 2 | Year 3 |
-|---|---|---|---|
-| **Transaction Fees** | 1-2% per marketplace purchase | Scales with GMV | ~$50M+ estimated |
-| **Seller Success Fees** | 2% on P2P lending (sellers as lenders) | Premium seller badge ($1/month) | Premium features |
-| **Data Insights** | Anonymized commerce trends (CPG) | Real-time regional demand signals | $100K+/month |
-| **Total Marketplace Revenue** | $150K-500K Y1 | $3M-5M Y2 | $50M+ Y3 |
+All marketplace transactions are completely free. Zero fees, zero commissions, zero spread. CylinderSeal monetizes credit data (B2B), not transactions.
+
+| Revenue Stream | Description | How It Scales |
+|---|---|---|
+| **B2B Credit Data** | Marketplace activity builds credit profiles sold to MFIs/insurers | More sellers = more profiles = more B2B revenue |
+| **Data Insights** | Anonymized commerce trends for CPG companies | Real-time regional demand signals ($100K+/month) |
+| **Super-Peer Licensing** | Federation fees from operators running nodes | More commerce = more demand for local nodes |
 
 ---
 
@@ -680,9 +681,9 @@ Marketplace backend updates order status
 - <0.5% fraud rate
 
 ✅ **Economics:**
-- $0.50-2.00 transaction fee per order
-- Year 1 marketplace revenue: $500K-2M
-- Year 3 marketplace revenue: $50M+
+- All transactions completely free (zero fees)
+- Revenue from B2B credit data licensing (marketplace activity builds credit profiles)
+- More marketplace users = more credit profiles = more B2B revenue
 
 ---
 

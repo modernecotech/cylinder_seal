@@ -1,5 +1,5 @@
 // Redis connection and utilities
-use deadpool_redis::{Config, ConnectionPool};
+use deadpool_redis::{Config, Pool};
 
 #[derive(Clone)]
 pub struct RedisConfig {
@@ -23,7 +23,7 @@ impl RedisConfig {
         }
     }
 
-    pub async fn connect(&self) -> Result<ConnectionPool, deadpool_redis::CreatePoolError> {
+    pub async fn connect(&self) -> Result<Pool, deadpool_redis::CreatePoolError> {
         let cfg = Config::from_url(&format!(
             "redis://{}:{}/{}",
             self.host, self.port, self.database

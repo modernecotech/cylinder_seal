@@ -26,8 +26,8 @@ pub enum CylinderSealError {
     #[error("Out of sequence: expected {expected}, got {got}")]
     OutOfSequence { expected: u64, got: u64 },
 
-    #[error("Block not found")]
-    BlockNotFound,
+    #[error("Entry not found")]
+    EntryNotFound,
 
     #[error("User not found")]
     UserNotFound,
@@ -58,6 +58,9 @@ pub enum CylinderSealError {
 
     #[error("Device ID mismatch: {0}")]
     DeviceIdMismatch(String),
+
+    #[error("Device compromised (jailbroken/rooted)")]
+    DeviceCompromised,
 
     #[error("Internal error: {0}")]
     InternalError(String),

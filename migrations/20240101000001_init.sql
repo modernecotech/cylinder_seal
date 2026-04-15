@@ -3,7 +3,6 @@
 
 -- Enable required extensions
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE EXTENSION IF NOT EXISTS "pg_partman" CASCADE;
 
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
@@ -21,13 +20,13 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE INDEX idx_users_public_key ON users(public_key);
 CREATE INDEX idx_users_kyc_tier ON users(kyc_tier);
 
--- Ledger entries (chain log) - the core audit store
+-- Ledger entries (journal log) - the core audit store
 CREATE TABLE IF NOT EXISTS ledger_entries (
     id BIGSERIAL PRIMARY KEY,
     user_id UUID NOT NULL REFERENCES users(user_id),
-    block_hash BYTEA NOT NULL UNIQUE,
-    prev_block_hash BYTEA NOT NULL,
-    block_data JSONB NOT NULL,
+    entry_hash BYTEA NOT NULL UNIQUE,
+    prev_entry_hash BYTEA NOT NULL,
+    entry_data JSONB NOT NULL,
     sequence_number BIGINT NOT NULL,
     submitted_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
     confirmed_at TIMESTAMP WITH TIME ZONE,
@@ -49,10 +48,12 @@ SELECT
         WHEN t->>'direction' = 'debit' THEN -(t->>'amount')::BIGINT
         ELSE (t->>'amount')::BIGINT
     END) AS balance_owc,
-    MAX(l.block_hash) AS last_confirmed_block,
+    (SELECT le.entry_hash FROM ledger_entries le
+     WHERE le.user_id = l.user_id AND le.confirmed_at IS NOT NULL
+     ORDER BY le.confirmed_at DESC LIMIT 1) AS last_confirmed_entry,
     MAX(l.confirmed_at) AS last_sync_at
 FROM ledger_entries l
-CROSS JOIN LATERAL jsonb_array_elements(l.block_data->'transactions') AS t
+CROSS JOIN LATERAL jsonb_array_elements(l.entry_data->'transactions') AS t
 WHERE l.confirmed_at IS NOT NULL
 GROUP BY l.user_id;
 
@@ -62,7 +63,7 @@ CREATE UNIQUE INDEX idx_super_ledger_summary_user_id ON super_ledger_summary(use
 CREATE TABLE IF NOT EXISTS conflict_log (
     id BIGSERIAL PRIMARY KEY,
     user_id UUID NOT NULL REFERENCES users(user_id),
-    conflicting_blocks JSONB NOT NULL,
+    conflicting_entries JSONB NOT NULL,
     resolution_status VARCHAR(50) NOT NULL DEFAULT 'pending' CHECK (resolution_status IN ('pending', 'resolved', 'escalated')),
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
     resolved_at TIMESTAMP WITH TIME ZONE,

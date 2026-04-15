@@ -94,24 +94,24 @@ pub async fn validate_transaction(tx: &Transaction) -> Result<()> {
 // Collect transactions
 val transactions = listOf(tx1, tx2, tx3)  // All signed
 
-// Create block
-var block = JournalEntry(
+// Create entry
+var entry = JournalEntry(
     user_public_key = userPublicKey,
     device_id = deviceId,
-    sequence_number = lastBlock.sequence_number + 1,
-    prev_entry_hash = lastBlock.entry_hash,
+    sequence_number = lastEntry.sequence_number + 1,
+    prev_entry_hash = lastEntry.entry_hash,
     transactions = transactions,
-    vector_clock = updateVectorClock(lastBlock.vector_clock),  // Add our sequence
+    vector_clock = updateVectorClock(lastEntry.vector_clock),  // Add our sequence
 )
 
 // Compute hash
-block.computeBlockHash()
+entry.computeEntryHash()
 
 // Sign with device key
-block.signWithDeviceKey(devicePrivateKey)
+entry.signWithDeviceKey(devicePrivateKey)
 
 // Store locally
-ledger.append(block)
+ledger.append(entry)
 ```
 
 ### Processing Encrypted Transactions
@@ -170,15 +170,15 @@ pub async fn check_duplicate_by_hash(
 - [ ] Device has sufficient pending balance
 - [ ] Device daily limit not exceeded
 
-### Before Syncing a Block to Super-Peer
-- [ ] Block hash is correct (recompute and verify)
+### Before Syncing an Entry to Super-Peer
+- [ ] Entry hash is correct (recompute and verify)
 - [ ] All transaction signatures are valid
 - [ ] Sequence number is exactly last + 1
-- [ ] prev_entry_hash matches last block
+- [ ] prev_entry_hash matches last entry
 - [ ] Vector clock doesn't go backward
 - [ ] Monotonic clock is monotonically increasing
 
-### Before Confirming a Block at Super-Peer
+### Before Confirming an Entry at Super-Peer
 - [ ] Device attestation is valid
 - [ ] Device reputation score is acceptable (or escalate)
 - [ ] Geographic anomalies checked
@@ -193,15 +193,15 @@ pub async fn check_duplicate_by_hash(
 ### "Sequence Number Mismatch"
 ```
 Expected: 5, Got: 7
-→ Device submitted blocks out of order
-→ Device must submit all blocks 5, 6 in order first
+→ Device submitted entries out of order
+→ Device must submit entries 5, 6 in order first
 → Check device sync queue
 ```
 
 ### "Vector Clock Went Backward"
 ```
-Block A: vector_clock = {alice: 5, bob: 3}
-Block B: vector_clock = {alice: 5, bob: 2}  ← ERROR
+Entry A: vector_clock = {alice: 5, bob: 3}
+Entry B: vector_clock = {alice: 5, bob: 2}  ← ERROR
 → Monotonic causality violation
 → Possible attack: clock manipulation
 → Check device monotonic_clock_nanos
@@ -219,7 +219,7 @@ Got previous_nonce: B
 ### "Super-Peer Returned Insufficient Confirmations"
 ```
 Got: 2 signatures, Need: 3
-→ 1 super-peer is down or rejecting block
+→ 1 super-peer is down or rejecting entry
 → Check which peer rejected it
 → Retry after peer recovery
 ```
@@ -240,7 +240,7 @@ Score: 35 (needs >= 40)
 | Operation | Target | Reality |
 |-----------|--------|---------|
 | Transaction signing | < 50ms | ~10ms (Ed25519) |
-| Block hashing | < 50ms | ~5ms (BLAKE2b) |
+| Entry hashing | < 50ms | ~5ms (BLAKE2b) |
 | NFC exchange | < 500ms | ~300ms (APDU handshake) |
 | BLE exchange | < 2s | ~1-1.5s (GATT write) |
 | Device attestation | < 500ms | ~200-400ms (SafetyNet) |
@@ -299,13 +299,13 @@ Setup:
   Both offline
 
 Attack:
-  Device A: creates Block 5, spends 100 OWC
-  Device B: creates Block 5, spends 100 OWC
+  Device A: creates entry 5, spends 100 OWC
+  Device B: creates entry 5, spends 100 OWC
   
 Result:
-  Both blocks have same sequence, same prev_hash
+  Both entries have same sequence, same prev_hash
   Super-peer detects fork
-  Loser block is quarantined
+  Loser entry is quarantined
   Credit score penalized
 ```
 
@@ -325,11 +325,11 @@ fun testCertificatePinning() {
 **Signature Verification:**
 ```rust
 #[test]
-fn test_tampered_block_rejected() {
-    let mut block = create_valid_block();
-    block.amount_owc += 1;  // Tamper
+fn test_tampered_entry_rejected() {
+    let mut entry = create_valid_entry();
+    entry.amount_owc += 1;  // Tamper
     
-    assert!(block.verify().is_err());
+    assert!(entry.verify(&device_pub_key).is_err());
 }
 ```
 
@@ -379,21 +379,21 @@ tx.memo = "updated memo";  // Signature is now invalid!
 // Create new transaction if memo needs to change
 ```
 
-### ❌ Mistake 5: Accepting Out-of-Order Blocks
+### Mistake 5: Accepting Out-of-Order Entries
 ```rust
 // WRONG
-for block in submitted_blocks {
-    process(block)  // What if sequences are [1, 3, 2]?
+for entry in submitted_entries {
+    process(entry)  // What if sequences are [1, 3, 2]?
 }
 
 // CORRECT
 let mut expected = last_sequence + 1;
-for block in submitted_blocks {
-    if block.sequence != expected {
+for entry in submitted_entries {
+    if entry.sequence != expected {
         return Err(OutOfSequence);
     }
     expected += 1;
-    process(block);
+    process(entry);
 }
 ```
 
@@ -449,8 +449,6 @@ for block in submitted_blocks {
 
 **Read in order:**
 1. This quick reference
-2. `/docs/IRON_SECURITY.md` (architecture)
-3. `/docs/SECURITY_VALIDATION.md` (validation rules)
-4. `/plan.md` (system design)
-
-Good luck building iron-grade security! 🔐
+2. `IRON_SECURITY.md` (architecture)
+3. `SECURITY_VALIDATION.md` (validation rules)
+4. `QUORUM_STATE_VOTING_DESIGN.md` (consensus design)

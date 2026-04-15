@@ -204,8 +204,8 @@ message CurrencyRateBundle {
     // When this rate batch expires (advisory)
     int64 expires_at = 3;
 
-    // Which spread tier applies (interbank vs retail)
-    string spread_source = 4;
+    // Rate source identifier (e.g., "interbank" — all rates are real, no markup)
+    string rate_source = 4;
 }
 
 // Initiate a fiat withdrawal/cash-out
