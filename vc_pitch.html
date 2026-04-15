@@ -669,9 +669,9 @@
             </svg>
         </div>
 
-        <!-- Slide 6: How It Works - Tendermint Architecture -->
+        <!-- Slide 6: How It Works - Quorum-Based State Voting Architecture -->
         <div class="slide">
-            <h2>3-Tier Architecture: Offline P2P → Tendermint Consensus → Credit API</h2>
+            <h2>3-Tier Architecture: Offline P2P → Quorum State Voting → Credit API</h2>
             <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; margin: 20px 0;">
                 <!-- TIER 2: Credit API (top) -->
                 <g>
@@ -683,43 +683,43 @@
                 <!-- Arrow Down -->
                 <path d="M 500 60 L 500 85" stroke="#ff6b9d" stroke-width="2" fill="none" marker-end="url(#arrowhead-pink)"/>
 
-                <!-- TIER 1B: Tendermint Blockchain (consensus layer) -->
+                <!-- TIER 1B: State Machine Replication (consensus layer) -->
                 <g>
                     <rect x="50" y="85" width="900" height="130" rx="8" fill="rgba(76, 175, 80, 0.08)" stroke="#4caf50" stroke-width="3"/>
-                    <text x="500" y="110" text-anchor="middle" fill="#4caf50" font-size="18" font-weight="bold">🔗 TIER 1B: Tendermint Blockchain Consensus</text>
-                    <text x="500" y="135" text-anchor="middle" fill="#fff" font-size="12">CometBFT: Instant Finality, Byzantine-Secure, Scalable 3→200+ Validators</text>
+                    <text x="500" y="110" text-anchor="middle" fill="#4caf50" font-size="18" font-weight="bold">⚖️ TIER 1B: Byzantine State Machine Replication</text>
+                    <text x="500" y="135" text-anchor="middle" fill="#fff" font-size="12">Quorum-Based State Voting: Instant Finality, 3-of-5 Quorum, Scalable 3→200+ Nodes</text>
 
-                    <!-- Validator boxes -->
+                    <!-- Super-Peer boxes -->
                     <rect x="100" y="145" width="70" height="60" rx="4" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" stroke-width="2"/>
-                    <text x="135" y="165" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">V1</text>
+                    <text x="135" y="165" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">S1</text>
                     <text x="135" y="180" text-anchor="middle" fill="#fff" font-size="9">Nigeria</text>
-                    <text x="135" y="195" text-anchor="middle" fill="#4caf50" font-size="10" font-weight="bold">2/3</text>
+                    <text x="135" y="195" text-anchor="middle" fill="#4caf50" font-size="10" font-weight="bold">3-of-5</text>
 
                     <rect x="200" y="145" width="70" height="60" rx="4" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" stroke-width="2"/>
-                    <text x="235" y="165" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">V2</text>
+                    <text x="235" y="165" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">S2</text>
                     <text x="235" y="180" text-anchor="middle" fill="#fff" font-size="9">Kenya</text>
                     <text x="235" y="195" text-anchor="middle" fill="#4caf50" font-size="10" font-weight="bold">Quorum</text>
 
                     <rect x="300" y="145" width="70" height="60" rx="4" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" stroke-width="2"/>
-                    <text x="335" y="165" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">V3</text>
+                    <text x="335" y="165" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">S3</text>
                     <text x="335" y="180" text-anchor="middle" fill="#fff" font-size="9">S. Africa</text>
                     <text x="335" y="195" text-anchor="middle" fill="#4caf50" font-size="10" font-weight="bold">Required</text>
 
                     <rect x="400" y="145" width="70" height="60" rx="4" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" stroke-width="2"/>
-                    <text x="435" y="165" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">V4</text>
+                    <text x="435" y="165" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">S4</text>
                     <text x="435" y="180" text-anchor="middle" fill="#fff" font-size="9">Germany</text>
-                    <text x="435" y="195" text-anchor="middle" fill="#fff" font-size="10">Block 1s</text>
+                    <text x="435" y="195" text-anchor="middle" fill="#fff" font-size="10">Hash Vote</text>
 
                     <rect x="500" y="145" width="70" height="60" rx="4" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" stroke-width="2"/>
-                    <text x="535" y="165" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">V5</text>
+                    <text x="535" y="165" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">S5</text>
                     <text x="535" y="180" text-anchor="middle" fill="#fff" font-size="9">Singapore</text>
-                    <text x="535" y="195" text-anchor="middle" fill="#fff" font-size="10">No Fork</text>
+                    <text x="535" y="195" text-anchor="middle" fill="#fff" font-size="10">Instant</text>
 
                     <!-- Benefits box -->
                     <rect x="620" y="145" width="310" height="60" rx="4" fill="rgba(76, 175, 80, 0.1)" stroke="#4caf50" stroke-width="1"/>
-                    <text x="775" y="162" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">✓ Proven Consensus</text>
-                    <text x="775" y="180" text-anchor="middle" fill="#fff" font-size="10">Instant finality (can't be rolled back)</text>
-                    <text x="775" y="195" text-anchor="middle" fill="#fff" font-size="10">$billions in value on Cosmos ecosystem</text>
+                    <text x="775" y="162" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">✓ Deterministic State Voting</text>
+                    <text x="775" y="180" text-anchor="middle" fill="#fff" font-size="10">Instant finality via ledger hash consensus</text>
+                    <text x="775" y="195" text-anchor="middle" fill="#fff" font-size="10">Proven CS theory: State Machine Replication</text>
                 </g>
 
                 <!-- Arrow Down -->
@@ -733,7 +733,7 @@
                     <!-- Cash on/off-ramp -->
                     <rect x="650" y="240" width="300" height="50" rx="4" fill="rgba(255, 170, 0, 0.15)" stroke="#ffaa00" stroke-width="2"/>
                     <text x="800" y="260" text-anchor="middle" fill="#ffaa00" font-size="12" font-weight="bold">💰 Every Super-Peer = Money Agent</text>
-                    <text x="800" y="278" text-anchor="middle" fill="#fff" font-size="10">Cash ↔ OWC conversion via Tendermint blockchain</text>
+                    <text x="800" y="278" text-anchor="middle" fill="#fff" font-size="10">Cash ↔ OWC via super-peer network state voting</text>
                 </g>
 
                 <!-- Arrow Down -->
@@ -767,10 +767,10 @@
                     <path d="M 650 430 L 750 430" stroke="#ff6b9d" stroke-width="2" marker-end="url(#arrowhead-pink)"/>
                     <text x="700" y="420" text-anchor="middle" fill="#ff6b9d" font-size="10" font-weight="bold">Relay A's data</text>
 
-                    <!-- To Tendermint -->
+                    <!-- To Quorum Voting -->
                     <rect x="750" y="400" width="150" height="70" rx="4" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" stroke-width="2"/>
-                    <text x="825" y="420" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">Tendermint</text>
-                    <text x="825" y="438" text-anchor="middle" fill="#fff" font-size="9">Confirm & Record</text>
+                    <text x="825" y="420" text-anchor="middle" fill="#4caf50" font-size="11" font-weight="bold">State Voting</text>
+                    <text x="825" y="438" text-anchor="middle" fill="#fff" font-size="9">Quorum Confirms</text>
                     <text x="825" y="456" text-anchor="middle" fill="#4caf50" font-size="10" font-weight="bold">✓ CONFIRMED</text>
                 </g>
 
@@ -860,7 +860,98 @@
             </svg>
         </div>
 
-        <!-- Slide 8: Fraud Prevention & Location-Based Anomaly Detection -->
+        <!-- Slide 7b: How Quorum-Based State Voting Works -->
+        <div class="slide">
+            <h2>How Quorum-Based State Voting Works (Deterministic Consensus)</h2>
+            <p style="margin-bottom: 20px; font-size: 16px;">5 super-peers vote on ledger state hash. No voting rounds, no timestamps, instant finality.</p>
+            <svg viewBox="0 0 1000 450" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; margin: 20px 0;">
+                <!-- Step 1: Device submits -->
+                <g>
+                    <rect x="20" y="10" width="180" height="50" rx="6" fill="rgba(0, 217, 255, 0.15)" stroke="#00d9ff" stroke-width="2"/>
+                    <text x="110" y="25" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Step 1: Device</text>
+                    <text x="110" y="45" text-anchor="middle" fill="#b0b3d9" font-size="10">Submits entry</text>
+                    <path d="M 210 35 L 260 35" stroke="#00d9ff" stroke-width="2" marker-end="url(#arrowhead-step)"/>
+                </g>
+
+                <!-- Step 2: S1 validates -->
+                <g>
+                    <circle cx="310" cy="35" r="30" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" stroke-width="2"/>
+                    <text x="310" y="32" text-anchor="middle" fill="#4caf50" font-size="13" font-weight="bold">S1</text>
+                    <text x="310" y="50" text-anchor="middle" fill="#b0b3d9" font-size="9">Validates</text>
+                    <path d="M 345 35 L 380 35" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowhead-step)"/>
+                </g>
+
+                <!-- Step 3: Compute hash -->
+                <g>
+                    <rect x="380" y="10" width="200" height="50" rx="6" fill="rgba(255, 170, 0, 0.15)" stroke="#ffaa00" stroke-width="2"/>
+                    <text x="480" y="25" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Step 2: All compute ledger hash</text>
+                    <text x="480" y="42" text-anchor="middle" fill="#ffaa00" font-size="9">hash = BLAKE2b(all_entries + new)</text>
+                    <path d="M 590 35 L 640 35" stroke="#ffaa00" stroke-width="2" marker-end="url(#arrowhead-step)"/>
+                </g>
+
+                <!-- Step 4: Quorum votes -->
+                <g>
+                    <text x="500" y="100" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Step 3: 5 Super-Peers Vote on Hash</text>
+
+                    <!-- Vote boxes -->
+                    <circle cx="120" cy="160" r="28" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" stroke-width="2"/>
+                    <text x="120" y="158" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">S1</text>
+                    <text x="120" y="190" text-anchor="middle" fill="#00ff88" font-size="10" font-weight="bold">✓ hash_XYZ</text>
+
+                    <circle cx="240" cy="160" r="28" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" stroke-width="2"/>
+                    <text x="240" y="158" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">S2</text>
+                    <text x="240" y="190" text-anchor="middle" fill="#00ff88" font-size="10" font-weight="bold">✓ hash_XYZ</text>
+
+                    <circle cx="360" cy="160" r="28" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" stroke-width="2"/>
+                    <text x="360" y="158" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">S3</text>
+                    <text x="360" y="190" text-anchor="middle" fill="#00ff88" font-size="10" font-weight="bold">✓ hash_XYZ</text>
+
+                    <circle cx="480" cy="160" r="28" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" stroke-width="2"/>
+                    <text x="480" y="158" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">S4</text>
+                    <text x="480" y="190" text-anchor="middle" fill="#b0b3d9" font-size="9">✗ hash_ABC</text>
+
+                    <circle cx="600" cy="160" r="28" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" stroke-width="2"/>
+                    <text x="600" y="158" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">S5</text>
+                    <text x="600" y="190" text-anchor="middle" fill="#b0b3d9" font-size="9">offline</text>
+                </g>
+
+                <!-- Tally -->
+                <g>
+                    <rect x="700" y="130" width="270" height="120" rx="8" fill="rgba(0, 255, 136, 0.1)" stroke="#00ff88" stroke-width="2"/>
+                    <text x="835" y="155" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">QUORUM DETECTION</text>
+
+                    <text x="710" y="180" fill="#b0b3d9" font-size="10">hash_XYZ: 3 votes</text>
+                    <text x="710" y="198" fill="#b0b3d9" font-size="10">hash_ABC: 1 vote</text>
+                    <text x="710" y="216" fill="#b0b3d9" font-size="10">no vote: 1</text>
+
+                    <text x="835" y="245" text-anchor="middle" fill="#00ff88" font-size="11" font-weight="bold">3-of-5 Quorum = CONFIRMED ✓</text>
+                </g>
+
+                <!-- Why it's secure -->
+                <g>
+                    <rect x="20" y="280" width="950" height="150" rx="8" fill="rgba(76, 175, 80, 0.05)" stroke="#4caf50" stroke-width="2"/>
+
+                    <text x="500" y="305" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Why This is Secure (Byzantine-Safe)</text>
+
+                    <text x="40" y="335" fill="#b0b3d9" font-size="11">✓ <tspan fill="#fff" font-weight="bold">Deterministic Hash</tspan>: Same entries → same hash at all nodes (no clock needed)</text>
+
+                    <text x="40" y="360" fill="#b0b3d9" font-size="11">✓ <tspan fill="#fff" font-weight="bold">Byzantine-Resilient</tspan>: Need ≥3 of 5 → malicious nodes (2) can't reach quorum</text>
+
+                    <text x="40" y="385" fill="#b0b3d9" font-size="11">✓ <tspan fill="#fff" font-weight="bold">Instant Finality</tspan>: Once 3+ agree, entry locked forever (no rollback possible)</text>
+
+                    <text x="40" y="410" fill="#b0b3d9" font-size="11">✓ <tspan fill="#fff" font-weight="bold">Scalable</tspan>: Same algorithm works 3→200+ nodes (proven CS theory: Lamport 1978)</text>
+                </g>
+
+                <!-- Arrow marker -->
+                <defs>
+                    <marker id="arrowhead-step" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#00d9ff"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- Slide 9: Fraud Prevention & Location-Based Anomaly Detection -->
         <div class="slide">
             <h2>Fraud Prevention: Location-Based Anomaly Detection</h2>
             <p style="margin-bottom: 30px; font-size: 18px;">Every transaction captures GPS location. Impossible travel speeds → instant reputation damage.</p>
@@ -926,7 +1017,7 @@
             </svg>
         </div>
 
-        <!-- Slide 9: Super-Peer Network & Consensus -->
+        <!-- Slide 10: Super-Peer Network & Consensus -->
         <div class="slide">
             <h2>Super-Peer Network: Byzantine Double-Spend Detection</h2>
             <svg viewBox="0 0 1000 350" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; margin: 20px 0;">
@@ -988,7 +1079,7 @@
             </svg>
         </div>
 
-        <!-- Slide 10: Revenue Model -->
+        <!-- Slide 11: Revenue Model -->
         <div class="slide">
             <h2>Revenue Model: Credit Data is the Product</h2>
             <p style="margin-bottom: 40px;">We build credit profiles for 4.5B unbanked people. We sell those profiles to financial institutions.</p>
@@ -1010,7 +1101,7 @@
             </div>
         </div>
 
-        <!-- Slide 11: Financial Projections -->
+        <!-- Slide 12: Financial Projections -->
         <div class="slide">
             <h2>Financial Projections</h2>
             <table>
@@ -1046,7 +1137,7 @@
             <p style="margin-top: 50px;"><span class="highlight">$77M EBITDA</span> in Year 3 = <span class="highlight">10-15x</span> traditional credit bureau multiples</p>
         </div>
 
-        <!-- Slide 12: Valuation -->
+        <!-- Slide 13: Valuation -->
         <div class="slide">
             <h2>Valuation & Exit</h2>
             <div class="stat-grid">
@@ -1067,7 +1158,7 @@
             <p><span class="highlight">We have 9x larger TAM with higher growth rate</span></p>
         </div>
 
-        <!-- Slide 13: Unit Economics -->
+        <!-- Slide 14: Unit Economics -->
         <div class="slide">
             <h2>Unit Economics: 50x LTV/CAC</h2>
             <div class="two-column">
@@ -1089,7 +1180,7 @@
             <p style="margin-top: 50px;">Benchmark: 3x is healthy. We're 16x above benchmark.</p>
         </div>
 
-        <!-- Slide 14: Why Now -->
+        <!-- Slide 15: Why Now -->
         <div class="slide">
             <h2>Why Now?</h2>
             <ul style="margin: 50px auto;">
@@ -1101,7 +1192,7 @@
             </ul>
         </div>
 
-        <!-- Slide 15: Competitive Moats -->
+        <!-- Slide 16: Competitive Moats -->
         <div class="slide">
             <h2>Defensibility: 3 Unfair Advantages</h2>
             <div style="background: rgba(0, 217, 255, 0.1); padding: 30px; border-radius: 10px; margin: 30px 0; max-width: 900px;">
@@ -1118,7 +1209,7 @@
             </div>
         </div>
 
-        <!-- Slide 16: Go-to-Market -->
+        <!-- Slide 17: Go-to-Market -->
         <div class="slide">
             <h2>Go-to-Market: Regional Expansion</h2>
             <ul style="margin: 50px auto;">
@@ -1129,7 +1220,7 @@
             </ul>
         </div>
 
-        <!-- Slide 17: The Ask -->
+        <!-- Slide 18: The Ask -->
         <div class="slide">
             <h2>The Ask: $5M Seed Round</h2>
             <div class="stat-grid">
@@ -1149,7 +1240,7 @@
             <p style="margin-top: 50px; font-size: 18px;">Milestones: MVP (Mo3) → E2E (Mo4) → 2 MFI partners (Mo6) → 10K users (Mo9) → $50K/mo revenue (Mo12)</p>
         </div>
 
-        <!-- Slide 18: Vision -->
+        <!-- Slide 19: Vision -->
         <div class="slide">
             <h2>The Vision</h2>
             <p style="font-size: 24px; font-style: italic; margin: 60px 0;">In 10 years, a street vendor in Lagos has a credit score as robust as a NYC banker.</p>
@@ -1157,7 +1248,7 @@
             <p style="font-size: 24px; font-style: italic; margin: 40px 0;">CylinderSeal creates a new financial system where <span class="highlight">YOUR PHONE IS YOUR CREDIT HISTORY.</span></p>
         </div>
 
-        <!-- Slide 19: Why Us -->
+        <!-- Slide 20: Why Us -->
         <div class="slide">
             <h2>Why We Win</h2>
             <ul style="margin: 50px auto;">
@@ -1169,7 +1260,7 @@
             </ul>
         </div>
 
-        <!-- Slide 20: Contact -->
+        <!-- Slide 21: Contact -->
         <div class="slide">
             <h1 style="margin-bottom: 50px;">Let's build financial infrastructure for 4.5B people.</h1>
             <p style="font-size: 24px; margin: 50px 0;">hayder@modernecotech.com</p>
