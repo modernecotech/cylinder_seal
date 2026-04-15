@@ -24,9 +24,24 @@ message Transaction {
   PaymentChannel channel = 12;        // NFC, BLE, ONLINE
   string memo = 13;                   // Max 140 chars
   string device_attestation = 14;     // SafetyNet/Play Integrity JWT (optional)
-  bytes signature = 15;               // Ed25519, 64 bytes over canonical CBOR
+  double latitude = 16;               // Transaction location (-90 to +90), 0 if unavailable
+  double longitude = 17;              // Transaction location (-180 to +180), 0 if unavailable
+  int32 location_accuracy_meters = 18;  // GPS accuracy in meters (0 if unknown)
+  int64 location_timestamp_utc = 19;  // When location was captured (Unix microseconds)
+  LocationSource location_source = 20;  // GPS, NETWORK, LAST_KNOWN, or OFFLINE
+  bytes signature = 15;               // Ed25519, 64 bytes over canonical CBOR (includes location)
+}
+
+enum LocationSource {
+  LOCATION_SOURCE_UNSPECIFIED = 0;
+  LOCATION_SOURCE_GPS = 1;            // Real-time GPS (high accuracy)
+  LOCATION_SOURCE_NETWORK = 2;        // Network-based (WiFi/cell, lower accuracy)
+  LOCATION_SOURCE_LAST_KNOWN = 3;     // Last known location from prior sync
+  LOCATION_SOURCE_OFFLINE = 4;        // User provided (when offline, no automated source)
 }
 ```
+
+**Location Note**: All transactions now include location data (lat/lon, accuracy, timestamp, source). This enables fraud detection (geographic anomalies) and device reputation scoring. For offline NFC transactions, use LAST_KNOWN or OFFLINE. See [LOCATION_CAPTURE_GUIDE.md](LOCATION_CAPTURE_GUIDE.md) for implementation details.
 
 ### JournalEntry Type
 ```protobuf
@@ -155,7 +170,21 @@ object NonceDerivation {
 val hwIds = HardwareIdentifier.captureDeviceIds()
 val nextNonce = NonceDerivation.deriveNextNonce(hwIds, txCounter)
 
-// Step 2: Create transaction (matches proto/chain_sync.proto)
+// Step 2: Capture location (if available)
+val location = LocationProvider.captureLocation()  // Suspends for GPS if needed
+val (latitude, longitude, accuracy, locationSource) = if (location != null) {
+    Quadruple(
+        location.latitude,
+        location.longitude,
+        location.accuracy.toInt(),
+        LocationSource.GPS
+    )
+} else {
+    // Offline: use last known or zeros
+    Quadruple(0.0, 0.0, 0, LocationSource.OFFLINE)
+}
+
+// Step 3: Create transaction (matches proto/chain_sync.proto)
 val tx = Transaction(
     transaction_id = uuidv7(),               // Generate new UUIDv7
     from_public_key = devicePublicKey,       // Your public key (32 bytes)
@@ -171,16 +200,20 @@ val tx = Transaction(
     channel = PaymentChannel.NFC,            // NFC, BLE, or ONLINE
     memo = "Payment for goods",              // Optional memo
     device_attestation = attestationToken,   // SafetyNet/Play Integrity JWT
+    latitude = latitude,                     // Transaction location (0 if unavailable)
+    longitude = longitude,                   // Transaction location (0 if unavailable)
+    location_accuracy_meters = accuracy,     // GPS accuracy or 0
+    location_source = locationSource,        // GPS, NETWORK, LAST_KNOWN, or OFFLINE
     signature = ByteArray(64),               // Will be filled below
 )
 
-// Step 3: Sign transaction
+// Step 4: Sign transaction (location is included in canonical CBOR)
 tx.signature = keystore.signMessage(tx.canonicalCborForSigning())
 
-// Step 4: Verify locally (double-check)
+// Step 5: Verify locally (double-check)
 assert(tx.verifySignature() == null)  // Should not throw
 
-// Step 5: Send to recipient (NFC/BLE/online)
+// Step 6: Send to recipient (NFC/BLE/online)
 // Or store in pending if offline
 ledger.append(Block(transactions = listOf(tx)))
 ```
@@ -262,7 +295,8 @@ Block.serialize()     → Send via gRPC SyncChain →  Verify signature
 - ✅ from_public_key ≠ to_public_key (not sending to self)
 - ✅ Nonce chain is valid: current_nonce = HKDF(previous_nonce || hardware_ids || counter)
 - ✅ Monotonic clock is not going backward (clock-skew attack detection)
-- ✅ Signature verifies over canonical CBOR of transaction (excluding signature field)
+- ✅ Location is captured (GPS if online, LAST_KNOWN if cached, OFFLINE if unavailable)
+- ✅ Signature verifies over canonical CBOR of transaction (including location, excluding signature field)
 - ✅ Device daily limit not exceeded (determined by KYC tier: Anonymous/PhoneVerified/FullKYC)
 - ✅ Transaction timestamp is recent (within 1 minute of device time)
 
@@ -272,8 +306,10 @@ Block.serialize()     → Send via gRPC SyncChain →  Verify signature
 - ✅ RFC 6979 nonce chain is valid (current derives from previous via hardware binding)
 - ✅ Sequence number increments by 1 (no gaps, no reuses)
 - ✅ Monotonic clock never goes backward for this device
+- ✅ Location coordinates are valid (-90 to +90 lat, -180 to +180 lon)
+- ✅ No geographic anomalies (user didn't travel >1800km in <2 hours)
 - ✅ Device daily limit not exceeded (tiered by KYC verification level)
-- ✅ Device reputation score is acceptable (ML-computed anomaly detection)
+- ✅ Device reputation score is acceptable (ML-computed anomaly detection, including location)
 - ✅ 3+ of 5 super-peers agree to confirm (Byzantine consensus)
 
 ---

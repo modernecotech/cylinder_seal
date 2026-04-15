@@ -78,6 +78,7 @@ Each user's smartphone is a **personal transaction journal**:
 - **Offline-first**: Device-to-device payments via NFC/BLE (no internet needed)
 - **Personal ledger**: SQLCipher encrypted, append-only, stored locally in Room DB
 - **Device reputation**: Hardware serial + IMEI bound to nonces (detects cloning)
+- **Location tracking**: Every transaction captures GPS/network location for fraud detection
 - **Deterministic nonces**: RFC 6979 derived from previous nonce + hardware IDs
 - **Key management**: Ed25519 keypair in Android Keystore (never exported)
 - **Automatic credit building**: Transaction history creates credit profile automatically
@@ -119,6 +120,7 @@ Each super-peer (Tendermint validator) also runs:
 - **gRPC Service**: Bidirectional sync with Android devices
 - **Credit Scoring Engine**: Computes scores from transaction history (daily batch)
 - **Whisper Network Relay**: Routes offline peer transactions through online peers
+- **Fraud Detection**: Geographic anomaly detection (flags impossible travel speeds >1800km/2hrs)
 
 **Entry Confirmation Flow:**
 1. Device submits entry to Tendermint validator via gRPC
@@ -436,7 +438,8 @@ CylinderSeal uses **12 hardening layers** to prevent attack vectors:
 - **Device Attestation**: SafetyNet/Play Integrity API (rejects jailbroken devices)
 - **Hardware Binding**: Device serial + IMEI bound to nonces (detects cloning instantly)
 - **Per-Device Daily Limits**: Prevents multi-device fraud
-- **Device Reputation Scoring**: ML-based anomaly detection (geographic jumps, unusual times)
+- **Location-Based Fraud Detection**: Every transaction captures GPS/network location; super-peers flag impossible travel (e.g., Nairobi→London in 30 min) as high-risk
+- **Device Reputation Scoring**: ML-based anomaly detection (geographic jumps, unusual times, high-frequency patterns)
 
 ### Super-Peer Security
 - **5-Node Byzantine Quorum**: 3-of-5 required for confirmation (survives 2-node compromise)

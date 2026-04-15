@@ -64,6 +64,25 @@ pub struct Transaction {
     /// Device attestation (SafetyNet/Play Integrity API response)
     /// Only included for offline txs > threshold
     pub device_attestation: Option<String>,
+
+    /// Transaction location: latitude in decimal degrees (-90 to +90)
+    /// 0 if not available or offline transaction
+    pub latitude: f64,
+
+    /// Transaction location: longitude in decimal degrees (-180 to +180)
+    /// 0 if not available or offline transaction
+    pub longitude: f64,
+
+    /// GPS accuracy in meters (0 if not available)
+    /// Used to detect suspiciously broad location claims
+    pub location_accuracy_meters: i32,
+
+    /// Unix timestamp in microseconds when location was captured
+    /// May differ from timestamp_utc if location is from prior sync
+    pub location_timestamp_utc: i64,
+
+    /// Source of location data (GPS, network-based, last-known, or offline)
+    pub location_source: LocationSource,
 }
 
 impl Transaction {
@@ -90,7 +109,12 @@ impl Transaction {
         device_id: Uuid,
         previous_nonce: [u8; 32],
         current_nonce: [u8; 32],
+        latitude: f64,
+        longitude: f64,
+        location_accuracy_meters: i32,
+        location_source: LocationSource,
     ) -> Self {
+        let now_micros = chrono::Utc::now().timestamp_micros();
         Self {
             transaction_id: Uuid::new_v4(),
             from_public_key,
@@ -98,7 +122,7 @@ impl Transaction {
             amount_owc,
             currency_context,
             fx_rate_snapshot,
-            timestamp_utc: chrono::Utc::now().timestamp_micros(),
+            timestamp_utc: now_micros,
             monotonic_clock_nanos: Self::monotonic_clock(),
             current_nonce,
             previous_nonce,
@@ -107,6 +131,11 @@ impl Transaction {
             device_id,
             signature: [0u8; 64],
             device_attestation: None,
+            latitude,
+            longitude,
+            location_accuracy_meters,
+            location_timestamp_utc: now_micros,
+            location_source,
         }
     }
 
@@ -136,6 +165,11 @@ impl Transaction {
             &self.channel,
             &self.memo,
             &self.device_id,
+            self.latitude,
+            self.longitude,
+            self.location_accuracy_meters,
+            self.location_timestamp_utc,
+            &self.location_source,
         );
 
         serde_cbor::to_vec(&signable)
@@ -161,6 +195,15 @@ pub enum PaymentChannel {
     NFC,
     BLE,
     Online,
+}
+
+#[derive(Clone, Copy, Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub enum LocationSource {
+    Unspecified,
+    GPS,           // Real-time GPS (high accuracy)
+    Network,       // Network-based (WiFi/cell, lower accuracy)
+    LastKnown,     // Last known location from prior sync
+    Offline,       // User provided (when offline, no automated source)
 }
 
 // ============================================================================

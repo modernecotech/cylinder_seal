@@ -53,9 +53,36 @@ message Transaction {
     // Proves this transaction came from an unrooted Android device
     string device_attestation = 14;
 
+    // Transaction location: latitude in decimal degrees (-90 to +90)
+    // 0 if not available or offline transaction
+    double latitude = 16;
+
+    // Transaction location: longitude in decimal degrees (-180 to +180)
+    // 0 if not available or offline transaction
+    double longitude = 17;
+
+    // GPS accuracy in meters (0 if not available)
+    // Used to detect suspiciously broad location claims
+    int32 location_accuracy_meters = 18;
+
+    // Unix timestamp in microseconds when location was captured
+    // May differ from timestamp_utc if location is from prior sync
+    int64 location_timestamp_utc = 19;
+
+    // Source of location data (GPS, network-based, last-known, or offline)
+    LocationSource location_source = 20;
+
     // Ed25519 signature (64 bytes) over canonical CBOR of above fields
     // (excluding this signature field itself)
     bytes signature = 15;
+}
+
+enum LocationSource {
+    LOCATION_SOURCE_UNSPECIFIED = 0;
+    LOCATION_SOURCE_GPS = 1;           // Real-time GPS (high accuracy)
+    LOCATION_SOURCE_NETWORK = 2;       // Network-based (WiFi/cell, lower accuracy)
+    LOCATION_SOURCE_LAST_KNOWN = 3;    // Last known location from prior sync
+    LOCATION_SOURCE_OFFLINE = 4;       // User provided (when offline, no automated source)
 }
 
 enum PaymentChannel {
