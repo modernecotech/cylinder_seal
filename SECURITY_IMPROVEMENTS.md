@@ -135,15 +135,15 @@ pub struct Transaction {
 }
 ```
 
-### LedgerBlock
+### JournalEntry
 ```rust
-pub struct LedgerBlock {
-    pub device_id: Uuid,                 // NEW: which phone created block
+pub struct JournalEntry {
+    pub device_id: Uuid,                 // NEW: which phone created entry
     pub vector_clock: HashMap<Uuid, u64>, // NEW: prevents time-travel
     pub monotonic_created_nanos: i64,    // NEW: non-decreasing timestamp
     pub device_signature: [u8; 64],      // NEW: signed by device key
     pub user_signature: Option<[u8; 64]>, // NEW: optional master sig
-    pub super_peer_confirmations: Vec<SuperPeerSignature>, // NEW: BFT consensus
+    pub super_peer_confirmations: Vec<SuperPeerConfirmation>, // NEW: BFT consensus
 }
 ```
 

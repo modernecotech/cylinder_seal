@@ -1,26 +1,26 @@
 // Repository trait definitions for data access
 use cs_core::error::Result;
 use uuid::Uuid;
-use crate::models::{LedgerEntry, UserRecord, CurrencyRate};
+use crate::models::{JournalEntryRecord, UserRecord, CurrencyRate};
 
-/// Repository for ledger entries
-pub trait LedgerRepository: Send + Sync {
-    /// Insert a new ledger entry
-    async fn insert_entry(&self, entry: &LedgerEntry) -> Result<()>;
+/// Repository for journal entries
+pub trait JournalRepository: Send + Sync {
+    /// Insert a new journal entry
+    async fn insert_entry(&self, entry: &JournalEntryRecord) -> Result<()>;
 
-    /// Get an entry by block hash
-    async fn get_by_block_hash(&self, block_hash: &[u8]) -> Result<Option<LedgerEntry>>;
+    /// Get an entry by entry hash (BLAKE2b-256)
+    async fn get_by_entry_hash(&self, entry_hash: &[u8]) -> Result<Option<JournalEntryRecord>>;
 
     /// Get all entries for a user, in sequence order
-    async fn get_entries_for_user(&self, user_id: Uuid) -> Result<Vec<LedgerEntry>>;
+    async fn get_entries_for_user(&self, user_id: Uuid) -> Result<Vec<JournalEntryRecord>>;
 
-    /// Mark an entry as confirmed
-    async fn confirm_entry(&self, block_hash: &[u8]) -> Result<()>;
+    /// Mark an entry as confirmed by super-peers
+    async fn confirm_entry(&self, entry_hash: &[u8]) -> Result<()>;
 
-    /// Mark an entry as conflicted
-    async fn mark_conflicted(&self, block_hash: &[u8], reason: &str) -> Result<()>;
+    /// Mark an entry as conflicted (double-spend detected)
+    async fn mark_conflicted(&self, entry_hash: &[u8], reason: &str) -> Result<()>;
 
-    /// Get balance for a user
+    /// Get current balance for a user
     async fn get_user_balance(&self, user_id: Uuid) -> Result<i64>;
 }
 

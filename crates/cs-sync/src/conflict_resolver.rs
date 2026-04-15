@@ -11,10 +11,10 @@ impl ConflictResolver {
         Self {}
     }
 
-    /// Detect and resolve conflicts between two competing blocks
+    /// Detect and resolve conflicts between two competing entries
     pub async fn resolve(&self) -> Result<()> {
         // TODO: implement conflict detection logic
-        // - Check for same user with same prev_block_hash
+        // - Check for same user with same prev_entry_hash
         // - Compare timestamps
         // - Request NFC/BLE receipts if ambiguous
         // - Quarantine and notify parties

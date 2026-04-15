@@ -87,7 +87,7 @@ pub async fn validate_transaction(tx: &Transaction) -> Result<()> {
 }
 ```
 
-### Creating a LedgerBlock
+### Creating a JournalEntry
 
 **Kotlin (Android):**
 ```kotlin
@@ -95,11 +95,11 @@ pub async fn validate_transaction(tx: &Transaction) -> Result<()> {
 val transactions = listOf(tx1, tx2, tx3)  // All signed
 
 // Create block
-var block = LedgerBlock(
+var block = JournalEntry(
     user_public_key = userPublicKey,
     device_id = deviceId,
     sequence_number = lastBlock.sequence_number + 1,
-    prev_block_hash = lastBlock.block_hash,
+    prev_entry_hash = lastBlock.entry_hash,
     transactions = transactions,
     vector_clock = updateVectorClock(lastBlock.vector_clock),  // Add our sequence
 )
@@ -174,7 +174,7 @@ pub async fn check_duplicate_by_hash(
 - [ ] Block hash is correct (recompute and verify)
 - [ ] All transaction signatures are valid
 - [ ] Sequence number is exactly last + 1
-- [ ] prev_block_hash matches last block
+- [ ] prev_entry_hash matches last block
 - [ ] Vector clock doesn't go backward
 - [ ] Monotonic clock is monotonically increasing
 

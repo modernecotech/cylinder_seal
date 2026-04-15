@@ -17,40 +17,40 @@ message Transaction {
   string currency_context = 5;        // "KES", "NGN", etc.
   string fx_rate_snapshot = 6;        // Decimal as string
   int64 timestamp_utc = 7;            // Unix microseconds
-  int64 monotonic_clock_nanos = 8;    // System.nanoTime(), never backward
-  bytes current_nonce = 9;            // 32-byte nonce (derived by device)
-  bytes previous_nonce = 10;          // Previous tx's nonce (chain link)
-  PaymentChannel channel = 11;        // NFC, BLE, ONLINE
-  string memo = 12;                   // Max 140 chars
-  bytes device_id = 13;               // Which device signed this
-  bytes signature = 14;               // Ed25519, 64 bytes
-  string device_attestation = 15;     // SafetyNet/Play Integrity JWT (optional)
+  bytes previous_nonce = 8;           // Previous tx's nonce (RFC 6979 chain link)
+  bytes current_nonce = 9;            // Current nonce derived from previous + hardware
+  int64 monotonic_clock_nanos = 10;   // System.nanoTime(), detects clock-skew attacks
+  bytes device_id = 11;               // Which device created this transaction
+  PaymentChannel channel = 12;        // NFC, BLE, ONLINE
+  string memo = 13;                   // Max 140 chars
+  string device_attestation = 14;     // SafetyNet/Play Integrity JWT (optional)
+  bytes signature = 15;               // Ed25519, 64 bytes over canonical CBOR
 }
 ```
 
 ### JournalEntry Type
 ```protobuf
 message JournalEntry {
-  bytes entry_id = 1;                 // UUID v7
-  bytes user_public_key = 2;          // Ed25519, 32 bytes
-  bytes device_id = 3;                // Which device created this
-  int64 sequence_number = 4;          // Must increment by 1
-  bytes prev_entry_hash = 5;          // BLAKE2b-256, 32 bytes
-  map<string, int64> vector_clock = 6;// Causal ordering
-  repeated Transaction transactions = 7;
-  bytes entry_hash = 8;               // BLAKE2b-256, computed by device
-  bytes device_signature = 9;         // Ed25519 over entry_hash
-  bytes user_signature = 10;          // Optional, for high-value txs
-  int64 created_at = 11;              // Device UTC microseconds
-  int64 monotonic_created_nanos = 12; // System.nanoTime()
-  SyncStatus sync_status = 13;        // PENDING, CONFIRMED, CONFLICTED
-  repeated SuperPeerConfirmation super_peer_confirmations = 14;
+  bytes entry_id = 1;                 // UUID v7, 16 bytes
+  bytes user_public_key = 2;          // Ed25519, 32 bytes (identity of journal owner)
+  uint64 sequence_number = 3;         // Monotonically increasing for this user
+  bytes prev_entry_hash = 4;          // BLAKE2b-256 of previous entry, 32 bytes
+  repeated Transaction transactions = 5;  // One or more transactions in this entry
+  bytes entry_hash = 6;               // BLAKE2b-256(prev_entry_hash || seq || txs)
+  bytes signature = 7;                // Ed25519 over entry_hash, 64 bytes
+  int64 created_at = 8;               // Device UTC microseconds
+  SyncStatus sync_status = 9;         // PENDING, CONFIRMED, CONFLICTED
+  bytes device_id = 10;               // UUIDv7 of device that created this
+  map<string, uint64> vector_clock = 11;  // Maps device_id → logical clock for causality
+  int64 monotonic_created_nanos = 12; // System.nanoTime() for ordering
+  bytes user_signature = 13;          // Optional, for high-value transactions
+  repeated SuperPeerConfirmation super_peer_confirmations = 14;  // 3+ of 5 required
 }
 
 message SuperPeerConfirmation {
-  string super_peer_id = 1;
-  bytes signature = 2;                // 64 bytes
-  int64 confirmed_at = 3;             // When peer confirmed
+  string super_peer_id = 1;           // ID of confirming super-peer
+  bytes signature = 2;                // 64-byte Ed25519 confirmation signature
+  int64 confirmed_at = 3;             // When super-peer confirmed (UTC micros)
 }
 ```
 
@@ -157,20 +157,21 @@ val nextNonce = NonceDerivation.deriveNextNonce(hwIds, txCounter)
 
 // Step 2: Create transaction (matches proto/chain_sync.proto)
 val tx = Transaction(
-    from_public_key = devicePublicKey,       // Your public key
-    to_public_key = recipientPublicKey,      // Recipient's public key
+    transaction_id = uuidv7(),               // Generate new UUIDv7
+    from_public_key = devicePublicKey,       // Your public key (32 bytes)
+    to_public_key = recipientPublicKey,      // Recipient's public key (32 bytes)
     amount_owc = 50_000_000,                 // 50 OWC in micro-OWC
-    currency_context = "KES",
+    currency_context = "KES",                // Display currency
     fx_rate_snapshot = "0.987654",           // Decimal as string
     timestamp_utc = System.currentTimeMillis() * 1000,  // Convert ms to micros
-    monotonic_clock_nanos = System.nanoTime(),
-    current_nonce = nextNonce,               // Pre-derived nonce
-    previous_nonce = previousNonce,
-    channel = PaymentChannel.NFC,
-    memo = "Payment for goods",
-    device_id = deviceId,
+    previous_nonce = previousNonce,          // RFC 6979 chain: prior tx's nonce
+    current_nonce = nextNonce,               // RFC 6979 chain: derived from previous + hardware
+    monotonic_clock_nanos = System.nanoTime(),  // Detects clock-skew attacks
+    device_id = deviceId,                    // UUIDv7 of device creating this
+    channel = PaymentChannel.NFC,            // NFC, BLE, or ONLINE
+    memo = "Payment for goods",              // Optional memo
+    device_attestation = attestationToken,   // SafetyNet/Play Integrity JWT
     signature = ByteArray(64),               // Will be filled below
-    device_attestation = attestationToken    // From SafetyNet/Play Integrity
 )
 
 // Step 3: Sign transaction
@@ -257,21 +258,23 @@ Block.serialize()     → Send via gRPC SyncChain →  Verify signature
 ## Key Validation Points
 
 **On Device (Before Sending)**:
-- ✅ Transaction amount is i64 (never float)
+- ✅ Transaction amount is i64 micro-OWC (never float)
 - ✅ from_public_key ≠ to_public_key (not sending to self)
-- ✅ Nonce chain is valid (previous_nonce → current_nonce)
-- ✅ Monotonic clock is not going backward
-- ✅ Signature verifies (can decrypt with own public key)
-- ✅ Device daily limit not exceeded (KYC tier)
+- ✅ Nonce chain is valid: current_nonce = HKDF(previous_nonce || hardware_ids || counter)
+- ✅ Monotonic clock is not going backward (clock-skew attack detection)
+- ✅ Signature verifies over canonical CBOR of transaction (excluding signature field)
+- ✅ Device daily limit not exceeded (determined by KYC tier: Anonymous/PhoneVerified/FullKYC)
+- ✅ Transaction timestamp is recent (within 1 minute of device time)
 
 **On Super-Peer**:
-- ✅ Signature verifies
-- ✅ Device attestation is valid (SafetyNet/Play Integrity)
-- ✅ Nonce chain is valid
-- ✅ Sequence number = last + 1
-- ✅ Device daily limit not exceeded
-- ✅ Device reputation score is acceptable
-- ✅ 3+ of 5 super-peers agree to confirm
+- ✅ Ed25519 signature verifies using transaction's from_public_key
+- ✅ Device attestation is valid (SafetyNet or Play Integrity JWT not expired)
+- ✅ RFC 6979 nonce chain is valid (current derives from previous via hardware binding)
+- ✅ Sequence number increments by 1 (no gaps, no reuses)
+- ✅ Monotonic clock never goes backward for this device
+- ✅ Device daily limit not exceeded (tiered by KYC verification level)
+- ✅ Device reputation score is acceptable (ML-computed anomaly detection)
+- ✅ 3+ of 5 super-peers agree to confirm (Byzantine consensus)
 
 ---
 

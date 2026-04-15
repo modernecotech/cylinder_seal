@@ -39,7 +39,7 @@ class KeyRotationService {
             )
             
             // Create transition block with both keys valid
-            val transitionBlock = LedgerBlock(
+            val transitionBlock = JournalEntry(
                 transitions = vec![rotationCert],
                 old_key_valid_until = now() + 7.days,  // Grace period
                 new_key_valid_from = now(),
@@ -174,7 +174,7 @@ Attack scenario:
 ```rust
 pub async fn commit_block_with_bft(
     &self,
-    block: &LedgerBlock,
+    block: &JournalEntry,
 ) -> Result<ConfirmedBlock> {
     let all_peers = vec![
         "sp-africa", "sp-asia", "sp-americas", "sp-europe", "sp-global"
@@ -242,10 +242,10 @@ pub async fn commit_block_with_bft(
 // Verify super-peer isn't duplicating confirmations
 async fn verify_no_double_signing(
     peer_id: &str,
-    block_hash: &[u8; 32],
+    entry_hash: &[u8; 32],
 ) -> Result<()> {
     let already_signed = self.storage
-        .get_peer_signature_count(peer_id, block_hash)
+        .get_peer_signature_count(peer_id, entry_hash)
         .await?;
 
     if already_signed > 0 {
@@ -478,7 +478,7 @@ class TransactionEncryption {
 **Super-Peer Processing (Rust):**
 ```rust
 pub async fn process_encrypted_block(
-    encrypted_block: &LedgerBlock,
+    encrypted_block: &JournalEntry,
 ) -> Result<()> {
     // Super-peer can't decrypt, but can:
     // 1. Verify structure
@@ -558,7 +558,7 @@ If two blocks have same prev_hash (fork detected):
 
 2. Never use timestamps as tiebreaker
    - Timestamps are not ordered by system (can be wrong)
-   - Use block_hash as tiebreaker instead:
+   - Use entry_hash as tiebreaker instead:
      - Hash A < Hash B (lexicographically): A wins
      - Hash B < Hash A: B wins
      - Hashes equal: IMPOSSIBLE (same prev_hash, different txs)
@@ -569,10 +569,10 @@ If two blocks have same prev_hash (fork detected):
 **Implementation (Rust):**
 ```rust
 pub fn resolve_conflict_deterministic(
-    block_a: &LedgerBlock,
-    block_b: &LedgerBlock,
+    block_a: &JournalEntry,
+    block_b: &JournalEntry,
 ) -> ConflictResolution {
-    assert_eq!(block_a.prev_block_hash, block_b.prev_block_hash);
+    assert_eq!(block_a.prev_entry_hash, block_b.prev_entry_hash);
     assert_eq!(block_a.user_public_key, block_b.user_public_key);
 
     // Rule 1: Higher sequence number wins
@@ -594,13 +594,13 @@ pub fn resolve_conflict_deterministic(
 
     // Rule 2: If sequence numbers equal, use block hash (lexicographic)
     // This should NEVER happen, but we have a deterministic tiebreaker
-    if block_a.block_hash < block_b.block_hash {
+    if block_a.entry_hash < block_b.entry_hash {
         return ConflictResolution {
             winner: block_a.block_id,
             loser: block_b.block_id,
             reason: "Block hash is lexicographically smaller",
         };
-    } else if block_b.block_hash < block_a.block_hash {
+    } else if block_b.entry_hash < block_a.entry_hash {
         return ConflictResolution {
             winner: block_b.block_id,
             loser: block_a.block_id,

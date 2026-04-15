@@ -201,22 +201,22 @@ mod ledger_block_tests {
 
     // ✅ Block Hash Integrity
     #[test]
-    fn test_block_hash_tamper_detection() {
+    fn test_entry_hash_tamper_detection() {
         let (pub_key, priv_key) = generate_keypair();
-        let mut block = LedgerBlock::new(
+        let mut block = JournalEntry::new(
             pub_key,
             Uuid::new_v4(),  // device_id
             1,
-            [0u8; 32],  // prev_block_hash
+            [0u8; 32],  // prev_entry_hash
             vec![],
             HashMap::new(),
         );
 
-        block.compute_block_hash().unwrap();
+        block.compute_entry_hash().unwrap();
         block.sign_with_device_key(&priv_key).unwrap();
 
         // Tamper with block
-        block.block_hash[0] ^= 0xFF;
+        block.entry_hash[0] ^= 0xFF;
 
         assert!(block.verify().is_err(),
             "Block verification must fail if hash is tampered");
@@ -371,12 +371,12 @@ class TransactionTests {
 }
 
 @RunWith(RobolectricTestRunner::class)
-class LedgerBlockTests {
+class JournalEntryTests {
 
     // ✅ Block Hash Integrity
     @Test
     fun testBlockHashVerification() {
-        val block = LedgerBlock(/* ... */)
+        val block = JournalEntry(/* ... */)
         block.computeBlockHash()
         block.signWithDeviceKey(privateKey)
         
@@ -391,8 +391,8 @@ class LedgerBlockTests {
     // ✅ Sequence Validation
     @Test
     fun testSequenceMustIncrementByOne() {
-        val block1 = LedgerBlock(sequence_number = 5)
-        val block2 = LedgerBlock(sequence_number = 7)  // Gap!
+        val block1 = JournalEntry(sequence_number = 5)
+        val block2 = JournalEntry(sequence_number = 7)  // Gap!
         
         assertNotEquals(block2.sequence_number, block1.sequence_number + 1)
     }
@@ -401,10 +401,10 @@ class LedgerBlockTests {
     @Test
     fun testVectorClockMonotonicity() {
         val clock1 = mapOf(userId to 5L)
-        val block1 = LedgerBlock(vector_clock = clock1)
+        val block1 = JournalEntry(vector_clock = clock1)
         
         val clock2 = mapOf(userId to 4L)  // Backward!
-        val block2 = LedgerBlock(vector_clock = clock2)
+        val block2 = JournalEntry(vector_clock = clock2)
         
         assertTrue(clock1[userId]!! > clock2[userId]!!)
     }
@@ -451,7 +451,7 @@ async fn test_complete_offline_to_sync_flow() {
     // ════════════════════════════════════════════════════════════
     // Phase 2: Device 1 creates ledger block
     // ════════════════════════════════════════════════════════════
-    let mut block = LedgerBlock::new(
+    let mut block = JournalEntry::new(
         device1_pub,
         Uuid::new_v4(),
         0,  // Genesis block
@@ -460,7 +460,7 @@ async fn test_complete_offline_to_sync_flow() {
         HashMap::new(),
     );
 
-    block.compute_block_hash().expect("Hash computation failed");
+    block.compute_entry_hash().expect("Hash computation failed");
     block.sign_with_device_key(&device1_priv).expect("Signing failed");
 
     // Verify block locally
@@ -492,7 +492,7 @@ async fn test_complete_offline_to_sync_flow() {
     assert!(synced_block.is_ok());
 
     let synced = synced_block.unwrap();
-    assert_eq!(synced.block_hash, block.block_hash);
+    assert_eq!(synced.entry_hash, block.entry_hash);
     assert!(synced.super_peer_confirmations.len() >= 1);
 }
 
@@ -501,13 +501,13 @@ async fn test_double_spend_detection() {
     // Create two competing blocks with same prev_hash
     let (pub_key, priv_key) = generate_keypair();
     
-    let mut block_a = LedgerBlock::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], HashMap::new());
-    let mut block_b = LedgerBlock::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], HashMap::new());
+    let mut block_a = JournalEntry::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], HashMap::new());
+    let mut block_b = JournalEntry::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], HashMap::new());
 
-    block_a.compute_block_hash().unwrap();
+    block_a.compute_entry_hash().unwrap();
     block_a.sign_with_device_key(&priv_key).unwrap();
 
-    block_b.compute_block_hash().unwrap();
+    block_b.compute_entry_hash().unwrap();
     block_b.sign_with_device_key(&priv_key).unwrap();
 
     // Submit both to super-peer
@@ -526,8 +526,8 @@ async fn test_out_of_sequence_rejection() {
     let (pub_key, priv_key) = generate_keypair();
 
     // Create block with sequence 5 (but should be 0)
-    let mut block = LedgerBlock::new(pub_key, Uuid::new_v4(), 5, [0u8; 32], vec![], HashMap::new());
-    block.compute_block_hash().unwrap();
+    let mut block = JournalEntry::new(pub_key, Uuid::new_v4(), 5, [0u8; 32], vec![], HashMap::new());
+    block.compute_entry_hash().unwrap();
     block.sign_with_device_key(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
@@ -554,7 +554,7 @@ async fn test_nonce_chain_validation() {
     let mut tx2 = Transaction::new(/* ... */, [42u8; 32]);  // Wrong previous nonce!
     tx2.sign(&priv_key).unwrap();
 
-    let block = LedgerBlock::new(
+    let block = JournalEntry::new(
         pub_key,
         Uuid::new_v4(),
         0,
@@ -578,15 +578,15 @@ async fn test_vector_clock_backward_detection() {
     // Block 1: vector_clock has user_id: 5
     let mut clock1 = HashMap::new();
     clock1.insert(user_id, 5u64);
-    let mut block1 = LedgerBlock::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], clock1);
-    block1.compute_block_hash().unwrap();
+    let mut block1 = JournalEntry::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], clock1);
+    block1.compute_entry_hash().unwrap();
     block1.sign_with_device_key(&priv_key).unwrap();
 
     // Block 2: vector_clock has user_id: 4 (went backward!)
     let mut clock2 = HashMap::new();
     clock2.insert(user_id, 4u64);
-    let mut block2 = LedgerBlock::new(pub_key, Uuid::new_v4(), 2, block1.block_hash, vec![], clock2);
-    block2.compute_block_hash().unwrap();
+    let mut block2 = JournalEntry::new(pub_key, Uuid::new_v4(), 2, block1.entry_hash, vec![], clock2);
+    block2.compute_entry_hash().unwrap();
     block2.sign_with_device_key(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
@@ -624,7 +624,7 @@ async fn test_device_daily_limit_enforcement() {
         transactions.push(tx);
     }
 
-    let mut block = LedgerBlock::new(
+    let mut block = JournalEntry::new(
         pub_key,
         device_id,
         0,
@@ -632,7 +632,7 @@ async fn test_device_daily_limit_enforcement() {
         transactions,
         HashMap::new(),
     );
-    block.compute_block_hash().unwrap();
+    block.compute_entry_hash().unwrap();
     block.sign_with_device_key(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
@@ -751,15 +751,15 @@ async fn test_clock_skew_attack_prevented() {
     let (pub_key, priv_key) = generate_keypair();
 
     // Block 1: created at monotonic_time = 1000
-    let mut block1 = LedgerBlock::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], HashMap::new());
+    let mut block1 = JournalEntry::new(pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], HashMap::new());
     block1.monotonic_created_nanos = 1000;
-    block1.compute_block_hash().unwrap();
+    block1.compute_entry_hash().unwrap();
     block1.sign_with_device_key(&priv_key).unwrap();
 
     // Block 2: attacker tries to set earlier monotonic_time = 500
-    let mut block2 = LedgerBlock::new(pub_key, Uuid::new_v4(), 2, block1.block_hash, vec![], HashMap::new());
+    let mut block2 = JournalEntry::new(pub_key, Uuid::new_v4(), 2, block1.entry_hash, vec![], HashMap::new());
     block2.monotonic_created_nanos = 500;  // Goes backward!
-    block2.compute_block_hash().unwrap();
+    block2.compute_entry_hash().unwrap();
     block2.sign_with_device_key(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
@@ -839,7 +839,7 @@ async fn test_key_compromise_limited_by_daily_limit() {
         transactions.push(tx);
     }
 
-    let mut block = LedgerBlock::new(
+    let mut block = JournalEntry::new(
         pub_key,
         device_id,
         0,
@@ -847,7 +847,7 @@ async fn test_key_compromise_limited_by_daily_limit() {
         transactions,
         HashMap::new(),
     );
-    block.compute_block_hash().unwrap();
+    block.compute_entry_hash().unwrap();
     block.sign_with_device_key(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
@@ -874,8 +874,8 @@ async fn test_witness_requirement_for_large_tx() {
     );
     tx.sign(&priv_key).unwrap();
 
-    let mut block = LedgerBlock::new(pub_key, Uuid::new_v4(), 0, [0u8; 32], vec![tx], HashMap::new());
-    block.compute_block_hash().unwrap();
+    let mut block = JournalEntry::new(pub_key, Uuid::new_v4(), 0, [0u8; 32], vec![tx], HashMap::new());
+    block.compute_entry_hash().unwrap();
     block.sign_with_device_key(&priv_key).unwrap();
 
     let storage = setup_test_db().await;
@@ -963,8 +963,8 @@ fn test_panic_if_skipping_signature_verification() {
 ```rust
 /// GUARDRAIL: Sequence numbers must always increment by exactly 1
 pub async fn validate_sequence(
-    block: &LedgerBlock,
-    last_block: &LedgerBlock,
+    block: &JournalEntry,
+    last_block: &JournalEntry,
 ) -> Result<()> {
     let expected = last_block.sequence_number + 1;
     let actual = block.sequence_number;
@@ -978,10 +978,10 @@ pub async fn validate_sequence(
 
     // Log for audit
     tracing::info!(
-        "Sequence validated: expected={}, actual={}, block_hash={}",
+        "Sequence validated: expected={}, actual={}, entry_hash={}",
         expected,
         actual,
-        hex::encode(block.block_hash)
+        hex::encode(block.entry_hash)
     );
 
     Ok(())
@@ -1002,16 +1002,16 @@ fn test_sequence_number_can_never_decrease() {
 
 ```rust
 /// GUARDRAIL: Block hash must match recomputed hash
-pub async fn validate_block_hash(block: &LedgerBlock) -> Result<()> {
+pub async fn validate_entry_hash(block: &JournalEntry) -> Result<()> {
     let canonical = block.canonical_cbor_for_hashing()?;
     let expected_hash = blake2b_256(&canonical);
 
-    if expected_hash != block.block_hash {
+    if expected_hash != block.entry_hash {
         // This is a serious error - log, alert, quarantine
         tracing::error!(
             "Block hash mismatch! expected={}, actual={}, user={:?}",
             hex::encode(expected_hash),
-            hex::encode(block.block_hash),
+            hex::encode(block.entry_hash),
             block.user_public_key
         );
 
@@ -1116,10 +1116,10 @@ pub async fn validate_attestation_for_amount(
 ```rust
 /// GUARDRAIL: Double-spend detection
 pub async fn detect_double_spend(
-    block_a: &LedgerBlock,
-    block_b: &LedgerBlock,
+    block_a: &JournalEntry,
+    block_b: &JournalEntry,
 ) -> Result<ConflictResolution> {
-    if block_a.prev_block_hash != block_b.prev_block_hash {
+    if block_a.prev_entry_hash != block_b.prev_entry_hash {
         return Err(CylinderSealError::InternalError(
             "Blocks don't have same parent".to_string(),
         ));
@@ -1135,8 +1135,8 @@ pub async fn detect_double_spend(
     tracing::warn!(
         "DOUBLE-SPEND DETECTED: user={:?}, block_a={}, block_b={}",
         block_a.user_public_key,
-        hex::encode(block_a.block_hash),
-        hex::encode(block_b.block_hash)
+        hex::encode(block_a.entry_hash),
+        hex::encode(block_b.entry_hash)
     );
 
     let winner = if block_a.sequence_number > block_b.sequence_number {
@@ -1145,7 +1145,7 @@ pub async fn detect_double_spend(
         &block_b
     } else {
         // Deterministic tiebreaker: lexicographic block hash
-        if block_a.block_hash < block_b.block_hash {
+        if block_a.entry_hash < block_b.entry_hash {
             &block_a
         } else {
             &block_b
@@ -1153,8 +1153,8 @@ pub async fn detect_double_spend(
     };
 
     Ok(ConflictResolution {
-        winner_hash: winner.block_hash,
-        loser_hash: if winner == &block_a { block_b.block_hash } else { block_a.block_hash },
+        winner_hash: winner.entry_hash,
+        loser_hash: if winner == &block_a { block_b.entry_hash } else { block_a.entry_hash },
     })
 }
 ```

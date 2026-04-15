@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CylinderSeal - VC Pitch Deck</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .presentation {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 60px 80px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            animation: fadeIn 0.5s;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide h1 {
+            font-size: 56px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide h2 {
+            font-size: 42px;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+
+        .slide h3 {
+            font-size: 24px;
+            color: #00d9ff;
+            margin-bottom: 15px;
+        }
+
+        .slide p {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #b0b3d9;
+            max-width: 900px;
+        }
+
+        .slide ul {
+            list-style: none;
+            font-size: 18px;
+            text-align: left;
+            display: inline-block;
+            color: #b0b3d9;
+            margin: 20px 0;
+        }
+
+        .slide ul li {
+            margin: 15px 0;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .slide ul li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #00d9ff;
+            font-size: 24px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .stat-box {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid #00d9ff;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .stat-box .number {
+            font-size: 42px;
+            color: #00d9ff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-box .label {
+            font-size: 14px;
+            color: #b0b3d9;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .revenue-stream {
+            background: rgba(0, 217, 255, 0.05);
+            border-left: 4px solid #00d9ff;
+            padding: 20px 30px;
+            margin: 20px 0;
+            border-radius: 5px;
+            text-align: left;
+            display: inline-block;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .revenue-stream strong {
+            color: #00d9ff;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        button {
+            background: #00d9ff;
+            color: #0a0e27;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #00a8cc;
+            transform: scale(1.05);
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            font-size: 18px;
+            color: #b0b3d9;
+        }
+
+        .tagline {
+            font-size: 28px;
+            color: #00d9ff;
+            margin: 30px 0;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        table {
+            margin: 40px auto;
+            border-collapse: collapse;
+            max-width: 800px;
+        }
+
+        table th, table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+            color: #b0b3d9;
+        }
+
+        table th {
+            color: #00d9ff;
+            font-weight: bold;
+            background: rgba(0, 217, 255, 0.05);
+        }
+
+        .highlight {
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .diagram-box {
+            background: rgba(0, 217, 255, 0.05);
+            border: 2px solid #00d9ff;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            color: #00d9ff;
+            text-align: left;
+            overflow-x: auto;
+            line-height: 1.8;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-box {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid #00d9ff;
+            border-radius: 8px;
+            padding: 15px 25px;
+            font-size: 14px;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .flow-arrow {
+            color: #00d9ff;
+            font-size: 24px;
+        }
+
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+            max-width: 1000px;
+        }
+
+        .credit-flow {
+            background: rgba(0, 150, 200, 0.1);
+            border: 2px dashed #00d9ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title with Logo -->
+        <div class="slide active">
+            <svg class="logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer cylinder -->
+                <ellipse cx="100" cy="60" rx="70" ry="30" fill="none" stroke="#00d9ff" stroke-width="3"/>
+                <rect x="30" y="60" width="140" height="80" fill="none" stroke="#00d9ff" stroke-width="3"/>
+                <ellipse cx="100" cy="140" rx="70" ry="30" fill="none" stroke="#00d9ff" stroke-width="3"/>
+
+                <!-- Inner seal mark -->
+                <circle cx="100" cy="100" r="40" fill="none" stroke="#00ff88" stroke-width="2" opacity="0.7"/>
+                <path d="M 100 70 L 120 90 L 100 110 L 80 90 Z" fill="#00ff88" opacity="0.5"/>
+
+                <!-- Transaction rays -->
+                <line x1="100" y1="30" x2="100" y2="10" stroke="#ff6b9d" stroke-width="2" opacity="0.7"/>
+                <line x1="145" y1="50" x2="160" y2="35" stroke="#ff6b9d" stroke-width="2" opacity="0.7"/>
+                <line x1="145" y1="150" x2="160" y2="165" stroke="#ff6b9d" stroke-width="2" opacity="0.7"/>
+                <line x1="100" y1="170" x2="100" y2="190" stroke="#ff6b9d" stroke-width="2" opacity="0.7"/>
+            </svg>
+            <h1>CylinderSeal</h1>
+            <p class="tagline">"Building the credit infrastructure for 4.5 billion unratable people"</p>
+            <p style="font-size: 24px; margin-top: 50px; color: #00d9ff;">Offline-first payments × Credit scoring × Microloan marketplace</p>
+            <p style="margin-top: 100px; color: #888;">hayder@modernecotech.com</p>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide">
+            <h2>The Problem: 80% of Humanity is Financially Invisible</h2>
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="number">4.5B</div>
+                    <div class="label">Unbanked people with phones</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">$2.25T</div>
+                    <div class="label">Wealth transfer loss annually</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">50-100%</div>
+                    <div class="label">Loan shark interest rates</div>
+                </div>
+            </div>
+            <p style="margin-top: 50px;">No credit scores. No microloans. No fee-free payments. Just financial exclusion.</p>
+        </div>
+
+        <!-- Slide 3: Market Size -->
+        <div class="slide">
+            <h2>Market Opportunity</h2>
+            <ul style="margin: 50px auto;">
+                <li><span class="highlight">Traditional Credit Bureaus:</span> Cover ~500M people in developed world</li>
+                <li><span class="highlight">CylinderSeal TAM:</span> 4.5B unbanked people (9x larger market)</li>
+                <li><span class="highlight">Time to Credit Score:</span> 5-10 years (traditional) vs 7-30 days (CylinderSeal)</li>
+                <li><span class="highlight">Cost Per Check:</span> $10-20 (traditional) vs $1.00 (CylinderSeal)</li>
+            </ul>
+            <p style="margin-top: 50px; font-size: 24px;"><span class="highlight">$100B+ credit data market</span> that doesn't exist yet</p>
+        </div>
+
+        <!-- Slide 4: User Journey & Interactions -->
+        <div class="slide">
+            <h2>User Journey: From Zero Credit to Financial Access</h2>
+            <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; margin: 30px 0;">
+                <!-- Day 1 Box -->
+                <rect x="50" y="80" width="240" height="340" rx="12" fill="rgba(0, 217, 255, 0.1)" stroke="#00d9ff" stroke-width="2"/>
+                <text x="170" y="120" text-anchor="middle" fill="#00d9ff" font-size="28" font-weight="bold">DAY 1</text>
+                <text x="170" y="155" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">Onboard</text>
+
+                <rect x="65" y="170" width="210" height="230" rx="8" fill="rgba(0, 217, 255, 0.05)" stroke="#00d9ff" stroke-width="1" stroke-dasharray="3,3"/>
+                <text x="170" y="195" text-anchor="middle" fill="#00ff88" font-size="13" font-weight="bold">✓ Generate Keypair</text>
+                <text x="170" y="220" text-anchor="middle" fill="#00ff88" font-size="13" font-weight="bold">✓ Exchange Cash</text>
+                <text x="170" y="245" text-anchor="middle" fill="#00ff88" font-size="13" font-weight="bold">✓ Get Digital OWC</text>
+
+                <rect x="65" y="260" width="210" height="55" rx="6" fill="rgba(255, 107, 157, 0.15)" stroke="#ff6b9d" stroke-width="2"/>
+                <text x="170" y="278" text-anchor="middle" fill="#fff" font-size="12">Credit Score</text>
+                <text x="170" y="300" text-anchor="middle" fill="#ff6b9d" font-size="24" font-weight="bold">0/100</text>
+
+                <text x="170" y="335" text-anchor="middle" fill="#fff" font-size="12">Can't borrow yet</text>
+                <text x="170" y="353" text-anchor="middle" fill="#fff" font-size="12">Transactions pending</text>
+
+                <!-- Arrow 1 -->
+                <path d="M 290 250 L 350 250" stroke="#00ff88" stroke-width="3" fill="none" marker-end="url(#arrowhead-green)"/>
+                <text x="320" y="240" text-anchor="middle" fill="#00ff88" font-size="12" font-weight="bold">6 days of</text>
+                <text x="320" y="260" text-anchor="middle" fill="#00ff88" font-size="12" font-weight="bold">transactions</text>
+
+                <!-- Day 7 Box -->
+                <rect x="360" y="80" width="240" height="340" rx="12" fill="rgba(0, 255, 136, 0.1)" stroke="#00ff88" stroke-width="2"/>
+                <text x="480" y="120" text-anchor="middle" fill="#00ff88" font-size="28" font-weight="bold">DAY 7</text>
+                <text x="480" y="155" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">Credit Score</text>
+
+                <rect x="375" y="170" width="210" height="230" rx="8" fill="rgba(0, 255, 136, 0.05)" stroke="#00ff88" stroke-width="1" stroke-dasharray="3,3"/>
+                <text x="480" y="195" text-anchor="middle" fill="#fff" font-size="13">Transaction history</text>
+                <text x="480" y="215" text-anchor="middle" fill="#fff" font-size="13">Days active</text>
+                <text x="480" y="235" text-anchor="middle" fill="#fff" font-size="13">Payment velocity</text>
+                <text x="480" y="255" text-anchor="middle" fill="#fff" font-size="13">Device reputation</text>
+
+                <rect x="375" y="275" width="210" height="55" rx="6" fill="rgba(0, 255, 136, 0.15)" stroke="#00ff88" stroke-width="2"/>
+                <text x="480" y="293" text-anchor="middle" fill="#fff" font-size="12">Credit Score</text>
+                <text x="480" y="315" text-anchor="middle" fill="#00ff88" font-size="24" font-weight="bold">65/100</text>
+
+                <text x="480" y="345" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">✓ Can borrow 5K OWC</text>
+                <text x="480" y="363" text-anchor="middle" fill="#fff" font-size="12">@ 20% APY</text>
+
+                <!-- Arrow 2 -->
+                <path d="M 600 250 L 660 250" stroke="#00ff88" stroke-width="3" fill="none" marker-end="url(#arrowhead-green)"/>
+                <text x="630" y="240" text-anchor="middle" fill="#00ff88" font-size="12" font-weight="bold">23 more</text>
+                <text x="630" y="260" text-anchor="middle" fill="#00ff88" font-size="12" font-weight="bold">days active</text>
+
+                <!-- Day 30 Box -->
+                <rect x="670" y="80" width="240" height="340" rx="12" fill="rgba(255, 170, 0, 0.1)" stroke="#ffaa00" stroke-width="2"/>
+                <text x="790" y="120" text-anchor="middle" fill="#ffaa00" font-size="28" font-weight="bold">DAY 30</text>
+                <text x="790" y="155" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">Unlocked Access</text>
+
+                <rect x="685" y="170" width="210" height="230" rx="8" fill="rgba(255, 170, 0, 0.05)" stroke="#ffaa00" stroke-width="1" stroke-dasharray="3,3"/>
+                <text x="790" y="195" text-anchor="middle" fill="#fff" font-size="13">30+ transactions</text>
+                <text x="790" y="215" text-anchor="middle" fill="#fff" font-size="13">Consistent activity</text>
+                <text x="790" y="235" text-anchor="middle" fill="#fff" font-size="13">Zero conflicts</text>
+                <text x="790" y="255" text-anchor="middle" fill="#fff" font-size="13">Peer reputation</text>
+
+                <rect x="685" y="275" width="210" height="55" rx="6" fill="rgba(255, 170, 0, 0.15)" stroke="#ffaa00" stroke-width="2"/>
+                <text x="790" y="293" text-anchor="middle" fill="#fff" font-size="12">Credit Score</text>
+                <text x="790" y="315" text-anchor="middle" fill="#ffaa00" font-size="24" font-weight="bold">72/100</text>
+
+                <text x="790" y="340" text-anchor="middle" fill="#fff" font-size="12">✓ Borrow 15K OWC</text>
+                <text x="790" y="358" text-anchor="middle" fill="#fff" font-size="12">✓ Peer lending enabled</text>
+
+                <!-- Bottom badges -->
+                <rect x="50" y="430" width="900" height="50" rx="8" fill="rgba(0, 217, 255, 0.08)" stroke="#00d9ff" stroke-width="1"/>
+                <text x="500" y="455" text-anchor="middle" fill="#fff" font-size="14">All without bank account, government ID, or credit history</text>
+                <text x="500" y="475" text-anchor="middle" fill="#00d9ff" font-size="13" font-weight="bold">→ Credit built purely from transaction data and device reputation</text>
+
+                <!-- Arrow markers -->
+                <defs>
+                    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#00ff88"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- Slide 5: User Interactions - Buy/Sell Network -->
+        <div class="slide">
+            <h2>Network: Who Transacts With Whom</h2>
+            <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; margin: 30px 0;">
+                <!-- Central user -->
+                <circle cx="400" cy="200" r="40" fill="#00d9ff" opacity="0.3" stroke="#00d9ff" stroke-width="2"/>
+                <text x="400" y="210" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">User A</text>
+
+                <!-- Connected users -->
+                <circle cx="150" cy="100" r="30" fill="#00ff88" opacity="0.3" stroke="#00ff88" stroke-width="2"/>
+                <text x="150" y="108" text-anchor="middle" fill="#fff" font-size="12">Neighbor</text>
+                <text x="150" y="140" text-anchor="middle" fill="#ff6b9d" font-size="11">+50 OWC</text>
+
+                <circle cx="650" cy="100" r="30" fill="#00ff88" opacity="0.3" stroke="#00ff88" stroke-width="2"/>
+                <text x="650" y="108" text-anchor="middle" fill="#fff" font-size="12">Vendor</text>
+                <text x="650" y="140" text-anchor="middle" fill="#ff6b9d" font-size="11">-30 OWC</text>
+
+                <circle cx="200" cy="280" r="30" fill="#ffaa00" opacity="0.3" stroke="#ffaa00" stroke-width="2"/>
+                <text x="200" y="288" text-anchor="middle" fill="#fff" font-size="12">Employer</text>
+                <text x="200" y="320" text-anchor="middle" fill="#00d9ff" font-size="11">+100 OWC</text>
+
+                <circle cx="600" cy="280" r="30" fill="#ffaa00" opacity="0.3" stroke="#ffaa00" stroke-width="2"/>
+                <text x="600" y="288" text-anchor="middle" fill="#fff" font-size="12">Store</text>
+                <text x="600" y="320" text-anchor="middle" fill="#ff6b9d" font-size="11">-75 OWC</text>
+
+                <!-- Connections -->
+                <line x1="430" y1="170" x2="180" y2="120" stroke="#00d9ff" stroke-width="2" opacity="0.5" stroke-dasharray="5,5"/>
+                <line x1="430" y1="170" x2="620" y2="120" stroke="#00d9ff" stroke-width="2" opacity="0.5" stroke-dasharray="5,5"/>
+                <line x1="380" y1="230" x2="230" y2="260" stroke="#00d9ff" stroke-width="2" opacity="0.5" stroke-dasharray="5,5"/>
+                <line x1="420" y1="230" x2="570" y2="260" stroke="#00d9ff" stroke-width="2" opacity="0.5" stroke-dasharray="5,5"/>
+
+                <!-- Center label -->
+                <text x="400" y="350" text-anchor="middle" fill="#b0b3d9" font-size="13">Each transaction builds User A's reputation</text>
+                <text x="400" y="370" text-anchor="middle" fill="#b0b3d9" font-size="13">and credit score automatically</text>
+            </svg>
+        </div>
+
+        <!-- Slide 6: How It Works - Architecture -->
+        <div class="slide">
+            <h2>3-Tier Network: From Offline to Credit</h2>
+            <svg viewBox="0 0 1000 550" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; margin: 20px 0;">
+                <!-- TIER 0: Peer Devices -->
+                <g>
+                    <text x="500" y="35" text-anchor="middle" fill="#00d9ff" font-size="20" font-weight="bold">TIER 0: Peer Devices</text>
+                    <text x="500" y="58" text-anchor="middle" fill="#fff" font-size="13">(Offline-First, NFC/BLE)</text>
+
+                    <!-- Device A -->
+                    <rect x="200" y="80" width="120" height="100" rx="8" fill="rgba(0, 217, 255, 0.15)" stroke="#00d9ff" stroke-width="2"/>
+                    <text x="260" y="105" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Device A</text>
+                    <text x="260" y="130" text-anchor="middle" fill="#fff" font-size="11">Personal</text>
+                    <text x="260" y="145" text-anchor="middle" fill="#fff" font-size="11">Ledger</text>
+                    <text x="260" y="160" text-anchor="middle" fill="#00d9ff" font-size="12" font-weight="bold">SQLite</text>
+
+                    <!-- Device B -->
+                    <rect x="580" y="80" width="120" height="100" rx="8" fill="rgba(0, 217, 255, 0.15)" stroke="#00d9ff" stroke-width="2"/>
+                    <text x="640" y="105" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">Device B</text>
+                    <text x="640" y="130" text-anchor="middle" fill="#fff" font-size="11">Personal</text>
+                    <text x="640" y="145" text-anchor="middle" fill="#fff" font-size="11">Ledger</text>
+                    <text x="640" y="160" text-anchor="middle" fill="#00d9ff" font-size="12" font-weight="bold">SQLite</text>
+
+                    <!-- NFC/BLE Connection -->
+                    <line x1="320" y1="130" x2="580" y2="130" stroke="#00ff88" stroke-width="3" stroke-dasharray="5,5"/>
+                    <text x="450" y="120" text-anchor="middle" fill="#00ff88" font-size="12" font-weight="bold">NFC/BLE</text>
+                    <text x="450" y="150" text-anchor="middle" fill="#00ff88" font-size="12">Pay offline</text>
+                </g>
+
+                <!-- Arrow Down -->
+                <path d="M 500 200 L 500 240" stroke="#00d9ff" stroke-width="3" fill="none" marker-end="url(#arrowhead-blue)"/>
+                <text x="520" y="225" fill="#00d9ff" font-size="12">gRPC Sync</text>
+
+                <!-- TIER 1: Super-Peer Cluster -->
+                <g>
+                    <text x="500" y="270" text-anchor="middle" fill="#ffaa00" font-size="20" font-weight="bold">TIER 1: Super-Peers</text>
+                    <text x="500" y="293" text-anchor="middle" fill="#fff" font-size="13">(5-Node Byzantine Quorum)</text>
+
+                    <!-- Super-peer circle arrangement -->
+                    <!-- S1 (top left) -->
+                    <circle cx="280" cy="330" r="35" fill="rgba(255, 170, 0, 0.15)" stroke="#ffaa00" stroke-width="2"/>
+                    <text x="280" y="340" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">S1</text>
+
+                    <!-- S2 (left) -->
+                    <circle cx="180" cy="410" r="35" fill="rgba(255, 170, 0, 0.15)" stroke="#ffaa00" stroke-width="2"/>
+                    <text x="180" y="420" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">S2</text>
+
+                    <!-- S3 (center) -->
+                    <circle cx="320" cy="450" r="35" fill="rgba(255, 170, 0, 0.15)" stroke="#ffaa00" stroke-width="2"/>
+                    <text x="320" y="460" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">S3</text>
+
+                    <!-- S4 (right) -->
+                    <circle cx="680" cy="450" r="35" fill="rgba(255, 170, 0, 0.15)" stroke="#ffaa00" stroke-width="2"/>
+                    <text x="680" y="460" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">S4</text>
+
+                    <!-- S5 (top right) -->
+                    <circle cx="720" cy="330" r="35" fill="rgba(255, 170, 0, 0.15)" stroke="#ffaa00" stroke-width="2"/>
+                    <text x="720" y="340" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">S5</text>
+
+                    <!-- Gossip connections -->
+                    <line x1="300" y1="360" x2="200" y2="390" stroke="#00d9ff" stroke-width="2" stroke-dasharray="3,3" opacity="0.6"/>
+                    <line x1="220" y1="440" x2="290" y2="450" stroke="#00d9ff" stroke-width="2" stroke-dasharray="3,3" opacity="0.6"/>
+                    <line x1="355" y1="445" x2="650" y2="445" stroke="#00d9ff" stroke-width="2" stroke-dasharray="3,3" opacity="0.6"/>
+                    <line x1="700" y1="360" x2="360" y2="430" stroke="#00d9ff" stroke-width="2" stroke-dasharray="3,3" opacity="0.6"/>
+                    <line x1="690" y1="395" x2="710" y2="360" stroke="#00d9ff" stroke-width="2" stroke-dasharray="3,3" opacity="0.6"/>
+
+                    <!-- Quorum info box -->
+                    <rect x="820" y="310" width="160" height="160" rx="8" fill="rgba(0, 255, 136, 0.1)" stroke="#00ff88" stroke-width="2"/>
+                    <text x="900" y="335" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Consensus</text>
+                    <text x="900" y="355" text-anchor="middle" fill="#fff" font-size="11">3-of-5 quorum</text>
+                    <text x="900" y="375" text-anchor="middle" fill="#fff" font-size="11">required</text>
+                    <text x="900" y="395" text-anchor="middle" fill="#fff" font-size="11">Gossip detects</text>
+                    <text x="900" y="415" text-anchor="middle" fill="#fff" font-size="11">double-spends</text>
+                    <text x="900" y="435" text-anchor="middle" fill="#fff" font-size="11">Entry confirmed</text>
+                    <text x="900" y="452" text-anchor="middle" fill="#00ff88" font-size="11" font-weight="bold">✓ CONFIRMED</text>
+                </g>
+
+                <!-- Arrow Down -->
+                <path d="M 500 495 L 500 510" stroke="#00d9ff" stroke-width="3" fill="none" marker-end="url(#arrowhead-blue)"/>
+
+                <!-- TIER 2: Credit API -->
+                <g>
+                    <rect x="50" y="520" width="900" height="20" rx="4" fill="rgba(255, 107, 157, 0.15)" stroke="#ff6b9d" stroke-width="2"/>
+                    <text x="500" y="535" text-anchor="middle" fill="#ff6b9d" font-size="13" font-weight="bold">TIER 2: Credit Profiles Sold to MFIs, Mobile Money, P2P Lenders, Insurance</text>
+                </g>
+
+                <!-- Arrow markers -->
+                <defs>
+                    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#00d9ff"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- Slide 7: Credit Profile Creation -->
+        <div class="slide">
+            <h2>How Credit Profiles Are Built (The Revenue Engine)</h2>
+            <svg viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; margin: 20px 0;">
+                <!-- Day 7 -->
+                <text x="50" y="40" fill="#00d9ff" font-size="16" font-weight="bold">DAY 7</text>
+                <rect x="30" y="60" width="120" height="80" rx="8" fill="rgba(0, 217, 255, 0.1)" stroke="#00d9ff" stroke-width="2"/>
+                <text x="90" y="85" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Credit Score</text>
+                <text x="90" y="105" text-anchor="middle" fill="#00d9ff" font-size="18" font-weight="bold">65/100</text>
+                <text x="90" y="125" text-anchor="middle" fill="#b0b3d9" font-size="11">Limited History</text>
+
+                <!-- Arrow -->
+                <path d="M 180 100 L 230 100" stroke="#00d9ff" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+                <!-- Day 30 -->
+                <text x="280" y="40" fill="#00d9ff" font-size="16" font-weight="bold">DAY 30</text>
+                <rect x="260" y="60" width="120" height="80" rx="8" fill="rgba(0, 217, 255, 0.1)" stroke="#00d9ff" stroke-width="2"/>
+                <text x="320" y="85" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Credit Score</text>
+                <text x="320" y="105" text-anchor="middle" fill="#00d9ff" font-size="18" font-weight="bold">72/100</text>
+                <text x="320" y="125" text-anchor="middle" fill="#b0b3d9" font-size="11">Solid History</text>
+
+                <!-- Arrow -->
+                <path d="M 410 100 L 460 100" stroke="#00d9ff" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+                <!-- Data Sources -->
+                <text x="520" y="40" fill="#00d9ff" font-size="16" font-weight="bold">Credit Data Sources</text>
+
+                <!-- Transaction data -->
+                <rect x="480" y="60" width="150" height="70" rx="8" fill="rgba(0, 255, 136, 0.1)" stroke="#00ff88" stroke-width="2"/>
+                <text x="555" y="85" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Transaction Data</text>
+                <text x="555" y="105" text-anchor="middle" fill="#b0b3d9" font-size="10">Count, frequency, amount</text>
+                <text x="555" y="120" text-anchor="middle" fill="#b0b3d9" font-size="10">velocity, patterns</text>
+
+                <!-- Device reputation -->
+                <rect x="480" y="150" width="150" height="70" rx="8" fill="rgba(255, 170, 0, 0.1)" stroke="#ffaa00" stroke-width="2"/>
+                <text x="555" y="175" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Device Reputation</text>
+                <text x="555" y="195" text-anchor="middle" fill="#b0b3d9" font-size="10">Days active, anomalies</text>
+                <text x="555" y="210" text-anchor="middle" fill="#b0b3d9" font-size="10">geographic consistency</text>
+
+                <!-- Conflict history -->
+                <rect x="480" y="240" width="150" height="70" rx="8" fill="rgba(255, 107, 157, 0.1)" stroke="#ff6b9d" stroke-width="2"/>
+                <text x="555" y="265" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Conflict History</text>
+                <text x="555" y="285" text-anchor="middle" fill="#b0b3d9" font-size="10">Double-spends, disputes</text>
+                <text x="555" y="300" text-anchor="middle" fill="#b0b3d9" font-size="10">fraud attempts</text>
+
+                <!-- Arrow -->
+                <path d="M 650 100 L 700 100" stroke="#00d9ff" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                <path d="M 650 185 L 700 185" stroke="#00d9ff" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                <path d="M 650 275 L 700 275" stroke="#00d9ff" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+                <!-- Monetization -->
+                <text x="760" y="40" fill="#00d9ff" font-size="16" font-weight="bold">B2B Revenue</text>
+                <rect x="720" y="60" width="140" height="240" rx="8" fill="rgba(0, 217, 255, 0.08)" stroke="#00d9ff" stroke-width="2"/>
+                <text x="790" y="85" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">Sell To:</text>
+                <text x="790" y="110" text-anchor="middle" fill="#00d9ff" font-size="10">MFIs</text>
+                <text x="790" y="125" text-anchor="middle" fill="#b0b3d9" font-size="9">$0.50-2.00/check</text>
+                <text x="790" y="145" text-anchor="middle" fill="#00d9ff" font-size="10">Mobile Money</text>
+                <text x="790" y="160" text-anchor="middle" fill="#b0b3d9" font-size="9">$0.25-0.50/month</text>
+                <text x="790" y="180" text-anchor="middle" fill="#00d9ff" font-size="10">P2P Lenders</text>
+                <text x="790" y="195" text-anchor="middle" fill="#b0b3d9" font-size="9">1-2% of volume</text>
+                <text x="790" y="215" text-anchor="middle" fill="#00d9ff" font-size="10">Insurance</text>
+                <text x="790" y="230" text-anchor="middle" fill="#b0b3d9" font-size="9">$50K+/month</text>
+                <text x="790" y="250" text-anchor="middle" fill="#00d9ff" font-size="10">DeFi</text>
+                <text x="790" y="265" text-anchor="middle" fill="#b0b3d9" font-size="9">0.5-1% of APR</text>
+
+                <!-- Marker definition -->
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#00d9ff"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- Slide 8: Super-Peer Network & Consensus -->
+        <div class="slide">
+            <h2>Super-Peer Network: Byzantine Double-Spend Detection</h2>
+            <svg viewBox="0 0 1000 350" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; margin: 20px 0;">
+                <!-- Device attempt -->
+                <circle cx="100" cy="100" r="25" fill="#ff6b9d" opacity="0.3" stroke="#ff6b9d" stroke-width="2"/>
+                <text x="100" y="107" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Device X</text>
+                <text x="100" y="145" text-anchor="middle" fill="#ff6b9d" font-size="10">Attempts 2</text>
+                <text x="100" y="160" text-anchor="middle" fill="#ff6b9d" font-size="10">Transactions</text>
+
+                <!-- Arrows to super-peers -->
+                <path d="M 130 100 L 200 100" stroke="#ff6b9d" stroke-width="2" opacity="0.6" marker-end="url(#arrowhead2)"/>
+                <path d="M 130 120 L 200 280" stroke="#ff6b9d" stroke-width="2" opacity="0.6" marker-end="url(#arrowhead2)"/>
+
+                <!-- Super-peers -->
+                <circle cx="250" cy="100" r="35" fill="rgba(0, 217, 255, 0.2)" stroke="#00d9ff" stroke-width="2"/>
+                <text x="250" y="110" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">S1</text>
+
+                <circle cx="450" cy="80" r="35" fill="rgba(0, 217, 255, 0.2)" stroke="#00d9ff" stroke-width="2"/>
+                <text x="450" y="90" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">S2</text>
+
+                <circle cx="650" cy="100" r="35" fill="rgba(0, 217, 255, 0.2)" stroke="#00d9ff" stroke-width="2"/>
+                <text x="650" y="110" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">S3</text>
+
+                <circle cx="450" cy="200" r="35" fill="rgba(0, 217, 255, 0.2)" stroke="#00d9ff" stroke-width="2"/>
+                <text x="450" y="210" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">S4</text>
+
+                <circle cx="250" cy="280" r="35" fill="rgba(0, 217, 255, 0.2)" stroke="#00d9ff" stroke-width="2"/>
+                <text x="250" y="290" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">S5</text>
+
+                <!-- Gossip connections -->
+                <path d="M 280 100 L 420 85" stroke="#00d9ff" stroke-width="1.5" opacity="0.5" stroke-dasharray="3,3"/>
+                <path d="M 480 95 L 620 100" stroke="#00d9ff" stroke-width="1.5" opacity="0.5" stroke-dasharray="3,3"/>
+                <path d="M 280 120 L 420 180" stroke="#00d9ff" stroke-width="1.5" opacity="0.5" stroke-dasharray="3,3"/>
+                <path d="M 280 250 L 420 225" stroke="#00d9ff" stroke-width="1.5" opacity="0.5" stroke-dasharray="3,3"/>
+
+                <!-- Conflict detection -->
+                <rect x="750" y="30" width="220" height="280" rx="8" fill="rgba(255, 107, 157, 0.08)" stroke="#ff6b9d" stroke-width="2"/>
+                <text x="860" y="55" text-anchor="middle" fill="#ff6b9d" font-size="13" font-weight="bold">CONFLICT DETECTION</text>
+
+                <text x="760" y="85" fill="#b0b3d9" font-size="11">Entry 42 detected:</text>
+                <text x="760" y="105" fill="#b0b3d9" font-size="10">• S1,S2,S3: TX to Alice</text>
+                <text x="760" y="120" fill="#b0b3d9" font-size="10">• S4,S5: TX to Bob</text>
+                <text x="760" y="140" fill="#b0b3d9" font-size="10">Same seq, different hash</text>
+
+                <text x="760" y="165" fill="#00ff88" font-size="11" font-weight="bold">✓ Consensus:</text>
+                <text x="760" y="185" fill="#b0b3d9" font-size="10">Timestamp Alice tx wins</text>
+                <text x="760" y="200" fill="#b0b3d9" font-size="10">Bob tx marked CONFLICTED</text>
+                <text x="760" y="215" fill="#b0b3d9" font-size="10">Device reputation penalized</text>
+                <text x="760" y="230" fill="#b0b3d9" font-size="10">Credit score -10 points</text>
+
+                <text x="760" y="260" fill="#b0b3d9" font-size="10" font-style="italic">All 5 nodes agree</text>
+                <text x="760" y="275" fill="#b0b3d9" font-size="10" font-style="italic">(deterministic consensus)</text>
+
+                <defs>
+                    <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#ff6b9d"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- Slide 9: Revenue Model -->
+        <div class="slide">
+            <h2>Revenue Model: Credit Data is the Product</h2>
+            <p style="margin-bottom: 40px;">We build credit profiles for 4.5B unbanked people. We sell those profiles to financial institutions.</p>
+            <div class="revenue-stream">
+                <strong>MFI Credit Checks:</strong> $0.50-2.00 per query<br>
+                100K checks/month × $1.00 = $100K/month
+            </div>
+            <div class="revenue-stream">
+                <strong>Mobile Money Agent Monitoring:</strong> $0.25-0.50/month per agent<br>
+                1M agents × $0.35/month = $350K/month
+            </div>
+            <div class="revenue-stream">
+                <strong>P2P Lending Revenue Share:</strong> 1-2% of loan volume<br>
+                100K loans/month × $1.50 avg = $150K/month
+            </div>
+            <div class="revenue-stream">
+                <strong>Insurance Subscriptions:</strong> $50K+/month per company<br>
+                5+ partners = $250K+/month
+            </div>
+        </div>
+
+        <!-- Slide 10: Financial Projections -->
+        <div class="slide">
+            <h2>Financial Projections</h2>
+            <table>
+                <tr>
+                    <th>Year</th>
+                    <th>Revenue</th>
+                    <th>Users</th>
+                    <th>EBITDA</th>
+                    <th>Margin</th>
+                </tr>
+                <tr>
+                    <td>Year 1</td>
+                    <td><span class="highlight">$675K</span></td>
+                    <td>10K</td>
+                    <td>$200K</td>
+                    <td>75%</td>
+                </tr>
+                <tr>
+                    <td>Year 2</td>
+                    <td><span class="highlight">$7.7M</span></td>
+                    <td>100K</td>
+                    <td>$5M</td>
+                    <td>78%</td>
+                </tr>
+                <tr>
+                    <td>Year 3</td>
+                    <td><span class="highlight">$102.6M</span></td>
+                    <td>1M+</td>
+                    <td>$77M</td>
+                    <td>80%</td>
+                </tr>
+            </table>
+            <p style="margin-top: 50px;"><span class="highlight">$77M EBITDA</span> in Year 3 = <span class="highlight">10-15x</span> traditional credit bureau multiples</p>
+        </div>
+
+        <!-- Slide 11: Valuation -->
+        <div class="slide">
+            <h2>Valuation & Exit</h2>
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="number">$500M</div>
+                    <div class="label">Conservative (5x EBITDA)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">$770M</div>
+                    <div class="label">Base Case (10x EBITDA)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">$1.2B</div>
+                    <div class="label">Optimistic (12x EBITDA)</div>
+                </div>
+            </div>
+            <p style="margin-top: 50px;">Comparable: Equifax (6.7x revenue), TransUnion (5.8x), Upstart (10x)</p>
+            <p><span class="highlight">We have 9x larger TAM with higher growth rate</span></p>
+        </div>
+
+        <!-- Slide 12: Unit Economics -->
+        <div class="slide">
+            <h2>Unit Economics: 50x LTV/CAC</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Per User</h3>
+                    <p style="font-size: 24px; color: #00d9ff; margin: 20px 0;">$32.50</p>
+                    <p style="color: #888; font-size: 14px;">5-year lifetime value<br>from credit checks + spreads + loan fees</p>
+                </div>
+                <div>
+                    <h3>Per Super-Peer Operator</h3>
+                    <ul style="text-align: left;">
+                        <li><strong>CAC:</strong> $1K</li>
+                        <li><strong>LTV:</strong> $50K+</li>
+                        <li style="color: #00ff88; font-weight: bold; margin-top: 10px;">LTV/CAC: 50x</li>
+                        <li style="color: #00d9ff;">Payback: 5 days</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top: 50px;">Benchmark: 3x is healthy. We're 16x above benchmark.</p>
+        </div>
+
+        <!-- Slide 13: Why Now -->
+        <div class="slide">
+            <h2>Why Now?</h2>
+            <ul style="margin: 50px auto;">
+                <li><span class="highlight">Mobile Penetration:</span> 5.5B smartphones (90% coverage by 2025)</li>
+                <li><span class="highlight">Network Coverage:</span> Africa now 60%+ 4G (enabling last-mile)</li>
+                <li><span class="highlight">Regulatory Green Light:</span> Central banks pushing financial inclusion</li>
+                <li><span class="highlight">Partner Ready:</span> MFIs, mobile money have API infrastructure</li>
+                <li><span class="highlight">Competitive Vacuum:</span> No one else is building this (wrong incentives)</li>
+            </ul>
+        </div>
+
+        <!-- Slide 14: Competitive Moats -->
+        <div class="slide">
+            <h2>Defensibility: 3 Unfair Advantages</h2>
+            <div style="background: rgba(0, 217, 255, 0.1); padding: 30px; border-radius: 10px; margin: 30px 0; max-width: 900px;">
+                <h3>1. Hardware Binding</h3>
+                <p>Nonces derived from device serial + IMEI → prevents cloning → can't fake credit score</p>
+            </div>
+            <div style="background: rgba(0, 217, 255, 0.1); padding: 30px; border-radius: 10px; margin: 30px 0; max-width: 900px;">
+                <h3>2. Byzantine Consensus</h3>
+                <p>3-of-5 quorum + deterministic conflict resolution → tamper-proof → can't be forged</p>
+            </div>
+            <div style="background: rgba(0, 217, 255, 0.1); padding: 30px; border-radius: 10px; margin: 30px 0; max-width: 900px;">
+                <h3>3. Offline-First Architecture</h3>
+                <p>Works without internet → competitors can't copy → 2+ year head start</p>
+            </div>
+        </div>
+
+        <!-- Slide 15: Go-to-Market -->
+        <div class="slide">
+            <h2>Go-to-Market: Regional Expansion</h2>
+            <ul style="margin: 50px auto;">
+                <li><span class="highlight">Phase 1 (6mo):</span> East Africa — Validate with 2-3 MFI partners, deploy 5 super-peer nodes</li>
+                <li><span class="highlight">Phase 2 (6mo):</span> West Africa — Expand to 5-10 MFI partners, 20+ super-peer nodes</li>
+                <li><span class="highlight">Phase 3 (Year 2):</span> Continental scale — 50+ partners, open federation licensing</li>
+                <li><span class="highlight">Phase 4 (Year 3+):</span> Global — 100M+ users, $100M+ revenue</li>
+            </ul>
+        </div>
+
+        <!-- Slide 16: The Ask -->
+        <div class="slide">
+            <h2>The Ask: $5M Seed Round</h2>
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="number">18mo</div>
+                    <div class="label">Runway to Series A</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">6</div>
+                    <div class="label">Key Milestones</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">Month 15</div>
+                    <div class="label">Profitability</div>
+                </div>
+            </div>
+            <p style="margin-top: 50px; font-size: 18px;">Milestones: MVP (Mo3) → E2E (Mo4) → 2 MFI partners (Mo6) → 10K users (Mo9) → $50K/mo revenue (Mo12)</p>
+        </div>
+
+        <!-- Slide 17: Vision -->
+        <div class="slide">
+            <h2>The Vision</h2>
+            <p style="font-size: 24px; font-style: italic; margin: 60px 0;">In 10 years, a street vendor in Lagos has a credit score as robust as a NYC banker.</p>
+            <p style="font-size: 24px; font-style: italic; margin: 40px 0;">A farmers' cooperative in rural India can access inventory financing on their transaction history alone.</p>
+            <p style="font-size: 24px; font-style: italic; margin: 40px 0;">CylinderSeal creates a new financial system where <span class="highlight">YOUR PHONE IS YOUR CREDIT HISTORY.</span></p>
+        </div>
+
+        <!-- Slide 18: Why Us -->
+        <div class="slide">
+            <h2>Why We Win</h2>
+            <ul style="margin: 50px auto;">
+                <li><span class="highlight">10+ years</span> building cryptography + offline-first systems</li>
+                <li><span class="highlight">Only team</span> with hardware binding + Byzantine consensus + NFC payment in ONE product</li>
+                <li><span class="highlight">MVP working:</span> Rust backend + Android app + super-peer sync done</li>
+                <li><span class="highlight">2-3 year head start</span> on any well-funded competitor</li>
+                <li><span class="highlight">50x better unit economics</span> than traditional fintech</li>
+            </ul>
+        </div>
+
+        <!-- Slide 19: Contact -->
+        <div class="slide">
+            <h1 style="margin-bottom: 50px;">Let's build financial infrastructure for 4.5B people.</h1>
+            <p style="font-size: 24px; margin: 50px 0;">hayder@modernecotech.com</p>
+        </div>
+    </div>
+
+    <div class="slide-number">
+        <span id="current">1</span> / <span id="total">19</span>
+    </div>
+
+    <div class="controls">
+        <button onclick="previousSlide()">← Previous</button>
+        <button onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        // Show first slide
+        showSlide(0);
+    </script>
+</body>
+</html>

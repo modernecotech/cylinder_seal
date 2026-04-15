@@ -2,6 +2,19 @@ syntax = "proto3";
 
 package cylinder_seal.chain_sync;
 
+option java_package = "com.modernecotech.cylinderseal.core.network.proto";
+option java_outer_classname = "ChainSyncProto";
+option kotlin_package = "com.modernecotech.cylinderseal.core.network.proto";
+
+// Symbolic link or copy of ../../../../../../proto/chain_sync.proto
+// This file is compiled by the protobuf gradle plugin in core-network module
+// The actual source of truth is at ../../../../../../proto/chain_sync.proto
+// Android build system will generate Kotlin stubs from this proto definition
+
+// Import statement would reference the master proto, but for Android build purposes,
+// we maintain this copy to ensure consistent code generation with appropriate Java/Kotlin package names.
+// All message definitions are identical to the master proto file.
+
 // Transaction represents a single value transfer between two users
 message Transaction {
     // UUIDv7 encoded as 16 bytes
@@ -401,7 +414,7 @@ message ReplicationRequest {
     // Peer identifier
     string peer_id = 1;
 
-    // Last known block hash from this peer
+    // Last known entry hash from this peer
     bytes last_known_hash = 2;
 }
 

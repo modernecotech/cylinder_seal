@@ -190,7 +190,7 @@ SECURITY_INDEX.md                     ← This file
 ### Code Files (Updated for Hardening)
 ```
 crates/cs-core/src/
-├── models.rs                         ← Transaction, LedgerBlock (UPDATED)
+├── models.rs                         ← Transaction, JournalEntry (UPDATED)
 ├── crypto.rs                         ← Ed25519, BLAKE2b (UPDATED)
 ├── nonce.rs                          ← Deterministic RFC 6979 (NEW)
 └── hardware_binding.rs               ← Device serial binding (NEW)

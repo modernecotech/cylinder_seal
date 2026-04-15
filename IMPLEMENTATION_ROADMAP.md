@@ -13,7 +13,7 @@
 
 ### Week 1: Rust & Protocol Foundation
 - [ ] `cs-core` compiles with all hardened models
-- [ ] Vector clocks, device IDs, monotonic clocks in Transaction/LedgerBlock
+- [ ] Vector clocks, device IDs, monotonic clocks in Transaction/JournalEntry
 - [ ] Deterministic nonce derivation (RFC 6979 + HMAC)
 - [ ] Hardware-bound nonce binding (device serial)
 

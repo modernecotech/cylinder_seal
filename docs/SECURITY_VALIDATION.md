@@ -9,7 +9,7 @@ fun validateOfflineTransaction(
     tx: Transaction,
     user: User,
     device: Device,
-    lastConfirmedBlock: LedgerBlock?
+    lastConfirmedBlock: JournalEntry?
 ): ValidationResult {
     // 1. Check KYC tier limits
     if (tx.amount_owc > user.kyc_tier.max_offline_transaction()) {
@@ -54,11 +54,11 @@ fun validateOfflineTransaction(
 }
 ```
 
-### Before Creating a LedgerBlock
+### Before Creating a JournalEntry
 
 ```kotlin
 fun validateBlockBeforeLocalStorage(
-    block: LedgerBlock,
+    block: JournalEntry,
     user: User,
     device: Device
 ): ValidationResult {
@@ -68,16 +68,16 @@ fun validateBlockBeforeLocalStorage(
         return ValidationError("Sequence number gap or backwards")
     }
 
-    // 2. prev_block_hash must match
+    // 2. prev_entry_hash must match
     if (lastBlock == null) {
         // Genesis block
         val expectedHash = blake2b256(user.public_key)
-        if (block.prev_block_hash != expectedHash) {
+        if (block.prev_entry_hash != expectedHash) {
             return ValidationError("Invalid genesis block hash")
         }
     } else {
-        if (block.prev_block_hash != lastBlock.block_hash) {
-            return ValidationError("prev_block_hash mismatch")
+        if (block.prev_entry_hash != lastBlock.entry_hash) {
+            return ValidationError("prev_entry_hash mismatch")
         }
     }
 
@@ -137,19 +137,19 @@ fun validateNonceChain(transactions: List<Transaction>): ValidationResult {
 
 ```rust
 pub async fn validate_incoming_block(
-    block: &LedgerBlock,
+    block: &JournalEntry,
     user_id: Uuid,
 ) -> Result<()> {
     // 1. Verify block hash (recompute and compare)
     let canonical = block.canonical_cbor_for_hashing()?;
     let expected_hash = blake2b_256(&canonical);
-    if expected_hash != block.block_hash {
+    if expected_hash != block.entry_hash {
         return Err(InvalidHash);
     }
 
     // 2. Verify device signature
     let device = self.storage.get_device(block.device_id).await?;
-    crypto::verify_signature(&block.block_hash, &block.device_signature, &device.public_key)?;
+    crypto::verify_signature(&block.entry_hash, &block.device_signature, &device.public_key)?;
 
     // 3. Check sequence number (must be next expected)
     let last_seq = self.storage.get_user_last_sequence(user_id).await?;
@@ -160,18 +160,18 @@ pub async fn validate_incoming_block(
         });
     }
 
-    // 4. Check prev_block_hash
+    // 4. Check prev_entry_hash
     let last_block = self.storage.get_last_confirmed_block(user_id).await?;
     if let Some(last) = last_block {
-        if block.prev_block_hash != last.block_hash {
-            return Err(Conflict("prev_block_hash mismatch".into()));
+        if block.prev_entry_hash != last.entry_hash {
+            return Err(Conflict("prev_entry_hash mismatch".into()));
         }
     }
 
     // 5. Detect double-spend (same user submitting 2 blocks with same prev_hash)
     let pending = self.storage.get_pending_blocks(user_id).await?;
     for pending_block in pending {
-        if pending_block.prev_block_hash == block.prev_block_hash {
+        if pending_block.prev_entry_hash == block.prev_entry_hash {
             // Fork detected: two competing chains
             return self.handle_double_spend(user_id, &pending_block, block).await;
         }
@@ -236,8 +236,8 @@ pub async fn validate_incoming_block(
 pub async fn handle_double_spend(
     &self,
     user_id: Uuid,
-    block_a: &LedgerBlock,
-    block_b: &LedgerBlock,
+    block_a: &JournalEntry,
+    block_b: &JournalEntry,
 ) -> Result<()> {
     // Both blocks have same prev_hash (fork detected)
 
@@ -263,10 +263,10 @@ pub async fn handle_double_spend(
 
     // Winner is determined; loser is quarantined
     let loser = if winner == block_a { block_b } else { block_a };
-    self.storage.mark_conflicted(loser.block_hash, "double_spend").await?;
+    self.storage.mark_conflicted(loser.entry_hash, "double_spend").await?;
 
     // Notify both devices
-    self.notify_conflict(user_id, winner.block_hash, loser.block_hash).await?;
+    self.notify_conflict(user_id, winner.entry_hash, loser.entry_hash).await?;
 
     // Penalize losing device (lower credit score)
     let device = self.storage.get_device(loser.device_id).await?;
@@ -281,7 +281,7 @@ pub async fn handle_double_spend(
 ```rust
 pub async fn confirm_block_with_consensus(
     &self,
-    block: &LedgerBlock,
+    block: &JournalEntry,
     user_id: Uuid,
 ) -> Result<()> {
     // Get 3 super-peers (hardcoded or discovered)

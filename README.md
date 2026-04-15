@@ -18,40 +18,138 @@ CylinderSeal enables:
 - **Peer-to-peer lending** — lend to people in your network based on their CylinderSeal credit score
 - Works on **any Android smartphone** (even cheap, used phones)
 
-## Architecture
+## Architecture: 3-Tier Network
 
-**2-Tier Core System:**
+```
+┌─────────────────────────────────┐
+│   Tier 2: Exchange & Rates      │
+│   - OWC Basket Calculation      │
+│   - Credit API (Monetization)   │
+│   - Fiat On-Ramps               │
+└──────────────┬──────────────────┘
+               │
+┌──────────────▼──────────────────┐
+│  Tier 1: Super-Peer Cluster     │
+│  - 5-Node Byzantine Quorum      │
+│  - Credit Scoring Engine        │
+│  - Gossip Protocol              │
+│  - gRPC Sync Service            │
+└──────────────┬──────────────────┘
+               │
+        ┌──────┴──────┐
+        │             │
+    ┌───▼────┐    ┌──▼────┐
+    │Device A│    │Device B│  (NFC/BLE, Offline)
+    │Ledger  │◄──►│Ledger  │
+    └────────┘    └────────┘
+```
 
-**Tier 0: Android Devices** (Personal transaction journals)
-- Each user has a personal, offline-first ledger
-- Device-to-device payments via NFC/BLE (no internet needed)
-- Builds credit profile automatically through payment activity
-- Can request microloans based on transaction history
-- Can lend to trusted contacts based on their credit score
-- Stores private key in Android Keystore (hardware-backed)
+### Tier 0: Peer Network (Android Devices)
 
-**Tier 1: Rust Super-Peers** (Centralized validators, on/off-ramps, 5-node Byzantine quorum)
-- Validates transactions and blocks (3-of-5 consensus required)
-- Computes credit scores from transaction history
-- Originates and tracks microloans
-- Mediates peer-to-peer lending
-- Detects fraud and double-spends
-- Immutable audit logging
-- No single point of failure (need 3 compromised to break)
+Each user's smartphone is a **personal transaction journal**:
+- **Offline-first**: Device-to-device payments via NFC/BLE (no internet needed)
+- **Personal ledger**: SQLCipher encrypted, append-only, stored locally in Room DB
+- **Device reputation**: Hardware serial + IMEI bound to nonces (detects cloning)
+- **Deterministic nonces**: RFC 6979 derived from previous nonce + hardware IDs
+- **Key management**: Ed25519 keypair in Android Keystore (never exported)
+- **Automatic credit building**: Transaction history creates credit profile automatically
+- **Microloans**: Borrow against transaction history (even with zero traditional credit)
+- **Peer lending**: Lend to contacts based on verified credit scores
 
-**Every super-peer is an on/off-ramp** (cash ↔ digital):
-- Accept cash → issue digital balance (cash-in)
-- Accept digital balance → dispense cash (cash-out)
-- Each operator sets their own exchange rate (market competition)
-- Creates a network of informal money agents (decentralized, no single authority)
-- Anyone can operate a super-peer (NGO, telco, shop owner, individual)
-- No need for formal banking partnerships or third-party gateways
+**How Offline Payment Works:**
+1. Device A (payer) initiates payment to Device B (payee)
+2. Balance check on Device A (local, no network)
+3. Generate signed transaction with RFC 6979 nonce
+4. NFC/BLE exchange (< 500ms round trip)
+5. Both devices store transaction in personal ledger
+6. Later when online: both sync to super-peers for confirmation
 
-**Optional Integrations** (scale + convenience, not required):
+### Tier 1: Super-Peer Cluster (Rust Backend)
+
+**Byzantine Quorum: 5 Nodes (3-of-5 required for confirmation)**
+
+Each super-peer runs:
+- **PostgreSQL 16**: Persistent ledger, credit profiles, audit logs
+- **Redis 7**: Session cache, nonce deduplication, rate limiting
+- **gRPC Service**: Bidirectional sync with devices
+- **Credit Scoring Engine**: Computes scores from transaction history (daily batch job)
+- **Gossip Protocol**: Detects double-spends across nodes, replicate journal state
+
+**Offline Conflict Resolution** (Byzantine Consensus):
+- Device attempts double-spend while offline
+- Both super-peers receive conflicting entries (same seq, different txn)
+- Gossip protocol detects conflict across nodes
+- Timestamp heuristic determines winner (earlier timestamp wins)
+- If timestamps within 60s (clock skew): request signed NFC/BLE receipt as proof
+- Consensus achieved: 3+ peers agree, entry confirmed, credit score penalized for loser
+
+**Every Super-Peer is an On/Off-Ramp** (Cash ↔ Digital):
+- User walks in with cash (KES, NGN, USD, etc.) → operator issues digital OWC
+- User shows balance on phone → operator dispenses cash
+- Each operator sets own exchange rate (market competition)
+- Creates network of informal money agents (anyone can run a super-peer)
+- No banks needed, no formal partnerships required
+
+### Tier 2: Exchange & Monetization
+
+**Credit API** (Where Revenue Comes From):
+- Microfinance institutions query credit scores ($0.50-2.00 per check)
+- Mobile money providers monitor agent reputation ($0.25-0.50/month per agent)
+- P2P lending platforms match borrowers with lenders (1-2% of volume)
+- Insurance companies price premiums based on transaction history ($50K+/month)
+
+**OWC Rate Feeds** (Optional):
+- Aggregate forex APIs (Fixer, Twelve Data, etc.)
+- Calculate basket rate (USD, EUR, GBP, KES, NGN, BRL, etc.)
+- Apply spread (0.5-1.5% depending on volume)
+- Distribute to all super-peers (consensus on rates)
+
+**Optional Integrations** (for scale, not required for MVP):
 - **Formal Exchange Services**: For high-volume institutional transfers
-- **KYC/AML Services**: Smile Identity, Veriff (regulatory compliance in formal jurisdictions)
-- **Formal Fiat Partnerships**: Flutterwave, Wise, PayPal (for users who prefer official channels)
-- **Rate Feeds**: Real-time OWC basket calculation (or use hardcoded rates for MVP)
+- **KYC/AML Services**: Smile Identity, Veriff (regulatory compliance)
+- **Formal Fiat Partnerships**: Flutterwave, Wise, PayPal (convenience)
+
+### How They Interact
+
+```
+Offline Payment → Sync to Super-Peers → Byzantine Consensus → Credit Score Update
+────────────────────────────────────────────────────────────────────────────────
+
+Day 1:
+  Device A & B exchange 50 OWC via NFC (offline)
+  Both store in personal ledger (PENDING status)
+
+Day 2 (when Device A comes online):
+  Device A gRPC SyncChain → Super-Peer S1
+  S1 validates, gossips to S2-S5
+  S2, S3, S4 independently validate
+  4-of-5 quorum achieved: CONFIRMED
+  S1 updates: transaction confirmed, Device A balance -50, Device B balance +50
+
+Day 3 (when Device B comes online):
+  Device B gRPC SyncChain → Super-Peer S2
+  S2 already has transaction (from gossip), returns CONFIRMED immediately
+  Device B learns balance is +50 OWC
+
+Daily Credit Scoring (02:00 UTC):
+  All 5 super-peers independently compute credit scores
+  Each user's score = f(days_active, transaction_count, conflicts, velocity)
+  Scores replicated to all nodes (deterministic, so all agree)
+  Device A credit score: 65/100 (7 days old, few transactions)
+  Device B credit score: 62/100
+
+Month 1:
+  Device A now has 30 transactions, score: 72/100
+  Can borrow 5000 OWC from CylinderSeal microloan pool
+  Can lend to Device B (peer-to-peer lending)
+
+Monetization:
+  MFI partner queries Device A's credit profile: $1.00 fee
+  Mobile money operator checks Device A's daily limit: $0.25/month fee
+  P2P lending platform uses Device A as lender: 1% of loan volume
+```
+
+See **[NETWORK_AND_CREDIT_ARCHITECTURE.md](NETWORK_AND_CREDIT_ARCHITECTURE.md)** for complete technical diagrams and detailed explanation of how credit data is shared and monetized across the network.
 
 **Core Financial Services:**
 1. **Payments** (Day 1) — Send money, pay merchants, remittances (works offline)
@@ -416,48 +514,88 @@ cargo build --release -p cs-node
 
 ## Documentation
 
-**Start here:**
+### Business & Strategy
+- **[vc_pitch.html](vc_pitch.html)** — Interactive investor presentation (16 slides): market size, revenue model, financial projections, valuation — open in browser, arrow keys to navigate
+- **[NETWORK_AND_CREDIT_ARCHITECTURE.md](NETWORK_AND_CREDIT_ARCHITECTURE.md)** — Complete peer + super-peer network design, credit scoring system, how credit data is monetized
+
+### Security
 - **[SECURITY_INDEX.md](SECURITY_INDEX.md)** — Navigation guide for all security docs
 - **[SECURITY_SUMMARY.md](SECURITY_SUMMARY.md)** — Executive summary (what was hardened, why)
-- **[WEEK1_STATUS.md](WEEK1_STATUS.md)** — Implementation progress
-
-**Technical Details:**
 - **[docs/IRON_SECURITY.md](docs/IRON_SECURITY.md)** — 12 hardening layers with code examples
 - **[docs/SECURITY_VALIDATION.md](docs/SECURITY_VALIDATION.md)** — 4 defense layers with validation rules
-- **[docs/DEVELOPER_QUICK_REFERENCE.md](docs/DEVELOPER_QUICK_REFERENCE.md)** — Common patterns & debugging
-- **[TERMINOLOGY_REFACTORING.md](TERMINOLOGY_REFACTORING.md)** — Why "chainblock" → "personal journal"
 
-**Architecture:**
-- **[/.claude/plans/zazzy-finding-muffin.md](/.claude/plans/zazzy-finding-muffin.md)** — 3-tier system design, tech stack
-- **[IMPLEMENTATION_ROADMAP.md](IMPLEMENTATION_ROADMAP.md)** — 16-week build plan, 4 phases
+### Architecture & Implementation
+- **[/.claude/plans/zazzy-finding-muffin.md](/.claude/plans/zazzy-finding-muffin.md)** — 3-tier system design, tech stack, phased roadmap
+- **[IMPLEMENTATION_ROADMAP.md](IMPLEMENTATION_ROADMAP.md)** — 16-week build plan, 4 implementation phases
+- **[WEEK1_STATUS.md](WEEK1_STATUS.md)** — Development progress and completion status
 
-**Reference:**
-- **[proto/chain_sync.proto](proto/chain_sync.proto)** — gRPC message schemas
-- **[migrations/](migrations/)** — PostgreSQL schema (SQLx)
-- **[crates/cs-core/src/](crates/cs-core/src/)** — Rust core types & crypto
+### Developer Resources
+- **[docs/DEVELOPER_QUICK_REFERENCE.md](docs/DEVELOPER_QUICK_REFERENCE.md)** — Common patterns, debugging, security checklist
+- **[TERMINOLOGY_REFACTORING.md](TERMINOLOGY_REFACTORING.md)** — Why "chainblock" → "personal journal" (correct naming)
+- **[ANDROID_WEEK2_BRIDGE.md](ANDROID_WEEK2_BRIDGE.md)** — How Rust cs-core types integrate with Kotlin, proto field mappings
 
-## The Business Model
+### Technical Reference
+- **[proto/chain_sync.proto](proto/chain_sync.proto)** — gRPC message schemas (Transaction, JournalEntry, credit messages)
+- **[migrations/](migrations/)** — PostgreSQL schema (SQLx migrations)
+- **[crates/cs-core/src/](crates/cs-core/src/)** — Rust core types, crypto primitives, hardware-binding
 
-### How It Works (Revenue Perspective)
+## The Business Model: Credit Data is the Revenue
 
-**Every operator is a money changer:**
-1. User comes in with cash → Operator credits digital OWC (takes 2% spread)
-2. User spends digital OWC in network (platform takes 0.1% of spread)
-3. User cashes out → Operator gives cash (takes another 2%)
-4. Network scales → More operators → Competition → Margins fall to 1-2% (still better than Western Union's 8%)
+### How It Works
 
-**Platform revenue:**
-- $1.2T retail payments × 2% spread × 0.1% platform cut = $2.4M/year
-- $50B microloans originated × 1% = $500M/year
-- $5B P2P lending × 10% = $500M/year
+CylinderSeal's core insight: **Credit ratings of unratable people = untapped $100B market**
 
-**Unit economics:**
-- Cost to recruit operator: $1K
-- Lifetime value of operator: $50K+
-- LTV/CAC ratio: **50x** (healthy: >3x)
+**The Three Revenue Streams:**
+
+1. **B2B Credit Data** (Primary revenue)
+   - Sell credit profiles to MFIs ($0.50-2.00 per credit check)
+   - Subscription model for mobile money providers ($0.25-0.50 per agent/month)
+   - Revenue share with P2P lending platforms (1-2% of loan volume)
+   - Insurance company subscriptions ($50K+/month)
+   - **Year 3 projection**: $102.6M revenue
+
+2. **Transaction Spreads** (Secondary revenue)
+   - User converts cash → OWC at super-peer operator (2% spread)
+   - Platform takes 0.1% of spread on digital payments
+   - Competitive pressure keeps margins at 1-2% (still beats Western Union's 8%)
+
+3. **Microloan Origination** (Tertiary revenue)
+   - Originate loans from our capital pool (users borrow against credit scores)
+   - 1-2% origination fee
+   - Interest rate based on device reputation + transaction history
+
+### Unit Economics
+
+```
+Per-User Lifetime Value:
+├─ Credit check fee: $1.00 × 5 checks/year × 5 years = $25
+├─ Transaction spread: 0.1% × $5,000/year × 5 years = $2.50
+├─ Microloan fees: $500 borrowed × 1% fee = $5
+└─ Total LTV per user: $32.50
+
+But multiply across market:
+├─ 100M users in 5 years
+├─ $32.50 × 100M = $3.25B
+└─ That's the scale opportunity
+```
+
+**Operator Economics** (Super-Peer):
+- Cost to recruit: $1K
+- Lifetime value: $50K+ (from cash conversion spreads)
+- **LTV/CAC ratio: 50x** (benchmark: 3x is healthy)
 - Payback period: **5 days**
 
-See [VC_PITCH.md](VC_PITCH.md) for full financial projections.
+### Financial Projections
+
+| Year | Revenue | EBITDA | Gross Margin | Cumulative Users |
+|------|---------|--------|---|---|
+| 1 | $675K | $200K | 75% | 10K |
+| 2 | $7.7M | $5M | 78% | 100K |
+| 3 | $102.6M | $77M | 80% | 1M+ |
+
+Open **[vc_pitch.html](vc_pitch.html)** in browser for interactive investor presentation (16 slides, keyboard navigation).
+
+See **[NETWORK_AND_CREDIT_ARCHITECTURE.md](NETWORK_AND_CREDIT_ARCHITECTURE.md)** for complete technical architecture of how credit data flows across the network and how it's monetized.
 
 ## Contributing
 
@@ -553,4 +691,4 @@ Hayder Al-Bustami (hayder@modernecotech.com)
 ---
 
 **Last Updated**: 2026-04-15  
-**Status**: Week 1 implementation complete, terminology refactored, ready for Android Week 2
+**Status**: Week 1 implementation complete, VC pitch & network architecture documented, Android Week 2 ready

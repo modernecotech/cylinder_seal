@@ -1,5 +1,5 @@
 // gRPC sync service implementation
-// Handles LedgerBlock submissions from devices
+// Handles JournalEntry submissions from devices
 
 use cs_core::error::Result;
 
