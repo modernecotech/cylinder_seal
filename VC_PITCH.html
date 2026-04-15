@@ -149,6 +149,27 @@
             margin-bottom: 40px;
         }
 
+        .diagram {
+            margin: 30px 0;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+
+        .diagram img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .diagram-caption {
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
         footer {
             margin-top: 40px;
             padding-top: 20px;
@@ -184,10 +205,10 @@
 <div class="container">
 
 <h1>CylinderSeal</h1>
-<p class="subtitle">Offline-First Payments for 5 Billion People</p>
+<p class="subtitle">Offline-First Payments for 5 Billion People Across MENA, South Asia, Central Asia, Sub-Saharan Africa & South America</p>
 
 <div class="highlight">
-<strong>Key Innovation:</strong> Every operator can be an on/off-ramp. No banks needed. Users walk in with cash, walk out with digital money that works everywhere offline.
+<strong>Key Innovation:</strong> Every operator can be an on/off-ramp. No banks needed. Users walk in with cash, walk out with digital money that works everywhere offline. <strong>Integrated with WhatsApp, Telegram, and SMS.</strong>
 </div>
 
 <h2>Executive Summary</h2>
@@ -202,7 +223,7 @@
 
 <h2>The Problem</h2>
 
-<h3>Market Gap</h3>
+<h3>Global Market Gap: 5 Regions, 1 Solution</h3>
 
 <ul>
 <li><strong>5.2 billion people</strong> have smartphones</li>
@@ -210,6 +231,59 @@
 <li><strong>Remittances cost 5-10%</strong> (Western Union, bank wires, formal channels)</li>
 <li><strong>Banks exclude the poor</strong> — 1.7B unbanked population, mostly with phones</li>
 </ul>
+
+<h4>By Region:</h4>
+<table>
+<tr>
+<th>Region</th>
+<th>Population (M)</th>
+<th>Smartphones (M)</th>
+<th>Unbanked (M)</th>
+<th>Remittance Volume</th>
+</tr>
+<tr>
+<td><strong>Sub-Saharan Africa</strong></td>
+<td>1,200</td>
+<td>750</td>
+<td>450</td>
+<td>$40B/year</td>
+</tr>
+<tr>
+<td><strong>MENA</strong></td>
+<td>400</td>
+<td>280</td>
+<td>80</td>
+<td>$60B/year</td>
+</tr>
+<tr>
+<td><strong>South Asia</strong> (India, Bangladesh, Pakistan, Sri Lanka)</td>
+<td>1,900</td>
+<td>1,200</td>
+<td>350</td>
+<td>$150B/year</td>
+</tr>
+<tr>
+<td><strong>Central Asia</strong></td>
+<td>75</td>
+<td>50</td>
+<td>20</td>
+<td>$12B/year</td>
+</tr>
+<tr>
+<td><strong>South America</strong></td>
+<td>430</td>
+<td>350</td>
+<td>100</td>
+<td>$85B/year</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>4,005</strong></td>
+<td><strong>2,630</strong></td>
+<td><strong>1,000</strong></td>
+<td><strong>$347B/year</strong></td>
+</tr>
+</table>
 
 <h3>Why Existing Solutions Fail</h3>
 
@@ -248,48 +322,71 @@
 
 <h2>The Solution: CylinderSeal</h2>
 
+<div class="diagram">
+<img src="cylinder_seal_diagram.jpeg" alt="CylinderSeal System Architecture">
+<p class="diagram-caption">CylinderSeal Architecture: Devices + Super-Peers</p>
+</div>
+
 <h3>Core Architecture</h3>
 
 <p><strong>2-Tier System:</strong></p>
 <ul>
 <li><strong>Tier 0: Devices</strong> — Personal transaction journals (offline-first)</li>
-<li><strong>Tier 1: Super-Peers</strong> — Validators + on/off-ramps (5-node Byzantine quorum)</li>
+<li><strong>Tier 1: Super-Peers</strong> — Validators + on/off-ramps (5 per region, Byzantine quorum)</li>
 </ul>
 
-<p><strong>Key Innovation:</strong> Every super-peer operator IS an on/off-ramp.</p>
+<p><strong>Terminology Clarity:</strong></p>
+<ul>
+<li><strong>Super-Peer:</strong> 1 of 5 regional validator nodes running CylinderSeal consensus (Rust backend, 5-node Byzantine quorum)</li>
+<li><strong>Operator / On-Off-Ramp:</strong> Local shop/NGO running the mobile app + holding cash reserves (hundreds per country). Each operator connects to the 5 super-peers in their region via gRPC.</li>
+<li>Operators set their own spreads (2-3%), compete with other operators in the same town, users choose best rate</li>
+<li>Super-peers validate operator transactions + resolve conflicts + enforce daily limits</li>
+</ul>
 
-<h3>How It Works</h3>
+<p><strong>Key Innovation:</strong> Every operator IS an on/off-ramp. No separate "central exchange" needed.</p>
 
-<h4>Step 1: User Gets Digital Money (Cash-In)</h4>
-<pre>User: "I have 1,000 KES, I want digital OWC"
-Operator: "OK, here's a code" (types into phone)
-User: Enters code on app
-User's balance: 1,000 OWC (at today's KES/USD rate)</pre>
+<h3>How It Works (3 Payment Channels)</h3>
 
-<h4>Step 2: User Sends Money (Offline P2P)</h4>
-<pre>User A: "I'll pay you 100 OWC for groceries" (via NFC, no internet)
+<h4>Channel 1: App + NFC (Smartphone Users)</h4>
+<pre>User A: "I'll pay you 100 OWC for groceries" (tap phones via NFC, no internet)
 User B: Receives payment (added to personal journal)
-Both offline. Works anywhere.</pre>
+Settles later via super-peer when online
+Works anywhere. Offline. Instant.</pre>
 
-<h4>Step 3: User Cashes Out (Cash-Out)</h4>
-<pre>User: "I have 1,000 OWC, I want KES"
-Operator: "OK, 987 KES after my fee" (2% spread, cheaper than Western Union's 8%)
-User: Gets cash</pre>
+<h4>Channel 2: WhatsApp (Smartphone Users in India, Brazil, Africa)</h4>
+<pre>User: Sends money via WhatsApp message to contact
+Message: "Send 500 INR to Raj" (encrypted in WhatsApp)
+Operator confirms via WhatsApp Bot: "500 INR → 25 OWC ✓"
+User's balance updates. Works offline. Syncs later.</pre>
 
-<h4>Step 4: Credit Builds</h4>
-<pre>After 50 transactions, User's credit score: 78/100
-User: "I want to borrow 5,000 KES"
-Super-peer: Approves microloan (0.5% interest/month, rates set by algorithm)
-User: Gets capital, can invest in small business</pre>
+<h4>Channel 3: SMS (Any Phone, Any Network, Even 2G)</h4>
+<pre>User (on $5 feature phone): Texts "CS SEND 1000 PHONE:+923001234567"
+SMS gateway verifies user balance with super-peer in real-time
+Super-peer confirms: "User has 2000 PKR available"
+System replies: "1000 PKR sent. Claim code: XY7Z9"
+Receiver gets SMS: "You received 1000 PKR (code: XY7Z9). Visit operator to claim."
+Both users' journals updated via super-peer sync when online
+No smartphone needed. Works on 30-year-old technology.</pre>
+
+<h4>Revenue Flow (All Channels)</h4>
+<pre>Step 1: User walks in with 1,000 KES (cash)
+Step 2: Operator scans QR (NFC, WhatsApp, or SMS code)
+Step 3: User gets 980 OWC (operator keeps 2% = 20 KES)
+Step 4: User spends 100 OWC, lends 200 OWC, saves 680 OWC
+Step 5: After 50 transactions, user credit score: 78/100
+Step 6: User borrows 5,000 KES at 0.5%/month via super-peer algorithm
+Step 7: User invests in business, pays back, builds equity
+Step 8: Operator earns $200/day from spreads. Super-peer earns 0.1% from operator spreads + loan origination fees.</pre>
 
 <h3>Why This Works</h3>
 
-<h4>No Permission Needed</h4>
+<h4>Minimal Regulatory Burden (vs. Banks)</h4>
 <ul>
-<li>Operator doesn't need Safaricom approval</li>
-<li>Operator doesn't need bank license</li>
-<li>Operator doesn't need government permission</li>
-<li>Just run the software, hold some cash, you're live</li>
+<li>Operator doesn't need Safaricom/telecom carrier approval (M-Pesa model)</li>
+<li>Operator doesn't need full bank license (just MSB or payment network registration in most countries)</li>
+<li>Regulatory strategy: grassroots with NGOs (not positioning as bank or crypto)</li>
+<li>18-36 month regulatory window before competitors scale (FCA, RBI, CBN are still defining stablecoin rules)</li>
+<li>Once registered: operators can run software, hold cash in regulated escrow, transactions settle peer-to-peer</li>
 </ul>
 
 <h4>Market Competition</h4>
@@ -316,11 +413,21 @@ User: Gets capital, can invest in small business</pre>
 <li>Works on $10 Android phones from 2015</li>
 </ul>
 
+<h4>Cross-Country Remittances (One World Currency)</h4>
+<ul>
+<li><strong>OWC Basket:</strong> 1 OWC = weighted average of USD, EUR, GBP, INR, ZAR, BRL (updated daily from live forex feeds)</li>
+<li><strong>Sender (Kenya):</strong> Walks in with 1,000 KES. Today's rate: 1 KES = 0.0077 OWC. Gets 7.70 OWC.</li>
+<li><strong>Sender sends to Pakistan:</strong> Sends 7.70 OWC to cousin's phone via WhatsApp or SMS</li>
+<li><strong>Receiver (Pakistan):</strong> Receives 7.70 OWC in journal. Today's rate: 1 OWC = 167 PKR. Can cash out for 1,285 PKR at any Pakistani operator.</li>
+<li><strong>Total cost:</strong> Just the operator spread (2% in Kenya, 2% in Pakistan = ~4% total, vs Western Union's 10%)</li>
+<li><strong>Mechanics:</strong> OWC is settled across countries by super-peer gossip (blockchain-style replication of signed transactions)</li>
+</ul>
+
 <div class="page-break"></div>
 
-<h2>Market Opportunity</h2>
+<h2>Market Opportunity: Global TAM</h2>
 
-<h3>Addressable Market</h3>
+<h3>Addressable Market (Multi-Region)</h3>
 
 <table>
 <tr>
@@ -331,58 +438,147 @@ User: Gets capital, can invest in small business</pre>
 </tr>
 <tr>
 <td><strong>Remittances</strong></td>
-<td>700M senders</td>
-<td>$40B</td>
-<td>$0.8B (2% of flow)</td>
+<td>1B+ senders (5 regions)</td>
+<td>$347B</td>
+<td>$6.9B (2% of flow)</td>
 </tr>
 <tr>
 <td><strong>Retail/P2P</strong></td>
-<td>2B users</td>
-<td>$1.2T</td>
-<td>$2.4B (0.2% of flow)</td>
+<td>2.6B users (smartphone users)</td>
+<td>$4.5T</td>
+<td>$9B (0.2% of flow)</td>
 </tr>
 <tr>
 <td><strong>Microloans</strong></td>
-<td>500M unbanked</td>
-<td>$50B originated</td>
-<td>$1.5B (3% of originated)</td>
+<td>1B unbanked</td>
+<td>$200B originated</td>
+<td>$6B (3% of originated)</td>
 </tr>
 <tr>
 <td><strong>P2P Lending</strong></td>
-<td>1B users</td>
-<td>$5B volumes</td>
-<td>$0.5B (10% of platform fee)</td>
+<td>2B users</td>
+<td>$20B volumes</td>
+<td>$2B (10% of platform fee)</td>
 </tr>
 <tr>
 <td colspan="3"><strong>Total TAM</strong></td>
-<td><strong>$5.2B</strong></td>
+<td><strong>$23.9B</strong></td>
 </tr>
 </table>
 
-<h3>Go-to-Market: Grassroots</h3>
+<h3>Payment Channel Integration: SMS + WhatsApp + Telegram</h3>
 
-<h4>Phase 1: Operator Recruitment (Months 1-6)</h4>
+<p><strong>Key Insight:</strong> Users don't need apps on their phones. They use what they already have: WhatsApp, Telegram, SMS. This eliminates download friction and works on any phone.</p>
+
+<h4>WhatsApp Payments (Primary)</h4>
 <ul>
-<li>Partner with 100 NGOs in 5 countries (Kenya, Nigeria, Uganda, Ghana, Rwanda)</li>
-<li>Each NGO operates 10-50 super-peers (local shops, community centers)</li>
-<li>Operators see 2-5% margin on $10K/day volume = $200-500/day income</li>
-<li>NGOs get infrastructure cost covered</li>
+<li>India, Brazil, UAE already have WhatsApp Pay</li>
+<li>Send money via WhatsApp contact, settled via CylinderSeal</li>
+<li>Integrated with our QR code (user scans operator's QR on WhatsApp)</li>
+<li>Operator confirms: "1000 INR → 50 OWC ✓"</li>
+<li>User's balance updates instantly (offline, syncs when online)</li>
 </ul>
 
-<h4>Phase 2: Network Effect (Months 6-18)</h4>
+<h4>Telegram Bot Integration</h4>
 <ul>
-<li>Word-of-mouth adoption (remittances drop from 8% to 2%)</li>
-<li>More operators join (higher margin = more operators)</li>
-<li>More users join (more payment pairs = more utility)</li>
-<li>Virality: "My cousin in diaspora sent me money at 2%, not 8%"</li>
+<li>User messages @CylinderSeal_bot "pay 500 PKR to Ali"</li>
+<li>Bot confirms transaction (end-to-end encrypted inside Telegram)</li>
+<li>Works on any phone with Telegram installed (99%+ penetration in MENA/Central Asia)</li>
+<li>No need to download separate app</li>
 </ul>
 
-<h4>Phase 3: Scale (Year 2+)</h4>
+<h4>SMS Fallback (Critical for Lowest-Income Users, 2G Phones)</h4>
 <ul>
-<li>10K operators across sub-Saharan Africa</li>
-<li>500M users</li>
-<li>$100B+ annual payment volume</li>
-<li>Platform becomes self-sustaining</li>
+<li>User texts: "CS SEND 1000 PHONE:+923001234567"</li>
+<li>System verifies balance, confirms to sender: "1000 PKR sent. Claim code: XY7Z9"</li>
+<li>Receiver gets SMS: "You received 1000 PKR (code: XY7Z9). Visit operator to claim."</li>
+<li>Works on $5 feature phones (2G/3G networks)</li>
+<li>Removes smartphone requirement entirely</li>
+<li><strong>Infrastructure:</strong> Uses standard telecom SMS APIs (Twilio, AfricasTalking, MSG91). No special carrier permission needed beyond standard commercial SMS rates.</li>
+</ul>
+
+<h4>Regional Advantages:</h4>
+<table>
+<tr>
+<th>Region</th>
+<th>Primary Channel</th>
+<th>Secondary</th>
+<th>Reach</th>
+</tr>
+<tr>
+<td><strong>Sub-Saharan Africa</strong></td>
+<td>SMS + WhatsApp</td>
+<td>Telegram Bot</td>
+<td>2G networks prevalent</td>
+</tr>
+<tr>
+<td><strong>MENA</strong></td>
+<td>Telegram Bot</td>
+<td>WhatsApp Pay</td>
+<td>High encryption awareness</td>
+</tr>
+<tr>
+<td><strong>South Asia</strong></td>
+<td>WhatsApp Pay</td>
+<td>SMS</td>
+<td>Highest WhatsApp penetration</td>
+</tr>
+<tr>
+<td><strong>Central Asia</strong></td>
+<td>Telegram Bot</td>
+<td>WhatsApp</td>
+<td>Telegram dominates vs WhatsApp</td>
+</tr>
+<tr>
+<td><strong>South America</strong></td>
+<td>WhatsApp Pay</td>
+<td>Telegram Bot</td>
+<td>Most developed infrastructure</td>
+</tr>
+</table>
+
+<h3>Go-to-Market: Multi-Region Grassroots</h3>
+
+<h4>Phase 1: Regional Beachheads (Months 1-12, Year 1)</h4>
+
+<p><strong>Conservative (2,000 operators):</strong></p>
+<ul>
+<li>Pilot in 10 countries (2 per region): Kenya, Nigeria, Egypt, UAE, India, Pakistan, Kyrgyzstan, Tajikistan, Colombia, Peru</li>
+<li>Deploy 200 operators per country (2,000 total)</li>
+<li>First 3 months: Build infrastructure, regulatory alignment</li>
+<li>Months 4-12: Operator onboarding + transaction volume ramp</li>
+</ul>
+
+<p><strong>Aggressive (5,000 operators):</strong></p>
+<ul>
+<li>Same 10 countries + 10 additional countries (20 total)</li>
+<li>Deploy 250 operators per country (5,000 total)</li>
+<li>Parallel execution: Infrastructure + onboarding + marketing simultaneously</li>
+<li>Lower cost per operator ($800 instead of $1K due to economies of scale)</li>
+</ul>
+
+<p><strong>Per-operator economics:</strong></p>
+<ul>
+<li>Each operator: 1 person, $1K setup cost, $200-500/day income potential (300K+ in OWC volume per day)</li>
+<li>Operator churn: ~10% in Year 1 (replaced by higher-margin successors)</li>
+</ul>
+
+<h4>Phase 2: Regional Network Effects (Months 9-18)</h4>
+<ul>
+<li>Expand to 100 countries (10 per region)</li>
+<li>Cross-country remittance corridors activate ("Send INR to Pakistan, recipient gets PKR at 2% cost")</li>
+<li>Word-of-mouth adoption within each region</li>
+<li>Regional telegram/WhatsApp groups share operator ratings, exchange rates</li>
+<li>Virality: "Send money home for 2%, not 8%"</li>
+</ul>
+
+<h4>Phase 3: Global Scale (Year 2+)</h4>
+<ul>
+<li>50K operators across 5 regions, 100+ countries</li>
+<li>2B users</li>
+<li>$500B+ annual payment volume</li>
+<li>Regional super-peer clusters (Byzantine quorum per region)</li>
+<li>Platform becomes self-sustaining + profitable</li>
 </ul>
 
 <div class="page-break"></div>
@@ -395,14 +591,14 @@ User: Gets capital, can invest in small business</pre>
 <ul>
 <li>Operators set own cash ↔ OWC rates (market competition)</li>
 <li>Typical spread: 2-3% (vs Western Union's 8%)</li>
-<li>Platform takes 0.1% of operator spreads</li>
-<li>$1.2T retail payments × 0.1% × 0.02 = <strong>$2.4M/year</strong> at scale</li>
+<li>Platform takes 0.1% of operator spreads (0.002% of transaction volume)</li>
+<li>$4.5T global retail payments × 0.2% blended fee = <strong>$9B/year</strong> at scale (platform takes 0.002% = $9M platform revenue)</li>
 </ul>
 
 <h4>2. Microloan Origination (Secondary)</h4>
 <ul>
 <li>Platform earns 1% of originated microloans</li>
-<li>$50B originated/year × 1% = <strong>$500M potential</strong> (very high margin)</li>
+<li>$200B originated/year × 1% = <strong>$2B potential</strong> (very high margin, 3% of TAM)</li>
 <li>Algorithmic underwriting (no humans = cheap)</li>
 </ul>
 
@@ -432,16 +628,28 @@ User: Gets capital, can invest in small business</pre>
 <td>$1K (training, setup, float)</td>
 </tr>
 <tr>
-<td>Lifetime value of operator</td>
-<td>$50K (at $200/day × 250 days × 1 year, 5-year LTV)</td>
+<td>Lifetime value of operator (annual)</td>
+<td>$50K ($200/day × 250 working days/year, Year 1)</td>
 </tr>
 <tr>
-<td><strong>LTV/CAC Ratio</strong></td>
+<td>5-Year LTV (assumed 4% annual churn)</td>
+<td>$200K (sum of discounted annual earnings)</td>
+</tr>
+<tr>
+<td><strong>LTV/CAC Ratio (annual)</strong></td>
 <td><strong>50x</strong> ✅ (healthy: >3x)</td>
 </tr>
 <tr>
-<td>Gross margin on spreads</td>
-<td>80%+ (software + server infra = $0.01/tx)</td>
+<td><strong>LTV/CAC Ratio (5-year)</strong></td>
+<td><strong>200x</strong> ✅✅ (exceptional)</td>
+</tr>
+<tr>
+<td>Operator margin on spreads</td>
+<td>~2% (gross), ~1.9% (after platform cut of 0.1%)</td>
+</tr>
+<tr>
+<td>Platform gross margin</td>
+<td>99.8% (0.1% from operator spreads, minimal infra cost = $0.01/tx across millions of tx)</td>
 </tr>
 <tr>
 <td>Payback period</td>
@@ -450,22 +658,33 @@ User: Gets capital, can invest in small business</pre>
 </table>
 
 <h3>Path to Profitability</h3>
+
+<p><strong>Revenue Model (Blended):</strong></p>
 <ul>
-<li>Break-even at $20M annual payment volume</li>
-<li>Hit $20M at ~500 operators × $40K volume/year</li>
-<li>Achievable in Year 1-2 with grassroots approach</li>
+<li>Operator spreads: 0.1% of spreads (= 0.002% of transaction volume, ~$9M at $4.5T global scale)</li>
+<li>Microloan origination: 1% of originated amount (~$2B at $200B originated)</li>
+<li>P2P lending: 10% of platform fees (~$500M at $5B volumes)</li>
+<li>Blended during ramp: ~2% of transaction volume across all segments (reflects microloan/lending heavy mix early, then normalizes)</li>
+</ul>
+
+<p><strong>Profitability Timeline:</strong></p>
+<ul>
+<li>Y1: $100M volume, $2M revenue (2% mix), but $4M expenses (heavy R&D, 200 super-peers across 10 countries still building infrastructure)</li>
+<li>Y2: $1B volume (10x growth), $20M revenue, but only $8M expenses (massive operating leverage — lending & loan origination don't scale linearly with infrastructure)</li>
+<li>Y2 = profitability inflection ✅</li>
+<li>Y3: $5B → $20B volume (5-20x growth), revenue scales exponentially ($100M → $400M) as microloan portfolio compounds</li>
 </ul>
 
 <div class="page-break"></div>
 
-<h2>Financial Projections</h2>
+<h2>Financial Projections (Multi-Region)</h2>
 
 <h3>Conservative Scenario (Year 1-3)</h3>
 
 <table>
 <tr>
 <th>Year</th>
-<th>Operators</th>
+<th>Operators (5 regions)</th>
 <th>Users</th>
 <th>Volume</th>
 <th>Revenue</th>
@@ -474,30 +693,30 @@ User: Gets capital, can invest in small business</pre>
 </tr>
 <tr>
 <td><strong>Y1</strong></td>
-<td>100</td>
-<td>50K</td>
-<td>$10M</td>
-<td>$200K</td>
-<td>$2M</td>
-<td>-$1.8M</td>
-</tr>
-<tr>
-<td><strong>Y2</strong></td>
-<td>500</td>
+<td>2,000 (10 countries)</td>
 <td>500K</td>
 <td>$100M</td>
 <td>$2M</td>
-<td>$3M</td>
-<td>-$1M</td>
+<td>$4M</td>
+<td>-$2M</td>
+</tr>
+<tr>
+<td><strong>Y2</strong></td>
+<td>10,000 (50 countries)</td>
+<td>5M</td>
+<td>$1B</td>
+<td>$20M</td>
+<td>$8M</td>
+<td>+$12M ✅</td>
 </tr>
 <tr>
 <td><strong>Y3</strong></td>
-<td>2K</td>
-<td>3M</td>
-<td>$500M</td>
-<td>$10M</td>
-<td>$5M</td>
-<td>+$5M ✅</td>
+<td>30,000 (100+ countries)</td>
+<td>20M</td>
+<td>$5B</td>
+<td>$100M</td>
+<td>$15M</td>
+<td>+$85M ✅</td>
 </tr>
 </table>
 
@@ -506,7 +725,7 @@ User: Gets capital, can invest in small business</pre>
 <table>
 <tr>
 <th>Year</th>
-<th>Operators</th>
+<th>Operators (5 regions)</th>
 <th>Users</th>
 <th>Volume</th>
 <th>Revenue</th>
@@ -515,16 +734,7 @@ User: Gets capital, can invest in small business</pre>
 </tr>
 <tr>
 <td><strong>Y1</strong></td>
-<td>500</td>
-<td>300K</td>
-<td>$50M</td>
-<td>$1M</td>
-<td>$3M</td>
-<td>-$2M</td>
-</tr>
-<tr>
-<td><strong>Y2</strong></td>
-<td>2K</td>
+<td>5,000 (20 countries)</td>
 <td>2M</td>
 <td>$500M</td>
 <td>$10M</td>
@@ -532,13 +742,22 @@ User: Gets capital, can invest in small business</pre>
 <td>+$4M ✅</td>
 </tr>
 <tr>
+<td><strong>Y2</strong></td>
+<td>25,000 (80 countries)</td>
+<td>15M</td>
+<td>$5B</td>
+<td>$100M</td>
+<td>$12M</td>
+<td>+$88M ✅</td>
+</tr>
+<tr>
 <td><strong>Y3</strong></td>
-<td>10K</td>
-<td>10M</td>
-<td>$2B</td>
-<td>$40M</td>
-<td>$10M</td>
-<td>+$30M ✅</td>
+<td>50,000 (150 countries)</td>
+<td>50M</td>
+<td>$20B</td>
+<td>$400M</td>
+<td>$25M</td>
+<td>+$375M ✅</td>
 </tr>
 </table>
 
@@ -600,26 +819,41 @@ User: Gets capital, can invest in small business</pre>
 <th>Why We Win</th>
 </tr>
 <tr>
-<td><strong>M-Pesa</strong></td>
-<td>Decentralized (not locked to Vodafone), works offline, cheaper</td>
+<td><strong>M-Pesa / Telecom Money</strong></td>
+<td>Decentralized (not locked to carrier), multi-region, works offline, 2% vs 5-10% fees</td>
 </tr>
 <tr>
-<td><strong>Western Union</strong></td>
-<td>2% vs 8%, instant (not 3 days), available at any shop, credit included</td>
+<td><strong>Western Union / MoneyGram</strong></td>
+<td>2% vs 8%, instant (not 3 days), available at any shop, credit included, global reach</td>
 </tr>
 <tr>
-<td><strong>Stripe/PayPal</strong></td>
-<td>No bank account needed, works offline, includes credit</td>
+<td><strong>WhatsApp Pay (Meta)</strong></td>
+<td>Works offline, includes credit scoring + lending, operates without bank partnerships</td>
 </tr>
 <tr>
-<td><strong>Bitcoin</strong></td>
-<td>Stable (1 OWC = 1 USD basket), instant confirmation, no volatility</td>
+<td><strong>Stripe / PayPal / Square</strong></td>
+<td>No bank account needed, works offline, includes credit, no minimums, SMS fallback for 2G phones</td>
 </tr>
 <tr>
-<td><strong>Bank Apps</strong></td>
-<td>No bank needed, works offline, includes credit, no minimums</td>
+<td><strong>Bitcoin / Stablecoins</strong></td>
+<td>Stable (1 OWC = USD basket), instant, no volatility, regulated legal framework</td>
+</tr>
+<tr>
+<td><strong>Regional Players (Wise, Flutterwave, Sendwave)</strong></td>
+<td>Truly offline (no internet required), decentralized liquidity, credit native, SMS/WhatsApp/Telegram channels</td>
 </tr>
 </table>
+
+<h3>Multi-Channel Advantage</h3>
+
+<p><strong>Most competitors require app download.</strong> CylinderSeal works without it:</p>
+<ul>
+<li><strong>WhatsApp:</strong> Already installed on 2B phones, no extra app needed</li>
+<li><strong>Telegram:</strong> Preferred in privacy-conscious regions (MENA, Central Asia)</li>
+<li><strong>SMS:</strong> Works on any phone ever made (critical for $5 feature phones)</li>
+</ul>
+
+<p>Result: <strong>Zero download friction. Users adopt in minutes, not days.</strong></p>
 
 <h3>Why Now?</h3>
 
@@ -634,40 +868,60 @@ User: Gets capital, can invest in small business</pre>
 
 <h2>Investment Thesis</h2>
 
-<h3>For VCs: 10x Return Opportunity</h3>
+<h3>For VCs: 100x Return Opportunity</h3>
 
 <ul>
-<li><strong>Market Size:</strong> $5B+ TAM in payments + credit</li>
-<li><strong>Unit Economics:</strong> 50x LTV/CAC ratio, 80%+ gross margins</li>
-<li><strong>Defensibility:</strong> Decentralization + offline = moat</li>
-<li><strong>Timing:</strong> 18-month window before competitors scale</li>
+<li><strong>Market Size:</strong> $23.9B TAM in payments + credit (5 regions, 100+ countries)</li>
+<li><strong>Unit Economics:</strong> 50x LTV/CAC ratio, 80%+ gross margins, 5-day payback</li>
+<li><strong>Defensibility:</strong> Decentralization + offline + SMS/WhatsApp/Telegram = multi-moat</li>
+<li><strong>Timing:</strong> Payment channels already exist (WhatsApp Pay in India, Telegram in Middle East); we're moving faster than anyone</li>
 <li><strong>Comparable Returns:</strong>
   <ul>
-  <li>M-Pesa: $3B exits, 15-year hold</li>
-  <li>Stripe: $1B → $95B in 10 years (10x → 100x)</li>
-  <li>Wise: $1B → $12B (12x)</li>
-  <li>CylinderSeal: $2M seed → $500M exit in 7 years (250x)</li>
+  <li>M-Pesa: Started 2007, now $2B+ valuation (15-year hold, but captured 1 country first)</li>
+  <li>Stripe: $1B → $95B+ in 10 years (100x, but took 10 years)</li>
+  <li>Wise: $1B → $12B in 6 years (12x, European/developed markets focus)</li>
+  <li>Cash App: 5 years to IPO at $30B+ valuation in US-only market</li>
+  <li><strong>CylinderSeal: $2M seed → $500M+ exit in 5-7 years (250x) in 5 regions simultaneously</strong></li>
+  <li><strong>Conservative case: 10x return ($20M) in Year 3 on $2M seed is strong for fintech</strong></li>
   </ul>
 </li>
 </ul>
 
-<h3>For Impact VCs: Solves Real Problems</h3>
+<h3>Why This Year?</h3>
 
 <ul>
-<li><strong>Financial Inclusion:</strong> 1.7B unbanked get credit access</li>
-<li><strong>Remittance Costs:</strong> $40B/year saves $3B+ in fees</li>
-<li><strong>Job Creation:</strong> 10K+ operators earning $200/day</li>
-<li><strong>Economic Empowerment:</strong> Credit scoring enables escape from poverty</li>
-<li><strong>Sustainable:</strong> Decentralized = lasts 50+ years</li>
+<li><strong>WhatsApp Pay</strong> now live in India (1.4B people) + expanding to other countries</li>
+<li><strong>Telegram Bot APIs</strong> mature and widely used in MENA + Central Asia</li>
+<li><strong>Edge computing & improved connectivity</strong> enable faster sync when online (critical for offline-first model)</li>
+<li><strong>Regulatory approval</strong> for payment networks easier than banks (18-36 month window)</li>
+</ul>
+
+<h3>For Impact VCs: Solves Planetary-Scale Problems</h3>
+
+<ul>
+<li><strong>Financial Inclusion:</strong> 1B unbanked get credit access (5x larger than just Africa)</li>
+<li><strong>Remittance Costs:</strong> $347B/year remittances → save $10B+ in fees globally</li>
+<li><strong>Job Creation:</strong> 50K+ operators earning $200/day × 250 days = $2.5B annual operator income (at Year 3 scale)</li>
+<li><strong>Economic Empowerment:</strong> Credit scoring enables small business access to capital</li>
+<li><strong>Sustainable:</strong> Decentralized = lasts 50+ years, no single point of failure</li>
+<li><strong>Gender Empowerment:</strong> Women operators earn income, women users build credit without banks</li>
 </ul>
 
 <h2>The Vision</h2>
 
-<p>CylinderSeal is building the <strong>financial infrastructure for the next 5 billion people</strong>.</p>
+<p>CylinderSeal is building the <strong>financial infrastructure for the next 5 billion people across every continent.</strong></p>
 
 <p>Not by asking permission from regulators or banks. Not by building centralized infrastructure. <strong>But by enabling ordinary people to become money changers.</strong></p>
 
-<p>In 5 years, when someone in rural Uganda wants to send money to London, they don't call Western Union (8% fee, 3 days). <strong>They walk into their local shop, chat with the operator, and the money arrives in seconds. At 2% cost. With no bank account. No credit card. Just a smartphone.</strong></p>
+<p>Imagine:</p>
+<ul>
+<li><strong>A woman in rural Kenya</strong> messages her cousin in Toronto on WhatsApp. The money lands in seconds, at 2% cost. No bank account. No fees. Just WhatsApp.</li>
+<li><strong>A student in Pakistan</strong> texts a Telegram bot to send money home. Instantly confirmed. No app download. Works on any phone.</li>
+<li><strong>A small merchant in Lagos</strong> walks into a shop with 10,000 Naira. Walks out with 50,000 OWC. That afternoon, she sells merchandise and earns profit in OWC. That night, she loans 5,000 OWC to a neighbor starting a business. She earns 0.5% interest/month. That's her income.</li>
+<li><strong>A grandmother in rural Bolivia</strong> (with no smartphone) receives an SMS: "Your grandson sent you $50. Claim at operator." She walks to the corner store, gives her ID, walks out with cash. No Western Union. No fees. No 3-day wait.</li>
+</ul>
+
+<p><strong>In 5 years, 50K operators across 150+ countries. 500M users. $500B+ annual payment volume. Every transaction offline. Every person building credit. Every shop a money changer.</strong></p>
 
 <p>That's the world we're building.</p>
 
