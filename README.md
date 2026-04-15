@@ -193,32 +193,94 @@ Each super-peer runs:
 
 ### Tier 0.5: Peer-to-Peer Marketplace (Discovery Layer)
 
-**The Problem It Solves:**
+**The Incumbent Problem:**
 
-In developing economies, there is no centralized marketplace. Small vendors (food sellers, taxi drivers, plumbers, retailers) rely on:
-- Word-of-mouth (slow, limited reach)
-- Phone calls (requires knowing someone)
-- WhatsApp groups (cluttered, no search)
-- Street presence (geography-limited)
+Platforms like **Uber, Amazon, Airbnb, eBay, Shopee, TaskRabbit** dominate service discovery by taking **15-30% commission** on every transaction:
 
-**The Solution: Peer Marketplace via Gossip Network**
+| Platform | Commission | Market Cap | Users |
+|----------|-----------|-----------|-------|
+| Uber (rideshare) | 20-25% | $100B | 2B+ |
+| Amazon (retail) | 15-40% (+ $15/month Prime) | $2T | 300M+ |
+| Airbnb (lodging) | 16% | $120B | 150M+ |
+| eBay (auction) | 12-14% | $50B | 150M+ |
+| Shopee (e-commerce) | 2% base + other fees | $50B | 700M+ |
+| DoorDash (food) | 30%+ | $50B | 100M+ |
+
+**Problem**: These platforms extract enormous value but are **geographically limited** (require internet/credit cards) and **economically predatory** (70% of gig workers earn <$10/hour after commission).
+
+**In developing markets**: No equivalent platforms exist, so commerce stays informal:
+- Street vendors (no reach beyond foot traffic)
+- WhatsApp groups (no search, discovery hell)
+- Phone calls (inefficient, no verification)
+- Traveling salesmen (high transaction costs)
+
+---
+
+**The CylinderSeal Solution: Peer Marketplace via Gossip Network**
+
+No middleman. No commission. Just peers discovering peers.
 
 Every peer can:
 1. **Create listings** (products/services) with photos, price, variants (size, color, delivery method)
-2. **Advertise locally** (via whisper network) — nearby peers see the listing in their app
-3. **Discover services** — search by category (fast food, taxi, cleaning, etc), price, location, seller rating
-4. **Purchase securely** — payment goes through normal quorum-voted ledger, seller reputation tied to credit score
+2. **Advertise locally** (via whisper network) — nearby peers see listing in their app, **works offline**
+3. **Discover services** — search by category, price, location, **seller reputation**
+4. **Purchase securely** — payment goes through quorum-voted ledger, **seller reputation feeds credit score**
+5. **Build portable reputation** — high ratings work across all categories (not siloed per platform)
 
 **Categories:**
-- Fast food delivery, restaurants, grocers
-- Taxi, delivery, logistics
-- Services (cleaning, plumbing, repair, labor)
-- Products (retail goods, handmade items)
-- Agricultural produce, livestock
-- Digital downloads, courses, designs
-- Real estate (rent, lodging, properties)
-- Healthcare (traditional medicine, wellness)
-- Education (tutoring, classes, coaching)
+- 🍔 Fast food delivery, restaurants, grocers
+- 🚕 Taxi, delivery, logistics
+- 🔧 Services (cleaning, plumbing, repair, labor, tailoring)
+- 🛍️ Products (retail goods, handmade items)
+- 🌾 Agricultural produce, livestock
+- 💻 Digital downloads, courses, designs
+- 🏠 Real estate (rent, lodging, properties)
+- 🩺 Healthcare (traditional medicine, wellness, pharmacy)
+- 📚 Education (tutoring, classes, coaching)
+- 💼 Professional services (accounting, legal advice)
+- 🎨 Creative services (design, photography, video)
+
+---
+
+**Why CylinderSeal Marketplace Destroys Incumbents:**
+
+| Factor | Uber/Amazon/eBay | CylinderSeal |
+|--------|-----------------|-------------|
+| **Commission** | 15-30% | 1-2% |
+| **Seller Income (100 OWC sale)** | 70-85 OWC | 98-99 OWC |
+| **Requires Internet** | Yes (always) | No (offline discovery) |
+| **Requires Credit Card** | Yes | No (OWC balances) |
+| **Reputation Portability** | Siloed per app | Portable across categories |
+| **Geographic Coverage** | Developed countries | Works in remote villages |
+| **Merchant Onboarding** | Forms, verification (days) | Generate keypair (minutes) |
+| **Network Effects** | Centralized (locked) | Peer-to-peer (viral) |
+| **Available in Developing Markets** | Limited (Uber in Kenya, nothing in rural) | Works everywhere, especially rural |
+
+**The Economic Impact:**
+
+A taxi driver earning $100/day:
+- **Uber model**: Pays 25% = $25 commission → nets $75/day
+- **CylinderSeal model**: Pays 2% = $2 commission → nets $98/day
+- **Difference**: +31% take-home pay for drivers
+
+A vendor selling $1000/month:
+- **Amazon model**: Pays 15% FBA fee + 8% referral + ads = $300+/month → nets $700/month
+- **CylinderSeal model**: Pays 2% = $20/month → nets $980/month
+- **Difference**: +40% take-home for small businesses
+
+---
+
+**How Reputation Works Across Categories:**
+
+Ahmed (tomato seller, 4.8★) builds credit score → can now:
+- ✅ Borrow 50K OWC (tier 2 lending)
+- ✅ Run a second business selling cloth (reputation follows)
+- ✅ Offer taxi rides on weekends (same reputation applies)
+- ✅ Rent a room to tourists (trusted seller status matters)
+
+**In Uber/Amazon/eBay**: You're a 4.8★ driver, 3.2★ seller, 0★ host = 3 separate reputations. You have to rebuild trust in each category.
+
+**In CylinderSeal**: You're a 4.8★ peer. Period. Works everywhere.
 
 **How Marketplace Transactions Work:**
 
@@ -308,14 +370,76 @@ Result: High-quality sellers get higher credit scores
         → Attract more customers (higher visibility in search)
 ```
 
-**Economic Incentive Loop:**
+**Economic Incentive Loop (Virtuous Cycle):**
 
 1. Ahmed sells quality tomatoes → gets 5-star reviews
 2. Reviews boost his credit score (72 → 75)
 3. Higher score = can borrow 10K OWC for farm expansion
 4. With more capital, he buys better seeds & equipment
-5. Produces even better tomatoes → more sales → higher score
-6. Compounds over time (credit-driven economic growth)
+5. Produces even better tomatoes → more sales → even higher score (75 → 80)
+6. Score 80 = can now borrow 20K OWC → expand to 2 farms
+7. Compounds exponentially (credit-driven economic growth)
+
+**Contrast: Uber Driver's Dead End**
+- Driver earns $75/day (after 25% commission)
+- Completes 100 trips → 4.8★ rating
+- Rating is "stuck" at 4.8★ (can't go higher)
+- Can't borrow money based on rating (Uber doesn't offer lending)
+- Remains trapped as contractor, no path to ownership
+
+---
+
+**Why Offline Discovery is an Unbeatable Moat:**
+
+Uber, Amazon, Shopee require:
+1. ✅ Smart phone with battery
+2. ✅ Active internet connection (or recently cached data)
+3. ✅ Cell signal to verify location/transactions
+4. ✅ GPS for routing
+
+CylinderSeal marketplace requires:
+1. ✅ Smart phone (any Android)
+2. ✅ **Listing cache (never expires**. Gossip once, stored forever locally)
+3. ✅ **No internet for discovery**. Search works offline
+4. ✅ NFC/BLE for payment (no cell signal needed)
+
+**Result**: CylinderSeal works in:
+- ❌ Uber: Can't reach villages without cellular (50% of Africa)
+- ❌ Amazon: Can't order without credit card/internet (3B people)
+- ✅ **CylinderSeal: Works in villages, slums, trains, boats, refugee camps**
+
+---
+
+**The Stickiness Factor:**
+
+Once a peer discovers services via CylinderSeal:
+- No app switching (all commerce + credit in one app)
+- No fee comparison (1-2% is unbeatable)
+- No trust gap (reputation tied to credit score, not a black box)
+- No onboarding pain (merchants don't need forms, banks, KYC)
+
+Compare:
+- Uber driver on Uber + eBay seller on eBay + Shopee seller on Shopee = 3 apps, 3 reputations, 3 vendors
+- CylinderSeal = 1 app, 1 reputation, infinite vendors
+
+---
+
+**Market Capture Dynamics:**
+
+Year 1: Informal market (word-of-mouth + WhatsApp)
+- CylinderSeal enters with 1-2% commission
+- Early adopters see 30-50% more income
+- Network grows virally (gossip protocol, no marketing needed)
+
+Year 2: Formal platforms notice (Uber, Shopee try to enter Africa)
+- They offer 15-20% commission (50% cheaper than current pricing, but CylinderSeal exists)
+- CylinderSeal merchants won't switch (no network effect advantage for them)
+- Users have all services in one app + credit building (stickier than anything)
+
+Year 3: CylinderSeal has captured 80%+ of peer commerce in East Africa
+- Total marketplace GMV = $50M+ (from revenue model projections)
+- Reputation data on 1M+ vendors = priceless competitive asset
+- Can't be displaced (offline-first means no platform can outcompete on service delivery)
 
 ### How They Interact
 

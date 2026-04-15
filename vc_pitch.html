@@ -754,7 +754,109 @@
             <p style="margin-top: 30px; font-size: 15px; color: #888;">Every seller transaction compounds: higher rating → higher credit score → can borrow more → invest in business → more sales → repeat</p>
         </div>
 
-        <!-- Slide 7: How It Works - Quorum-Based State Voting Architecture -->
+        <!-- Slide 7: Market Disruption - Commission Massacre -->
+        <div class="slide">
+            <h2>Market Disruption: We Cut Service Commissions by 10-15x</h2>
+            <p style="margin-bottom: 40px; font-size: 16px;">Uber, Amazon, Shopee take 15-30% commission. We take 1-2%. Plus: zero transaction fees for peer-to-peer payments (within ecosystem).</p>
+            <table style="margin: 30px auto; font-size: 14px;">
+                <tr>
+                    <th>Dimension</th>
+                    <th>Uber/Amazon/DoorDash</th>
+                    <th>CylinderSeal</th>
+                </tr>
+                <tr>
+                    <td><strong>Service Commission</strong></td>
+                    <td>15-30% (marketplace fee)</td>
+                    <td>1-2% (marketplace fee)</td>
+                </tr>
+                <tr>
+                    <td><strong>P2P Payments</strong></td>
+                    <td>2-3% (Stripe/PayPal)</td>
+                    <td><strong>0%</strong> (gossip protocol)</td>
+                </tr>
+                <tr>
+                    <td><strong>Infrastructure Cost</strong></td>
+                    <td>$100B+ (massive datacenters)</td>
+                    <td><strong>$0</strong> (P2P gossip + local super-peers)</td>
+                </tr>
+                <tr>
+                    <td><strong>Seller Take (per $100 sale)</strong></td>
+                    <td>$70-85</td>
+                    <td style="color: #00ff88;"><strong>$98-99</strong></td>
+                </tr>
+            </table>
+            <div style="text-align: left; max-width: 900px; margin: 40px auto; font-size: 15px;">
+                <h3 style="color: #00d9ff; margin-bottom: 15px;">Economic Impact:</h3>
+                <p><strong>Taxi Driver (Earning $100/day):</strong></p>
+                <ul style="margin-left: 30px; margin-bottom: 20px;">
+                    <li>❌ Uber: -25% = $75/day → <strong>$25K lost annually</strong></li>
+                    <li>✅ CylinderSeal: -2% = $98/day → <strong>Only $3.5K lost annually</strong></li>
+                    <li style="color: #00ff88;"><strong>+$21.5K/year income increase (+31%)</strong></li>
+                </ul>
+                <p><strong>Vendor (Selling $1000/month):</strong></p>
+                <ul style="margin-left: 30px;">
+                    <li>❌ Amazon: -23% average = $770/month → <strong>$2,760/year loss</strong></li>
+                    <li>✅ CylinderSeal: -2% = $980/month → <strong>Only $240/year loss</strong></li>
+                    <li style="color: #00ff88;"><strong>+$2,520/year profit increase (+40%)</strong></li>
+                </ul>
+            </div>
+            <p style="margin-top: 30px; font-size: 13px; color: #888; max-width: 900px; margin-left: auto; margin-right: auto;"><strong>Infrastructure Economics:</strong> Uber's $100B market cap mostly funds global datacenters, payment processors, regulatory overhead. CylinderSeal runs on peer gossip (free) + decentralized super-peers (any NGO/telco can run). No central point of failure. Works offline.</p>
+        </div>
+
+        <!-- Slide 8: Zero Friction Entry, Zero Datacenters -->
+        <div class="slide">
+            <h2>Zero Friction Entry. Zero Datacenters.</h2>
+            <p style="margin-bottom: 40px; font-size: 16px;">Traditional platforms built on expensive, vulnerable infrastructure. We're built on your phone.</p>
+            <table style="margin: 20px auto; font-size: 14px;">
+                <tr>
+                    <th>Dimension</th>
+                    <th>Stripe / Square / PayPal</th>
+                    <th>CylinderSeal</th>
+                </tr>
+                <tr>
+                    <td><strong>Merchant Onboarding</strong></td>
+                    <td>2-5 days (KYC, verification, approval)</td>
+                    <td><strong>2 minutes</strong> (generate keypair)</td>
+                </tr>
+                <tr>
+                    <td><strong>KYC Requirement</strong></td>
+                    <td>Full ID, phone, address for $5 transactions</td>
+                    <td><strong>None</strong> for <$50 (Anonymous tier)</td>
+                </tr>
+                <tr>
+                    <td><strong>Transaction Fee</strong></td>
+                    <td>2-3% + $0.30 per transaction</td>
+                    <td><strong>0%</strong> (peer-to-peer gossip)</td>
+                </tr>
+                <tr>
+                    <td><strong>Infrastructure Dependency</strong></td>
+                    <td>Single point of failure (company's servers)</td>
+                    <td><strong>P2P gossip</strong> (works if Stripe is down)</td>
+                </tr>
+                <tr>
+                    <td><strong>Min Device Requirement</strong></td>
+                    <td>Smartphone with constant internet</td>
+                    <td><strong>Android 7.0+</strong> (96% of phones, works offline)</td>
+                </tr>
+                <tr>
+                    <td><strong>Geographic Availability</strong></td>
+                    <td>Not available in most developing countries</td>
+                    <td><strong>Works everywhere</strong> (especially where internet sucks)</td>
+                </tr>
+            </table>
+            <div style="text-align: left; max-width: 900px; margin: 40px auto;">
+                <h3 style="color: #00d9ff; margin-bottom: 15px;">Why This Matters:</h3>
+                <ul style="font-size: 14px; line-height: 1.8;">
+                    <li>📱 <strong>No payment processor.</strong> Stripe charges 2-3% + fees. CylinderSeal gossip is free. You keep the money.</li>
+                    <li>🏢 <strong>No massive datacenters.</strong> Stripe/PayPal need $10B+ infrastructure. We use your phone + local super-peers (any telco/NGO can run one).</li>
+                    <li>🔓 <strong>No approval gatekeeping.</strong> Stripe rejects 4% of applicants. We don't. Generate a keypair, start selling.</li>
+                    <li>📡 <strong>Works offline + works everywhere.</strong> When internet dies in rural Kenya, Uber/Stripe stop. CylinderSeal continues via NFC/BLE.</li>
+                    <li>🛡️ <strong>No single point of failure.</strong> If Stripe goes down, millions of merchants can't process payments. If one super-peer fails, the network routes around it.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 9: How It Works - Quorum-Based State Voting Architecture -->
         <div class="slide">
             <h2>3-Tier Architecture: Offline P2P → Quorum State Voting → Credit API</h2>
             <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; margin: 20px 0;">
@@ -871,7 +973,7 @@
             </svg>
         </div>
 
-        <!-- Slide 8: Credit Profile Creation -->
+        <!-- Slide 10: Credit Profile Creation -->
         <div class="slide">
             <h2>How Credit Profiles Are Built (The Revenue Engine)</h2>
             <svg viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; margin: 20px 0;">
@@ -945,7 +1047,7 @@
             </svg>
         </div>
 
-        <!-- Slide 7b: How Quorum-Based State Voting Works -->
+        <!-- Slide 11: How Quorum-Based State Voting Works -->
         <div class="slide">
             <h2>How Quorum-Based State Voting Works (Deterministic Consensus)</h2>
             <p style="margin-bottom: 20px; font-size: 16px;">5 super-peers vote on ledger state hash. No voting rounds, no timestamps, instant finality.</p>
@@ -1036,7 +1138,7 @@
             </svg>
         </div>
 
-        <!-- Slide 10: Fraud Prevention & Location-Based Anomaly Detection -->
+        <!-- Slide 12: Fraud Prevention & Location-Based Anomaly Detection -->
         <div class="slide">
             <h2>Fraud Prevention: Location-Based Anomaly Detection</h2>
             <p style="margin-bottom: 30px; font-size: 18px;">Every transaction captures GPS location. Impossible travel speeds → instant reputation damage.</p>
@@ -1102,7 +1204,7 @@
             </svg>
         </div>
 
-        <!-- Slide 11: Super-Peer Network & Consensus -->
+        <!-- Slide 13: Super-Peer Network & Consensus -->
         <div class="slide">
             <h2>Super-Peer Network: Byzantine Double-Spend Detection</h2>
             <svg viewBox="0 0 1000 350" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; margin: 20px 0;">
@@ -1164,7 +1266,7 @@
             </svg>
         </div>
 
-        <!-- Slide 12: Revenue Model -->
+        <!-- Slide 14: Revenue Model -->
         <div class="slide">
             <h2>Revenue Model: Multiple Streams from One Platform</h2>
             <p style="margin-bottom: 30px; font-size: 16px;">Credit data + marketplace transactions + fintech partnerships = diversified, high-margin revenue</p>
@@ -1190,7 +1292,7 @@
             </div>
         </div>
 
-        <!-- Slide 13: Financial Projections -->
+        <!-- Slide 15: Financial Projections -->
         <div class="slide">
             <h2>Financial Projections</h2>
             <table>
@@ -1226,7 +1328,7 @@
             <p style="margin-top: 50px;"><span class="highlight">$77M EBITDA</span> in Year 3 = <span class="highlight">10-15x</span> traditional credit bureau multiples</p>
         </div>
 
-        <!-- Slide 14: Growth Assumptions -->
+        <!-- Slide 16: Growth Assumptions -->
         <div class="slide">
             <h2>Growth Assumptions: 11-13x YoY Driven By</h2>
             <div style="text-align: left; display: inline-block; max-width: 900px;">
@@ -1249,7 +1351,7 @@
             <p style="margin-top: 50px; font-size: 15px; color: #888;">Conservative: 50% adoption → $20M Y3. Base case: $102.6M Y3. Optimistic (with lending): $150M+.</p>
         </div>
 
-        <!-- Slide 16: Valuation -->
+        <!-- Slide 17: Valuation -->
         <div class="slide">
             <h2>Valuation & Exit</h2>
             <div class="stat-grid">
@@ -1270,7 +1372,7 @@
             <p><span class="highlight">We have 9x larger TAM with higher growth rate</span></p>
         </div>
 
-        <!-- Slide 17: Unit Economics -->
+        <!-- Slide 18: Unit Economics -->
         <div class="slide">
             <h2>Unit Economics: 50x LTV/CAC</h2>
             <div class="two-column">
@@ -1292,7 +1394,7 @@
             <p style="margin-top: 50px;">Benchmark: 3x is healthy. We're 16x above benchmark.</p>
         </div>
 
-        <!-- Slide 18: Why Now -->
+        <!-- Slide 19: Why Now -->
         <div class="slide">
             <h2>Why Now?</h2>
             <ul style="margin: 50px auto;">
@@ -1304,9 +1406,9 @@
             </ul>
         </div>
 
-        <!-- Slide 19: Competitive Moats -->
+        <!-- Slide 20: Competitive Moats -->
         <div class="slide">
-            <h2>Defensibility: 3 Unfair Advantages</h2>
+            <h2>Defensibility: 5 Unfair Advantages</h2>
             <div style="background: rgba(0, 217, 255, 0.1); padding: 30px; border-radius: 10px; margin: 30px 0; max-width: 900px;">
                 <h3>1. Hardware Binding</h3>
                 <p>Nonces derived from device serial + IMEI → prevents cloning → can't fake credit score</p>
@@ -1317,11 +1419,19 @@
             </div>
             <div style="background: rgba(0, 217, 255, 0.1); padding: 30px; border-radius: 10px; margin: 30px 0; max-width: 900px;">
                 <h3>3. Offline-First Architecture</h3>
-                <p>Works without internet → competitors can't copy → 2+ year head start</p>
+                <p>Works without internet via P2P gossip → competitors locked to cellular → unbeatable in rural areas</p>
+            </div>
+            <div style="background: rgba(0, 217, 255, 0.1); padding: 30px; border-radius: 10px; margin: 30px 0; max-width: 900px;">
+                <h3>4. Marketplace: Unified Economic Identity</h3>
+                <p>Portable 4.8★ reputation across all services + 1-2% fees vs 15-30% incumbents + credit tied to sales → 10-15x better economics → unstoppable network effect</p>
+            </div>
+            <div style="background: rgba(0, 217, 255, 0.1); padding: 30px; border-radius: 10px; margin: 30px 0; max-width: 900px;">
+                <h3>5. Decentralized Infrastructure (No Single Point of Failure)</h3>
+                <p>P2P gossip + locally-operated super-peers → no $100B datacenters required → resilient to Stripe/PayPal going down → any NGO/telco/community can run infrastructure</p>
             </div>
         </div>
 
-        <!-- Slide 20: Go-to-Market -->
+        <!-- Slide 21: Go-to-Market -->
         <div class="slide">
             <h2>Go-to-Market: Regional Expansion</h2>
             <ul style="margin: 50px auto;">
@@ -1332,7 +1442,7 @@
             </ul>
         </div>
 
-        <!-- Slide 21: The Ask -->
+        <!-- Slide 22: The Ask -->
         <div class="slide">
             <h2>The Ask: $5M Seed Round</h2>
             <div class="stat-grid">
@@ -1352,7 +1462,7 @@
             <p style="margin-top: 50px; font-size: 18px;">Milestones: MVP (Mo3) → E2E (Mo4) → 2 MFI partners (Mo6) → 10K users (Mo9) → $50K/mo revenue (Mo12)</p>
         </div>
 
-        <!-- Slide 22: Vision -->
+        <!-- Slide 23: Vision -->
         <div class="slide">
             <h2>The Vision</h2>
             <p style="font-size: 24px; font-style: italic; margin: 60px 0;">In 10 years, a street vendor in Lagos has a credit score as robust as a NYC banker.</p>
@@ -1360,7 +1470,7 @@
             <p style="font-size: 24px; font-style: italic; margin: 40px 0;">CylinderSeal creates a new financial system where <span class="highlight">YOUR PHONE IS YOUR CREDIT HISTORY.</span></p>
         </div>
 
-        <!-- Slide 23: Why Us -->
+        <!-- Slide 24: Why Us -->
         <div class="slide">
             <h2>Why We Win</h2>
             <ul style="margin: 50px auto;">
@@ -1372,7 +1482,7 @@
             </ul>
         </div>
 
-        <!-- Slide 24: Contact -->
+        <!-- Slide 25: Contact -->
         <div class="slide">
             <h1 style="margin-bottom: 50px;">Let's build financial infrastructure for 4.5B people.</h1>
             <p style="font-size: 24px; margin: 50px 0;">hayder@modernecotech.com</p>
