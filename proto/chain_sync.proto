@@ -1,0 +1,372 @@
+syntax = "proto3";
+
+package cylinder_seal.chain_sync;
+
+// Transaction represents a single value transfer between two users
+message Transaction {
+    // UUIDv7 encoded as 16 bytes
+    bytes transaction_id = 1;
+
+    // Ed25519 public key of sender (32 bytes)
+    bytes from_public_key = 2;
+
+    // Ed25519 public key of recipient (32 bytes)
+    bytes to_public_key = 3;
+
+    // Amount in micro-OWC (integer, 6 decimal places implied)
+    // Example: 1000000 = 1 OWC
+    int64 amount_owc = 4;
+
+    // Display currency code at time of payment (e.g., "KES", "NGN", "USD")
+    string currency_context = 5;
+
+    // OWC/local_currency exchange rate snapshot (for display only)
+    // Encoded as a fixed-point decimal string: "0.987654"
+    string fx_rate_snapshot = 6;
+
+    // Unix timestamp in microseconds (not milliseconds)
+    int64 timestamp_utc = 7;
+
+    // 16-byte random nonce for replay prevention
+    bytes nonce = 8;
+
+    // Payment channel: NFC, BLE, or Online
+    PaymentChannel channel = 9;
+
+    // Optional memo/description (max 140 chars)
+    string memo = 10;
+
+    // Ed25519 signature (64 bytes) over canonical CBOR of above fields
+    // (excluding this signature field itself)
+    bytes signature = 11;
+}
+
+enum PaymentChannel {
+    CHANNEL_UNSPECIFIED = 0;
+    CHANNEL_NFC = 1;
+    CHANNEL_BLE = 2;
+    CHANNEL_ONLINE = 3;
+}
+
+// LedgerBlock is one unit in a user's personal chainblock
+message LedgerBlock {
+    // UUIDv7 encoded as 16 bytes
+    bytes block_id = 1;
+
+    // Ed25519 public key of the user who owns this block (32 bytes)
+    bytes user_public_key = 2;
+
+    // Monotonically increasing sequence number for this user
+    uint64 sequence_number = 3;
+
+    // BLAKE2b-256 hash of the previous block (32 bytes)
+    // For genesis block: BLAKE2b-256(user_public_key)
+    bytes prev_block_hash = 4;
+
+    // One or more transactions in this block
+    repeated Transaction transactions = 5;
+
+    // BLAKE2b-256 hash of (prev_block_hash || sequence_number || canonical CBOR of transactions)
+    bytes block_hash = 6;
+
+    // Ed25519 signature (64 bytes) by block owner over block_hash
+    bytes signature = 7;
+
+    // Device-local UTC microseconds when block was created
+    int64 created_at = 8;
+
+    // Sync status tracked on device (not sent to super-peer)
+    SyncStatus sync_status = 9;
+}
+
+enum SyncStatus {
+    SYNC_STATUS_UNSPECIFIED = 0;
+    SYNC_STATUS_PENDING = 1;      // not yet submitted to super-peer
+    SYNC_STATUS_CONFIRMED = 2;    // super-peer acknowledged
+    SYNC_STATUS_CONFLICTED = 3;   // super-peer detected a conflict
+}
+
+// Acknowledgement from super-peer for a submitted block
+message SyncAck {
+    // Echo back the block_id for correlation
+    bytes block_id = 1;
+
+    // Status of the submission
+    SyncAckStatus status = 2;
+
+    // If CONFLICTED, details about the conflict
+    string conflict_reason = 3;
+
+    // Updated user balance in micro-OWC (from super-peer view)
+    int64 balance_owc = 4;
+
+    // Updated credit score (nullable, may not have enough history)
+    string credit_score = 5;
+
+    // Timestamp when super-peer confirmed the block
+    int64 confirmed_at = 6;
+}
+
+enum SyncAckStatus {
+    ACK_STATUS_UNSPECIFIED = 0;
+    ACK_STATUS_CONFIRMED = 1;     // block accepted, added to ledger
+    ACK_STATUS_REJECTED = 2;      // malformed or validation failed
+    ACK_STATUS_CONFLICTED = 3;    // double-spend or other conflict
+    ACK_STATUS_PENDING = 4;       // accepted but awaiting human review
+}
+
+// Request for current currency rates
+message CurrencyRateRequest {
+    // User's primary currency (e.g., "KES")
+    string primary_currency = 1;
+
+    // List of secondary currencies the device wants rates for
+    repeated string secondary_currencies = 2;
+}
+
+// Response with current OWC rates
+message CurrencyRateBundle {
+    // Map of "OWC/USD" -> rate string, e.g. "0.987654"
+    map<string, string> rates = 1;
+
+    // Timestamp when rates were last updated (UTC microseconds)
+    int64 fetched_at = 2;
+
+    // When this rate batch expires (advisory)
+    int64 expires_at = 3;
+
+    // Which spread tier applies (interbank vs retail)
+    string spread_source = 4;
+}
+
+// Initiate a fiat withdrawal/cash-out
+message WithdrawalRequest {
+    // Amount in micro-OWC to withdraw
+    int64 amount_owc = 1;
+
+    // Target currency (e.g., "KES", "USD")
+    string target_currency = 2;
+
+    // Destination method: "mpesa", "bank_transfer", "cash_agent"
+    string destination_method = 3;
+
+    // Destination identifier (phone number, bank account, agent ID)
+    string destination_identifier = 4;
+}
+
+// Response to withdrawal request
+message WithdrawalStatus {
+    // Unique withdrawal reference
+    string withdrawal_id = 1;
+
+    // Current status
+    WithdrawalStatusEnum status = 2;
+
+    // When initiated
+    int64 created_at = 3;
+
+    // Estimated completion time (UTC microseconds)
+    int64 expected_completion_at = 4;
+
+    // If failed, the reason
+    string error_message = 5;
+}
+
+enum WithdrawalStatusEnum {
+    WITHDRAWAL_STATUS_UNSPECIFIED = 0;
+    WITHDRAWAL_STATUS_PENDING = 1;
+    WITHDRAWAL_STATUS_PROCESSING = 2;
+    WITHDRAWAL_STATUS_COMPLETED = 3;
+    WITHDRAWAL_STATUS_FAILED = 4;
+}
+
+// ============================================================================
+// Additional Messages for Iron-Grade Security
+// ============================================================================
+
+message KeyRotationCertificate {
+    // Proves device rotated its keys
+    bytes old_public_key = 1;
+    bytes new_public_key = 2;
+    int64 rotation_at = 3;
+    bytes device_id = 4;
+    string device_attestation = 5;
+    bytes signature = 6;  // Signed with old key
+}
+
+message EncryptedTransaction {
+    // E2E encrypted transaction (super-peer can't read it)
+    bytes plaintext_hash = 1;      // For dedup
+    bytes ciphertext = 2;          // AES-256-GCM encrypted
+    bytes nonce = 3;               // IV for encryption
+    bytes auth_tag = 4;            // GCM auth tag
+}
+
+message WitnessSignature {
+    // For large transactions (500+ OWC)
+    bytes witness_id = 1;
+    bytes witness_signature = 2;
+    int64 approved_at = 3;
+}
+
+message DeviceReputation {
+    // Device behavior score (ML-computed)
+    int32 score = 1;  // 0-100
+    int32 days_active = 2;
+    int32 transaction_count = 3;
+    repeated string anomalies = 4;  // ["geographic_jump", "unusual_time"]
+}
+
+message AuditLogEntry {
+    // Immutable, signed audit log
+    uint64 sequence = 1;
+    int64 timestamp = 2;
+    int64 monotonic_nanos = 3;
+    string action = 4;  // BlockConfirmed, TransactionDoubleSpend, etc.
+    bytes user_id = 5;
+    bytes details_json = 6;
+    repeated string signed_by = 7;  // ["sp-africa", "sp-asia", "sp-americas"]
+    repeated bytes signatures = 8;
+    bytes prev_hash = 9;
+}
+
+// Service for device ↔ super-peer sync
+service ChainSync {
+    // Bidirectional streaming: device sends blocks, super-peer streams back ACKs
+    rpc SyncChain(stream LedgerBlock) returns (stream SyncAck);
+
+    // Get current currency rates
+    rpc GetCurrencyRates(CurrencyRateRequest) returns (CurrencyRateBundle);
+
+    // Initiate a fiat withdrawal
+    rpc InitiateWithdrawal(WithdrawalRequest) returns (WithdrawalStatus);
+
+    // NEW: Rotate device keys
+    rpc RotateDeviceKey(KeyRotationCertificate) returns (KeyRotationAck);
+
+    // NEW: Recover account (key recovery)
+    rpc RequestRecoveryShare(RecoveryRequest) returns (RecoveryShare);
+
+    // NEW: Get device reputation
+    rpc GetDeviceReputation(DeviceReputationRequest) returns (DeviceReputation);
+
+    // NEW: Get audit log for user
+    rpc GetAuditLog(AuditLogRequest) returns (AuditLogResponse);
+
+    // NEW: Request witness approval for large tx
+    rpc RequestWitnessApproval(WitnessRequest) returns (WitnessResponse);
+
+    // NEW: Get Merkle proof for balance verification
+    rpc GetMerkleProof(MerkleProofRequest) returns (MerkleProofResponse);
+}
+
+message KeyRotationAck {
+    bool accepted = 1;
+    string reason = 2;
+    int64 grace_period_expires_at = 3;
+}
+
+message RecoveryRequest {
+    bytes user_id = 1;
+    bytes proof_of_identity = 2;  // Biometric + SMS OTP
+}
+
+message RecoveryShare {
+    bytes encrypted_share = 1;
+    bytes share_id = 2;
+    int64 expires_at = 3;
+}
+
+message DeviceReputationRequest {
+    bytes device_id = 1;
+}
+
+message AuditLogRequest {
+    bytes user_id = 1;
+    int64 since = 2;  // Since timestamp
+}
+
+message AuditLogResponse {
+    repeated AuditLogEntry entries = 1;
+}
+
+message WitnessRequest {
+    bytes transaction_id = 1;
+    int64 amount_owc = 2;
+    bytes recipient_public_key = 3;
+    int64 requested_at = 4;
+    int64 expires_at = 5;
+    bytes requester_signature = 6;
+}
+
+message WitnessResponse {
+    bool approved = 1;
+    bytes witness_signature = 2;
+    bytes witness_id = 3;
+}
+
+message MerkleProofRequest {
+    bytes user_id = 1;
+}
+
+message MerkleProofResponse {
+    bytes root_hash = 1;
+    repeated MerkleProofNode path = 2;
+}
+
+message MerkleProofNode {
+    enum Position {
+        LEFT = 0;
+        RIGHT = 1;
+    }
+    bytes hash = 1;
+    Position position = 2;
+}
+
+// ============================================================================
+// Super-peer to super-peer gossip (internal)
+// ============================================================================
+
+// Gossip notification of a confirmed block to other super-peers
+message BlockConfirmationGossip {
+    // User's public key
+    bytes user_public_key = 1;
+
+    // The block hash
+    bytes block_hash = 2;
+
+    // Sequence number
+    uint64 sequence_number = 3;
+
+    // Timestamp when confirmed locally
+    int64 confirmed_at = 4;
+}
+
+service SuperPeerGossip {
+    // Announce a confirmed block to peer nodes
+    rpc AnnounceBlock(BlockConfirmationGossip) returns (GossipAck);
+
+    // Replicate full ledger state (compressed CBOR dump)
+    rpc ReplicateLedger(ReplicationRequest) returns (ReplicationResponse);
+}
+
+message GossipAck {
+    bool acknowledged = 1;
+    string message = 2;
+}
+
+message ReplicationRequest {
+    // Peer identifier
+    string peer_id = 1;
+
+    // Last known block hash from this peer
+    bytes last_known_hash = 2;
+}
+
+message ReplicationResponse {
+    // Compressed CBOR dump of ledger entries
+    bytes ledger_dump = 1;
+
+    // Timestamp of dump
+    int64 created_at = 2;
+}

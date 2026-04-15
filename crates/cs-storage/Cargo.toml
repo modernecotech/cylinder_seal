@@ -1,0 +1,21 @@
+[package]
+name = "cs-storage"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+cs-core = { path = "../cs-core" }
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+sqlx.workspace = true
+deadpool-redis.workspace = true
+redis.workspace = true
+tracing.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+rust_decimal.workspace = true
+tokio.workspace = true

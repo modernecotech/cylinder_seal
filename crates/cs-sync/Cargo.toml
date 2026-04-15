@@ -1,0 +1,17 @@
+[package]
+name = "cs-sync"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+cs-core = { path = "../cs-core" }
+cs-storage = { path = "../cs-storage" }
+tokio.workspace = true
+tonic.workspace = true
+prost.workspace = true
+tracing.workspace = true
+anyhow.workspace = true
+uuid.workspace = true
+chrono.workspace = true

@@ -1,0 +1,38 @@
+# Rust
+/target
+Cargo.lock
+**/*.rs.bk
+.DS_Store
+
+# Android
+.gradle
+.idea
+local.properties
+*.iml
+build/
+.android/
+*.apk
+*.aar
+*.jks
+*.keystore
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.log
