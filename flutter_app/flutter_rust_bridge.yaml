@@ -1,6 +1,0 @@
-rust_input: crate::api
-rust_root: ../crates/cs-bridge/
-dart_output: lib/src/rust
-dart_root: .
-default_external_library_loader_web_prefix: pkg/
-full_dep: true
