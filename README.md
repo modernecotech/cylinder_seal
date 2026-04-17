@@ -36,8 +36,10 @@
 - **GDP:** $265.45B (2025 nominal, IMF official)
 - **Oil production:** 4.03 million barrels/day (2025 actual - strong recovery)
 - **Unemployment:** 15.50% (2025 final, up from 15.30% in 2024)
-- **Exports:** $40B/year (92-99% oil, ~$2B non-oil)
-- **Government budget:** $150-180B (constrained by volatility)
+- **Exports:** ~$93B/year (99% oil = $85-87B, 1% non-oil = ~$1B)
+- **Government revenue:** $87B total (oil $76B + non-oil $10B)
+- **Government spending:** ~$100B (employee compensation ~46%, pensions ~14%, social protection ~4%)
+- **Trade balance:** +$5.7B surplus
 - **Population:** 47.02M (2025 mid-year), 46.12M (2024 census)
 - **GDP per capita:** $5,650
 
@@ -174,7 +176,7 @@ Government salary spending = ~$30-40B/year (government workforce ~1M people @ $3
 - Banks can lend against supply chain itself
 - Creates self-financing mechanism (cash advance against invoice)
 
-**Target:** Non-oil exports $2B → $6-8B in 5 years
+**Target:** Non-oil exports ~$1B → $4-6B in 5 years
 
 ---
 
@@ -211,8 +213,8 @@ Government salary spending = ~$30-40B/year (government workforce ~1M people @ $3
 | **GDP per capita** | $5,650 | $7,060 | +25% |
 | **Unemployment** | 15.5% | 9.5% | -6.0pp |
 | **Oil production** | 4.03M bbl/day | 4.5-5M bbl/day | +10-15% |
-| **Non-oil exports** | $2B | $6-8B | +200-300% |
-| **Trade balance** | +$5B | +$19B | +$14B |
+| **Non-oil exports** | ~$1B | $4-6B | +300-500% |
+| **Trade balance** | +$5.7B | +$19B | +$13.3B |
 | **Financial inclusion** | 30% | 75% | +45pp |
 | **Active users** | 0 | 32-35M | 70% of population |
 
