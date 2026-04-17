@@ -57,10 +57,20 @@
 **Three-Tier Architecture:**
 
 ```
-TIER 0: Devices (Android Phones)
-├─ Personal encrypted wallet (SQLite + SQLCipher)
-├─ Offline NFC/BLE payments (no internet needed)
-├─ Ed25519 keypairs in Android Keystore (hardware-backed)
+TIER 0: Devices (Android phones, iPhones, Linux ARM64 POS terminals)
+├─ Personal encrypted wallet
+│   ├─ Android: Room + SQLCipher, HKDF-derived passphrase
+│   ├─ iOS:     SQLite + NSFileProtectionComplete
+│   └─ POS:     SQLite (machine-id-bound at-rest mask)
+├─ Offline NFC/BLE/QR payments (no internet needed)
+│   ├─ Android: NFC HCE (ISO 7816-4) + QR (BLE peripheral pending)
+│   ├─ iOS:     CoreNFC reader + CBPeripheralManager BLE + QR
+│   └─ POS:     PC/SC NFC reader + BlueZ BLE GATT + webcam QR
+├─ Ed25519 keypairs in hardware-backed key stores
+│   ├─ Android: Keystore (StrongBox on API 28+) wraps the Ed25519 private key
+│   ├─ iOS:     Keychain + Secure Enclave-bound AES-GCM wrap key
+│   └─ POS:     machine-id-bound mask (production: PIV / YubiKey)
+├─ Shared signing + wire codec via cs-mobile-core (Rust + UniFFI)
 └─ RFC 6979 deterministic nonces (prevent replay)
 
 TIER 1: Super-Peers (CBI Branches, 5-node Raft cluster)
@@ -560,81 +570,133 @@ The `tracing` crate is already wired in the Rust workspace; production wiring to
 
 The specification above describes the target system. This section reports honestly on the gap between specification and current code, so reviewers can estimate remaining engineering effort.
 
-**Overall maturity: ~20-25% of specification** (the Architecture Decisions section added HSM, UniFFI cross-platform core, hybrid post-quantum signing, OpenTelemetry, QR fallback, and algorithm agility — none of which have code yet). The cryptographic and data-model foundation is solid; most execution layers (mobile, consensus, REST, background services) are stubs.
+**Overall maturity: ~55-65% of specification.** The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage), the shared mobile-core via UniFFI, the Android Compose app, the iOS SwiftUI app, and the Linux POS terminal are all in tree and wired end-to-end against the same `ChainSync` proto. The remaining gap is mostly the inter-super-peer Raft transport (currently loopback), live OFAC/forex feed ingestion, regional-hub settlement, the diaspora investment vehicles, HSM/observability hardening, and the post-quantum hybrid signing path.
 
-**What makes closing the gap fast:** the remaining ~75-80% of the code is AI-generated from the specification and reviewed by senior engineers, not hand-written over quarters. The Rust core (consensus, conflict resolver, REST handlers, nonce store), Android mobile (NFC HCE, BLE, WorkManager, Keystore integration), iOS port via UniFFI, and merchant-tier / AML pipelines can all be generated in weeks, with the calendar time dominated by integration testing, security audit, and HSM key ceremonies rather than writing code. See the compressed timeline below.
+**Test coverage:** ~2,750 lines of integration tests across 17 numbered spec files (`spec_01_crypto_primitives` through `spec_17_cbi_integration`) plus two e2e flows (`e2e_invoice_flow`, `e2e_offline_payment`).
+
+**What still makes closing the gap fast:** the remaining work — gRPC Raft transport, live external-feed connectors, settlement primitives, HSM/OpenTelemetry wiring — is incremental on top of working subsystems, not greenfield. Calendar time is dominated by integration testing, security audit, and HSM key ceremonies rather than writing code. See the compressed timeline below.
 
 ### Implemented and tested (✅)
+
+**Backend — cryptographic and data foundation**
 - **Rust cryptography layer** — Ed25519 signing/verification, BLAKE2b-256 hashing, RFC 6979 deterministic nonces with hardware binding, canonical CBOR for signing/hashing
 - **Domain models** — `JournalEntry` with prev-hash chaining, `Transaction` with i64 micro-OWC (no float anywhere), KYC tiers with limits, location fields (GPS/Network/LastKnown/Offline)
 - **User ID derivation** — BLAKE2b-256(public_key) → UUIDv7, tested for consistency
-- **Proto/gRPC service definitions** — `ChainSync` (bidirectional streaming), `SuperPeerGossip`, all message types
-- **PostgreSQL schema** — append-only ledger, BRIN time indices, `UNIQUE(user_id, sequence_number)` enforcing chain integrity, conflict-status tracking, AML rules, risk profiles, regulatory reports, enhanced monitoring, PEP registry
+- **Proto/gRPC service definitions** — `ChainSync` (bidirectional streaming), `SuperPeerGossip`, `BusinessApi`, all message types
+- **PostgreSQL schema** — append-only ledger, BRIN time indices, `UNIQUE(user_id, sequence_number)` enforcing chain integrity, conflict-status tracking, AML rules, risk profiles, regulatory reports, enhanced monitoring, PEP registry, business profiles, API keys, invoices
 - **Hardware binding models** — `DeviceHardwareIds`, `DeviceAttestation` (SafetyNet/Play Integrity types), reputation tracking
-- **CBI data integration** — official IQD/USD exchange rate (1300, managed peg), policy rate (5.5%), reserve requirement (22%), monetary snapshots (M0/M1/M2, Dec 2023–Mar 2026), e-payment statistics (2018–2022), macro indicators, auction data, denomination breakdown, licensed payment providers; cross-rate feed aggregator for 12 currencies via USD
-- **AML/CFT rule engine** — flexible, data-driven engine with 14 FATF/CBI-aligned default rules (velocity, structuring, geographic anomaly, dormant reactivation, round amounts, rapid fan-out, behavioral deviation, counterparty risk, PEP, high-risk jurisdictions); typed `RuleCondition` enum (13 variants) stored as JSONB in PostgreSQL; composite risk scoring (0–100); DB-configurable thresholds without code redeploy
-- **Risk scoring engine** — user-level composite risk model with 7 weighted factors (KYC completeness 15%, account maturity 10%, transaction patterns 20%, AML hit ratio 20%, counterparty exposure 15%, geographic risk 10%, PEP/sanctions 10%); 5 risk tiers (Low→Critical) with review intervals and EDD requirements; counterparty risk assessment
-- **Regulatory reporting** — SAR (30-day FinCEN deadline), CTR (15-day threshold-based), STR (3-day CBI Law 39/2015); report lifecycle state machine (Draft→UnderReview→Filed→Acknowledged→Closed); compliance dashboard data models
-- **Credit scoring** — FICO-compatible 300–900 range from 5 weighted factors (transaction count, account age, average amount, conflict-free ratio, balance stability); lending spread calibrated to CBI commercial bank rates (policy rate + 300–1800 bps by score band)
-- **Merchant tier system** — Tier 1–4 classification by Iraqi content percentage (0% → 100%); fee routing (0% → 3–5%); salary cap enforcement; DB-stored tier policies
-- **REST API** — Axum-based admin/ops surface: health, readiness, stats, user balance/entries, KYC callbacks, business registration/approval/EDD, API key management (BLAKE2b hash-only storage), invoice CRUD with webhook dispatch, compliance dashboard, AML rule listing, transaction evaluation, user risk profiles, CBI exchange rates
 
-### Framework present, logic stubbed (🟡)
+**Backend — consensus and sync (newly landed; previously listed as stubbed)**
+- **3-of-5 Raft consensus** — full `RaftNode` state machine in `cs-consensus`: leader election with jittered timeouts, log replication, commit-index broadcast channel, persistent state, `propose` / `await_commit` API; `LedgerStateMachine` trait applied via `LedgerApplier` writing to PostgreSQL
+- **Redis nonce replay prevention** — `RedisNonceStore::check_and_set` issues `SET key 1 NX EX <48h>` atomically; rejects on collision
+- **Conflict resolver** — earlier-timestamp wins, NFC > BLE > Online channel-strength tiebreaker, escalation to quarantine + `conflict_log` row when both tie
+- **gRPC `ChainSync` service** — full validate → nonce check → conflict resolve → Raft propose → await commit → `SyncAck` flow; bidirectional streaming; invoice memo reconciliation that marks invoices paid + fires the webhook dispatcher
+- **`SuperPeerGossip` and `BusinessApi` gRPC services** — wired in `cs-node/main.rs`
+- **Super-peer node binary (`cs-node`)** — single `main.rs` brings up Postgres + Redis pools, builds the Raft node + tick driver, launches gRPC + REST + webhook dispatcher + credit batch scheduler, handles SIGINT shutdown
+
+**Backend — policy and compliance**
+- **AML/CFT rule engine** — data-driven engine with 14 FATF/CBI-aligned default rules; typed `RuleCondition` enum (13 variants) stored as JSONB in PostgreSQL; composite risk scoring (0–100); DB-configurable thresholds without code redeploy
+- **Risk scoring engine** — user-level composite risk model with 7 weighted factors; 5 risk tiers (Low→Critical) with review intervals and EDD requirements; counterparty risk assessment
+- **Regulatory reporting** — SAR (30-day FinCEN), CTR (15-day threshold-based), STR (3-day CBI Law 39/2015); lifecycle state machine (Draft→UnderReview→Filed→Acknowledged→Closed); compliance dashboard data models
+- **Credit scoring** — FICO-compatible 300–900 range from 5 weighted factors; CBI-policy-rate-aware lending spreads (policy rate + 300–1800 bps by score band); `CreditScheduler` driver running daily in `cs-node`
+- **Merchant tier system** — Tier 1–4 classification by Iraqi content percentage; fee routing (0% → 3–5%); salary cap enforcement; DB-stored tier policies
+- **CBI data integration** — official IQD/USD exchange rate (1300, managed peg), policy rate (5.5%), reserve requirement (22%), monetary snapshots (M0/M1/M2, Dec 2023–Mar 2026), e-payment statistics (2018–2022), macro indicators, auction data, denomination breakdown, licensed payment providers; cross-rate feed aggregator for 12 currencies via USD (currently using reference values — see "in progress" below)
+
+**Backend — REST surface**
+- **REST API (`cs-api`)** — Axum-based admin/ops surface: health, readiness, stats, user balance/entries, KYC callbacks, business registration/approval/EDD, API key management (BLAKE2b hash-only storage), invoice CRUD with webhook dispatch, compliance dashboard, AML rule listing, transaction evaluation, user risk profiles, CBI exchange rates
+
+**Shared mobile core**
+- **`cs-mobile-core`** — Rust crate exposed via UniFFI: keypair generation, Ed25519 sign/verify, canonical CBOR `Transaction` encode/decode, BLAKE2b-256, RFC 6979 nonce derivation, QR / NFC APDU / BLE wire codecs. Generates Kotlin (`uniffi/cs_mobile_core/cs_mobile_core.kt`) and Swift (xcframework + `MobileCore.swift`) bindings. Halves the audit surface — same code on both platforms.
+
+**Android (Kotlin / Compose)**
+- Full multi-module Gradle build (`app` + 7 `core-*` modules + 8 `feature-*` modules)
+- Compose UI feature modules: onboarding (with PIN setup), wallet, pay (incl. `PaymentBuilder`, `QrRenderer`), receive (incl. `QrScannerScreen`, NFC HCE service), history, settings, business (onboarding, API keys), sync
+- `core-cryptography`: Android Keystore master key, Tink AES-GCM wrap of the Ed25519 private key, HKDF helper for derived keys
+- `core-database`: Room schema (transactions, pending entries, contacts, nonce chains) opened through SQLCipher, passphrase derived via HKDF from Keystore seed
+- `core-network`: gRPC over OkHttp, Conscrypt for TLS 1.3 on older Android, `ChainSyncClient` streaming `JournalEntry` ↔ `SyncAck`
+- `feature-receive/nfc/CylinderSealApduService` — Host-based Card Emulation, ISO 7816-4 SELECT + chunked PROPOSE; reassembled CBOR handed to `IncomingPaymentIngestor`
+- `feature-sync/SyncWorker` + `SyncScheduler` — WorkManager periodic + expedited drains of the pending queue with constraints and exponential backoff
+- Hilt DI throughout, DataStore-backed `UserPreferences`, instrumented test for `WalletKeyManager`
+
+**iOS (Swift / SwiftUI)**
+- xcodegen-generated project consuming the Rust core as an xcframework via `uniffi-bindgen-swift`
+- SwiftUI views matching Android: onboarding, wallet, pay, receive, history, settings, business, API keys
+- `KeychainManager` — Secure-Enclave-bound AES-GCM key wraps the Ed25519 private key
+- `Database.swift` — SQLite with `NSFileProtectionComplete` (OS-level file encryption tied to device passcode) instead of SQLCipher
+- `NFCReader` — `NFCTagReaderSession` issuing SELECT + GET-DATA APDUs (read side; Apple does not allow third-party HCE)
+- `BLEService` — `CBPeripheralManager` GATT peripheral, same UUIDs as the POS and Android counterpart
+- `QRScanner` (AVFoundation), `SyncWorker` driven by `BGTaskScheduler`
+- `ChainSyncClient` over grpc-swift, `IncomingPaymentIngestor` for cross-transport reassembly
+
+**Merchant POS terminal (`cs-pos`)**
+- Slint UI on Linux ARM64 (Raspberry Pi 4/5, Orange Pi 5, RK3568) with Wayland or `linuxkms` framebuffer
+- `nfc.rs` — PC/SC reader loop selecting the CylinderSeal AID and pulling chunked APDUs
+- `ble.rs` — BlueZ GATT server (one writable characteristic, zero-length write terminates payload)
+- `qr.rs` — nokhwa webcam capture + rqrr decode
+- `payment.rs` — builds `PaymentRequest` QR payloads, validates inbound signed `Transaction`s (amount/currency/recipient/expiry/signature)
+- `sync.rs` — 30-second tokio loop draining pending queue to a super-peer over the same `ChainSync` stream the phones use
+- `printer.rs` — ESC/POS receipt bytes, USB / serial / TCP 9100
+- `store.rs` — local SQLite for merchant keypair + pending queue; systemd unit and env template under `packaging/`
+
+**Test coverage**
+- 17 numbered spec test files (~2,750 LOC) covering crypto primitives, canonical signing, nonce chain, journal chain, Raft consensus, merchant tiers, AML flagging, credit scoring, account types, API key auth, invoice lifecycle, wire formats, conflict resolution, rule engine, risk scoring, regulatory reporting, CBI integration
+- Two e2e flows: `e2e_invoice_flow`, `e2e_offline_payment`
+
+### Framework present, logic in progress (🟡)
 | Component | Present | Missing |
 |-----------|---------|---------|
-| Redis nonce replay prevention | `NonceStore` trait + 48h TTL spec | Actual `check_and_set` Redis impl |
-| 3-of-5 Raft consensus | Proto messages, `SuperPeerConfig` quorum config | Raft election + log replication, hash agreement, PENDING→CONFIRMED transitions |
-| Conflict resolver | Stub with comment-level design | Timestamp comparison + NFC/BLE receipt tiebreaker logic |
-| gRPC sync service | Proto + server skeleton | Service startup (`main.rs` TODO), streaming handlers |
-| Super-peer ledger replication | Empty scheduler module | Periodic sync job, batch logic |
-| Credit scoring batch | `BatchCreditScorer` trait + scheduler scaffolding | Paged user iteration for batch updates |
-| AML rule DB loading | In-memory engine + JSONB schema | `FROM aml_rules` query + periodic refresh |
+| Inter-super-peer Raft transport | `LoopbackPeerTransport` (single-node mode); state machine in place | Real `GrpcPeerTransport` over a `rpc RaftRpc` proto definition; currently behind a `grpc-raft` feature flag and not yet wired |
+| Live forex feed | `FeedAggregator` scaffold + reference cross-rates for 12 currencies | Connectors to exchangerate.host / Open Exchange Rates; TODO marker in `feed_aggregator.rs` |
+| Live OFAC/UN/EU sanctions ingestion | Sanctions screening rule + PEP registry table; manual list updates supported via DB | Automated periodic list pull + diff into the screening tables |
+| Algorithm agility (`algo_id` field) | Architecture decision documented | Not yet present in signed-object schemas; required pre-pilot |
 
 ### Not implemented (❌)
-**Android mobile (the entire offline-payment channel):**
-- NFC HCE + ISO 7816-4 APDU handlers — **core "offline-first" differentiator**
-- BLE GATT fallback for non-NFC phones
-- WorkManager background sync workers
-- Android Keystore integration for hardware-backed Ed25519 key generation
-- SQLCipher key derivation (HKDF(Keystore key ‖ PIN))
-- PIN entry flow
-- Certificate pinning wiring (Conscrypt declared but unused)
-- Room schema for encrypted wallet
-- Compose UI beyond "Coming Soon" shell
+**Android: BLE GATT fallback** — NFC HCE and QR are live, but Android does not yet expose a `CBPeripheralManager`-equivalent GATT server. iOS and the POS already speak BLE with matching UUIDs, so phones-as-receivers over BLE only works in iOS↔iOS, iOS↔POS, POS↔Android-as-sender today.
 
-**Economic and compliance features not yet implemented:**
+**Economic features**
 - **Regional hub / cross-border settlement** — no FX handling, settlement ledger, or inter-bank messaging
-- **Diaspora investment vehicles** — no models for bonds, equity crowdfunding, real-estate escrow
-- **Live OFAC/UN sanctions list ingestion** — screening engine exists but list fetching is not automated
-- **Live forex feed integration** — cross-rates use reference values; external API connectors (exchangerate.host, Open Exchange Rates) are TODO
+- **Diaspora investment vehicles** — no models for bonds, equity crowdfunding, real-estate escrow / title registry
+
+**Operational hardening**
+- **HSM integration** — keys are software-backed in the current build; the FIPS 140-2 L3 HSM path (Thales / Utimaco / Entrust) is procurement + integration work
+- **OpenTelemetry exporters** — `tracing` is wired in the workspace; OTel exporters to Prometheus / Tempo / Loki are not yet hooked up
+- **Hybrid post-quantum signing** — Year-3 milestone in the plan; not in code yet
 
 ### Load-bearing risks to the economic case
 
-1. **Offline payments require NFC + BLE + Keystore + WorkManager**, none of which are implemented. Every projection assuming reach to ~21M unbanked Iraqis in low-connectivity areas depends on this channel working.
-2. **Raft quorum consensus is the README's core correctness claim** and the voting logic does not exist — currently any super-peer could accept a transaction alone.
-3. **Replay prevention is not enforced** — the nonce trait is defined but never writes to Redis.
-4. **Conflict resolution is a stub** — double-spend detection has no runtime code path.
-5. **Live sanctions list ingestion** — the AML rule engine and screening framework are implemented, but OFAC/UN list fetching is not yet automated. Manual list updates via the DB are possible.
+1. **Inter-super-peer Raft is single-node today.** The state machine, election, log replication, and commit-index broadcast all work, and the gRPC service path commits via Raft, but the peer transport is loopback. Real cross-branch replication needs the `GrpcPeerTransport` + a Raft RPC proto. Until then, "3-of-5 quorum across Baghdad / Basra / Erbil / Mosul / Najaf" is not enforced on the wire.
+2. **Android BLE fallback missing** — phones without NFC (older devices, iOS↔Android-sender pairs) currently fall back to QR rather than BLE on Android.
+3. **Live sanctions and forex feeds are not automated** — both are gated by external API connectors; the policy engine and aggregator are ready to consume them.
+4. **HSM, OTel, hybrid PQ signing** — three of the architecture-decision items are not yet in code.
 
 ### Critical-path build order to close the gap
 
-1. gRPC `SyncChain` service — device ↔ super-peer transport
-2. Redis `NonceStore::check_and_set` with 48h TTL
-3. Raft election + log replication + ledger-hash agreement (PENDING → CONFIRMED state machine)
-4. Conflict resolver implementation (timestamp + receipt tiebreaker)
-5. Android Keystore → Ed25519 keypair generation + attestation
-6. NFC HCE service + ISO 7816-4 APDU frames
-7. WorkManager sync worker (background drain of offline queue)
-8. SQLCipher key derivation (HKDF(Keystore ‖ PIN)) + PIN flow
+1. ~~gRPC `SyncChain` service — device ↔ super-peer transport~~ ✅ Implemented (`cs-sync::sync_service::ChainSyncService`)
+2. ~~Redis `NonceStore::check_and_set` with 48h TTL~~ ✅ Implemented (`cs-storage::redis_impl::RedisNonceStore`)
+3. ~~Raft election + log replication + ledger-hash agreement (PENDING → CONFIRMED state machine)~~ ✅ Implemented in `cs-consensus` (transport between super-peers still loopback — see #11 below)
+4. ~~Conflict resolver implementation (timestamp + receipt tiebreaker)~~ ✅ Implemented (`cs-sync::conflict_resolver`)
+5. ~~Android Keystore → Ed25519 keypair generation + attestation~~ ✅ Implemented (`core-cryptography::WalletKeyManager`); attestation export is a follow-up
+6. ~~NFC HCE service + ISO 7816-4 APDU frames~~ ✅ Implemented (`feature-receive/nfc/CylinderSealApduService`)
+7. ~~WorkManager sync worker (background drain of offline queue)~~ ✅ Implemented (`feature-sync/SyncWorker` + `SyncScheduler`)
+8. ~~SQLCipher key derivation (HKDF(Keystore ‖ PIN)) + PIN flow~~ ✅ Implemented (`core-database/Database.kt` + `feature-onboarding`); PIN-derived rekey is staged for first unlock
 9. ~~Merchant tier classification + fee routing~~ ✅ Implemented
-10. ~~AML/CFT flagging pipeline~~ ✅ Implemented (rule engine + risk scoring + SAR/CTR/STR reporting); remaining: live OFAC/UN list ingestion automation
-11. BLE GATT fallback service
-12. ~~REST admin API handlers~~ ✅ Implemented (health, readiness, balance, entries, KYC, business, invoices, compliance)
-13. ~~Credit scoring algorithm~~ ✅ Implemented (5-factor FICO-compatible scoring, CBI-calibrated lending spreads)
-14. Regional-hub settlement primitives
-15. Live forex feed integration (replace reference cross-rates with real-time external API data)
+10. ~~AML/CFT flagging pipeline~~ ✅ Implemented (rule engine + risk scoring + SAR/CTR/STR reporting); live OFAC/UN list ingestion still manual
+11. **gRPC Raft peer transport** — replace `LoopbackPeerTransport` with a real `GrpcPeerTransport` once `RaftRpc` messages are added to the proto
+12. **Android BLE GATT fallback** — `BluetoothGattServer` peripheral matching the iOS / POS service UUIDs
+13. ~~REST admin API handlers~~ ✅ Implemented
+14. ~~Credit scoring algorithm~~ ✅ Implemented
+15. **iOS port via UniFFI** ✅ Implemented (xcframework + SwiftUI app); productionization (cert pinning, MDM packaging, branding) outstanding
+16. **POS terminal (`cs-pos`)** ✅ Implemented for Linux ARM64 kiosks; field-hardening + remote-update channel outstanding
+17. Algorithm agility (`algo_id` on every signed object) — pre-pilot blocker
+18. HSM-backed CBI key storage + key ceremony tooling
+19. OpenTelemetry exporter wiring (Prometheus / Tempo / Loki / Grafana)
+20. Live forex feed integration
+21. Live OFAC/UN/EU sanctions list ingestion automation
+22. Regional-hub settlement primitives
+23. Diaspora investment vehicles (growth bonds, equity crowdfunding, real-estate title registry)
+24. Hybrid Ed25519 + Dilithium signing (Year-3 milestone)
 
-Items 1-8 are required for the Baghdad pilot (Phase 2 below). Items 9-10 were required before Phase 3 and are now implemented. Items 11, 14-15 stretch across Phases 3-4.
+Items 1-10, 13-16 are done. Items 11-12, 17-19 are required for the Baghdad pilot (Phase 2 below). Items 20-21 are required before Phase 3. Items 22-24 stretch across Phases 3-5.
 
 ---
 
@@ -934,4 +996,4 @@ MIT
 ---
 
 **Last Updated:** 2026-04-17  
-**Status:** Complete specification with 2025 economic data, governance framework, technical architecture, implementation timeline, and risk mitigation
+**Status:** Complete specification with 2025 economic data, governance framework, technical architecture, implementation timeline, and risk mitigation. Implementation status section reflects the in-tree code as of this date — Rust backend (consensus + sync + REST + AML + credit + exchange + policy + storage), shared `cs-mobile-core` via UniFFI, Android Compose app, iOS SwiftUI app, and `cs-pos` Linux ARM64 kiosk all wired against the same `ChainSync` proto, with 17 numbered spec test files plus two e2e flows.
