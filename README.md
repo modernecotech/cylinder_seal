@@ -11,13 +11,15 @@
 - Zero transaction costs (no intermediaries, no fees)
 - Offline-first payments (NFC/BLE, works without internet)
 - Real-time monetary policy (CBI sees all transactions instantly)
-- Financial inclusion (70% → 85% unbanked to banked in 5 years)
+- Financial inclusion: 30% → 75% banked in 5 years (~21M newly included)
 - Trade policy lever (merchant tier system for local production)
 - Supply chain financing (credit from transaction history, not collateral)
 - Regional financial hub (non-oil trade settlement center for Middle East)
 - Export growth engine (working capital access for SMEs)
 
-**Investment:** $5-7M | **Payback:** <5 months | **Annual Benefit (Year 5):** $7.5-12.5B
+**Investment:** $3-5M (AI-generated software + reused infrastructure) | **Timeline:** 12-15 months to national scale | **Payback:** Months 3-6 after pilot launch | **Annual Benefit (Year 5):** $7.5-12.5B
+
+**Why this moves fast:** the backend and mobile frontends are AI-generated and reviewed, not hand-written from scratch. Rollout runs on hardware that already exists — the ~36M Android phones in Iraq, existing cellular/fiber networks, and commodity x86 servers in CBI data centers. The only new hardware is FIPS 140-2 Level 3 HSMs for CBI root keys (weeks of procurement, not months). The binding constraints on the schedule are regulatory approval and independent security audits — not software development.
 
 ---
 
@@ -27,7 +29,7 @@
 1. **70% unbanked** — No access to formal financial system
 2. **Bank fees extractive** — 2-5% per transaction (kills purchasing power)
 3. **Monetary policy slow** — CBI decisions take days/weeks through bank system
-4. **Trade deficit severe** — Imports kill foreign exchange, undercut local producers
+4. **Non-oil trade deficit severe** — Oil surplus ($5.7B total trade balance) masks a large non-oil deficit; imports undercut local producers and drain FX
 5. **Oil-dependent** — Vulnerable to price shocks; need economic diversification
 6. **Youth unemployment** — 25-30% youth unemployment (15.5% overall)
 7. **Capital formation blocked** — SMEs can't access working capital without collateral
@@ -37,10 +39,10 @@
 - **Oil production:** 4.03 million barrels/day (2025 actual - strong recovery)
 - **Unemployment:** 15.50% overall (25-30% youth unemployment)
 - **Inflation rate:** 1.5% annually (stable, declining from 2.6% in 2024)
-- **Exports:** ~$93B/year (99% oil = $85-87B, 1% non-oil = ~$1B)
+- **Exports:** ~$93B/year (oil ~$87B/94%, petroleum products + non-oil ~$6B/6%, of which ~$1B is non-oil goods)
 - **Government revenue:** $87B total (oil $76B + non-oil $10B)
-- **Government spending:** ~$100B (salaries $66-73B, pensions $40B+, social protection)
-- **Government employees:** 4.2M (plus 3M retirees = 10.5M Iraqis dependent on state, 25% of population)
+- **Government spending:** ~$153B total (2025 federal budget, signed into law Jun 2023 as part of the three-year 2023-2025 omnibus budget). Breakdown: salaries $66-73B, pensions + retirees $40B+, social protection, capex, PMF/security, and debt service making up the balance.
+- **Government employees:** 4.2M (plus 3M retirees = 7.2M direct state-income recipients; including their dependents, ~10.5M Iraqis rely on state income, 22% of population)
 - **Trade balance:** +$5.7B surplus
 - **Population:** 47.02M (2025 mid-year), 46.12M (2024 census)
 - **GDP per capita:** $5,650
@@ -61,11 +63,12 @@ TIER 0: Devices (Android Phones)
 ├─ Ed25519 keypairs in Android Keystore (hardware-backed)
 └─ RFC 6979 deterministic nonces (prevent replay)
 
-TIER 1: Super-Peers (CBI Branches)
+TIER 1: Super-Peers (CBI Branches, 5-node Raft cluster)
 ├─ Baghdad (primary, CBI data center)
 ├─ Basra (southern Iraq regional)
 ├─ Erbil (KRG northern regional)
-├─ 3-of-3 Byzantine consensus voting (all 3 must validate)
+├─ Mosul, Najaf (added for Phase 3; cluster size = 5)
+├─ 3-of-5 Raft quorum commits each ledger entry (tolerates 2 failures)
 ├─ PostgreSQL ledger + Redis cache
 └─ Real-time AML/CFT monitoring
 
@@ -83,11 +86,11 @@ TIER 2: CBI Policy
    - Both store in personal ledger (PENDING status)
    - Works in rural areas, refugee camps, boats
 
-2. **Device A syncs to super-peer S1** (hours or days later)
-   - S1 validates: signature, nonce chain, balance check
-   - S1 gossips to S2, S3 for independent validation
-   - All 3 compute ledger hash (BLAKE2b-256)
-   - **Once all 3 agree → CONFIRMED** (irreversible)
+2. **Device A syncs to any super-peer (the Raft leader forwards if needed)** (hours or days later)
+   - Receiving super-peer validates: signature, nonce chain, balance check
+   - Entry is proposed to the 5-node Raft cluster
+   - All peers compute the post-entry ledger hash (BLAKE2b-256)
+   - **Once 3-of-5 peers commit with matching hash → CONFIRMED** (irreversible under normal policy; CBI can reverse under defined fraud/sanctions rules)
    - CBI ledger updates: Device A -1000, Device B +1000
 
 3. **Device B syncs** (even weeks later)
@@ -95,9 +98,55 @@ TIER 2: CBI Policy
    - Device B learns new balance immediately
    - No delays, no ambiguity
 
+### Account Types
+
+Digital Dinar supports three distinct account categories. All three share
+the same cryptographic identity (Ed25519 keypair, BLAKE2b-derived user id)
+and journal-entry format; they differ in KYC requirements, velocity limits,
+and which APIs they can access.
+
+| Account type             | Who it serves                                   | KYC level               | Daily volume (default) | Electronic API access |
+|--------------------------|-------------------------------------------------|-------------------------|------------------------|-----------------------|
+| **Individual**           | Consumers; anyone with a phone                  | Anonymous → Full KYC    | $50 – $5,000+          | No                    |
+| **Business (POS)**       | Physical shops, market stalls, service traders  | Full KYC + commercial registration + tax ID | $3.8M pre-EDD / uncapped post-EDD | No                    |
+| **Business (Electronic)**| E-commerce, B2B wholesalers, SaaS, APIs         | Full KYC + commercial registration + tax ID + EDD | $3.8M pre-EDD / uncapped post-EDD | Yes — REST + invoice  |
+
+**What registering as a business gets you:**
+- Higher transaction and daily-volume limits (10-100× individual FullKYC).
+- Multi-signer support: designate 1-7 authorized signer public keys and a
+  threshold (e.g. 2-of-3) above which co-signing is required.
+- Merchant-tier eligibility: link your business to a [`MerchantRecord`](crates/cs-policy/src/merchant_tier.rs)
+  with an Iraqi-content percentage so customer payments route through the
+  right fee band (Tier 1 = 0%, Tier 4 = 3-5%).
+- Business-Electronic only: API keys, server-side invoice creation, webhook
+  notifications on payment. Customer scans a `CS1:INV:…` QR → their phone
+  signs a transaction against the exact amount and invoice id → super-peer
+  notifies the merchant's webhook the moment it confirms.
+
+**Registration flow:**
+1. Business downloads the app, generates an individual account normally.
+2. Submits `POST /v1/businesses` with legal name, Iraqi commercial
+   registration ("Sijel Tijari"), tax ID, industry code, and registered
+   address. Status: `pending_review`.
+3. CBI ops team verifies commercial registration + tax ID against the
+   national registry (this is a manual step — automated checks are a
+   Phase 2 item).
+4. Ops calls `POST /v1/businesses/:user_id/approve`. Account is now
+   `business_pos` or `business_electronic`.
+5. For business_electronic: ops or the business owner calls
+   `POST /v1/businesses/:user_id/api-keys` to mint a server-side API key.
+   The secret is returned **exactly once**; the server stores only the
+   BLAKE2b hash.
+6. Enhanced Due Diligence (EDD) is performed for volumes above
+   $100k/day equivalent; upon clearance, ops calls
+   `POST /v1/businesses/:user_id/edd` and the per-transaction cap is
+   lifted.
+
+---
+
 ### Key Features
 
-#### 1. Financial Inclusion: 70% → 85% in 5 years
+#### 1. Financial Inclusion: 30% → 75% banked in 5 years
 
 | Today | With Digital Dinar |
 |-------|-------------------|
@@ -107,7 +156,7 @@ TIER 2: CBI Policy
 | No credit history possible | Auto credit from transaction history |
 | Rural = no access | Works offline everywhere |
 
-**Impact:** 28M newly included Iraqis. Enables:
+**Impact:** ~21M newly included Iraqis (30% → 75% banked). Enables:
 - Wage-earners to save safely (no bank fees)
 - Traders to access credit (transaction history = credit score)
 - Rural businesses to transact with cities
@@ -136,13 +185,13 @@ TIER 2: CBI Policy
 
 #### 3. Trade Policy Without Tariffs: Iraqi Made Preference
 
-Government salary spending = ~$66-73B/year (4.2M employees + 3M retirees = 10.5M Iraqis dependent on state, 25% of population). Use as lever:
+Government salary + pension spending = ~$106-113B/year (4.2M employees + 3M retirees, whose households together cover ~10.5M Iraqis, 22% of the population). Use as lever:
 
 **Merchant Tier System:**
 - **Tier 1 (100% Iraqi content)**: 0% fee, unlimited Digital Dinar spending
 - **Tier 2 (50-99% Iraqi content)**: 0.5% fee, max 50% of salary available
 - **Tier 3 (1-49% Iraqi content)**: 2% fee, remaining balance available
-- **Tier 4 (0% Iraqi content/imports)**: Cannot use Digital Dinar
+- **Tier 4 (0% Iraqi content/pure imports)**: 3-5% fee, capped at ~15% of salary (essential imports — medicines, vehicles, industrial equipment — remain accessible; non-essential imports become economically unattractive)
 
 **Market Effect:**
 - Government employees naturally gravitate to Tier 1 (lowest fees)
@@ -179,7 +228,7 @@ Government salary spending = ~$66-73B/year (4.2M employees + 3M retirees = 10.5M
 - Banks can lend against supply chain itself
 - Creates self-financing mechanism (cash advance against invoice)
 
-**Target:** Non-oil exports ~$1B → $4-6B in 5 years
+**Target:** Non-oil exports ~$1B → $7-10B in 5 years (7-10x growth; accelerated rollout adds ~2 years of manufacturer scaling inside the 5-year window vs a traditional-timeline program)
 
 ---
 
@@ -204,7 +253,7 @@ Government salary spending = ~$66-73B/year (4.2M employees + 3M retirees = 10.5M
 - **Doha**: Tiny market, expensive, politically isolated
 - **Baghdad**: Central, large market (47M people), growing, low costs, strategic position
 
-**Target:** $500B+ daily transaction volume by Year 5 (equivalent to regional trade settlement for Middle East)
+**Target:** $250-500B annual settlement volume by Year 5 (10-20% share of ~$2.5-3T Middle East regional trade). At a 0.1-0.3% settlement fee, this generates $250M-$1.5B annual hub revenue.
 
 ---
 
@@ -223,7 +272,7 @@ Government salary spending = ~$66-73B/year (4.2M employees + 3M retirees = 10.5M
 **Digital Dinar Investment Vehicles:**
 - **Growth bonds:** 7-9% yield (government securities)
 - **Equity crowdfunding:** Fund Iraqi startups (technology, agriculture, manufacturing)
-- **Real estate:** Digital escrow + blockchain title registry for property transactions
+- **Real estate:** Digital escrow + cryptographically-signed append-only title registry (same Raft-replicated ledger model as payments; CBI-authoritative)
 - **Corporate credit:** Lend to Iraqi businesses with transaction history + credit scores
 
 **Target:** Repatriate $2-5B/year diaspora capital by Year 3-5. By Year 5, Iraqi startups funded entirely by diaspora equity (no foreign VC needed).
@@ -232,50 +281,84 @@ Government salary spending = ~$66-73B/year (4.2M employees + 3M retirees = 10.5M
 
 ---
 
+### How CylinderSeal Platform Capabilities Map to Economic Value
+
+The projections below are not policy wishes — each one traces back to a specific capability of the underlying CylinderSeal P2P platform:
+
+| Platform Capability | Economic Value Unlocked | Year 5 Contribution |
+|---------------------|-------------------------|---------------------|
+| Zero-fee P2P transfers (no intermediaries) | 2-5% of every transaction retained by households/merchants instead of banks | $3-6B recovered consumer surplus annually |
+| Offline NFC/BLE payments (no internet required) | Reach ~21M unbanked Iraqis in rural/low-connectivity areas | +45pp financial inclusion, ~$15-25B new formal-economy spending |
+| Per-user journal + BLAKE2b ledger hash (auditable transaction history) | Credit scoring without collateral → SME working capital | Non-oil exports $1B → $7-10B; 100-150K new manufacturing jobs |
+| CBI real-time visibility via super-peer replication | Monetary policy transmission in hours, not months; enforceable velocity controls | $1.5-2.5B monetary stability value |
+| 3-of-5 Raft consensus on CBI-operated super-peers | Deterministic finality, geopolitically neutral settlement infrastructure | $250-500B annual regional hub volume → $250M-$1.5B fee revenue |
+| Programmable merchant tiers (fee/cap per Iraqi-content %) | Trade policy without tariffs; import substitution | $13-22B demand redirected × 1.5-2x multiplier = $19-44B GDP lift over 5y |
+| i64 micro-OWC integer amounts + Ed25519 signing | Auditable, tamper-proof tax base | $1-2B improved tax compliance |
+| Displacement of physical cash by Digital Dinar | CBI seigniorage on ~$20-35B of cash in circulation | $2-3B seigniorage annually |
+
+**Reading the numbers:** The $7.5-12.5B/year Year-5 government benefit is the sum of the right-hand column entries that accrue directly to the state (seigniorage + tax + trade + monetary stability). The $385-430B Year-5 GDP figure includes the broader economy-wide effects (consumer surplus, manufacturing scale-up, regional hub, diaspora). With accelerated rollout, these effects compound from 2027 rather than 2029, which is what pushes the Year-5 GDP envelope above the traditional-timeline projection of $350-390B.
+
+---
+
 ### Economic Growth Path
+
+Because rollout reaches national scale in Month 15 (Q1 2027) rather than Year 3-4 of a traditional program, the economic trajectory shifts up and to the left: effects that were projected for Year 5 land in Year 3, and the Year-5 endpoint extends further.
 
 | Metric | 2026 (Baseline) | Year 5 (2031) | Change | Notes |
 |--------|-----------------|---------------|--------|-------|
-| **GDP** | $265B | $390-420B | +$125-155B (+47-57%) | Includes 1.5-2x multiplier from import substitution |
-| **GDP per capita** | $5,650 | $8,200-8,900 | +45-57% | Largest per-capita gain in region |
-| **Unemployment** | 15.5% | 7-8% | -7.5-8.5pp | Manufacturing jobs from import substitution |
-| **Oil production** | 4.03M bbl/day | 4.5-5M bbl/day | +10-15% | Baseline recovery trajectory |
-| **Non-oil exports** | ~$1B | $6-9B | +500-800% | Manufacturing expansion from supply chain financing |
-| **Domestic consumption (local goods)** | $40B (mostly imports) | $55-65B (mostly local) | +$15-25B shift | Result of Iraqi Made preference system |
-| **Trade balance** | +$5.7B | +$25-30B | +$19-24B | Import substitution + export growth |
-| **Financial inclusion** | 30% | 75% | +45pp | 35M newly banked Iraqis |
-| **Active users** | 0 | 32-35M | 70% of population | Government employees + families |
-| **Manufacturing capacity** | Baseline | +40-50% | +40-50% | New factories, supply chains |
+| **GDP** | $265B | $385-430B | +$120-165B (+45-62%) | Compound 6-9% growth; accelerated rollout lets import-substitution multiplier compound from 2027 instead of 2029 |
+| **GDP per capita** | $5,650 | $8,100-9,050 | +43-60% | Largest per-capita gain in region |
+| **Unemployment** | 15.5% | 6-8% | -7.5-9.5pp | Manufacturing + services jobs from earlier-onset import substitution |
+| **Oil production** | 4.03M bbl/day | 4.5-5M bbl/day | +10-15% | Baseline recovery trajectory (independent of Digital Dinar) |
+| **Non-oil exports** | ~$1B | $7-10B | +600-900% | 4 extra years of supply-chain-financed scaling vs traditional rollout |
+| **Domestic consumption (local goods)** | $40B (mostly imports) | $60-72B (mostly local) | +$20-32B shift | Iraqi Made preference system live from Month 5 |
+| **Trade balance** | +$5.7B | +$25-35B | +$19-29B | Import substitution + accelerated export growth |
+| **Financial inclusion** | 30% | 78-82% | +48-52pp | ~22-24M newly banked Iraqis |
+| **Active users** | 0 | 34-37M (hit by 2027) | 72-78% of population | National scale reached in Q1 2027, remaining years consolidate |
+| **Manufacturing capacity** | Baseline | +50-65% | +50-65% | Extra years of multiplier compounding |
 
-**Growth drivers by phase:**
+**Growth drivers by phase (accelerated rollout):**
 
-**Year 1-2: Financial Inclusion + Merchant Tier Launch**
-- 10M new accounts (government wages + early adopters)
-- Zero transaction fees attract 20-30% increase in local spending (vs. 2-5% bank fees)
-- Iraqi Made preference system goes live (Tiers 1-4)
-- Early import shift: $3-5B redirected from imports to local goods
-- **GDP growth: 4-4.5%** (financial efficiency gains)
-- **2027 GDP: $276B → 2028 GDP: $291B**
+**2026 (Month 1-12): Build, pilot, and regional launch**
+- AI-generated code reviewed + audited; pilot completes Month 4; regional cluster live Month 5-8; national scale reached by Q1 2027 (Month 15)
+- End-2026 adoption: ~8-12M early-adopter users (government employees + metro areas), vs. 1-2M in traditional plan
+- Early fee-savings + tax-compliance gains: $400M-1B benefit realized in 2026 itself
+- 2026 GDP impact is small (system live for only ~3 months of full-scale); IMF baseline applies → 2026 GDP: ~$268-270B
 
-**Year 2-3: Import Substitution Multiplier Activates**
-- Domestic retailers respond to preference system (stock more local goods)
-- Local manufacturers expand to meet 20-30% demand increase
-- Supply chain financing enables working capital for scaling
-- Secondary effect: Suppliers hire workers → wages increase → local consumption rises
-- Manufacturing sector grows, creating 50-75K new jobs
-- **Multiplier effect: Each $1 of import substitution = $1.5-2 GDP growth**
-- **GDP growth: 5.5-6.5%**
-- **2029 GDP: $310B → 2030 GDP: $331B**
+**2027 (Year 1 of full-scale operation): Financial Inclusion + Merchant Tier Launch Compound**
+- 34-37M active users (national scale from Q1)
+- Zero transaction fees live across the whole economy (20-30% increase in local spending)
+- Iraqi Made preference system mature; early import shift: $8-12B redirected in year 1
+- Supply chain financing already originating working-capital loans by Q2 2027
+- **GDP growth: 6-7%** (financial efficiency gains + early import substitution)
+- **2027 GDP: ~$284-287B**
 
-**Year 3-5: Full Ecosystem Effects + Regional Hub**
-- Import substitution fully embedded: $15-25B annual shift from imports to local
-- Manufacturing supply chains mature (textiles, food processing, petrochemicals)
-- Regional trade settlement drives additional growth
-- Diaspora capital ($2-5B/year) funds manufacturing expansion and tech startups
-- Export sector scaling: Non-oil exports growing 30-50% YoY
-- Foreign investors attracted to stable, low-cost, growing economy
-- **GDP growth: 6.5-7.5% (compound of all effects)**
-- **2031 GDP: $390-420B**
+**2028 (Year 2): Import Substitution Multiplier Compounds**
+- Domestic manufacturers already scaling — the "Year 2" effects of the traditional plan show up here as year-1-of-compounding
+- First full year of AML/CFT-monitored regional settlement pilot traffic
+- 100-150K new manufacturing jobs (2x the traditional-plan figure because multiplier starts a year earlier)
+- **GDP growth: 7-8%**
+- **2028 GDP: ~$305-310B**
+
+**2029 (Year 3): Supply Chain + Hub + Diaspora Converge**
+- Manufacturing supply chains mature (textiles, food processing, petrochemicals, light electronics)
+- Regional hub traffic scales: settlement volume ~$80-150B/year
+- Diaspora capital inflow $3-6B/year
+- Non-oil exports crossing $4-6B annualized
+- **GDP growth: 7-8%**
+- **2029 GDP: ~$328-335B**
+
+**2030 (Year 4): Full Ecosystem, Settlement Hub Maturing**
+- Regional hub volume $150-300B/year (on-track for $250-500B Year 5 target)
+- FDI inflow as foreign manufacturers place plants inside Iraq to access the Digital Dinar zero-friction settlement
+- **GDP growth: 6.5-8%**
+- **2030 GDP: ~$353-363B**
+
+**2031 (Year 5): Stable Full Operation**
+- All engines firing; annual-benefit figures stabilize at $7.5-12.5B/year to CBI, $25-40B/year wider-economy
+- Non-oil exports $7-10B; regional hub settlement $250-500B/year
+- **GDP growth: 6-7.5%** (moderating as economy reaches new equilibrium)
+- **2031 GDP: $385-430B** (base $395B; full-multiplier stretch to $430B; lower bound $385B reflects conservative multiplier realization)
 
 **Import Substitution Multiplier Mechanics:**
 
@@ -372,66 +455,240 @@ Government salary spending = ~$66-73B/year (4.2M employees + 3M retirees = 10.5M
 
 ---
 
+## Architecture Decisions
+
+This section records the load-bearing design choices so future engineers understand why certain paths were not taken.
+
+### Consensus: 3-of-5 Raft (CFT)
+
+**Design:** 5 CBI-operated super-peers using Raft consensus with a 3-of-5 quorum to commit ledger entries. Tolerates 2 simultaneous failures (planned maintenance + unplanned outage).
+
+**Properties of the consensus model:**
+- All super-peers are CBI infrastructure under sovereign authority (no permissionless or external validators).
+- Issuance is a CBI Board decision, not algorithmic — no mining, no token economics, no smart contracts.
+- Immutability within policy: per-user chain hashes (BLAKE2b-256) over append-only PostgreSQL; entries are reversible only under defined CBI authority (fraud, sanctions hits, court order).
+- Finality is synchronous (Raft commit), not probabilistic — a transaction is either committed or it isn't.
+
+**Why Raft (CFT), not Byzantine Fault Tolerance (BFT):**
+- Every super-peer is CBI infrastructure. The realistic threat model is crash, network partition, and operator error — not a CBI regional branch colluding to defraud the Central Bank.
+- True BFT requires `n = 3f + 1` (minimum 4 nodes for f=1 Byzantine failure) and imposes O(n²) per-round message complexity. That overhead buys tolerance for a failure mode that doesn't exist in a single-operator system.
+- BFT frameworks (Tendermint / CometBFT / HotStuff) are designed for trustless multi-operator networks — a problem that doesn't apply here.
+- The original "3-of-3 Byzantine consensus" in early drafts was also mathematically inconsistent: unanimity with n=3 halts on any single failure (worse than a single leader with hot standby) and does not actually provide Byzantine tolerance.
+
+**Why 5 nodes, not 3 or 7:**
+- n=3, quorum 2-of-3: tolerates only 1 failure. During a planned upgrade of one node, a single unexpected failure halts consensus. Unacceptable for national payments.
+- n=5, quorum 3-of-5: tolerates 2 failures. Enables rolling upgrades concurrent with one unplanned outage. Matches standard practice for production Raft (etcd, Consul, CockroachDB control planes).
+- n=7+: diminishing returns for a single-operator cluster; operational complexity grows faster than resilience.
+
+**Rollout path:**
+- Phase 2 pilot: n=3 (Baghdad + 2 warm standbys) with 2-of-3 quorum — sufficient for 100K pilot users.
+- Phase 3 regional: expand to n=5 (Baghdad, Basra, Erbil, Mosul, Najaf) with 3-of-5 quorum before any non-pilot traffic.
+- Phase 4 national: n=5 remains the consensus group; additional branches join as read replicas / failover candidates, not voters. The consensus group stays small to keep latency bounded.
+
+### Algorithm agility: mandatory from day one
+
+Every signed object (Transaction, JournalEntry, attestation) must include an `algo_id` field identifying signature and hash algorithms. Retrofitting algorithm agility after launch would break verification of historical signatures — unacceptable for a ledger with multi-decade retention. This is a change required before the pilot: current code hard-codes Ed25519 + BLAKE2b.
+
+### Post-quantum migration plan
+
+- **Year 1-2 (pilot):** Ed25519 + BLAKE2b only; `algo_id` field present but single value.
+- **Year 3 (2028):** hybrid Ed25519 + Dilithium (NIST ML-DSA) signing available; offered for high-value transactions.
+- **Year 5 (2030):** hybrid signing default for all high-KYC-tier transactions. Legacy Ed25519-only transactions remain verifiable via `algo_id` dispatch.
+- **Trigger for acceleration:** NIST downgrading Ed25519 status, or credible quantum milestone (e.g., published >1000-logical-qubit machine).
+
+### CBI key management: HSM-backed, never software
+
+All CBI-controlled keys (issuance authority, super-peer consensus signing, root signing) live in FIPS 140-2 Level 3 HSMs (Thales Luna, Utimaco SecurityServer, or Entrust nShield). Operational requirements:
+- M-of-N multi-party authorization for high-value operations (minimum 3-of-5 CBI Board members for issuance expansion).
+- Air-gapped key generation ceremonies with independent attestation and Parliament/Oversight-Board observer.
+- Documented rotation: 5-year cycle for root keys, 1-year for super-peer signing keys, 90-day for Raft replication TLS material.
+- Offline backup in at least two geographically separated HSM vaults.
+
+Software storage of CBI keys is forbidden. Device-side Keystore (hardware-backed, StrongBox on API 28+) is used only for end-user keys.
+
+### Cross-platform mobile: Rust core via UniFFI
+
+Android and iOS clients share a single audited Rust core (cryptography, chain validation, state machine, CBOR canonicalization) exposed through UniFFI bindings. Platform-specific code is limited to:
+- UI (Jetpack Compose on Android, SwiftUI on iOS)
+- NFC/BLE/QR adapters (OS-specific APIs)
+- Keystore/Secure Enclave integration (OS-specific attestation formats)
+
+This halves the security-audit surface, prevents cryptography-implementation drift between platforms, and lets a single Rust team own the ledger-critical code path.
+
+### Fallback payment channels: NFC → BLE → QR
+
+NFC is the primary offline channel (≤4 cm, tap-to-pay UX). BLE is the fallback for devices without NFC hardware. QR codes are the tertiary fallback for:
+- iOS ↔ Android interop (iOS NFC HCE is restricted)
+- Merchants using feature phones or shared tablets
+- Scenarios where NFC/BLE fail (e.g., cases, magnetic interference)
+
+All three channels carry the same signed Transaction payload; only the transport differs. M-Pesa (Kenya), UPI (India), and Pix (Brazil) all rely heavily on QR for precisely these reasons.
+
+### Observability: mandatory, OpenTelemetry-native
+
+Every service emits OpenTelemetry traces, metrics, and structured logs from day one. Minimum deployment:
+- Prometheus (metrics) + Grafana (dashboards, alerting)
+- Loki or ELK (log aggregation)
+- Tempo or Jaeger (distributed tracing)
+- PagerDuty or equivalent on-call rotation for SEV-1 alerts (consensus halt, ledger divergence, sanctions-hit flood)
+
+The `tracing` crate is already wired in the Rust workspace; production wiring to OTel exporters is required before pilot.
+
+---
+
+## Current Implementation Status
+
+The specification above describes the target system. This section reports honestly on the gap between specification and current code, so reviewers can estimate remaining engineering effort.
+
+**Overall maturity: ~20-25% of specification** (the Architecture Decisions section added HSM, UniFFI cross-platform core, hybrid post-quantum signing, OpenTelemetry, QR fallback, and algorithm agility — none of which have code yet). The cryptographic and data-model foundation is solid; most execution layers (mobile, consensus, REST, background services) are stubs.
+
+**What makes closing the gap fast:** the remaining ~75-80% of the code is AI-generated from the specification and reviewed by senior engineers, not hand-written over quarters. The Rust core (consensus, conflict resolver, REST handlers, nonce store), Android mobile (NFC HCE, BLE, WorkManager, Keystore integration), iOS port via UniFFI, and merchant-tier / AML pipelines can all be generated in weeks, with the calendar time dominated by integration testing, security audit, and HSM key ceremonies rather than writing code. See the compressed timeline below.
+
+### Implemented and tested (✅)
+- **Rust cryptography layer** — Ed25519 signing/verification, BLAKE2b-256 hashing, RFC 6979 deterministic nonces with hardware binding, canonical CBOR for signing/hashing
+- **Domain models** — `JournalEntry` with prev-hash chaining, `Transaction` with i64 micro-OWC (no float anywhere), KYC tiers with limits, location fields (GPS/Network/LastKnown/Offline)
+- **User ID derivation** — BLAKE2b-256(public_key) → UUIDv7, tested for consistency
+- **Proto/gRPC service definitions** — `ChainSync` (bidirectional streaming), `SuperPeerGossip`, all message types
+- **PostgreSQL schema** — append-only ledger, BRIN time indices, `UNIQUE(user_id, sequence_number)` enforcing chain integrity, conflict-status tracking
+- **Hardware binding models** — `DeviceHardwareIds`, `DeviceAttestation` (SafetyNet/Play Integrity types), reputation tracking
+
+### Framework present, logic stubbed (🟡)
+| Component | Present | Missing |
+|-----------|---------|---------|
+| Redis nonce replay prevention | `NonceStore` trait + 48h TTL spec | Actual `check_and_set` Redis impl |
+| 3-of-5 Raft consensus | Proto messages, `SuperPeerConfig` quorum config | Raft election + log replication, hash agreement, PENDING→CONFIRMED transitions |
+| Conflict resolver | Stub with comment-level design | Timestamp comparison + NFC/BLE receipt tiebreaker logic |
+| Axum REST API | Dependency wired | Handlers (`cs-api/handlers.rs` is 7-line TODO) |
+| gRPC sync service | Proto + server skeleton | Service startup (`main.rs` TODO), streaming handlers |
+| Super-peer ledger replication | Empty scheduler module | Periodic sync job, batch logic |
+| Credit scoring engine | `CreditScorer` struct | Scoring algorithm, loan models |
+| REST JSON serialization | CBOR signing works | JSON layer for admin/webhooks |
+
+### Not implemented (❌)
+**Android mobile (the entire offline-payment channel):**
+- NFC HCE + ISO 7816-4 APDU handlers — **core "offline-first" differentiator**
+- BLE GATT fallback for non-NFC phones
+- WorkManager background sync workers
+- Android Keystore integration for hardware-backed Ed25519 key generation
+- SQLCipher key derivation (HKDF(Keystore key ‖ PIN))
+- PIN entry flow
+- Certificate pinning wiring (Conscrypt declared but unused)
+- Room schema for encrypted wallet
+- Compose UI beyond "Coming Soon" shell
+
+**Economic and compliance features the spec sells heavily:**
+- **Merchant tier system (Tier 1-4 by Iraqi content)** — 0 lines of code. This is the mechanism behind the $13-22B import substitution that drives the upper end of the $385-430B Year-5 GDP projection. AI-generation makes writing it fast; the remaining work is tier-classification policy + fee routing logic, both well-specified already.
+- **AML/CFT sanctions screening** — no OFAC/UN list integration, no transaction flagging, no SAR pipeline
+- **Regional hub / cross-border settlement** — no FX handling, settlement ledger, or inter-bank messaging
+- **Diaspora investment vehicles** — no models for bonds, equity crowdfunding, real-estate escrow
+
+### Load-bearing risks to the economic case
+
+1. **Offline payments require NFC + BLE + Keystore + WorkManager**, none of which are implemented. Every projection assuming reach to ~21M unbanked Iraqis in low-connectivity areas depends on this channel working.
+2. **Raft quorum consensus is the README's core correctness claim** and the voting logic does not exist — currently any super-peer could accept a transaction alone.
+3. **The merchant tier system is 100% unimplemented** while being the trade-policy lever responsible for the largest single GDP contribution (~$19-44B multiplier effect).
+4. **Replay prevention is not enforced** — the nonce trait is defined but never writes to Redis.
+5. **Conflict resolution is a stub** — double-spend detection has no runtime code path.
+
+### Critical-path build order to close the gap
+
+1. gRPC `SyncChain` service — device ↔ super-peer transport
+2. Redis `NonceStore::check_and_set` with 48h TTL
+3. Raft election + log replication + ledger-hash agreement (PENDING → CONFIRMED state machine)
+4. Conflict resolver implementation (timestamp + receipt tiebreaker)
+5. Android Keystore → Ed25519 keypair generation + attestation
+6. NFC HCE service + ISO 7816-4 APDU frames
+7. WorkManager sync worker (background drain of offline queue)
+8. SQLCipher key derivation (HKDF(Keystore ‖ PIN)) + PIN flow
+9. Merchant tier classification + fee routing
+10. AML/CFT flagging pipeline (OFAC/UN list ingestion, velocity rules)
+11. BLE GATT fallback service
+12. REST admin API handlers
+13. Credit scoring algorithm
+14. Regional-hub settlement primitives
+
+Items 1-8 are required for the Baghdad pilot (Phase 2 below). Items 9-10 are required before Phase 3 regional expansion can claim the economic benefits projected. Items 11-14 stretch across Phases 3-4.
+
+---
+
 ## Implementation Timeline
 
-### Phase 1 (Months 1-2): Legal & Design
-- Parliament passes Digital Currency Act
-- CBI publishes Digital Dinar Strategy & governance framework
-- Define merchant tier system KYC procedures
-- Super-peer infrastructure planning
+The software-writing timeline collapses to weeks because the backend and mobile frontends are AI-generated from the specification. What doesn't collapse: regulatory approval, independent security audit, HSM key ceremonies, and user adoption. The plan below puts those on the critical path.
+
+### Phase 1 (Months 1-2): Legal track + full code generation + HSM procurement
+Runs in parallel streams:
+- **Legal:** Parliament passes Digital Currency Act; CBI publishes Digital Dinar Strategy & governance framework; merchant-tier KYC procedures defined.
+- **Code:** Full Rust backend generated and reviewed (gRPC `SyncChain`, Redis nonce store, Raft election + log replication, conflict resolver, REST handlers, AML/CFT flagging skeleton, merchant-tier router). Android + iOS apps generated and reviewed via shared Rust core (UniFFI) — NFC HCE, BLE GATT, QR, WorkManager, Keystore/Secure Enclave, SQLCipher key derivation, PIN flow, Compose/SwiftUI wrappers.
+- **Infrastructure:** HSMs ordered (Thales / Utimaco / Entrust; 4-6 week lead time). CBI data center capacity allocated on existing x86 hardware. Baghdad super-peer + 2 warm standbys provisioned.
+- **Audit:** Independent security firm engaged, begins review as code lands.
+- Exit criteria: working end-to-end transaction on internal test network, HSMs installed, audit firm has read the full codebase.
 - Timeline: 8 weeks
 
-### Phase 2 (Months 2-5): Baghdad Pilot
-- Single super-peer (CBI data center, Baghdad)
-- 100K government employees as early users (payroll integration)
-- Full NFC offline payment flow tested
-- Byzantine consensus validation (single node, ready for 3-of-3)
-- Proof of concept verification
-- Timeline: 12 weeks
+### Phase 2 (Months 3-4): Baghdad Pilot
+- Baghdad primary super-peer + 2 warm standbys → n=3 Raft cluster, 2-of-3 quorum
+- 100K-500K government employees onboarded via payroll (ramping over 8 weeks)
+- NFC, BLE, and QR channels all live from day one
+- Raft election, log replication, PENDING→CONFIRMED state machine operational under real traffic
+- First independent security audit closes (pre-pilot audit) — any critical findings resolved before public launch
+- HSM key ceremony for CBI root + super-peer signing keys (air-gapped, Parliament/Oversight observer present)
+- Exit criteria: 30 consecutive days zero ledger divergence, zero critical audit findings, <0.5% transaction error rate
+- Timeline: 8 weeks
 
-### Phase 3 (Months 5-9): Regional Expansion
-- Add Basra and Erbil super-peers (network replication)
-- 2-5M users (10-15% of population)
-- 3-of-3 Byzantine consensus fully operational (all nodes must agree)
-- Merchant tier system goes live
-- Supply chain financing engine activated
-- Regional trade settlement pilot (UAE, Turkey, Iran banks invited)
+### Phase 3 (Months 5-8): Regional Expansion
+- Cluster rebuilt across regions: Baghdad standbys demoted, Basra + Erbil + Mosul + Najaf promoted → 5-node geographically distributed Raft cluster, 3-of-5 quorum
+- 5-15M users (15-30% of population), driven by government-wage mandate + viral adoption
+- Merchant tier system goes live (all four tiers, fee routing, content classification)
+- Supply chain financing engine activated (credit scoring from transaction history)
+- AML/CFT flagging + OFAC/UN sanctions list ingestion in production
+- Regional trade settlement pilot (UAE, Turkey, Iran banks invited for correspondent integration)
+- Second independent security audit (pre-national audit) scoped and kicked off
 - Timeline: 16 weeks
 
-### Phase 4 (Months 9-18): National Scale
+### Phase 4 (Months 9-15): National Scale
 - 32-35M active users (70% of population)
-- 10+ super-peers (all CBI regional branches)
-- Trade policy effects measurable (imports down 15-25%, local production scaling)
-- Regional hub settlement volume $50B-200B/month (growing)
-- Financial inclusion reaches 75-80%
+- 5-node Raft voting set unchanged; additional CBI regional branches join as read replicas / failover candidates (10+ nodes total)
+- Trade-policy effects measurable (imports down 15-25%, local production scaling)
+- Regional hub settlement volume ramping to ~$10-20B/month by end of Phase 4 (on trajectory to the $250-500B/year Year-5 target)
+- Financial inclusion reaches 70-75% (from 30% baseline)
 - Non-oil exports growing 30-40% YoY
-- Timeline: 36 weeks
+- Timeline: 28 weeks
+
+**Total program: 12-15 months from legal kickoff to national scale.** The original 18-month estimate assumed hand-written code; the 24-month revised estimate assumed the same plus honest zero-NFC-code starting point. With AI-generated code reviewed by senior engineers + reuse of existing phones, networks, and CBI data centers, the realistic envelope is **12-15 months**, with the hard floor set by regulatory approval (~2 months), independent audits (~4-6 months total across two audits), HSM ceremonies (weeks), and adoption ramp (quarters).
 
 ---
 
 ## Investment & Returns
 
-### Infrastructure Cost (18 months)
-- Software development (Rust backend, Android app): $2-3M
-- Super-peer infrastructure (servers, network, data centers): $1-1.2M
-- CBI integration & staff training: $400-600K
-- Security audits & penetration testing: $300-500K
-- Operations Year 1 (staff, maintenance, monitoring): $600-800K
-- **Total: $5-7M**
+### Infrastructure Cost (12-15 months)
+
+Cost drops significantly because the bulk of engineering effort shifts from writing code to reviewing generated code, and because no new physical infrastructure beyond HSMs is required.
+
+- Software (AI-generated Rust core + UniFFI mobile; human cost is senior-engineering review, integration testing, and spec refinement): $300-600K
+- Super-peer infrastructure (~10 commodity x86 servers across 5 CBI branches, reusing existing data center space, network, and power): $400-700K
+- HSM procurement + 2 geographically separated vaults + key ceremonies (FIPS 140-2 L3): $600K-1M
+- CBI integration, staff training, and change management: $400-600K
+- Independent security audits — pre-pilot and pre-national (audit firms are the main wall-clock bottleneck; cost is fixed by firm, not accelerated by AI): $500-800K
+- Operations Year 1-2 (on-call, maintenance, observability stack, incident response): $800K-1.2M
+- Contingency (15%): $450-750K
+- **Total: $3.5-5.65M** (rounded: **$3-5M**)
+
+Notable: hardware and network costs are near zero because ~36M Android phones in Iraq, existing cellular/fiber networks, and CBI data centers are all reused. Even the mobile-app distribution channel (Google Play, Apple App Store, and direct APK for older devices) is free.
 
 ### Annual Government Benefit by Year 5
-- **Seigniorage revenue**: $1.5-2.5B (monetary authority profit on currency issuance)
-- **Tax collection improvement**: $1-2B (fewer cash transactions, better compliance)
-- **Trade balance strengthening**: $3-5B (imports down, exports up, less FX drain)
-- **Monetary stability value**: $1.5-2.5B (inflation control, faster policy transmission, reduced volatility)
+- **Seigniorage revenue**: $2-3B (CBI profit on Digital Dinar issuance as it displaces ~$20-35B of cash in circulation)
+- **Tax collection improvement**: $1-2B (fewer cash transactions, better compliance, auditable transaction history)
+- **Trade balance strengthening**: $3-5B (imports down, non-oil exports up, less FX drain)
+- **Monetary stability value**: $1.5-2.5B (inflation control, faster policy transmission, reduced FX volatility)
 - **Total: $7.5-12.5B/year**
 
 ### Payback Analysis
-- Investment: $5-7M
-- Year 1 benefit: $1.5-3B (conservative, pilot phase still scaling)
-- Payback period: **<5 months**
-- Cumulative 5-year benefit: $20-50B (present value ~$15-35B)
-- **ROI: 300-580% in Year 1; $400-700% over 5 years**
+- **Investment:** $3-5M total (12-15 month program: AI-generated build + reviews, commodity-server infrastructure, HSMs, audits, first-year operations)
+- **Year 1 benefit (accelerated rollout; pilot completes in Month 4, national scale reached in Month 15):** $400M-1B (fee-savings captured by households, early tax-compliance gains, reduced cash-handling cost — 3-5x the traditional-timeline Year-1 figure because pilot-to-national collapses from 18 months to ~12)
+- **Payback:** Months 3-6 after pilot launch — Year 1 benefit exceeds investment 80-300x at the low end
+- **Year 5 annual benefit:** $7.5-12.5B (see components above)
+- **Cumulative 5-year benefit:** $27-45B (accelerated ramp: Y1 ~$0.7B → Y2 ~$4B → Y3 ~$7B → Y4 ~$9B → Y5 ~$11B). ~50% higher cumulative than the traditional-timeline projection because benefits begin a full year earlier and compound through years 2-3.
+- **Present value (8% discount):** ~$22-36B
+- **Return profile:** The benefit-to-cost ratio is extreme because a ~$3-5M software investment operates at nationwide scale from Month 15 onward. Binding constraints are adoption speed and regulatory approval — not capital or engineering labor.
 
 ---
 
@@ -444,9 +701,9 @@ CBI Board decides monthly issuance (not algorithmic). Backed by:
 - **Control mechanism**: CBI can expand/contract supply independently
 
 ### Velocity Controls
-- **Anonymous tier**: $50 OWC max per offline transaction (prevents large cash equivalents)
-- **Phone-verified tier**: $200 OWC max (small business transactions)
-- **Full-KYC tier**: $1000+ OWC (government, enterprises, banks)
+- **Anonymous tier**: ~$50 equivalent IQD max per offline transaction (prevents large cash equivalents)
+- **Phone-verified tier**: ~$200 equivalent IQD max (small business transactions)
+- **Full-KYC tier**: $1000+ equivalent IQD (government, enterprises, banks)
 
 **Daily caps:** CBI sets per-tier daily spending limits (enforceable real-time)
 
@@ -468,8 +725,8 @@ CBI Board decides monthly issuance (not algorithmic). Backed by:
 ### Technical Risks
 
 **Risk:** Single super-peer failure → all transactions halt
-- **Mitigation:** 3-of-3 Byzantine consensus (any 1 failure, other 2 can continue)
-- **Redundancy:** Each super-peer is independent (separate datacenters, different ISPs)
+- **Mitigation:** 3-of-5 Raft quorum (tolerates 2 simultaneous failures; planned maintenance + unplanned outage both survivable)
+- **Redundancy:** Each super-peer is independent (separate datacenters, different ISPs, geographically distributed across Baghdad / Basra / Erbil / Mosul / Najaf)
 
 **Risk:** Offline transaction accumulation → sync backlog
 - **Mitigation:** Devices store locally, gossip in background
@@ -519,16 +776,16 @@ CBI Board decides monthly issuance (not algorithmic). Backed by:
 - **AML/CFT compliance integrated** (telcos: basic monitoring)
 
 ### vs. Cryptocurrencies
-- **Stable value** (crypto: volatile)
-- **CBI backing** (crypto: decentralized, uncontrolled)
-- **Legal tender** (crypto: not recognized in Iraq)
-- **Reversible transactions** (crypto: immutable)
-- **Government accountability** (crypto: no accountability)
+- **Stable value** (cryptocurrencies: volatile)
+- **CBI backing** (cryptocurrencies: decentralized, uncontrolled)
+- **Legal tender** (cryptocurrencies: not recognized in Iraq)
+- **Reversible transactions** (cryptocurrencies: immutable)
+- **Government accountability** (cryptocurrencies: no accountability)
 
 ### vs. CBDC (Other countries' digital currencies)
 - **Peer-to-peer offline** (most CBDCs: require internet)
 - **No account needed** (most CBDCs: bank account mandatory)
-- **Byzantine consensus** (most CBDCs: centralized ledger)
+- **Deterministic 3-of-5 Raft finality** (most CBDCs: single-leader centralized ledger with no cryptographic agreement)
 - **Regional trade integration** (most CBDCs: domestic only)
 
 ---
@@ -545,7 +802,7 @@ CBI Board decides monthly issuance (not algorithmic). Backed by:
 ### Key Talking Points by Topic
 
 **On Financial Inclusion:**
-"Currently: bank account → fee → wait → fee → exchange fee. Five friction points, excluding everyone unbanked. With Digital Dinar: phone → free → instant → free. Zero friction. 28M Iraqis suddenly included."
+"Currently: bank account → fee → wait → fee → exchange fee. Five friction points, excluding everyone unbanked. With Digital Dinar: phone → free → instant → free. Zero friction. ~21M Iraqis newly included (30% → 75% banked)."
 
 **On Monetary Policy:**
 "CBI retains complete authority. Nothing changes in CBI's goals. But now: CBI sees all 47M transactions real-time. Inflation becomes visible in hours, not months. Velocity controls become enforceable. AML/CFT becomes automatic. This enhances CBI's control."
@@ -557,10 +814,10 @@ CBI Board decides monthly issuance (not algorithmic). Backed by:
 "Exporters need working capital. Today: banks require collateral + 8% interest + 30-day approval. With Digital Dinar: transaction history = credit score. 3-day approval, 5% interest, no collateral. Textile manufacturers can produce 5x more. That's the export growth engine."
 
 **On Regional Hub:**
-"Iraq sits between Iran, Turkey, Saudi Arabia, Gulf states. All regional trade currently settles in USD. If Baghdad becomes the settlement center, we capture 0.1-0.5% of $500B+ annual trade = $500M-$2.5B annual fees. And geopolitically neutral (not SWIFT, not sanctions)."
+"Iraq sits between Iran, Turkey, Saudi Arabia, Gulf states. All regional trade currently settles in USD. If Baghdad captures 10-20% of ~$2.5-3T Middle East trade = $250-500B annual volume, settlement fees at 0.1-0.3% = $250M-$1.5B annual revenue. And geopolitically neutral (not SWIFT, not sanctions)."
 
 **On Risks:**
-"Offline capability is not a bug, it's a feature. Works in conflict zones where banks can't. 3-of-3 super-peer consensus means one failure doesn't halt the system. CBI Board authority means inflation control stays with CBI, not algorithm. We've seen CBDC failures (e-yuan overhype, SVB banking crisis). We've mitigated those."
+"Offline capability is not a bug, it's a feature. Works in conflict zones where banks can't. 3-of-5 Raft quorum across geographically separated CBI branches means up to 2 super-peers can be down and payments keep clearing. CBI Board authority means inflation control stays with CBI, not algorithm. We've seen CBDC failures (e-yuan overhype, SVB banking crisis). We've mitigated those."
 
 ---
 
@@ -568,11 +825,11 @@ CBI Board decides monthly issuance (not algorithmic). Backed by:
 
 ### Rwanda (Mobile-First Financial Inclusion)
 **What worked:** Mobile Money (Airtel, MTN) became the standard. Airtel Money had 30% of population in 5 years. GDP growth 7-9% annually.
-**Lesson:** Mobile-first is critical. But Rwanda's success depended on telco competition (multiple providers). Digital Dinar centralizes under CBI (advantage: control; risk: single point of failure). Solution: Super-peer geographic redundancy + 3-of-3 consensus mitigates.
+**Lesson:** Mobile-first is critical. But Rwanda's success depended on telco competition (multiple providers). Digital Dinar centralizes under CBI (advantage: control; risk: single point of failure). Solution: Super-peer geographic redundancy + 3-of-5 Raft quorum mitigates (tolerates 2 branch outages).
 
 ### Singapore (Financial Hub Development)
 **What worked:** Built finance + trade hub simultaneously. Became Asia's settlement center. GDP/capita grew from $500 → $12K (1965-1990).
-**Lesson:** Positioning as hub requires geopolitical neutrality + lower costs than competitors. Baghdad is central, low-cost, but needs trust (CBI governance). Solution: Transparency + independent audits + parliametry oversight builds trust.
+**Lesson:** Positioning as hub requires geopolitical neutrality + lower costs than competitors. Baghdad is central, low-cost, but needs trust (CBI governance). Solution: Transparency + independent audits + parliamentary oversight builds trust.
 
 ### Vietnam (Supply Chain Financing)
 **What worked:** FDI + manufacturing integration. Exports grew 20x in 30 years. Wages grew 8x.
@@ -592,7 +849,6 @@ CBI Board decides monthly issuance (not algorithmic). Backed by:
 
 - **Not a cryptocurrency:** Centralized, government-backed, stable value
 - **Not a stablecoin:** Issued directly by CBI, not collateralized by fiat
-- **Not a blockchain:** Uses Byzantine consensus on traditional databases (faster, simpler)
 - **Not a payments app:** It's a monetary system (the unit of account is on the ledger)
 - **Not a bank replacement:** Banks still operate (wholesale correspondent, wealth management), but retail banking disappears into the system
 - **Not a surveillance tool:** Private, peer-to-peer, not mandatory (can still use cash), but transparent to CBI for AML/CFT
@@ -606,17 +862,20 @@ CBI Board decides monthly issuance (not algorithmic). Backed by:
 - [ ] Legal team: draft Digital Currency Act for Parliament
 - [ ] International outreach: inform IMF, World Bank, regional banks
 - [ ] Governance drafting: detailed operating procedures for Board + Parliament + Oversight
+- [ ] Engineering kickoff: commission AI-assisted code generation + senior-review team; order HSMs (4-6 week lead time)
+- [ ] Audit firm selection: engage independent security-audit firm for parallel review as code lands
 
-### Short-term (Months 2-3)
-- [ ] RFP process: select software development vendor
-- [ ] Super-peer infrastructure planning: datacenters, network, redundancy
-- [ ] Partnership discussions: Android/Google (app store), telcos (distribution)
-- [ ] Pilot selection: pick 100K government employees for Phase 2
+### Short-term (Months 1-2, parallel)
+- [ ] Parliament: pass Digital Currency Act
+- [ ] CBI data center: allocate capacity on existing infrastructure for 5-node super-peer cluster
+- [ ] Partnership discussions: Android/Google (app store), Apple (App Store for iOS port), telcos (distribution, operator-paid APK on older Androids)
+- [ ] Pilot selection: identify 100K-500K government employees for Phase 2 payroll integration
+- [ ] Merchant onboarding prep: Iraqi-content classification framework for merchant-tier system
 
-### Medium-term (Months 4-18)
-- [ ] Execute phases 1-4 per timeline
+### Medium-term (Months 3-15)
+- [ ] Execute phases 2-4 per compressed timeline (pilot → regional → national)
 - [ ] Governance accountability: quarterly Parliament reviews, Oversight Board audits
-- [ ] International engagement: promote Baghdad as regional settlement hub
+- [ ] International engagement: promote Baghdad as regional settlement hub; onboard first UAE / Turkey / Iran correspondent-bank partners during Phase 3
 
 ---
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude everything; wallet secrets must never be backed up. -->
+    <exclude domain="file" />
+    <exclude domain="sharedpref" />
+    <exclude domain="database" />
+    <exclude domain="external" />
+    <exclude domain="root" />
+</full-backup-content>

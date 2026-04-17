@@ -1,0 +1,22 @@
+[package]
+name = "cs-consensus"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+cs-core = { path = "../cs-core" }
+tokio.workspace = true
+tracing.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+serde_cbor.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+async-trait.workspace = true
+rand.workspace = true
+
+[dev-dependencies]
+tokio-test.workspace = true

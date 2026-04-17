@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package cylinder_seal.chain_sync;
 
+option java_multiple_files = true;
+option java_package = "iq.cbi.cylinderseal.chainsync";
+
 // Transaction represents a single value transfer between two users
 message Transaction {
     // UUIDv7 encoded as 16 bytes
@@ -525,4 +528,135 @@ message ReplicationResponse {
 
     // Timestamp of dump
     int64 created_at = 2;
+}
+
+// ============================================================================
+// Business accounts (individual vs business_pos vs business_electronic)
+// ============================================================================
+
+enum AccountType {
+    ACCOUNT_TYPE_UNSPECIFIED = 0;
+    ACCOUNT_TYPE_INDIVIDUAL = 1;
+    ACCOUNT_TYPE_BUSINESS_POS = 2;
+    ACCOUNT_TYPE_BUSINESS_ELECTRONIC = 3;
+}
+
+message BusinessProfile {
+    bytes user_id = 1;
+    string legal_name = 2;
+    string commercial_registration_id = 3;
+    string tax_id = 4;
+    string industry_code = 5;
+    string registered_address = 6;
+    string contact_email = 7;
+    // 32-byte Ed25519 public keys.
+    repeated bytes authorized_signer_public_keys = 8;
+    uint32 signature_threshold = 9;
+    int64 multisig_threshold_owc = 10;
+    int64 daily_volume_limit_owc = 11;
+    int64 per_transaction_limit_owc = 12;
+    bool edd_cleared = 13;
+    int64 approved_at = 14;   // UTC micros; 0 if unapproved
+    int64 created_at = 15;
+}
+
+message BusinessRegistrationRequest {
+    bytes account_public_key = 1;
+    AccountType account_type = 2;
+    string legal_name = 3;
+    string commercial_registration_id = 4;
+    string tax_id = 5;
+    string industry_code = 6;
+    string registered_address = 7;
+    string contact_email = 8;
+    // Optional at registration time; can be added later.
+    repeated bytes authorized_signer_public_keys = 9;
+    // Signed attestation by the applying business's primary key.
+    bytes signature = 10;
+}
+
+message BusinessRegistrationResponse {
+    enum Status {
+        STATUS_UNSPECIFIED = 0;
+        STATUS_PENDING_REVIEW = 1;   // CBI ops team will verify registry + tax-id
+        STATUS_APPROVED = 2;
+        STATUS_REJECTED = 3;
+    }
+    Status status = 1;
+    bytes user_id = 2;
+    string reason = 3;
+}
+
+// Invoice issued by a business_electronic account for a customer to pay.
+message Invoice {
+    bytes invoice_id = 1;            // UUIDv7
+    bytes issuer_user_id = 2;        // the business's user_id
+    string issuer_legal_name = 3;
+    int64 amount_owc = 4;
+    string currency = 5;
+    string description = 6;
+    string external_reference = 7;   // merchant's own order id
+    int64 created_at = 8;
+    int64 expires_at = 9;
+    // Optional webhook URL; super-peer POSTs paid/expired events here.
+    string webhook_url = 10;
+    // Ed25519 signature by the business over the canonical CBOR of
+    // (invoice_id || amount_owc || currency || expires_at).
+    bytes signature = 11;
+}
+
+message CreateInvoiceRequest {
+    Invoice invoice = 1;
+}
+
+message CreateInvoiceResponse {
+    bytes invoice_id = 1;
+    string payment_uri = 2;  // CS1:INV:<hex> — customer scans to pay
+    int64 expires_at = 3;
+}
+
+// Status poll for an invoice (used when no webhook is configured).
+message InvoiceStatusRequest {
+    bytes invoice_id = 1;
+}
+
+message InvoiceStatusResponse {
+    enum Status {
+        STATUS_UNSPECIFIED = 0;
+        STATUS_OPEN = 1;
+        STATUS_PAID = 2;
+        STATUS_EXPIRED = 3;
+        STATUS_CANCELLED = 4;
+    }
+    Status status = 1;
+    bytes paying_user_id = 2;        // populated when PAID
+    bytes paying_transaction_id = 3; // UUIDv7 of the confirming tx
+    int64 paid_at = 4;
+}
+
+// Business-facing service. Separate from `ChainSync` because:
+//  - auth model differs (API key bearer instead of per-device mTLS)
+//  - rate limits differ (business accounts get higher burst)
+//  - the endpoints aren't appropriate for consumer wallets
+service BusinessApi {
+    // Register a new business account. Request is pending_review until CBI
+    // ops verifies the commercial registration + tax ID against national
+    // registries.
+    rpc RegisterBusiness(BusinessRegistrationRequest) returns (BusinessRegistrationResponse);
+
+    // Fetch the calling business's profile (auth: API key).
+    rpc GetBusinessProfile(GetBusinessProfileRequest) returns (BusinessProfile);
+
+    // Update authorized-signer set or signature threshold.
+    rpc UpdateBusinessProfile(BusinessProfile) returns (BusinessProfile);
+
+    // Create a payment invoice (business_electronic only).
+    rpc CreateInvoice(CreateInvoiceRequest) returns (CreateInvoiceResponse);
+
+    // Poll invoice status.
+    rpc GetInvoiceStatus(InvoiceStatusRequest) returns (InvoiceStatusResponse);
+}
+
+message GetBusinessProfileRequest {
+    bytes user_id = 1;
 }

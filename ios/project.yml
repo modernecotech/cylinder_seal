@@ -1,0 +1,97 @@
+# XcodeGen project descriptor.
+# Run `xcodegen generate` from the ios/ directory to produce
+# CylinderSeal.xcodeproj. Install XcodeGen via `brew install xcodegen`.
+
+name: CylinderSeal
+options:
+  bundleIdPrefix: iq.cbi.cylinderseal
+  deploymentTarget:
+    iOS: "16.0"
+  minimumXcodeGenVersion: "2.38.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    SWIFT_STRICT_CONCURRENCY: complete
+    DEVELOPMENT_TEAM: ""
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_USER_SCRIPT_SANDBOXING: "NO"
+
+packages:
+  GRPC:
+    url: https://github.com/grpc/grpc-swift
+    from: "1.21.0"
+  SwiftProtobuf:
+    url: https://github.com/apple/swift-protobuf
+    from: "1.26.0"
+  SQLiteSwift:
+    url: https://github.com/stephencelis/SQLite.swift
+    from: "0.15.0"
+
+targets:
+  CylinderSeal:
+    type: application
+    platform: iOS
+    sources:
+      - path: CylinderSeal
+        excludes:
+          - "**/*.md"
+    resources:
+      - CylinderSeal/Resources
+    info:
+      path: CylinderSeal/Info.plist
+      properties:
+        CFBundleDisplayName: Digital IQD
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UILaunchScreen:
+          UIColorName: ""
+          UIImageName: ""
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSCameraUsageDescription: Scan QR codes to receive payments.
+        NSNFCReaderUsageDescription: Tap to read and send payments over NFC.
+        NSBluetoothAlwaysUsageDescription: Exchange payments with nearby devices over Bluetooth.
+        NFCReaderUsageDescription: Tap to read and send payments over NFC.
+        com.apple.developer.nfc.readersession.iso7816.select-identifiers:
+          - F0CBCD010000
+        BGTaskSchedulerPermittedIdentifiers:
+          - iq.cbi.cylinderseal.sync
+        UIBackgroundModes:
+          - fetch
+          - processing
+          - bluetooth-central
+          - bluetooth-peripheral
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: iq.cbi.cylinderseal
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: "YES"
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: "YES"
+        INFOPLIST_KEY_UILaunchScreen_Generation: "YES"
+        OTHER_LDFLAGS: "$(inherited) -ObjC"
+        # Link against the prebuilt Rust xcframework produced by
+        # scripts/build-rust-xcframework.sh.
+        FRAMEWORK_SEARCH_PATHS: "$(inherited) $(PROJECT_DIR)/CylinderSealCore"
+    dependencies:
+      - package: GRPC
+        product: GRPC
+      - package: SwiftProtobuf
+        product: SwiftProtobuf
+      - package: SQLiteSwift
+        product: SQLite
+      - framework: CylinderSealCore/CylinderSealCore.xcframework
+        embed: true
+    entitlements:
+      path: CylinderSeal/CylinderSeal.entitlements
+      properties:
+        com.apple.developer.nfc.readersession.formats:
+          - TAG
+        com.apple.security.application-groups:
+          - group.iq.cbi.cylinderseal

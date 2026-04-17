@@ -80,7 +80,7 @@ pub fn derive_nonce_with_hardware(
     counter: u64,
 ) -> Result<[u8; 32]> {
     let mut hasher = HmacSha256::new_from_slice(previous_nonce)
-        .map_err(|_| crate::error::CylinderSealError::CryptoError("Invalid HMAC key".to_string()))?;
+        .map_err(|_| crate::error::CylinderSealError::CryptographyError("Invalid HMAC key".to_string()))?;
 
     // Mix in device hardware identifiers
     hasher.update(&hardware_ids.to_bytes());

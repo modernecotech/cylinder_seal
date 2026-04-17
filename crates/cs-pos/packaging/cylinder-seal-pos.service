@@ -1,0 +1,31 @@
+[Unit]
+Description=CylinderSeal POS terminal
+After=network-online.target bluetooth.service pcscd.service
+Wants=network-online.target bluetooth.service pcscd.service
+
+[Service]
+Type=simple
+User=cspos
+Group=cspos
+SupplementaryGroups=dialout plugdev video
+WorkingDirectory=/var/lib/cylinder-seal-pos
+EnvironmentFile=-/etc/cylinder-seal-pos.env
+ExecStart=/usr/local/bin/cylinder-seal-pos
+Restart=always
+RestartSec=5
+# Tighten the sandbox: no new privileges, protected home, private tmp.
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/cylinder-seal-pos
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=false
+DeviceAllow=/dev/bus/usb rw
+DeviceAllow=char-usb_device rw
+
+# Under Wayland/DRM kiosk you may also want:
+# Environment="SLINT_BACKEND=winit-skia"
+# Environment="WAYLAND_DISPLAY=wayland-0"
+
+[Install]
+WantedBy=multi-user.target

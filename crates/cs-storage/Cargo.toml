@@ -9,6 +9,7 @@ license.workspace = true
 cs-core = { path = "../cs-core" }
 serde.workspace = true
 serde_json.workspace = true
+serde_cbor.workspace = true
 uuid.workspace = true
 chrono.workspace = true
 sqlx.workspace = true
@@ -19,3 +20,5 @@ anyhow.workspace = true
 thiserror.workspace = true
 rust_decimal.workspace = true
 tokio.workspace = true
+async-trait.workspace = true
+hex.workspace = true

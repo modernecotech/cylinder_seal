@@ -55,12 +55,15 @@ pub struct RedisConfig {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SuperPeerConfig {
-    /// Number of super-peers in Byzantine quorum (typically 5)
+    /// Number of super-peers in the Raft cluster (typically 5)
     pub quorum_size: u8,
-    /// Minimum confirmations required (typically 3 of 5)
+    /// Minimum Raft quorum (typically 3 of 5)
     pub min_confirmations: u8,
     /// Key rotation interval in days
     pub key_rotation_days: u32,
+    /// Peers in the Raft cluster, by node id (e.g. "sp-basra", "sp-erbil").
+    /// Empty = single-node loopback (development mode).
+    pub peers: Vec<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -125,6 +128,11 @@ impl Config {
                 .unwrap_or(0),
         };
 
+        let peers: Vec<String> = env::var("SUPER_PEER_PEERS")
+            .ok()
+            .map(|s| s.split(',').map(|p| p.trim().to_string()).filter(|p| !p.is_empty()).collect())
+            .unwrap_or_default();
+
         let super_peer = SuperPeerConfig {
             quorum_size: env::var("SUPER_PEER_QUORUM_SIZE")
                 .ok()
@@ -137,7 +145,8 @@ impl Config {
             key_rotation_days: env::var("KEY_ROTATION_DAYS")
                 .ok()
                 .and_then(|d| d.parse().ok())
-                .unwrap_or(30),
+                .unwrap_or(365),
+            peers,
         };
 
         let logging = LoggingConfig {

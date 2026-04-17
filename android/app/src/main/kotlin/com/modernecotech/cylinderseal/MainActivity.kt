@@ -6,12 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import dagger.hilt.android.AndroidEntryPoint
+import com.modernecotech.cylinderseal.navigation.CsNavHost
 import com.modernecotech.cylinderseal.ui.theme.CylinderSealTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -21,25 +21,17 @@ class MainActivity : ComponentActivity() {
             CylinderSealTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
                 ) {
-                    CylinderSealApp()
+                    CsNavHost()
                 }
             }
         }
     }
 }
 
-@Composable
-fun CylinderSealApp() {
-    // TODO: implement app navigation and main content
-    Text("CylinderSeal - Coming Soon")
-}
-
 @Preview(showBackground = true)
 @Composable
-fun CylinderSealAppPreview() {
-    CylinderSealTheme {
-        CylinderSealApp()
-    }
+private fun PreviewApp() {
+    CylinderSealTheme { CsNavHost() }
 }

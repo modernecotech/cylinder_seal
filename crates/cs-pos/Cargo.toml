@@ -1,0 +1,66 @@
+[package]
+name = "cs-pos"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "CylinderSeal merchant point-of-sale terminal (Linux ARM64)"
+
+[[bin]]
+name = "cylinder-seal-pos"
+path = "src/main.rs"
+
+[dependencies]
+cs-core = { path = "../cs-core" }
+cs-sync = { path = "../cs-sync" }
+
+tokio.workspace = true
+tokio-stream.workspace = true
+tonic.workspace = true
+prost.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+async-trait.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+serde_cbor.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+hex.workspace = true
+rust_decimal.workspace = true
+config.workspace = true
+clap.workspace = true
+futures.workspace = true
+async-stream = "0.3"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+
+# GUI — Slint is memory-light, compiles to native widgets on Linux, works on
+# framebuffer too for kiosk-mode POS terminals without a window manager.
+slint = "1.6"
+
+# Local storage (unencrypted; the POS terminal is physically controlled).
+rusqlite = { version = "0.32", features = ["bundled"] }
+
+# NFC via PC/SC (works with ACR122U and most USB NFC readers).
+pcsc = "2.8"
+
+# BLE GATT server (BlueZ bridge).
+bluer = { version = "0.17", features = ["bluetoothd", "l2cap"] }
+
+# Camera capture + QR decoding.
+nokhwa = { version = "0.10", features = ["input-native"] }
+rqrr = "0.7"
+
+# QR code generation for the payment-request display.
+qrcode = "0.14"
+image = { version = "0.25", default-features = false, features = ["png"] }
+
+# ESC/POS receipt printer bytes are hand-rolled in src/printer.rs — no crate needed.
+
+[build-dependencies]
+slint-build = "1.6"
+
+[dev-dependencies]
+tokio-test.workspace = true

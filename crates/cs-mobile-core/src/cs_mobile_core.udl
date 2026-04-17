@@ -1,0 +1,99 @@
+// UniFFI definitions for the CylinderSeal mobile-shared Rust core.
+//
+// The Android (Kotlin), iOS (Swift), and Linux POS (if bindings are useful
+// there) front-ends consume these types. Keep the surface minimal: just
+// enough for the UI to build and sign transactions, maintain a local
+// journal, and hand signed payloads to the transport layer.
+
+namespace cs_mobile_core {
+    // Generate a fresh Ed25519 keypair. Returns (public, private).
+    [Throws=CoreError]
+    Keypair generate_keypair();
+
+    // BLAKE2b-256 hash of arbitrary bytes (32-byte output).
+    bytes blake2b_256(bytes data);
+
+    // Derive the user_id (UUID hex) from a public key.
+    [Throws=CoreError]
+    string user_id_from_public_key(bytes public_key);
+
+    // Build and sign a Transaction. Returns CBOR-encoded bytes ready to hand
+    // to the transport layer (gRPC, NFC APDU, BLE GATT, QR payload).
+    [Throws=CoreError]
+    bytes build_and_sign_transaction(TransactionInput input, bytes private_key);
+
+    // Decode a previously signed transaction from CBOR bytes. Used by the
+    // receiving device to preview an incoming NFC/BLE/QR payment.
+    [Throws=CoreError]
+    TransactionView decode_transaction(bytes cbor);
+
+    // Derive the next nonce in the RFC 6979 chain from the previous nonce
+    // and a hardware-binding seed. The caller (Android Keystore / iOS
+    // Secure Enclave) provides the seed; this crate keeps the derivation
+    // deterministic and testable.
+    [Throws=CoreError]
+    bytes derive_next_nonce(bytes prev_nonce, bytes hardware_seed, u64 counter);
+
+    // Encode a transaction into the QR payment-payload format
+    // (base45 CBOR, size-bounded to fit QR v20).
+    [Throws=CoreError]
+    string encode_qr_payload(bytes cbor);
+
+    // Decode the QR payload produced by encode_qr_payload.
+    [Throws=CoreError]
+    bytes decode_qr_payload(string qr);
+
+    // Build the ISO 7816-4 APDU command frames for an NFC HCE exchange.
+    // Returns the list of APDU C-APDU byte-strings the reader should send.
+    [Throws=CoreError]
+    sequence<bytes> build_nfc_apdus(bytes cbor);
+};
+
+dictionary Keypair {
+    bytes public_key;
+    bytes private_key;
+};
+
+dictionary TransactionInput {
+    bytes from_public_key;
+    bytes to_public_key;
+    i64 amount_micro_owc;
+    string currency_context;
+    string fx_rate_snapshot;
+    i32 channel;  // 1 NFC, 2 BLE, 3 Online
+    string memo;
+    string device_id;  // UUID string
+    bytes previous_nonce;
+    bytes current_nonce;
+    double latitude;
+    double longitude;
+    i32 location_accuracy_meters;
+    i32 location_source;  // 1 GPS, 2 Network, 3 LastKnown, 4 Offline
+};
+
+dictionary TransactionView {
+    string transaction_id;
+    bytes from_public_key;
+    bytes to_public_key;
+    i64 amount_micro_owc;
+    string currency_context;
+    i64 timestamp_utc;
+    string memo;
+    i32 channel;
+    string device_id;
+    boolean signature_valid;
+};
+
+[Error]
+enum CoreError {
+    "InvalidKeyLength",
+    "InvalidNonceLength",
+    "InvalidSignature",
+    "InvalidPayload",
+    "SerializationError",
+    "QrTooLarge",
+    "InvalidUuid",
+    "InvalidDecimal",
+    "InvalidChannel",
+    "InvalidLocationSource",
+};

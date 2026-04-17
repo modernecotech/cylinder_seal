@@ -1,0 +1,164 @@
+// CylinderSeal POS terminal UI.
+//
+// Single-window kiosk: amount entry → Tender → shows QR + listens on NFC/BLE
+// → success screen with receipt print button. Keep the layout touch-first;
+// most merchant tills run 7-10" capacitive screens at 1024×600.
+
+import { Button, LineEdit, VerticalBox, HorizontalBox, StandardButton } from "std-widgets.slint";
+
+export enum Screen { amount-entry, awaiting-payment, success, failure }
+
+export global Theme {
+    in property <length> pad: 16px;
+    in property <length> big-pad: 24px;
+    in property <color> accent: #006a60;
+    in property <color> accent-bg: #b2dfdb;
+    in property <color> bg: #fafafa;
+    in property <color> danger: #c62828;
+}
+
+export component MainWindow inherits Window {
+    title: "CylinderSeal POS";
+    min-width: 800px;
+    min-height: 600px;
+    background: Theme.bg;
+
+    // ----- Inputs from UI to Rust -----
+    callback amount-changed(string);
+    callback memo-changed(string);
+    callback tender-clicked();
+    callback cancel-clicked();
+    callback print-receipt-clicked();
+    callback new-sale-clicked();
+
+    // ----- State driven by Rust -----
+    in property <Screen> screen: Screen.amount-entry;
+    in property <string> merchant-name: "";
+    in property <string> status-text: "";
+    in property <string> amount-display: "0";
+    in property <string> memo-display: "";
+    in property <string> currency: "IQD";
+    in property <image> payment-qr;
+    in property <string> last-tx-id: "";
+    in property <int> pending-sync-count: 0;
+
+    HorizontalBox {
+        padding: Theme.big-pad;
+
+        // Left column: merchant info + pending-sync indicator.
+        VerticalBox {
+            width: 25%;
+            Text {
+                text: merchant-name;
+                font-size: 20px;
+                font-weight: 700;
+            }
+            Text { text: "Terminal online"; color: Theme.accent; }
+            Rectangle { height: 1px; background: #ddd; }
+            Text { text: "Pending sync: " + pending-sync-count; }
+            Rectangle { vertical-stretch: 1; }
+            Text {
+                text: "Digital Iraqi Dinar";
+                color: #999;
+                font-size: 12px;
+            }
+        }
+
+        Rectangle { width: 1px; background: #ddd; }
+
+        // Right column: per-screen workspace.
+        VerticalBox {
+            spacing: Theme.pad;
+
+            if screen == Screen.amount-entry: VerticalBox {
+                Text { text: "Amount"; font-size: 14px; color: #666; }
+                HorizontalBox {
+                    LineEdit {
+                        text: amount-display;
+                        placeholder-text: "0";
+                        font-size: 48px;
+                        horizontal-stretch: 1;
+                        edited(s) => { root.amount-changed(s); }
+                    }
+                    Text { text: currency; font-size: 24px; vertical-alignment: center; }
+                }
+                LineEdit {
+                    placeholder-text: "Memo (optional)";
+                    text: memo-display;
+                    edited(s) => { root.memo-changed(s); }
+                }
+                Rectangle { height: Theme.big-pad; }
+                Button {
+                    text: "Tender";
+                    primary: true;
+                    clicked => { root.tender-clicked(); }
+                }
+            }
+
+            if screen == Screen.awaiting-payment: VerticalBox {
+                Text {
+                    text: "Present phone or scan";
+                    font-size: 24px;
+                    horizontal-alignment: center;
+                }
+                Text {
+                    text: amount-display + " " + currency;
+                    font-size: 48px;
+                    horizontal-alignment: center;
+                    color: Theme.accent;
+                }
+                Image {
+                    source: payment-qr;
+                    width: 256px;
+                    height: 256px;
+                }
+                Text { text: status-text; horizontal-alignment: center; }
+                Button {
+                    text: "Cancel";
+                    clicked => { root.cancel-clicked(); }
+                }
+            }
+
+            if screen == Screen.success: VerticalBox {
+                Text {
+                    text: "Payment received";
+                    font-size: 32px;
+                    color: Theme.accent;
+                    horizontal-alignment: center;
+                }
+                Text {
+                    text: amount-display + " " + currency;
+                    font-size: 48px;
+                    horizontal-alignment: center;
+                }
+                Text { text: "Tx " + last-tx-id; font-size: 12px; horizontal-alignment: center; }
+                HorizontalBox {
+                    Button {
+                        text: "Print receipt";
+                        clicked => { root.print-receipt-clicked(); }
+                    }
+                    Button {
+                        text: "New sale";
+                        primary: true;
+                        clicked => { root.new-sale-clicked(); }
+                    }
+                }
+            }
+
+            if screen == Screen.failure: VerticalBox {
+                Text {
+                    text: "Payment failed";
+                    font-size: 24px;
+                    color: Theme.danger;
+                    horizontal-alignment: center;
+                }
+                Text { text: status-text; horizontal-alignment: center; }
+                Button {
+                    text: "Try again";
+                    primary: true;
+                    clicked => { root.new-sale-clicked(); }
+                }
+            }
+        }
+    }
+}

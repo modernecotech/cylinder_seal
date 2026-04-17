@@ -3,7 +3,7 @@ use thiserror::Error;
 #[derive(Error, Debug)]
 pub enum CylinderSealError {
     #[error("Cryptographic error: {0}")]
-    CryptoError(String),
+    CryptographyError(String),
 
     #[error("Invalid signature")]
     InvalidSignature,

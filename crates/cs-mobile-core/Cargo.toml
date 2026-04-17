@@ -1,0 +1,30 @@
+[package]
+name = "cs-mobile-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[lib]
+# `cdylib` for Android/iOS/Linux; `staticlib` so `cargo build` on CI still
+# produces a static archive for the Linux POS builds.
+crate-type = ["lib", "cdylib", "staticlib"]
+name = "cs_mobile_core"
+
+[dependencies]
+cs-core = { path = "../cs-core" }
+serde.workspace = true
+serde_json.workspace = true
+serde_cbor.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+rust_decimal.workspace = true
+hex.workspace = true
+thiserror.workspace = true
+uniffi = { version = "0.28", features = ["cli"] }
+
+[build-dependencies]
+uniffi = { version = "0.28", features = ["build"] }
+
+[dev-dependencies]
+tokio-test.workspace = true

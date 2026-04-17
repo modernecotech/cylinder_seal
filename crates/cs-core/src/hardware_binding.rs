@@ -68,7 +68,7 @@ impl DeviceHardwareIds {
     /// Calculate a device fingerprint (hash of hardware IDs)
     /// Used for deduplication and fraud detection
     pub fn fingerprint(&self) -> String {
-        use crate::crypto::blake2b_256;
+        use crate::cryptography::blake2b_256;
 
         let mut data = Vec::new();
         data.extend_from_slice(self.device_serial.as_bytes());

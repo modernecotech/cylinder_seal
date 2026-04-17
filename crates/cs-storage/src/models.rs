@@ -27,10 +27,73 @@ pub struct UserRecord {
     pub display_name: String,
     pub phone_number: Option<String>,
     pub kyc_tier: String, // "anonymous", "phone_verified", "full_kyc"
+    /// "individual" | "business_pos" | "business_electronic"
+    pub account_type: String,
     pub balance_owc: i64,
     pub credit_score: Option<Decimal>,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
+}
+
+/// Legal/commercial metadata for a business account (one-to-one with a
+/// business [`UserRecord`]).
+#[derive(Clone, Debug)]
+pub struct BusinessProfileRecord {
+    pub user_id: Uuid,
+    pub legal_name: String,
+    pub commercial_registration_id: String,
+    pub tax_id: String,
+    pub industry_code: String,
+    pub registered_address: String,
+    pub contact_email: String,
+    /// Vec of 32-byte Ed25519 public keys (stored as JSONB array of hex).
+    pub authorized_signer_public_keys: JsonValue,
+    pub signature_threshold: i16,
+    pub multisig_threshold_owc: Option<i64>,
+    pub daily_volume_limit_owc: i64,
+    pub per_transaction_limit_owc: Option<i64>,
+    pub edd_cleared: bool,
+    pub approved_at: Option<DateTime<Utc>>,
+    pub created_at: DateTime<Utc>,
+    pub updated_at: DateTime<Utc>,
+}
+
+/// API key for business-electronic accounts. The key itself is stored as
+/// a BLAKE2b-256 hash; only the prefix is visible post-issuance.
+#[derive(Clone, Debug)]
+pub struct ApiKeyRecord {
+    pub id: i64,
+    pub user_id: Uuid,
+    /// First 8 bytes of the key, hex-encoded. Shown in the UI so the owner
+    /// can identify which key to revoke.
+    pub key_prefix: String,
+    /// BLAKE2b-256(secret). Constant-time compared on auth.
+    pub key_hash: Vec<u8>,
+    pub label: String,
+    pub scopes: JsonValue, // array of scope strings, e.g. ["invoice.create","webhook.receive"]
+    pub created_at: DateTime<Utc>,
+    pub last_used_at: Option<DateTime<Utc>>,
+    pub revoked_at: Option<DateTime<Utc>>,
+}
+
+/// Invoice issued by a `business_electronic` account. Paid when a customer
+/// sends a matching signed Transaction that references the invoice id.
+#[derive(Clone, Debug)]
+pub struct InvoiceRecord {
+    pub invoice_id: Uuid,
+    pub user_id: Uuid,
+    pub amount_owc: i64,
+    pub currency: String,
+    pub description: Option<String>,
+    pub external_reference: Option<String>,
+    pub status: String, // "open" | "paid" | "expired" | "cancelled"
+    pub paid_by_user_id: Option<Uuid>,
+    pub paid_by_transaction_id: Option<Uuid>,
+    pub webhook_url: Option<String>,
+    pub webhook_delivered_at: Option<DateTime<Utc>>,
+    pub created_at: DateTime<Utc>,
+    pub expires_at: DateTime<Utc>,
+    pub paid_at: Option<DateTime<Utc>>,
 }
 
 /// Represents a conflict log entry (PostgreSQL)

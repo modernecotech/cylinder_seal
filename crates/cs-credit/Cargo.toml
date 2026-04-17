@@ -13,3 +13,9 @@ tracing.workspace = true
 anyhow.workspace = true
 rust_decimal.workspace = true
 uuid.workspace = true
+chrono.workspace = true
+async-trait.workspace = true
+serde.workspace = true
+
+[dev-dependencies]
+tokio-test.workspace = true

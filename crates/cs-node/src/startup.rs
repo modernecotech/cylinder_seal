@@ -1,18 +1,11 @@
-// Node startup and initialization
+//! Bootstrap helpers. Today the bulk of startup lives in `main.rs`; keep
+//! this module for migration-runner hooks and other one-off init tasks.
 
 use anyhow::Result;
+
 use crate::config::Config;
 
-/// Initialize all services during startup
-pub async fn initialize(config: &Config) -> Result<()> {
-    tracing::info!("Initializing services");
-
-    // TODO: connect to PostgreSQL
-    // TODO: connect to Redis
-    // TODO: run database migrations
-    // TODO: initialize gRPC server
-    // TODO: initialize HTTP server
-    // TODO: start background job scheduler
-
+pub async fn initialize(_config: &Config) -> Result<()> {
+    // Reserved for future setup work (running migrations, HSM init, etc.)
     Ok(())
 }

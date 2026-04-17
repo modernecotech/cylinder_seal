@@ -16,6 +16,8 @@ cs-sync = { path = "../cs-sync" }
 cs-api = { path = "../cs-api" }
 cs-credit = { path = "../cs-credit" }
 cs-exchange = { path = "../cs-exchange" }
+cs-consensus = { path = "../cs-consensus" }
+cs-policy = { path = "../cs-policy" }
 
 tokio.workspace = true
 axum.workspace = true

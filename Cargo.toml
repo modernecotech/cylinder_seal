@@ -6,7 +6,11 @@ members = [
     "crates/cs-api",
     "crates/cs-credit",
     "crates/cs-exchange",
+    "crates/cs-policy",
+    "crates/cs-consensus",
     "crates/cs-node",
+    "crates/cs-mobile-core",
+    "crates/cs-pos",
 ]
 resolver = "2"
 
@@ -23,16 +27,22 @@ tokio = { version = "1.40", features = ["full"] }
 # HTTP/gRPC
 axum = "0.7"
 tower = "0.4"
-tower-http = { version = "0.5", features = ["cors", "compression-full", "timeout"] }
+tower-http = { version = "0.5", features = ["cors", "compression-full", "timeout", "trace"] }
 tonic = "0.12"
+tonic-build = "0.12"
 prost = "0.12"
+prost-types = "0.12"
+futures = "0.3"
+futures-core = "0.3"
+tokio-stream = "0.1"
+async-trait = "0.1"
 
 # Database
 sqlx = { version = "0.7", features = ["runtime-tokio-native-tls", "postgres", "uuid", "chrono", "json"] }
 deadpool-redis = "0.15"
 redis = { version = "0.25", features = ["aio", "tokio-comp", "connection-manager"] }
 
-# Crypto
+# Cryptography
 blake2 = "0.10"
 ed25519-dalek = { version = "2.1", features = ["rand_core"] }
 rand = "0.8"

@@ -1,0 +1,25 @@
+[package]
+name = "cs-policy"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+cs-core = { path = "../cs-core" }
+cs-storage = { path = "../cs-storage" }
+tokio.workspace = true
+async-trait.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tracing.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+sqlx.workspace = true
+rust_decimal.workspace = true
+hex.workspace = true
+
+[dev-dependencies]
+tokio-test.workspace = true

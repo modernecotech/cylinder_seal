@@ -6,7 +6,7 @@ use rust_decimal::Decimal;
 use std::collections::HashMap;
 
 use crate::error::Result;
-use crate::crypto;
+use crate::cryptography;
 
 /// Serde helper for Option<[u8; 64]> — delegates to BigArray when Some
 mod option_big_array {
@@ -214,14 +214,14 @@ impl Transaction {
     /// Sign this transaction with a private key
     pub fn sign(&mut self, private_key: &[u8; 32]) -> Result<()> {
         let canonical = self.canonical_cbor_for_signing()?;
-        self.signature = crypto::sign_message(&canonical, private_key)?;
+        self.signature = cryptography::sign_message(&canonical, private_key)?;
         Ok(())
     }
 
     /// Verify this transaction's signature
     pub fn verify_signature(&self) -> Result<()> {
         let canonical = self.canonical_cbor_for_signing()?;
-        crypto::verify_signature(&canonical, &self.signature, &self.from_public_key)
+        cryptography::verify_signature(&canonical, &self.signature, &self.from_public_key)
     }
 }
 
@@ -356,19 +356,19 @@ impl JournalEntry {
     /// Compute and set the entry hash
     pub fn compute_entry_hash(&mut self) -> Result<()> {
         let canonical = self.canonical_cbor_for_hashing()?;
-        self.entry_hash = crypto::blake2b_256(&canonical);
+        self.entry_hash = cryptography::blake2b_256(&canonical);
         Ok(())
     }
 
     /// Sign the entry with device private key (must call compute_entry_hash first)
     pub fn sign_with_device_key(&mut self, device_private_key: &[u8; 32]) -> Result<()> {
-        self.device_signature = crypto::sign_message(&self.entry_hash, device_private_key)?;
+        self.device_signature = cryptography::sign_message(&self.entry_hash, device_private_key)?;
         Ok(())
     }
 
     /// Sign the entry with user master private key (for high-value txs)
     pub fn sign_with_user_key(&mut self, user_private_key: &[u8; 32]) -> Result<()> {
-        self.user_signature = Some(crypto::sign_message(&self.entry_hash, user_private_key)?);
+        self.user_signature = Some(cryptography::sign_message(&self.entry_hash, user_private_key)?);
         Ok(())
     }
 
@@ -379,18 +379,18 @@ impl JournalEntry {
     pub fn verify(&self, device_public_key: &[u8; 32]) -> Result<()> {
         // Recompute the hash and verify it matches
         let canonical = self.canonical_cbor_for_hashing()?;
-        let expected_hash = crypto::blake2b_256(&canonical);
+        let expected_hash = cryptography::blake2b_256(&canonical);
 
         if expected_hash != self.entry_hash {
             return Err(crate::error::CylinderSealError::InvalidHash);
         }
 
         // Verify device signature against the provided device public key
-        crypto::verify_signature(&self.entry_hash, &self.device_signature, device_public_key)?;
+        cryptography::verify_signature(&self.entry_hash, &self.device_signature, device_public_key)?;
 
         // If user signature is present, verify it against the entry owner's key
         if let Some(ref user_sig) = self.user_signature {
-            crypto::verify_signature(&self.entry_hash, user_sig, &self.user_public_key)?;
+            cryptography::verify_signature(&self.entry_hash, user_sig, &self.user_public_key)?;
         }
 
         Ok(())
@@ -403,7 +403,7 @@ impl JournalEntry {
 
     /// Create a genesis entry for a new user's journal
     pub fn genesis(user_public_key: [u8; 32]) -> Self {
-        let prev_hash = crypto::blake2b_256(&user_public_key);
+        let prev_hash = cryptography::blake2b_256(&user_public_key);
         let device_id = Uuid::nil(); // Genesis entries have no device (super-peer generated)
         Self::new(user_public_key, device_id, 0, prev_hash, vec![], HashMap::new())
     }
@@ -417,6 +417,131 @@ pub enum SyncStatus {
 }
 
 // ============================================================================
+
+/// Account type — the shape of the entity the keypair represents.
+///
+/// Individuals hold consumer wallets. Business accounts are legal entities
+/// operating either a physical point-of-sale presence (BusinessPos) or an
+/// online/API-driven storefront (BusinessElectronic). The distinction
+/// drives velocity limits, KYC requirements, fee eligibility, and access
+/// to server-to-server APIs.
+#[derive(Clone, Copy, Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub enum AccountType {
+    /// Individual consumer wallet. Governed by [`KYCTier`] alone.
+    Individual,
+    /// Registered business operating physical points of sale.
+    BusinessPos,
+    /// Registered business accepting payments electronically
+    /// (e-commerce, B2B, SaaS, API-driven).
+    BusinessElectronic,
+}
+
+impl AccountType {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            AccountType::Individual => "individual",
+            AccountType::BusinessPos => "business_pos",
+            AccountType::BusinessElectronic => "business_electronic",
+        }
+    }
+
+    pub fn is_business(self) -> bool {
+        matches!(
+            self,
+            AccountType::BusinessPos | AccountType::BusinessElectronic
+        )
+    }
+}
+
+/// Legal/commercial metadata for a business account.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct BusinessProfile {
+    /// FK to [`User::user_id`] of the owning account.
+    pub user_id: Uuid,
+
+    /// Registered legal name (e.g. "Baghdad Grocer Ltd").
+    pub legal_name: String,
+
+    /// Iraqi commercial-registration number ("Sijel Tijari").
+    pub commercial_registration_id: String,
+
+    /// Iraqi tax identification number.
+    pub tax_id: String,
+
+    /// ISIC v4 industry classification code (e.g. "4711" = retail grocery).
+    pub industry_code: String,
+
+    /// Registered address (free-form; structured address is a Round 2 concern).
+    pub registered_address: String,
+
+    /// Contact email for notifications / invoices.
+    pub contact_email: String,
+
+    /// Authorized signer public keys (Ed25519, 32-byte each). All signers
+    /// can authorize transactions; multi-signature-required operations
+    /// use the `signature_threshold` below.
+    pub authorized_signer_public_keys: Vec<[u8; 32]>,
+
+    /// How many signers must co-sign for high-value operations.
+    /// 1 = single-signer (default). 2+ = multisig above `multisig_threshold_owc`.
+    pub signature_threshold: u8,
+
+    /// Threshold (in micro-OWC) above which `signature_threshold` co-signers
+    /// are required. `None` means single-signer for all amounts.
+    pub multisig_threshold_owc: Option<i64>,
+
+    /// Per-day volume ceiling in micro-OWC. Typically much higher than
+    /// individual tiers. Enforced by the super-peer at confirmation time.
+    pub daily_volume_limit_owc: i64,
+
+    /// Per-transaction ceiling in micro-OWC. `None` = unlimited.
+    pub per_transaction_limit_owc: Option<i64>,
+
+    /// Whether the business has cleared Enhanced Due Diligence. Required
+    /// for access to regional settlement and for volumes > $100k/day.
+    pub edd_cleared: bool,
+
+    /// When the business was approved (UTC). `None` until ops team verifies
+    /// commercial registration + tax ID against national registries.
+    pub approved_at: Option<DateTime<Utc>>,
+
+    /// Record creation time.
+    pub created_at: DateTime<Utc>,
+}
+
+impl BusinessProfile {
+    /// Sensible defaults for a newly-registered Iraqi business. Limits are
+    /// intentionally generous but cap at 10× the FullKYC individual tier
+    /// until EDD is completed and the CBI ops team widens them.
+    pub fn new(
+        user_id: Uuid,
+        legal_name: String,
+        commercial_registration_id: String,
+        tax_id: String,
+        industry_code: String,
+        contact_email: String,
+        registered_address: String,
+    ) -> Self {
+        Self {
+            user_id,
+            legal_name,
+            commercial_registration_id,
+            tax_id,
+            industry_code,
+            registered_address,
+            contact_email,
+            authorized_signer_public_keys: Vec::new(),
+            signature_threshold: 1,
+            multisig_threshold_owc: None,
+            // 5_000 OWC/day until EDD; ~$3.8M equivalent at 1:1.
+            daily_volume_limit_owc: 5_000_000_000_000,
+            per_transaction_limit_owc: None,
+            edd_cleared: false,
+            approved_at: None,
+            created_at: Utc::now(),
+        }
+    }
+}
 
 /// Represents a user in the system
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -433,8 +558,11 @@ pub struct User {
     /// Phone number (if available)
     pub phone_number: Option<String>,
 
-    /// KYC compliance tier
+    /// KYC compliance tier (applies to both individuals and businesses).
     pub kyc_tier: KYCTier,
+
+    /// Whether this account is an individual or a business entity.
+    pub account_type: AccountType,
 
     /// Current balance in micro-OWC (derived from chain, not source of truth)
     pub balance_owc: i64,
@@ -447,8 +575,17 @@ pub struct User {
 }
 
 impl User {
-    /// Create a new user from a public key
+    /// Create a new individual user from a public key.
     pub fn new(public_key: [u8; 32], display_name: String) -> Self {
+        Self::new_with_type(public_key, display_name, AccountType::Individual)
+    }
+
+    /// Create a new user of a specific account type.
+    pub fn new_with_type(
+        public_key: [u8; 32],
+        display_name: String,
+        account_type: AccountType,
+    ) -> Self {
         let user_id = Self::derive_user_id_from_public_key(&public_key);
 
         Self {
@@ -457,6 +594,7 @@ impl User {
             display_name,
             phone_number: None,
             kyc_tier: KYCTier::Anonymous,
+            account_type,
             balance_owc: 0,
             credit_score: None,
             created_at: Utc::now(),
@@ -466,7 +604,7 @@ impl User {
     /// Derive a deterministic user_id (UUID) from public key.
     /// Takes the first 16 bytes of BLAKE2b-256(public_key).
     pub fn derive_user_id_from_public_key(public_key: &[u8; 32]) -> Uuid {
-        let user_id_hash = crypto::derive_user_id_from_public_key(public_key);
+        let user_id_hash = cryptography::derive_user_id_from_public_key(public_key);
         let mut user_id_bytes = [0u8; 16];
         user_id_bytes.copy_from_slice(&user_id_hash[..16]);
         Uuid::from_bytes(user_id_bytes)
@@ -543,8 +681,8 @@ mod tests {
         use rust_decimal::Decimal;
         use std::str::FromStr;
 
-        let (pub_key, priv_key) = crypto::generate_keypair();
-        let (recipient_pub, _) = crypto::generate_keypair();
+        let (pub_key, priv_key) = cryptography::generate_keypair();
+        let (recipient_pub, _) = cryptography::generate_keypair();
         let device_id = Uuid::new_v4();
         let previous_nonce = [0u8; 32];
         let current_nonce = [1u8; 32];
@@ -572,7 +710,7 @@ mod tests {
 
     #[test]
     fn test_journal_entry_hashing() {
-        let (pub_key, priv_key) = crypto::generate_keypair();
+        let (pub_key, priv_key) = cryptography::generate_keypair();
         let mut entry = JournalEntry::genesis(pub_key);
 
         entry.compute_entry_hash().unwrap();
@@ -624,8 +762,8 @@ mod tests {
         use rust_decimal::Decimal;
         use std::str::FromStr;
 
-        let (pub_key, priv_key) = crypto::generate_keypair();
-        let (recipient_pub, _) = crypto::generate_keypair();
+        let (pub_key, priv_key) = cryptography::generate_keypair();
+        let (recipient_pub, _) = cryptography::generate_keypair();
 
         let mut tx = Transaction::new(
             pub_key,
@@ -654,7 +792,7 @@ mod tests {
 
     #[test]
     fn test_entry_chain_integrity() {
-        let (pub_key, priv_key) = crypto::generate_keypair();
+        let (pub_key, priv_key) = cryptography::generate_keypair();
 
         // Entry 0: genesis
         let mut entry0 = JournalEntry::genesis(pub_key);
@@ -700,7 +838,7 @@ mod tests {
 
     #[test]
     fn test_is_confirmed_threshold() {
-        let (pub_key, _) = crypto::generate_keypair();
+        let (pub_key, _) = cryptography::generate_keypair();
         let mut entry = JournalEntry::genesis(pub_key);
 
         // 0 confirmations: not confirmed
@@ -730,14 +868,14 @@ mod tests {
 
     #[test]
     fn test_genesis_entry_properties() {
-        let (pub_key, _priv_key) = crypto::generate_keypair();
+        let (pub_key, _priv_key) = cryptography::generate_keypair();
         let entry = JournalEntry::genesis(pub_key);
 
         // Genesis entry has sequence 0
         assert_eq!(entry.sequence_number, 0);
 
         // Genesis prev_entry_hash = blake2b_256(user_public_key)
-        let expected_prev_hash = crypto::blake2b_256(&pub_key);
+        let expected_prev_hash = cryptography::blake2b_256(&pub_key);
         assert_eq!(entry.prev_entry_hash, expected_prev_hash,
             "Genesis prev_entry_hash must be BLAKE2b-256(public_key)");
 
@@ -758,7 +896,7 @@ mod tests {
 
     #[test]
     fn test_user_id_derivation_consistency() {
-        let (pub_key, _) = crypto::generate_keypair();
+        let (pub_key, _) = cryptography::generate_keypair();
 
         // User::derive_user_id_from_public_key and JournalEntry::new
         // must produce the same user_id for vector clock correctness
@@ -781,12 +919,12 @@ mod tests {
     fn test_nonce_to_transaction_integration() {
         use crate::nonce::{derive_nonce_with_hardware, verify_nonce_chain, HardwareIds};
 
-        let (pub_key, priv_key) = crypto::generate_keypair();
-        let (recipient_pub, _) = crypto::generate_keypair();
+        let (pub_key, priv_key) = cryptography::generate_keypair();
+        let (recipient_pub, _) = cryptography::generate_keypair();
         let hw = HardwareIds::new("serial123".to_string(), "imei456".to_string());
 
         // Genesis nonce
-        let genesis_nonce = crypto::blake2b_256(&pub_key);
+        let genesis_nonce = cryptography::blake2b_256(&pub_key);
 
         // Derive nonce for first transaction
         let nonce1 = derive_nonce_with_hardware(&genesis_nonce, &hw, 1).unwrap();
@@ -815,8 +953,8 @@ mod tests {
 
     #[test]
     fn test_entry_verify_rejects_wrong_device_key() {
-        let (pub_key, priv_key) = crypto::generate_keypair();
-        let (wrong_key, _) = crypto::generate_keypair();
+        let (pub_key, priv_key) = cryptography::generate_keypair();
+        let (wrong_key, _) = cryptography::generate_keypair();
 
         let mut entry = JournalEntry::genesis(pub_key);
         entry.compute_entry_hash().unwrap();
@@ -841,7 +979,7 @@ mod tests {
 
     #[test]
     fn test_entry_hash_changes_with_content() {
-        let (pub_key, _) = crypto::generate_keypair();
+        let (pub_key, _) = cryptography::generate_keypair();
 
         let mut entry_a = JournalEntry::new(
             pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], HashMap::new(),
