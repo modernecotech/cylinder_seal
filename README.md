@@ -1,23 +1,28 @@
-# CylinderSeal
+# CylinderSeal: Digital Iraqi Dinar
 
-A **complete peer-to-peer economic platform** for the 1.4 billion unbanked people worldwide — and the billions more who lack formal credit access.
+![CylinderSeal Architecture Diagram](cylinder_seal_diagram.jpeg)
 
-**Key Innovation**: Offline-first everything. Payment + credit building + marketplace + lending, all without internet or banks. Peers discover services nearby, transact securely, build credit reputation automatically.
+A **peer-to-peer financial infrastructure** platform enabling Iraq's Central Bank of Iraq (CBI) to deploy a sovereign digital currency with direct access to 40M+ citizens, zero transaction costs, and offline-first capability.
 
-*Not blockchain. Not peer-to-peer infrastructure. Just pragmatic security + distributed liquidity + peer discovery.*
+**Primary Deployment**: Iraq Digital Dinar (Digital IQD) — a CBI-issued sovereign currency accessible via smartphone, with financial inclusion, supply chain financing, and real-time monetary policy control.
+
+**Core Architecture**: Offline-first payments via NFC/BLE + Byzantine consensus validation + credit scoring from transaction history.
+
+*Not blockchain. Not cryptocurrency. Pragmatic peer-to-peer infrastructure for sovereign monetary policy.*
 
 ## Overview
 
-CylinderSeal enables:
+CylinderSeal enables (Iraq Digital Dinar context):
 
-**Financial Services:**
-- **Zero transaction costs** for in-ecosystem payments (no intermediaries to pay)
+**Financial Services (Iraq Digital Dinar):**
+- **Direct CBI access** — Citizens hold IQD directly; no commercial bank intermediaries needed
+- **Zero transaction costs** for peer-to-peer payments via Digital Dinar (no bank fees)
 - **Offline-first operation** via NFC/BLE for device-to-device payments (works without internet)
-- **One World Currency (OWC)** — a basket of top world currencies (stable, no speculation)
-- **Remittances** without Western Union / bank wire fees (just the real exchange rate)
-- **Instant credit building** — transaction history creates credit profile automatically (7-30 days, not years)
-- **Microloans from day 1** — borrow against your transaction history (even with zero traditional credit history)
-- **Peer-to-peer lending** — lend to people in your network based on their CylinderSeal credit score
+- **Real-time monetary policy** — CBI sees all transactions instantly, can adjust policy in hours not weeks
+- **Financial inclusion** — 70% unbanked Iraqis gain access via smartphone wallet
+- **Instant credit building** — transaction history creates credit profile automatically (enables microloans)
+- **Supply chain financing** — Exporters access working capital based on transaction history (not collateral)
+- **Iraqi Made preference** — Government salary spending automatically channeled to local goods via tier system
 
 **Peer Marketplace:**
 - **Discover local services** — search for taxi, food delivery, house cleaning, agricultural produce, etc. by category, price, distance
@@ -501,85 +506,85 @@ See **[docs/NETWORK_AND_CREDIT_ARCHITECTURE.md](docs/NETWORK_AND_CREDIT_ARCHITEC
 
 ---
 
-## Monetary Policy & Stability
+## Monetary Policy & Stability (Iraq Digital Dinar)
 
-### One World Currency (OWC): Remittance-Backed Issuance
+### Iraqi Dinar (IQD): CBI-Issued Sovereign Currency
 
-The OWC is a **basket of world currencies** (50% USD, 25% EUR, 15% GBP, 10% JPY) that provides:
-- **Stability**: No single-country inflation risk
-- **Redemption**: Users can withdraw fiat via Wise, PayPal, local banks
-- **Reserve Backing**: Every OWC minted is 100% backed by fiat in escrow
+The Digital Iraqi Dinar is **pure Iraqi sovereign currency** issued by the Central Bank of Iraq:
+- **Currency**: Iraqi Dinar (IQD), not a basket or foreign-backed asset
+- **Issuer**: CBI (Central Bank of Iraq) holds full monetary authority
+- **Backing**: Government assets and CBI reserves (standard central bank backing)
+- **Stability**: CBI controls issuance schedule monthly via Board decision
+- **Redemption**: Convertible 1:1 with physical IQD at any CBI branch
 
 **How it works**:
 ```
-Sender (USA)            →    Gateway           →    Receiver (Kenya)
-Deposits $100 USD       →    Holds $100 escrow →    Receives ~13,500 OWC
-(via Wise/PayPal)           in reserve              (displays as ~13,500 KES)
+Government Salary Issuance          Peer-to-Peer Transfer
+CBI → 1M government workers         Device A ← (NFC/BLE) → Device B
+Each receives salary in Digital IQD Each can send/receive instantly
+(no bank intermediary)              (works offline, confirmed by super-peers)
 ```
 
-### Controlled Protocol Issuance
+### CBI Monetary Policy Control
 
-Beyond remittance backing, CylinderSeal issues **protocol-controlled supply** capped at:
-- Lesser of: (0.5% × transaction volume) OR (0.5% × prior circulating supply)
+CBI maintains full control over:
+- **Issuance schedule**: Monthly decision on new IQD creation
+- **Velocity limits**: Can tighten/loosen daily transaction caps if inflation rises
+- **KYC tiers**: Can restrict access by jurisdiction or use case
+- **Real-time monitoring**: Sees M0, M1, M2 supply instantly (impossible with cash)
+- **Emergency authority**: Can freeze accounts or limit transfers if needed
 
-**Used for**: Super-peer infrastructure, credit scoring, dispute resolution — **funded from transaction volume, not user fees**
-
-### Reserve Coverage Ratio (CR) and Automatic Policy Tightening
-
-CylinderSeal publishes **weekly reserve attestations**:
-- **CR = Reserves / Circulating Supply**
-- Target: CR ≥ 1.08 (8% reserve buffer above all OWC in circulation)
-
-**If CR falls below thresholds**, the system automatically:
-- Tightens protocol issuance (cap reduced to 50%)
-- Reduces unsecured lending limits
-- Slows large withdrawals (spreads over 7-14 days)
-
-**Never freezes ordinary commerce or marketplace transactions.**
-
-See **[MONETARY_POLICY_SPECIFICATION.md](MONETARY_POLICY_SPECIFICATION.md)** for complete policy, stress testing, and bond capital formation.
+See **[MONETARY_POLICY_SPECIFICATION_CBI.md](MONETARY_POLICY_SPECIFICATION_CBI.md)** for complete policy framework, governance, and accountability procedures.
 
 ---
 
-## Governance & Accountability
+## Governance & Accountability (Iraq Digital Dinar)
 
-### Multi-Party Governance (Phase 2+)
+### CBI-Led Governance
 
-Policy is NOT controlled by CylinderSeal alone. Three committees approve changes:
+Policy is controlled by the **Central Bank of Iraq Board**, with parliamentary oversight:
 
-1. **Policy Committee** (2 CylinderSeal + 2 MFI + 1 independent)
-   - Marketplace fees, user incentives, growth strategy
+1. **CBI Board** (sole monetary authority)
+   - Decides monthly issuance schedule
+   - Sets transaction velocity limits
+   - Approves KYC tier adjustments
+   - **No external stakeholders vote**
    
-2. **Risk Committee** (1 CFO + 1 independent auditor + 1 MFI lending expert)
-   - Reserve adequacy, lending limits, monetary policy bounds
+2. **Parliament Oversight** (quarterly)
+   - Reviews CBI Board decisions
+   - Can object to policy changes (with legal process)
+   - Approves long-term funding for super-peer infrastructure
    
-3. **Federation Quorum** (5 super-peer operators)
-   - Technical validation, network security, validator accountability
+3. **Oversight Board** (independent auditors)
+   - Quarterly compliance audits
+   - Verify no unauthorized issuance
+   - Audit AML/CFT procedures
+   - **Cannot override CBI decisions, but provides accountability**
 
 ### Three Tiers of Policy Changes
 
-| Change Type | Approval | Timeline | Used For |
-|-------------|----------|----------|----------|
-| **Ordinary** | Simple majority | 7 days | Marketplace fees, loan rates, grants |
-| **Elevated** | 2-of-3 risk committee | 14 days | Reserve targets, lending caps, bond terms |
-| **Emergency** | 2-of-5 super-peers (immediate) + 4-of-5 ratification within 72h | Immediate | Reserve collapse, liquidity crisis, fraud |
+| Change Type | Authority | Timeline | Used For |
+|-------------|-----------|----------|----------|
+| **Ordinary** | CBI Board | Immediate | Transaction limits, KYC tier adjustments |
+| **Elevated** | CBI Board + Parliament notification | 7 days | Issuance schedule changes, major policy shifts |
+| **Emergency** | CBI Board (immediate) + Parliament ratification within 72h | Immediate | Capital controls, account freezes during crisis |
 
-**Every parameter change is public**, machine-readable, and auditable.
+**Every parameter change is published**, auditable, and subject to parliamentary review.
 
-### Super-Peer Accountability (Phase 3)
+### Super-Peer Accountability
 
-Super-peers can be slashed (penalized) for:
-- **Double-signing**: Sign conflicting transactions (cryptographic proof required)
-- **Invalid minting**: Sign mint events without reserve backing
-- **Persistent unavailability**: Miss >50% of verifications
+Super-peers (Baghdad, Basra, Erbil regional branches) can be replaced if:
+- **Persistent downtime**: Miss >10% of confirmations over 30 days
+- **Double-signing**: Sign conflicting transaction orders (cryptographic proof required)
 - **Censorship**: Withhold valid transactions for >1 hour
+- **Compromise suspected**: Security incident affecting ledger integrity
 
-**Penalties**:
-- **Level 1**: Warning (reputation reduction, reversible)
-- **Level 2**: Temporary voting-weight reduction (4-12 weeks)
-- **Level 3**: Performance bond slash + ejection from validator set (90-day cooldown, reinstatement requires governance approval)
+**Consequences**:
+- **Level 1**: Warning + temporary voting-weight reduction (1-4 weeks)
+- **Level 2**: Removal from quorum + 30-day suspension
+- **Level 3**: Full replacement; successor appointed by CBI Board + Parliament approval
 
-See **[GOVERNANCE_FRAMEWORK.md](GOVERNANCE_FRAMEWORK.md)** and **[SUPER_PEER_ACCOUNTABILITY.md](SUPER_PEER_ACCOUNTABILITY.md)** for complete procedures, appeals, and emergency protocols.
+See **[GOVERNANCE_FRAMEWORK_CBI.md](GOVERNANCE_FRAMEWORK_CBI.md)** and **[SUPER_PEER_ACCOUNTABILITY.md](SUPER_PEER_ACCOUNTABILITY.md)** for complete procedures, appeals, and emergency protocols.
 
 ---
 
@@ -619,7 +624,33 @@ See **[RECOVERY_AND_KEY_ROTATION.md](RECOVERY_AND_KEY_ROTATION.md)** for complet
 
 ---
 
-## Quick Start
+## Documentation
+
+### Core Strategy & Deployment
+- **[IRAQ_DEPLOYMENT.md](IRAQ_DEPLOYMENT.md)** — Strategic rationale and comprehensive deployment overview
+- **[IRAQ_IMPLEMENTATION_ROADMAP.md](docs/IRAQ_IMPLEMENTATION_ROADMAP.md)** — 18-month detailed implementation plan with phases and milestones
+- **[IRAQ_FINANCIAL_PROJECTIONS_5YEAR.md](IRAQ_FINANCIAL_PROJECTIONS_5YEAR.md)** — 5-year financial model with realistic assumptions (updated to 2026 economic data)
+- **[PITCH_CORRECTIONS_2026_REALITY.md](PITCH_CORRECTIONS_2026_REALITY.md)** — Corrections to economic projections based on actual 2026 Iraqi data
+
+### Monetary Policy & Governance
+- **[MONETARY_POLICY_SPECIFICATION_CBI.md](MONETARY_POLICY_SPECIFICATION_CBI.md)** — Complete monetary policy framework including merchant tier system for Iraqi Made preference
+- **[GOVERNANCE_FRAMEWORK_CBI.md](GOVERNANCE_FRAMEWORK_CBI.md)** — CBI governance structure, policy amendment procedures, parliament oversight
+- **[SUPER_PEER_ACCOUNTABILITY.md](SUPER_PEER_ACCOUNTABILITY.md)** — Super-peer validator accountability, slashing framework, evidence procedures
+
+### User & Key Management
+- **[RECOVERY_AND_KEY_ROTATION.md](RECOVERY_AND_KEY_ROTATION.md)** — Social recovery via delegates, key rotation, device migration, emergency procedures
+
+### Iraqi Made Preference System
+- **[IRAQI_MADE_PREFERENCE_SUMMARY.md](IRAQI_MADE_PREFERENCE_SUMMARY.md)** — Complete documentation of merchant tier system, market effects, implementation timeline
+
+### CBI Board Pitch Materials
+- **[cbi_infrastructure_proposal.html](cbi_infrastructure_proposal.html)** — 27-slide interactive pitch deck for CBI decision-makers (updated with 2026 economic figures)
+- **[CBI_PITCH_ENHANCED_SPEAKER_NOTES.md](CBI_PITCH_ENHANCED_SPEAKER_NOTES.md)** — Comprehensive speaker notes for all 27 slides with talking points
+- **[CBI_PITCH_COMPARATIVE_ANALYSIS.md](CBI_PITCH_COMPARATIVE_ANALYSIS.md)** — Comparison to global economic models; gap analysis and recommendations
+
+---
+
+## Quick Start (Development)
 
 ### Prerequisites
 
@@ -711,8 +742,8 @@ cylinder_seal/
 - **gRPC**: Tonic + Prost (Protobuf)
 - **Database**: PostgreSQL 16 + SQLx (compile-time SQL verification)
 - **Cache**: Redis 7
-- **Crypto**: BLAKE2b-256, Ed25519
-- **Amounts**: Always i64 micro-OWC (never float)
+- **Crypto**: BLAKE2b-256, Ed25519, RFC 6979 deterministic nonces
+- **Amounts**: Always i64 micro-IQD (never float)
 
 ### Android (Kotlin)
 - **Min SDK**: 24 (Android 7.0) — ~96% coverage
@@ -733,12 +764,15 @@ pub struct Transaction {
     pub transaction_id: Uuid,
     pub from_public_key: [u8; 32],      // Ed25519
     pub to_public_key: [u8; 32],
-    pub amount_owc: i64,                 // micro-OWC, 6 decimals (ALWAYS i64, never float)
+    pub amount_iqd: i64,                 // micro-IQD, 6 decimals (ALWAYS i64, never float)
     pub timestamp_utc: i64,              // microseconds
     pub monotonic_clock_nanos: i64,     // For clock-skew resistance
-    pub current_nonce: [u8; 32],        // Hardware-bound deterministic nonce
+    pub current_nonce: [u8; 32],        // Hardware-bound deterministic nonce (RFC 6979)
     pub previous_nonce: [u8; 32],       // For nonce chain validation
     pub device_id: Uuid,                // Which device signed this
+    pub lat: f64,                       // Location (for fraud detection)
+    pub lon: f64,
+    pub location_accuracy: Option<f32>,
     pub signature: [u8; 64],            // Ed25519 signature over canonical CBOR
 }
 ```
@@ -759,7 +793,7 @@ pub struct JournalEntry {
 }
 ```
 
-Personal journals are device-local, append-only transaction logs. They're NOT blockchain—no distributed consensus, just a transaction history that gets synced to super-peers for validation.
+Personal journals are device-local, append-only transaction logs. They're NOT blockchain—no distributed consensus, just a transaction history that gets synced to super-peers for Byzantine consensus validation.
 
 ## Protocol Overview
 
@@ -783,20 +817,21 @@ service ChainSync {
     // Device streams journal entries, super-peer streams back confirmations
     rpc SyncChain(stream JournalEntry) returns (stream SyncAck);
     
-    // Get OWC rates (basket of currencies)
+    // Get IQD exchange rates (for local currency display)
     rpc GetCurrencyRates(CurrencyRateRequest) returns (CurrencyRateBundle);
     
-    // Initiate fiat withdrawal/cash-out
-    rpc InitiateWithdrawal(WithdrawalRequest) returns (WithdrawalStatus);
+    // Initiate fiat conversion (IQD ↔ Physical IQD)
+    rpc InitiateConversion(ConversionRequest) returns (ConversionStatus);
 }
 ```
 
 Super-peer validation checks:
 - Ed25519 signature verification
-- Nonce chain validation (prevents replay)
+- Nonce chain validation (RFC 6979 deterministic nonces prevent replay)
 - Sequence number validation (prevents out-of-order)
-- Device daily spending limits (by KYC tier)
-- Device reputation scoring (ML-based anomaly detection)
+- Device daily spending limits (enforced by KYC tier)
+- Geographic anomaly detection (1800km/2hr threshold flags impossible travel)
+- Merchant tier verification (Iraqi Made preference tier system)
 
 ### Cash ↔ Digital Conversion (Every Super-Peer is an On/Off-Ramp)
 **How users enter and exit the system:**
@@ -1135,11 +1170,7 @@ This section exists because terms like "offline-first" and "personal ledgers" ca
 
 MIT
 
-## Contact
-
-Hayder Al-Bustami (hayder@modernecotech.com)
-
 ---
 
-**Last Updated**: 2026-04-15  
-**Status**: Week 1 implementation complete, VC pitch & network architecture documented, Android Week 2 ready
+**Last Updated**: 2026-04-17  
+**Status**: Digital Iraqi Dinar deployment model complete, 27-slide CBI pitch deck finalized, financial projections with 2026 economic data
