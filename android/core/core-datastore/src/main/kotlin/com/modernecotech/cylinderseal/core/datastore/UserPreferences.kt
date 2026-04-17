@@ -66,7 +66,7 @@ class UserPreferences @Inject constructor(@ApplicationContext private val ctx: C
 
     /** Used by tests / settings "forget this device". */
     suspend fun reset() {
-        ctx.dataStore.edit(Preferences::clear)
+        ctx.dataStore.edit { it.clear() }
     }
 
     companion object {

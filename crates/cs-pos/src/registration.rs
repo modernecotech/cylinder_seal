@@ -205,3 +205,44 @@ pub struct RegistrationInfo {
 fn derive_user_id(pk: &[u8; 32]) -> uuid::Uuid {
     cs_core::models::User::derive_user_id_from_public_key(pk)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn approval_state_roundtrip_strings() {
+        assert_eq!(ApprovalState::from_str("pending_review"), ApprovalState::PendingReview);
+        assert_eq!(ApprovalState::from_str("approved"), ApprovalState::Approved);
+        assert_eq!(ApprovalState::from_str("rejected"), ApprovalState::Rejected);
+        assert_eq!(ApprovalState::from_str("anything-else"), ApprovalState::Unregistered);
+
+        assert_eq!(ApprovalState::PendingReview.as_str(), "pending_review");
+        assert_eq!(ApprovalState::Approved.as_str(), "approved");
+        assert_eq!(ApprovalState::Unregistered.as_str(), "unregistered");
+    }
+
+    #[test]
+    fn cached_state_unregistered_when_file_missing() {
+        let mut path = std::env::temp_dir();
+        path.push(format!("cs-pos-reg-{}.json", uuid::Uuid::new_v4()));
+        let reg = Registrar::new("https://example.invalid".into(), &path);
+        assert_eq!(reg.cached_state(), ApprovalState::Unregistered);
+    }
+
+    #[test]
+    fn status_file_write_then_read() {
+        let mut path = std::env::temp_dir();
+        path.push(format!("cs-pos-reg-{}.json", uuid::Uuid::new_v4()));
+        let reg = Registrar::new("https://example.invalid".into(), &path);
+
+        let status = RegistrationStatusFile {
+            state: "pending_review".into(),
+            legal_name: "Acme".into(),
+            commercial_registration_id: "12345".into(),
+            last_checked_at: 9999,
+        };
+        reg.write_status(&status).unwrap();
+        assert_eq!(reg.cached_state(), ApprovalState::PendingReview);
+    }
+}

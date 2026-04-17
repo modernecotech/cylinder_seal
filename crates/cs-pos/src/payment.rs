@@ -113,3 +113,153 @@ pub struct ValidatedPayment {
     pub entry_hash: Vec<u8>,
     pub cbor: Vec<u8>,
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use cs_core::models::{LocationSource, PaymentChannel};
+    use rust_decimal::Decimal;
+
+    fn keypair() -> ([u8; 32], [u8; 32]) {
+        cs_core::cryptography::generate_keypair()
+    }
+
+    fn request_for(merchant_pk: [u8; 32], amount: i64) -> PaymentRequest {
+        PaymentRequest::new(
+            &merchant_pk,
+            "Test Merchant".into(),
+            amount,
+            "IQD".into(),
+            "".into(),
+            120,
+        )
+    }
+
+    fn signed_tx(
+        from: ([u8; 32], [u8; 32]),
+        to: [u8; 32],
+        amount: i64,
+        currency: &str,
+        memo: &str,
+    ) -> Transaction {
+        let mut tx = Transaction::new(
+            from.0,
+            to,
+            amount,
+            currency.into(),
+            Decimal::ONE,
+            PaymentChannel::NFC,
+            memo.into(),
+            Uuid::new_v4(),
+            [0u8; 32],
+            [1u8; 32],
+            0.0,
+            0.0,
+            0,
+            LocationSource::Offline,
+        );
+        tx.sign(&from.1).unwrap();
+        tx
+    }
+
+    #[test]
+    fn to_qr_prefixes_with_cs1_req() {
+        let (pk, _) = keypair();
+        let req = request_for(pk, 1_000_000);
+        let qr = req.to_qr().unwrap();
+        assert!(qr.starts_with("CS1:REQ:"));
+        // Strip prefix and decode — round-trip must preserve fields.
+        let hex_part = qr.strip_prefix("CS1:REQ:").unwrap();
+        let cbor = hex::decode(hex_part).unwrap();
+        let roundtrip: PaymentRequest = serde_cbor::from_slice(&cbor).unwrap();
+        assert_eq!(roundtrip.amount_micro_owc, 1_000_000);
+        assert_eq!(roundtrip.currency, "IQD");
+    }
+
+    #[test]
+    fn validate_accepts_correctly_signed_matching_payment() {
+        let merchant = keypair();
+        let customer = keypair();
+        let amount = 2_000_000;
+
+        let req = request_for(merchant.0, amount);
+        let tx = signed_tx(customer, merchant.0, amount, "IQD", "");
+        let cbor = serde_cbor::to_vec(&tx).unwrap();
+
+        let valid = validate_against_request(&req, &cbor).expect("should accept");
+        assert_eq!(valid.transaction.amount_owc, amount);
+        assert_eq!(valid.entry_hash.len(), 32);
+    }
+
+    #[test]
+    fn validate_rejects_wrong_recipient() {
+        let merchant = keypair();
+        let attacker = keypair();
+        let customer = keypair();
+
+        let req = request_for(merchant.0, 1_000_000);
+        // Customer sends to the *attacker*, not the merchant.
+        let tx = signed_tx(customer, attacker.0, 1_000_000, "IQD", "");
+        let cbor = serde_cbor::to_vec(&tx).unwrap();
+
+        let err = validate_against_request(&req, &cbor).unwrap_err();
+        assert!(err.to_string().contains("recipient"));
+    }
+
+    #[test]
+    fn validate_rejects_amount_mismatch() {
+        let merchant = keypair();
+        let customer = keypair();
+
+        let req = request_for(merchant.0, 1_000_000);
+        let tx = signed_tx(customer, merchant.0, 999_999, "IQD", "");
+        let cbor = serde_cbor::to_vec(&tx).unwrap();
+
+        let err = validate_against_request(&req, &cbor).unwrap_err();
+        assert!(err.to_string().contains("amount"));
+    }
+
+    #[test]
+    fn validate_rejects_currency_mismatch() {
+        let merchant = keypair();
+        let customer = keypair();
+
+        let req = request_for(merchant.0, 1_000_000);
+        let tx = signed_tx(customer, merchant.0, 1_000_000, "USD", "");
+        let cbor = serde_cbor::to_vec(&tx).unwrap();
+
+        let err = validate_against_request(&req, &cbor).unwrap_err();
+        assert!(err.to_string().contains("currency"));
+    }
+
+    #[test]
+    fn validate_rejects_tampered_signature() {
+        let merchant = keypair();
+        let customer = keypair();
+
+        let req = request_for(merchant.0, 1_000_000);
+        let mut tx = signed_tx(customer, merchant.0, 1_000_000, "IQD", "");
+        // Flip a byte after signing.
+        tx.signature[0] ^= 0x01;
+        let cbor = serde_cbor::to_vec(&tx).unwrap();
+
+        let err = validate_against_request(&req, &cbor).unwrap_err();
+        assert!(err.to_string().contains("signature"));
+    }
+
+    #[test]
+    fn validate_rejects_expired_request() {
+        let merchant = keypair();
+        let customer = keypair();
+
+        let mut req = request_for(merchant.0, 1_000_000);
+        // Expire one second in the past.
+        req.expires_at = chrono::Utc::now().timestamp() - 1;
+
+        let tx = signed_tx(customer, merchant.0, 1_000_000, "IQD", "");
+        let cbor = serde_cbor::to_vec(&tx).unwrap();
+
+        let err = validate_against_request(&req, &cbor).unwrap_err();
+        assert!(err.to_string().contains("expired"));
+    }
+}

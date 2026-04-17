@@ -107,3 +107,42 @@ fn hostname() -> String {
 fn now_ms() -> i64 {
     chrono::Utc::now().timestamp_millis()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::store::Store;
+
+    fn tmp_store() -> Store {
+        let mut path = std::env::temp_dir();
+        path.push(format!("cs-pos-merchant-{}.db", uuid::Uuid::new_v4()));
+        Store::open(&path).expect("open store")
+    }
+
+    #[test]
+    fn load_or_create_generates_once_and_reloads_thereafter() {
+        let store = tmp_store();
+        let first = Merchant::load_or_create(&store).unwrap();
+        assert_eq!(first.public_key.len(), 32);
+        assert_eq!(first.private_key.len(), 32);
+
+        let second = Merchant::load_or_create(&store).unwrap();
+        assert_eq!(
+            first.public_key, second.public_key,
+            "load_or_create must be idempotent"
+        );
+        assert_eq!(
+            first.private_key, second.private_key,
+            "wrap/unwrap must preserve the private key"
+        );
+    }
+
+    #[test]
+    fn wrap_unwrap_is_xor_inverse() {
+        let (pk, sk) = cs_core::cryptography::generate_keypair();
+        let wrapped = wrap_private(&sk, &pk);
+        assert_ne!(wrapped, sk.to_vec(), "wrapped blob must differ from plaintext");
+        let round = unwrap_private(&wrapped, &pk).unwrap();
+        assert_eq!(round, sk);
+    }
+}

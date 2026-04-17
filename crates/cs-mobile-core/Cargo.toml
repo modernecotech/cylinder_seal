@@ -11,6 +11,10 @@ license.workspace = true
 crate-type = ["lib", "cdylib", "staticlib"]
 name = "cs_mobile_core"
 
+[[bin]]
+name = "uniffi-bindgen"
+path = "src/bin/uniffi-bindgen.rs"
+
 [dependencies]
 cs-core = { path = "../cs-core" }
 serde.workspace = true

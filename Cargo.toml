@@ -12,6 +12,7 @@ members = [
     "crates/cs-mobile-core",
     "crates/cs-pos",
     "crates/cs-tests",
+    "crates/cs-bridge",
 ]
 resolver = "2"
 

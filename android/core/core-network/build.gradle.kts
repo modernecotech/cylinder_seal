@@ -1,3 +1,5 @@
+import com.google.protobuf.gradle.id
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -15,12 +17,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions { jvmTarget = "17" }
-
-    sourceSets {
-        getByName("main") {
-            proto { srcDir("../../../proto") }
-        }
-    }
+    // The proto file lives at workspace-root /proto/chain_sync.proto and
+    // is symlinked to src/main/proto/chain_sync.proto so the protobuf
+    // plugin picks it up via its default source-set lookup.
 }
 
 protobuf {
@@ -61,14 +60,15 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.androidx.core.ktx)
 
-    // gRPC
-    implementation(libs.grpc.stub)
-    implementation(libs.grpc.protobuf.lite)
-    implementation(libs.grpc.kotlin.stub)
-    implementation(libs.grpc.android)
-    implementation(libs.grpc.okhttp)
-    implementation(libs.protobuf.java.lite)
-    implementation(libs.protobuf.kotlin.lite)
+    // gRPC — exposed with `api` so consumer modules see the generated
+    // proto classes without re-declaring these deps.
+    api(libs.grpc.stub)
+    api(libs.grpc.protobuf.lite)
+    api(libs.grpc.kotlin.stub)
+    api(libs.grpc.android)
+    api(libs.grpc.okhttp)
+    api(libs.protobuf.java.lite)
+    api(libs.protobuf.kotlin.lite)
 
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)

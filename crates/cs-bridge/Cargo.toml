@@ -1,0 +1,26 @@
+[package]
+name = "cs-bridge"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "flutter_rust_bridge-exposed API: the Rust core as consumed by the Flutter app"
+
+[lib]
+# `cdylib` for Android/iOS; `staticlib` to also support macOS/desktop.
+# `rlib` so the workspace can link it from Rust tests.
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[dependencies]
+cs-core = { path = "../cs-core" }
+
+flutter_rust_bridge = "=2.7.0"
+anyhow.workspace = true
+serde.workspace = true
+serde_cbor.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+rust_decimal.workspace = true
+hex.workspace = true
+thiserror.workspace = true

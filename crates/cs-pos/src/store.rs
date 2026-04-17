@@ -211,3 +211,113 @@ pub struct ReceiptRow {
     pub timestamp_utc: i64,
     pub synced_at: Option<i64>,
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn tmp_store() -> Store {
+        let mut path = std::env::temp_dir();
+        path.push(format!("cs-pos-test-{}.db", uuid::Uuid::new_v4()));
+        Store::open(&path).expect("open store")
+    }
+
+    #[test]
+    fn merchant_upsert_and_load_roundtrip() {
+        let store = tmp_store();
+        assert!(store.load_merchant().unwrap().is_none());
+
+        let row = MerchantRow {
+            public_key: vec![1u8; 32],
+            private_key_wrapped: vec![2u8; 32],
+            created_at: 123456789,
+        };
+        store.upsert_merchant(&row).unwrap();
+
+        let loaded = store.load_merchant().unwrap().expect("merchant present");
+        assert_eq!(loaded.public_key, row.public_key);
+        assert_eq!(loaded.private_key_wrapped, row.private_key_wrapped);
+    }
+
+    #[test]
+    fn pending_enqueue_drain_remove() {
+        let store = tmp_store();
+        let entry_hash = vec![0xAAu8; 32];
+        let row = PendingRow {
+            entry_hash: entry_hash.clone(),
+            cbor: vec![0u8; 16],
+            amount_micro_owc: 5_000_000,
+            transport: "Nfc".into(),
+            received_at: 1000,
+            last_attempt_at: None,
+            attempt_count: 0,
+        };
+        store.enqueue(&row).unwrap();
+        assert_eq!(store.pending_count().unwrap(), 1);
+
+        let drained = store.drain().unwrap();
+        assert_eq!(drained.len(), 1);
+        assert_eq!(drained[0].entry_hash, entry_hash);
+
+        store.remove_pending(&entry_hash).unwrap();
+        assert_eq!(store.pending_count().unwrap(), 0);
+    }
+
+    #[test]
+    fn pending_record_attempt_bumps_counter() {
+        let store = tmp_store();
+        let entry_hash = vec![0xBBu8; 32];
+        store
+            .enqueue(&PendingRow {
+                entry_hash: entry_hash.clone(),
+                cbor: vec![],
+                amount_micro_owc: 1,
+                transport: "Qr".into(),
+                received_at: 0,
+                last_attempt_at: None,
+                attempt_count: 0,
+            })
+            .unwrap();
+
+        store.record_attempt(&entry_hash, 2000).unwrap();
+        store.record_attempt(&entry_hash, 3000).unwrap();
+        let drained = store.drain().unwrap();
+        assert_eq!(drained[0].attempt_count, 2);
+        assert_eq!(drained[0].last_attempt_at, Some(3000));
+    }
+
+    #[test]
+    fn receipt_insert_and_mark_synced() {
+        let store = tmp_store();
+        let tx_id = "00000000-0000-0000-0000-000000000001";
+        store
+            .insert_receipt(&ReceiptRow {
+                transaction_id: tx_id.into(),
+                amount_micro_owc: 1_000_000,
+                currency: "IQD".into(),
+                memo: Some("test".into()),
+                channel: "Nfc".into(),
+                counterparty_pk: vec![0u8; 32],
+                timestamp_utc: 1234,
+                synced_at: None,
+            })
+            .unwrap();
+        // Second insert with same id should REPLACE, not error.
+        store
+            .insert_receipt(&ReceiptRow {
+                transaction_id: tx_id.into(),
+                amount_micro_owc: 1_000_000,
+                currency: "IQD".into(),
+                memo: None,
+                channel: "Ble".into(),
+                counterparty_pk: vec![1u8; 32],
+                timestamp_utc: 5678,
+                synced_at: None,
+            })
+            .unwrap();
+
+        // mark_receipt_synced is a no-op against an unknown id.
+        store.mark_receipt_synced("missing", 1).unwrap();
+        store.mark_receipt_synced(tx_id, 9999).unwrap();
+    }
+}

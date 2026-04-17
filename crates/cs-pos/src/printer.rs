@@ -105,3 +105,68 @@ fn format_micro_owc(micro: i64, currency: &str) -> String {
     let frac = (micro % 1_000_000).abs();
     format!("{whole}.{:06} {currency}", frac)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn sample_receipt() -> Receipt<'static> {
+        Receipt {
+            merchant_name: "Test Shop",
+            amount_micro_owc: 2_500_000,
+            currency: "IQD",
+            transaction_id: "abc-123",
+            memo: "note",
+            timestamp_utc: 1_700_000_000_000_000,
+        }
+    }
+
+    #[test]
+    fn disabled_printer_is_noop() {
+        let cfg = PrinterConfig {
+            kind: "disabled".into(),
+            target: String::new(),
+            width_chars: 32,
+        };
+        print(&cfg, &sample_receipt()).expect("disabled printer must not error");
+    }
+
+    #[test]
+    fn unknown_kind_errors() {
+        let cfg = PrinterConfig {
+            kind: "laser".into(),
+            target: String::new(),
+            width_chars: 32,
+        };
+        assert!(print(&cfg, &sample_receipt()).is_err());
+    }
+
+    #[test]
+    fn receipt_starts_with_esc_init_and_cut_at_end() {
+        let bytes = build_receipt(&sample_receipt(), 32);
+        assert_eq!(&bytes[..2], &[0x1B, 0x40], "receipt must start with ESC @");
+        assert!(
+            bytes.ends_with(&[0x1D, 0x56, 0x01]),
+            "receipt must end with GS V 1 (partial cut)"
+        );
+    }
+
+    #[test]
+    fn receipt_width_padding_respects_minimum_24() {
+        let bytes = build_receipt(&sample_receipt(), 10); // clamped up to 24
+        let text = String::from_utf8_lossy(&bytes);
+        assert!(text.contains(&"-".repeat(24)));
+    }
+
+    #[test]
+    fn format_micro_owc_preserves_fraction() {
+        assert_eq!(format_micro_owc(1_234_567, "IQD"), "1.234567 IQD");
+    }
+
+    #[test]
+    fn pad_center_handles_short_strings() {
+        let s = pad_center("ABC", 10);
+        assert!(s.ends_with("ABC"));
+        assert!(s.len() >= 3);
+    }
+}

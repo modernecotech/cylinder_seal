@@ -1,7 +1,6 @@
 package com.modernecotech.cylinderseal.feature.business
 
 import com.modernecotech.cylinderseal.core.datastore.UserPreferences
-import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

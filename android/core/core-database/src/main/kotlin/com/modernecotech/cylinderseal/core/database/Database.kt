@@ -12,8 +12,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import net.sqlcipher.database.SQLiteDatabase
-import net.sqlcipher.database.SupportFactory
+import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 
 @Database(
     entities = [
@@ -41,9 +40,11 @@ object DatabaseModule {
         @ApplicationContext ctx: Context,
         keystore: KeystoreManager,
     ): CsDatabase {
-        SQLiteDatabase.loadLibs(ctx)
+        // The new sqlcipher-android coordinate no longer has SQLiteDatabase.loadLibs;
+        // the native library is loaded lazily by the factory itself.
+        System.loadLibrary("sqlcipher")
         val passphrase = deriveSqlcipherKey(ctx, keystore)
-        val factory = SupportFactory(passphrase, null, /*clearPassphrase=*/false)
+        val factory = SupportOpenHelperFactory(passphrase)
 
         return Room
             .databaseBuilder(ctx, CsDatabase::class.java, DB_NAME)
