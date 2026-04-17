@@ -499,6 +499,126 @@ See **[docs/NETWORK_AND_CREDIT_ARCHITECTURE.md](docs/NETWORK_AND_CREDIT_ARCHITEC
 - ❌ Not peer-to-peer infrastructure (super-peers are centralized validators)
 - ❌ Not trading platform (no speculation, no volatility)
 
+---
+
+## Monetary Policy & Stability
+
+### One World Currency (OWC): Remittance-Backed Issuance
+
+The OWC is a **basket of world currencies** (50% USD, 25% EUR, 15% GBP, 10% JPY) that provides:
+- **Stability**: No single-country inflation risk
+- **Redemption**: Users can withdraw fiat via Wise, PayPal, local banks
+- **Reserve Backing**: Every OWC minted is 100% backed by fiat in escrow
+
+**How it works**:
+```
+Sender (USA)            →    Gateway           →    Receiver (Kenya)
+Deposits $100 USD       →    Holds $100 escrow →    Receives ~13,500 OWC
+(via Wise/PayPal)           in reserve              (displays as ~13,500 KES)
+```
+
+### Controlled Protocol Issuance
+
+Beyond remittance backing, CylinderSeal issues **protocol-controlled supply** capped at:
+- Lesser of: (0.5% × transaction volume) OR (0.5% × prior circulating supply)
+
+**Used for**: Super-peer infrastructure, credit scoring, dispute resolution — **funded from transaction volume, not user fees**
+
+### Reserve Coverage Ratio (CR) and Automatic Policy Tightening
+
+CylinderSeal publishes **weekly reserve attestations**:
+- **CR = Reserves / Circulating Supply**
+- Target: CR ≥ 1.08 (8% reserve buffer above all OWC in circulation)
+
+**If CR falls below thresholds**, the system automatically:
+- Tightens protocol issuance (cap reduced to 50%)
+- Reduces unsecured lending limits
+- Slows large withdrawals (spreads over 7-14 days)
+
+**Never freezes ordinary commerce or marketplace transactions.**
+
+See **[MONETARY_POLICY_SPECIFICATION.md](MONETARY_POLICY_SPECIFICATION.md)** for complete policy, stress testing, and bond capital formation.
+
+---
+
+## Governance & Accountability
+
+### Multi-Party Governance (Phase 2+)
+
+Policy is NOT controlled by CylinderSeal alone. Three committees approve changes:
+
+1. **Policy Committee** (2 CylinderSeal + 2 MFI + 1 independent)
+   - Marketplace fees, user incentives, growth strategy
+   
+2. **Risk Committee** (1 CFO + 1 independent auditor + 1 MFI lending expert)
+   - Reserve adequacy, lending limits, monetary policy bounds
+   
+3. **Federation Quorum** (5 super-peer operators)
+   - Technical validation, network security, validator accountability
+
+### Three Tiers of Policy Changes
+
+| Change Type | Approval | Timeline | Used For |
+|-------------|----------|----------|----------|
+| **Ordinary** | Simple majority | 7 days | Marketplace fees, loan rates, grants |
+| **Elevated** | 2-of-3 risk committee | 14 days | Reserve targets, lending caps, bond terms |
+| **Emergency** | 2-of-5 super-peers (immediate) + 4-of-5 ratification within 72h | Immediate | Reserve collapse, liquidity crisis, fraud |
+
+**Every parameter change is public**, machine-readable, and auditable.
+
+### Super-Peer Accountability (Phase 3)
+
+Super-peers can be slashed (penalized) for:
+- **Double-signing**: Sign conflicting transactions (cryptographic proof required)
+- **Invalid minting**: Sign mint events without reserve backing
+- **Persistent unavailability**: Miss >50% of verifications
+- **Censorship**: Withhold valid transactions for >1 hour
+
+**Penalties**:
+- **Level 1**: Warning (reputation reduction, reversible)
+- **Level 2**: Temporary voting-weight reduction (4-12 weeks)
+- **Level 3**: Performance bond slash + ejection from validator set (90-day cooldown, reinstatement requires governance approval)
+
+See **[GOVERNANCE_FRAMEWORK.md](GOVERNANCE_FRAMEWORK.md)** and **[SUPER_PEER_ACCOUNTABILITY.md](SUPER_PEER_ACCOUNTABILITY.md)** for complete procedures, appeals, and emergency protocols.
+
+---
+
+## Recovery & Key Rotation
+
+### Social Recovery: 3-of-5 Trusted Contacts
+
+If user loses their phone, they can recover their account **without passwords**:
+
+1. **Configure delegates**: At signup, choose 3-7 trusted contacts (friends, family, MFI partners)
+2. **Lost phone**: Get new phone, select "Recover from Delegates"
+3. **Out-of-band verification**: Contact delegates via phone/in-person; they verify your identity
+4. **Collect approvals**: Once 3 (or threshold) delegates approve, you recover account
+5. **Full access**: Regain access to balance, credit score, transaction history
+
+**Timeline**: 5 days from device loss to full access
+
+**Delegates have NO access to your money** — they only verify identity and approve recovery.
+
+### Key Rotation and Compromise Response
+
+- **Rotate spending key**: Periodically replace signing key (delegates approve)
+- **Rotate identity key**: Only in cryptographic emergency (governance approval required)
+- **Compromise suspected**: Report device as compromised → all pending transactions frozen → fast-track recovery via delegates (24-hour approval window)
+
+### Device Migration
+
+Switching to new phone? Backup your wallet (encrypted QR code or 12-word passphrase) and restore on new device. Automatic transfer of:
+- ✅ Full transaction history
+- ✅ Balance and credit score
+- ✅ Marketplace listings (if seller)
+- ✅ Recovery delegates
+
+Old device's spending key automatically revoked.
+
+See **[RECOVERY_AND_KEY_ROTATION.md](RECOVERY_AND_KEY_ROTATION.md)** for complete social recovery flows, key rotation, emergency procedures, and backup strategies.
+
+---
+
 ## Quick Start
 
 ### Prerequisites

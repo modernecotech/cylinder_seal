@@ -431,6 +431,60 @@ android/feature/feature-settings/src/
 
 ---
 
+## Phase 2: Monetary Policy & Governance (Weeks 5-9, After MVP Stabilizes)
+
+**See:**
+- **[MONETARY_POLICY_SPECIFICATION.md](../MONETARY_POLICY_SPECIFICATION.md)**
+- **[GOVERNANCE_FRAMEWORK.md](../GOVERNANCE_FRAMEWORK.md)**  
+- **[RECOVERY_AND_KEY_ROTATION.md](../RECOVERY_AND_KEY_ROTATION.md)**
+
+After MVP is stable and payment consensus is proven, formalize:
+
+| Timeline | Deliverable | Impact |
+|----------|-------------|--------|
+| Weeks 5-6 | Reserve attestation system + CR dashboard | Weekly public reporting of reserves vs. circulating supply |
+| Weeks 6-7 | Governance framework (parameter registry + approval tiers) | Non-technical policy changes can't bypass multi-party approval |
+| Week 7-8 | Social recovery delegates (3-of-5 threshold) | Users can recover lost phones via trusted contacts |
+| Week 8-9 | Key rotation + compromise response | Users can rotate keys + freeze compromised device instantly |
+
+**Governance Committees formed:**
+- Policy Committee (2 CylinderSeal + 2 MFI + 1 independent)
+- Risk Committee (1 CFO + 1 auditor + 1 MFI expert)
+- Federation Quorum (5 super-peer operators, advisory on technical changes)
+
+**Key metrics**:
+- [ ] CR (reserve coverage) ≥ 1.08, published weekly
+- [ ] All policy changes captured in signed governance records
+- [ ] Social recovery success rate >95%
+- [ ] Zero compromised-account incidents due to missing key rotation
+
+---
+
+## Phase 3: Super-Peer Accountability & Federation (Weeks 10-16, Before Open Scaling)
+
+**See: [SUPER_PEER_ACCOUNTABILITY.md](../SUPER_PEER_ACCOUNTABILITY.md)**
+
+As system scales beyond initial 5 super-peers, formalize accountability:
+
+| Timeline | Deliverable | Impact |
+|----------|-------------|--------|
+| Weeks 10-11 | Slashing framework (double-sign detection, penalties) | Bad validators removed from quorum, performance bonds slashed |
+| Weeks 11-12 | Evidence verification pipeline | Cryptographic proof required for all violations |
+| Weeks 12-13 | Appeal procedures + independent arbitration | Validators can contest violations; fairness ensured |
+| Weeks 13-14 | SLA monitoring (99.5% uptime, <30s latency) | Dashboard shows super-peer performance vs. targets |
+| Weeks 14-16 | Emergency procedures (crisis declaration, temporary powers) | System survives super-peer outages, coordinated attacks |
+
+**Super-Peer Levels:**
+- **Level 1 Penalty**: Warning + reputation reduction (reversible)
+- **Level 2 Penalty**: Voting-weight reduction for 4-12 weeks (recoverable with remediation)
+- **Level 3 Penalty**: Performance bond slash + ejection (requires 90-day cooldown + governance reinstatement)
+
+**Federation Growth:**
+- Weeks 10-16: Operate with initial 5 super-peers
+- Weeks 16+: Expand to 7-10 nodes via open federation licensing (NGOs, telcos, governments can operate nodes)
+
+---
+
 ## Phase 5: Marketplace MVP (Weeks 17-24, Post-Security Deployment)
 
 **See: [MARKETPLACE_IMPLEMENTATION.md](MARKETPLACE_IMPLEMENTATION.md)**

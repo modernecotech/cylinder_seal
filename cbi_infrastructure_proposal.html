@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Iraqi Dinar - CBI Infrastructure Proposal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .presentation {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 60px 80px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            animation: fadeIn 0.5s;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide h1 {
+            font-size: 56px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide h2 {
+            font-size: 42px;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+
+        .slide h3 {
+            font-size: 24px;
+            color: #00d9ff;
+            margin-bottom: 15px;
+        }
+
+        .slide p {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #b0b3d9;
+            max-width: 900px;
+        }
+
+        .slide ul {
+            list-style: none;
+            font-size: 18px;
+            text-align: left;
+            display: inline-block;
+            color: #b0b3d9;
+            margin: 20px 0;
+        }
+
+        .slide ul li {
+            margin: 15px 0;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .slide ul li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #00d9ff;
+            font-size: 24px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .stat-box {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid #00d9ff;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .stat-box .number {
+            font-size: 42px;
+            color: #00d9ff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-box .label {
+            font-size: 14px;
+            color: #b0b3d9;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .metric-box {
+            background: rgba(0, 217, 255, 0.05);
+            border-left: 4px solid #00d9ff;
+            padding: 20px 30px;
+            margin: 20px 0;
+            border-radius: 5px;
+            text-align: left;
+            display: inline-block;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .metric-box strong {
+            color: #00d9ff;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        button {
+            background: #00d9ff;
+            color: #0a0e27;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #00a8cc;
+            transform: scale(1.05);
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            font-size: 18px;
+            color: #b0b3d9;
+        }
+
+        .tagline {
+            font-size: 28px;
+            color: #00d9ff;
+            margin: 30px 0;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        table {
+            margin: 40px auto;
+            border-collapse: collapse;
+            max-width: 800px;
+        }
+
+        table th, table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #00d9ff;
+            text-align: left;
+        }
+
+        table th {
+            background: rgba(0, 217, 255, 0.1);
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        table td {
+            color: #b0b3d9;
+        }
+
+        .emphasis {
+            color: #00d9ff;
+            font-weight: bold;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 30px 0;
+            max-width: 1000px;
+        }
+
+        .column {
+            text-align: left;
+        }
+
+        .column h3 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .column ul li {
+            font-size: 16px;
+            margin: 12px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>Digital Iraqi Dinar</h1>
+            <p class="tagline">CBI Infrastructure for Direct Money Distribution</p>
+            <p style="margin-top: 60px; font-size: 24px;">A proposal for modernizing Iraq's monetary system</p>
+            <p style="margin-top: 30px; color: #888;">Central Bank of Iraq</p>
+        </div>
+
+        <!-- Slide 2: Current State Challenge -->
+        <div class="slide">
+            <h2>The Challenge: CBI Monetary Policy is Constrained</h2>
+            <div style="text-align: left; max-width: 900px; margin-top: 50px;">
+                <div class="metric-box">
+                    <strong>70% of Iraqis are unbanked</strong><br>
+                    Commercial banks are the only distribution channel. No CBI direct access.
+                </div>
+                <div class="metric-box">
+                    <strong>CBI loses seigniorage to banks</strong><br>
+                    Banks capture 20-30% of money creation profit through fees and lending spreads.
+                </div>
+                <div class="metric-box">
+                    <strong>Monetary policy is slow to transmit</strong><br>
+                    CBI decisions reach citizens through banks in days/weeks, not real-time.
+                </div>
+                <div class="metric-box">
+                    <strong>AML/CFT visibility is limited</strong><br>
+                    CBI sees transactions days later through bank clearing. Real-time enforcement impossible.
+                </div>
+                <div class="metric-box">
+                    <strong>Financial inclusion is stalled</strong><br>
+                    Bank branch economics don't work in rural Iraq. 60% of rural population has no access.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: The Opportunity -->
+        <div class="slide">
+            <h2>The Opportunity: Direct Currency Distribution</h2>
+            <div class="stat-grid" style="margin-top: 50px;">
+                <div class="stat-box">
+                    <div class="number">100%</div>
+                    <div class="label">Seigniorage Capture</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">40M+</div>
+                    <div class="label">Direct CBI Users</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">Real-time</div>
+                    <div class="label">Policy Transmission</div>
+                </div>
+            </div>
+            <p style="margin-top: 60px; max-width: 900px;">Remove commercial banks from currency distribution. CBI issues IQD directly to every Iraqi via a federated digital system. Citizens transact peer-to-peer, cost-free. CBI captures full seigniorage instead of sharing with banks.</p>
+        </div>
+
+        <!-- Slide 4: How It Works -->
+        <div class="slide">
+            <h2>How It Works: Three-Tier Architecture</h2>
+            <div style="text-align: left; max-width: 900px; margin-top: 40px; font-size: 18px;">
+                <div style="margin: 30px 0;">
+                    <h3 style="text-align: center; margin-bottom: 15px;">Tier 1: Personal Ledger</h3>
+                    <p style="text-align: center; color: #b0b3d9; margin-bottom: 10px;">Each citizen's phone stores encrypted IQD balance and transaction history. Peer-to-peer payments work offline via NFC/BLE.</p>
+                </div>
+                <div style="margin: 30px 0;">
+                    <h3 style="text-align: center; margin-bottom: 15px;">Tier 2: Super-Peer Network</h3>
+                    <p style="text-align: center; color: #b0b3d9; margin-bottom: 10px;">Federated super-peers in Baghdad, Basra, Erbil coordinate conflict resolution. Byzantine consensus (3-of-5) detects double-spends. No transaction fees.</p>
+                </div>
+                <div style="margin: 30px 0;">
+                    <h3 style="text-align: center; margin-bottom: 15px;">Tier 3: CBI Control Layer</h3>
+                    <p style="text-align: center; color: #b0b3d9; margin-bottom: 10px;">CBI controls monetary policy, issuance rates, KYC tiers. Real-time monitoring of money supply and velocity. Full AML/CFT visibility.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Offline Capability -->
+        <div class="slide">
+            <h2>Offline-First: Works Without Connectivity</h2>
+            <p style="margin-bottom: 40px;">Most critical innovation for rural Iraq</p>
+            <div class="two-column">
+                <div class="column">
+                    <h3>NFC Peer-to-Peer</h3>
+                    <ul>
+                        <li>Two phones touch</li>
+                        <li>Payer initiates payment</li>
+                        <li>Receiver confirms receipt</li>
+                        <li>Both create signed transaction</li>
+                        <li>Works completely offline</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3>Later Sync</h3>
+                    <ul>
+                        <li>When connectivity returns</li>
+                        <li>Phone syncs to nearest super-peer</li>
+                        <li>Super-peer verifies no double-spend</li>
+                        <li>Transactions confirmed in ledger</li>
+                        <li>Process takes <5 seconds</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top: 60px; color: #888; max-width: 900px;">A rural farmer in Anbar can transact during market day with no cell service. When they reach town and get connectivity, their transaction is confirmed. Zero friction.</p>
+        </div>
+
+        <!-- Slide 6: CBI Monetary Policy Control -->
+        <div class="slide">
+            <h2>CBI Maintains Full Monetary Control</h2>
+            <div style="text-align: left; max-width: 900px; margin-top: 50px;">
+                <div class="metric-box">
+                    <strong>Set issuance schedule</strong><br>
+                    CBI decides monthly IQD injection. System enforces limits automatically.
+                </div>
+                <div class="metric-box">
+                    <strong>Real-time money supply monitoring</strong><br>
+                    See M0, M1, M2 instantly. Track velocity per region. Detect anomalies in seconds.
+                </div>
+                <div class="metric-box">
+                    <strong>Transaction velocity control</strong><br>
+                    Tighten/loosen daily transaction limits if inflation rises. Implement negative rates if needed.
+                </div>
+                <div class="metric-box">
+                    <strong>AML/CFT at scale</strong><br>
+                    Every transaction visible to CBI in real-time. Automatic flagging of suspicious patterns across all 40M users.
+                </div>
+                <div class="metric-box">
+                    <strong>Banks remain as lenders</strong><br>
+                    Commercial banks lose fee income but continue lending from CBI reserves. Competition becomes fair instead of gatekeeping.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Financial Inclusion Impact -->
+        <div class="slide">
+            <h2>Financial Inclusion: Direct Access for All</h2>
+            <p style="margin-bottom: 40px;">Today vs. With Digital Dinar</p>
+            <table>
+                <tr>
+                    <th>Activity</th>
+                    <th>Today (Bank-Dependent)</th>
+                    <th>Digital Dinar</th>
+                </tr>
+                <tr>
+                    <td>Store money</td>
+                    <td>Need bank account, minimum balance, fees</td>
+                    <td>Phone wallet, zero fees, any amount</td>
+                </tr>
+                <tr>
+                    <td>Send money</td>
+                    <td>Go to bank, pay 2-5% fee, wait 2-3 days</td>
+                    <td>Tap phone, zero fees, instant</td>
+                </tr>
+                <tr>
+                    <td>Receive remittance</td>
+                    <td>Go to money exchange, lose 5-10%, risky</td>
+                    <td>Direct to phone wallet, zero fees, safe</td>
+                </tr>
+                <tr>
+                    <td>Build credit</td>
+                    <td>Need bank relationship, collateral</td>
+                    <td>Credit score from transaction history, peer lending</td>
+                </tr>
+                <tr>
+                    <td>Access in rural area</td>
+                    <td>No bank branch, no access</td>
+                    <td>Works offline, syncs when connected</td>
+                </tr>
+            </table>
+            <p style="margin-top: 40px; color: #888;">Unbanked population goes from 0% financial access to 100% access with a smartphone and connectivity.</p>
+        </div>
+
+        <!-- Slide 8: Iraqi Made Preference (Trade Policy) -->
+        <div class="slide">
+            <h2>Trade Policy: "Iraqi Made" Preference</h2>
+            <p style="margin-bottom: 40px;">Use Digital Dinar to encourage local production and reduce imports</p>
+            <div style="text-align: left; max-width: 1000px; margin-top: 40px;">
+                <h3 style="text-align: center; color: #fff; margin-bottom: 30px;">Merchant Tier System</h3>
+                <table style="margin: 0 auto; max-width: 900px;">
+                    <tr>
+                        <th>Tier</th>
+                        <th>Product Content</th>
+                        <th>Fee</th>
+                        <th>Digital Dinar Access</th>
+                    </tr>
+                    <tr>
+                        <td><span class="emphasis">🇮🇶 Local</span></td>
+                        <td>100% Iraqi-made</td>
+                        <td>0%</td>
+                        <td>✅ Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><span class="emphasis">⚙️ Mixed Local</span></td>
+                        <td>50-99% Iraqi content</td>
+                        <td>0.5%</td>
+                        <td>✅ 50% budget max</td>
+                    </tr>
+                    <tr>
+                        <td><span class="emphasis">📦 Mixed Import</span></td>
+                        <td>1-49% Iraqi content</td>
+                        <td>2%</td>
+                        <td>✅ Remaining budget</td>
+                    </tr>
+                    <tr>
+                        <td><span class="emphasis">❌ Pure Import</span></td>
+                        <td>0% Iraqi content</td>
+                        <td>2%</td>
+                        <td>❌ Cannot use Digital Dinar</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="metric-box" style="margin-top: 40px;">
+                <strong>Market Effect:</strong> Government salary recipients (largest spend) can only spend Digital Dinar at local merchants first. This incentivizes retailers to stock Iraqi goods and local producers to scale production—without tariffs or subsidies.
+            </div>
+        </div>
+
+        <!-- Slide 9: Supply Chain Financing -->
+        <div class="slide">
+            <h2>Supply Chain Financing: Export Growth Engine</h2>
+            <p style="margin-bottom: 40px;">How Digital Dinar accelerates Iraqi exports</p>
+            <div style="text-align: left; max-width: 900px; margin-top: 40px;">
+                <div class="metric-box">
+                    <strong>Working Capital Loans for Exporters</strong><br>
+                    Iraqi textile manufacturer needs 500M IQD to buy fabric, produce goods, ship to UAE. Instant credit based on transaction history (no collateral). Traditional banks require 30-day paperwork + collateral.
+                </div>
+                <div class="metric-box">
+                    <strong>Buyer-Financed Trade</strong><br>
+                    UAE importer wants 1,000 units of Iraqi dates. Pays in Digital Dinar via Baghdad super-peer. Iraqi exporter gets instant settlement. Eliminates currency risk and payment delays.
+                </div>
+                <div class="metric-box">
+                    <strong>Supply Chain Visibility</strong><br>
+                    Every transaction on ledger = proof of goods. Bank can verify: goods produced → shipped → received. Enables cross-border lending against supply chain.
+                </div>
+                <div class="metric-box">
+                    <strong>Target: Iraqi exports $4B → $12B in 5 years</strong><br>
+                    Supply chain financing removes biggest barrier: working capital access. Manufacturers can scale production.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Growth Trajectory -->
+        <div class="slide">
+            <h2>Economic Stabilization & Growth: 5-Year Path</h2>
+            <table style="max-width: 1000px;">
+                <tr>
+                    <th>Metric</th>
+                    <th>Today (2026)</th>
+                    <th>Year 2 (2028)</th>
+                    <th>Year 5 (2031)</th>
+                </tr>
+                <tr>
+                    <td><strong>GDP (billions)</strong></td>
+                    <td>$265</td>
+                    <td>$290</td>
+                    <td>$351</td>
+                </tr>
+                <tr>
+                    <td><strong>GDP per capita</strong></td>
+                    <td>$5,680</td>
+                    <td>$6,090</td>
+                    <td>$7,060</td>
+                </tr>
+                <tr>
+                    <td><strong>Unemployment</strong></td>
+                    <td>15.5%</td>
+                    <td>13.2%</td>
+                    <td>9.5%</td>
+                </tr>
+                <tr>
+                    <td><strong>Non-oil exports</strong></td>
+                    <td>$2B/year</td>
+                    <td>$3B/year</td>
+                    <td>$6-8B/year</td>
+                </tr>
+                <tr>
+                    <td><strong>Oil output</strong></td>
+                    <td>1.4M bbl/day</td>
+                    <td>2.1M bbl/day</td>
+                    <td>2.5M bbl/day</td>
+                </tr>
+                <tr>
+                    <td><strong>Trade balance</strong></td>
+                    <td>+$5B surplus</td>
+                    <td>+$12B surplus</td>
+                    <td>+$19B surplus</td>
+                </tr>
+                <tr>
+                    <td><strong>IQD exchange rate</strong></td>
+                    <td>1,300/USD</td>
+                    <td>1,280/USD</td>
+                    <td>1,240/USD (modest stabilization)</td>
+                </tr>
+            </table>
+            <p style="margin-top: 40px; color: #888;">Growth driven by: financial inclusion + supply chain financing + regional non-oil trade settlement + import substitution</p>
+            <p style="margin-top: 20px; color: #888; font-size: 14px;"><em>Note: Oil output recovery is gradual (geopolitical constraints). Focus is on non-oil sector diversification and monetary stability.</em></p>
+        </div>
+
+        <!-- Slide 11: Regional Hub -->
+        <div class="slide">
+            <h2>Regional Hub: Baghdad as Middle East's Financial Center</h2>
+            <p style="margin-bottom: 40px;">Competitive positioning vs. Dubai, Istanbul, Doha</p>
+            <div style="text-align: left; max-width: 900px; margin-top: 40px;">
+                <h3 style="text-align: center; color: #fff; margin-bottom: 30px;">Why Baghdad Wins</h3>
+                <table style="margin: 0 auto; max-width: 850px;">
+                    <tr>
+                        <th>Factor</th>
+                        <th>Baghdad (New)</th>
+                        <th>Dubai/UAE</th>
+                        <th>Istanbul</th>
+                        <th>Doha</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Population</strong></td>
+                        <td>40M</td>
+                        <td>10M</td>
+                        <td>15M</td>
+                        <td>3M</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Market size</strong></td>
+                        <td>Large</td>
+                        <td>Small (trade hub only)</td>
+                        <td>Large</td>
+                        <td>Tiny</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Geographic position</strong></td>
+                        <td>Central (gateway to ME)</td>
+                        <td>Peripheral</td>
+                        <td>Geopolitical risk</td>
+                        <td>Isolated</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cost</strong></td>
+                        <td>Low (growing market)</td>
+                        <td>Expensive</td>
+                        <td>Moderate</td>
+                        <td>Very expensive</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Currency neutrality</strong></td>
+                        <td>✅ Neutral (all trade)</td>
+                        <td>❌ Linked to UAE</td>
+                        <td>❌ Turkish political risk</td>
+                        <td>❌ Qatari political risk</td>
+                    </tr>
+                </table>
+                <div class="metric-box" style="margin-top: 30px;">
+                    <strong>Strategy:</strong> Attract foreign banks, set up special economic zones, position Digital Dinar as settlement currency for all Middle East trade. Target $500B+ in daily transaction volume by Year 5.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Non-Oil Trade Settlement & Regional Hub -->
+        <div class="slide">
+            <h2>Regional Trade Settlement: Non-Oil Focus</h2>
+            <p style="margin-bottom: 40px;">How Digital Dinar becomes settlement currency for Middle East non-oil trade</p>
+            <div style="text-align: left; max-width: 900px; margin-top: 40px;">
+                <div class="metric-box">
+                    <strong>Current reality:</strong> Iraq produces 1.4M barrels/day (down 65% from pre-conflict 4M due to Iran conflict). Oil recovery will take 5-10 years. Focus must be on what's achievable now.
+                </div>
+                <div class="metric-box">
+                    <strong>Digital Dinar for non-oil trade:</strong> UAE importers, regional traders need settlement currency for textiles, dates, food products. Digital Dinar eliminates currency conversion friction. Fast, transparent, fee-free.
+                </div>
+                <div class="metric-box">
+                    <strong>Market opportunity:</strong> Middle East non-oil intra-regional trade = $200-300B/year. If Digital Dinar captures 10-20% settlement, = $20-50B annual transaction volume. Conservative settlement fee: $100-500M/year.
+                </div>
+                <div class="metric-box">
+                    <strong>Oil integration timeline:</strong> Petro-Dinar (oil priced in IQD) is a 10-15 year aspiration, not a 5-year target. Focus now on trade settlement. Revisit oil denomination once output recovers and regional stability improves.
+                </div>
+                <div class="metric-box">
+                    <strong>Worker multiplier:</strong> Regional trade = Iraqi exports of textiles, dates, food. Exporter earnings paid to workers in Digital Dinar. Workers spend locally. Supply chain jobs created.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Diaspora Capital -->
+        <div class="slide">
+            <h2>Diaspora Wealth Repatriation: $100-300B Opportunity</h2>
+            <p style="margin-bottom: 40px;">How to unlock Iraqis abroad investing in Iraq</p>
+            <div style="text-align: left; max-width: 900px; margin-top: 40px;">
+                <div class="metric-box">
+                    <strong>6-7M Iraqis abroad:</strong> USA (1.5M), Europe (1.5M), Australia (250K), Gulf states (1.5M), other. Estimated wealth: $100-300B. Currently invested in foreign RE, foreign stocks, diaspora bonds.
+                </div>
+                <div class="metric-box">
+                    <strong>Digital Dinar investment vehicles:</strong> (1) Growth bonds (7-9% yield), (2) Equity crowdfunding (Iraqi startups), (3) Real estate (digital escrow + blockchain title), (4) Corporate credit (Iraqi businesses).
+                </div>
+                <div class="metric-box">
+                    <strong>Why now:</strong> Diaspora wants to invest back home but barriers are: currency risk, political uncertainty, lack of financial products. Digital Dinar solves all three.
+                </div>
+                <div class="metric-box">
+                    <strong>Target: Repatriate $2-5B/year diaspora capital. By Year 5, Iraqi startups funded entirely by diaspora equity.</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Government Benefits: Beyond Seigniorage -->
+        <div class="slide">
+            <h2>Government Benefits: Comprehensive Value</h2>
+            <p style="margin-bottom: 40px;">Total financial impact of Digital Dinar deployment</p>
+            <div style="text-align: left; max-width: 900px; margin-top: 40px;">
+                <h3 style="text-align: center; color: #fff;">Annual Government Benefit by Year 5</h3>
+                <div style="margin: 40px 0;">
+                    <p style="font-size: 16px; margin: 20px 0;"><span class="emphasis">Seigniorage revenue:</span> $1.5-2.5B (realistic; elimination of bank intermediation + interest on CBI reserves)</p>
+                    <p style="font-size: 16px; margin: 20px 0;"><span class="emphasis">Tax collection improvement:</span> $1-2B (Digital Dinar transparency enables better compliance)</p>
+                    <p style="font-size: 16px; margin: 20px 0;"><span class="emphasis">Trade balance strengthening:</span> $3-5B (import substitution; local production grows)</p>
+                    <p style="font-size: 16px; margin: 20px 0;"><span class="emphasis">Monetary stability value:</span> $1.5-2.5B (avoiding inflation crises; real-time policy control)</p>
+                    <p style="font-size: 16px; margin: 20px 0;"><span class="emphasis">Regional settlement fees:</span> $0.1-0.5B (non-oil Middle East trade settlement)</p>
+                </div>
+                <div style="background: rgba(0, 217, 255, 0.15); padding: 30px; border-radius: 10px; margin-top: 30px;">
+                    <p style="font-size: 18px;"><span class="emphasis">Total annual benefit by Year 5:</span> $7.5-12.5B</p>
+                    <p style="font-size: 14px; margin-top: 15px; color: #b0b3d9;">Infrastructure cost: $5-7M. Payback period: <5 months. This is not a currency experiment—it's essential government infrastructure.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Federated Super-Peer Network -->
+        <div class="slide">
+            <h2>Federated Super-Peer Network</h2>
+            <p style="margin-bottom: 40px;">Regional distribution of CBI authority</p>
+            <div class="two-column">
+                <div class="column">
+                    <h3>Phase 1 (Months 3-6)</h3>
+                    <ul>
+                        <li><span class="emphasis">Baghdad</span><br>CBI data center, primary</li>
+                        <li>100K users, proof of concept</li>
+                        <li>Single super-peer</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3>Phase 2 (Months 6-12)</h3>
+                    <ul>
+                        <li><span class="emphasis">Baghdad, Basra, Erbil</span><br>Regional CBI branches</li>
+                        <li>2-5M users</li>
+                        <li>3-of-5 Byzantine consensus</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="metric-box" style="margin-top: 40px;">
+                <strong>Key principle:</strong> Super-peers execute CBI policy. They don't govern. CBI Board sets monetary policy. Super-peers implement it and report back.
+            </div>
+        </div>
+
+        <!-- Slide 16: Risk Management -->
+        <div class="slide">
+            <h2>Risk Management & Safeguards</h2>
+            <div style="text-align: left; max-width: 900px; margin-top: 40px;">
+                <div class="metric-box">
+                    <strong>Network Resilience</strong><br>
+                    Devices sync offline via NFC/BLE. If super-peers are down, transactions still work locally and confirm later.
+                </div>
+                <div class="metric-box">
+                    <strong>Double-Spend Detection</strong><br>
+                    Byzantine consensus (3-of-5 super-peers vote on transaction order). Automatic quarantine of conflicts for CBI review.
+                </div>
+                <div class="metric-box">
+                    <strong>Key Recovery</strong><br>
+                    Users designate 3-7 trusted contacts as recovery delegates. Lost phone? Recover account in 5 days via delegate approval.
+                </div>
+                <div class="metric-box">
+                    <strong>Capital Controls</strong><br>
+                    CBI maintains geofencing and transaction limits. Prevents unauthorized capital flight. Can be adjusted in real-time.
+                </div>
+                <div class="metric-box">
+                    <strong>Regulatory Compliance</strong><br>
+                    All transactions logged for AML/CFT. Real-time flag system for suspicious activity. CBI retains full control.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Implementation Phases -->
+        <div class="slide">
+            <h2>Implementation Timeline</h2>
+            <table style="max-width: 1000px;">
+                <tr>
+                    <th>Phase</th>
+                    <th>Timeline</th>
+                    <th>Key Milestones</th>
+                </tr>
+                <tr>
+                    <td><strong>Planning & Legal</strong></td>
+                    <td>Months 1-2</td>
+                    <td>Parliament passes Digital Currency Act. CBI publishes digital dinar strategy. Governance committee established.</td>
+                </tr>
+                <tr>
+                    <td><strong>Baghdad Pilot</strong></td>
+                    <td>Months 2-5</td>
+                    <td>Single super-peer (CBI data center). 100K government employees as early users. Proof of concept validation.</td>
+                </tr>
+                <tr>
+                    <td><strong>Regional Rollout</strong></td>
+                    <td>Months 5-9</td>
+                    <td>Add Basra and Erbil super-peers. 2-5M users. Federation consensus tested. Credit scoring enabled.</td>
+                </tr>
+                <tr>
+                    <td><strong>National Scale</strong></td>
+                    <td>Months 9-18</td>
+                    <td>Expand to all CBI branches. 40M+ users. Parallel currency (digital + physical). Banks integrate for large loans.</td>
+                </tr>
+                <tr>
+                    <td><strong>Maturity</strong></td>
+                    <td>Year 2+</td>
+                    <td>Phase out physical IQD (optional). Open source governance framework. Federation expands (optional).</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Slide 18: Budget & Investment -->
+        <div class="slide">
+            <h2>Investment Required</h2>
+            <p style="margin-bottom: 40px;">One-time infrastructure build + operational costs</p>
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Cost</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>Software development (Rust/Android)</td>
+                    <td>$2-3M</td>
+                    <td>12-month eng team. Byzantine consensus, NFC, offline sync.</td>
+                </tr>
+                <tr>
+                    <td>Super-peer infrastructure (Months 1-18)</td>
+                    <td>$800K-1.2M</td>
+                    <td>3 data centers (Baghdad, Basra, Erbil). PostgreSQL, Redis, redundancy.</td>
+                </tr>
+                <tr>
+                    <td>CBI integration & training</td>
+                    <td>$400-600K</td>
+                    <td>Staff training, legal compliance, governance setup.</td>
+                </tr>
+                <tr>
+                    <td>Security audit & testing</td>
+                    <td>$300-500K</td>
+                    <td>Third-party penetration testing, compliance verification.</td>
+                </tr>
+                <tr>
+                    <td>Operations (Year 1)</td>
+                    <td>$600-800K</td>
+                    <td>Super-peer staff, monitoring, support.</td>
+                </tr>
+                <tr style="font-weight: bold; background: rgba(0, 217, 255, 0.1);">
+                    <td>TOTAL (18 months)</td>
+                    <td>$4.5-6.5M</td>
+                    <td>One-time build + first year operations</td>
+                </tr>
+            </table>
+            <p style="margin-top: 40px; color: #888;">ROI: Seigniorage capture of 49+ trillion IQD annually (~$40B+) easily justifies this infrastructure investment.</p>
+        </div>
+
+        <!-- Slide 19: Return on Investment -->
+        <div class="slide">
+            <h2>Return on Investment: Realistic Economics</h2>
+            <div style="text-align: left; max-width: 900px; margin-top: 50px;">
+                <div class="metric-box">
+                    <strong>Year 1 Total Government Benefit:</strong><br>
+                    Seigniorage + efficiency gains + stability value: $1.8-3.5B<br>
+                    Infrastructure cost: ~$6M<br>
+                    <span style="color: #00d9ff; font-weight: bold;">ROI: 300-580x in Year 1 alone</span>
+                </div>
+                <div class="metric-box" style="margin-top: 30px;">
+                    <strong>Year 5 Steady State:</strong><br>
+                    Annual seigniorage: $1.5-2.5B<br>
+                    Tax collection improvement: $1-2B<br>
+                    Trade balance strengthening: $3-5B<br>
+                    Monetary stability value: $1.5-2.5B<br>
+                    <span style="color: #00d9ff; font-weight: bold;">Total Year 5 benefit: $7.5-12.5B annually</span>
+                </div>
+                <p style="margin-top: 30px; color: #888;"><strong>Why not $40B seigniorage?</strong> Central banks don't profit from issuing money 1:1. Revenue comes from earning interest on assets > interest paid on liabilities. Realistic seigniorage = 0.5-1% of GDP, not 25%. This model is still exceptional.</p>
+                <p style="margin-top: 15px; color: #888;"><strong>5-year cumulative government benefit:</strong> $19.8-34B (vs. $5-6.5M investment). Exceptional ROI. Critical infrastructure.</p>
+            </div>
+        </div>
+
+        <!-- Slide 20: Why Now -->
+        <div class="slide">
+            <h2>Why Now: Iraq's Strategic Position</h2>
+            <div style="text-align: left; max-width: 900px; margin-top: 50px;">
+                <div class="metric-box">
+                    <strong>Post-conflict modernization:</strong><br>
+                    Iraq is rebuilding infrastructure. Digital-first systems are faster/cheaper than legacy banking.
+                </div>
+                <div class="metric-box">
+                    <strong>Smartphone penetration:</strong><br>
+                    60%+ of Iraqis have smartphones. NFC/4G coverage expanding. Technology foundation is ready.
+                </div>
+                <div class="metric-box">
+                    <strong>Central bank modernization window:</strong><br>
+                    CBI is actively exploring digital currency. Political will exists. Now is the time to implement.
+                </div>
+                <div class="metric-box">
+                    <strong>Financial inclusion urgency:</strong><br>
+                    70% unbanked population is a national development bottleneck. Digital dinar solves this in 18 months.
+                </div>
+                <div class="metric-box">
+                    <strong>Competitive threat:</strong><br>
+                    If CBI doesn't modernize, informal systems (hawala, private crypto) will capture financial flows.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Competitive Advantages -->
+        <div class="slide">
+            <h2>Competitive Advantages Over Alternatives</h2>
+            <table style="max-width: 1000px;">
+                <tr>
+                    <th>Approach</th>
+                    <th>Cost</th>
+                    <th>Timeline</th>
+                    <th>Inclusivity</th>
+                    <th>Sovereignty</th>
+                </tr>
+                <tr>
+                    <td><strong>Status Quo</strong><br>(Bank-dependent)</td>
+                    <td>Already spent</td>
+                    <td>N/A</td>
+                    <td>70% unbanked</td>
+                    <td>Banks control</td>
+                </tr>
+                <tr>
+                    <td><strong>Proprietary CBDC</strong><br>(CBI builds alone)</td>
+                    <td>$15-20M</td>
+                    <td>3-4 years</td>
+                    <td>High</td>
+                    <td>Full control</td>
+                </tr>
+                <tr style="background: rgba(0, 217, 255, 0.1);">
+                    <td><strong>CylinderSeal</strong><br>(Federated infra)</td>
+                    <td>$5-7M</td>
+                    <td>18 months</td>
+                    <td>High</td>
+                    <td>Full control</td>
+                </tr>
+                <tr>
+                    <td><strong>Foreign Stablecoin</strong><br>(USDC, Tether)</td>
+                    <td>None</td>
+                    <td>Instant</td>
+                    <td>Medium</td>
+                    <td>Zero (US control)</td>
+                </tr>
+            </table>
+            <p style="margin-top: 40px; color: #888;">CylinderSeal is cheaper than proprietary build, faster than alternatives, and maintains full Iraqi sovereignty.</p>
+        </div>
+
+        <!-- Slide 22: Legal & Regulatory Framework -->
+        <div class="slide">
+            <h2>Legal & Regulatory Framework</h2>
+            <div style="text-align: left; max-width: 900px; margin-top: 50px;">
+                <div class="metric-box">
+                    <strong>Digital Currency Act (Parliament):</strong><br>
+                    Legislation authorizing CBI to issue digital IQD. Defines legal status, consumer protections, tax treatment.
+                </div>
+                <div class="metric-box">
+                    <strong>CBI Digital Dinar Strategy (Published Policy):</strong><br>
+                    Public governance framework. Transparency on monetary policy, issuance schedule, security practices.
+                </div>
+                <div class="metric-box">
+                    <strong>Data Privacy Law (Optional):</strong><br>
+                    CBI bound by law: transaction data never shared with other government agencies without warrant. Constitutional protection.
+                </div>
+                <div class="metric-box">
+                    <strong>Regional Autonomy (Constitutional):</strong><br>
+                    KRG (Kurdistan) operates independent digital dinar system under CBI standards. Same technology, separate governance.
+                </div>
+                <div class="metric-box">
+                    <strong>International Compliance:</strong><br>
+                    AML/CFT standards met (FinAction reference). FATF-compatible transaction reporting.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Risk Mitigation -->
+        <div class="slide">
+            <h2>Risk Mitigation: Critical Issues Addressed</h2>
+            <div style="text-align: left; max-width: 900px; margin-top: 40px;">
+                <div class="metric-box">
+                    <strong>Cybersecurity Risk:</strong><br>
+                    Decentralized super-peers (no single point of failure). Regular security audits. Hardware security modules for key storage.
+                </div>
+                <div class="metric-box">
+                    <strong>Adoption Risk:</strong><br>
+                    Phased rollout starting with government employees (built-in user base). Physical IQD remains in circulation for 2-3 years.
+                </div>
+                <div class="metric-box">
+                    <strong>Network Outage Risk:</strong><br>
+                    Offline-first design (NFC/BLE). Transactions work without super-peers. Delayed sync is acceptable in war/disaster scenario.
+                </div>
+                <div class="metric-box">
+                    <strong>Political Risk:</strong><br>
+                    Open source code (no vendor lock-in). CBI can switch operators if needed. Parliament oversight via law, not executive decree.
+                </div>
+                <div class="metric-box">
+                    <strong>Inflation Risk:</strong><br>
+                    CBI controls issuance schedule. System prevents unauthorized money creation. Real-time monitoring enables rapid response to inflation signals.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 24: Success Metrics -->
+        <div class="slide">
+            <h2>Success Metrics & Monitoring</h2>
+            <table style="max-width: 1000px;">
+                <tr>
+                    <th>Metric</th>
+                    <th>Phase 1 (6mo)</th>
+                    <th>Phase 2 (12mo)</th>
+                    <th>Phase 3 (18mo)</th>
+                </tr>
+                <tr>
+                    <td><strong>Active Users</strong></td>
+                    <td>100K</td>
+                    <td>2-5M</td>
+                    <td>40M+</td>
+                </tr>
+                <tr>
+                    <td><strong>Daily Transactions</strong></td>
+                    <td>100K</td>
+                    <td>5M</td>
+                    <td>50M+</td>
+                </tr>
+                <tr>
+                    <td><strong>System Uptime</strong></td>
+                    <td>99.5%</td>
+                    <td>99.7%</td>
+                    <td>99.9%+</td>
+                </tr>
+                <tr>
+                    <td><strong>Double-Spend Rate</strong></td>
+                    <td><0.01%</td>
+                    <td><0.001%</td>
+                    <td><0.0001%</td>
+                </tr>
+                <tr>
+                    <td><strong>Circulating Supply</strong></td>
+                    <td>5-10T IQD</td>
+                    <td>20-30T IQD</td>
+                    <td>40-50T IQD</td>
+                </tr>
+                <tr>
+                    <td><strong>Financial Inclusion</strong></td>
+                    <td>5% of population</td>
+                    <td>15% of population</td>
+                    <td>80%+ of population</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Slide 25: Go-Forward Recommendation -->
+        <div class="slide">
+            <h2>Go-Forward Recommendation</h2>
+            <div style="text-align: left; max-width: 900px; margin-top: 50px;">
+                <h3 style="text-align: center; color: #fff; margin-bottom: 30px;">Step 1: Form CBI Digital Currency Task Force</h3>
+                <p style="margin: 15px 0;">CBI leadership, Parliament representatives, tech advisors. 4-week assessment of legal and technical feasibility.</p>
+
+                <h3 style="text-align: center; color: #fff; margin-bottom: 30px; margin-top: 40px;">Step 2: Draft Digital Currency Act</h3>
+                <p style="margin: 15px 0;">Legal team writes legislation. Parliament debates and votes. 6-8 weeks.</p>
+
+                <h3 style="text-align: center; color: #fff; margin-bottom: 30px; margin-top: 40px;">Step 3: Award Technical Implementation Contract</h3>
+                <p style="margin: 15px 0;">CBI issues RFP for digital dinar platform build. Vendor selection based on capability + cost. 2-week process.</p>
+
+                <h3 style="text-align: center; color: #fff; margin-bottom: 30px; margin-top: 40px;">Step 4: Begin Baghdad Pilot</h3>
+                <p style="margin: 15px 0;">Parallel with legal/contracting. Technical prototype running by month 3. 100K test users by month 6.</p>
+            </div>
+        </div>
+
+        <!-- Slide 26: The Vision -->
+        <div class="slide">
+            <h2>The Vision: Iraq's Financial Future</h2>
+            <p style="margin-bottom: 40px; font-size: 24px;">Year 2-3 Steady State</p>
+            <div style="text-align: left; max-width: 900px; margin-top: 50px; font-size: 18px;">
+                <p style="margin: 20px 0;">Every Iraqi has a digital wallet on their phone. Peer-to-peer payments are instant and free. A merchant in Baghdad can transact with a customer in rural Anbar with zero friction. A farmer in Basra can get a micro-loan based on harvest history instead of collateral.</p>
+                <p style="margin: 20px 0;">Remittances from diaspora arrive in hours instead of days. A mother in Detroit sends $50 to a daughter in Baghdad. It costs $0.50 in fees. The daughter receives 65,000 IQD in her wallet instantly. No Western Union, no hawala, no middleman.</p>
+                <p style="margin: 20px 0;">CBI controls monetary policy with precision. Inflation is visible and manageable in real-time. Financial crime is detectable instantly across 40 million users. AML/CFT compliance is automatic.</p>
+                <p style="margin: 20px 0;">Physical cash is optional. Banks compete fairly for deposits and lending. Financial inclusion is no longer a bottleneck to economic growth.</p>
+                <p style="margin: 20px 0; font-style: italic; color: #00d9ff;">Iraq's financial system is modernized. The central bank is sovereign. Citizens have access. The economy can grow.</p>
+            </div>
+        </div>
+
+        <!-- Slide 27: Questions & Discussion -->
+        <div class="slide">
+            <h1>Questions & Discussion</h1>
+            <p style="margin-top: 60px; font-size: 24px;">CylinderSeal: Digital Iraqi Dinar Infrastructure</p>
+            <p style="margin-top: 40px; color: #888;">Federated, Offline-First, CBI-Controlled</p>
+            <p style="margin-top: 60px; font-size: 18px; max-width: 900px;">Ready to move forward with technical feasibility study and legal framework design.</p>
+        </div>
+    </div>
+
+    <div class="slide-number"><span id="current-slide">1</span> / 27</div>
+    <div class="controls">
+        <button onclick="previousSlide()">← Previous</button>
+        <button onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>
