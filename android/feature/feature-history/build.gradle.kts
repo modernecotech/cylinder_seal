@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.hilt)
     kotlin("kapt")
 }
@@ -24,10 +25,21 @@ dependencies {
     implementation(project(":core:core-common"))
     implementation(project(":core:core-database"))
     implementation(project(":core:core-model"))
+    implementation(project(":core:core-cryptography"))
+    implementation(project(":core:core-datastore"))
+    implementation(project(":core:core-ffi"))
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.core.ktx)
+
+    // REST client for compliance/explanations endpoint.
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.kotlinx.serialization)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)

@@ -11,6 +11,7 @@ use crate::repository::{NonceStore, SessionStore};
 
 const NONCE_KEY_PREFIX: &str = "cs:nonce:";
 const SESSION_KEY_PREFIX: &str = "cs:session:";
+const ADMIN_SESSION_KEY_PREFIX: &str = "cs:adm:session:";
 
 pub struct RedisNonceStore {
     pool: Pool,
@@ -133,6 +134,97 @@ impl SessionStore for RedisSessionStore {
             .del(&key)
             .await
             .map_err(|e| CylinderSealError::DatabaseError(format!("redis DEL session: {e}")))?;
+        Ok(())
+    }
+}
+
+pub struct RedisAdminSessionStore {
+    pool: Pool,
+}
+
+impl RedisAdminSessionStore {
+    pub fn new(pool: Pool) -> Self {
+        Self { pool }
+    }
+
+    fn key(token: &str) -> String {
+        format!("{}{}", ADMIN_SESSION_KEY_PREFIX, token)
+    }
+}
+
+#[async_trait]
+impl crate::compliance::AdminSessionStore for RedisAdminSessionStore {
+    async fn create(
+        &self,
+        token: &str,
+        session: &crate::compliance::AdminSession,
+        ttl_hours: u32,
+    ) -> Result<()> {
+        let mut conn = self
+            .pool
+            .get()
+            .await
+            .map_err(|e| CylinderSealError::DatabaseError(format!("redis pool: {e}")))?;
+        let key = Self::key(token);
+        let value = format!(
+            "{}|{}|{}",
+            session.operator_id, session.username, session.role
+        );
+        let ttl_secs = (ttl_hours as u64) * 3600;
+        let _: () = redis::cmd("SET")
+            .arg(&key)
+            .arg(&value)
+            .arg("EX")
+            .arg(ttl_secs)
+            .query_async(&mut *conn)
+            .await
+            .map_err(|e| CylinderSealError::DatabaseError(format!("redis SET adm session: {e}")))?;
+        Ok(())
+    }
+
+    async fn get(&self, token: &str) -> Result<Option<crate::compliance::AdminSession>> {
+        let mut conn = self
+            .pool
+            .get()
+            .await
+            .map_err(|e| CylinderSealError::DatabaseError(format!("redis pool: {e}")))?;
+        let key = Self::key(token);
+        let val: Option<String> = conn
+            .get(&key)
+            .await
+            .map_err(|e| CylinderSealError::DatabaseError(format!("redis GET adm session: {e}")))?;
+        match val {
+            None => Ok(None),
+            Some(s) => {
+                let mut parts = s.splitn(3, '|');
+                let id = parts.next().and_then(|s| Uuid::parse_str(s).ok());
+                let user = parts.next().map(str::to_string);
+                let role = parts.next().map(str::to_string);
+                match (id, user, role) {
+                    (Some(operator_id), Some(username), Some(role)) => {
+                        Ok(Some(crate::compliance::AdminSession {
+                            operator_id,
+                            username,
+                            role,
+                        }))
+                    }
+                    _ => Ok(None),
+                }
+            }
+        }
+    }
+
+    async fn invalidate(&self, token: &str) -> Result<()> {
+        let mut conn = self
+            .pool
+            .get()
+            .await
+            .map_err(|e| CylinderSealError::DatabaseError(format!("redis pool: {e}")))?;
+        let key = Self::key(token);
+        let _: i64 = conn
+            .del(&key)
+            .await
+            .map_err(|e| CylinderSealError::DatabaseError(format!("redis DEL adm session: {e}")))?;
         Ok(())
     }
 }

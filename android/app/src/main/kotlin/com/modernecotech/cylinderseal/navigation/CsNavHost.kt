@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.modernecotech.cylinderseal.core.datastore.UserPreferences
 import com.modernecotech.cylinderseal.feature.business.ApiKeysRoute
 import com.modernecotech.cylinderseal.feature.business.BusinessOnboardingRoute
+import com.modernecotech.cylinderseal.feature.history.ComplianceRoute
 import com.modernecotech.cylinderseal.feature.history.HistoryRoute
 import com.modernecotech.cylinderseal.feature.onboarding.OnboardingRoute
 import com.modernecotech.cylinderseal.feature.pay.PayRoute
@@ -33,6 +34,7 @@ object Routes {
     const val RECEIVE = "receive"
     const val SCAN = "scan"
     const val HISTORY = "history"
+    const val COMPLIANCE = "compliance"
     const val SETTINGS = "settings"
     const val BUSINESS_REGISTER = "business/register"
     const val BUSINESS_API_KEYS = "business/api-keys"
@@ -95,6 +97,7 @@ fun CsNavHost(
             })
         }
         composable(Routes.HISTORY) { HistoryRoute() }
+        composable(Routes.COMPLIANCE) { ComplianceRoute() }
         composable(Routes.SETTINGS) { SettingsRoute() }
         composable(Routes.BUSINESS_REGISTER) {
             BusinessOnboardingRoute(onDone = { navController.popBackStack() })

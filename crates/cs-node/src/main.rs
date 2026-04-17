@@ -15,24 +15,30 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use anyhow::{Context, Result};
-use clap::Parser;
+use clap::{Parser, Subcommand};
 use cs_consensus::node::{RaftConfig, RaftNode};
 use cs_consensus::state_machine::LedgerStateMachine;
 use cs_credit::scheduler::CreditScheduler;
 use cs_credit::scorer::CreditScorer;
 use cs_storage::postgres::PostgresConfig;
+use cs_storage::compliance::{
+    PgAdminAuditRepository, PgAdminOperatorRepository, PgBeneficialOwnerRepository,
+    PgFeedRunRepository, PgRiskSnapshotRepository, PgRuleVersionRepository,
+    PgSanctionsListRepository, PgTransactionEvaluationRepository, PgTravelRuleRepository,
+};
 use cs_storage::postgres_impl::{
     PgApiKeyRepository, PgBusinessProfileRepository, PgInvoiceRepository, PgJournalRepository,
     PgUserRepository,
 };
 use cs_storage::redis::RedisConfig as RedisInfra;
-use cs_storage::redis_impl::RedisNonceStore;
+use cs_storage::redis_impl::{RedisAdminSessionStore, RedisNonceStore};
 use cs_sync::conflict_resolver::ConflictResolver;
 use cs_sync::gossip_client::GossipService;
 use cs_sync::raft_transport::LoopbackPeerTransport;
 use cs_sync::state_machine::LedgerApplier;
 use cs_sync::sync_service::ChainSyncService;
 
+mod admin_bootstrap;
 mod config;
 mod startup;
 
@@ -47,6 +53,37 @@ struct Args {
 
     #[arg(short, long)]
     environment: Option<String>,
+
+    #[command(subcommand)]
+    command: Option<Command>,
+}
+
+#[derive(Subcommand, Debug)]
+enum Command {
+    /// One-shot administrative subcommands.
+    Admin {
+        #[command(subcommand)]
+        sub: AdminCommand,
+    },
+}
+
+#[derive(Subcommand, Debug)]
+enum AdminCommand {
+    /// Create the first supervisor operator. Idempotent: if the user
+    /// already exists the command refuses unless `--reset-password` is
+    /// passed (in which case the password is rotated and the operator
+    /// is reactivated).
+    Bootstrap {
+        #[arg(long)]
+        username: String,
+        #[arg(long)]
+        email: String,
+        #[arg(long, default_value = "Bootstrap Supervisor")]
+        display_name: String,
+        /// Reset the password if the operator already exists.
+        #[arg(long, default_value_t = false)]
+        reset_password: bool,
+    },
 }
 
 #[tokio::main]
@@ -60,6 +97,12 @@ async fn main() -> Result<()> {
 
     let args = Args::parse();
     let cfg = Config::load(&args.config, &args.environment)?;
+
+    // Dispatch one-shot subcommands (admin bootstrap, etc.) before
+    // bringing up Raft / gRPC / HTTP servers.
+    if let Some(Command::Admin { sub }) = args.command {
+        return admin_bootstrap::dispatch(sub, &cfg).await;
+    }
 
     tracing::info!(
         node_id = %cfg.server.node_id,
@@ -103,6 +146,28 @@ async fn main() -> Result<()> {
     let nonces: Arc<dyn cs_storage::NonceStore> =
         Arc::new(RedisNonceStore::new(redis_pool.clone()));
 
+    // Compliance / admin repositories.
+    let admin_operators: Arc<dyn cs_storage::compliance::AdminOperatorRepository> =
+        Arc::new(PgAdminOperatorRepository::new(pool.clone()));
+    let admin_audit: Arc<dyn cs_storage::compliance::AdminAuditRepository> =
+        Arc::new(PgAdminAuditRepository::new(pool.clone()));
+    let admin_sessions: Arc<dyn cs_storage::compliance::AdminSessionStore> =
+        Arc::new(RedisAdminSessionStore::new(redis_pool.clone()));
+    let evaluations: Arc<dyn cs_storage::compliance::TransactionEvaluationRepository> =
+        Arc::new(PgTransactionEvaluationRepository::new(pool.clone()));
+    let snapshots: Arc<dyn cs_storage::compliance::RiskSnapshotRepository> =
+        Arc::new(PgRiskSnapshotRepository::new(pool.clone()));
+    let rule_versions: Arc<dyn cs_storage::compliance::RuleVersionRepository> =
+        Arc::new(PgRuleVersionRepository::new(pool.clone()));
+    let travel_rule: Arc<dyn cs_storage::compliance::TravelRuleRepository> =
+        Arc::new(PgTravelRuleRepository::new(pool.clone()));
+    let beneficial_owners: Arc<dyn cs_storage::compliance::BeneficialOwnerRepository> =
+        Arc::new(PgBeneficialOwnerRepository::new(pool.clone()));
+    let feed_runs: Arc<dyn cs_storage::compliance::FeedRunRepository> =
+        Arc::new(PgFeedRunRepository::new(pool.clone()));
+    let sanctions_list: Arc<dyn cs_storage::compliance::SanctionsListRepository> =
+        Arc::new(PgSanctionsListRepository::new(pool.clone()));
+
     // ---------------- Raft ----------------
     let applier: Arc<dyn LedgerStateMachine> =
         Arc::new(LedgerApplier::new(journal.clone(), users.clone()));
@@ -141,14 +206,24 @@ async fn main() -> Result<()> {
     let http_addr: SocketAddr = format!("0.0.0.0:{}", cfg.server.http_port).parse()?;
 
     // ---------------- REST ----------------
-    let router = cs_api::create_router(
-        users.clone(),
-        journal.clone(),
-        business_profiles.clone(),
-        api_keys.clone(),
-        invoices.clone(),
-        cfg.server.node_id.clone(),
-    );
+    let router = cs_api::create_router(cs_api::RouterDeps {
+        users: users.clone(),
+        journal: journal.clone(),
+        business_profiles: business_profiles.clone(),
+        api_keys: api_keys.clone(),
+        invoices: invoices.clone(),
+        admin_operators: admin_operators.clone(),
+        admin_sessions: admin_sessions.clone(),
+        admin_audit: admin_audit.clone(),
+        evaluations: evaluations.clone(),
+        snapshots: snapshots.clone(),
+        rule_versions: rule_versions.clone(),
+        travel_rule: travel_rule.clone(),
+        beneficial_owners: beneficial_owners.clone(),
+        feed_runs: feed_runs.clone(),
+        node_id: cfg.server.node_id.clone(),
+        admin_session_ttl_hours: 12,
+    });
 
     // ---------------- Webhook dispatcher ----------------
     cs_api::WebhookDispatcher::new(invoices.clone()).spawn();
@@ -157,6 +232,36 @@ async fn main() -> Result<()> {
     let credit = Arc::new(CreditScorer::new(journal.clone(), users.clone()));
     let credit_scheduler = CreditScheduler::new(credit.clone(), Duration::from_secs(24 * 3600));
     tokio::spawn(credit_scheduler.run());
+
+    // ---------------- External feeds (sanctions) ----------------
+    // Hourly cadence is the standard for OFAC + UN; CBI is daily but we
+    // keep a single cadence here for simplicity. In production these
+    // workers should run in a hardened DMZ namespace, not co-located with
+    // the customer-facing API. See `cs-feeds` crate docs.
+    let feeds_schedule = vec![
+        cs_feeds::ScheduleConfig {
+            worker: Arc::new(cs_feeds::ofac::OfacSdnWorker::new()),
+            interval: Duration::from_secs(3600),
+        },
+        cs_feeds::ScheduleConfig {
+            worker: Arc::new(cs_feeds::un::UnConsolidatedWorker::new()),
+            interval: Duration::from_secs(3600),
+        },
+        cs_feeds::ScheduleConfig {
+            worker: Arc::new(cs_feeds::eu::EuCfspWorker::new()),
+            interval: Duration::from_secs(3600),
+        },
+        cs_feeds::ScheduleConfig {
+            worker: Arc::new(cs_feeds::uk::UkOfsiWorker::new()),
+            interval: Duration::from_secs(3600),
+        },
+        cs_feeds::ScheduleConfig {
+            worker: Arc::new(cs_feeds::cbi::CbiSanctionsWorker::new()),
+            interval: Duration::from_secs(86_400),
+        },
+    ];
+    cs_feeds::FeedScheduler::new(feed_runs.clone(), sanctions_list.clone(), feeds_schedule)
+        .spawn();
 
     // ---------------- Run all three servers ----------------
     tracing::info!(%grpc_addr, "gRPC listening");

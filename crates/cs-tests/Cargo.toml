@@ -16,6 +16,7 @@ cs-policy = { path = "../cs-policy" }
 cs-exchange = { path = "../cs-exchange" }
 cs-credit = { path = "../cs-credit" }
 cs-api = { path = "../cs-api" }
+cs-feeds = { path = "../cs-feeds" }
 
 tokio.workspace = true
 async-trait.workspace = true

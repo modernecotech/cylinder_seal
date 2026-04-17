@@ -433,7 +433,7 @@ Because rollout reaches national scale in Month 15 (Q1 2027) rather than Year 3-
 
 ### Technology Stack
 
-**Backend (Rust workspace, 12 crates):**
+**Backend (Rust workspace, 13 crates):**
 - Tokio (async runtime)
 - Axum (HTTP API server)
 - Tonic + Prost (gRPC, bidirectional streaming)
@@ -441,7 +441,14 @@ Because rollout reaches national scale in Month 15 (Q1 2027) rather than Year 3-
 - Redis 7 via deadpool-redis (cache, rate limiting, nonce deduplication)
 - BLAKE2b-256 (ledger state hashing)
 - Ed25519 (transaction signing)
+- Argon2id (admin password hashing)
 - Custom Raft consensus crate (`cs-consensus`: leader election, log replication, commit-index tracking)
+- External feed crate (`cs-feeds`: OFAC SDN / UN Consolidated / EU CFSP / UK HMT OFSI / CBI Iraq sanctions; `tokio::time::interval` scheduler; `feed_runs` audit table; canonical `sanctions_list_entries` store with name + alias screening)
+- Server-rendered admin UI (HTMX) served from the same Axum process — no separate frontend stack
+
+**First-time deployment:**
+- Apply migrations: `sqlx migrate run` (the compliance migration `20260417000003_compliance_phase1.sql` creates `admin_operators`, `admin_audit_log`, `transaction_evaluations`, `risk_assessment_snapshots`, `aml_rule_versions`, `travel_rule_payloads`, `beneficial_owners`, `feed_runs`).
+- Bootstrap the first supervisor: `cylinder-seal-node admin bootstrap --username opadmin --email ops@cbi.gov.iq`. The CLI prints a one-time hex password; rotate it immediately on first login. The migration intentionally seeds **no** admin row, so the codebase ships no shared default credentials.
 
 **Shared mobile core (`cs-mobile-core`, Rust + UniFFI):**
 - One audited Rust implementation of Ed25519 signing, canonical CBOR, BLAKE2b-256 hashing, RFC 6979 hardware-bound nonces, QR / NFC APDU / BLE GATT wire codecs
@@ -554,6 +561,16 @@ NFC is the primary offline channel (≤4 cm, tap-to-pay UX). BLE is the fallback
 
 All three channels carry the same signed Transaction payload; only the transport differs. M-Pesa (Kenya), UPI (India), and Pix (Brazil) all rely heavily on QR for precisely these reasons.
 
+### Compliance Phase 1: server-side sessions, no JWT, four-eyes governance
+
+The compliance surface (admin login, dashboard, rule governance, Travel Rule, UBO, feed health) shares a single auth model: opaque session tokens stored in Redis with TTL, presented as either `Authorization: Bearer cs_adm_<hex>` or an HttpOnly `cs_adm_session` cookie. Tokens are 32 bytes of OS entropy. Sessions are server-side so revocation is `DEL` (no JWT blacklist gymnastics). Argon2id for password hashing. RBAC ranks `auditor < analyst < officer < supervisor` and is enforced both in middleware (`AdminPrincipal::has_role`) and at endpoint entry. Every authenticated request lands in `admin_audit_log` via the same middleware that authenticates it — endpoints can't bypass the audit.
+
+Rule changes are governed by a four-eyes workflow: an `officer` proposes, a different `supervisor` approves, and the change takes effect at a future `effective_from` (default now+1h). Same-operator approval is rejected at the DB CHECK constraint **and** in `PgRuleVersionRepository::approve`, which returns `ValidationError → 409 Conflict`.
+
+### External feeds: DMZ producer, Postgres consumer
+
+Sanctions list workers (`cs-feeds`) must run in a hardened DMZ network namespace with allowlisted egress to the upstream sources (treasury.gov, un.org, cbi.iq). The customer-facing API process never makes outbound HTTPS to those endpoints — it reads only from Postgres (`feed_runs` for audit, planned `sanctions_list_entries` for content). This keeps the regulated egress surface small and auditable, and lets us run the workers under different IAM/security policies than the API. Body bytes are SHA-256-signed per fetch so identical re-fetches don't generate spurious diffs. Cadence is `tokio::time::interval`-driven (hourly OFAC + UN, daily CBI); a Postgres job queue is unnecessary for fixed-cadence idempotent cron.
+
 ### Observability: mandatory, OpenTelemetry-native
 
 Every service emits OpenTelemetry traces, metrics, and structured logs from day one. Minimum deployment:
@@ -570,9 +587,9 @@ The `tracing` crate is already wired in the Rust workspace; production wiring to
 
 The specification above describes the target system. This section reports honestly on the gap between specification and current code, so reviewers can estimate remaining engineering effort.
 
-**Overall maturity: ~55-65% of specification.** The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage), the shared mobile-core via UniFFI, the Android Compose app, the iOS SwiftUI app, and the Linux POS terminal are all in tree and wired end-to-end against the same `ChainSync` proto. The remaining gap is mostly the inter-super-peer Raft transport (currently loopback), live OFAC/forex feed ingestion, regional-hub settlement, the diaspora investment vehicles, HSM/observability hardening, and the post-quantum hybrid signing path.
+**Overall maturity: ~60-70% of specification.** The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage, **compliance Phase 1**, **external feed workers**), the shared mobile-core via UniFFI, the Android Compose app, the iOS SwiftUI app, and the Linux POS terminal are all in tree and wired end-to-end against the same `ChainSync` proto. The remaining gap is mostly the inter-super-peer Raft transport (currently loopback), regional-hub settlement, the diaspora investment vehicles, HSM/observability hardening, and the post-quantum hybrid signing path.
 
-**Test coverage:** ~2,750 lines of integration tests across 17 numbered spec files (`spec_01_crypto_primitives` through `spec_17_cbi_integration`) plus two e2e flows (`e2e_invoice_flow`, `e2e_offline_payment`).
+**Test coverage:** ~2,800 lines of integration tests across 18 numbered spec files (`spec_01_crypto_primitives` through `spec_18_compliance_workflow`) plus two e2e flows (`e2e_invoice_flow`, `e2e_offline_payment`).
 
 **What still makes closing the gap fast:** the remaining work — gRPC Raft transport, live external-feed connectors, settlement primitives, HSM/OpenTelemetry wiring — is incremental on top of working subsystems, not greenfield. Calendar time is dominated by integration testing, security audit, and HSM key ceremonies rather than writing code. See the compressed timeline below.
 
@@ -604,6 +621,24 @@ The specification above describes the target system. This section reports honest
 
 **Backend — REST surface**
 - **REST API (`cs-api`)** — Axum-based admin/ops surface: health, readiness, stats, user balance/entries, KYC callbacks, business registration/approval/EDD, API key management (BLAKE2b hash-only storage), invoice CRUD with webhook dispatch, compliance dashboard, AML rule listing, transaction evaluation, user risk profiles, CBI exchange rates
+
+**Backend — compliance Phase 1 (newly landed)**
+- **Admin auth** — Argon2id password hashing, opaque session tokens stored in Redis with TTL (`cs:adm:session:<token>`); `Authorization: Bearer cs_adm_<hex>` or `cs_adm_session` cookie; revocation = `DEL`. No JWT — sessions are server-side so the auditor table is the source of truth for who-did-what. Role hierarchy `auditor < analyst < officer < supervisor` enforced by `AdminPrincipal::has_role`.
+- **Audit log** — every admin-mediated request lands in `admin_audit_log` (operator_id, method+path, result code, payload for create operations). Write-side is the `require_admin` middleware itself, so endpoints can't bypass it.
+- **Bootstrap CLI** — `cylinder-seal-node admin bootstrap --username <u> --email <e>` creates the first supervisor and prints a 32-char hex one-time password to stdout. The migration intentionally seeds **no** admin row, so the codebase contains no shared default credentials.
+- **Persisted transaction evaluations** — `transaction_evaluations` records every rule-engine run with input snapshot, matched rules, score, recommended action, and a plain-language explanation. Evaluations are reproducible after-the-fact for regulator audit.
+- **Real compliance dashboard** — `/v1/compliance/dashboard` aggregates SAR/CTR/STR counts, user risk distribution, top-triggered rules over the last 30 days, and feed-health rows. No mocked numbers.
+- **Risk-snapshot trail** — every `/v1/compliance/users/:user_id/risk` call writes a `risk_assessment_snapshots` row keyed by `(user_id, ts)`, including the full input that produced the score. Lets compliance reconstruct what we knew about a user on any given date.
+- **Right-to-explanation endpoint** — `/v1/compliance/users/:user_id/explanations` returns recent rule-engine matches with non-technical text, sized to back a "Why was my transaction held?" screen in the mobile apps.
+- **Travel Rule (FATF Rec 16)** — `/v1/travel-rule` (POST/GET) records originator + beneficiary + VASP fields for transfers ≥ 1,000 OWC (USD-1k equivalent at fixed peg); ISO 3166-1 alpha-2 country codes validated at the boundary.
+- **Beneficial Ownership (FATF Rec 24/25)** — `/v1/businesses/:user_id/beneficial-owners` add/list/verify; tracks ownership percentages; `meets_disclosure_threshold` flips true at 75% aggregate disclosed (residual 25% may be widely held).
+- **Four-eyes rule governance** — `/v1/governance/rules/proposals` POST proposes a rule (officer+); `…/approve` requires `supervisor` AND a different operator (DB-enforced via `CHECK (proposed_by <> approved_by)` and a `ValidationError → 409` raised by `PgRuleVersionRepository::approve`). Every rule version is retained so post-hoc audits can reconstruct what rule was in force on any given date.
+- **HTMX admin UI** — `/admin/login`, `/admin/`, `/admin/rules/proposals` (approve/reject), `/admin/businesses/:user_id/owners` (list + verify), `/admin/travel-rule/:tx_id` (FATF Rec 16 payload view) served as server-rendered HTML out of the same Rust binary; uses HTMX for form posts, no JS toolchain. All non-login pages sit behind `require_admin`.
+- **Mobile "why was this held?" surfaces** — Android (`feature-history/ComplianceScreen.kt`) and iOS (`Views/ComplianceView.swift`) both consume `/v1/compliance/users/:user_id/explanations` and render recent rule evaluations with risk tier, recommended action, and plain-language explanation.
+
+**Backend — external sanctions feeds (`cs-feeds`)**
+- **DMZ-pattern feed workers** — `OfacSdnWorker`, `UnConsolidatedWorker`, `EuCfspWorker`, `UkOfsiWorker`, `CbiSanctionsWorker` each fetch + parse their respective lists into a canonical `SanctionEntry` shape; bodies hashed via SHA-256 so unchanged feeds don't generate spurious diffs. Production deployment expects these to run in a hardened DMZ namespace with allowlisted egress (treasury.gov, un.org, europa.eu, gov.uk, cbi.iq), writing only to Postgres; the customer-facing API reads only from Postgres.
+- **Scheduler + persistence** — `tokio::time::interval`-based, hourly for OFAC / UN / EU / UK, daily for CBI; every fetch persists a `feed_runs` row (started_at, status, signature, added/changed/unchanged counts, error message) AND upserts entries into `sanctions_list_entries` via `PgSanctionsListRepository::upsert_batch`. Entries the upstream stops publishing are soft-deleted (`effective = false`) by `mark_unseen_inactive` rather than physically removed, so historical screening can still reproduce "what would we have flagged on date X?". A `screen_by_name` query joins normalised names + alias arrays via a partial GIN index — `idx_sanctions_aliases_norm`, `WHERE effective`. Surfaces directly on the compliance dashboard. No Temporal/apalis dependency — sanctions refresh is a fixed-cadence idempotent cron and doesn't need a job queue.
 
 **Shared mobile core**
 - **`cs-mobile-core`** — Rust crate exposed via UniFFI: keypair generation, Ed25519 sign/verify, canonical CBOR `Transaction` encode/decode, BLAKE2b-256, RFC 6979 nonce derivation, QR / NFC APDU / BLE wire codecs. Generates Kotlin (`uniffi/cs_mobile_core/cs_mobile_core.kt`) and Swift (xcframework + `MobileCore.swift`) bindings. Halves the audit surface — same code on both platforms.
@@ -639,7 +674,8 @@ The specification above describes the target system. This section reports honest
 - `store.rs` — local SQLite for merchant keypair + pending queue; systemd unit and env template under `packaging/`
 
 **Test coverage**
-- 17 numbered spec test files (~2,750 LOC) covering crypto primitives, canonical signing, nonce chain, journal chain, Raft consensus, merchant tiers, AML flagging, credit scoring, account types, API key auth, invoice lifecycle, wire formats, conflict resolution, rule engine, risk scoring, regulatory reporting, CBI integration
+- 18 numbered spec test files (~2,800 LOC) covering crypto primitives, canonical signing, nonce chain, journal chain, Raft consensus, merchant tiers, AML flagging, credit scoring, account types, API key auth, invoice lifecycle, wire formats, conflict resolution, rule engine, risk scoring, regulatory reporting, CBI integration, **compliance workflow (admin role hierarchy, Travel Rule threshold, OFAC signature, four-eyes proposal carry-through)**
+- Inline unit tests in `cs-api` (admin auth, password hash roundtrip, Bearer parsing edge cases, country validation), `cs-feeds` (OFAC/UN/CBI parser tests, signature determinism), and `cs-storage` (compliance repository smoke tests)
 - Two e2e flows: `e2e_invoice_flow`, `e2e_offline_payment`
 
 ### Framework present, logic in progress (🟡)
@@ -647,7 +683,6 @@ The specification above describes the target system. This section reports honest
 |-----------|---------|---------|
 | Inter-super-peer Raft transport | `LoopbackPeerTransport` (single-node mode); state machine in place | Real `GrpcPeerTransport` over a `rpc RaftRpc` proto definition; currently behind a `grpc-raft` feature flag and not yet wired |
 | Live forex feed | `FeedAggregator` scaffold + reference cross-rates for 12 currencies | Connectors to exchangerate.host / Open Exchange Rates; TODO marker in `feed_aggregator.rs` |
-| Live OFAC/UN/EU sanctions ingestion | Sanctions screening rule + PEP registry table; manual list updates supported via DB | Automated periodic list pull + diff into the screening tables |
 | Algorithm agility (`algo_id` field) | Architecture decision documented | Not yet present in signed-object schemas; required pre-pilot |
 
 ### Not implemented (❌)
@@ -666,7 +701,7 @@ The specification above describes the target system. This section reports honest
 
 1. **Inter-super-peer Raft is single-node today.** The state machine, election, log replication, and commit-index broadcast all work, and the gRPC service path commits via Raft, but the peer transport is loopback. Real cross-branch replication needs the `GrpcPeerTransport` + a Raft RPC proto. Until then, "3-of-5 quorum across Baghdad / Basra / Erbil / Mosul / Najaf" is not enforced on the wire.
 2. **Android BLE fallback missing** — phones without NFC (older devices, iOS↔Android-sender pairs) currently fall back to QR rather than BLE on Android.
-3. **Live sanctions and forex feeds are not automated** — both are gated by external API connectors; the policy engine and aggregator are ready to consume them.
+3. **Live forex feed is not automated** — gated by external API connectors (exchangerate.host / Open Exchange Rates); the aggregator scaffold is ready to consume them. (Sanctions ingestion is now automated end-to-end across OFAC/UN/EU/UK/CBI.)
 4. **HSM, OTel, hybrid PQ signing** — three of the architecture-decision items are not yet in code.
 
 ### Critical-path build order to close the gap
@@ -691,12 +726,13 @@ The specification above describes the target system. This section reports honest
 18. HSM-backed CBI key storage + key ceremony tooling
 19. OpenTelemetry exporter wiring (Prometheus / Tempo / Loki / Grafana)
 20. Live forex feed integration
-21. Live OFAC/UN/EU sanctions list ingestion automation
+21. ~~OFAC/UN/EU/UK/CBI sanctions ingestion (DMZ workers + scheduler + audit + canonical `sanctions_list_entries` table with soft-delete + name/alias screening index)~~ ✅ Implemented (`cs-feeds` + `cs-storage::PgSanctionsListRepository`)
 22. Regional-hub settlement primitives
 23. Diaspora investment vehicles (growth bonds, equity crowdfunding, real-estate title registry)
 24. Hybrid Ed25519 + Dilithium signing (Year-3 milestone)
+25. ~~Compliance Phase 1 (admin auth, audit, persisted evaluations, Travel Rule, UBO, four-eyes rule governance, HTMX admin UI scaffold)~~ ✅ Implemented
 
-Items 1-10, 13-16 are done. Items 11-12, 17-19 are required for the Baghdad pilot (Phase 2 below). Items 20-21 are required before Phase 3. Items 22-24 stretch across Phases 3-5.
+Items 1-10, 13-16, 21, 25 are done (full compliance Phase 1 includes the HTMX admin UI for proposals/UBO/Travel Rule, the mobile "why was this held?" surface on Android + iOS, and the five-source sanctions ingestion pipeline). Items 11-12, 17-19 are required for the Baghdad pilot (Phase 2 below). Item 20 is required before Phase 3. Items 22-24 stretch across Phases 3-5.
 
 ---
 

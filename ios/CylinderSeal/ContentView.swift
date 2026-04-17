@@ -29,6 +29,9 @@ struct MainTabs: View {
             HistoryView()
                 .tabItem { Label("History", systemImage: "clock") }
 
+            ComplianceView()
+                .tabItem { Label("Compliance", systemImage: "checkmark.shield") }
+
             SettingsView()
                 .tabItem { Label("Settings", systemImage: "gearshape") }
         }

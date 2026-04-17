@@ -24,4 +24,6 @@ chrono.workspace = true
 async-trait.workspace = true
 hex.workspace = true
 rand.workspace = true
+argon2.workspace = true
+rust_decimal.workspace = true
 reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }

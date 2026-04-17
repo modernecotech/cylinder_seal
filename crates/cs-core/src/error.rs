@@ -64,6 +64,12 @@ pub enum CylinderSealError {
 
     #[error("Internal error: {0}")]
     InternalError(String),
+
+    #[error("Validation error: {0}")]
+    ValidationError(String),
+
+    #[error("Authorization error: {0}")]
+    AuthorizationError(String),
 }
 
 pub type Result<T> = std::result::Result<T, CylinderSealError>;

@@ -174,6 +174,7 @@ pub struct RiskAssessment {
 // ============================================================================
 
 /// Input data for computing a user's risk profile.
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct UserRiskInput {
     pub user_id: Uuid,
     pub kyc_tier: String,

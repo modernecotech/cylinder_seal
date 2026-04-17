@@ -18,8 +18,15 @@ cs-credit = { path = "../cs-credit" }
 cs-exchange = { path = "../cs-exchange" }
 cs-consensus = { path = "../cs-consensus" }
 cs-policy = { path = "../cs-policy" }
+cs-feeds = { path = "../cs-feeds" }
 
 tokio.workspace = true
+argon2.workspace = true
+chrono.workspace = true
+uuid.workspace = true
+sqlx.workspace = true
+rand.workspace = true
+hex.workspace = true
 axum.workspace = true
 tonic.workspace = true
 tracing.workspace = true
