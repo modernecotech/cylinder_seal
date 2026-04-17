@@ -35,13 +35,16 @@
 ### Current Situation (2026, based on 2025 final data)
 - **GDP:** $265.45B (2025 nominal, IMF official)
 - **Oil production:** 4.03 million barrels/day (2025 actual - strong recovery)
-- **Unemployment:** 15.50% (2025 final, up from 15.30% in 2024)
+- **Unemployment:** 15.50% overall (25-30% youth unemployment)
+- **Inflation rate:** 1.5% annually (stable, declining from 2.6% in 2024)
 - **Exports:** ~$93B/year (99% oil = $85-87B, 1% non-oil = ~$1B)
 - **Government revenue:** $87B total (oil $76B + non-oil $10B)
-- **Government spending:** ~$100B (employee compensation ~46%, pensions ~14%, social protection ~4%)
+- **Government spending:** ~$100B (salaries $66-73B, pensions $40B+, social protection)
+- **Government employees:** 4.2M (plus 3M retirees = 10.5M Iraqis dependent on state, 25% of population)
 - **Trade balance:** +$5.7B surplus
 - **Population:** 47.02M (2025 mid-year), 46.12M (2024 census)
 - **GDP per capita:** $5,650
+- **Unbanked population:** 70% (33M Iraqis without formal financial access)
 
 ---
 
@@ -133,7 +136,7 @@ TIER 2: CBI Policy
 
 #### 3. Trade Policy Without Tariffs: Iraqi Made Preference
 
-Government salary spending = ~$30-40B/year (government workforce ~1M people @ $30-40K avg). Use this as lever:
+Government salary spending = ~$66-73B/year (4.2M employees + 3M retirees = 10.5M Iraqis dependent on state, 25% of population). Use as lever:
 
 **Merchant Tier System:**
 - **Tier 1 (100% Iraqi content)**: 0% fee, unlimited Digital Dinar spending
@@ -205,36 +208,82 @@ Government salary spending = ~$30-40B/year (government workforce ~1M people @ $3
 
 ---
 
+#### 6. Diaspora Capital Repatriation: $100-300B Opportunity
+
+**Diaspora Scale:**
+- 6-7M Iraqis abroad (USA 1.5M, Europe 1.5M, Gulf 1.5M, Australia 250K, other)
+- Estimated wealth: $100-300B
+- Currently invested in foreign real estate, foreign stocks, diaspora bonds
+
+**Investment Barriers (solved by Digital Dinar):**
+- Currency risk (IQD volatility)
+- Political uncertainty
+- Lack of financial products (no way to invest in Iraqi companies/real estate from abroad)
+
+**Digital Dinar Investment Vehicles:**
+- **Growth bonds:** 7-9% yield (government securities)
+- **Equity crowdfunding:** Fund Iraqi startups (technology, agriculture, manufacturing)
+- **Real estate:** Digital escrow + blockchain title registry for property transactions
+- **Corporate credit:** Lend to Iraqi businesses with transaction history + credit scores
+
+**Target:** Repatriate $2-5B/year diaspora capital by Year 3-5. By Year 5, Iraqi startups funded entirely by diaspora equity (no foreign VC needed).
+
+**Economic Impact:** Diaspora capital unlocks manufacturing expansion, tech sector growth, real estate development—driving the non-oil export sector and creating 100K+ new jobs.
+
+---
+
 ### Economic Growth Path
 
-| Metric | 2026 (Baseline) | Year 5 (2031) | Change |
-|--------|-----------------|---------------|--------|
-| **GDP** | $265B | $351B | +$86B (+32%) |
-| **GDP per capita** | $5,650 | $7,060 | +25% |
-| **Unemployment** | 15.5% | 9.5% | -6.0pp |
-| **Oil production** | 4.03M bbl/day | 4.5-5M bbl/day | +10-15% |
-| **Non-oil exports** | ~$1B | $4-6B | +300-500% |
-| **Trade balance** | +$5.7B | +$19B | +$13.3B |
-| **Financial inclusion** | 30% | 75% | +45pp |
-| **Active users** | 0 | 32-35M | 70% of population |
+| Metric | 2026 (Baseline) | Year 5 (2031) | Change | Notes |
+|--------|-----------------|---------------|--------|-------|
+| **GDP** | $265B | $390-420B | +$125-155B (+47-57%) | Includes 1.5-2x multiplier from import substitution |
+| **GDP per capita** | $5,650 | $8,200-8,900 | +45-57% | Largest per-capita gain in region |
+| **Unemployment** | 15.5% | 7-8% | -7.5-8.5pp | Manufacturing jobs from import substitution |
+| **Oil production** | 4.03M bbl/day | 4.5-5M bbl/day | +10-15% | Baseline recovery trajectory |
+| **Non-oil exports** | ~$1B | $6-9B | +500-800% | Manufacturing expansion from supply chain financing |
+| **Domestic consumption (local goods)** | $40B (mostly imports) | $55-65B (mostly local) | +$15-25B shift | Result of Iraqi Made preference system |
+| **Trade balance** | +$5.7B | +$25-30B | +$19-24B | Import substitution + export growth |
+| **Financial inclusion** | 30% | 75% | +45pp | 35M newly banked Iraqis |
+| **Active users** | 0 | 32-35M | 70% of population | Government employees + families |
+| **Manufacturing capacity** | Baseline | +40-50% | +40-50% | New factories, supply chains |
 
 **Growth drivers by phase:**
 
-**Year 1-2: Financial Inclusion Boom**
+**Year 1-2: Financial Inclusion + Merchant Tier Launch**
 - 10M new accounts (government wages + early adopters)
-- Local consumption increases (zero fees vs. 2-5% bank fees)
-- Baseline growth: 3-4% GDP (above Iraq's 0.5% 2025 baseline)
+- Zero transaction fees attract 20-30% increase in local spending (vs. 2-5% bank fees)
+- Iraqi Made preference system goes live (Tiers 1-4)
+- Early import shift: $3-5B redirected from imports to local goods
+- **GDP growth: 4-4.5%** (financial efficiency gains)
+- **2027 GDP: $276B → 2028 GDP: $291B**
 
-**Year 2-3: Supply Chain Financing Unlocks Exports**
-- Export financing enables 50% capacity increase for non-oil sectors
-- Regional hub attracts trade flows
-- Growth jumps to 6-7% (supply chain multiplier)
+**Year 2-3: Import Substitution Multiplier Activates**
+- Domestic retailers respond to preference system (stock more local goods)
+- Local manufacturers expand to meet 20-30% demand increase
+- Supply chain financing enables working capital for scaling
+- Secondary effect: Suppliers hire workers → wages increase → local consumption rises
+- Manufacturing sector grows, creating 50-75K new jobs
+- **Multiplier effect: Each $1 of import substitution = $1.5-2 GDP growth**
+- **GDP growth: 5.5-6.5%**
+- **2029 GDP: $310B → 2030 GDP: $331B**
 
-**Year 3-5: Regional Hub + Industrial Policy**
-- Iraqi Made preference drives local production (import substitution)
-- Regional settlement role generates fees/spreads (treasury revenue)
-- FDI attracted to stable, low-cost economy
-- Growth sustains 6-7% (compound effect)
+**Year 3-5: Full Ecosystem Effects + Regional Hub**
+- Import substitution fully embedded: $15-25B annual shift from imports to local
+- Manufacturing supply chains mature (textiles, food processing, petrochemicals)
+- Regional trade settlement drives additional growth
+- Diaspora capital ($2-5B/year) funds manufacturing expansion and tech startups
+- Export sector scaling: Non-oil exports growing 30-50% YoY
+- Foreign investors attracted to stable, low-cost, growing economy
+- **GDP growth: 6.5-7.5% (compound of all effects)**
+- **2031 GDP: $390-420B**
+
+**Import Substitution Multiplier Mechanics:**
+
+1. **Direct effect:** Government salary spending ($66-73B) + civilian consumption redirects to local goods (20-30% shift = $13-22B)
+2. **First multiplier:** Local manufacturers earn $13-22B → hire workers, buy supplies, pay taxes
+3. **Second multiplier:** Workers earn wages → spend locally on goods/services → more demand
+4. **Third multiplier:** Supply chain forms (raw materials → production → distribution) → thousands of jobs
+5. **Total economic impact:** $13-22B initial shift × 1.5-2x multiplier = $19-44B additional GDP growth over 5 years
 
 ---
 
@@ -502,7 +551,7 @@ CBI Board decides monthly issuance (not algorithmic). Backed by:
 "CBI retains complete authority. Nothing changes in CBI's goals. But now: CBI sees all 47M transactions real-time. Inflation becomes visible in hours, not months. Velocity controls become enforceable. AML/CFT becomes automatic. This enhances CBI's control."
 
 **On Trade Policy:**
-"Government salaries are Iraq's largest expense ($30-40B/year). One insight: use Digital Dinar tiers to steer that spending toward local goods. No tariffs. No subsidies. Just market incentives. Local producers win through quality + price, not subsidies."
+"Government salaries are Iraq's largest expense ($66-73B/year for 4.2M employees + $40B+ for retirees/social = $106-113B total). One insight: use Digital Dinar tiers to steer that spending toward local goods. No tariffs. No subsidies. Just market incentives. Local producers win through quality + price, not subsidies."
 
 **On Export Growth:**
 "Exporters need working capital. Today: banks require collateral + 8% interest + 30-day approval. With Digital Dinar: transaction history = credit score. 3-day approval, 5% interest, no collateral. Textile manufacturers can produce 5x more. That's the export growth engine."
