@@ -139,16 +139,14 @@ The network uses **Byzantine State Machine Replication** with 3-5+ super-peers:
 - ✅ **Scalable**: 3-node MVP scales to 200+ nodes with same consensus mechanism
 - ✅ **Proven CS Theory**: Based on State Machine Replication (Lamport, Oki-Liskov 1988)
 
-**Super-Peer Geographic Distribution:**
+**Super-Peer Network (Iraq Digital Dinar):**
 
-MVP deployment across 5 geographically diverse regions:
-- **S1 (Nigeria)**: West Africa hub, largest fintech market, Flutterwave headquarters
-- **S2 (Kenya)**: East Africa hub, M-Pesa originated here, mobile money infrastructure mature
-- **S3 (South Africa)**: Southern Africa hub, banking infrastructure + venture capital ecosystem
-- **S4 (Germany)**: European node for redundancy, GDPR compliance, timezone diversity
-- **S5 (Singapore)**: Asia node, tech infrastructure, bridge to Southeast Asia expansion
+Deployment across Iraq's CBI regional branches:
+- **S1 (Baghdad)**: CBI headquarters, primary super-peer, policy execution center
+- **S2 (Basra)**: Southern Iraq regional branch, handles southern transactions (Phase 2)
+- **S3 (Erbil)**: KRG regional branch, handles northern transactions (Phase 2)
 
-**Rationale**: 3 African nodes cover core market (devices + MFI partnerships), 1 European node provides geographic redundancy + regulatory cover, 1 Asian node enables expansion. No single region/provider controls quorum.
+**Rationale**: 3-of-5 Byzantine consensus with 3 nodes requires all 3 to be honest (no fault tolerance initially). Additional super-peers added in Phase 4 (national scale) to enable scalability while maintaining CBI authority. All super-peers execute CBI policy; CBI Board decides monetary policy.
 
 **Super-Peer Services:**
 
@@ -169,195 +167,39 @@ Each super-peer runs:
 6. Entry status updated: CONFIRMED (irreversible, no rollback possible)
 7. Device receives SyncAck: ✓ CONFIRMED with new balance and updated credit score
 
-**Every Super-Peer is an On/Off-Ramp** (Cash ↔ Digital):
-- User walks in with cash (KES, NGN, USD, etc.) → operator issues OWC (entry added to ledger)
+**Every Super-Peer is a Conversion Point** (Physical IQD ↔ Digital IQD):
+- User walks in with physical IQD cash → CBI operator issues Digital IQD (entry added to ledger)
 - User shows balance on phone → operator verifies against super-peer's confirmed ledger
-- Each operator sets own exchange rate (market competition drives efficiency)
-- Creates network of informal money agents (anyone can run a super-peer node)
-- No traditional banks needed, no formal partnerships required
-- Security: Quorum voting prevents operator fraud (need ≥3 honest super-peers to double-issue OWC)
+- Conversion rate is always 1:1 (no spread, no exchange rate)
+- Enables last-mile cash conversion in rural areas
+- No commercial banks needed for this function
+- Security: Quorum voting prevents operator fraud (need ≥3 honest super-peers to double-issue IQD)
 
-### Tier 2: Exchange & Monetization
+### Tier 2: CBI Policy & Monetization
 
-**Credit API** (Where Revenue Comes From):
-- Microfinance institutions query credit scores ($0.50-2.00 per check)
-- Mobile money providers monitor agent reputation ($0.25-0.50/month per agent)
-- P2P lending platforms match borrowers with lenders (per-profile licensing)
-- Insurance companies price premiums based on transaction history ($50K+/month)
+**CBI Revenue Sources** (Government Benefit):
+- **Seigniorage**: Interest earned on CBI reserves backing issued Digital IQD (~$1.5-2.5B/year by Year 5)
+- **Tax collection**: Improved visibility into transactions enables better tax enforcement
+- **Trade balance**: Import substitution reduces foreign exchange losses
+- **Monetary efficiency**: Real-time policy control prevents inflation crises
 
-**OWC Rate Feeds** (Optional):
-- Aggregate forex APIs (Fixer, Twelve Data, etc.)
-- Calculate basket rate (USD, EUR, GBP, KES, NGN, BRL, etc.)
-- Pass through real interbank rate (zero spread, zero markup)
-- Distribute to all super-peers (consensus on rates)
+**IQD Exchange Rates** (Display Only):
+- CBI publishes official exchange rates for local currency display (e.g., 1 IQD = X USD for information only)
+- All transactions are in pure IQD (no basket or multi-currency backing)
+- Exchange rates are informational; Digital IQD is the canonical unit
 
-**Optional Integrations** (for scale, not required for MVP):
-- **Formal Exchange Services**: For high-volume institutional transfers
-- **KYC/AML Services**: Smile Identity, Veriff (regulatory compliance)
-- **Formal Fiat Partnerships**: Flutterwave, Wise, PayPal (convenience)
+**Optional Future Integrations** (Phase 2+, not required for MVP):
+- **Supply Chain Finance**: B2B lending platform for exporters
+- **Diaspora Bonds**: Digital Dinar-denominated investment vehicles
+- **Real Estate Escrow**: Digital escrow for property transactions
 
-### Tier 0.5: Peer-to-Peer Marketplace (Discovery Layer)
+### Peer-to-Peer Transactions & Credit Scoring
 
-**The Incumbent Problem:**
+The core value is **peer-to-peer payment + automatic credit building**, not marketplace features.
 
-Platforms like **Uber, Amazon, Airbnb, eBay, Shopee, TaskRabbit** dominate service discovery by taking **15-30% commission** on every transaction:
+**How Credit Building Works:**
 
-| Platform | Commission | Market Cap | Users |
-|----------|-----------|-----------|-------|
-| Uber (rideshare) | 20-25% | $100B | 2B+ |
-| Amazon (retail) | 15-40% (+ $15/month Prime) | $2T | 300M+ |
-| Airbnb (lodging) | 16% | $120B | 150M+ |
-| eBay (auction) | 12-14% | $50B | 150M+ |
-| Shopee (e-commerce) | 2% base + other fees | $50B | 700M+ |
-| DoorDash (food) | 30%+ | $50B | 100M+ |
-
-**Problem**: These platforms extract enormous value but are **geographically limited** (require internet/credit cards) and **economically predatory** (70% of gig workers earn <$10/hour after commission).
-
-**In developing markets**: No equivalent platforms exist, so commerce stays informal:
-- Street vendors (no reach beyond foot traffic)
-- WhatsApp groups (no search, discovery hell)
-- Phone calls (inefficient, no verification)
-- Traveling salesmen (high transaction costs)
-
----
-
-**The CylinderSeal Solution: Peer Marketplace via Gossip Network**
-
-No middleman. No commission. Just peers discovering peers.
-
-Every peer can:
-1. **Create listings** (products/services) with photos, price, variants (size, color, delivery method)
-2. **Advertise locally** (via whisper network) — nearby peers see listing in their app, **works offline**
-3. **Discover services** — search by category, price, location, **seller reputation**
-4. **Purchase securely** — payment goes through quorum-voted ledger, **seller reputation feeds credit score**
-5. **Build portable reputation** — high ratings work across all categories (not siloed per platform)
-
-**Categories:**
-- 🍔 Fast food delivery, restaurants, grocers
-- 🚕 Taxi, delivery, logistics
-- 🔧 Services (cleaning, plumbing, repair, labor, tailoring)
-- 🛍️ Products (retail goods, handmade items)
-- 🌾 Agricultural produce, livestock
-- 💻 Digital downloads, courses, designs
-- 🏠 Real estate (rent, lodging, properties)
-- 🩺 Healthcare (traditional medicine, wellness, pharmacy)
-- 📚 Education (tutoring, classes, coaching)
-- 💼 Professional services (accounting, legal advice)
-- 🎨 Creative services (design, photography, video)
-
----
-
-**Why CylinderSeal Marketplace Destroys Incumbents:**
-
-| Factor | Uber/Amazon/eBay | CylinderSeal |
-|--------|-----------------|-------------|
-| **Commission** | 15-30% | **0%** (completely free) |
-| **Seller Income (100 OWC sale)** | 70-85 OWC | **100 OWC** |
-| **Requires Internet** | Yes (always) | No (offline discovery) |
-| **Requires Credit Card** | Yes | No (OWC balances) |
-| **Reputation Portability** | Siloed per app | Portable across categories |
-| **Geographic Coverage** | Developed countries | Works in remote villages |
-| **Merchant Onboarding** | Forms, verification (days) | Generate keypair (minutes) |
-| **Network Effects** | Centralized (locked) | Peer-to-peer (viral) |
-| **Available in Developing Markets** | Limited (Uber in Kenya, nothing in rural) | Works everywhere, especially rural |
-
-**The Economic Impact:**
-
-A taxi driver earning $100/day:
-- **Uber model**: Pays 25% = $25 commission → nets $75/day
-- **CylinderSeal model**: 0% fee → nets $100/day
-- **Difference**: +33% take-home pay for drivers
-
-A vendor selling $1000/month:
-- **Amazon model**: Pays 15% FBA fee + 8% referral + ads = $300+/month → nets $700/month
-- **CylinderSeal model**: 0% fee → nets $1000/month
-- **Difference**: +43% take-home for small businesses
-
----
-
-**How Reputation Works Across Categories:**
-
-Ahmed (tomato seller, 4.8★) builds credit score → can now:
-- ✅ Borrow 50K OWC (tier 2 lending)
-- ✅ Run a second business selling cloth (reputation follows)
-- ✅ Offer taxi rides on weekends (same reputation applies)
-- ✅ Rent a room to tourists (trusted seller status matters)
-
-**In Uber/Amazon/eBay**: You're a 4.8★ driver, 3.2★ seller, 0★ host = 3 separate reputations. You have to rebuild trust in each category.
-
-**In CylinderSeal**: You're a 4.8★ peer. Period. Works everywhere.
-
-**How Marketplace Transactions Work:**
-
-```
-Seller Creates Listing                      Buyer Searches & Discovers
-├─ Title, description, photos (IPFS)        ├─ Browse local cached listings (offline)
-├─ Price in OWC + variants                  ├─ Search by category, distance, price
-├─ Delivery methods (pickup, delivery)      ├─ View seller's credit score + reviews
-└─ Sign listing + gossip to peers           └─ Place order via NFC or online payment
-                                            
-                                            Order becomes Journal Entry
-                                            ├─ Payment confirmed via 3-of-5 quorum
-                                            ├─ Seller notified + receives payment
-                                            ├─ Buyer rates seller after delivery
-                                            └─ Rating feeds into seller's credit score
-```
-
-**Super-Peer Marketplace Features:**
-
-Each super-peer maintains:
-- **Full-text search index** (titles, descriptions) + geographic indexing (Haversine distance)
-- **Seller reputation system** — average rating from all reviews
-- **Order history & tracking** — status updates from seller
-- **Dispute resolution** — if buyer claims non-delivery or poor quality, resolve using reputation + evidence
-- **Completely free** — zero transaction fees; marketplace activity builds credit profiles (the monetizable asset)
-
-**Example Workflow: Buying Fresh Tomatoes**
-
-```
-Day 1 (Offline):
-  Buyer opens app → "Browse Marketplace"
-  Sees cached listings of nearby sellers
-  Filters: Category=Agricultural, Price<500 KES, Distance<5km
-  Finds "Fresh Farm Tomatoes from Ahmed" (4.8/5 stars, 12 reviews)
-  
-Day 2 (Online, ready to buy):
-  Buyer opens listing → clicks "Order 5kg"
-  App shows: Total = 400 OWC
-  Buyer clicks "Order" → selects delivery (Pickup @ Ahmed's stall)
-  Device creates Purchase entry:
-    {
-      buyer: Device B's public key,
-      seller: Ahmed's public key,
-      amount: 400 OWC,
-      listing_id: "Fresh Farm Tomatoes",
-      quantity: 5kg,
-      delivery_method: "PICKUP",
-      ordered_at: 2026-04-15 10:30 UTC
-    }
-  Entry signed + sent to super-peer
-  
-Super-Peer (quorum voting):
-  Entry receives 3-of-5 votes → CONFIRMED
-  Payment moved: Buyer balance -400, Ahmed balance +400
-  Notification sent to Ahmed (seller)
-  
-Day 3:
-  Ahmed prepares tomatoes, marks order as "SHIPPED"
-  Buyer receives notification
-  Buyer picks up tomatoes at Ahmed's stall
-  
-Day 4:
-  Buyer submits review: ⭐⭐⭐⭐⭐ "Fresh and delicious, good prices!"
-  Review gossips through network + stored on super-peers
-  Ahmed's average rating updates: 4.75 → 4.78
-  Ahmed's credit score bumps up (+0.5 points) due to positive reviews
-```
-
-**Why Reputation Matters:**
-
-Marketplace ratings feed directly into credit scoring:
-
+Every transaction automatically feeds into credit scoring:
 ```
 credit_score = (
     (days_active / 90) * 20
@@ -366,85 +208,27 @@ credit_score = (
     + (velocity_check() * 15)
     + (geographic_stability() * 15)
     + (device_reputation_avg() * 10)
-    + (marketplace_seller_rating() * 10)      ← NEW
 ) / 1.7
 
-Result: High-quality sellers get higher credit scores
-        → Can borrow more money
-        → Get better loan terms
-        → Attract more customers (higher visibility in search)
+Result: Active users build credit profiles automatically
+        → Can borrow via peer lending
+        → Can access supply chain financing (for exporters)
+        → Can get microloans from CBI-backed lending pools
 ```
 
-**Economic Incentive Loop (Virtuous Cycle):**
+**Economic Incentive Loop:**
 
-1. Ahmed sells quality tomatoes → gets 5-star reviews
-2. Reviews boost his credit score (72 → 75)
-3. Higher score = can borrow 10K OWC for farm expansion
-4. With more capital, he buys better seeds & equipment
-5. Produces even better tomatoes → more sales → even higher score (75 → 80)
-6. Score 80 = can now borrow 20K OWC → expand to 2 farms
-7. Compounds exponentially (credit-driven economic growth)
+1. User makes regular transactions → credit score increases
+2. Higher score → can borrow more (supply chain financing for businesses, microloans for individuals)
+3. Borrow to expand business → more transactions → even higher score
+4. Compounds exponentially (credit-driven economic growth)
 
-**Contrast: Uber Driver's Dead End**
-- Driver earns $75/day (after Uber's 25% commission)
-- Completes 100 trips → 4.8★ rating
-- Rating is "stuck" at 4.8★ (can't go higher)
-- Can't borrow money based on rating (Uber doesn't offer lending)
-- Remains trapped as contractor, no path to ownership
+**Why This Matters for Iraq:**
 
----
-
-**Why Offline Discovery is an Unbeatable Moat:**
-
-Uber, Amazon, Shopee require:
-1. ✅ Smart phone with battery
-2. ✅ Active internet connection (or recently cached data)
-3. ✅ Cell signal to verify location/transactions
-4. ✅ GPS for routing
-
-CylinderSeal marketplace requires:
-1. ✅ Smart phone (any Android)
-2. ✅ **Listing cache (never expires**. Gossip once, stored forever locally)
-3. ✅ **No internet for discovery**. Search works offline
-4. ✅ NFC/BLE for payment (no cell signal needed)
-
-**Result**: CylinderSeal works in:
-- ❌ Uber: Can't reach villages without cellular (50% of Africa)
-- ❌ Amazon: Can't order without credit card/internet (3B people)
-- ✅ **CylinderSeal: Works in villages, slums, trains, boats, refugee camps**
-
----
-
-**The Stickiness Factor:**
-
-Once a peer discovers services via CylinderSeal:
-- No app switching (all commerce + credit in one app)
-- No fee comparison (0% is unbeatable)
-- No trust gap (reputation tied to credit score, not a black box)
-- No onboarding pain (merchants don't need forms, banks, KYC)
-
-Compare:
-- Uber driver on Uber + eBay seller on eBay + Shopee seller on Shopee = 3 apps, 3 reputations, 3 vendors
-- CylinderSeal = 1 app, 1 reputation, infinite vendors
-
----
-
-**Market Capture Dynamics:**
-
-Year 1: Informal market (word-of-mouth + WhatsApp)
-- CylinderSeal enters with zero fees
-- Early adopters keep 100% of income (vs 70-85% on incumbent platforms)
-- Network grows virally (gossip protocol, no marketing needed)
-
-Year 2: Formal platforms notice (Uber, Shopee try to enter Africa)
-- They offer 15-20% commission (50% cheaper than current pricing, but CylinderSeal is free)
-- CylinderSeal merchants won't switch (zero fees + credit building = unbeatable)
-- Users have all services in one app + credit building (stickier than anything)
-
-Year 3: CylinderSeal has captured 80%+ of peer commerce in East Africa
-- Total marketplace GMV = $50M+ (from revenue model projections)
-- Reputation data on 1M+ vendors = priceless competitive asset
-- Can't be displaced (offline-first means no platform can outcompete on service delivery)
+- 70% unbanked Iraqis have zero credit history (banks won't touch them)
+- Digital Dinar transaction history creates verifiable credit profile
+- Exporters can access working capital based on transaction history (not collateral)
+- Enables supply chain financing (biggest barrier to export growth)
 
 ### How They Interact
 
@@ -1125,16 +909,18 @@ This section exists because terms like "offline-first" and "personal ledgers" ca
 - No immutability guarantee (super-peers can reverse fraudulent txs in disputes)
 
 **❌ Not Cryptocurrency**
-- Backed by fiat currency (basket of real money), not speculation
-- Not traded (no exchange rate volatility)
-- No private key recovery (you can't rewrite history with your keys)
-- Prices are set by regulators/central bank, not markets
+- Backed by Iraqi government (fiat currency), not speculation
+- Not traded (fixed 1:1 conversion between Digital IQD and physical IQD)
+- Issued and controlled by Central Bank of Iraq (not distributed, not decentralized)
+- Prices are set by CBI policy, not markets
+- No volatility risk (pegged to Iraqi Dinar)
 
-**❌ Not Peer-to-Peer**
+**❌ Not Decentralized**
 - Device-to-device payments are P2P (NFC/BLE)
-- But super-peers are NOT peers (they're centralized validators)
-- Super-peers are run by us, not users
-- Super-peers can refuse service, reverse txs, enforce KYC/AML
+- But super-peers are NOT peers (they're centralized CBI validators)
+- Super-peers run by CBI regional branches (Baghdad, Basra, Erbil), not third parties
+- CBI maintains full control: can adjust policy, freeze accounts, enforce KYC/AML
+- Byzantine consensus is 3-of-5 (not thousands of miners)
 
 **❌ Not Banking Replacement**
 - No deposit insurance (but you control your private key, super-peers can't steal)
@@ -1151,20 +937,23 @@ This section exists because terms like "offline-first" and "personal ledgers" ca
 - Offline payments (works without internet)
 - Instant account opening (no paperwork, just a phone)
 
-**✅ What It Actually Is**
-- **Offline-first payment system** (people can pay without internet)
-- **Credit-building platform** (transaction history creates credit score automatically)
-- **Microloan marketplace** (borrow based on CylinderSeal credit, not traditional credit score)
-- **Peer lending network** (lend to people you know based on verified credit history)
-- **Last-mile cash conversion** (local super-peer operators accept cash, issue digital balance)
-- **Informal money agent network** (similar to M-Pesa, but decentralized and anyone can operate a super-peer)
-- **Zero transaction costs** (no intermediaries, no fees, completely free end-to-end)
-- **Device-local transaction journals** with super-peer validation
-- Designed for the 1.4 billion unbanked adults (World Bank 2021) and billions more WITHOUT access to:
-  - Fee-free digital payments (they pay 5-10% on remittances)
-  - Traditional credit (no bank account = no credit score)
-  - Microloans (banks don't serve the poor)
-  - Formal banking infrastructure (super-peers can be run by NGOs, telcos, or community groups)
+**✅ What It Actually Is (Iraq Digital Dinar)**
+- **Sovereign digital currency system** — CBI-issued IQD accessible directly to citizens via smartphone
+- **Offline-first payment system** — people can transact without internet (NFC/BLE)
+- **Credit-building platform** — transaction history creates credit score automatically (enables supply chain financing)
+- **Real-time monetary policy infrastructure** — CBI sees all transactions instantly, can adjust policy in hours not weeks
+- **Financial inclusion mechanism** — 70% unbanked Iraqis get banking access without requiring bank accounts
+- **Trade policy engine** — Government salary tier system incentivizes local production without tariffs
+- **Last-mile cash conversion** — CBI branch operators accept physical IQD, issue Digital IQD (1:1 rate)
+- **Zero transaction costs** — no bank intermediaries, no fees, completely free peer-to-peer
+- **Device-local transaction journals** with Byzantine state replication (3-of-5 super-peers validate)
+
+Enables Iraq to achieve:
+  - Direct CBI control over monetary policy (not mediated through commercial banks)
+  - Financial inclusion for rural population (works offline where banks can't operate)
+  - Export competitiveness (supply chain financing based on transaction history, not collateral)
+  - Trade balance improvement (merchant tier system favors local goods over imports)
+  - 32% GDP growth over 5 years (from financial inclusion + supply chain finance + local production)
 
 ## License
 
