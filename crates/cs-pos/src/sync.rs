@@ -67,13 +67,13 @@ impl SuperPeer {
 
         while let Some(ack) = ack_stream.message().await.context("ack stream")? {
             match ack.status {
-                x if x == SyncAckStatus::Confirmed as i32
-                    || x == SyncAckStatus::Rejected as i32 =>
+                x if x == SyncAckStatus::AckStatusConfirmed as i32
+                    || x == SyncAckStatus::AckStatusRejected as i32 =>
                 {
                     store.remove_pending(&ack.entry_id)?;
                 }
-                x if x == SyncAckStatus::Conflicted as i32
-                    || x == SyncAckStatus::Pending as i32 =>
+                x if x == SyncAckStatus::AckStatusConflicted as i32
+                    || x == SyncAckStatus::AckStatusPending as i32 =>
                 {
                     store.record_attempt(&ack.entry_id, chrono::Utc::now().timestamp_millis())?;
                 }

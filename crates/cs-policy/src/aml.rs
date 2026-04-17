@@ -24,7 +24,10 @@ use cs_core::error::Result;
 use cs_core::models::{KYCTier, Transaction};
 
 /// A flag recorded on a transaction during AML screening.
-#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+//
+// NOTE: `Eq` can't be derived because the `GeographicJump` variant
+// contains f64 distances. `PartialEq` is enough for test equality.
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub enum AmlFlag {
     /// Public key matched a sanctions list.
     SanctionsHit { list: String, entry_id: String },
@@ -52,8 +55,9 @@ pub enum VelocityWindow {
     TwentyFourHours,
 }
 
-/// Outcome of screening.
-#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+/// Outcome of screening. Contains `AmlFlag`s, which in turn may carry
+/// f64 distances — so `Eq` can't be derived.
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub struct AmlDecision {
     /// `true` if the transaction may proceed (no blocking flag); `false`
     /// triggers hold-for-review or rejection upstream.

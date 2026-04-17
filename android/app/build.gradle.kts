@@ -102,6 +102,9 @@ dependencies {
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ktx)
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
 
 kapt { correctErrorTypes = true }

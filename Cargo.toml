@@ -11,6 +11,7 @@ members = [
     "crates/cs-node",
     "crates/cs-mobile-core",
     "crates/cs-pos",
+    "crates/cs-tests",
 ]
 resolver = "2"
 
@@ -28,17 +29,17 @@ tokio = { version = "1.40", features = ["full"] }
 axum = "0.7"
 tower = "0.4"
 tower-http = { version = "0.5", features = ["cors", "compression-full", "timeout", "trace"] }
-tonic = "0.12"
-tonic-build = "0.12"
-prost = "0.12"
-prost-types = "0.12"
+tonic = { version = "0.12.3", features = ["tls", "tls-roots"] }
+tonic-build = "0.12.3"
+prost = "0.13"
+prost-types = "0.13"
 futures = "0.3"
 futures-core = "0.3"
 tokio-stream = "0.1"
 async-trait = "0.1"
 
 # Database
-sqlx = { version = "0.7", features = ["runtime-tokio-native-tls", "postgres", "uuid", "chrono", "json"] }
+sqlx = { version = "0.7", default-features = false, features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono", "json", "macros", "migrate", "rust_decimal"] }
 deadpool-redis = "0.15"
 redis = { version = "0.25", features = ["aio", "tokio-comp", "connection-manager"] }
 

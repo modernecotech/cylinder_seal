@@ -9,7 +9,10 @@ android {
     namespace = "com.modernecotech.cylinderseal.core.cryptography"
     compileSdk = 34
 
-    defaultConfig { minSdk = 24 }
+    defaultConfig {
+        minSdk = 24
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -33,6 +36,8 @@ dependencies {
     implementation(libs.timber)
 
     testImplementation(libs.junit)
+    androidTestImplementation(libs.junit.ktx)
+    androidTestImplementation("androidx.test:runner:1.5.2")
 }
 
 kapt { correctErrorTypes = true }

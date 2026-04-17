@@ -224,6 +224,7 @@ async fn main() -> Result<()> {
             let ui_weak = ui_weak.clone();
             let cfg = cfg_clone.clone();
             let store = store.clone();
+            let merchant = merchant.clone();
             let merchant_name = cfg.merchant_name.clone();
             tokio::spawn(async move {
                 let tx_id = ui_weak

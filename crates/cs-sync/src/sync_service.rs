@@ -97,7 +97,7 @@ impl ChainSyncService {
         if let Err(status) = self.validate(&entry).await {
             return Ok(pb::SyncAck {
                 entry_id,
-                status: pb::SyncAckStatus::Rejected as i32,
+                status: pb::SyncAckStatus::AckStatusRejected as i32,
                 conflict_reason: status.message().to_string(),
                 balance_owc: 0,
                 credit_score: String::new(),
@@ -110,7 +110,7 @@ impl ChainSyncService {
             Resolution::RejectInFavorOf { winning_entry_hash } => {
                 return Ok(pb::SyncAck {
                     entry_id,
-                    status: pb::SyncAckStatus::Conflicted as i32,
+                    status: pb::SyncAckStatus::AckStatusConflicted as i32,
                     conflict_reason: format!(
                         "entry lost to earlier submission {}",
                         hex::encode(&winning_entry_hash)
@@ -123,7 +123,7 @@ impl ChainSyncService {
             Resolution::Quarantined { conflict_log_id } => {
                 return Ok(pb::SyncAck {
                     entry_id,
-                    status: pb::SyncAckStatus::Pending as i32,
+                    status: pb::SyncAckStatus::AckStatusPending as i32,
                     conflict_reason: format!(
                         "quarantined for manual review (conflict_log_id={conflict_log_id})"
                     ),
@@ -164,7 +164,7 @@ impl ChainSyncService {
 
                 Ok(pb::SyncAck {
                     entry_id,
-                    status: pb::SyncAckStatus::Confirmed as i32,
+                    status: pb::SyncAckStatus::AckStatusConfirmed as i32,
                     conflict_reason: String::new(),
                     balance_owc: balance,
                     credit_score: String::new(),
@@ -173,7 +173,7 @@ impl ChainSyncService {
             }
             Err(cs_consensus::node::ProposeError::TermChanged) => Ok(pb::SyncAck {
                 entry_id,
-                status: pb::SyncAckStatus::Pending as i32,
+                status: pb::SyncAckStatus::AckStatusPending as i32,
                 conflict_reason: "leadership changed during proposal; retry".into(),
                 balance_owc: 0,
                 credit_score: String::new(),
@@ -279,7 +279,7 @@ impl pb::chain_sync_server::ChainSync for ChainSyncService {
                         Ok(domain) => svc.handle_entry(domain).await.unwrap_or_else(|s| {
                             pb::SyncAck {
                                 entry_id: pb_entry.entry_id.clone(),
-                                status: pb::SyncAckStatus::Rejected as i32,
+                                status: pb::SyncAckStatus::AckStatusRejected as i32,
                                 conflict_reason: s.message().to_string(),
                                 balance_owc: 0,
                                 credit_score: String::new(),
@@ -288,7 +288,7 @@ impl pb::chain_sync_server::ChainSync for ChainSyncService {
                         }),
                         Err(e) => pb::SyncAck {
                             entry_id: pb_entry.entry_id.clone(),
-                            status: pb::SyncAckStatus::Rejected as i32,
+                            status: pb::SyncAckStatus::AckStatusRejected as i32,
                             conflict_reason: format!("decode error: {e}"),
                             balance_owc: 0,
                             credit_score: String::new(),
@@ -328,7 +328,7 @@ impl pb::chain_sync_server::ChainSync for ChainSyncService {
     ) -> Result<Response<pb::WithdrawalStatus>, Status> {
         Ok(Response::new(pb::WithdrawalStatus {
             withdrawal_id: uuid::Uuid::new_v4().to_string(),
-            status: pb::WithdrawalStatusEnum::Pending as i32,
+            status: pb::WithdrawalStatusEnum::WithdrawalStatusPending as i32,
             created_at: chrono::Utc::now().timestamp_micros(),
             expected_completion_at: chrono::Utc::now().timestamp_micros()
                 + 24 * 60 * 60 * 1_000_000,

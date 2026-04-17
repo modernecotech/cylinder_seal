@@ -96,3 +96,76 @@ pub async fn require_api_key(
 
     Ok(next.run(req).await)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn principal_scope_check_matches() {
+        let p = BusinessPrincipal {
+            user_id: uuid::Uuid::new_v4(),
+            api_key_id: 1,
+            scopes: vec!["invoice.create".into(), "webhook.receive".into()],
+        };
+        assert!(p.has_scope("invoice.create"));
+        assert!(p.has_scope("webhook.receive"));
+        assert!(!p.has_scope("admin.approve"));
+    }
+
+    #[test]
+    fn principal_empty_scopes_matches_nothing() {
+        let p = BusinessPrincipal {
+            user_id: uuid::Uuid::new_v4(),
+            api_key_id: 1,
+            scopes: vec![],
+        };
+        assert!(!p.has_scope("invoice.create"));
+    }
+
+    /// Helper mirroring the middleware's token-parsing branch so we can
+    /// unit-test edge cases without a full axum service stack.
+    fn parse_bearer(auth: &str) -> Result<[u8; 32], &'static str> {
+        let token = auth.strip_prefix("Bearer ").ok_or("expected Bearer")?.trim();
+        let hex = token.strip_prefix("cs_sk_").ok_or("expected cs_sk_ prefix")?;
+        let bytes = hex::decode(hex).map_err(|_| "malformed hex")?;
+        if bytes.len() != 32 {
+            return Err("wrong length");
+        }
+        let mut a = [0u8; 32];
+        a.copy_from_slice(&bytes);
+        Ok(a)
+    }
+
+    #[test]
+    fn bearer_parse_happy_path() {
+        let token = format!("Bearer cs_sk_{}", "a".repeat(64));
+        assert!(parse_bearer(&token).is_ok());
+    }
+
+    #[test]
+    fn bearer_parse_rejects_missing_prefix() {
+        assert_eq!(parse_bearer("cs_sk_aaaa"), Err("expected Bearer"));
+    }
+
+    #[test]
+    fn bearer_parse_rejects_wrong_secret_prefix() {
+        let token = format!("Bearer pk_sk_{}", "a".repeat(64));
+        assert_eq!(parse_bearer(&token), Err("expected cs_sk_ prefix"));
+    }
+
+    #[test]
+    fn bearer_parse_rejects_malformed_hex() {
+        assert_eq!(
+            parse_bearer("Bearer cs_sk_not-hex-data"),
+            Err("malformed hex")
+        );
+    }
+
+    #[test]
+    fn bearer_parse_rejects_wrong_length() {
+        // 10 hex chars = 5 bytes → fails the 32-byte check.
+        let token = format!("Bearer cs_sk_{}", "a".repeat(10));
+        assert_eq!(parse_bearer(&token), Err("wrong length"));
+    }
+}

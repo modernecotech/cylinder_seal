@@ -30,6 +30,20 @@ packages:
     from: "0.15.0"
 
 targets:
+  CylinderSealTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - CylinderSealTests
+    dependencies:
+      - target: CylinderSeal
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: iq.cbi.cylinderseal.tests
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/CylinderSeal.app/CylinderSeal"
+        FRAMEWORK_SEARCH_PATHS: "$(inherited) $(PROJECT_DIR)/CylinderSealCore"
+
   CylinderSeal:
     type: application
     platform: iOS

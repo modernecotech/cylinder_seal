@@ -139,18 +139,20 @@ fn watch_one(
 }
 
 fn exchange(card: &pcsc::Card, apdu: &[u8], recv_buf: &mut [u8]) -> Result<u16> {
-    let response = card.transmit(apdu, recv_buf).context("APDU transmit")?;
-    if response.len() < 2 {
-        anyhow::bail!("truncated APDU response");
-    }
-    let sw = ((response[response.len() - 2] as u16) << 8) | response[response.len() - 1] as u16;
-    // Copy the data portion into the beginning of recv_buf for callers.
-    let data_len = response.len() - 2;
-    for i in 0..data_len {
-        recv_buf[i] = response[i];
-    }
-    // Clobber anything past the real data with zeros so last_data_len is
-    // deterministic (SW already saved).
+    // `card.transmit` borrows `recv_buf` to hand back a view over the
+    // populated bytes; we need to compute both the status word and the
+    // data length before the borrow ends so we can re-use `recv_buf`.
+    let (sw, data_len) = {
+        let response = card.transmit(apdu, recv_buf).context("APDU transmit")?;
+        if response.len() < 2 {
+            anyhow::bail!("truncated APDU response");
+        }
+        let sw =
+            ((response[response.len() - 2] as u16) << 8) | response[response.len() - 1] as u16;
+        (sw, response.len() - 2)
+    };
+    // The response bytes already live at `recv_buf[0..data_len]`; zero
+    // the tail so `last_data_len` can scan backward deterministically.
     for b in &mut recv_buf[data_len..] {
         *b = 0;
     }

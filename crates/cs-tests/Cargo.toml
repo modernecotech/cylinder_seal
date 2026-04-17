@@ -1,0 +1,33 @@
+[package]
+name = "cs-tests"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Workspace-wide spec-validation and end-to-end tests"
+publish = false
+
+[dependencies]
+cs-core = { path = "../cs-core" }
+cs-storage = { path = "../cs-storage" }
+cs-sync = { path = "../cs-sync" }
+cs-consensus = { path = "../cs-consensus" }
+cs-policy = { path = "../cs-policy" }
+cs-credit = { path = "../cs-credit" }
+cs-api = { path = "../cs-api" }
+
+tokio.workspace = true
+async-trait.workspace = true
+anyhow.workspace = true
+tracing.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+serde_cbor.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+rust_decimal.workspace = true
+hex.workspace = true
+rand.workspace = true
+
+[dev-dependencies]
+tokio-test.workspace = true

@@ -677,17 +677,21 @@ mod tests {
     async fn single_node_elects_itself_with_majority_vote() {
         let node = make_node("sp-baghdad", vec!["sp-basra", "sp-erbil"]);
         // Two peers + self => quorum = 2. NoopTransport grants every vote.
-        // We must tick once to trigger the election timeout.
-        tokio::time::sleep(Duration::from_millis(200)).await;
+        // The election deadline is min + jitter(0..min) so we have to
+        // sleep for at least 2× min to be certain it's elapsed.
+        tokio::time::sleep(Duration::from_millis(450)).await;
         node.tick().await;
-        // Yield so spawned vote-reply tasks run.
-        tokio::time::sleep(Duration::from_millis(50)).await;
+        // Yield so spawned vote-reply tasks run; loop a few times in case
+        // the runtime needs more than one hop to schedule them.
+        for _ in 0..10 {
+            tokio::time::sleep(Duration::from_millis(20)).await;
+            let state = node.state().await;
+            if matches!(state.role, RaftRole::Leader | RaftRole::Candidate) {
+                return;
+            }
+        }
         let state = node.state().await;
-        assert!(
-            matches!(state.role, RaftRole::Leader | RaftRole::Candidate),
-            "role was {:?}",
-            state.role
-        );
+        panic!("role was {:?} after 10 polls", state.role);
     }
 
     #[tokio::test]

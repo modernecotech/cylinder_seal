@@ -61,19 +61,19 @@ fn fixed<const N: usize>(bytes: &[u8], field: &'static str) -> Result<[u8; N], C
 // --- PaymentChannel ---------------------------------------------------------
 
 pub fn pb_channel_to_domain(ch: i32) -> PaymentChannel {
-    match pb::PaymentChannel::try_from(ch).unwrap_or(pb::PaymentChannel::Unspecified) {
-        pb::PaymentChannel::Nfc => PaymentChannel::NFC,
-        pb::PaymentChannel::Ble => PaymentChannel::BLE,
-        pb::PaymentChannel::Online => PaymentChannel::Online,
-        pb::PaymentChannel::Unspecified => PaymentChannel::Online,
+    match pb::PaymentChannel::try_from(ch).unwrap_or(pb::PaymentChannel::ChannelUnspecified) {
+        pb::PaymentChannel::ChannelNfc => PaymentChannel::NFC,
+        pb::PaymentChannel::ChannelBle => PaymentChannel::BLE,
+        pb::PaymentChannel::ChannelOnline => PaymentChannel::Online,
+        pb::PaymentChannel::ChannelUnspecified => PaymentChannel::Online,
     }
 }
 
 pub fn domain_channel_to_pb(ch: PaymentChannel) -> i32 {
     match ch {
-        PaymentChannel::NFC => pb::PaymentChannel::Nfc as i32,
-        PaymentChannel::BLE => pb::PaymentChannel::Ble as i32,
-        PaymentChannel::Online => pb::PaymentChannel::Online as i32,
+        PaymentChannel::NFC => pb::PaymentChannel::ChannelNfc as i32,
+        PaymentChannel::BLE => pb::PaymentChannel::ChannelBle as i32,
+        PaymentChannel::Online => pb::PaymentChannel::ChannelOnline as i32,
     }
 }
 
