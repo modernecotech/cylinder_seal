@@ -7,6 +7,8 @@ license.workspace = true
 
 [dependencies]
 cs-core = { path = "../cs-core" }
+cs-exchange = { path = "../cs-exchange" }
+cs-policy = { path = "../cs-policy" }
 cs-storage = { path = "../cs-storage" }
 tokio.workspace = true
 axum.workspace = true

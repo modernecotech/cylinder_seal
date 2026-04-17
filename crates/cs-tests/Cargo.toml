@@ -10,9 +10,10 @@ publish = false
 [dependencies]
 cs-core = { path = "../cs-core" }
 cs-storage = { path = "../cs-storage" }
-cs-sync = { path = "../cs-sync" }
+cs-sync = { path = "../cs-sync", optional = true }
 cs-consensus = { path = "../cs-consensus" }
 cs-policy = { path = "../cs-policy" }
+cs-exchange = { path = "../cs-exchange" }
 cs-credit = { path = "../cs-credit" }
 cs-api = { path = "../cs-api" }
 

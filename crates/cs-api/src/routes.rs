@@ -13,6 +13,7 @@ use cs_storage::repository::{
 };
 
 use crate::business;
+use crate::compliance;
 use crate::handlers::{
     get_balance, health, kyc_callback, list_entries, readiness, stats, ApiState,
 };
@@ -59,7 +60,14 @@ pub fn create_router(
         .route(
             "/v1/businesses/:user_id/api-keys/:key_id",
             delete(business::revoke_api_key),
-        );
+        )
+        // Compliance / risk management endpoints (TODO: admin-JWT gate).
+        .route("/v1/compliance/dashboard", get(compliance::dashboard))
+        .route("/v1/compliance/rules", get(compliance::list_rules))
+        .route("/v1/compliance/rules/:code", get(compliance::get_rule))
+        .route("/v1/compliance/evaluate", post(compliance::evaluate_transaction))
+        .route("/v1/compliance/users/:user_id/risk", get(compliance::get_user_risk))
+        .route("/v1/compliance/exchange-rates", get(compliance::exchange_rates));
 
     // API-key-gated router (server-to-server calls for business_electronic).
     let authed = Router::new()

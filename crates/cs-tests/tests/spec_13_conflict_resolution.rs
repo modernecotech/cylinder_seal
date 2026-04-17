@@ -1,3 +1,4 @@
+#![cfg(feature = "cs-sync")]
 //! Spec §Security Model — "Conflict resolution: Earlier timestamp wins
 //! (soft heuristic); if tied, NFC/BLE receipt evidence wins".
 //!

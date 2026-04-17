@@ -549,8 +549,15 @@ The specification above describes the target system. This section reports honest
 - **Domain models** — `JournalEntry` with prev-hash chaining, `Transaction` with i64 micro-OWC (no float anywhere), KYC tiers with limits, location fields (GPS/Network/LastKnown/Offline)
 - **User ID derivation** — BLAKE2b-256(public_key) → UUIDv7, tested for consistency
 - **Proto/gRPC service definitions** — `ChainSync` (bidirectional streaming), `SuperPeerGossip`, all message types
-- **PostgreSQL schema** — append-only ledger, BRIN time indices, `UNIQUE(user_id, sequence_number)` enforcing chain integrity, conflict-status tracking
+- **PostgreSQL schema** — append-only ledger, BRIN time indices, `UNIQUE(user_id, sequence_number)` enforcing chain integrity, conflict-status tracking, AML rules, risk profiles, regulatory reports, enhanced monitoring, PEP registry
 - **Hardware binding models** — `DeviceHardwareIds`, `DeviceAttestation` (SafetyNet/Play Integrity types), reputation tracking
+- **CBI data integration** — official IQD/USD exchange rate (1300, managed peg), policy rate (5.5%), reserve requirement (22%), monetary snapshots (M0/M1/M2, Dec 2023–Mar 2026), e-payment statistics (2018–2022), macro indicators, auction data, denomination breakdown, licensed payment providers; cross-rate feed aggregator for 12 currencies via USD
+- **AML/CFT rule engine** — flexible, data-driven engine with 14 FATF/CBI-aligned default rules (velocity, structuring, geographic anomaly, dormant reactivation, round amounts, rapid fan-out, behavioral deviation, counterparty risk, PEP, high-risk jurisdictions); typed `RuleCondition` enum (13 variants) stored as JSONB in PostgreSQL; composite risk scoring (0–100); DB-configurable thresholds without code redeploy
+- **Risk scoring engine** — user-level composite risk model with 7 weighted factors (KYC completeness 15%, account maturity 10%, transaction patterns 20%, AML hit ratio 20%, counterparty exposure 15%, geographic risk 10%, PEP/sanctions 10%); 5 risk tiers (Low→Critical) with review intervals and EDD requirements; counterparty risk assessment
+- **Regulatory reporting** — SAR (30-day FinCEN deadline), CTR (15-day threshold-based), STR (3-day CBI Law 39/2015); report lifecycle state machine (Draft→UnderReview→Filed→Acknowledged→Closed); compliance dashboard data models
+- **Credit scoring** — FICO-compatible 300–900 range from 5 weighted factors (transaction count, account age, average amount, conflict-free ratio, balance stability); lending spread calibrated to CBI commercial bank rates (policy rate + 300–1800 bps by score band)
+- **Merchant tier system** — Tier 1–4 classification by Iraqi content percentage (0% → 100%); fee routing (0% → 3–5%); salary cap enforcement; DB-stored tier policies
+- **REST API** — Axum-based admin/ops surface: health, readiness, stats, user balance/entries, KYC callbacks, business registration/approval/EDD, API key management (BLAKE2b hash-only storage), invoice CRUD with webhook dispatch, compliance dashboard, AML rule listing, transaction evaluation, user risk profiles, CBI exchange rates
 
 ### Framework present, logic stubbed (🟡)
 | Component | Present | Missing |
@@ -558,11 +565,10 @@ The specification above describes the target system. This section reports honest
 | Redis nonce replay prevention | `NonceStore` trait + 48h TTL spec | Actual `check_and_set` Redis impl |
 | 3-of-5 Raft consensus | Proto messages, `SuperPeerConfig` quorum config | Raft election + log replication, hash agreement, PENDING→CONFIRMED transitions |
 | Conflict resolver | Stub with comment-level design | Timestamp comparison + NFC/BLE receipt tiebreaker logic |
-| Axum REST API | Dependency wired | Handlers (`cs-api/handlers.rs` is 7-line TODO) |
 | gRPC sync service | Proto + server skeleton | Service startup (`main.rs` TODO), streaming handlers |
 | Super-peer ledger replication | Empty scheduler module | Periodic sync job, batch logic |
-| Credit scoring engine | `CreditScorer` struct | Scoring algorithm, loan models |
-| REST JSON serialization | CBOR signing works | JSON layer for admin/webhooks |
+| Credit scoring batch | `BatchCreditScorer` trait + scheduler scaffolding | Paged user iteration for batch updates |
+| AML rule DB loading | In-memory engine + JSONB schema | `FROM aml_rules` query + periodic refresh |
 
 ### Not implemented (❌)
 **Android mobile (the entire offline-payment channel):**
@@ -576,19 +582,19 @@ The specification above describes the target system. This section reports honest
 - Room schema for encrypted wallet
 - Compose UI beyond "Coming Soon" shell
 
-**Economic and compliance features the spec sells heavily:**
-- **Merchant tier system (Tier 1-4 by Iraqi content)** — 0 lines of code. This is the mechanism behind the $13-22B import substitution that drives the upper end of the $385-430B Year-5 GDP projection. AI-generation makes writing it fast; the remaining work is tier-classification policy + fee routing logic, both well-specified already.
-- **AML/CFT sanctions screening** — no OFAC/UN list integration, no transaction flagging, no SAR pipeline
+**Economic and compliance features not yet implemented:**
 - **Regional hub / cross-border settlement** — no FX handling, settlement ledger, or inter-bank messaging
 - **Diaspora investment vehicles** — no models for bonds, equity crowdfunding, real-estate escrow
+- **Live OFAC/UN sanctions list ingestion** — screening engine exists but list fetching is not automated
+- **Live forex feed integration** — cross-rates use reference values; external API connectors (exchangerate.host, Open Exchange Rates) are TODO
 
 ### Load-bearing risks to the economic case
 
 1. **Offline payments require NFC + BLE + Keystore + WorkManager**, none of which are implemented. Every projection assuming reach to ~21M unbanked Iraqis in low-connectivity areas depends on this channel working.
 2. **Raft quorum consensus is the README's core correctness claim** and the voting logic does not exist — currently any super-peer could accept a transaction alone.
-3. **The merchant tier system is 100% unimplemented** while being the trade-policy lever responsible for the largest single GDP contribution (~$19-44B multiplier effect).
-4. **Replay prevention is not enforced** — the nonce trait is defined but never writes to Redis.
-5. **Conflict resolution is a stub** — double-spend detection has no runtime code path.
+3. **Replay prevention is not enforced** — the nonce trait is defined but never writes to Redis.
+4. **Conflict resolution is a stub** — double-spend detection has no runtime code path.
+5. **Live sanctions list ingestion** — the AML rule engine and screening framework are implemented, but OFAC/UN list fetching is not yet automated. Manual list updates via the DB are possible.
 
 ### Critical-path build order to close the gap
 
@@ -600,14 +606,15 @@ The specification above describes the target system. This section reports honest
 6. NFC HCE service + ISO 7816-4 APDU frames
 7. WorkManager sync worker (background drain of offline queue)
 8. SQLCipher key derivation (HKDF(Keystore ‖ PIN)) + PIN flow
-9. Merchant tier classification + fee routing
-10. AML/CFT flagging pipeline (OFAC/UN list ingestion, velocity rules)
+9. ~~Merchant tier classification + fee routing~~ ✅ Implemented
+10. ~~AML/CFT flagging pipeline~~ ✅ Implemented (rule engine + risk scoring + SAR/CTR/STR reporting); remaining: live OFAC/UN list ingestion automation
 11. BLE GATT fallback service
-12. REST admin API handlers
-13. Credit scoring algorithm
+12. ~~REST admin API handlers~~ ✅ Implemented (health, readiness, balance, entries, KYC, business, invoices, compliance)
+13. ~~Credit scoring algorithm~~ ✅ Implemented (5-factor FICO-compatible scoring, CBI-calibrated lending spreads)
 14. Regional-hub settlement primitives
+15. Live forex feed integration (replace reference cross-rates with real-time external API data)
 
-Items 1-8 are required for the Baghdad pilot (Phase 2 below). Items 9-10 are required before Phase 3 regional expansion can claim the economic benefits projected. Items 11-14 stretch across Phases 3-4.
+Items 1-8 are required for the Baghdad pilot (Phase 2 below). Items 9-10 were required before Phase 3 and are now implemented. Items 11, 14-15 stretch across Phases 3-4.
 
 ---
 
@@ -708,10 +715,14 @@ CBI Board decides monthly issuance (not algorithmic). Backed by:
 **Daily caps:** CBI sets per-tier daily spending limits (enforceable real-time)
 
 ### AML/CFT Monitoring
-- **Transaction flagging**: Automatic patterns detected (velocity, geography, amounts)
-- **Sanctions screening**: All addresses checked against OFAC/UN lists real-time
-- **Counter-terrorism**: Large transfers require additional verification
-- **Suspicious activity reports (SARs)**: Escalated to Iraqi intelligence
+- **Data-driven rule engine**: 14 default rules aligned with FATF Recommendations, FinCEN BSA/AML typologies, and CBI AML/CFT Law No. 39 of 2015. Rules stored in PostgreSQL (JSONB conditions) — CBI compliance officers update thresholds via admin API without code redeploy.
+- **13 detection patterns**: Velocity/volume anomalies, structuring/smurfing near thresholds, geographic impossibility (haversine), dormant account reactivation, round-amount layering, rapid fan-out, behavioral deviation (3σ), counterparty risk, PEP involvement (FATF Rec 12), high-risk jurisdiction screening (FATF grey/blacklist), high-frequency burst, large cash (CTR analog at 10k OWC), custom/webhook rules.
+- **Composite risk scoring**: Each rule carries a severity (Low 10 / Medium 30 / High 60 / Critical 100); scores aggregate to a 0-100 composite with risk levels (Low / Medium / High / Critical). Actions escalate from Flag → EnhancedMonitoring → HoldForReview → Block → AutoSAR.
+- **User risk profiles**: 7-factor weighted model (KYC, account age, transaction patterns, AML history, counterparty exposure, geography, PEP/sanctions). 5 risk tiers with tiered review intervals (7 days for Critical, 365 for Low) and automatic EDD flagging.
+- **Regulatory reporting**: SAR (FinCEN-equivalent, 30-day filing deadline), CTR (threshold-based, 15-day), STR (CBI Law 39/2015, 3-day "without delay"). Lifecycle state machine: Draft → UnderReview → Filed → Acknowledged → Closed. Compliance dashboard with report counts, risk distribution, and top triggered rules.
+- **Sanctions screening**: Addresses checked against OFAC/UN/EU lists. Live list ingestion is planned; current implementation supports manual list updates via the PEP registry and sanctions tables.
+- **Counter-terrorism**: Large transfers flagged (CTR-001 at 10k OWC threshold), cross-border transactions to FATF blacklisted jurisdictions held for review, PEP transactions trigger enhanced monitoring.
+- **Compliance API**: 6 REST endpoints for compliance officers — dashboard, rule listing, rule detail, transaction evaluation (test or live), user risk profiling, CBI exchange rate context.
 
 ### Exchange Rate Management
 - **Fixed vs. floating**: CBI can choose (likely soft peg or managed float)

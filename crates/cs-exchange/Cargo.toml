@@ -14,3 +14,4 @@ serde_json.workspace = true
 tracing.workspace = true
 anyhow.workspace = true
 rust_decimal.workspace = true
+chrono.workspace = true

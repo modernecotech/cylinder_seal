@@ -32,6 +32,31 @@ pub const MIN_HISTORY_FOR_SCORE: i64 = 5;
 pub const SCORE_MIN: u32 = 300;
 pub const SCORE_MAX: u32 = 900;
 
+/// CBI policy rate used as a reference benchmark for credit pricing.
+/// When the CBI policy rate is higher, credit is tighter system-wide;
+/// scores at the margin are nudged down to reflect the monetary
+/// environment. Sourced from CBI Key Financial Indicators.
+pub fn cbi_policy_rate() -> Decimal {
+    cs_exchange::cbi::current_policy_rates().policy_rate
+}
+
+/// Suggested lending spread over the CBI policy rate for CylinderSeal
+/// micro-credit, based on the borrower's score. Higher scores get a
+/// tighter spread. Returns annual basis points.
+///
+/// The CBI's own commercial bank IQD lending rate is ~10.4% (Dec 2025)
+/// against a 5.5% policy rate, implying a ~490 bps spread for prime
+/// borrowers. We use this as the floor.
+pub fn suggested_spread_bps(score: u32) -> u32 {
+    match score {
+        800.. => 300,        // Excellent: 3% over policy rate
+        700..=799 => 490,    // Good: ~CBI commercial bank spread
+        600..=699 => 750,    // Fair: 7.5%
+        500..=599 => 1200,   // Below average: 12%
+        _ => 1800,           // Poor: 18%
+    }
+}
+
 pub struct CreditScorer {
     journal: Arc<dyn JournalRepository>,
     users: Arc<dyn UserRepository>,
@@ -219,6 +244,36 @@ mod tests {
             balance_owc: 1_000_000,
         });
         assert!(clean > dirty);
+    }
+
+    #[test]
+    fn cbi_policy_rate_is_current() {
+        let rate = cbi_policy_rate();
+        // CBI policy rate has been 5.5% since 2023
+        assert_eq!(rate, Decimal::from_str("5.5").unwrap());
+    }
+
+    #[test]
+    fn spread_decreases_with_higher_score() {
+        let excellent = suggested_spread_bps(850);
+        let good = suggested_spread_bps(750);
+        let fair = suggested_spread_bps(650);
+        let poor = suggested_spread_bps(400);
+        assert!(excellent < good);
+        assert!(good < fair);
+        assert!(fair < poor);
+    }
+
+    #[test]
+    fn spread_plus_policy_rate_reasonable() {
+        // Best borrower: 5.5% + 3% = 8.5% — below CBI commercial bank rate
+        let best = cbi_policy_rate() + Decimal::from(suggested_spread_bps(850)) / Decimal::from(100);
+        assert!(best < Decimal::from_str("10.0").unwrap());
+
+        // Average borrower: 5.5% + 4.9% = 10.4% — matches CBI bank lending rate
+        let avg = cbi_policy_rate() + Decimal::from(suggested_spread_bps(750)) / Decimal::from(100);
+        assert!(avg >= Decimal::from_str("10.0").unwrap());
+        assert!(avg <= Decimal::from_str("11.0").unwrap());
     }
 
     #[test]

@@ -17,9 +17,22 @@
 pub mod aml;
 pub mod merchant_tier;
 pub mod pg;
+pub mod reporting;
+pub mod risk_scoring;
+pub mod rule_engine;
 
 pub use aml::{AmlDecision, AmlEngine, AmlFlag, SanctionsRepository, VelocityWindow};
 pub use merchant_tier::{
     MerchantRecord, MerchantRepository, MerchantTier, MerchantTierClassifier, TierPolicy,
 };
 pub use pg::{PgMerchantRepository, PgSanctionsRepository};
+pub use reporting::{
+    RegulatoryReport, ReportStatus, ReportType, SarReport, CtrReport, StrReport,
+};
+pub use risk_scoring::{
+    RiskAssessment, RiskFactor, UserRiskProfile, CounterpartyRiskScore,
+};
+pub use rule_engine::{
+    AmlRule, EvaluationContext, EvaluationResult, RiskLevel, RuleAction,
+    RuleCategory, RuleCondition, RuleEngine, RuleSeverity,
+};

@@ -8,6 +8,7 @@ license.workspace = true
 [dependencies]
 cs-core = { path = "../cs-core" }
 cs-storage = { path = "../cs-storage" }
+cs-exchange = { path = "../cs-exchange" }
 tokio.workspace = true
 tracing.workspace = true
 anyhow.workspace = true

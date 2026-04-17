@@ -4,6 +4,7 @@
 //! for `business_electronic` accounts. Devices use gRPC (`cs-sync`).
 
 pub mod business;
+pub mod compliance;
 pub mod handlers;
 pub mod invoices;
 pub mod middleware;

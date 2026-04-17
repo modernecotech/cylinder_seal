@@ -39,6 +39,10 @@ cargo test -p cs-tests --test e2e_offline_payment
 | `spec_11_invoice_lifecycle.rs`     | Account Types — invoice + CS1:INV: URI             |
 | `spec_12_wire_formats.rs`          | Architecture Decisions — NFC → BLE → QR fallback   |
 | `spec_13_conflict_resolution.rs`   | Security Model — timestamp + NFC receipt tiebreaker|
+| `spec_14_rule_engine.rs`           | AML/CFT — flexible rule engine, FATF categories    |
+| `spec_15_risk_scoring.rs`          | AML/CFT — user-level risk scoring (Basel/FATF)     |
+| `spec_16_regulatory_reporting.rs`  | AML/CFT — SAR/CTR/STR reporting (FinCEN/CBI)      |
+| `spec_17_cbi_integration.rs`       | Real-Time Monetary Policy — CBI data integration   |
 | `e2e_offline_payment.rs`           | Full flow: sign → CBOR → wire → decode → verify    |
 | `e2e_invoice_flow.rs`              | Full flow: register → issue key → pay → webhook    |
 
@@ -61,7 +65,8 @@ inside each crate's `#[cfg(test)]` block:
 |--------------------|-----------------------------------------------|
 | `cs-core`          | `cryptography.rs`, `models.rs`, `nonce.rs`, `hardware_binding.rs` |
 | `cs-consensus`     | `log.rs`, `node.rs`                          |
-| `cs-policy`        | `aml.rs`, `merchant_tier.rs`                 |
+| `cs-policy`        | `aml.rs`, `merchant_tier.rs`, `rule_engine.rs`, `risk_scoring.rs`, `reporting.rs` |
+| `cs-exchange`      | `cbi.rs`, `feed_aggregator.rs`               |
 | `cs-credit`        | `scorer.rs`                                  |
 | `cs-mobile-core`   | `lib.rs`, `wire.rs`                          |
 | `cs-api`           | `middleware.rs` (token parsing)              |
