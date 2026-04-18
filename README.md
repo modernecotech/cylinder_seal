@@ -674,8 +674,9 @@ The specification above describes the target system. This section reports honest
 - `store.rs` — local SQLite for merchant keypair + pending queue; systemd unit and env template under `packaging/`
 
 **Test coverage**
+- **275 tests, 0 failures** across the testable workspace (`cargo test --workspace --exclude cs-node --exclude cs-sync --exclude cs-pos`; the three exclusions need system `protoc` / `fontconfig` packages that aren't in the dev container)
 - 18 numbered spec test files (~2,800 LOC) covering crypto primitives, canonical signing, nonce chain, journal chain, Raft consensus, merchant tiers, AML flagging, credit scoring, account types, API key auth, invoice lifecycle, wire formats, conflict resolution, rule engine, risk scoring, regulatory reporting, CBI integration, **compliance workflow (admin role hierarchy, Travel Rule threshold, OFAC signature, four-eyes proposal carry-through)**
-- Inline unit tests in `cs-api` (admin auth, password hash roundtrip, Bearer parsing edge cases, country validation), `cs-feeds` (OFAC/UN/CBI parser tests, signature determinism), and `cs-storage` (compliance repository smoke tests)
+- Inline unit tests in `cs-api` (admin auth, password hash roundtrip, Bearer parsing edge cases, country validation), `cs-feeds` (OFAC/UN/EU/UK/CBI parser tests, signature determinism), and `cs-storage` (compliance repository smoke tests + name-normalisation idempotence for sanctions screening)
 - Two e2e flows: `e2e_invoice_flow`, `e2e_offline_payment`
 
 ### Framework present, logic in progress (🟡)
