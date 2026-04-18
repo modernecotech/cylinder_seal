@@ -18,8 +18,8 @@ tower-http = { version = "0.6", features = ["fs", "trace", "cors"] }
 askama = { version = "0.12", features = ["with-axum"] }
 askama_axum = "0.4"
 
-# Database - supports both SQLite (dev) and PostgreSQL (prod)
-sqlx = { version = "0.7", default-features = false, features = ["runtime-tokio-rustls", "sqlite", "postgres", "uuid", "chrono"] }
+# Database - PostgreSQL
+sqlx = { version = "0.7", default-features = false, features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono"] }
 uuid = { version = "1", features = ["v4", "v7", "serde"] }
 chrono = { version = "0.4", features = ["serde"] }
 
@@ -37,14 +37,17 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
 # Redis for sessions
 deadpool-redis = { workspace = true }
-redis = { workspace = true }
+redis = { workspace = true, features = ["aio"] }
 
 # Hex encoding
 hex = { workspace = true }
+
+# Async utilities
+async-trait = "0.1"
+futures = "0.3"
 
 # Internal crates
 cs-storage = { path = "../cs-storage" }
 cs-policy = { path = "../cs-policy" }
 cs-exchange = { path = "../cs-exchange" }
-cs-analytics = { path = "../cs-analytics" }
 cs-core = { path = "../cs-core" }

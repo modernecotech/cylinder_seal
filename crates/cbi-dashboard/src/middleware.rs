@@ -5,7 +5,6 @@ use axum::{
     http::StatusCode,
     middleware::Next,
     response::Response,
-    Extension,
 };
 use std::sync::Arc;
 use redis::AsyncCommands;
@@ -34,13 +33,9 @@ pub async fn require_session(
     let mut conn = app_state.redis_pool.get().await
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
-    let session_data: String = redis::aio::AsyncCommands::get(
-        &mut conn,
-        format!("session:{}", token),
-    )
-    .await
-    .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
-    .ok_or(StatusCode::UNAUTHORIZED)?;
+    let session_data: String = conn.get(format!("session:{}", token))
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
     // Parse session data
     let session: serde_json::Value = serde_json::from_str(&session_data)

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics & Trade Data{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h3 class="text-lg font-semibold text-gray-900">Import Substitution Tracking</h3>
+    <p class="text-sm text-gray-600 mt-1">Merchant tier distribution and domestic preference measurement</p>
+</div>
+
+<!-- Tier Distribution -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+    <div class="bg-white rounded-lg shadow p-6">
+        <p class="text-sm text-gray-600 uppercase font-medium">Tier 1 (100% Iraqi)</p>
+        <p class="text-3xl font-bold text-green-600 mt-2">{{ tier1_pct }}%</p>
+        <p class="text-xs text-gray-500 mt-2">{{ tier1_volume }} OWC</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+        <p class="text-sm text-gray-600 uppercase font-medium">Tier 2 (50-99%)</p>
+        <p class="text-3xl font-bold text-blue-600 mt-2">{{ tier2_pct }}%</p>
+        <p class="text-xs text-gray-500 mt-2">{{ tier2_volume }} OWC</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+        <p class="text-sm text-gray-600 uppercase font-medium">Tier 3 (1-49%)</p>
+        <p class="text-3xl font-bold text-orange-600 mt-2">{{ tier3_pct }}%</p>
+        <p class="text-xs text-gray-500 mt-2">{{ tier3_volume }} OWC</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+        <p class="text-sm text-gray-600 uppercase font-medium">Tier 4 (0% Iraqi)</p>
+        <p class="text-3xl font-bold text-red-600 mt-2">{{ tier4_pct }}%</p>
+        <p class="text-xs text-gray-500 mt-2">{{ tier4_volume }} OWC</p>
+    </div>
+</div>
+
+<!-- Estimated Domestic Preference -->
+<div class="bg-white rounded-lg shadow p-6 mb-8">
+    <h4 class="text-lg font-semibold text-gray-900 mb-2">Estimated Domestic Preference</h4>
+    <p class="text-4xl font-bold text-green-600">${{ domestic_preference }}M USD</p>
+    <p class="text-sm text-gray-600 mt-2">Value diverted to local goods vs imports this period</p>
+</div>
+
+<!-- Sector Breakdown -->
+<div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="p-6 border-b border-gray-200">
+        <h4 class="text-lg font-semibold text-gray-900">Credit Portfolio by Sector</h4>
+    </div>
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Sector</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Active Businesses</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Volume (OWC)</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Avg Credit Score</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">GDP Contribution</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+            {% for sector in sectors %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ sector.name }}</td>
+                <td class="px-6 py-4 text-sm text-gray-600">{{ sector.businesses }}</td>
+                <td class="px-6 py-4 text-sm text-gray-600">{{ sector.volume }}</td>
+                <td class="px-6 py-4 text-sm font-semibold text-blue-600">{{ sector.credit_score }}</td>
+                <td class="px-6 py-4 text-sm font-semibold text-green-600">${{ sector.gdp_contrib }}B</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

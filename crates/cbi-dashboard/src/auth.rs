@@ -1,13 +1,6 @@
 //! Authentication and session management
 
-use axum::{
-    extract::FromRequestParts,
-    http::{
-        request::Parts,
-        StatusCode,
-    },
-};
-use async_trait::async_trait;
+use axum::http::StatusCode;
 
 /// Session token (opaque, 32-byte hex)
 #[derive(Clone, Debug)]
@@ -77,20 +70,6 @@ impl OperatorRole {
         };
 
         role_level >= required_level
-    }
-}
-
-#[async_trait]
-impl<S> FromRequestParts<S> for AuthenticatedOperator
-where
-    S: Send + Sync,
-{
-    type Rejection = StatusCode;
-
-    async fn from_request_parts(parts: &mut Parts, _state: &S) -> Result<Self, Self::Rejection> {
-        // Extract from request (would be populated by middleware)
-        // For now, stub implementation
-        Err(StatusCode::UNAUTHORIZED)
     }
 }
 

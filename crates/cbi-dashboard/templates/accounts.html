@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Account Management{% endblock %}
+
+{% block content %}
+<div class="mb-6">
+    <div class="flex gap-4">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by phone or name..."
+            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+        />
+        <button onclick="searchAccounts()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+            Search
+        </button>
+    </div>
+</div>
+
+<!-- User Results -->
+<div id="userList" class="bg-white rounded-lg shadow overflow-hidden">
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Name</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Phone</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">KYC Tier</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Balance</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Credit Score</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Status</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Action</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+            {% for user in users %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ user.name }}</td>
+                <td class="px-6 py-4 text-sm text-gray-600">{{ user.phone }}</td>
+                <td class="px-6 py-4 text-sm">
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold {% match user.kyc_tier %}
+                        {% when "full_kyc" %}bg-green-100 text-green-800
+                        {% when "phone_verified" %}bg-blue-100 text-blue-800
+                        {% else %}bg-gray-100 text-gray-800
+                    {% endmatch %}">
+                        {{ user.kyc_tier }}
+                    </span>
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-600">{{ user.balance }} OWC</td>
+                <td class="px-6 py-4 text-sm font-semibold">
+                    <span class="{% if user.credit_score > 750 %}text-green-600{% else %}text-orange-600{% endif %}">
+                        {{ user.credit_score }}
+                    </span>
+                </td>
+                <td class="px-6 py-4 text-sm">
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold {% match user.status %}
+                        {% when "active" %}bg-green-100 text-green-800
+                        {% else %}bg-red-100 text-red-800
+                    {% endmatch %}">
+                        {{ user.status }}
+                    </span>
+                </td>
+                <td class="px-6 py-4 text-sm">
+                    <button onclick="toggleFrozen('{{ user.id }}')" class="text-sm font-medium {% if user.status == "frozen" %}text-green-600 hover:text-green-700{% else %}text-red-600 hover:text-red-700{% endif %}">
+                        {% if user.status == "frozen" %}Unfreeze{% else %}Freeze{% endif %}
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    async function searchAccounts() {
+        const query = document.getElementById('searchInput').value;
+        if (!query) return;
+
+        const token = sessionStorage.getItem('cbi_token');
+        const response = await fetch(`/api/accounts/search?${new URLSearchParams({name: query})}`, {
+            headers: {'Authorization': `Bearer ${token}`}
+        });
+
+        // Results already rendered server-side, just refresh
+        location.reload();
+    }
+
+    async function toggleFrozen(userId) {
+        const token = sessionStorage.getItem('cbi_token');
+        const response = await fetch(`/api/accounts/${userId}/freeze`, {
+            method: 'POST',
+            headers: {'Authorization': `Bearer ${token}`},
+        });
+        location.reload();
+    }
+</script>
+{% endblock %}

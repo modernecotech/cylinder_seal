@@ -1,6 +1,7 @@
 //! Economic overview dashboard endpoint
+use sqlx::Row;
 
-use axum::{extract::State, response::IntoResponse, http::StatusCode, Json};
+use axum::{extract::State, http::StatusCode, Json};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use crate::state::AppState;
@@ -37,8 +38,8 @@ pub async fn overview_data(
 
     let (m2_growth, inflation) = monetary_row
         .map(|r| (
-            r.m2.map(|v| v.to_string().parse::<f64>().unwrap_or(0.0)).unwrap_or(2.5),
-            r.inflation_pct.map(|v| v.to_string().parse::<f64>().unwrap_or(0.0)).unwrap_or(1.5),
+            r.get::<Option<f64>, _>("m2").map(|v| v.to_string().parse::<f64>().unwrap_or(0.0)).unwrap_or(2.5),
+            r.get::<Option<f64>, _>("inflation_pct").map(|v| v.to_string().parse::<f64>().unwrap_or(0.0)).unwrap_or(1.5),
         ))
         .unwrap_or((2.5, 1.5));
 
@@ -53,7 +54,7 @@ pub async fn overview_data(
     .await
     .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
-    let active_users = user_row.active_count.unwrap_or(0) as i32;
+    let active_users = user_row.get::<Option<i64>, _>("active_count").unwrap_or(0) as i32;
 
     // Sum 7-day transaction volume
     let tx_row = sqlx::query(
@@ -67,7 +68,7 @@ pub async fn overview_data(
     .await
     .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
-    let tx_volume = tx_row.total_owc.unwrap_or(0);
+    let tx_volume = tx_row.get::<Option<i64>, _>("total_owc").unwrap_or(0);
 
     // Count pending regulatory reports
     let reports_row = sqlx::query(
@@ -80,7 +81,7 @@ pub async fn overview_data(
     .await
     .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
-    let pending_reports = reports_row.pending_count.unwrap_or(0) as i32;
+    let pending_reports = reports_row.get::<Option<i64>, _>("pending_count").unwrap_or(0) as i32;
 
     // Count active emergency directives
     let directives_row = sqlx::query(
@@ -93,7 +94,7 @@ pub async fn overview_data(
     .await
     .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
-    let active_directives = directives_row.active_count.unwrap_or(0) as i32;
+    let active_directives = directives_row.get::<Option<i64>, _>("active_count").unwrap_or(0) as i32;
 
     // Query industrial projects
     let projects_row = sqlx::query(
@@ -108,8 +109,8 @@ pub async fn overview_data(
     .await
     .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
-    let projects_count = projects_row.total_count.unwrap_or(0) as i32;
-    let project_employment = projects_row.total_employment.unwrap_or(0) as i32;
+    let projects_count = projects_row.get::<Option<i64>, _>("total_count").unwrap_or(0) as i32;
+    let project_employment = projects_row.get::<Option<i64>, _>("total_employment").unwrap_or(0) as i32;
 
     // Estimate GDP (sum of operational project revenues + transaction-based activity)
     let gdp_estimate = active_users as f64 * 5500.0; // Rough: active users × per-capita
