@@ -92,7 +92,7 @@ impl ProjectGdpCalculator {
 
     /// Persist a GDP multiplier to the database
     pub async fn save_multiplier(&self, multiplier: &ProjectGdpMultiplier) -> Result<()> {
-        sqlx::query!(
+        sqlx::query(
             r#"
             INSERT INTO project_gdp_multipliers
             (project_id, direct_gdp_usd, visibility_multiplier, financing_multiplier,
@@ -123,7 +123,7 @@ impl ProjectGdpCalculator {
 
     /// Aggregate GDP impact across all operational projects for a given year
     pub async fn total_gdp_impact_for_year(&self, year: i32) -> Result<f64> {
-        let row = sqlx::query!(
+        let row = sqlx::query(
             r#"
             SELECT COALESCE(SUM(total_gdp_impact_usd), 0) as total
             FROM project_gdp_multipliers
@@ -139,7 +139,7 @@ impl ProjectGdpCalculator {
 
     /// Cumulative GDP impact from all projects across a period (e.g., 2026-2031)
     pub async fn cumulative_gdp_impact(&self, start_year: i32, end_year: i32) -> Result<f64> {
-        let row = sqlx::query!(
+        let row = sqlx::query(
             r#"
             SELECT COALESCE(SUM(total_gdp_impact_usd), 0) as total
             FROM project_gdp_multipliers

@@ -39,7 +39,7 @@ impl SqlxAnalyticsRepository {
 #[async_trait]
 impl AnalyticsRepository for SqlxAnalyticsRepository {
     async fn get_project(&self, project_id: Uuid) -> Result<Option<IndustrialProject>> {
-        let row = sqlx::query!(
+        let row = sqlx::query(
             r#"
             SELECT project_id, name, sector, governorate, estimated_capex_usd,
                    expected_revenue_usd_annual, status, operational_since,
@@ -72,7 +72,7 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
 
     async fn list_projects_by_sector(&self, sector: EconomicSector) -> Result<Vec<IndustrialProject>> {
         let sector_str = sector.as_str();
-        let rows = sqlx::query!(
+        let rows = sqlx::query(
             r#"
             SELECT project_id, name, sector, governorate, estimated_capex_usd,
                    expected_revenue_usd_annual, status, operational_since,
@@ -109,7 +109,7 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
 
     async fn list_projects_by_status(&self, status: ProjectStatus) -> Result<Vec<IndustrialProject>> {
         let status_str = status.as_str();
-        let rows = sqlx::query!(
+        let rows = sqlx::query(
             r#"
             SELECT project_id, name, sector, governorate, estimated_capex_usd,
                    expected_revenue_usd_annual, status, operational_since,
@@ -145,7 +145,7 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
     }
 
     async fn list_all_projects(&self) -> Result<Vec<IndustrialProject>> {
-        let rows = sqlx::query!(
+        let rows = sqlx::query(
             r#"
             SELECT project_id, name, sector, governorate, estimated_capex_usd,
                    expected_revenue_usd_annual, status, operational_since,
@@ -179,7 +179,7 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
     }
 
     async fn create_project(&self, project: &IndustrialProject) -> Result<()> {
-        sqlx::query!(
+        sqlx::query(
             r#"
             INSERT INTO industrial_projects
             (project_id, name, sector, governorate, estimated_capex_usd, expected_revenue_usd_annual,
@@ -207,7 +207,7 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
     }
 
     async fn update_project(&self, project: &IndustrialProject) -> Result<()> {
-        sqlx::query!(
+        sqlx::query(
             r#"
             UPDATE industrial_projects
             SET name = $1, governorate = $2, capacity_pct_utilized = $3,
@@ -230,7 +230,7 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
     }
 
     async fn get_gdp_multiplier(&self, multiplier_id: i64) -> Result<Option<ProjectGdpMultiplier>> {
-        let row = sqlx::query!(
+        let row = sqlx::query(
             r#"
             SELECT multiplier_id, project_id, direct_gdp_usd, visibility_multiplier,
                    financing_multiplier, tax_multiplier, total_gdp_impact_usd,
@@ -257,7 +257,7 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
     }
 
     async fn list_gdp_multipliers_for_project(&self, project_id: Uuid) -> Result<Vec<ProjectGdpMultiplier>> {
-        let rows = sqlx::query!(
+        let rows = sqlx::query(
             r#"
             SELECT multiplier_id, project_id, direct_gdp_usd, visibility_multiplier,
                    financing_multiplier, tax_multiplier, total_gdp_impact_usd,
@@ -288,7 +288,7 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
     }
 
     async fn create_gdp_multiplier(&self, multiplier: &ProjectGdpMultiplier) -> Result<()> {
-        sqlx::query!(
+        sqlx::query(
             r#"
             INSERT INTO project_gdp_multipliers
             (project_id, direct_gdp_usd, visibility_multiplier, financing_multiplier,
@@ -311,7 +311,7 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
     }
 
     async fn total_gdp_from_operational_projects(&self) -> Result<f64> {
-        let row = sqlx::query!(
+        let row = sqlx::query(
             r#"
             SELECT COALESCE(SUM(expected_revenue_usd_annual), 0) as total
             FROM industrial_projects
@@ -325,7 +325,7 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
     }
 
     async fn total_employment_from_operational_projects(&self) -> Result<i32> {
-        let row = sqlx::query!(
+        let row = sqlx::query(
             r#"
             SELECT COALESCE(SUM(employment_count), 0) as total
             FROM industrial_projects

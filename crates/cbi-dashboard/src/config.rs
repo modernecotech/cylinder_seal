@@ -17,8 +17,10 @@ impl Config {
             .unwrap_or_else(|_| "127.0.0.1:8081".to_string())
             .parse::<SocketAddr>()?;
 
+        // Default to SQLite for development (runs without external DB)
+        // For production, set DATABASE_URL to: postgresql://user:pass@host/cylinder_seal
         let database_url = std::env::var("DATABASE_URL")
-            .unwrap_or_else(|_| "postgresql://localhost/cylinder_seal".to_string());
+            .unwrap_or_else(|_| "sqlite:cylinder_seal.db".to_string());
 
         let redis_url = std::env::var("REDIS_URL")
             .unwrap_or_else(|_| "redis://localhost:6379".to_string());

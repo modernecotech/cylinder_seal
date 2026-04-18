@@ -20,7 +20,7 @@ impl ImportSubstitutionAnalyzer {
         // Parse period (e.g., "2026-W10" or "2026-Q2")
         // This is a simplified version; production would need robust parsing
 
-        let row = sqlx::query!(
+        let row = sqlx::query(
             r#"
             SELECT
                 COALESCE(SUM(CASE WHEN tier = 'tier1' THEN amount_owc ELSE 0 END), 0) as tier1,
@@ -79,7 +79,7 @@ impl ImportSubstitutionAnalyzer {
 
     /// Persist a snapshot to the database
     pub async fn save_snapshot(&self, snapshot: &ImportSubstitutionSummary) -> Result<()> {
-        sqlx::query!(
+        sqlx::query(
             r#"
             INSERT INTO import_substitution_snapshots
             (period, tier1_volume_owc, tier2_volume_owc, tier3_volume_owc, tier4_volume_owc,

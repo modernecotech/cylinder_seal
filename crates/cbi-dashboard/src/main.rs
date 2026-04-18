@@ -16,11 +16,15 @@ mod routes;
 
 use axum::{
     Router,
-    routing::{get, post},
+    routing::{get, post, patch},
+    extract::State,
+    http::StatusCode,
+    Json,
 };
 use sqlx::postgres::PgPoolOptions;
 use std::sync::Arc;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+use redis::AsyncCommands;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -49,47 +53,47 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Application state
     let app_state = Arc::new(state::AppState::new(db_pool, redis_pool).await?);
 
-    // Router with all endpoint groups
-    let app = Router::new()
-        // Public endpoints (no auth)
+    // Public routes (no auth required)
+    let public = Router::new()
         .route("/health", get(handlers::health))
         .route("/readiness", get(handlers::readiness))
-        // Login
-        .route("/auth/login", post(handlers::auth::login))
-        .route("/auth/logout", post(handlers::auth::logout).layer(
-            axum::middleware::from_fn_with_state(
-                app_state.clone(),
-                middleware::require_session,
-            )
-        ))
-        // Economic overview (requires session)
-        .route("/api/overview", get(routes::overview::overview_data).layer(
-            axum::middleware::from_fn_with_state(
-                app_state.clone(),
-                middleware::require_session,
-            )
-        ))
-        // Industrial projects (requires session)
-        .route("/api/projects", get(routes::industrial::list_projects).layer(
-            axum::middleware::from_fn_with_state(
-                app_state.clone(),
-                middleware::require_session,
-            )
-        ))
-        .route("/api/projects", post(routes::industrial::create_project).layer(
-            axum::middleware::from_fn_with_state(
-                app_state.clone(),
-                middleware::require_session,
-            )
-        ))
-        // Analytics endpoints
-        .route("/api/analytics/import-substitution", get(routes::analytics::import_substitution).layer(
-            axum::middleware::from_fn_with_state(
-                app_state.clone(),
-                middleware::require_session,
-            )
-        ))
-        // Add remaining routes per plan...
+        .route("/auth/login", post(handlers::auth::login));
+
+    // Protected routes (require session)
+    let protected = Router::new()
+        .route("/api/overview", get(routes::overview::overview_data))
+        .route("/api/projects", get(routes::industrial::list_projects))
+        .route("/api/projects", post(routes::industrial::create_project))
+        .route("/api/projects/:project_id", get(routes::industrial::get_project))
+        .route("/api/projects/:project_id", patch(routes::industrial::update_project))
+        .route("/api/analytics/import-substitution", get(routes::analytics::import_substitution))
+        .route("/api/analytics/sectors", get(routes::analytics::sector_breakdown))
+        .route("/api/compliance/reports", get(routes::compliance::list_reports))
+        .route("/api/compliance/reports", post(routes::compliance::create_report))
+        .route("/api/compliance/reports/:report_id/status", patch(routes::compliance::update_report_status))
+        .route("/api/compliance/dashboard", get(routes::compliance::compliance_dashboard))
+        .route("/api/monetary/snapshots", get(routes::monetary::monetary_snapshots))
+        .route("/api/monetary/policy-rates", get(routes::monetary::policy_rates))
+        .route("/api/monetary/velocity-limits", get(routes::monetary::velocity_limits))
+        .route("/api/monetary/exchange-rates", get(routes::monetary::exchange_rates))
+        .route("/api/accounts/search", get(routes::accounts::search_users))
+        .route("/api/accounts/:user_id", get(routes::accounts::get_user))
+        .route("/api/accounts/:user_id/freeze", post(routes::accounts::freeze_account))
+        .route("/api/accounts/:user_id/unfreeze", post(routes::accounts::unfreeze_account))
+        .route("/api/risk/aml-queue", get(routes::risk::aml_queue))
+        .route("/api/risk/user/:user_id/assessment", get(routes::risk::user_risk_assessment))
+        .route("/api/audit/logs", get(routes::audit::audit_logs))
+        .route("/api/audit/directives", get(routes::audit::list_directives))
+        .route("/api/audit/directives", post(routes::audit::create_directive))
+        .route("/auth/logout", post(handlers::auth::logout))
+        .layer(axum::middleware::from_fn_with_state(
+            app_state.clone(),
+            middleware::require_session,
+        ));
+
+    let app = Router::new()
+        .merge(public)
+        .merge(protected)
         .with_state(app_state);
 
     let listener = tokio::net::TcpListener::bind(&config.bind_addr).await?;
@@ -100,10 +104,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-// Handler modules (stubs; full implementation in separate files)
+// Handler modules
 mod handlers {
     use axum::http::StatusCode;
     use axum::response::IntoResponse;
+    use serde::{Deserialize, Serialize};
 
     pub async fn health() -> impl IntoResponse {
         StatusCode::OK
@@ -114,17 +119,82 @@ mod handlers {
     }
 
     pub mod auth {
-        use axum::response::IntoResponse;
-        use axum::http::StatusCode;
+        use super::*;
+        use axum::{extract::State, Json};
+        use serde::{Deserialize, Serialize};
+        use std::sync::Arc;
+        use crate::state::AppState;
+        use crate::auth::{SessionToken, hash_password, verify_password};
 
-        pub async fn login() -> impl IntoResponse {
-            // TODO: Full login handler
-            StatusCode::NOT_IMPLEMENTED
+        #[derive(Deserialize)]
+        pub struct LoginRequest {
+            pub username: String,
+            pub password: String,
         }
 
-        pub async fn logout() -> impl IntoResponse {
-            // TODO: Full logout handler
-            StatusCode::NOT_IMPLEMENTED
+        #[derive(Serialize)]
+        pub struct LoginResponse {
+            pub token: String,
+            pub username: String,
+            pub role: String,
+        }
+
+        pub async fn login(
+            State(app_state): State<Arc<AppState>>,
+            Json(req): Json<LoginRequest>,
+        ) -> Result<Json<LoginResponse>, StatusCode> {
+            // Query operator from database
+            let operator = sqlx::query!(
+                "SELECT operator_id, username, hashed_password, role FROM admin_operators WHERE username = $1",
+                req.username
+            )
+            .fetch_optional(&app_state.db_pool)
+            .await
+            .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
+            .ok_or(StatusCode::UNAUTHORIZED)?;
+
+            // Verify password
+            if !verify_password(&req.password, &operator.hashed_password)
+                .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)? {
+                return Err(StatusCode::UNAUTHORIZED);
+            }
+
+            // Generate session token
+            let token = SessionToken::generate();
+            let token_str = token.to_string();
+
+            // Store in Redis
+            let mut conn = app_state.redis_pool.get().await
+                .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+            let session_data = serde_json::json!({
+                "operator_id": operator.operator_id,
+                "username": operator.username,
+                "role": operator.role,
+            });
+
+            redis::aio::AsyncCommands::set_ex(
+                &mut conn,
+                format!("session:{}", token_str),
+                serde_json::to_string(&session_data).unwrap(),
+                3600, // 1 hour TTL
+            )
+            .await
+            .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+            Ok(Json(LoginResponse {
+                token: token_str,
+                username: operator.username,
+                role: operator.role,
+            }))
+        }
+
+        pub async fn logout(
+            State(app_state): State<Arc<AppState>>,
+        ) -> Result<StatusCode, StatusCode> {
+            // Note: In a real implementation, we'd extract the token from request context
+            // For now, logout is a no-op (clients just discard the token)
+            Ok(StatusCode::OK)
         }
     }
 }

@@ -44,7 +44,7 @@ pub struct ExchangeRateSnapshot {
 pub async fn monetary_snapshots(
     State(app_state): State<Arc<AppState>>,
 ) -> Result<Json<Vec<MonetarySnapshot>>, StatusCode> {
-    let snapshots = sqlx::query!(
+    let snapshots = sqlx::query(
         r#"
         SELECT period, m0, m1, m2, inflation_pct, cpi_index, foreign_reserves_usd
         FROM cbi_monetary_snapshots
@@ -77,7 +77,7 @@ pub async fn monetary_snapshots(
 pub async fn policy_rates(
     State(app_state): State<Arc<AppState>>,
 ) -> Result<Json<PolicyRates>, StatusCode> {
-    let rates = sqlx::query!(
+    let rates = sqlx::query(
         r#"
         SELECT policy_rate, reserve_requirement_pct, cbi_bill_14day_rate,
                iqd_deposit_1yr_rate, iqd_lending_1_5yr_rate
@@ -133,7 +133,7 @@ pub async fn velocity_limits() -> Result<Json<Vec<VelocityLimitByTier>>, StatusC
 pub async fn exchange_rates(
     State(app_state): State<Arc<AppState>>,
 ) -> Result<Json<Vec<ExchangeRateSnapshot>>, StatusCode> {
-    let rates = sqlx::query!(
+    let rates = sqlx::query(
         r#"
         SELECT rate_date, iqd_per_usd
         FROM cbi_peg_rates

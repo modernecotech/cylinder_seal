@@ -19,7 +19,7 @@ impl SectorAnalytics {
     /// Aggregate transaction volume by sector from business_profiles + journal_entries
     pub async fn aggregate_volume_by_sector(&self, sector: EconomicSector) -> Result<f64> {
         let sector_str = sector.as_str();
-        let row = sqlx::query!(
+        let row = sqlx::query(
             r#"
             SELECT COALESCE(SUM(entry_data->'amount_owc')::BIGINT, 0) as total_owc
             FROM ledger_entries le
@@ -41,7 +41,7 @@ impl SectorAnalytics {
     /// Get credit portfolio by sector
     pub async fn credit_portfolio_by_sector(&self, sector: EconomicSector) -> Result<SectorCreditPortfolio> {
         let sector_str = sector.as_str();
-        let row = sqlx::query!(
+        let row = sqlx::query(
             r#"
             SELECT
                 COUNT(DISTINCT bp.user_id) as borrower_count,
@@ -70,7 +70,7 @@ impl SectorAnalytics {
         // This would aggregate from industrial_projects for the sector
         // Placeholder: query projects and sum their expected revenue
         let sector_str = sector.as_str();
-        let row = sqlx::query!(
+        let row = sqlx::query(
             r#"
             SELECT
                 COALESCE(SUM(expected_revenue_usd_annual), 0) as total_gdp_usd,
@@ -98,7 +98,7 @@ impl SectorAnalytics {
     /// Persist a sectoral snapshot
     pub async fn save_snapshot(&self, snapshot: &SectorEconomicSnapshot) -> Result<()> {
         let sector_str = snapshot.sector.as_str();
-        sqlx::query!(
+        sqlx::query(
             r#"
             INSERT INTO sector_economic_snapshots
             (sector, period, gdp_contribution_usd, employment, import_substitution_usd,

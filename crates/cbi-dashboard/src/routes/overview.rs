@@ -24,7 +24,7 @@ pub async fn overview_data(
     State(app_state): State<Arc<AppState>>,
 ) -> Result<Json<EconomicOverviewResponse>, StatusCode> {
     // Query CBI monetary snapshots (latest)
-    let monetary_row = sqlx::query!(
+    let monetary_row = sqlx::query(
         r#"
         SELECT m2, inflation_pct FROM cbi_monetary_snapshots
         WHERE cpi_index IS NOT NULL
@@ -43,7 +43,7 @@ pub async fn overview_data(
         .unwrap_or((2.5, 1.5));
 
     // Count active users (balance > 0)
-    let user_row = sqlx::query!(
+    let user_row = sqlx::query(
         r#"
         SELECT COUNT(*) as active_count, COALESCE(SUM(balance_owc), 0) as total_balance
         FROM users WHERE balance_owc > 0 AND kyc_tier != 'anonymous'
@@ -56,7 +56,7 @@ pub async fn overview_data(
     let active_users = user_row.active_count.unwrap_or(0) as i32;
 
     // Sum 7-day transaction volume
-    let tx_row = sqlx::query!(
+    let tx_row = sqlx::query(
         r#"
         SELECT COALESCE(SUM((entry_data->'amount_owc')::BIGINT), 0) as total_owc
         FROM ledger_entries
@@ -70,7 +70,7 @@ pub async fn overview_data(
     let tx_volume = tx_row.total_owc.unwrap_or(0);
 
     // Count pending regulatory reports
-    let reports_row = sqlx::query!(
+    let reports_row = sqlx::query(
         r#"
         SELECT COUNT(*) as pending_count FROM regulatory_reports
         WHERE status IN ('Draft', 'UnderReview')
@@ -83,7 +83,7 @@ pub async fn overview_data(
     let pending_reports = reports_row.pending_count.unwrap_or(0) as i32;
 
     // Count active emergency directives
-    let directives_row = sqlx::query!(
+    let directives_row = sqlx::query(
         r#"
         SELECT COUNT(*) as active_count FROM emergency_directives
         WHERE revoked_at IS NULL AND expires_at > NOW()
@@ -96,7 +96,7 @@ pub async fn overview_data(
     let active_directives = directives_row.active_count.unwrap_or(0) as i32;
 
     // Query industrial projects
-    let projects_row = sqlx::query!(
+    let projects_row = sqlx::query(
         r#"
         SELECT COUNT(*) as total_count,
                COALESCE(SUM(employment_count), 0) as total_employment

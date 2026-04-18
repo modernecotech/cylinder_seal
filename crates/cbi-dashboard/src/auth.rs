@@ -7,7 +7,6 @@ use axum::{
         StatusCode,
     },
 };
-use uuid::Uuid;
 use async_trait::async_trait;
 
 /// Session token (opaque, 32-byte hex)
@@ -15,17 +14,22 @@ use async_trait::async_trait;
 pub struct SessionToken(pub String);
 
 impl SessionToken {
-    pub fn new() -> Self {
-        Self(format!("cs_dash_{}", hex::encode(rand::random::<[u8; 16]>())))
+    pub fn generate() -> Self {
+        let bytes = rand::random::<[u8; 32]>();
+        Self(format!("{:x}", u64::from_ne_bytes(bytes[0..8].try_into().unwrap())))
+    }
+
+    pub fn to_string(&self) -> String {
+        self.0.clone()
     }
 }
 
 /// Authenticated CBI operator session
 #[derive(Clone, Debug)]
 pub struct AuthenticatedOperator {
-    pub operator_id: Uuid,
+    pub operator_id: String,
     pub username: String,
-    pub role: OperatorRole,
+    pub role: String,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

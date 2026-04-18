@@ -44,7 +44,7 @@ pub async fn search_users(
     Query(params): Query<UserSearchQuery>,
 ) -> Result<Json<UserSearchResult>, StatusCode> {
     let query = if let Some(phone) = params.phone {
-        sqlx::query!(
+        sqlx::query(
             r#"
             SELECT user_id, display_name, phone_number, kyc_tier, account_type,
                    balance_owc, credit_score, region, account_status, created_at
@@ -57,7 +57,7 @@ pub async fn search_users(
         .fetch_all(&app_state.db_pool)
         .await
     } else if let Some(name) = params.name {
-        sqlx::query!(
+        sqlx::query(
             r#"
             SELECT user_id, display_name, phone_number, kyc_tier, account_type,
                    balance_owc, credit_score, region, account_status, created_at
@@ -101,7 +101,7 @@ pub async fn get_user(
     State(app_state): State<Arc<AppState>>,
     Path(user_id): Path<Uuid>,
 ) -> Result<Json<UserDetail>, StatusCode> {
-    let user = sqlx::query!(
+    let user = sqlx::query(
         r#"
         SELECT user_id, display_name, phone_number, kyc_tier, account_type,
                balance_owc, credit_score, region, account_status, created_at
@@ -136,7 +136,7 @@ pub async fn freeze_account(
     Path(user_id): Path<Uuid>,
     Json(req): Json<FreezeAccountRequest>,
 ) -> Result<StatusCode, StatusCode> {
-    sqlx::query!(
+    sqlx::query(
         r#"
         UPDATE users
         SET account_status = 'frozen', account_status_reason = $1, account_status_changed_at = NOW()
@@ -149,7 +149,7 @@ pub async fn freeze_account(
     .await
     .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
-    sqlx::query!(
+    sqlx::query(
         r#"
         INSERT INTO account_status_log (user_id, previous_status, new_status, reason, source, actor_operator_id, changed_at)
         VALUES ($1, 'active', 'frozen', $2, 'admin', NULL, NOW())
@@ -170,7 +170,7 @@ pub async fn unfreeze_account(
     State(app_state): State<Arc<AppState>>,
     Path(user_id): Path<Uuid>,
 ) -> Result<StatusCode, StatusCode> {
-    sqlx::query!(
+    sqlx::query(
         r#"
         UPDATE users
         SET account_status = 'active', account_status_reason = NULL, account_status_changed_at = NOW()

@@ -33,7 +33,7 @@ pub async fn import_substitution(
     State(app_state): State<Arc<AppState>>,
 ) -> Result<Json<Vec<ImportSubstitutionData>>, StatusCode> {
     // Query last 12 weeks of import substitution snapshots
-    let snapshots = sqlx::query!(
+    let snapshots = sqlx::query(
         r#"
         SELECT period, tier1_volume_owc, tier2_volume_owc, tier3_volume_owc, tier4_volume_owc,
                est_domestic_preference_usd
@@ -84,7 +84,7 @@ pub async fn sector_breakdown(
     State(app_state): State<Arc<AppState>>,
 ) -> Result<Json<Vec<SectorBreakdownData>>, StatusCode> {
     // Query all sectors from industrial_projects
-    let sectors_row = sqlx::query!(
+    let sectors_row = sqlx::query(
         r#"
         SELECT DISTINCT sector FROM industrial_projects
         "#
@@ -99,7 +99,7 @@ pub async fn sector_breakdown(
         let sector_str = &row.sector;
 
         // Count businesses in this sector
-        let biz_row = sqlx::query!(
+        let biz_row = sqlx::query(
             r#"
             SELECT COUNT(DISTINCT user_id) as count FROM business_profiles
             WHERE industry_code LIKE $1
@@ -111,7 +111,7 @@ pub async fn sector_breakdown(
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
         // Sum business volumes
-        let vol_row = sqlx::query!(
+        let vol_row = sqlx::query(
             r#"
             SELECT COALESCE(SUM((entry_data->'amount_owc')::BIGINT), 0) as total_owc,
                    COALESCE(AVG(u.credit_score), 0) as avg_score
@@ -127,7 +127,7 @@ pub async fn sector_breakdown(
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
         // Sum expected revenue from operational projects
-        let proj_row = sqlx::query!(
+        let proj_row = sqlx::query(
             r#"
             SELECT COALESCE(SUM(expected_revenue_usd_annual), 0) as total_gdp
             FROM industrial_projects

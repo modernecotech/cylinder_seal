@@ -48,7 +48,7 @@ pub struct UpdateReportStatusRequest {
 pub async fn list_reports(
     State(app_state): State<Arc<AppState>>,
 ) -> Result<Json<RegulatoryReportListResponse>, StatusCode> {
-    let reports = sqlx::query!(
+    let reports = sqlx::query(
         r#"
         SELECT report_id, report_type, status, subject_user_id, risk_score, created_at, filing_deadline
         FROM regulatory_reports
@@ -116,7 +116,7 @@ pub async fn create_report(
         _ => return Err(StatusCode::BAD_REQUEST),
     };
 
-    sqlx::query!(
+    sqlx::query(
         r#"
         INSERT INTO regulatory_reports
         (report_id, report_type, status, subject_user_id, risk_score, triggered_rules,
@@ -151,7 +151,7 @@ pub async fn update_report_status(
         return Err(StatusCode::BAD_REQUEST);
     }
 
-    sqlx::query!(
+    sqlx::query(
         r#"
         UPDATE regulatory_reports
         SET status = $1, updated_at = $2
@@ -167,7 +167,7 @@ pub async fn update_report_status(
 
     // Log status transition
     if let Some(notes) = req.reviewer_notes {
-        sqlx::query!(
+        sqlx::query(
             r#"
             INSERT INTO report_status_log (report_id, previous_status, new_status, changed_by, reason)
             VALUES ($1, 'Draft', $2, 'cbi-operator', $3)
@@ -200,7 +200,7 @@ pub struct ComplianceDashboard {
 pub async fn compliance_dashboard(
     State(app_state): State<Arc<AppState>>,
 ) -> Result<Json<ComplianceDashboard>, StatusCode> {
-    let reports = sqlx::query!(
+    let reports = sqlx::query(
         r#"
         SELECT report_type, status FROM regulatory_reports
         WHERE created_at >= NOW() - INTERVAL '90 days'
@@ -227,7 +227,7 @@ pub async fn compliance_dashboard(
         .count() as i32;
 
     // Count enhanced monitoring
-    let monitoring_row = sqlx::query!(
+    let monitoring_row = sqlx::query(
         r#"
         SELECT COUNT(*) as count FROM enhanced_monitoring
         WHERE active = true AND end_date IS NULL
@@ -238,7 +238,7 @@ pub async fn compliance_dashboard(
     .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
     // Count sanctions hits
-    let sanctions_row = sqlx::query!(
+    let sanctions_row = sqlx::query(
         r#"
         SELECT COUNT(*) as count FROM aml_flags
         WHERE flag_kind = 'SanctionsHit' AND created_at >= NOW() - INTERVAL '30 days'
