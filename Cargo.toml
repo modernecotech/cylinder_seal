@@ -13,6 +13,8 @@ members = [
     "crates/cs-pos",
     "crates/cs-feeds",
     "crates/cs-tests",
+    "crates/cs-analytics",
+    "crates/cbi-dashboard",
 ]
 resolver = "2"
 
