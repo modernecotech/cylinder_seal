@@ -141,7 +141,7 @@ Current bottlenecks preventing rapid GDP contribution:
 5. **Government spending misses local producers** — government salaries ($66-73B), pensions ($40B), and social security payments ($8-10B) flow to workers who can't easily access local goods without formal channels. Instead, purchasing power leaks to imports.
 
 **The Citizen Consumption Problem:**
-Iraq's 21M lower-income citizens ($66-73B in government salaries) and 15M retirees ($40B in pensions) receive cash payments that:
+Iraq's 21M government employees ($66-73B in salaries), 15M retirees ($40B in pensions), and social security recipients ($8-10B) — totaling ~$114-123B in annual formal transfers, with ~$106-113B flowing directly to individual consumption — receive cash payments that:
 - **Cannot be easily used for local goods** — no formal payment infrastructure linking them to local producers
 - **Leak to imports** — citizens spend through informal channels on imported goods (40-50% of consumption)
 - **Worsen trade balance** — ~$3B/year in preventable import spending from formally-employed citizens
