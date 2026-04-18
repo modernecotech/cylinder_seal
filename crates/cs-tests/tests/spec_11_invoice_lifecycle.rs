@@ -24,6 +24,9 @@ fn open_invoice(amount: i64, webhook: Option<&str>) -> InvoiceRecord {
         created_at: now,
         expires_at: now + Duration::hours(1),
         paid_at: None,
+        merchant_tax_id: None,
+        withholding_pct: rust_decimal::Decimal::ZERO,
+        fiscal_receipt_ref: None,
     }
 }
 

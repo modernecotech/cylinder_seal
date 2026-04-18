@@ -1,6 +1,7 @@
 //! CylinderSeal storage layer: PostgreSQL + Redis repositories.
 
 pub mod compliance;
+pub mod iraq_phase2;
 pub mod postgres;
 pub mod redis;
 pub mod models;
@@ -27,4 +28,14 @@ pub use compliance::{
     TransactionEvaluationRecord, TransactionEvaluationRepository, TransactionEvaluationRow,
     TravelRulePayloadRecord, TravelRuleRepository, UserRiskAggregates,
     normalise_screening_name,
+};
+pub use iraq_phase2::{
+    AccountStatus, AccountStatusChange, AccountStatusLogRow, AccountStatusRepository,
+    CbiPegRepository, CbiPegRow, DeviceBindingRepository, DeviceBindingStatus,
+    EmergencyDirectiveInput, EmergencyDirectiveRecord, EmergencyDirectiveRepository,
+    OtpChallenge, OtpRepository, OtpVerifyOutcome, PgAccountStatusRepository,
+    PgCbiPegRepository, PgDeviceBindingRepository, PgEmergencyDirectiveRepository,
+    PgOtpRepository, PgUserRegionRepository, PgWalletBalanceRepository, Region,
+    SIM_SWAP_COOLDOWN_HOURS, StatusChangeSource, UserRegionRepository, WalletBalanceRepository,
+    WalletBalanceRow,
 };

@@ -1,4 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Digital IQD</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_welcome">Welcome to Digital IQD</string>
+    <string name="onboarding_get_started">Get started</string>
+    <string name="onboarding_phone_prompt">Enter your phone number</string>
+    <string name="onboarding_otp_prompt">Enter the 6-digit code we sent you</string>
+    <string name="onboarding_otp_resend">Resend code</string>
+    <string name="onboarding_otp_verify">Verify</string>
+
+    <!-- KYC tiers -->
+    <string name="kyc_tier_anonymous">Unverified</string>
+    <string name="kyc_tier_phone_verified">Phone-verified</string>
+    <string name="kyc_tier_full">Fully verified</string>
+
+    <!-- Wallet -->
+    <string name="wallet_title">Wallet</string>
+    <string name="wallet_balance_label">Available balance</string>
+    <string name="wallet_pending_label">Pending</string>
+    <string name="wallet_currency_iqd">Iraqi Dinar</string>
+    <string name="wallet_currency_usd">US Dollar</string>
+
+    <!-- Pay / Receive -->
+    <string name="pay_title">Pay</string>
+    <string name="pay_amount">Amount</string>
+    <string name="pay_recipient">Recipient</string>
+    <string name="pay_confirm">Confirm payment</string>
+    <string name="receive_title">Receive</string>
+    <string name="receive_via_nfc">Tap to receive (NFC)</string>
+    <string name="receive_via_qr">Show QR code</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_region">Region</string>
+    <string name="settings_region_federal">Federal Iraq</string>
+    <string name="settings_region_krg">Kurdistan Region</string>
+    <string name="settings_about">About</string>
+
+    <!-- Account status -->
+    <string name="account_status_active">Active</string>
+    <string name="account_status_frozen">Frozen</string>
+    <string name="account_status_blocked">Blocked</string>
+    <string name="account_status_frozen_explainer">Your account is on hold pending review. Contact support if this is unexpected.</string>
+
+    <!-- Errors -->
+    <string name="error_network">Network unavailable. Try again.</string>
+    <string name="error_otp_invalid">That code didn\u2019t match. Try again.</string>
+    <string name="error_otp_expired">Code expired. Request a new one.</string>
+    <string name="error_otp_too_many">Too many attempts. Wait before requesting another code.</string>
 </resources>

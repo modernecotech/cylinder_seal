@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Sorani Kurdish (ckb) localisation. Used in the Kurdistan Region.
+    Script: Arabic-derived Sorani alphabet. Right-to-left, like Arabic.
+-->
+<resources>
+    <string name="app_name">دیناری دیجیتاڵی عێراقی</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_welcome">بەخێربێیت بۆ دیناری دیجیتاڵی عێراقی</string>
+    <string name="onboarding_get_started">دەستپێبکە</string>
+    <string name="onboarding_phone_prompt">ژمارەی مۆبایلەکەت بنووسە</string>
+    <string name="onboarding_otp_prompt">ئەو کۆدی ٦ ژمارەییە بنووسە کە بۆمان ناردووە</string>
+    <string name="onboarding_otp_resend">دووبارە ناردنی کۆد</string>
+    <string name="onboarding_otp_verify">پشتڕاستکردنەوە</string>
+
+    <!-- KYC tiers -->
+    <string name="kyc_tier_anonymous">پشتڕاست نەکراوە</string>
+    <string name="kyc_tier_phone_verified">بە مۆبایل پشتڕاستکراوە</string>
+    <string name="kyc_tier_full">بە تەواوی پشتڕاستکراوە</string>
+
+    <!-- Wallet -->
+    <string name="wallet_title">جزدان</string>
+    <string name="wallet_balance_label">باڵانسی بەردەست</string>
+    <string name="wallet_pending_label">چاوەڕوانە</string>
+    <string name="wallet_currency_iqd">دیناری عێراقی</string>
+    <string name="wallet_currency_usd">دۆلاری ئەمریکی</string>
+
+    <!-- Pay / Receive -->
+    <string name="pay_title">پارە دان</string>
+    <string name="pay_amount">بڕی پارە</string>
+    <string name="pay_recipient">وەرگر</string>
+    <string name="pay_confirm">دڵنیاکردنەوەی پارەدان</string>
+    <string name="receive_title">وەرگرتن</string>
+    <string name="receive_via_nfc">دەست لێ بدە بۆ وەرگرتن (NFC)</string>
+    <string name="receive_via_qr">پیشاندانی کۆدی QR</string>
+
+    <!-- Settings -->
+    <string name="settings_title">ڕێکخستنەکان</string>
+    <string name="settings_language">زمان</string>
+    <string name="settings_region">ناوچە</string>
+    <string name="settings_region_federal">عێراقی فیدراڵ</string>
+    <string name="settings_region_krg">هەرێمی کوردستان</string>
+    <string name="settings_about">دەربارە</string>
+
+    <!-- Account status -->
+    <string name="account_status_active">چالاک</string>
+    <string name="account_status_frozen">بەستراوە</string>
+    <string name="account_status_blocked">قەدەغەکراو</string>
+    <string name="account_status_frozen_explainer">هەژمارەکەت بۆ پێداچوونەوە لەسەر هۆڵدە. ئەگەر چاوەڕوان نەبوو، پەیوەندی بە پشتگیریەوە بکە.</string>
+
+    <!-- Errors -->
+    <string name="error_network">تۆڕ بەردەست نییە. دووبارە هەوڵبدەوە.</string>
+    <string name="error_otp_invalid">کۆدەکە هەڵەیە. دووبارە هەوڵبدەوە.</string>
+    <string name="error_otp_expired">کۆدەکە کاتی بەسەرچووە. کۆدێکی نوێ داوا بکە.</string>
+    <string name="error_otp_too_many">هەوڵی زۆر دراوە. چاوەڕێبە پێش داواکردنی کۆدێکی تر.</string>
+</resources>

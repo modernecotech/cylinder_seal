@@ -259,9 +259,10 @@ impl UserRepository for PgUserRepository {
             r#"
             INSERT INTO users (
                 user_id, public_key, display_name, phone_number, kyc_tier,
-                account_type, balance_owc, credit_score, created_at, updated_at
+                account_type, balance_owc, credit_score,
+                account_status, region, created_at, updated_at
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
             "#,
         )
         .bind(user.user_id)
@@ -272,6 +273,8 @@ impl UserRepository for PgUserRepository {
         .bind(&user.account_type)
         .bind(user.balance_owc)
         .bind(user.credit_score)
+        .bind(&user.account_status)
+        .bind(&user.region)
         .bind(user.created_at)
         .bind(user.updated_at)
         .execute(&self.pool)
@@ -285,14 +288,16 @@ impl UserRepository for PgUserRepository {
             r#"
             INSERT INTO users (
                 user_id, public_key, display_name, phone_number, kyc_tier,
-                account_type, balance_owc, credit_score, created_at, updated_at
+                account_type, balance_owc, credit_score,
+                account_status, region, created_at, updated_at
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
             ON CONFLICT (user_id) DO UPDATE SET
                 display_name = EXCLUDED.display_name,
                 phone_number = EXCLUDED.phone_number,
                 kyc_tier = EXCLUDED.kyc_tier,
                 account_type = EXCLUDED.account_type,
+                region = EXCLUDED.region,
                 updated_at = NOW()
             "#,
         )
@@ -304,6 +309,8 @@ impl UserRepository for PgUserRepository {
         .bind(&user.account_type)
         .bind(user.balance_owc)
         .bind(user.credit_score)
+        .bind(&user.account_status)
+        .bind(&user.region)
         .bind(user.created_at)
         .bind(user.updated_at)
         .execute(&self.pool)
@@ -316,7 +323,10 @@ impl UserRepository for PgUserRepository {
         let row = sqlx::query(
             r#"
             SELECT user_id, public_key, display_name, phone_number, kyc_tier,
-                   balance_owc, credit_score, created_at, updated_at
+                   account_type, balance_owc, credit_score,
+                   account_status, account_status_reason, account_status_changed_at,
+                   region, device_signature, device_signature_set_at,
+                   created_at, updated_at
             FROM users WHERE user_id = $1
             "#,
         )
@@ -331,7 +341,10 @@ impl UserRepository for PgUserRepository {
         let row = sqlx::query(
             r#"
             SELECT user_id, public_key, display_name, phone_number, kyc_tier,
-                   balance_owc, credit_score, created_at, updated_at
+                   account_type, balance_owc, credit_score,
+                   account_status, account_status_reason, account_status_changed_at,
+                   region, device_signature, device_signature_set_at,
+                   created_at, updated_at
             FROM users WHERE public_key = $1
             "#,
         )
@@ -379,6 +392,16 @@ fn row_to_user(row: sqlx::postgres::PgRow) -> UserRecord {
             .unwrap_or_else(|_| "individual".to_string()),
         balance_owc: row.get("balance_owc"),
         credit_score: row.try_get("credit_score").ok(),
+        account_status: row
+            .try_get::<String, _>("account_status")
+            .unwrap_or_else(|_| "active".to_string()),
+        account_status_reason: row.try_get("account_status_reason").ok(),
+        account_status_changed_at: row.try_get("account_status_changed_at").ok(),
+        region: row
+            .try_get::<String, _>("region")
+            .unwrap_or_else(|_| "federal".to_string()),
+        device_signature: row.try_get("device_signature").ok(),
+        device_signature_set_at: row.try_get("device_signature_set_at").ok(),
         created_at: row.get::<DateTime<Utc>, _>("created_at"),
         updated_at: row.get::<DateTime<Utc>, _>("updated_at"),
     }
@@ -715,9 +738,10 @@ impl InvoiceRepository for PgInvoiceRepository {
             r#"
             INSERT INTO invoices (
                 invoice_id, user_id, amount_owc, currency, description,
-                external_reference, status, webhook_url, created_at, expires_at
+                external_reference, status, webhook_url, created_at, expires_at,
+                merchant_tax_id, withholding_pct, fiscal_receipt_ref
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
             "#,
         )
         .bind(inv.invoice_id)
@@ -730,6 +754,9 @@ impl InvoiceRepository for PgInvoiceRepository {
         .bind(&inv.webhook_url)
         .bind(inv.created_at)
         .bind(inv.expires_at)
+        .bind(&inv.merchant_tax_id)
+        .bind(inv.withholding_pct)
+        .bind(&inv.fiscal_receipt_ref)
         .execute(&self.pool)
         .await
         .map_err(db_err)?;
@@ -847,6 +874,22 @@ impl InvoiceRepository for PgInvoiceRepository {
         .map_err(db_err)?;
         Ok(rows.into_iter().map(row_to_invoice).collect())
     }
+
+    async fn set_fiscal_receipt(
+        &self,
+        invoice_id: Uuid,
+        fiscal_receipt_ref: &str,
+    ) -> Result<()> {
+        sqlx::query(
+            r#"UPDATE invoices SET fiscal_receipt_ref = $2 WHERE invoice_id = $1"#,
+        )
+        .bind(invoice_id)
+        .bind(fiscal_receipt_ref)
+        .execute(&self.pool)
+        .await
+        .map_err(db_err)?;
+        Ok(())
+    }
 }
 
 fn row_to_invoice(row: sqlx::postgres::PgRow) -> InvoiceRecord {
@@ -865,5 +908,10 @@ fn row_to_invoice(row: sqlx::postgres::PgRow) -> InvoiceRecord {
         created_at: row.get::<DateTime<Utc>, _>("created_at"),
         expires_at: row.get::<DateTime<Utc>, _>("expires_at"),
         paid_at: row.try_get("paid_at").ok(),
+        merchant_tax_id: row.try_get("merchant_tax_id").ok(),
+        withholding_pct: row
+            .try_get::<Decimal, _>("withholding_pct")
+            .unwrap_or(Decimal::ZERO),
+        fiscal_receipt_ref: row.try_get("fiscal_receipt_ref").ok(),
     }
 }

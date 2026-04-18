@@ -1264,31 +1264,119 @@ impl PgSanctionsListRepository {
     }
 }
 
-/// Lower-case + diacritic-strip normaliser for screening lookups. Kept
-/// in storage rather than the worker because the *write* and the *read*
-/// must agree on it byte-for-byte; centralising guarantees that.
+/// Lower-case + diacritic-strip + Arabic-fold + transliteration-canonicalise
+/// normaliser for screening lookups. Kept in storage rather than the worker
+/// because the *write* and the *read* must agree on it byte-for-byte;
+/// centralising guarantees that.
+///
+/// Three passes:
+///  1. character-level fold (Latin diacritics, Arabic letter variants,
+///     Persian/Urdu kaf/yaa, Arabic-Indic digits, tashkeel removal,
+///     punctuation drop)
+///  2. whitespace collapse
+///  3. token-level transliteration canonicalisation for the most common
+///     Arabic-name variants that hit OFAC/UN lists (mohammed/mohamed/
+///     mohammad → muhammad, ahmed → ahmad, hussain → hussein, etc.)
 pub fn normalise_screening_name(s: &str) -> String {
-    let lowered = s.trim().to_lowercase();
-    lowered
+    let folded: String = s
+        .trim()
+        .to_lowercase()
         .chars()
-        .filter_map(|c| match c {
-            'à' | 'á' | 'â' | 'ã' | 'ä' | 'å' | 'ā' => Some('a'),
-            'ç' | 'č' => Some('c'),
-            'è' | 'é' | 'ê' | 'ë' | 'ē' => Some('e'),
-            'ì' | 'í' | 'î' | 'ï' | 'ī' => Some('i'),
-            'ñ' => Some('n'),
-            'ò' | 'ó' | 'ô' | 'õ' | 'ö' | 'ō' => Some('o'),
-            'ù' | 'ú' | 'û' | 'ü' | 'ū' => Some('u'),
-            'ý' | 'ÿ' => Some('y'),
-            'š' => Some('s'),
-            'ž' => Some('z'),
-            c if c.is_alphanumeric() || c == ' ' => Some(c),
-            _ => None,
-        })
-        .collect::<String>()
-        .split_whitespace()
+        .filter_map(fold_char)
+        .collect();
+    let collapsed = folded.split_whitespace().collect::<Vec<_>>().join(" ");
+    canonicalise_tokens(&collapsed)
+}
+
+fn fold_char(c: char) -> Option<char> {
+    match c {
+        // Latin diacritics
+        'à' | 'á' | 'â' | 'ã' | 'ä' | 'å' | 'ā' => Some('a'),
+        'ç' | 'č' => Some('c'),
+        'è' | 'é' | 'ê' | 'ë' | 'ē' => Some('e'),
+        'ì' | 'í' | 'î' | 'ï' | 'ī' => Some('i'),
+        'ñ' => Some('n'),
+        'ò' | 'ó' | 'ô' | 'õ' | 'ö' | 'ō' => Some('o'),
+        'ù' | 'ú' | 'û' | 'ü' | 'ū' => Some('u'),
+        'ý' | 'ÿ' => Some('y'),
+        'š' => Some('s'),
+        'ž' => Some('z'),
+
+        // Arabic alef family → bare alef (ا)
+        'أ' | 'إ' | 'آ' | 'ٱ' => Some('ا'),
+        // Taa marbuta → haa
+        'ة' => Some('ه'),
+        // Alef maqsura → yaa
+        'ى' => Some('ي'),
+        // Hamza-bearing waw / yaa → bare waw / yaa
+        'ؤ' => Some('و'),
+        'ئ' => Some('ي'),
+        // Persian/Urdu variants → Arabic equivalents
+        'ک' => Some('ك'),
+        'ی' => Some('ي'),
+        'ے' => Some('ي'),
+        'ہ' => Some('ه'),
+
+        // Arabic-Indic + Persian-Indic digits → Latin
+        '٠' | '۰' => Some('0'),
+        '١' | '۱' => Some('1'),
+        '٢' | '۲' => Some('2'),
+        '٣' | '۳' => Some('3'),
+        '٤' | '۴' => Some('4'),
+        '٥' | '۵' => Some('5'),
+        '٦' | '۶' => Some('6'),
+        '٧' | '۷' => Some('7'),
+        '٨' | '۸' => Some('8'),
+        '٩' | '۹' => Some('9'),
+
+        // Tashkeel (Arabic harakat) and tatweel — strip entirely
+        '\u{064B}'..='\u{0652}' | '\u{0670}' | '\u{0640}' => None,
+        // Hamza on the line by itself — strip (already folded above on bearers)
+        'ء' => None,
+
+        c if c.is_alphanumeric() || c == ' ' => Some(c),
+        _ => None,
+    }
+}
+
+/// Token-by-token canonicalisation for transliteration variants of common
+/// Arabic names. Idempotent: every value in the map is also a key mapping
+/// to itself (implicitly — running again is a no-op because the canonical
+/// form is what's emitted).
+fn canonicalise_tokens(s: &str) -> String {
+    s.split(' ')
+        .map(canonicalise_token)
         .collect::<Vec<_>>()
         .join(" ")
+}
+
+fn canonicalise_token(tok: &str) -> String {
+    match tok {
+        // Muhammad cluster
+        "mohammed" | "mohamed" | "mohammad" | "mohamad" | "muhammed" | "mohammet"
+        | "mehmet" | "mahomet" => "muhammad".into(),
+        // Ahmad cluster
+        "ahmed" | "ahmet" | "ahmod" => "ahmad".into(),
+        // Hussein cluster
+        "hussain" | "husain" | "huseyin" | "hussien" | "hossein" | "husayn" => {
+            "hussein".into()
+        }
+        // Hassan cluster
+        "hasan" | "hassen" | "hasen" => "hassan".into(),
+        // Ali cluster (already canonical, but fold close variants)
+        "aly" | "alee" => "ali".into(),
+        // Abdul / Abd-el cluster (compound prefix often split)
+        "abdel" | "abdoul" | "abdal" => "abdul".into(),
+        // Yusuf cluster
+        "yousef" | "yousuf" | "youssef" | "yusef" | "joseph" => "yusuf".into(),
+        // Ibrahim cluster
+        "ebrahim" | "ibraheem" | "ibrahem" => "ibrahim".into(),
+        // Omar cluster
+        "umar" | "ommar" => "omar".into(),
+        // Saddam (relevant historical variant)
+        "sadam" => "saddam".into(),
+        _ => tok.into(),
+    }
 }
 
 #[async_trait]
@@ -1594,5 +1682,87 @@ mod tests {
         let once = normalise_screening_name("L'École Française");
         let twice = normalise_screening_name(&once);
         assert_eq!(once, twice);
+    }
+
+    #[test]
+    fn folds_arabic_letter_variants_to_canonical() {
+        // أحمد (with hamza on alef) and احمد (bare alef) must land identically
+        assert_eq!(
+            normalise_screening_name("أحمد"),
+            normalise_screening_name("احمد")
+        );
+        // فاطمة (taa marbuta) collapses to فاطمه (haa)
+        assert_eq!(
+            normalise_screening_name("فاطمة"),
+            normalise_screening_name("فاطمه")
+        );
+        // alef maqsura ى at the end folds to yaa ي
+        assert_eq!(normalise_screening_name("هدى"), normalise_screening_name("هدي"));
+    }
+
+    #[test]
+    fn strips_arabic_tashkeel() {
+        // مُحَمَّد (with full diacritics) folds to محمد
+        assert_eq!(
+            normalise_screening_name("مُحَمَّد"),
+            normalise_screening_name("محمد")
+        );
+    }
+
+    #[test]
+    fn folds_arabic_indic_digits() {
+        assert_eq!(normalise_screening_name("Branch ٤٢"), "branch 42");
+        assert_eq!(normalise_screening_name("شعبة ١٢٣"), "شعبه 123");
+    }
+
+    #[test]
+    fn collapses_muhammad_transliteration_cluster() {
+        let canonical = normalise_screening_name("Muhammad Hussein");
+        for variant in [
+            "Mohammed Hussein",
+            "Mohamed Hussain",
+            "Mohammad Husayn",
+            "Mehmet Hossein",
+            "Mohamad Hussien",
+        ] {
+            assert_eq!(
+                normalise_screening_name(variant),
+                canonical,
+                "variant {variant} did not canonicalise"
+            );
+        }
+    }
+
+    #[test]
+    fn collapses_other_common_clusters() {
+        let pairs: &[(&str, &str)] = &[
+            ("Ahmed Ali", "Ahmad Ali"),
+            ("Yousef Ibrahim", "Yusuf Ibrahim"),
+            ("Hassan Abdel Rahman", "Hassan Abdul Rahman"),
+            ("Umar Saddam", "Omar Saddam"),
+            ("Ebrahim Hasan", "Ibrahim Hassan"),
+        ];
+        for (a, b) in pairs {
+            assert_eq!(
+                normalise_screening_name(a),
+                normalise_screening_name(b),
+                "{a} should equal {b}"
+            );
+        }
+    }
+
+    #[test]
+    fn arabic_normalisation_is_idempotent() {
+        let inputs = [
+            "مُحَمَّد عَلِي",
+            "أحمد بن إبراهيم",
+            "Mohammed AL-Hussein",
+            "فاطمة الزهراء",
+        ];
+        for s in inputs {
+            let once = normalise_screening_name(s);
+            let twice = normalise_screening_name(&once);
+            assert_eq!(once, twice, "not idempotent: {s} -> {once} -> {twice}");
+        }
     }
 }

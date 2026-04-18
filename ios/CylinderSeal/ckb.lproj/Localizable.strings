@@ -1,0 +1,52 @@
+/* CylinderSeal — Sorani Kurdish (ckb) localisation. Used in the KRG. */
+
+"app_name" = "دیناری دیجیتاڵی عێراقی";
+
+/* Onboarding */
+"onboarding.welcome" = "بەخێربێیت بۆ دیناری دیجیتاڵی عێراقی";
+"onboarding.get_started" = "دەستپێبکە";
+"onboarding.phone_prompt" = "ژمارەی مۆبایلەکەت بنووسە";
+"onboarding.otp_prompt" = "ئەو کۆدی ٦ ژمارەییە بنووسە کە بۆمان ناردووە";
+"onboarding.otp_resend" = "دووبارە ناردنی کۆد";
+"onboarding.otp_verify" = "پشتڕاستکردنەوە";
+
+/* KYC tiers */
+"kyc.anonymous" = "پشتڕاست نەکراوە";
+"kyc.phone_verified" = "بە مۆبایل پشتڕاستکراوە";
+"kyc.full" = "بە تەواوی پشتڕاستکراوە";
+
+/* Wallet */
+"wallet.title" = "جزدان";
+"wallet.balance" = "باڵانسی بەردەست";
+"wallet.pending" = "چاوەڕوانە";
+"wallet.currency_iqd" = "دیناری عێراقی";
+"wallet.currency_usd" = "دۆلاری ئەمریکی";
+
+/* Pay / Receive */
+"pay.title" = "پارە دان";
+"pay.amount" = "بڕی پارە";
+"pay.recipient" = "وەرگر";
+"pay.confirm" = "دڵنیاکردنەوەی پارەدان";
+"receive.title" = "وەرگرتن";
+"receive.via_nfc" = "دەست لێ بدە بۆ وەرگرتن (NFC)";
+"receive.via_qr" = "پیشاندانی کۆدی QR";
+
+/* Settings */
+"settings.title" = "ڕێکخستنەکان";
+"settings.language" = "زمان";
+"settings.region" = "ناوچە";
+"settings.region.federal" = "عێراقی فیدراڵ";
+"settings.region.krg" = "هەرێمی کوردستان";
+"settings.about" = "دەربارە";
+
+/* Account status */
+"account.status.active" = "چالاک";
+"account.status.frozen" = "بەستراوە";
+"account.status.blocked" = "قەدەغەکراو";
+"account.status.frozen_explainer" = "هەژمارەکەت بۆ پێداچوونەوە لەسەر هۆڵدە. ئەگەر چاوەڕوان نەبوو، پەیوەندی بە پشتگیریەوە بکە.";
+
+/* Errors */
+"error.network" = "تۆڕ بەردەست نییە. دووبارە هەوڵبدەوە.";
+"error.otp.invalid" = "کۆدەکە هەڵەیە. دووبارە هەوڵبدەوە.";
+"error.otp.expired" = "کۆدەکە کاتی بەسەرچووە. کۆدێکی نوێ داوا بکە.";
+"error.otp.too_many" = "هەوڵی زۆر دراوە. چاوەڕێبە پێش داواکردنی کۆدێکی تر.";

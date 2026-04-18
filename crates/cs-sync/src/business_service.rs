@@ -285,6 +285,9 @@ impl pb::business_api_server::BusinessApi for BusinessApiService {
             created_at: now,
             expires_at,
             paid_at: None,
+            merchant_tax_id: None,
+            withholding_pct: rust_decimal::Decimal::ZERO,
+            fiscal_receipt_ref: None,
         };
         self.invoices
             .create(&record)

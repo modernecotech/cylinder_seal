@@ -167,6 +167,31 @@ async fn main() -> Result<()> {
         Arc::new(PgFeedRunRepository::new(pool.clone()));
     let sanctions_list: Arc<dyn cs_storage::compliance::SanctionsListRepository> =
         Arc::new(PgSanctionsListRepository::new(pool.clone()));
+    let user_regions: Arc<dyn cs_storage::iraq_phase2::UserRegionRepository> =
+        Arc::new(cs_storage::iraq_phase2::PgUserRegionRepository::new(pool.clone()));
+    let device_bindings: Arc<dyn cs_storage::iraq_phase2::DeviceBindingRepository> = Arc::new(
+        cs_storage::iraq_phase2::PgDeviceBindingRepository::new(pool.clone()),
+    );
+    let emergency_directives:
+        Arc<dyn cs_storage::iraq_phase2::EmergencyDirectiveRepository> = Arc::new(
+            cs_storage::iraq_phase2::PgEmergencyDirectiveRepository::new(pool.clone()),
+        );
+    let wallet_balances: Arc<dyn cs_storage::iraq_phase2::WalletBalanceRepository> =
+        Arc::new(cs_storage::iraq_phase2::PgWalletBalanceRepository::new(
+            pool.clone(),
+        ));
+    let cbi_peg: Arc<dyn cs_storage::iraq_phase2::CbiPegRepository> =
+        Arc::new(cs_storage::iraq_phase2::PgCbiPegRepository::new(pool.clone()));
+    let otp_repo: Arc<dyn cs_storage::iraq_phase2::OtpRepository> =
+        Arc::new(cs_storage::iraq_phase2::PgOtpRepository::new(pool.clone()));
+    let otp_sender: Arc<dyn cs_api::OtpSender> = Arc::new(cs_api::LogOnlyOtpSender);
+    // Pepper from env if present, else a deployment-default. In production
+    // this comes from the secrets manager; sharing across replicas is fine.
+    let otp_pepper = Arc::new(
+        std::env::var("CYLINDERSEAL_OTP_PEPPER")
+            .unwrap_or_else(|_| "cs-default-otp-pepper-rotate-me".into())
+            .into_bytes(),
+    );
 
     // ---------------- Raft ----------------
     let applier: Arc<dyn LedgerStateMachine> =
@@ -221,6 +246,14 @@ async fn main() -> Result<()> {
         travel_rule: travel_rule.clone(),
         beneficial_owners: beneficial_owners.clone(),
         feed_runs: feed_runs.clone(),
+        user_regions: user_regions.clone(),
+        device_bindings: device_bindings.clone(),
+        emergency_directives: emergency_directives.clone(),
+        wallet_balances: wallet_balances.clone(),
+        cbi_peg: cbi_peg.clone(),
+        otp_repo: otp_repo.clone(),
+        otp_sender: otp_sender.clone(),
+        otp_pepper: otp_pepper.clone(),
         node_id: cfg.server.node_id.clone(),
         admin_session_ttl_hours: 12,
     });

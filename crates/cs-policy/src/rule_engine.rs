@@ -892,6 +892,95 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
+
+        // --- Hawala typology: tight fan-out ---
+        AmlRule {
+            rule_id: Uuid::new_v4(),
+            code: "HAW-001".into(),
+            name: "Hawala-pattern fan-out".into(),
+            description: "Funds dispersed to 6+ unique recipients in a 30-minute window — \
+                          tighter than LAY-002 to catch hawaladar settlement bursts".into(),
+            category: RuleCategory::Network,
+            severity: RuleSeverity::High,
+            enabled: true,
+            condition: RuleCondition::RapidFanOut {
+                window_minutes: 30,
+                min_unique_recipients: 6,
+            },
+            action: RuleAction::HoldForReview,
+            priority: 70,
+            created_at: now,
+            created_by: by.into(),
+        },
+
+        // --- Hawala typology: structuring just under CBI CTR threshold ---
+        AmlRule {
+            rule_id: Uuid::new_v4(),
+            code: "HAW-002".into(),
+            name: "Hawala structuring under CTR threshold".into(),
+            description: "Repeated transactions clustered within ~10% of the 10,000 OWC \
+                          CTR reporting threshold — classic hawala settlement smurfing".into(),
+            category: RuleCategory::Structuring,
+            severity: RuleSeverity::High,
+            enabled: true,
+            condition: RuleCondition::NearThresholdClustering {
+                reference_micro_owc: 10_000_000_000, // 10k OWC CTR threshold
+                tolerance_pct: 10,
+                window_minutes: 1440, // 24h settlement window
+                min_count: 3,
+            },
+            action: RuleAction::HoldForReview,
+            priority: 71,
+            created_at: now,
+            created_by: by.into(),
+        },
+
+        // --- Hawala typology: round-tripping (A→B→A) ---
+        AmlRule {
+            rule_id: Uuid::new_v4(),
+            code: "HAW-003".into(),
+            name: "Hawala round-tripping".into(),
+            description: "Funds returning to the originating wallet via an intermediary \
+                          within a short window — evaluated by the round-trip plugin".into(),
+            category: RuleCategory::Custom,
+            severity: RuleSeverity::High,
+            enabled: true,
+            condition: RuleCondition::Custom {
+                key: "hawala_round_trip".into(),
+                params: serde_json::json!({
+                    "max_hops": 2,
+                    "window_minutes": 1440,
+                    "amount_tolerance_pct": 5,
+                }),
+            },
+            action: RuleAction::HoldForReview,
+            priority: 72,
+            created_at: now,
+            created_by: by.into(),
+        },
+
+        // --- Hawala typology: cross-region settlement (federal ↔ KRG) ---
+        AmlRule {
+            rule_id: Uuid::new_v4(),
+            code: "HAW-004".into(),
+            name: "Cross-region hawala settlement".into(),
+            description: "Repeated cross-region (federal ↔ KRG) transfers from a single \
+                          sender — evaluated by the regional-flow plugin".into(),
+            category: RuleCategory::Custom,
+            severity: RuleSeverity::Medium,
+            enabled: true,
+            condition: RuleCondition::Custom {
+                key: "hawala_cross_region".into(),
+                params: serde_json::json!({
+                    "window_minutes": 1440,
+                    "min_count": 5,
+                }),
+            },
+            action: RuleAction::EnhancedMonitoring,
+            priority: 73,
+            created_at: now,
+            created_by: by.into(),
+        },
     ]
 }
 
@@ -1059,7 +1148,7 @@ mod tests {
     #[test]
     fn default_rules_count() {
         let rules = default_rules();
-        assert!(rules.len() >= 14, "Should have at least 14 default rules");
+        assert!(rules.len() >= 18, "Should have at least 18 default rules");
         // All have unique codes
         let codes: Vec<_> = rules.iter().map(|r| &r.code).collect();
         let unique: std::collections::HashSet<_> = codes.iter().collect();

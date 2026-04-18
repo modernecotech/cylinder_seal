@@ -1,0 +1,52 @@
+/* CylinderSeal — Arabic (ar) localisation. */
+
+"app_name" = "الدينار العراقي الرقمي";
+
+/* Onboarding */
+"onboarding.welcome" = "مرحباً بكم في الدينار العراقي الرقمي";
+"onboarding.get_started" = "ابدأ";
+"onboarding.phone_prompt" = "أدخل رقم هاتفك";
+"onboarding.otp_prompt" = "أدخل الرمز المكون من ٦ أرقام الذي أرسلناه لك";
+"onboarding.otp_resend" = "إعادة إرسال الرمز";
+"onboarding.otp_verify" = "تحقق";
+
+/* KYC tiers */
+"kyc.anonymous" = "غير موثَّق";
+"kyc.phone_verified" = "موثَّق بالهاتف";
+"kyc.full" = "موثَّق بالكامل";
+
+/* Wallet */
+"wallet.title" = "المحفظة";
+"wallet.balance" = "الرصيد المتاح";
+"wallet.pending" = "قيد المعالجة";
+"wallet.currency_iqd" = "دينار عراقي";
+"wallet.currency_usd" = "دولار أمريكي";
+
+/* Pay / Receive */
+"pay.title" = "دفع";
+"pay.amount" = "المبلغ";
+"pay.recipient" = "المستلم";
+"pay.confirm" = "تأكيد الدفع";
+"receive.title" = "استلام";
+"receive.via_nfc" = "المس للاستلام (NFC)";
+"receive.via_qr" = "إظهار رمز QR";
+
+/* Settings */
+"settings.title" = "الإعدادات";
+"settings.language" = "اللغة";
+"settings.region" = "المنطقة";
+"settings.region.federal" = "العراق الاتحادي";
+"settings.region.krg" = "إقليم كردستان";
+"settings.about" = "حول التطبيق";
+
+/* Account status */
+"account.status.active" = "نشط";
+"account.status.frozen" = "مجمَّد";
+"account.status.blocked" = "محظور";
+"account.status.frozen_explainer" = "حسابك معلَّق قيد المراجعة. تواصل مع الدعم إذا لم يكن هذا متوقعاً.";
+
+/* Errors */
+"error.network" = "لا توجد شبكة. حاول مرة أخرى.";
+"error.otp.invalid" = "الرمز غير صحيح. حاول مرة أخرى.";
+"error.otp.expired" = "انتهت صلاحية الرمز. اطلب رمزاً جديداً.";
+"error.otp.too_many" = "عدد محاولات كثير. انتظر قبل طلب رمز آخر.";

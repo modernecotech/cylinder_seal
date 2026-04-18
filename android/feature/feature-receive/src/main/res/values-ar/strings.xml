@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nfc_service_description">مستلم الدفع - الدينار العراقي الرقمي</string>
+    <string name="nfc_aid_group">الدينار العراقي الرقمي</string>
+</resources>

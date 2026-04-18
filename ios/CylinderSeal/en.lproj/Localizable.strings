@@ -1,0 +1,52 @@
+/* CylinderSeal — English (default) localisation. */
+
+"app_name" = "Digital IQD";
+
+/* Onboarding */
+"onboarding.welcome" = "Welcome to Digital IQD";
+"onboarding.get_started" = "Get started";
+"onboarding.phone_prompt" = "Enter your phone number";
+"onboarding.otp_prompt" = "Enter the 6-digit code we sent you";
+"onboarding.otp_resend" = "Resend code";
+"onboarding.otp_verify" = "Verify";
+
+/* KYC tiers */
+"kyc.anonymous" = "Unverified";
+"kyc.phone_verified" = "Phone-verified";
+"kyc.full" = "Fully verified";
+
+/* Wallet */
+"wallet.title" = "Wallet";
+"wallet.balance" = "Available balance";
+"wallet.pending" = "Pending";
+"wallet.currency_iqd" = "Iraqi Dinar";
+"wallet.currency_usd" = "US Dollar";
+
+/* Pay / Receive */
+"pay.title" = "Pay";
+"pay.amount" = "Amount";
+"pay.recipient" = "Recipient";
+"pay.confirm" = "Confirm payment";
+"receive.title" = "Receive";
+"receive.via_nfc" = "Tap to receive (NFC)";
+"receive.via_qr" = "Show QR code";
+
+/* Settings */
+"settings.title" = "Settings";
+"settings.language" = "Language";
+"settings.region" = "Region";
+"settings.region.federal" = "Federal Iraq";
+"settings.region.krg" = "Kurdistan Region";
+"settings.about" = "About";
+
+/* Account status */
+"account.status.active" = "Active";
+"account.status.frozen" = "Frozen";
+"account.status.blocked" = "Blocked";
+"account.status.frozen_explainer" = "Your account is on hold pending review. Contact support if this is unexpected.";
+
+/* Errors */
+"error.network" = "Network unavailable. Try again.";
+"error.otp.invalid" = "That code didn’t match. Try again.";
+"error.otp.expired" = "Code expired. Request a new one.";
+"error.otp.too_many" = "Too many attempts. Wait before requesting another code.";

@@ -103,6 +103,18 @@ impl InvoiceRepository for MemInvoices {
             .cloned()
             .collect())
     }
+    async fn set_fiscal_receipt(
+        &self,
+        invoice_id: Uuid,
+        fiscal_receipt_ref: &str,
+    ) -> Result<()> {
+        for inv in self.inner.lock().unwrap().iter_mut() {
+            if inv.invoice_id == invoice_id {
+                inv.fiscal_receipt_ref = Some(fiscal_receipt_ref.to_string());
+            }
+        }
+        Ok(())
+    }
 }
 
 #[tokio::test]
@@ -143,6 +155,9 @@ async fn e2e_invoice_lifecycle_register_issue_create_pay_reconcile() {
             created_at: now,
             expires_at: now + Duration::hours(1),
             paid_at: None,
+            merchant_tax_id: None,
+            withholding_pct: rust_decimal::Decimal::ZERO,
+            fiscal_receipt_ref: None,
         })
         .await
         .unwrap();
@@ -237,6 +252,9 @@ async fn e2e_invoice_amount_mismatch_is_rejected() {
             created_at: now,
             expires_at: now + Duration::hours(1),
             paid_at: None,
+            merchant_tax_id: None,
+            withholding_pct: rust_decimal::Decimal::ZERO,
+            fiscal_receipt_ref: None,
         })
         .await
         .unwrap();

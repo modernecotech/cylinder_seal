@@ -31,6 +31,18 @@ pub struct UserRecord {
     pub account_type: String,
     pub balance_owc: i64,
     pub credit_score: Option<Decimal>,
+    /// "active" | "frozen" | "blocked" — see migrations/20260418000001
+    pub account_status: String,
+    pub account_status_reason: Option<String>,
+    pub account_status_changed_at: Option<DateTime<Utc>>,
+    /// "federal" (rest-of-Iraq) or "krg" (Kurdistan Regional Government).
+    /// Drives which jurisdictional regulator + court order applies.
+    pub region: String,
+    /// 32-byte fingerprint binding the wallet to a specific SIM/IMEI/keystore.
+    /// Set on first PhoneVerified promotion; SIM-swap defence cools off
+    /// outbound transactions for 24h after this changes.
+    pub device_signature: Option<Vec<u8>>,
+    pub device_signature_set_at: Option<DateTime<Utc>>,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
 }
@@ -78,6 +90,11 @@ pub struct ApiKeyRecord {
 
 /// Invoice issued by a `business_electronic` account. Paid when a customer
 /// sends a matching signed Transaction that references the invoice id.
+///
+/// GTBD (General Tax Body / Iraq) e-invoicing fields:
+/// `merchant_tax_id`, `withholding_pct`, and `fiscal_receipt_ref` are
+/// populated for B2B and government-contractor flows; B2C invoices keep
+/// withholding at 0 and leave the tax id / receipt ref unset.
 #[derive(Clone, Debug)]
 pub struct InvoiceRecord {
     pub invoice_id: Uuid,
@@ -94,6 +111,12 @@ pub struct InvoiceRecord {
     pub created_at: DateTime<Utc>,
     pub expires_at: DateTime<Utc>,
     pub paid_at: Option<DateTime<Utc>>,
+    /// GTBD merchant tax id (Iraqi VAT/income-tax registration number).
+    pub merchant_tax_id: Option<String>,
+    /// Withholding percentage (0–100). Defaults to 0 for non-government flows.
+    pub withholding_pct: Decimal,
+    /// GTBD-assigned fiscal receipt id, populated after fiscalisation.
+    pub fiscal_receipt_ref: Option<String>,
 }
 
 /// Represents a conflict log entry (PostgreSQL)

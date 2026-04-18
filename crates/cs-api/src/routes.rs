@@ -12,6 +12,10 @@ use cs_storage::compliance::{
     BeneficialOwnerRepository, FeedRunRepository, RiskSnapshotRepository,
     RuleVersionRepository, TransactionEvaluationRepository, TravelRuleRepository,
 };
+use cs_storage::iraq_phase2::{
+    CbiPegRepository, DeviceBindingRepository, EmergencyDirectiveRepository, OtpRepository,
+    UserRegionRepository, WalletBalanceRepository,
+};
 use cs_storage::repository::{
     ApiKeyRepository, BusinessProfileRepository, InvoiceRepository, JournalRepository,
     UserRepository,
@@ -25,12 +29,16 @@ use crate::compliance::{self, ComplianceState};
 use crate::handlers::{
     get_balance, health, kyc_callback, list_entries, readiness, stats, ApiState,
 };
+use crate::emergency_directive::{self, EmergencyDirectiveState};
 use crate::invoices;
+use crate::iraq_admin::{self, IraqAdminState};
 use crate::middleware::{
     require_admin, require_api_key, AdminAuthState, AuthState,
 };
+use crate::otp::{self, OtpSender, OtpState};
 use crate::rule_governance::{self, RuleGovernanceState};
 use crate::travel_rule::{self, TravelRuleState};
+use crate::wallets::{self, WalletState};
 
 pub struct RouterDeps {
     pub users: Arc<dyn UserRepository>,
@@ -47,6 +55,19 @@ pub struct RouterDeps {
     pub travel_rule: Arc<dyn TravelRuleRepository>,
     pub beneficial_owners: Arc<dyn BeneficialOwnerRepository>,
     pub feed_runs: Arc<dyn FeedRunRepository>,
+    pub user_regions: Arc<dyn UserRegionRepository>,
+    pub device_bindings: Arc<dyn DeviceBindingRepository>,
+    pub emergency_directives: Arc<dyn EmergencyDirectiveRepository>,
+    pub wallet_balances: Arc<dyn WalletBalanceRepository>,
+    pub cbi_peg: Arc<dyn CbiPegRepository>,
+    pub otp_repo: Arc<dyn OtpRepository>,
+    /// Sender for outbound OTP codes. In dev: [`LogOnlyOtpSender`]. In
+    /// production: an Asiacell/Zain/Korek HTTPS client.
+    pub otp_sender: Arc<dyn OtpSender>,
+    /// Per-deployment pepper combined with the OTP digits before hashing.
+    /// Loaded from runtime config; rotating it invalidates all in-flight
+    /// challenges (acceptable since TTL is 10 minutes).
+    pub otp_pepper: Arc<Vec<u8>>,
     pub node_id: String,
     pub admin_session_ttl_hours: u32,
 }
@@ -102,6 +123,23 @@ pub fn create_router(deps: RouterDeps) -> Router {
     let governance_state = RuleGovernanceState {
         repo: deps.rule_versions.clone(),
     };
+    let iraq_admin_state = IraqAdminState {
+        region_repo: deps.user_regions.clone(),
+        device_binding_repo: deps.device_bindings.clone(),
+    };
+    let emergency_directive_state = EmergencyDirectiveState {
+        repo: deps.emergency_directives.clone(),
+    };
+    let wallet_state = WalletState {
+        balances: deps.wallet_balances.clone(),
+        peg: deps.cbi_peg.clone(),
+    };
+    let otp_state = OtpState {
+        repo: deps.otp_repo.clone(),
+        users: deps.users.clone(),
+        sender: deps.otp_sender.clone(),
+        pepper: deps.otp_pepper.clone(),
+    };
 
     // Server-rendered admin UI pages for governance / UBO / Travel Rule.
     // Each one shares its underlying state with the JSON API router.
@@ -141,6 +179,13 @@ pub fn create_router(deps: RouterDeps) -> Router {
         .route("/v1/businesses", post(business::register_business))
         .route("/v1/businesses/:user_id", get(business::get_business))
         .with_state(api_state.clone());
+
+    // OTP issue/verify is unauthenticated (the OTP itself is the proof)
+    // but rate-limited at the gateway. Promotes anonymous → phone_verified.
+    let otp_routes = Router::new()
+        .route("/v1/otp/issue", post(otp::issue))
+        .route("/v1/otp/verify", post(otp::verify))
+        .with_state(otp_state);
 
     // Admin login (public — that's where you GET your session token).
     let admin_login = Router::new()
@@ -222,6 +267,58 @@ pub fn create_router(deps: RouterDeps) -> Router {
             require_admin,
         ));
 
+    let iraq_admin_routes = Router::new()
+        .route(
+            "/v1/admin/users/:user_id/region",
+            axum::routing::get(iraq_admin::get_user_region)
+                .post(iraq_admin::set_user_region),
+        )
+        .route(
+            "/v1/admin/users/:user_id/device-binding",
+            axum::routing::get(iraq_admin::get_device_binding)
+                .post(iraq_admin::set_device_binding),
+        )
+        .with_state(iraq_admin_state)
+        .layer(axum_mw::from_fn_with_state(
+            admin_auth_state.clone(),
+            require_admin,
+        ));
+
+    let emergency_directive_routes = Router::new()
+        .route(
+            "/v1/admin/emergency-directives",
+            axum::routing::get(emergency_directive::list_active_directives)
+                .post(emergency_directive::issue_directive),
+        )
+        .route(
+            "/v1/admin/emergency-directives/:directive_id",
+            axum::routing::delete(emergency_directive::revoke_directive),
+        )
+        .with_state(emergency_directive_state)
+        .layer(axum_mw::from_fn_with_state(
+            admin_auth_state.clone(),
+            require_admin,
+        ));
+
+    // Wallet + peg routes. Per-user balance reads are admin-gated (operator
+    // dashboard); the peg + conversion endpoints are public so the mobile
+    // app can fetch them without an auth round-trip.
+    let wallet_admin_routes = Router::new()
+        .route("/v1/admin/users/:user_id/wallets", get(wallets::list_wallets))
+        .route(
+            "/v1/admin/users/:user_id/wallets/:currency",
+            get(wallets::get_wallet),
+        )
+        .with_state(wallet_state.clone())
+        .layer(axum_mw::from_fn_with_state(
+            admin_auth_state.clone(),
+            require_admin,
+        ));
+    let peg_public_routes = Router::new()
+        .route("/v1/peg/current", get(wallets::current_peg))
+        .route("/v1/peg/convert", get(wallets::convert))
+        .with_state(wallet_state);
+
     let governance_routes = Router::new()
         .route("/v1/governance/rules/proposals", post(rule_governance::propose_rule))
         .route("/v1/governance/rules/proposals", get(rule_governance::list_pending))
@@ -254,6 +351,10 @@ pub fn create_router(deps: RouterDeps) -> Router {
             "/v1/invoices/:invoice_id/cancel",
             post(invoices::cancel_invoice),
         )
+        .route(
+            "/v1/invoices/:invoice_id/fiscal-receipt",
+            post(invoices::set_fiscal_receipt),
+        )
         .with_state(api_state)
         .layer(axum_mw::from_fn_with_state(
             AuthState {
@@ -263,12 +364,17 @@ pub fn create_router(deps: RouterDeps) -> Router {
         ));
 
     public
+        .merge(otp_routes)
         .merge(admin_login)
         .merge(admin_self)
         .merge(admin_business)
         .merge(compliance_routes)
         .merge(travel_rule_routes)
         .merge(ubo_routes)
+        .merge(iraq_admin_routes)
+        .merge(emergency_directive_routes)
+        .merge(wallet_admin_routes)
+        .merge(peg_public_routes)
         .merge(governance_routes)
         .merge(authed)
         .merge(admin_ui_public)

@@ -14,6 +14,7 @@ use axum::http::StatusCode;
 use axum::Extension;
 use axum::Json;
 use chrono::NaiveDate;
+use cs_core::validate_iraqi_national_card;
 use cs_storage::compliance::{BeneficialOwnerRecord, BeneficialOwnerRepository};
 use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
@@ -64,6 +65,15 @@ pub async fn add_owner(
     {
         return Err((StatusCode::BAD_REQUEST, "invalid control_type".into()));
     }
+    let normalised_id = if req.id_type == "national_id" && req.id_country.eq_ignore_ascii_case("IQ") {
+        validate_iraqi_national_card(&req.id_number)
+            .map_err(|e| (StatusCode::BAD_REQUEST, e.to_string()))?
+    } else {
+        req.id_number.trim().to_string()
+    };
+    if normalised_id.is_empty() {
+        return Err((StatusCode::BAD_REQUEST, "id_number must not be empty".into()));
+    }
     let pct_min = Decimal::new(0, 2);
     let pct_max = Decimal::new(100, 0);
     if req.ownership_pct <= pct_min || req.ownership_pct > pct_max {
@@ -80,7 +90,7 @@ pub async fn add_owner(
         nationality: req.nationality,
         date_of_birth: req.date_of_birth,
         id_type: req.id_type,
-        id_number: req.id_number,
+        id_number: normalised_id,
         id_country: req.id_country,
         residential_address: req.residential_address,
         ownership_pct: req.ownership_pct,

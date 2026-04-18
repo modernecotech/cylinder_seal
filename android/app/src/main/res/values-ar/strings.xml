@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">الدينار العراقي الرقمي</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_welcome">مرحباً بكم في الدينار العراقي الرقمي</string>
+    <string name="onboarding_get_started">ابدأ</string>
+    <string name="onboarding_phone_prompt">أدخل رقم هاتفك</string>
+    <string name="onboarding_otp_prompt">أدخل الرمز المكون من ٦ أرقام الذي أرسلناه لك</string>
+    <string name="onboarding_otp_resend">إعادة إرسال الرمز</string>
+    <string name="onboarding_otp_verify">تحقق</string>
+
+    <!-- KYC tiers -->
+    <string name="kyc_tier_anonymous">غير موثَّق</string>
+    <string name="kyc_tier_phone_verified">موثَّق بالهاتف</string>
+    <string name="kyc_tier_full">موثَّق بالكامل</string>
+
+    <!-- Wallet -->
+    <string name="wallet_title">المحفظة</string>
+    <string name="wallet_balance_label">الرصيد المتاح</string>
+    <string name="wallet_pending_label">قيد المعالجة</string>
+    <string name="wallet_currency_iqd">دينار عراقي</string>
+    <string name="wallet_currency_usd">دولار أمريكي</string>
+
+    <!-- Pay / Receive -->
+    <string name="pay_title">دفع</string>
+    <string name="pay_amount">المبلغ</string>
+    <string name="pay_recipient">المستلم</string>
+    <string name="pay_confirm">تأكيد الدفع</string>
+    <string name="receive_title">استلام</string>
+    <string name="receive_via_nfc">المس للاستلام (NFC)</string>
+    <string name="receive_via_qr">إظهار رمز QR</string>
+
+    <!-- Settings -->
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_language">اللغة</string>
+    <string name="settings_region">المنطقة</string>
+    <string name="settings_region_federal">العراق الاتحادي</string>
+    <string name="settings_region_krg">إقليم كردستان</string>
+    <string name="settings_about">حول التطبيق</string>
+
+    <!-- Account status -->
+    <string name="account_status_active">نشط</string>
+    <string name="account_status_frozen">مجمَّد</string>
+    <string name="account_status_blocked">محظور</string>
+    <string name="account_status_frozen_explainer">حسابك معلَّق قيد المراجعة. تواصل مع الدعم إذا لم يكن هذا متوقعاً.</string>
+
+    <!-- Errors -->
+    <string name="error_network">لا توجد شبكة. حاول مرة أخرى.</string>
+    <string name="error_otp_invalid">الرمز غير صحيح. حاول مرة أخرى.</string>
+    <string name="error_otp_expired">انتهت صلاحية الرمز. اطلب رمزاً جديداً.</string>
+    <string name="error_otp_too_many">عدد محاولات كثير. انتظر قبل طلب رمز آخر.</string>
+</resources>

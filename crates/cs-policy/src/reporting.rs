@@ -162,6 +162,30 @@ pub struct StrReport {
 }
 
 // ============================================================================
+// Iraqi sub-jurisdictional regulator routing
+// ============================================================================
+
+/// Iraq splits AML supervision between the federal CBI Office of AML/CFT
+/// and the KRG's own AML Office. Reports for KRG-tagged users get filed
+/// regionally; federal users follow the standard CBI-AML-Office route.
+#[derive(Clone, Copy, Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub enum IraqRegion {
+    Federal,
+    Krg,
+}
+
+impl IraqRegion {
+    /// Receiving authority code used in the filing pipeline. These codes
+    /// are stable filing-target identifiers, not display names.
+    pub fn target_regulator(self) -> &'static str {
+        match self {
+            Self::Federal => "CBI-AML-OFFICE",
+            Self::Krg => "KRG-AML-OFFICE",
+        }
+    }
+}
+
+// ============================================================================
 // Supporting Enums
 // ============================================================================
 
@@ -557,6 +581,12 @@ mod tests {
         let deadline = sar.base.filing_deadline.unwrap();
         let diff = deadline - sar.base.created_at;
         assert_eq!(diff.num_days(), 30);
+    }
+
+    #[test]
+    fn region_routing_splits_federal_and_krg() {
+        assert_eq!(IraqRegion::Federal.target_regulator(), "CBI-AML-OFFICE");
+        assert_eq!(IraqRegion::Krg.target_regulator(), "KRG-AML-OFFICE");
     }
 
     #[test]
