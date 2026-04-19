@@ -9,14 +9,14 @@
 The **Digital Iraqi Dinar (Digital IQD)** is sovereign digital currency infrastructure enabling Iraq's Central Bank to:
 1. **Make the invisible economy visible** — transform 70% unbanked and informal economic activity into auditable, taxable, bankable transactions
 2. **Finance unfinished industrial projects** — cement, steel, petrochemicals, pharmaceuticals, tourism — by converting transaction history into credit scores
-3. **Implement trade policy without tariffs** — use merchant tier fees (0% for 100% Iraqi content, 4% for imports) to shift $106B annual government spending toward local goods
+3. **Implement trade policy without tariffs** — combine merchant tier fees (0% for 100% Iraqi content, up to 8% for pure imports) with hard restrictions on government transfers (Tier 1–2 only for food/textiles/household goods) to shift $106B annual government spending toward local goods
 4. **Transmit monetary policy in real-time** — CBI sees all 47M transactions instantly, adjusts velocity limits and credit policy within hours
 5. **Generate $7.5-12.5B annual economic benefit by Year 5** — seigniorage ($2-3B), improved tax compliance ($1-2B), stronger trade balance ($3-5B), monetary stability ($1.5-2.5B)
 
 **Core technical advantages:**
 - Offline-first P2P payments (NFC/BLE) — works without internet in rural/conflict zones
 - 3-of-5 Raft consensus — tolerates 2 CBI regional branch outages simultaneously
-- Zero fees (unlike banks' 2-5%) — retains purchasing power for 21M unbanked Iraqis (70% of population currently excluded from formal banking)
+- Zero fees (unlike banks' 2-5%) — retains purchasing power for 21M unbanked Iraqis (~70% of adult population currently excluded from formal banking)
 - Credit scoring from transaction history (no collateral needed) — enables SME working capital and 7-10x export growth
 - Programmable merchant tiers — automatically incentivizes local production over imports
 
@@ -307,8 +307,9 @@ Small and medium enterprises (textiles, food processing, light manufacturing, ho
 **Tax Multiplier (1.2×):**
 - Informal economy → 50-60% tax compliance (cash handling losses, underreporting)
 - Formal, transaction-based economy → 90-92% compliance (journal entries are auditable)
-- Base non-oil government tax revenue: $10B
-- Compliance improvement: +22% × $10B = +$2.2B captured (shifts from $10B to $12.2B)
+- Base non-oil government tax revenue: $10B (2025)
+- Compliance improvement alone (Year 1): +22% × $10B = +$2.2B captured (shifts from $10B to $12.2B)
+- Combined with base growth + sectoral scaling over 5 years, non-oil tax revenue reaches ~$20.5B by Year 5 (see [Part 4](#part-4-full-5-year-economic-projection))
 
 **Complete Formula Example (Cement):**
 ```
@@ -456,12 +457,14 @@ Currently, imported goods are **20-40% cheaper** than locally-manufactured alter
 - **Total guaranteed shift:** $21-31B out of $106B government spending (20-29%) in Year 1 alone
 - Citizens maximize purchasing power on essentials by buying local (no choice needed), while discretionary choices reward local sourcing through lower fees.
 
-| Tier | Content % | Fee | Annual Gov Spending (Baseline) | Spending on Tier (Year 5) | Citizen Incentive | Import Displacement |
-|------|-----------|-----|-------------------------------|---------------------------|-------------------|---------------------|
+| Tier | Content % | Fee (Discretionary) | Annual Gov Spending (Baseline) | Spending on Tier (Year 5) | Citizen Incentive | Import Displacement |
+|------|-----------|---------------------|-------------------------------|---------------------------|-------------------|---------------------|
 | **Tier 1** (100% Iraqi) | 100% | 0% | $20B (18%) | $45B (40%) | Lowest cost | Direct local production |
 | **Tier 2** (50-99% Iraqi) | 50-99% | 0.5% | $25B (22%) | $35B (31%) | Low cost | Mostly local |
-| **Tier 3** (1-49% Iraqi) | 1-49% | 2% | $35B (31%) | $20B (18%) | Moderate cost | Mixed |
-| **Tier 4** (0% imports) | 0% | 4% | $30B (27%) | $12B (11%) | Highest cost | Imports discouraged |
+| **Tier 3** (1-49% Iraqi) | 1-49% | 3% | $35B (31%) | $20B (18%) | Moderate cost | Mixed |
+| **Tier 4** (0% imports) | 0% | 8% | $30B (27%) | $12B (11%) | Highest cost | Imports discouraged |
+
+**Note:** Fees shown apply to *discretionary* personal spending. For restricted categories (food, textiles, household goods, and expanding list per quarterly schedule), government transfers — salaries, pensions, social security, UBI — are **blocked entirely** from Tier 3–4 merchants regardless of fee.
 
 **Economic effect & Policy Mechanism:**
 
@@ -714,6 +717,8 @@ CREATE TABLE tier_transaction_log (
 
 ---
 
+### Dynamic UBI + Production Feedback System
+
 The **Universal Basic Income (UBI)** mechanism transforms the hard restrictions policy from a one-way constraint into a dynamic economic feedback loop. By locking government transfers to Tier 1-2 merchants and adjusting UBI levels based on real-time production capacity, Iraq can:
 
 1. **Provide social security baseline income** to all citizens 18-65 years
@@ -725,7 +730,7 @@ The **Universal Basic Income (UBI)** mechanism transforms the hard restrictions 
 #### UBI Distribution Mechanism
 
 **Eligibility & Distribution:**
-- **Scope:** All Iraqi citizens aged 18-65 years (~30M of 40M population)
+- **Scope:** All Iraqi citizens aged 18-65 years (~30M of ~43M population)
 - **Monthly UBI:** $5-10/day (~$150-300/month) funded through:
   - Government budget reallocation (shift 5-10% of transfer spending to UBI)
   - Seigniorage (2-3% annual Digital Dinar money creation)
@@ -1151,25 +1156,30 @@ TIER 2: CBI Policy
 
 ---
 
-### 3. Trade Policy Without Tariffs (Merchant Tier System)
+### 3. Trade Policy Without Tariffs (Hybrid: Hard Restrictions + Merchant Tier Fees)
 
-Government salary + pension = $106-113B/year (22% of population). Use as economic lever:
+Government transfers — salaries, pensions, social security, UBI — total $106-113B/year flowing to roughly 22% of adult Iraqis. Cylinder Seal uses this flow as an economic lever via a **hybrid model** (see Part 3 for detail):
 
-**Merchant Tiers:**
-- **Tier 1 (100% Iraqi)**: 0% fee, unlimited spending — merchants respond by stocking local goods
-- **Tier 2 (50-99% Iraqi)**: 0.5% fee, max 50% of salary cap — mixed local/import, incentivizes local sourcing
-- **Tier 3 (1-49% Iraqi)**: 2% fee — increasingly imported goods, less attractive
-- **Tier 4 (0% imports)**: 4% fee + 15% salary cap — imports become economically unattractive (except essential medicines/vehicles/industrial equipment)
+**Hard Restrictions (Restricted Categories — food, textiles, household goods; expanding quarterly):**
+- Government transfers are **locked to Tier 1–2 merchants only**
+- Tier 3–4 merchants are **blocked** from accepting government-origin funds in these categories
+- By Q4 2028, ~$27–38B of government spending is hard-restricted to domestic producers
 
-**Market Effect (unplanned, incentive-driven):**
-- Government employees naturally choose Tier 1 (lowest fees)
-- Retailers respond by stocking more local goods
-- Local producers expand to meet demand
-- Imports decline 20-30% **without tariffs, without subsidies, without government intervention**
+**Merchant Tier Fees (Discretionary Spending — luxury, electronics, specialized goods):**
+- **Tier 1 (100% Iraqi)**: 0% fee — lowest cost
+- **Tier 2 (50-99% Iraqi)**: 0.5% fee — mostly local
+- **Tier 3 (1-49% Iraqi)**: 3% fee — mixed goods, moderate disadvantage
+- **Tier 4 (0% imports)**: 8% fee — imports 8-12% more expensive than pure-import price
 
-**Year 1 impact:** Domestic consumption shifts from imports to local goods ($13-22B)
-**Year 2 impact:** Local producers invest in capacity (supply chains form)
-**Year 3+ impact:** Regional suppliers emerge, local products competitive on quality
+**Market Effect (policy-driven, programmable):**
+- Hard restrictions guarantee demand for essential domestic categories as capacity comes online
+- Fee differentials steer discretionary spending toward local Tier 1–2 merchants
+- CBI adjusts tier fees and restricted-category lists in real-time via the same dashboard that monitors production capacity
+- Imports in the $106-113B government-transfer flow decline 26–50% by Year 3 (depending on quarterly expansion pace)
+
+**Year 1 impact:** $21-31B annual shift to domestic producers ($16-21B hard-locked on food/textiles/household + $5-10B via fee differentials on discretionary)
+**Year 2 impact:** Cumulative $27-38B hard-locked as cement/pharma/steel milestones trigger new restrictions; supply chains form
+**Year 3+ impact:** Regional suppliers emerge, local products competitive on quality; Tier 3–4 fees can be eased as domestic capacity matures
 
 ---
 
@@ -1542,9 +1552,9 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 **Difference:** +$107B cumulative GDP over 5 years (7.5% higher)
 
 **GDP per capita improvement by 2031:**
-- Baseline: $302B / 47.5M = $6,358/capita
-- Cylinder Seal: $390B / 47.5M = $8,211/capita
-- **+$1,853 per capita (+29% higher living standard)**
+- Baseline: $302B / ~43M = $7,023/capita
+- Cylinder Seal: $390B / ~43M = $9,070/capita
+- **+$2,047 per capita (+29% higher living standard)**
 
 ---
 
@@ -1563,7 +1573,7 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 **Multiplicative Citizen & SME Benefit (Hidden in GDP but Real):**
 - **5-7M government employees** preserve $25-35B annually in formal salary spending (reduced import spending leak via organized digital channels)
 - **25K+ SMEs** access $50B+ formal credit market by Year 5; average SME survival rate improves from ~30% (Year 1) → 85% (Year 5)
-- **21M unbanked citizens** (70% of population) gain access to financial services (mortgages, microfinance, savings) previously impossible under cash-only system
+- **21M unbanked citizens** (~70% of adult population) gain access to financial services (mortgages, microfinance, savings) previously impossible under cash-only system
 
 **5-Year Financial Return:**
 - **Cumulative direct benefit:** $27-45B (government + central bank)
