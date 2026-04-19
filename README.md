@@ -499,7 +499,220 @@ Government spending shifts from 18% local (Tier 1) to 40% local by Year 5 = **+$
 
 ---
 
-### Universal Basic Income & Production Feedback System
+### Domestic Origin Attestation & Producer Registration System
+
+The merchant tier system depends entirely on accurate, verifiable classification of products and services as "domestic" vs. "imported". This requires a seamless producer registration and product origin verification system with transparent oversight from CBI, Ministry of Finance, and Ministry of Trade.
+
+#### Producer Registration & Digital Identity
+
+**For Goods Producers:**
+1. **Register with Ministry of Trade/Industry** — provides unique Producer ID
+2. **Declare business type** — manufacturing, processing, wholesaling, retail
+3. **Attestation of domestic origin** — self-declared supply chain composition (% domestic inputs, suppliers, labor sourcing)
+4. **Bill of Materials** (goods only) — itemized list of:
+   - Raw materials (domestic vs. imported supplier)
+   - Equipment/machinery sourcing (domestic vs. imported)
+   - Labor sourcing (Iraqi vs. expatriate)
+   - Utilities and overhead allocation
+5. **Digital certificate** — Domestic Origin Certificate (DOC) tied to product SKU
+
+**For Service Providers:**
+1. **Register by service category** — construction, healthcare, transportation, hospitality, consulting, entertainment, etc.
+2. **Attest to service sourcing** — labor (% Iraqi workers), equipment sourcing, material sourcing
+3. **Service tier classification** — based on domestic content of service delivery
+4. **Digital certificate per service type** — enables tier assignment at point of transaction
+
+#### Tier Assignment Mechanism
+
+**Tier 1: 100% Iraqi Domestic Origin**
+- All raw materials sourced domestically
+- All labor Iraqi nationals
+- All equipment/tools domestically manufactured or Iraqi-owned
+- Supported by: business registration, supplier invoices, tax records, physical inspection audits
+- **Validation required:** Monthly sampling + quarterly deep audits for high-volume producers
+
+**Tier 2: 50-99% Iraqi Domestic Content**
+- Majority of inputs (>50%) sourced domestically
+- Remaining imports documented and tracked
+- Labor: >80% Iraqi
+- Requires: itemized bill of materials, import documentation, supplier verification
+- **Validation required:** Quarterly audits, cross-reference with customs records, tax alignment checks
+
+**Tier 3: 1-49% Iraqi Domestic Content**
+- Predominantly imported goods with some local assembly/processing
+- Labor: >60% Iraqi (assembly/QC operations)
+- Requires: import manifests, bill of lading, assembly process documentation
+- **Validation required:** Semi-annual audits, customs data reconciliation
+
+**Tier 4: 0% Domestic Content (Pure Imports/Resellers)**
+- Goods imported for resale without value-added domestically
+- Service resellers without local service delivery
+- No domestic transformation
+- **Validation:** Automatic classification based on tariff codes and import status
+
+#### Verification & Oversight Architecture
+
+**Real-Time Verification (During Transaction):**
+1. Merchant scans or inputs product's Domestic Origin Certificate (DOC)
+2. Cylinder Seal system retrieves current tier from DOC registry
+3. Transaction automatically applies corresponding merchant fee (0-8%)
+4. Transaction metadata captured: product origin, producer, tier, fee applied, date, amount
+
+**Documentary Verification (Ministry Level):**
+- **Cross-reference tax records** — declared producer revenue matches sales volume from Cylinder Seal transaction logs
+- **Supplier invoices** — sample audit of producer's documented supplier payments (domestic vs. imported)
+- **Customs data** — cross-check import claims against official import manifests
+- **Physical inspections** — random sample (10-15% of high-value producers, 2-3% of others) of production facilities to verify equipment, materials, labor
+
+**Algorithmic Flagging (Real-Time):**
+- Producer suddenly shifts from Tier 1 to Tier 3: automatic flag for audit
+- Producer claims 100% domestic sourcing but transaction data shows foreign supplier payments: flag discrepancy
+- Seasonal fluctuations in % domestic content: tracked and explained
+- Outlier producers (suspiciously high volumes): flagged for verification
+
+**Government Oversight Dashboard:**
+
+CBI, Ministry of Finance, and Ministry of Trade share **real-time visibility** into:
+
+| Metric | Real-Time View | Update Frequency | Action Threshold |
+|--------|---|---|---|
+| **Tier Distribution** | % of transactions by tier, by sector, by governorate | Daily | Manual review if Tier 1/2 <60% in restricted category |
+| **Producer Compliance** | Tier assignments vs. declared domestic content | Weekly | Flag if declared ≠ verified domestic content |
+| **Sector Trend** | Average tier by sector (food, textiles, cement, etc.) | Daily | Monitor capacity scaling progress |
+| **Import Leakage** | Documented imports vs. Tier 3-4 transaction volumes | Weekly | Identify inconsistencies, smuggling signals |
+| **Supply Chain Formalization** | Producer bill-of-materials data completeness | Monthly | Nudge producers to higher documentation standards |
+| **Audit Backlog** | Producers pending verification, overdue inspections | Real-time | Assign inspectors, prioritize high-risk |
+| **Tier Escalation** | Producers moving up tiers (Tier 4 → Tier 3 → Tier 2) | Monthly | Celebrate wins, identify training/support needs |
+
+#### Enforcement & Corrective Actions
+
+**Tier Misclassification Penalties:**
+- Tier 1 producer claiming 100% but verified at 60%: reclassified to Tier 2 (apply 0.5% fee retroactively on recent transactions)
+- Tier 2 producer with <50% verified: downgraded to Tier 3 (2% fee applied)
+- Tier 3-4 falsely claiming domestic production: public listing as non-compliant, mandatory re-audit every month
+
+**Repeated Non-Compliance:**
+- 2nd offense: 6-month tier suspension, producer banned from Cylinder Seal until re-certified
+- 3rd offense: legal referral to Ministry of Justice for fraud charges
+
+**Corrective Support (Not Just Punishment):**
+- Producers failing to reach tier goal: Ministry of Trade provides technical assistance (process improvements, supply chain development, training)
+- If producer genuinely improves domestic content, fast-track to higher tier with public announcement
+
+#### Integration with Hard Restrictions & UBI
+
+**Hard Restrictions Work Because:**
+- Government salaries restricted to Tier 1-2 in food/textiles/household goods
+- But what qualifies as "Tier 1-2"? **The DOC system**
+- Merchant tries to sell imported tomatoes as "Tier 1 domestic food"? **DOC shows import origin, tier automatically set to Tier 4, government employee can't use salary there**
+
+**UBI Effectiveness Depends On:**
+- Citizens know which merchants have Tier 1-2 goods (DOC displayed at checkout, on receipts, in Cylinder Seal app)
+- CBI can monitor UBI spending patterns: Are UBI funds actually going to Tier 1-2? (Real-time check via transaction metadata)
+- If tier inflation detected (fraudulent "domestic" products masquerading as Tier 1), CBI can investigate and enforce
+
+#### Producer Experience & Seamlessness
+
+**For Honest Producers (Majority Case):**
+1. Register once with Ministry of Trade (online form, 15 minutes)
+2. Declare supply chain once (import DOC)
+3. Update annually or when composition changes
+4. No ongoing paperwork — Cylinder Seal tracks transactions automatically
+5. Visibility into tier status via dashboard: See your products' tier, transaction volumes by tier
+6. Quarterly attestation update (5 minutes) if domestic content changed
+7. Automatic tier upgrade when reaching next threshold (Tier 3 → Tier 2 when hitting 50% domestic)
+
+**For Risky Producers (Fraud Cases):**
+1. Quarterly audits (vs. annual for honest producers)
+2. Physical inspections triggered by red flags
+3. Supplier verification required before tier upgrade
+4. Public monitoring dashboard showing audit status
+
+#### Database & System Architecture
+
+**Core Tables (Cylinder Seal Expansion):**
+
+```sql
+CREATE TABLE producer_registry (
+  producer_id UUID PRIMARY KEY,
+  legal_name TEXT NOT NULL,
+  registration_date DATE,
+  ministry_trade_id TEXT UNIQUE,
+  business_type TEXT CHECK(business_type IN ('manufacturing', 'processing', 'service', 'wholesale', 'retail')),
+  declared_domestic_content_pct SMALLINT CHECK(pct BETWEEN 0 AND 100),
+  last_attestation_date DATE,
+  current_tier TEXT CHECK(tier IN ('tier_1', 'tier_2', 'tier_3', 'tier_4')),
+  verification_status TEXT CHECK(status IN ('pending', 'verified', 'flagged', 'suspended')),
+  last_audit_date DATE,
+  next_audit_date DATE,
+  governorate TEXT,
+  created_at TIMESTAMPTZ,
+  updated_at TIMESTAMPTZ
+);
+
+CREATE TABLE domestic_origin_certificates (
+  doc_id UUID PRIMARY KEY,
+  producer_id UUID REFERENCES producer_registry(producer_id),
+  product_sku TEXT NOT NULL,
+  product_name TEXT NOT NULL,
+  category TEXT, -- 'food', 'textile', 'cement', 'metal', 'service', etc.
+  declared_domestic_pct SMALLINT CHECK(pct BETWEEN 0 AND 100),
+  verified_domestic_pct SMALLINT, -- populated by audit
+  tier_assigned TEXT CHECK(tier IN ('tier_1', 'tier_2', 'tier_3', 'tier_4')),
+  bill_of_materials JSONB, -- {materials: [{name, domestic: true/false, pct: 50}], labor: {iraqi_pct: 95}, equipment: {...}}
+  issued_date DATE,
+  valid_until DATE,
+  certification_authority TEXT, -- 'ministry_trade_self', 'cbi_verified', 'third_party_audit'
+  created_at TIMESTAMPTZ,
+  updated_at TIMESTAMPTZ,
+  UNIQUE(producer_id, product_sku)
+);
+
+CREATE TABLE producer_audits (
+  audit_id BIGSERIAL PRIMARY KEY,
+  producer_id UUID REFERENCES producer_registry(producer_id),
+  audit_date DATE,
+  audit_type TEXT CHECK(type IN ('tax_reconciliation', 'supplier_verification', 'physical_inspection', 'transaction_analysis')),
+  verified_domestic_pct SMALLINT,
+  findings TEXT, -- Audit notes and discrepancies
+  tier_recommendation TEXT,
+  auditor_id TEXT,
+  result TEXT CHECK(result IN ('compliant', 'minor_discrepancy', 'major_discrepancy', 'non_compliant')),
+  created_at TIMESTAMPTZ
+);
+
+CREATE TABLE tier_transaction_log (
+  -- Every Cylinder Seal transaction linked to DOC/tier for oversight
+  transaction_id UUID REFERENCES ledger_entries(entry_id),
+  merchant_id UUID,
+  doc_id UUID REFERENCES domestic_origin_certificates(doc_id),
+  tier_applied TEXT,
+  fee_applied_pct NUMERIC(4, 2),
+  domestic_content_pct_at_transaction SMALLINT,
+  transaction_date TIMESTAMPTZ,
+  verified_date TIMESTAMPTZ -- CBI verification of tier accuracy
+);
+```
+
+#### Public Visibility & Transparency
+
+**Citizen App Integration:**
+- When scanning QR code at merchant, shows: Product name, Tier (1-4), Domestic content %, Fee if applicable
+- Historical view: "I bought this from 10 Tier 1 merchants last month" (proof for credit scoring, tax filing)
+- Producer search: "Find all Tier 1 food producers in Baghdad governorate"
+
+**Ministry Dashboard (Public View):**
+- Aggregate statistics by sector: "Food 62% Tier 1, 28% Tier 2, 10% Tier 3-4"
+- Trend over time: "Manufacturing: Tier 1-2 share 35% → 58% over 12 months"
+- Governorate comparison: Which regions formalizing fastest?
+- Producer leaderboards: Top 10 Tier 1 producers by transaction volume
+
+**Producer Status Display:**
+- At checkout: "Verified Tier 1 (last audit Feb 2026)" or "Tier 2 - Pending Audit"
+- On digital receipts: Producer name, Tier, Audit status, Fee applied
+- Public rating: Compliance score (based on audit history)
+
+---
 
 The **Universal Basic Income (UBI)** mechanism transforms the hard restrictions policy from a one-way constraint into a dynamic economic feedback loop. By locking government transfers to Tier 1-2 merchants and adjusting UBI levels based on real-time production capacity, Iraq can:
 
