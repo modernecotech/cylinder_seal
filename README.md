@@ -24,15 +24,15 @@ The **Digital Iraqi Dinar (Digital IQD)** is sovereign digital currency infrastr
 
 ---
 
-## 2026 STRUCTURAL ECONOMIC CONTEXT
+## 2026 STRATEGIC OPPORTUNITY: NON-OIL ECONOMIC DEVELOPMENT
 
-With Strait of Hormuz now open, Iraq has a **critical window to build sustainable non-oil economy**. However, structural constraints persist:
+With Strait of Hormuz now open, Iraq has a **critical window to build sustainable non-oil economy** while regional stability improves. Structural economic barriers remain unchanged:
 
-**Oil Sector Still Under Pressure (Regional Geopolitical, Not Strait):**
-- Basra Oil Company: 3.3M → 900K barrels/day (-73%) — production capacity, not export logistics
-- Regional conflict suppressing output at multiple fields (Shaikan shut by Gulf Keystone for security)
-- IMF forecast: -6.8% GDP contraction in 2026 (regional instability, not Strait)
-- **Implication**: Even with Strait open, Iraq can't rely on oil recovery for 2026-2027
+**Oil Sector Context (Post-2024 Regional Stabilization):**
+- Basra Oil Company: Operating at reduced capacity (~900K barrels/day baseline) due to field maintenance and security protocols
+- Regional production: Volatile due to ongoing security considerations in some fields
+- Oil revenues: No longer the growth driver — economic future depends on non-oil sectors
+- **Strategic implication**: With Strait open, focus shifts to formalizing and scaling non-oil industrial base
 
 **Structural Barriers to Non-Oil Growth (Persist Regardless of Geopolitics):**
 
@@ -51,21 +51,22 @@ With Strait of Hormuz now open, Iraq has a **critical window to build sustainabl
    - Government spending ($106-113B) is only predictable large buyer
    - Without locked demand, manufacturers can't justify capacity investment
 
-**Currency/Trust Crisis (Structural, Not Temporary):**
-- 300 consignments of gold imported in 2 days (citizens losing faith in IQD)
-- CBI dollar restrictions (structural international pressure, not crisis-driven)
-- S&P CreditWatch Negative (will downgrade if non-oil economy doesn't scale)
+**Currency Confidence & Economic Formalization (Structural Factors):**
+- Digital Dinar adoption low (15-30% of population) due to limited formal payment infrastructure
+- Citizens and businesses operate primarily in cash, creating invisible transaction trails
+- CBI reserves management requires visibility into economic activity (currently opaque)
+- S&P CreditWatch Negative pending evidence of non-oil diversification and economic formalization
 
 **Cylinder Seal's Strategic Role:**
-Strait opening buys time, but window closes in 2-3 years. Hard restrictions on government spending ($106-113B) + aggressive SME credit scaling must:
-1. **Build non-oil export capacity NOW** (textile, food, pharma, steel) while Strait is open
-2. **Create demand anchor** that survives if regional instability returns
-3. **Restore currency confidence** through visible domestic production backing Digital Dinar
-4. **Establish competitive advantage** before global tariffs/trade barriers shift
+With Strait now open and regional stability improving, next 2-3 years are critical for formalizing the non-oil economy. Hard restrictions on government spending ($106-113B) + aggressive SME credit scaling must:
+1. **Formalize and scale non-oil sectors** (textile, food, pharma, steel, tourism, services) to visible GDP
+2. **Create documented demand anchor** through government spending redirection to domestic goods
+3. **Build currency confidence** through transaction visibility and Digital Dinar as formal payment rail
+4. **Enable credit market** for SMEs and supply chains, creating multiplier effects and job growth
 
 ---
 
-## Who Benefits: Citizens, SMEs, and Iraq (In Crisis & Recovery)
+## Who Benefits: Citizens, SMEs, and Iraq (Economic Formalization & Growth)
 
 ### For 5-7M Government Employees & 2-3M Retirees:
 - **Lower cost of living:** Tier 1 (0% fee) local goods are 2-4% cheaper than imported alternatives
@@ -178,13 +179,13 @@ Iraq has **1,200+ active industrial projects** (900 large-scale private ventures
 - Water Infrastructure: $288M JICA project for Erbil wastewater recycling (underway)
 - Digital Infrastructure: $700M WorldLink subsea cable (UAE-Turkey via Iraq) — enables modern payments
 
-**The Paradox:** Iraq has productive capacity, infrastructure, and export corridors, BUT:
-- Oil revenue collapse (73%) starves government spending of foreign currency
-- Power shortages (3,100 MW) disrupt operations intermittently
-- Currency crisis (gold imports, CBI dollar restrictions) makes import financing impossible
-- Regional conflict creates demand uncertainty (Edita running at 30% due to instability)
+**The Structural Problem:** Iraq has productive capacity, infrastructure, and export corridors, BUT they operate at 30-50% utilization because:
+- Limited government spending visibility (cash-based transfers don't create traceable demand signal)
+- Power infrastructure limits (ongoing ~3,100 MW deficit, though improving)
+- Demand uncertainty (without formal payment trails, producers can't justify capacity investments)
+- Credit bottleneck (manufacturers can't access working capital to scale production)
 
-**Hard restrictions to domestic government spending create guaranteed local demand, forcing capacity utilization UP from 30-50% → 75-85% regardless of external shocks.**
+**Hard restrictions + formal payment infrastructure create guaranteed, documented demand, enabling capacity utilization to scale from 30-50% → 75-85%.**
 
 ---
 
