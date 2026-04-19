@@ -108,9 +108,9 @@ Iraq has **1,200+ active industrial projects** (900 large-scale private ventures
 
 #### Heavy Industries & Extraction
 
-**Cement (3 plants):** 800M capex, 3.5M tons/year capacity coming online Q4 2026–Q2 2027. Iraq currently imports 2M tons/year ($2B). These plants will displace import volume by 2028, but only if they can access working capital during the production ramp. **GDP appears frozen until plants are fully operational.**
+**Cement:** Iraq already operates 20+ cement plants combining the State Cement Company (Northern Cement / Southern Cement / Kufa / Karbala / Al-Muthanna / Samawa / Badoush / Al-Qaim) with major private/foreign operators (Lafarge-Holcim Bazian & Tasluja, Mass Global Sulaymaniyah, Kar Group, United Cement, Najaf Al-Ashraf Cement, and others). Installed clinker capacity is in the 25-30M t/y range; actual utilization is well below that. On top of this existing base, **3 new large plants** (~$800M capex, +3.5M t/y) come online Q4 2026-Q2 2027. Iraq still imports ~2M tons/year (~$2B) — mostly specialty grades and cross-border arbitrage. The import gap closes by 2028 **if existing and new producers can access working capital during the ramp**. Visibility, not physical capacity, is the binding constraint.
 
-**Steel (2 mills):** 600M capex, 1.2M tons/year entering commissioning in 2027. Iraq imports $1.5B steel/year. Same financing bottleneck as cement — local mills can't scale without credit access.
+**Steel:** Beyond the two large integrated projects frequently cited, Iraq has dozens of private rolling mills — rebar, light structural, wire — operating across Basra, Baghdad, Sulaymaniyah, and Erbil on induction-furnace + scrap-recycling models. Two **new integrated state-backed mills** (~$600M capex, 1.2M t/y primary capacity) enter commissioning in 2027 and add upstream capacity the private mill base currently imports as billet. Iraq imports ~$1.5B steel/year (primarily flat products, coated sheet, specialty alloys). Same financing bottleneck: mills across the sector can't scale rolled-product output without credit access against documented demand.
 
 **Petrochemicals:** Basra refining expansion (1.5B capex) + 500K tons/year downstream capacity. Expected operational mid-2027. Critical for non-oil export base but **financing and workforce scaling constrained by transaction visibility.**
 
@@ -120,7 +120,7 @@ Iraq has **1,200+ active industrial projects** (900 large-scale private ventures
 
 #### Manufacturing & Light Industry
 
-**Pharmaceuticals:** Local capacity at $400M/year; import demand $600M. 3 new plants approved, ramping 2026-2028, targeting 50% local supply by 2028.
+**Pharmaceuticals:** Iraq has **30+ licensed drug manufacturers** — the State Company for Drug Industries & Medical Appliances (SDI) in Samarra plus a large private sector (Pioneer Company, NDI, AWA Medica, Al-Kindi, Al-Mansoor, Medallion Pharma, Pharma International, Samawah Pharma, Al-Rafidain, and others). Combined domestic output: ~$400M/year across generics, liquids, tablets, injectables, and basic biologics. Import demand: ~$600M/year (primarily specialty biologics, oncology, and patented formulations). **3 new capacity-expansion projects** are approved and ramping 2026-2028; combined with utilization increases at the existing 30+ manufacturers, this targets 50% local supply by 2028.
 
 **Textile & Apparel:** 12 factories approved across Mosul, Baghdad, Najaf regions (500M capex). Domestic demand $700M/year, 85% currently imported. New plants targeting Arab Gulf market exports ($300-400M potential). Operating at 20-35% capacity due to working capital constraints.
 
@@ -165,11 +165,11 @@ Iraq has **1,200+ active industrial projects** (900 large-scale private ventures
 ### Existing Productive Capacity (Severely Underutilized in 2026)
 
 **Currently Operational Production:**
-- **Cement**: State Company producing 676K tonnes/month across 3 plants (Feb 2026)
+- **Cement**: 20+ plants operating nationally (state + private). State Cement Company alone produces ~676K tonnes/month across 3 of its plants (Feb 2026). Private/foreign operators (Lafarge-Holcim Bazian/Tasluja, Mass Global Sulaymaniyah, Kar Group, and others) add substantially to this. Sector-wide utilization well below installed 25-30M t/y capacity.
   - Raw material: Limestone exploration ongoing in Muthanna
-  - Capacity utilization: Unknown, but production is happening
-- **Food Processing**: Edita (Egyptian company) at **30-35% of 70-80% target** due to regional conflict
-  - Shows capacity exists; external shocks suppress demand
+- **Pharmaceuticals**: 30+ licensed manufacturers (SDI state + private: Pioneer, NDI, AWA Medica, Al-Kindi, Al-Mansoor, Medallion, Pharma International, Samawah, and others). Combined output ~$400M/year against ~$600M import demand.
+- **Steel**: Dozens of private rolling mills (rebar, light structural, wire) operating across Basra, Baghdad, Sulaymaniyah, Erbil on induction-furnace + scrap-recycling models. Two new integrated mills under construction.
+- **Food Processing**: Hundreds of SMEs across dairy, canning, milling, vegetable oils, packaged foods. Edita (Egyptian company) visibly at **30-35% of 70-80% target** due to regional conflict exposure — illustrative of broader sector underutilization.
 - **Tires/Recycling**: State Rubber Industries processing 170 tonnes/year (PPP model)
 - **Chemicals, Metals, Textiles**: 230 industrial licenses issued in February 2026 alone
 
@@ -391,12 +391,12 @@ Year 5 GDP contribution: $800M × 1.4 × 1.9 × 1.2 = $2,560M
 
 ### Import Substitution (Cement, Steel, Pharmaceuticals)
 
-| Product | Current Import | 2026-2027 New Capacity | 2028-2029 Displacement | 2030+ Impact |
-|---------|-----------------|-------------------------|------------------------|--------------|
-| **Cement** | $2.0B/year | 3 plants (3.5M t/y) | 60% displacement (-$1.2B imports) | $1.8B/year non-oil trade win |
-| **Steel** | $1.5B/year | 2 mills (1.2M t/y) | 50% displacement (-$750M imports) | $0.75B/year non-oil trade win |
-| **Pharma** | $600M/year | 3 plants (target 50% local) | 40% displacement (-$240M imports) | $0.24B/year non-oil trade win |
-| **Total** | $4.1B/year | — | **-$2.19B imports by 2029** | **+$2.8B annual trade win** |
+| Product | Current Import | Existing Producers | 2026-2027 New Capacity Added | 2028-2029 Displacement | 2030+ Impact |
+|---------|----------------|--------------------|------------------------------|------------------------|--------------|
+| **Cement** | $2.0B/year | 20+ plants (~25-30M t/y installed) | +3 large plants (+3.5M t/y) | 60% displacement (-$1.2B imports) | $1.8B/year non-oil trade win |
+| **Steel** | $1.5B/year | Dozens of private rolling mills (rebar, structural) | +2 integrated mills (+1.2M t/y primary) | 50% displacement (-$750M imports) | $0.75B/year non-oil trade win |
+| **Pharma** | $600M/year | 30+ licensed manufacturers (~$400M output) | +3 expansion projects (target 50% local) | 40% displacement (-$240M imports) | $0.24B/year non-oil trade win |
+| **Total** | $4.1B/year | — | — | **-$2.19B imports by 2029** | **+$2.8B annual trade win** |
 
 **Trade Balance & Citizen Purchasing Power:**
 
@@ -479,8 +479,8 @@ Government spending shifts from 18% local (Tier 1) to 40% local by Year 5 = **+$
 | Quarter | Restricted Categories | Capacity Milestone | Annual Gov Spending Locked In | Cumulative Trade Impact |
 |---------|----------------------|-------------------|-------------------------------|--------------------------|
 | Q4 2026 | Food, Textiles, Household Goods | Baseline 1,200 projects | $16-21B (15% of total) | -$16-21B imports |
-| Q2 2027 | + Building Materials, Furniture | 3 cement plants online (1.5M t/y) | +$3-4B added | -$19-25B imports |
-| Q3 2027 | + Pharmaceuticals, Medical Goods | 3 pharma plants at 40% capacity | +$2-3B added | -$21-28B imports |
+| Q2 2027 | + Building Materials, Furniture | 3 new cement plants online (+1.5M t/y on existing 25-30M t/y base) | +$3-4B added | -$19-25B imports |
+| Q3 2027 | + Pharmaceuticals, Medical Goods | 3 new pharma expansions at 40% ramp + existing 30+ manufacturers scaling | +$2-3B added | -$21-28B imports |
 | Q4 2027 | + Apparel, Footwear | Major textile factories ramping | +$2-3B added | -$23-31B imports |
 | Q1 2028 | + Metals, Steel Products | 2 steel mills operational | +$2-3B added | -$25-34B imports |
 | Q2 2028 | + Food Processing, Packaged Goods | Food processing plants ramping | +$1-2B added | -$26-36B imports |
