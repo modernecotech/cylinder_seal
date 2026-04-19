@@ -506,7 +506,13 @@ Government spending shifts from 18% local (Tier 1) to 40% local by Year 5 = **+$
 
 The merchant tier system depends entirely on accurate, verifiable classification of products and services as "domestic" vs. "imported". This requires a seamless producer registration and product origin verification system with transparent oversight from CBI, Ministry of Finance, and Ministry of Trade.
 
-#### Producer Registration & Digital Identity
+Registration follows **two tracks**, sized to the producer:
+- **Formal Producer Track** — for companies, factories, and service firms with Ministry of Trade registration, SKUs, and documented supply chains
+- **Individual Producer (IP) Track** — for street hawkers, taxi drivers, small farmers, home-based food preparers, barbers, day laborers, and other informal micro-producers who together make up 30-40% of Iraqi economic activity
+
+Both tracks produce Tier-1/Tier-2 eligibility at checkout; they differ only in the proof burden and ongoing friction.
+
+#### Formal Producer Track — Registration & Digital Identity
 
 **For Goods Producers:**
 1. **Register with Ministry of Trade/Industry** — provides unique Producer ID
@@ -524,6 +530,77 @@ The merchant tier system depends entirely on accurate, verifiable classification
 2. **Attest to service sourcing** — labor (% Iraqi workers), equipment sourcing, material sourcing
 3. **Service tier classification** — based on domestic content of service delivery
 4. **Digital certificate per service type** — enables tier assignment at point of transaction
+
+#### Individual Producer (IP) Track — Low-Friction Registration for Informal Micro-Producers
+
+The informal economy employs an estimated 8-12M Iraqis across street trade, transport, micro-agriculture, home food production, personal services, day labor, and artisanal crafts. Forcing these workers through the formal Ministry of Trade process would exclude them — defeating Cylinder Seal's goal of bringing the invisible economy into the visible tier-1 GDP base. The **IP track** is purpose-built to capture them without killing the livelihoods.
+
+**Design principles:**
+1. **Register in under 60 seconds**, entirely in-app, no Ministry visit, no paperwork
+2. **Presume Tier 1** — a micro-producer's labor is inherently Iraqi, so the default classification is 100% domestic
+3. **Zero added friction per transaction** — the producer's daily workflow is identical to a normal Digital Dinar wallet user; the customer's checkout experience is identical to paying any other Tier 1 merchant
+4. **Cap and graduate, don't gatekeep** — a monthly cap keeps the track honest and triggers formal registration when the producer genuinely outgrows it
+
+**Eligible IP categories (self-selected from icon grid at registration):**
+
+| Category | Examples | Default Tier |
+|---|---|---|
+| **Street & market vendors** | Fruit/vegetable hawkers, bread sellers, tea sellers, newspaper vendors | Tier 1 |
+| **Transportation services** | Taxi, tuk-tuk, rickshaw, motorcycle delivery, private-car ride, porters | Tier 1 |
+| **Small agriculture** | Small farmers (<5 dunams), livestock herders, beekeepers, fishers | Tier 1 |
+| **Home-based food** | Samoon/khubz bakers, sweets, preserves, pickles, home dairy | Tier 1 |
+| **Personal services** | Barbers, shoemakers/cobblers, tailors, home repairs, cleaning, laundry | Tier 1 |
+| **Day laborers** | Construction labor, movers, gardeners, painters | Tier 1 |
+| **Small artisans** | Potters, metalworkers, carpenters selling direct to consumer | Tier 1 |
+| **Informal retail (reseller)** | Corner-shop reseller primarily carrying domestic goods | Tier 2 |
+
+**Registration flow (one-time, ~60 seconds, in-app):**
+1. Open Cylinder Seal wallet → tap "Register as Domestic Producer"
+2. Pick category from an icon grid — no typing required
+3. Confirm national ID (already on file from existing KYC; if KYC tier is "anonymous," prompt a one-tap phone-verified upgrade)
+4. Self-attest to a single plain-Arabic/Kurdish sentence: "I produce this good or service in Iraq, with my own labor, from goods of Iraqi origin."
+5. Receive a **Digital Domestic Producer Badge (DDPB)** — a persistent QR code on the wallet's payment screen and a one-line merchant descriptor ("Tier 1 — Samoon Baker, Karrada")
+6. Done. No Ministry of Trade visit, no SKU list, no bill of materials, no supplier invoices.
+
+**Daily usage (zero added friction):**
+- **Receiving payments:** standard Digital Dinar QR/NFC — exactly the flow any Tier 1 merchant uses. The Cylinder Seal node sees the DDPB attached to the receiving wallet and auto-tags the incoming entry as Tier 1 (0% fee).
+- **Customer side:** the customer scans, pays, and sees "Tier 1 — informal producer" on the receipt. They don't even need to know it's an IP versus a formal merchant.
+- **No per-transaction inputs** — no SKU entry, no attestations to sign, no inventory tracking, no daily reporting. If the producer wants to annotate ("2kg tomatoes"), they can, but nothing requires it.
+- **Offline-capable:** taxi drivers and rural vendors without constant connectivity get the same offline NFC/BLE payment flow as every Cylinder Seal user. The DDPB tag travels with the signed entry.
+
+**Monthly volume cap & graduation:**
+- **Cap:** ~IQD 7M/month received (~$5,000) — sized to cover a well-performing taxi driver, street vendor, or home baker while flagging anyone operating at SME scale
+- **Approaching cap:** at 80% of cap, the app nudges: "You're doing well — here's what formal registration adds (credit scoring, bank loans, export eligibility)"
+- **At cap:** continued payments accepted, but the producer is prompted to graduate to formal registration within a 2-month grace period
+- **Grace-period expiry without graduation:** over-cap transactions revert to Tier 3 (3% fee) until the producer either registers formally or drops back under cap. Their existing Tier 1 status on under-cap volume is preserved.
+- **Graduation path:** one in-app button starts a formal Ministry of Trade registration, pre-filled with IP data; the producer keeps transacting during the paperwork.
+
+**Tax treatment (simplified micro-tax):**
+- **Presumptive tax at 1.0-1.5% of gross received payments**, auto-withheld from each incoming transaction and routed to a dedicated government account
+- **No annual filing required** below cap — gross receipts are already visible; tax is already paid. Year-end PDF statement summarizes total gross + tax paid.
+- **Social security accrual:** a fraction of the micro-tax (say 0.5 of the 1.2%) accrues to the producer's individual social-security account, earning minimum pension credit. Formalization pays off for the individual, not just the state.
+- **Opt-in VAT registration** available for any IP approaching cap who wants the credit-scoring benefit of VAT compliance before formal graduation.
+
+**Abuse prevention (light-touch, pattern-based):**
+- **Hard monthly cap** eliminates the largest scam vector — no one can launder high-value imports as "informal Tier 1" because over-cap volume auto-reverts to Tier 3
+- **Pattern-based flagging** runs continuously on transaction streams:
+  - Taxi driver with 2 large transactions/month → flag (should be many small)
+  - Street vendor hitting exactly the cap every month with round numbers → flag
+  - Home-food producer making supplier payments to Tier 4 imported-goods wholesalers → flag (supply-chain mismatch)
+  - Rapid back-and-forth transfers between two IP accounts → flag (possible collusion)
+- **Peer-reporting** built into the app: any user can tap "report this merchant" on a transaction; 3+ reports trigger manual review
+- **Random field verification:** Ministry of Trade inspectors (or municipal officers) can walk a market, tap each vendor's DDPB QR, and cross-check ID in 30 seconds — same mobile tool used for formal producer audits, with a streamlined 2-minute IP-audit workflow
+- **Consequence ladder:** pattern/peer flag → warning → temporary DDPB suspension → full suspension + referral for fraud prosecution. Same legal framework as formal-producer fraud — no new statute required.
+
+**Credit scoring & financial inclusion (the big win):**
+- Every IP accumulates transaction history on the same credit-scoring pipeline as formal producers
+- After 6 months, a taxi driver with 1,500+ micro-transactions has a **documented income record** — usable for microfinance, vehicle financing, housing loans, and education credit. This is currently impossible under cash-only operation.
+- A small farmer with two seasons of visible sales becomes eligible for seed/equipment credit at 10-12% instead of informal lending at 10-20% monthly.
+- **This is the single largest financial-inclusion lever in Cylinder Seal**: the 8-12M informal workers are exactly the population that "70% unbanked" refers to, and the IP track brings them in without forcing them to become something they are not.
+
+**Revenue & scale illustration:**
+- If 3M IPs average IQD 3M/month ($2K) in gross receipts and pay 1.2% micro-tax → ~IQD 108B/month (~$70M/month, ~$840M/year) in new tax revenue, collected entirely by passive withholding with no filing burden.
+- At full rollout (6-8M IPs), this rises to $1.7-2.3B/year — a material contribution to the non-oil tax base while simultaneously building credit files for the same population.
 
 #### Tier Assignment Mechanism
 
@@ -586,6 +663,10 @@ CBI, Ministry of Finance, and Ministry of Trade share **real-time visibility** i
 | **Supply Chain Formalization** | Producer bill-of-materials data completeness | Monthly | Nudge producers to higher documentation standards |
 | **Audit Backlog** | Producers pending verification, overdue inspections | Real-time | Assign inspectors, prioritize high-risk |
 | **Tier Escalation** | Producers moving up tiers (Tier 4 → Tier 3 → Tier 2) | Monthly | Celebrate wins, identify training/support needs |
+| **IP Registry Growth** | Individual Producers registered by governorate and category | Daily | Track informal-economy formalization progress |
+| **IP Cap Approach** | IPs at 80%+ of monthly cap; IPs over cap pending graduation | Weekly | Nudge graduation; route to formal registration support |
+| **IP Flag Queue** | IPs with open pattern/peer flags, by severity | Real-time | Assign field inspection or automated review |
+| **IP Micro-Tax Collected** | Presumptive tax withheld by category and governorate | Daily | Compare to projected revenue; identify under-performing categories |
 
 #### Enforcement & Corrective Actions
 
@@ -689,11 +770,63 @@ CREATE TABLE tier_transaction_log (
   transaction_id UUID REFERENCES ledger_entries(entry_id),
   merchant_id UUID,
   doc_id UUID REFERENCES domestic_origin_certificates(doc_id),
+  individual_producer_id UUID REFERENCES individual_producers(individual_producer_id),
   tier_applied TEXT,
   fee_applied_pct NUMERIC(4, 2),
   domestic_content_pct_at_transaction SMALLINT,
   transaction_date TIMESTAMPTZ,
   verified_date TIMESTAMPTZ -- CBI verification of tier accuracy
+);
+
+-- Individual Producer (IP) Track: low-friction registration for
+-- street hawkers, taxi drivers, small farmers, and other micro-producers.
+CREATE TABLE individual_producers (
+  individual_producer_id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(user_id),  -- ties to existing Digital Dinar account
+  category TEXT NOT NULL CHECK(category IN (
+    'street_vendor', 'transport', 'small_agriculture', 'home_food',
+    'personal_services', 'day_labor', 'artisan', 'informal_retail'
+  )),
+  activity_description TEXT,  -- optional free-text ("samoon baker, Karrada")
+  default_tier TEXT NOT NULL DEFAULT 'tier_1' CHECK(default_tier IN ('tier_1', 'tier_2')),
+  monthly_cap_iqd BIGINT NOT NULL DEFAULT 7000000,  -- ~$5K sized for honest micro-producer
+  registered_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  status TEXT NOT NULL DEFAULT 'active' CHECK(status IN (
+    'active', 'approaching_cap', 'over_cap', 'grace_period',
+    'suspended', 'graduated_formal'
+  )),
+  governorate TEXT,
+  attestation_text TEXT NOT NULL,  -- self-attestation signed at registration
+  flags_count INT NOT NULL DEFAULT 0,
+  last_flag_at TIMESTAMPTZ,
+  graduation_prompted_at TIMESTAMPTZ,  -- when user was nudged to formal registration
+  graduated_producer_id UUID REFERENCES producer_registry(producer_id)
+);
+
+CREATE TABLE ip_monthly_rollup (
+  -- Lightweight monthly aggregates for cap enforcement + micro-tax accounting.
+  individual_producer_id UUID REFERENCES individual_producers(individual_producer_id),
+  period TEXT NOT NULL,  -- 'YYYY-MM'
+  gross_received_iqd BIGINT NOT NULL DEFAULT 0,
+  tx_count INT NOT NULL DEFAULT 0,
+  micro_tax_withheld_iqd BIGINT NOT NULL DEFAULT 0,
+  social_security_accrual_iqd BIGINT NOT NULL DEFAULT 0,
+  over_cap_volume_iqd BIGINT NOT NULL DEFAULT 0,
+  PRIMARY KEY(individual_producer_id, period)
+);
+
+CREATE TABLE ip_flags (
+  flag_id BIGSERIAL PRIMARY KEY,
+  individual_producer_id UUID REFERENCES individual_producers(individual_producer_id),
+  source TEXT NOT NULL CHECK(source IN (
+    'pattern_engine', 'peer_report', 'inspector', 'customs_mismatch'
+  )),
+  pattern_rule TEXT,  -- e.g. 'round_number_cap_hit', 'taxi_large_singletons'
+  detail TEXT,
+  severity TEXT CHECK(severity IN ('low', 'medium', 'high')),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  resolved_at TIMESTAMPTZ,
+  resolution TEXT  -- 'false_positive', 'warning', 'suspend', 'prosecute'
 );
 ```
 
