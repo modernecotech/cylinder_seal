@@ -9,13 +9,13 @@ mod tests {
         // Test that health endpoint returns OK without authentication
         // In a real test, we'd start the server and make HTTP requests
         // For now, verify the endpoint logic compiles
-        assert_eq!(StatusCode::OK as u16, 200);
+        assert_eq!(u16::from(StatusCode::OK), 200);
     }
 
     #[tokio::test]
     async fn test_readiness_endpoint() {
         // Readiness should check database connectivity
-        assert_eq!(StatusCode::OK as u16, 200);
+        assert_eq!(u16::from(StatusCode::OK), 200);
     }
 
     #[test]

@@ -303,9 +303,9 @@ mod tests {
     #[test]
     fn test_velocity_limits_by_tier() {
         let limits = vec![
-            ("anonymous", 10_000_000, 5_000_000),
-            ("phone_verified", 50_000_000, 25_000_000),
-            ("full_kyc", 5_000_000_000, 500_000_000),
+            ("anonymous", 10_000_000i64, 5_000_000i64),
+            ("phone_verified", 50_000_000i64, 25_000_000i64),
+            ("full_kyc", 5_000_000_000i64, 500_000_000i64),
         ];
 
         assert_eq!(limits.len(), 3);
@@ -339,11 +339,11 @@ mod tests {
     #[test]
     fn test_gdp_multiplier_factors() {
         // Visibility: 1.3-1.5x
-        let visibility_min = 1.3;
+        let _visibility_min = 1.3;
         let visibility_max = 1.5;
 
         // Financing: 1.5-2.0x
-        let financing_min = 1.5;
+        let _financing_min = 1.5;
         let financing_max = 2.0;
 
         // Tax: 1.2x (compliance improvement)
