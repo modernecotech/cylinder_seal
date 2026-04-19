@@ -16,7 +16,7 @@ The **Digital Iraqi Dinar (Digital IQD)** is sovereign digital currency infrastr
 **Core technical advantages:**
 - Offline-first P2P payments (NFC/BLE) — works without internet in rural/conflict zones
 - 3-of-5 Raft consensus — tolerates 2 CBI regional branch outages simultaneously
-- Zero fees (unlike banks' 2-5%) — retains purchasing power for 21M newly included Iraqis
+- Zero fees (unlike banks' 2-5%) — retains purchasing power for 21M unbanked Iraqis (70% of population currently excluded from formal banking)
 - Credit scoring from transaction history (no collateral needed) — enables SME working capital and 7-10x export growth
 - Programmable merchant tiers — automatically incentivizes local production over imports
 
@@ -67,7 +67,7 @@ Strait opening buys time, but window closes in 2-3 years. Hard restrictions on g
 
 ## Who Benefits: Citizens, SMEs, and Iraq (In Crisis & Recovery)
 
-### For 21M Government Employees & 15M Retirees:
+### For 5-7M Government Employees & 2-3M Retirees:
 - **Lower cost of living:** Tier 1 (0% fee) local goods are 2-4% cheaper than imported alternatives
 - **Formal income credibility:** 6 months of visible Digital Dinar salary receipts = FICO-equivalent credit score, enabling home loans, microfinance, and education financing for the first time
 - **Purchasing power preservation:** No inflation erosion through bank fees; instant, fee-free transactions
@@ -246,7 +246,7 @@ Current bottlenecks preventing rapid GDP contribution:
 **Plus: Government Spending Leakage** — Government salaries ($66-73B), pensions ($40B), and social security ($8-10B) flow to workers who can't access local goods without formal channels. Purchasing power leaks to imports instead of fueling domestic production.
 
 **The Citizen Consumption Problem:**
-Iraq's government spending: **21M employees ($66-73B), 15M retirees ($40B), social security ($8-10B) = $114-123B total annual transfers**. Of this, ~$106-113B flows to individual consumption spending (remainder goes to administrative costs, capital transfers). These payments currently receive cash that:
+Iraq's government spending: **5-7M employees ($66-73B), 2-3M retirees ($40B), social security ($8-10B) = $114-123B total annual transfers**. Of this, ~$106-113B flows to individual consumption spending (remainder goes to administrative costs, capital transfers). These payments currently flow through cash channels that:
 - **Cannot be easily used for local goods** — no formal payment infrastructure linking them to local producers
 - **Leak to imports** — citizens spend through informal channels on imported goods (40-50% of consumption)
 - **Worsen trade balance** — ~$3B/year in preventable import spending from formally-employed citizens
@@ -1347,9 +1347,9 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 - **Payback:** **Months 2-4 after hard restrictions launch** (Year 1 benefit is 160-500× the investment)
 
 **Multiplicative Citizen & SME Benefit (Hidden in GDP but Real):**
-- **21M government workers** preserve $300-500B annually in lifetime earning capacity (reduced import spending leak)
-- **25K SMEs** access $50B formal credit market; average SME survival rate improves from ~30% (Year 1) → 85% (Year 5)
-- **15M retirees** access financial services (mortgages, microfinance) impossible under cash-only system
+- **5-7M government employees** preserve $25-35B annually in formal salary spending (reduced import spending leak via organized digital channels)
+- **25K+ SMEs** access $50B+ formal credit market by Year 5; average SME survival rate improves from ~30% (Year 1) → 85% (Year 5)
+- **21M unbanked citizens** (70% of population) gain access to financial services (mortgages, microfinance, savings) previously impossible under cash-only system
 
 **5-Year Financial Return:**
 - **Cumulative direct benefit:** $27-45B (government + central bank)
