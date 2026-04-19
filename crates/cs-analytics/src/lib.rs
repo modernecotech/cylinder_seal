@@ -37,8 +37,8 @@ mod tests {
     #[test]
     fn test_gdp_multiplier_formula() {
         // Base: $500M, Visibility: 1.4, Financing: 1.7, Tax: 1.2
-        let base_gdp = 500_000_000.0;
+        let base_gdp: f64 = 500_000_000.0;
         let total = base_gdp * 1.4 * 1.7 * 1.2;
-        assert!((total - 1_428_000_000.0).abs() < 1.0);
+        assert!((total - 1_428_000_000.0_f64).abs() < 1.0);
     }
 }

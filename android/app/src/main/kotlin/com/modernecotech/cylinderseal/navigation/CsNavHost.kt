@@ -14,6 +14,7 @@ import com.modernecotech.cylinderseal.feature.business.ApiKeysRoute
 import com.modernecotech.cylinderseal.feature.business.BusinessOnboardingRoute
 import com.modernecotech.cylinderseal.feature.history.ComplianceRoute
 import com.modernecotech.cylinderseal.feature.history.HistoryRoute
+import com.modernecotech.cylinderseal.feature.ip.IpRegistrationRoute
 import com.modernecotech.cylinderseal.feature.onboarding.OnboardingRoute
 import com.modernecotech.cylinderseal.feature.pay.PayRoute
 import com.modernecotech.cylinderseal.feature.receive.QrScannerScreen
@@ -38,6 +39,7 @@ object Routes {
     const val SETTINGS = "settings"
     const val BUSINESS_REGISTER = "business/register"
     const val BUSINESS_API_KEYS = "business/api-keys"
+    const val IP_REGISTER = "ip/register"
 }
 
 @HiltViewModel
@@ -103,5 +105,11 @@ fun CsNavHost(
             BusinessOnboardingRoute(onDone = { navController.popBackStack() })
         }
         composable(Routes.BUSINESS_API_KEYS) { ApiKeysRoute() }
+        composable(Routes.IP_REGISTER) {
+            IpRegistrationRoute(
+                userId = "me",
+                onDone = { navController.popBackStack() },
+            )
+        }
     }
 }

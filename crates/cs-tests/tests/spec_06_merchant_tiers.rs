@@ -6,9 +6,9 @@
 //! |--------------------------------|--------|------------|
 //! | Tier 1 (100% Iraqi)            | 0%     | unlimited  |
 //! | Tier 2 (50-99% Iraqi)          | 0.5%   | 50%        |
-//! | Tier 3 (1-49% Iraqi)           | 2%     | unlimited  |
-//! | Tier 4 (0%, non-essential)     | 3-5%   | 15%        |
-//! | Tier 4 (0%, essential-exempt)  | 3-5%   | unlimited  |
+//! | Tier 3 (1-49% Iraqi)           | 3%     | unlimited  |
+//! | Tier 4 (0%, non-essential)     | 8%     | 15%        |
+//! | Tier 4 (0%, essential-exempt)  | 8%     | unlimited  |
 
 use cs_policy::merchant_tier::{MerchantRecord, MerchantTier};
 use uuid::Uuid;
@@ -119,24 +119,19 @@ async fn spec_tier2_half_percent_fee_and_50pct_cap() {
 }
 
 #[tokio::test]
-async fn spec_tier3_two_percent_fee_uncapped() {
-    // 2% of 10 OWC = 200_000 micro-OWC.
+async fn spec_tier3_three_percent_fee_uncapped() {
+    // 3% of 10 OWC = 300_000 micro-OWC.
     let policy = classify(merchant(25, false), 10_000_000).await;
     assert_eq!(policy.tier, MerchantTier::Tier3);
-    assert_eq!(policy.fee_micro_owc, 200_000, "Spec: Tier 3 fee must be 2%");
+    assert_eq!(policy.fee_micro_owc, 300_000, "Spec: Tier 3 fee must be 3%");
     assert!(policy.salary_cap_bps.is_none(), "Spec: Tier 3 is not capped");
 }
 
 #[tokio::test]
-async fn spec_tier4_fee_in_3_to_5_percent_band() {
+async fn spec_tier4_eight_percent_import_levy() {
     let policy = classify(merchant(0, false), 10_000_000).await;
     assert_eq!(policy.tier, MerchantTier::Tier4);
-    // Current impl uses midpoint 4%; spec allows 3-5%.
-    let pct = policy.fee_micro_owc as f64 / 10_000_000.0 * 100.0;
-    assert!(
-        (3.0..=5.0).contains(&pct),
-        "Spec violation: Tier 4 fee {pct}% must fall in [3%, 5%]"
-    );
+    assert_eq!(policy.fee_micro_owc, 800_000, "Spec: Tier 4 import levy must be 8%");
     assert_eq!(policy.salary_cap_bps, Some(1500), "Spec: Tier 4 capped at 15% of salary");
 }
 

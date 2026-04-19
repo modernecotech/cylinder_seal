@@ -14,6 +14,7 @@ pub mod invoices;
 pub mod iraq_admin;
 pub mod middleware;
 pub mod otp;
+pub mod producer;
 pub mod routes;
 pub mod rule_governance;
 pub mod travel_rule;

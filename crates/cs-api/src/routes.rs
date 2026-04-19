@@ -16,6 +16,9 @@ use cs_storage::iraq_phase2::{
     CbiPegRepository, DeviceBindingRepository, EmergencyDirectiveRepository, OtpRepository,
     UserRegionRepository, WalletBalanceRepository,
 };
+use cs_storage::producer_repo::{
+    DocRepository, IndividualProducerRepository, ProducerRepository, RestrictedCategoryRepository,
+};
 use cs_storage::repository::{
     ApiKeyRepository, BusinessProfileRepository, InvoiceRepository, JournalRepository,
     UserRepository,
@@ -36,6 +39,7 @@ use crate::middleware::{
     require_admin, require_api_key, AdminAuthState, AuthState,
 };
 use crate::otp::{self, OtpSender, OtpState};
+use crate::producer::{self, ProducerApiState};
 use crate::rule_governance::{self, RuleGovernanceState};
 use crate::travel_rule::{self, TravelRuleState};
 use crate::wallets::{self, WalletState};
@@ -68,6 +72,10 @@ pub struct RouterDeps {
     /// Loaded from runtime config; rotating it invalidates all in-flight
     /// challenges (acceptable since TTL is 10 minutes).
     pub otp_pepper: Arc<Vec<u8>>,
+    pub producers: Arc<dyn ProducerRepository>,
+    pub docs: Arc<dyn DocRepository>,
+    pub individual_producers: Arc<dyn IndividualProducerRepository>,
+    pub restricted_categories: Arc<dyn RestrictedCategoryRepository>,
     pub node_id: String,
     pub admin_session_ttl_hours: u32,
 }
@@ -140,6 +148,17 @@ pub fn create_router(deps: RouterDeps) -> Router {
         sender: deps.otp_sender.clone(),
         pepper: deps.otp_pepper.clone(),
     };
+
+    let producer_state = ProducerApiState {
+        producers: deps.producers.clone(),
+        docs: deps.docs.clone(),
+        ips: deps.individual_producers.clone(),
+        restricted: deps.restricted_categories.clone(),
+    };
+    let producer_citizen_routes = producer::citizen_routes(producer_state.clone());
+    let producer_admin_routes = producer::admin_routes(producer_state).layer(
+        axum_mw::from_fn_with_state(admin_auth_state.clone(), require_admin),
+    );
 
     // Server-rendered admin UI pages for governance / UBO / Travel Rule.
     // Each one shares its underlying state with the JSON API router.
@@ -365,6 +384,8 @@ pub fn create_router(deps: RouterDeps) -> Router {
 
     public
         .merge(otp_routes)
+        .merge(producer_citizen_routes)
+        .merge(producer_admin_routes)
         .merge(admin_login)
         .merge(admin_self)
         .merge(admin_business)

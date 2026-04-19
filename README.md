@@ -10,7 +10,7 @@ The **Digital Iraqi Dinar (Digital IQD)** is sovereign digital currency infrastr
 1. **Make the invisible economy visible** — transform 70% unbanked and informal economic activity into auditable, taxable, bankable transactions
 2. **Finance unfinished industrial projects** — cement, steel, petrochemicals, pharmaceuticals, tourism — by converting transaction history into credit scores
 3. **Implement trade policy without tariffs** — combine merchant tier fees (0% for 100% Iraqi content, up to 8% for pure imports) with hard restrictions on government transfers (Tier 1–2 only for food/textiles/household goods) to shift $106B annual government spending toward local goods
-4. **Transmit monetary policy in real-time** — CBI sees all 47M transactions instantly, adjusts velocity limits and credit policy within hours
+4. **Transmit monetary policy in real-time** — CBI sees transactions across Iraq's ~43M residents instantly, adjusts velocity limits and credit policy within hours
 5. **Generate $7.5-12.5B annual economic benefit by Year 5** — seigniorage ($2-3B), improved tax compliance ($1-2B), stronger trade balance ($3-5B), monetary stability ($1.5-2.5B)
 
 **Core technical advantages:**
@@ -238,7 +238,7 @@ Current bottlenecks preventing rapid GDP contribution:
 **Four Systemic Barriers (per Iraqi News, April 2026):**
 1. **Financing Complex** — Bureaucratic hurdles and bank conservatism mean real financial support rarely reaches the private sector. Most funding stays tied to underperforming state-owned enterprises. *Cylinder Seal solves: Transaction-based credit scoring enables direct SME lending without collateral.*
 
-2. **Competitive Imbalance** — Foreign goods benefit from subsidies in home countries + lower operational costs. Imported goods are 20-40% cheaper than locally-made alternatives. *Cylinder Seal solves: Merchant tier fees (0% for Tier 1 local, 4% for imports) create aggressive price parity without tariffs.*
+2. **Competitive Imbalance** — Foreign goods benefit from subsidies in home countries + lower operational costs. Imported goods are 20-40% cheaper than locally-made alternatives. *Cylinder Seal solves: Merchant tier fees (0% for Tier 1 local, 8% for imports) create aggressive price parity without tariffs.*
 
 3. **Raw Material Dependency** — 1,000+ Iraqi factories rely on imported raw materials, inflating production costs and tying fate to global supply chains. *Cylinder Seal solves: Visible supply chains + credit access enable investment in domestic raw material production.*
 
@@ -471,7 +471,7 @@ Currently, imported goods are **20-40% cheaper** than locally-manufactured alter
 Government spending shifts from 18% local (Tier 1) to 40% local by Year 5 = **+$25B annual shift to local producers**. The tier fee differentials function as:
 1. **Import levy mechanism** (per Iraqi News proposal): Tier 4 (import) fees fund an Industrial Production Support Fund
 2. **Real-time policy tool**: CBI adjusts fees by sector/region to target capacity constraints (textile fees drop when new mills come online)
-3. **Transparent incentivization**: No hidden tariffs; citizens see the 0-4% fee schedule and make informed choices
+3. **Transparent incentivization**: No hidden tariffs; citizens see the 0-8% fee schedule (0% / 0.5% / 3% / 8%) and make informed choices
 4. **Measurable outcomes**: Transaction visibility shows exactly which sectors benefit, enabling evidence-based policy adjustments
 
 **Aggressive Quarterly Expansion Schedule (Hard Restrictions Tied to Industrial Capacity Milestones):**
@@ -672,7 +672,7 @@ CBI, Ministry of Finance, and Ministry of Trade share **real-time visibility** i
 
 **Tier Misclassification Penalties:**
 - Tier 1 producer claiming 100% but verified at 60%: reclassified to Tier 2 (apply 0.5% fee retroactively on recent transactions)
-- Tier 2 producer with <50% verified: downgraded to Tier 3 (2% fee applied)
+- Tier 2 producer with <50% verified: downgraded to Tier 3 (3% fee applied)
 - Tier 3-4 falsely claiming domestic production: public listing as non-compliant, mandatory re-audit every month
 
 **Repeated Non-Compliance:**
@@ -867,7 +867,7 @@ The **Universal Basic Income (UBI)** mechanism transforms the hard restrictions 
 - **Monthly UBI:** $5-10/day (~$150-300/month) funded through:
   - Government budget reallocation (shift 5-10% of transfer spending to UBI)
   - Seigniorage (2-3% annual Digital Dinar money creation)
-  - Import levy fees (4% Tier 4 merchant fees collected into UBI fund)
+  - Import levy fees (8% Tier 4 merchant fees collected into UBI fund)
   - Trade balance improvements (as exports grow, foreign currency reserves fund part of UBI)
 - **Hard Restriction:** UBI is spendable **EXCLUSIVELY at Tier 1-2 merchants** (100% and 50-99% Iraqi content)
   - Citizens cannot spend UBI on Tier 3-4 (mixed/import) goods
@@ -1019,7 +1019,7 @@ UBI spending unlocks measurable improvements in social outcomes:
 
 **Currency Rejection (Digital Dinar Resistance):**
 - **Risk:** Citizens prefer cash if UBI locked to Tier 1-2 digital transactions
-- **Solution:** Tier 1-2 merchants have price advantage (0% vs. 4% fees), making Digital Dinar uniquely valuable
+- **Solution:** Tier 1-2 merchants have price advantage (0% vs. 8% fees), making Digital Dinar uniquely valuable
 - **Mechanism:** UBI ONLY works via Digital Dinar at Tier 1-2; cash spending loses fee advantage → implicit incentive to use Digital Dinar
 - **Outcome:** Digital Dinar adoption accelerates from 45% (2026) → 85%+ (2027) of eligible population
 
@@ -1275,7 +1275,7 @@ TIER 2: CBI Policy
 **Today:** CBI sets policy rate (5.5%) but it takes weeks to ripple through banks to real lending rates
 
 **With Cylinder Seal:**
-- CBI sees **all 47M transactions in real-time**
+- CBI sees **transactions across Iraq's ~43M residents in real-time**
 - Money supply (M0, M1, M2) **visible instantly** (impossible with cash)
 - Inflation signals detected in **hours, not months**
 - Velocity controls **enforceable** (CBI can adjust daily caps within seconds)
@@ -1366,7 +1366,7 @@ Government transfers — salaries, pensions, social security, UBI — total $106
 - **Dubai**: Saturated, Western-dependent, expensive, peripheral
 - **Istanbul**: Controversial (Turkey's position), expensive, politically exposed
 - **Doha**: Tiny market, expensive, politically isolated
-- **Baghdad**: Central, large domestic market (47M people), geopolitically neutral (non-aligned), growing
+- **Baghdad**: Central, large domestic market (~43M people), geopolitically neutral (non-aligned), growing
 
 ---
 
@@ -1460,7 +1460,7 @@ Government transfers — salaries, pensions, social security, UBI — total $106
 
 ### Technology Stack
 
-**Backend (Rust workspace, 13 crates):**
+**Backend (Rust workspace, 15 crates):**
 - Tokio (async runtime)
 - Axum (HTTP API server)
 - Tonic + Prost (gRPC, bidirectional streaming)
@@ -1552,8 +1552,8 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 - BusinessProfile with ISIC v4 industry_code, Iraqi-content percentage
 
 **Database:**
-- PostgreSQL append-only ledger, BRIN time indices, 8 migrations (including CBI economic data tables, compliance Phase 1, Iraq Phase 2, sanctions, business accounts)
-- 18 numbered spec tests covering crypto, consensus, AML, credit, reporting, compliance workflows
+- PostgreSQL append-only ledger, BRIN time indices, 10 migrations (including CBI economic data tables, compliance Phase 1, Iraq Phase 2, sanctions, business accounts, analytics, producer/IP registry)
+- 21 numbered spec tests covering crypto, consensus, AML, credit, reporting, compliance workflows, UBI, production feedback
 - 2 e2e tests (offline payment, invoice flow)
 
 **Backend Services:**
@@ -1607,7 +1607,7 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 
 **Parallel streams:**
 - **Legal:** Parliament passes Digital Currency Act; CBI publishes Digital Dinar Strategy
-- **Code:** Full backend + mobile apps generated and reviewed; existing tests passing (275 tests, 0 failures)
+- **Code:** Full backend + mobile apps generated and reviewed; existing tests passing (400+ tests across lib + integration suites, 0 failures)
 - **Infrastructure:** HSMs ordered, CBI data center capacity allocated, Baghdad + 2 standby super-peers provisioned
 - **Audit:** Independent security firm begins review as code lands
 - **Timeline:** 8 weeks
@@ -2004,12 +2004,12 @@ GET /readiness                        → StatusCode::OK (checks DB + Redis)
 | **Dashboard Unit** | 7 | ✅ | Health endpoint, readiness check, auth flow, route handlers, session tokens, password hashing, operator roles |
 | **E2E Workflows** | 2 | ✅ | Invoice flow, offline P2P payment (under Dashboard) |
 
-**Core System Test Specs (177 tests across 21 integration test files):**
-- Spec 01: Crypto primitives (2 tests)
-- Spec 02: Canonical signing (2 tests)
-- Spec 03: Nonce chain (12 tests)
-- Spec 04: Journal chain (7 tests)
-- Spec 05: Raft consensus (8 tests)
+**Core System Test Specs (165 tests across 21 integration spec files + 4 tests across 2 E2E files):**
+- Spec 01: Crypto primitives (12 tests)
+- Spec 02: Canonical signing (7 tests)
+- Spec 03: Nonce chain (8 tests)
+- Spec 04: Journal chain (5 tests)
+- Spec 05: Raft consensus (9 tests)
 - Spec 06: Merchant tiers (11 tests) — Tier classification, fee structure, hard restrictions validation
 - Spec 07: AML flagging (6 tests)
 - Spec 08: Credit scoring (2 tests) — FICO-equivalent scoring, transaction history analysis
@@ -2017,7 +2017,7 @@ GET /readiness                        → StatusCode::OK (checks DB + Redis)
 - Spec 10: API key auth (3 tests)
 - Spec 11: Invoice lifecycle (6 tests)
 - Spec 12: Wire formats (7 tests)
-- Spec 13: Conflict resolution (0 tests)
+- Spec 13: Conflict resolution (4 tests)
 - Spec 14: Rule engine (10 tests)
 - Spec 15: Risk scoring (10 tests)
 - Spec 16: Regulatory reporting (11 tests) — SAR, CTR, STR validation
@@ -2234,7 +2234,7 @@ User search, balance tracking, KYC tier management, credit score visibility, and
 - ✅ Seed data (80+ records for testing)
 - ✅ Web GUI (6 pages, live database integration)
 - ✅ HTML page rendering with dynamic DB queries
-- ✅ Test coverage (174/174 tests passing — 149 core specs + 18 dashboard + 7 unit + 2 E2E)
+- ✅ Test coverage (400+ passing across the workspace — 165 integration specs + 4 E2E + 25 cbi-dashboard + ~216 per-crate lib tests)
 - ⚠️ Form validation (POST endpoints accept JSON, no schema validation)
 - ⚠️ Role-based access control (context set, not enforced)
 - ⚠️ Visualizations (Chart.js CDN referenced, needs data binding)
@@ -2268,7 +2268,7 @@ User search, balance tracking, KYC tier management, credit score visibility, and
 - `IMPLEMENTATION_STATUS.md` — Detailed alignment verification
 - `DEVELOPMENT_GUIDE.md` — Developer quick-start guide
 - `COMPLETION_CHECKLIST.md` — Feature-by-feature breakdown
-- `TEST_RESULTS.md` — 174 test cases with results (149 core + 18 dashboard + 7 unit)
+- `TEST_RESULTS.md` — historical test cases snapshot (numbers may lag current workspace)
 - `setup-sqlite-dev.sh` — Database initialization script
 - `verify-sqlite-setup.sh` — Setup verification script
 - `migrations/20260419000001_analytics.sql` — Analytics tables for industrial projects and production monitoring
@@ -2311,4 +2311,4 @@ MIT
 - $15-25B/year annual economic benefit
 - Trade surplus $3-5B/year sustained
 
-**CBI Dashboard:** Fully implemented with 28 API endpoints, 20-table database, 6-page web GUI, 83/83 passing tests. Enables real-time monitoring of all 1,200 industrial projects, SME credit scaling, government spending by tier/sector, and non-oil export progress.
+**CBI Dashboard:** Fully implemented with 28 API endpoints, 20-table database, 6-page web GUI, 25 passing tests. Enables real-time monitoring of all 1,200 industrial projects, SME credit scaling, government spending by tier/sector, and non-oil export progress.

@@ -3,11 +3,19 @@
 pub mod compliance;
 pub mod iraq_phase2;
 pub mod postgres;
+pub mod producer_repo;
 pub mod redis;
 pub mod models;
 pub mod repository;
 pub mod postgres_impl;
 pub mod redis_impl;
+
+pub use producer_repo::{
+    DocRepository, IndividualProducerRepository, PgDocRepository,
+    PgIndividualProducerRepository, PgProducerRepository, PgRestrictedCategoryRepository,
+    PgTierTxLogRepository, ProducerRepository, RestrictedCategoryRepository, TierTxLogEntry,
+    TierTxLogRepository,
+};
 
 pub use repository::*;
 pub use postgres_impl::{

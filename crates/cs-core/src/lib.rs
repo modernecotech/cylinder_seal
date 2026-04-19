@@ -6,6 +6,7 @@ pub mod error;
 pub mod nonce;
 pub mod hardware_binding;
 pub mod iraqi_id;
+pub mod producer;
 
 pub use models::*;
 pub use cryptography::*;

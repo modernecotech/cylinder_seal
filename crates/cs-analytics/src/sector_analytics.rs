@@ -1,103 +1,103 @@
-//! Sectoral economic analysis
+//! Sectoral economic analysis — reads/writes `sector_economic_snapshots`.
+//!
+//! Cross-table aggregation (against `business_profiles.industry_code`,
+//! `ledger_entries`, etc.) is intentionally not implemented; those schemas are
+//! not part of the current migration set. Snapshots are expected to be produced
+//! by an upstream ETL and persisted via [`SectorAnalytics::save_snapshot`].
 
-use sqlx::PgPool;
-use chrono::Utc;
-
-use crate::{SectorEconomicSnapshot, EconomicSector, SectorCreditPortfolio, Result};
+use chrono::{DateTime, Utc};
+use rust_decimal::prelude::ToPrimitive;
 use rust_decimal::Decimal;
+use sqlx::PgPool;
 
-/// Analytics for economic sectors
+use crate::{EconomicSector, Result, SectorEconomicSnapshot};
+
 pub struct SectorAnalytics {
     pool: PgPool,
 }
+
+#[derive(sqlx::FromRow)]
+struct SnapshotRow {
+    snapshot_id: i64,
+    sector: String,
+    period: String,
+    gdp_contribution_usd: Option<Decimal>,
+    employment: Option<i32>,
+    import_substitution_usd: Option<Decimal>,
+    digital_dinar_volume_owc: Option<i64>,
+    computed_at: DateTime<Utc>,
+}
+
+impl SnapshotRow {
+    fn into_domain(self) -> SectorEconomicSnapshot {
+        SectorEconomicSnapshot {
+            snapshot_id: self.snapshot_id,
+            sector: EconomicSector::from_str(&self.sector).unwrap_or(EconomicSector::Manufacturing),
+            period: self.period,
+            gdp_contribution_usd: self.gdp_contribution_usd.and_then(|d| d.to_f64()),
+            employment: self.employment,
+            import_substitution_usd: self.import_substitution_usd.and_then(|d| d.to_f64()),
+            digital_dinar_volume_owc: self.digital_dinar_volume_owc,
+            computed_at: self.computed_at,
+        }
+    }
+}
+
+const SNAPSHOT_COLS: &str = "snapshot_id, sector, period, gdp_contribution_usd, employment, \
+    import_substitution_usd, digital_dinar_volume_owc, computed_at";
 
 impl SectorAnalytics {
     pub fn new(pool: PgPool) -> Self {
         Self { pool }
     }
 
-    /// Aggregate transaction volume by sector from business_profiles + journal_entries
-    pub async fn aggregate_volume_by_sector(&self, sector: EconomicSector) -> Result<f64> {
-        let sector_str = sector.as_str();
-        let row = sqlx::query(
-            r#"
-            SELECT COALESCE(SUM(entry_data->'amount_owc')::BIGINT, 0) as total_owc
-            FROM ledger_entries le
-            JOIN users u ON le.user_id = u.user_id
-            JOIN business_profiles bp ON u.user_id = bp.user_id
-            WHERE bp.industry_code LIKE $1
-              AND le.confirmed_at >= NOW() - INTERVAL '30 days'
-            "#,
-            format!("{}%", sector_str)
-        )
-        .fetch_one(&self.pool)
-        .await?;
-
-        // Convert micro-OWC to USD (at 1300 IQD/USD rate)
-        let total_owc = row.total_owc.unwrap_or(0);
-        Ok((total_owc as f64 / 1_300_000.0) * 1000.0)
+    pub async fn get_snapshot(
+        &self,
+        sector: EconomicSector,
+        period: &str,
+    ) -> Result<Option<SectorEconomicSnapshot>> {
+        let sql = format!(
+            "SELECT {SNAPSHOT_COLS} FROM sector_economic_snapshots \
+             WHERE sector = $1 AND period = $2"
+        );
+        let row: Option<SnapshotRow> = sqlx::query_as(&sql)
+            .bind(sector.as_str())
+            .bind(period)
+            .fetch_optional(&self.pool)
+            .await?;
+        Ok(row.map(SnapshotRow::into_domain))
     }
 
-    /// Get credit portfolio by sector
-    pub async fn credit_portfolio_by_sector(&self, sector: EconomicSector) -> Result<SectorCreditPortfolio> {
-        let sector_str = sector.as_str();
-        let row = sqlx::query(
-            r#"
-            SELECT
-                COUNT(DISTINCT bp.user_id) as borrower_count,
-                COALESCE(SUM(u.balance_owc), 0) as total_balance_owc,
-                COALESCE(AVG(u.credit_score), 0) as avg_score
-            FROM business_profiles bp
-            JOIN users u ON bp.user_id = u.user_id
-            WHERE bp.industry_code LIKE $1
-            "#,
-            format!("{}%", sector_str)
-        )
-        .fetch_one(&self.pool)
-        .await?;
-
-        Ok(SectorCreditPortfolio {
-            sector,
-            active_borrowers: row.borrower_count.unwrap_or(0) as i32,
-            total_outstanding_owc: row.total_balance_owc.unwrap_or(0),
-            avg_credit_score: row.avg_score.map(|s| Decimal::from_f64_retain(s).unwrap_or(Decimal::ZERO)),
-            default_rate_pct: None, // TODO: compute from conflict_log
-        })
+    pub async fn list_for_period(&self, period: &str) -> Result<Vec<SectorEconomicSnapshot>> {
+        let sql = format!(
+            "SELECT {SNAPSHOT_COLS} FROM sector_economic_snapshots \
+             WHERE period = $1 ORDER BY sector"
+        );
+        let rows: Vec<SnapshotRow> = sqlx::query_as(&sql)
+            .bind(period)
+            .fetch_all(&self.pool)
+            .await?;
+        Ok(rows.into_iter().map(SnapshotRow::into_domain).collect())
     }
 
-    /// Compute sectoral GDP snapshot for a period
-    pub async fn snapshot_for_period(&self, sector: EconomicSector, period: &str) -> Result<SectorEconomicSnapshot> {
-        // This would aggregate from industrial_projects for the sector
-        // Placeholder: query projects and sum their expected revenue
-        let sector_str = sector.as_str();
-        let row = sqlx::query(
-            r#"
-            SELECT
-                COALESCE(SUM(expected_revenue_usd_annual), 0) as total_gdp_usd,
-                COALESCE(SUM(employment_count), 0) as total_employment
-            FROM industrial_projects
-            WHERE sector = $1 AND status = 'operational'
-            "#,
-            sector_str
-        )
-        .fetch_one(&self.pool)
-        .await?;
-
-        Ok(SectorEconomicSnapshot {
-            snapshot_id: 0,
-            sector,
-            period: period.to_string(),
-            gdp_contribution_usd: row.total_gdp_usd.map(|d| d.to_string().parse::<f64>().unwrap_or(0.0)),
-            employment: row.total_employment,
-            import_substitution_usd: None,
-            digital_dinar_volume_owc: None,
-            computed_at: Utc::now(),
-        })
+    pub async fn history_for_sector(
+        &self,
+        sector: EconomicSector,
+        limit: i64,
+    ) -> Result<Vec<SectorEconomicSnapshot>> {
+        let sql = format!(
+            "SELECT {SNAPSHOT_COLS} FROM sector_economic_snapshots \
+             WHERE sector = $1 ORDER BY period DESC LIMIT $2"
+        );
+        let rows: Vec<SnapshotRow> = sqlx::query_as(&sql)
+            .bind(sector.as_str())
+            .bind(limit)
+            .fetch_all(&self.pool)
+            .await?;
+        Ok(rows.into_iter().map(SnapshotRow::into_domain).collect())
     }
 
-    /// Persist a sectoral snapshot
     pub async fn save_snapshot(&self, snapshot: &SectorEconomicSnapshot) -> Result<()> {
-        let sector_str = snapshot.sector.as_str();
         sqlx::query(
             r#"
             INSERT INTO sector_economic_snapshots
@@ -111,17 +111,24 @@ impl SectorAnalytics {
                 digital_dinar_volume_owc = EXCLUDED.digital_dinar_volume_owc,
                 computed_at = EXCLUDED.computed_at
             "#,
-            sector_str,
-            snapshot.period,
-            snapshot.gdp_contribution_usd.map(|v| sqlx::types::Decimal::from_str_exact(&v.to_string()).ok()).flatten(),
-            snapshot.employment,
-            snapshot.import_substitution_usd.map(|v| sqlx::types::Decimal::from_str_exact(&v.to_string()).ok()).flatten(),
-            snapshot.digital_dinar_volume_owc,
-            snapshot.computed_at
         )
+        .bind(snapshot.sector.as_str())
+        .bind(&snapshot.period)
+        .bind(
+            snapshot
+                .gdp_contribution_usd
+                .and_then(Decimal::from_f64_retain),
+        )
+        .bind(snapshot.employment)
+        .bind(
+            snapshot
+                .import_substitution_usd
+                .and_then(Decimal::from_f64_retain),
+        )
+        .bind(snapshot.digital_dinar_volume_owc)
+        .bind(snapshot.computed_at)
         .execute(&self.pool)
         .await?;
-
         Ok(())
     }
 }

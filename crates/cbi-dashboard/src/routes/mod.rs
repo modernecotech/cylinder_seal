@@ -9,3 +9,4 @@ pub mod accounts;
 pub mod risk;
 pub mod audit;
 pub mod pages;
+pub mod producer;

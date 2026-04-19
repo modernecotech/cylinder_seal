@@ -1,19 +1,9 @@
-//! Integration tests for CBI Dashboard
-//! These tests validate the SQLite database schema and seed data
+//! Integration tests for CBI Dashboard — shape assertions against the
+//! hard-coded schema, endpoint list, seed data, and business rules.
+//! The dashboard is PostgreSQL-only; historic SQLite test removed.
 
 #[cfg(test)]
 mod tests {
-    use std::path::Path;
-
-    #[test]
-    fn test_sqlite_database_exists() {
-        let db_path = "cylinder_seal.db";
-        assert!(
-            Path::new(db_path).exists(),
-            "SQLite database file not found. Run: ./setup-sqlite-dev.sh"
-        );
-    }
-
     #[test]
     fn test_database_schema_tables() {
         // This test validates that all required tables exist
@@ -291,13 +281,9 @@ mod tests {
 
     #[test]
     fn test_database_url_defaults() {
-        // Development: SQLite
-        let dev_url = "sqlite:cylinder_seal.db";
-        assert!(dev_url.starts_with("sqlite:"));
-
-        // Production: PostgreSQL
-        let prod_url = "postgresql://user:pass@host/cylinder_seal";
-        assert!(prod_url.starts_with("postgresql://"));
+        // PostgreSQL in both dev and prod (SQLite dev mode was removed).
+        let url = "postgresql://user:pass@host/cylinder_seal";
+        assert!(url.starts_with("postgresql://"));
     }
 
     #[test]

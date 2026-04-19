@@ -95,6 +95,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/api/audit/logs", get(routes::audit::audit_logs))
         .route("/api/audit/directives", get(routes::audit::list_directives))
         .route("/api/audit/directives", post(routes::audit::create_directive))
+        .route("/api/producers", get(routes::producer::list_producers))
+        .route("/api/docs", get(routes::producer::list_docs))
+        .route("/api/ip", get(routes::producer::list_ip))
+        .route("/api/ip/by-category", get(routes::producer::ip_by_category))
+        .route("/api/restricted", get(routes::producer::list_restricted))
         .route("/auth/logout", post(handlers::auth::logout))
         .layer(axum::middleware::from_fn_with_state(
             app_state.clone(),

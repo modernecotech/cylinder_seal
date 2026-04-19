@@ -193,6 +193,18 @@ async fn main() -> Result<()> {
             .into_bytes(),
     );
 
+    // Producer registry / DOC / IP / restricted categories.
+    let producers: Arc<dyn cs_storage::producer_repo::ProducerRepository> =
+        Arc::new(cs_storage::producer_repo::PgProducerRepository::new(pool.clone()));
+    let docs: Arc<dyn cs_storage::producer_repo::DocRepository> =
+        Arc::new(cs_storage::producer_repo::PgDocRepository::new(pool.clone()));
+    let individual_producers: Arc<dyn cs_storage::producer_repo::IndividualProducerRepository> = Arc::new(
+        cs_storage::producer_repo::PgIndividualProducerRepository::new(pool.clone()),
+    );
+    let restricted_categories: Arc<dyn cs_storage::producer_repo::RestrictedCategoryRepository> = Arc::new(
+        cs_storage::producer_repo::PgRestrictedCategoryRepository::new(pool.clone()),
+    );
+
     // ---------------- Raft ----------------
     let applier: Arc<dyn LedgerStateMachine> =
         Arc::new(LedgerApplier::new(journal.clone(), users.clone()));
@@ -254,6 +266,10 @@ async fn main() -> Result<()> {
         otp_repo: otp_repo.clone(),
         otp_sender: otp_sender.clone(),
         otp_pepper: otp_pepper.clone(),
+        producers: producers.clone(),
+        docs: docs.clone(),
+        individual_producers: individual_producers.clone(),
+        restricted_categories: restricted_categories.clone(),
         node_id: cfg.server.node_id.clone(),
         admin_session_ttl_hours: 12,
     });

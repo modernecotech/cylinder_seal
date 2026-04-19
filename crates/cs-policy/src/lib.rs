@@ -15,11 +15,20 @@
 //! update them without a redeploy.
 
 pub mod aml;
+pub mod hard_restrictions;
+pub mod individual_producer;
 pub mod merchant_tier;
 pub mod pg;
 pub mod reporting;
 pub mod risk_scoring;
 pub mod rule_engine;
+
+pub use hard_restrictions::{HardRestrictionOutcome, TransferContext};
+pub use individual_producer::{
+    CapDecision, evaluate_cap, graduation_hint_flag, micro_tax_rate_bps, new_ip_registration,
+    period_for, withhold_micro_tax, IP_DEFAULT_MONTHLY_CAP_IQD, IP_MICRO_TAX_MAX_BPS,
+    IP_MICRO_TAX_MIN_BPS, IP_SOCIAL_SECURITY_SHARE_BPS,
+};
 
 pub use aml::{AmlDecision, AmlEngine, AmlFlag, SanctionsRepository, VelocityWindow};
 pub use merchant_tier::{

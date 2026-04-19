@@ -17,9 +17,9 @@ pub enum MerchantTier {
     Tier1,
     /// 50-99% Iraqi content → 0.5% fee, max 50% of salary.
     Tier2,
-    /// 1-49% Iraqi content → 2% fee.
+    /// 1-49% Iraqi content → 3% fee.
     Tier3,
-    /// 0% Iraqi content (pure imports) → 3-5% fee, capped at ~15% of salary.
+    /// 0% Iraqi content (pure imports) → 8% import levy, capped at ~15% of salary.
     Tier4,
     /// Not yet classified — reject or treat as Tier 4.
     Unclassified,
@@ -155,7 +155,7 @@ fn classify_tier(
         },
         MerchantTier::Tier3 => TierPolicy {
             tier,
-            fee_micro_owc: bps_fee(amount, 200), // 2%
+            fee_micro_owc: bps_fee(amount, 300), // 3%
             salary_cap_bps: None,
             allowed: true,
             reason: format!(
@@ -165,7 +165,7 @@ fn classify_tier(
         },
         MerchantTier::Tier4 => TierPolicy {
             tier,
-            fee_micro_owc: bps_fee(amount, 400), // 4% midpoint of 3-5%
+            fee_micro_owc: bps_fee(amount, 800), // 8% import levy (Tier 4)
             salary_cap_bps: if merchant.essential_exempt {
                 None
             } else {
@@ -246,17 +246,17 @@ mod tests {
     }
 
     #[test]
-    fn tier3_two_percent_fee() {
+    fn tier3_three_percent_fee() {
         let m = merchant(20, false);
         let p = classify_tier(&m, MerchantTier::Tier3, 10_000_000);
-        assert_eq!(p.fee_micro_owc, 200_000); // 2% of 10 OWC
+        assert_eq!(p.fee_micro_owc, 300_000); // 3% of 10 OWC
     }
 
     #[test]
-    fn tier4_four_percent_capped() {
+    fn tier4_eight_percent_capped() {
         let m = merchant(0, false);
         let p = classify_tier(&m, MerchantTier::Tier4, 10_000_000);
-        assert_eq!(p.fee_micro_owc, 400_000);
+        assert_eq!(p.fee_micro_owc, 800_000);
         assert_eq!(p.salary_cap_bps, Some(1500));
     }
 
@@ -264,7 +264,7 @@ mod tests {
     fn tier4_essential_exempt_uncapped() {
         let m = merchant(0, true);
         let p = classify_tier(&m, MerchantTier::Tier4, 10_000_000);
-        assert_eq!(p.fee_micro_owc, 400_000);
+        assert_eq!(p.fee_micro_owc, 800_000);
         assert!(p.salary_cap_bps.is_none());
     }
 

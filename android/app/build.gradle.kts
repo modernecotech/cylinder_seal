@@ -66,6 +66,7 @@ dependencies {
     implementation(project(":feature:feature-sync"))
     implementation(project(":feature:feature-settings"))
     implementation(project(":feature:feature-business"))
+    implementation(project(":feature:feature-individual-producer"))
 
     // Kotlin
     implementation(libs.kotlin.stdlib)

@@ -14,10 +14,6 @@ tokio = { version = "1", features = ["full"] }
 tower = "0.5"
 tower-http = { version = "0.6", features = ["fs", "trace", "cors"] }
 
-# Templates
-askama = { version = "0.12", features = ["with-axum"] }
-askama_axum = "0.4"
-
 # Database - PostgreSQL
 sqlx = { version = "0.7", default-features = false, features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono"] }
 uuid = { version = "1", features = ["v4", "v7", "serde"] }
