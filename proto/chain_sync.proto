@@ -75,9 +75,72 @@ message Transaction {
     // Source of location data (GPS, network-based, last-known, or offline)
     LocationSource location_source = 20;
 
+    // --- Programmability primitives (optional, added 2026-04) ---
+    // expiry / spend_constraint / release_condition are covered by the
+    // sender's signature (part of the canonical CBOR payload).
+    // counter_signature is applied AFTER the sender signs and is NOT
+    // part of the sender's signed payload.
+
+    // Time-limited transfer: reverts to fallback if not spent by expires_at.
+    ExpiryPolicy expiry = 21;
+
+    // Restricts which merchant tiers / categories may receive this transfer.
+    SpendConstraint spend_constraint = 22;
+
+    // Escrow: entry released only when required_counter_signer counter-signs.
+    ReleaseCondition release_condition = 23;
+
+    // Ed25519 counter-signature (64 bytes) releasing the escrow. Signed
+    // over transaction_id's raw bytes. Empty if no counter-signature yet.
+    bytes counter_signature = 24;
+
+    // Origin of the funds being spent. FUNDS_ORIGIN_UNSPECIFIED is
+    // interpreted as "personal" at the super-peer; it exists to preserve
+    // wire compatibility with pre-2026-04 Transaction encodings.
+    // Government-transfer variants trigger the hard-restrictions gate.
+    FundsOrigin funds_origin = 25;
+
     // Ed25519 signature (64 bytes) over canonical CBOR of above fields
     // (excluding this signature field itself)
     bytes signature = 15;
+}
+
+enum FundsOrigin {
+    FUNDS_ORIGIN_UNSPECIFIED = 0;   // interpreted as personal
+    FUNDS_ORIGIN_PERSONAL = 1;
+    FUNDS_ORIGIN_SALARY = 2;        // government salary (triggers hard restrictions)
+    FUNDS_ORIGIN_PENSION = 3;       // (triggers hard restrictions)
+    FUNDS_ORIGIN_UBI = 4;           // universal basic income (triggers hard restrictions)
+    FUNDS_ORIGIN_SOCIAL_PROTECTION = 5; // (triggers hard restrictions)
+    FUNDS_ORIGIN_BUSINESS = 6;
+    FUNDS_ORIGIN_REFUND = 7;
+}
+
+// Time-limited transfer policy. If unspent by expires_at_micros, the entry
+// is reverted to fallback_pubkey.
+message ExpiryPolicy {
+    // UTC microseconds past which the transfer expires.
+    int64 expires_at_micros = 1;
+
+    // Ed25519 public key (32 bytes) that receives the reversion.
+    bytes fallback_pubkey = 2;
+}
+
+// Constrains which merchants the receiver may be. Empty axes are
+// unconstrained. Both empty is equivalent to no constraint at all.
+message SpendConstraint {
+    // Allowed merchant tiers (1..=4). Empty = any tier.
+    repeated uint32 allowed_tiers = 1;
+
+    // Allowed product categories (e.g. "cement"). Empty = any category.
+    // Case-insensitive match at evaluation time.
+    repeated string allowed_categories = 2;
+}
+
+// Escrow: the named counter-signer must sign transaction_id to release.
+message ReleaseCondition {
+    // Ed25519 public key (32 bytes) whose signature releases the escrow.
+    bytes required_counter_signer = 1;
 }
 
 enum LocationSource {

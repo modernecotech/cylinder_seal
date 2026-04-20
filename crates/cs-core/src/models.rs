@@ -7,6 +7,8 @@ use std::collections::HashMap;
 
 use crate::error::Result;
 use crate::cryptography;
+use crate::primitives::{ExpiryPolicy, ReleaseCondition, SpendConstraint};
+use crate::producer::FundsOrigin;
 
 /// Serde helper for Option<[u8; 64]> — delegates to BigArray when Some
 mod option_big_array {
@@ -107,6 +109,40 @@ pub struct Transaction {
 
     /// Source of location data (GPS, network-based, last-known, or offline)
     pub location_source: LocationSource,
+
+    // ------------------------------------------------------------------
+    // Programmability primitives (optional, added 2026-04).
+    // Old wire payloads without these fields deserialize as `None` via
+    // `#[serde(default)]`. See `crate::primitives` for semantics.
+    // ------------------------------------------------------------------
+    /// Time-limited transfer: reverts to fallback on expiry.
+    #[serde(default)]
+    pub expiry: Option<ExpiryPolicy>,
+
+    /// Restricts which merchant tiers/categories may receive this transfer.
+    #[serde(default)]
+    pub spend_constraint: Option<SpendConstraint>,
+
+    /// Escrow: entry does not count toward the receiver's balance until a
+    /// named counter-signer counter-signs.
+    #[serde(default)]
+    pub release_condition: Option<ReleaseCondition>,
+
+    /// Counter-signature for escrow release — applied AFTER the sender
+    /// signs, and NOT covered by the sender's signature. The counter-signer
+    /// signs the 16-byte `transaction_id` as raw bytes.
+    #[serde(default, with = "option_big_array")]
+    pub counter_signature: Option<[u8; 64]>,
+
+    /// Origin of the funds being spent. When set to a government transfer
+    /// variant (`Salary`, `Pension`, `Ubi`, `SocialProtection`), the
+    /// hard-restrictions gate applies at super-peer validation time —
+    /// restricted-category spending at Tier 3/4 merchants is rejected.
+    /// `None` is interpreted as `FundsOrigin::Personal` at evaluation time,
+    /// preserving byte-compatibility with pre-2026-04 retail wire format.
+    /// Cryptographically bound: covered by the sender's signature.
+    #[serde(default)]
+    pub funds_origin: Option<FundsOrigin>,
 }
 
 impl Transaction {
@@ -160,7 +196,60 @@ impl Transaction {
             location_accuracy_meters,
             location_timestamp_utc: now_micros,
             location_source,
+            expiry: None,
+            spend_constraint: None,
+            release_condition: None,
+            counter_signature: None,
+            funds_origin: None,
         }
+    }
+
+    /// Builder: declare the funds origin. Set to `Salary`/`Pension`/`Ubi`/
+    /// `SocialProtection` for government disbursements so the hard-
+    /// restrictions gate applies at the super-peer. Must be called before
+    /// `sign()` — funds_origin is part of the signed payload.
+    pub fn with_funds_origin(mut self, origin: FundsOrigin) -> Self {
+        self.funds_origin = Some(origin);
+        self
+    }
+
+    /// Builder: attach an expiry policy (time-limited transfer).
+    /// Must be called before `sign()` — expiry is part of the signed payload.
+    pub fn with_expiry(mut self, expiry: ExpiryPolicy) -> Self {
+        self.expiry = Some(expiry);
+        self
+    }
+
+    /// Builder: attach a spend constraint (earmarked transfer).
+    /// Must be called before `sign()` — the constraint is part of the signed payload.
+    pub fn with_spend_constraint(mut self, c: SpendConstraint) -> Self {
+        self.spend_constraint = Some(c);
+        self
+    }
+
+    /// Builder: attach a release condition (escrow).
+    /// Must be called before `sign()` — the required counter-signer is part
+    /// of the signed payload. The counter-signature itself is attached later
+    /// via `attach_counter_signature` once the counter-signer has signed
+    /// the transaction_id.
+    pub fn with_release_condition(mut self, r: ReleaseCondition) -> Self {
+        self.release_condition = Some(r);
+        self
+    }
+
+    /// Attach a counter-signature to release an escrowed transfer. Called
+    /// AFTER the sender has signed the transaction. The counter-signer
+    /// produces this signature by signing the transaction_id's raw bytes
+    /// (16 bytes) with their private key.
+    pub fn attach_counter_signature(&mut self, sig: [u8; 64]) {
+        self.counter_signature = Some(sig);
+    }
+
+    /// Raw bytes that a counter-signer signs to release the escrow.
+    /// Deliberately simple — the transaction_id is unique (UUIDv7) and the
+    /// counter-signer's role is release-or-not, not co-authoring.
+    pub fn counter_signer_payload(&self) -> [u8; 16] {
+        *self.transaction_id.as_bytes()
     }
 
 
@@ -179,9 +268,17 @@ impl Transaction {
         epoch.elapsed().as_nanos() as i64
     }
 
-    /// Canonical CBOR encoding for signing (excludes the signature field)
+    /// Canonical CBOR encoding for signing (excludes the signature field).
+    ///
+    /// The three programmability primitives (`expiry`, `spend_constraint`,
+    /// `release_condition`) are covered by the sender's signature so they
+    /// cannot be tampered with after signing. `counter_signature` is
+    /// deliberately **excluded** — it is applied later by the named
+    /// counter-signer and is validated against a separate payload
+    /// (`counter_signer_payload`). `device_attestation` remains excluded
+    /// as before (caller-attached metadata, not load-bearing on the wire).
     pub fn canonical_cbor_for_signing(&self) -> Result<Vec<u8>> {
-        // Split into two nested tuples (serde supports tuples up to 16 elements)
+        // Three nested tuples (serde caps at 16 per tuple).
         let signable = (
             (
                 &self.transaction_id,
@@ -204,6 +301,12 @@ impl Transaction {
                 self.location_accuracy_meters,
                 self.location_timestamp_utc,
                 &self.location_source,
+            ),
+            (
+                &self.expiry,
+                &self.spend_constraint,
+                &self.release_condition,
+                &self.funds_origin,
             ),
         );
 
@@ -975,6 +1078,119 @@ mod tests {
         let t2 = Transaction::monotonic_clock();
 
         assert!(t2 > t1, "Monotonic clock must strictly increase over time");
+    }
+
+    #[test]
+    fn test_transaction_with_expiry_signs_and_verifies() {
+        use crate::primitives::ExpiryPolicy;
+        use rust_decimal::Decimal;
+
+        let (pub_key, priv_key) = cryptography::generate_keypair();
+        let (to_pk, _) = cryptography::generate_keypair();
+        let (fallback_pk, _) = cryptography::generate_keypair();
+
+        let mut tx = Transaction::new(
+            pub_key, to_pk, 1_000_000, "IQD".into(), Decimal::ONE,
+            PaymentChannel::NFC, "expiring".into(), Uuid::new_v4(),
+            [0u8; 32], [1u8; 32], 33.31, 44.36, 10, LocationSource::GPS,
+        )
+        .with_expiry(ExpiryPolicy {
+            expires_at_micros: 2_000_000_000_000_000,
+            fallback_pubkey: fallback_pk,
+        });
+
+        tx.sign(&priv_key).unwrap();
+        assert!(tx.verify_signature().is_ok());
+
+        // Tampering with the expiry must break the signature.
+        tx.expiry = Some(ExpiryPolicy {
+            expires_at_micros: 9_999_999_999_000_000,
+            fallback_pubkey: fallback_pk,
+        });
+        assert!(
+            tx.verify_signature().is_err(),
+            "Expiry tampering must break the sender's signature"
+        );
+    }
+
+    #[test]
+    fn test_transaction_with_spend_constraint_signs_and_verifies() {
+        use crate::primitives::SpendConstraint;
+        use rust_decimal::Decimal;
+
+        let (pub_key, priv_key) = cryptography::generate_keypair();
+        let (to_pk, _) = cryptography::generate_keypair();
+
+        let mut tx = Transaction::new(
+            pub_key, to_pk, 1_000_000, "IQD".into(), Decimal::ONE,
+            PaymentChannel::NFC, "cement-earmarked".into(), Uuid::new_v4(),
+            [0u8; 32], [1u8; 32], 33.31, 44.36, 10, LocationSource::GPS,
+        )
+        .with_spend_constraint(SpendConstraint {
+            allowed_tiers: vec![1, 2],
+            allowed_categories: vec!["cement".into()],
+        });
+
+        tx.sign(&priv_key).unwrap();
+        assert!(tx.verify_signature().is_ok());
+
+        // Tampering with the constraint must break the signature.
+        tx.spend_constraint = Some(SpendConstraint {
+            allowed_tiers: vec![1, 2, 3, 4],
+            allowed_categories: vec![],
+        });
+        assert!(tx.verify_signature().is_err());
+    }
+
+    #[test]
+    fn test_escrow_counter_signature_flow() {
+        use crate::primitives::ReleaseCondition;
+        use rust_decimal::Decimal;
+
+        let (sender_pk, sender_sk) = cryptography::generate_keypair();
+        let (receiver_pk, _) = cryptography::generate_keypair();
+        let (inspector_pk, inspector_sk) = cryptography::generate_keypair();
+
+        let mut tx = Transaction::new(
+            sender_pk, receiver_pk, 10_000_000, "IQD".into(), Decimal::ONE,
+            PaymentChannel::Online, "construction tranche 1".into(), Uuid::new_v4(),
+            [0u8; 32], [1u8; 32], 33.31, 44.36, 10, LocationSource::GPS,
+        )
+        .with_release_condition(ReleaseCondition {
+            required_counter_signer: inspector_pk,
+        });
+
+        // Sender signs — this commits to the required_counter_signer
+        // identity but NOT to any counter-signature (still None).
+        tx.sign(&sender_sk).unwrap();
+        assert!(tx.verify_signature().is_ok());
+        assert!(tx.counter_signature.is_none());
+
+        // Inspector signs the transaction_id payload.
+        let payload = tx.counter_signer_payload();
+        let counter_sig =
+            cryptography::sign_message(&payload, &inspector_sk).unwrap();
+        tx.attach_counter_signature(counter_sig);
+
+        // Sender's signature still verifies (counter_signature is not
+        // part of the signed payload).
+        assert!(tx.verify_signature().is_ok());
+
+        // Inspector's signature verifies against the transaction_id.
+        assert!(cryptography::verify_signature(
+            &payload,
+            tx.counter_signature.as_ref().unwrap(),
+            &inspector_pk,
+        )
+        .is_ok());
+
+        // Verifying with the wrong key must fail.
+        assert!(cryptography::verify_signature(
+            &payload,
+            tx.counter_signature.as_ref().unwrap(),
+            &sender_pk,
+        )
+        .is_err());
     }
 
     #[test]

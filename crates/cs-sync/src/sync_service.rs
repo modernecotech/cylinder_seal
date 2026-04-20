@@ -15,8 +15,18 @@ use async_trait::async_trait;
 use cs_consensus::log::EntryKind;
 use cs_consensus::node::RaftNode;
 use cs_core::error::CylinderSealError;
-use cs_core::models::JournalEntry;
+use cs_core::models::{JournalEntry, Transaction};
+use cs_core::primitives::{
+    ExpiryOutcome, ReleaseOutcome, SpendConstraintOutcome,
+};
+use cs_core::producer::FundsOrigin;
+use cs_policy::hard_restrictions::{
+    evaluate as evaluate_hard_restrictions, HardRestrictionOutcome, TransferContext,
+};
+use cs_policy::merchant_tier::{MerchantRepository, MerchantTier};
+use cs_policy::{evaluate_expiry, evaluate_release_condition, evaluate_spend_constraint};
 use cs_storage::repository::{JournalRepository, NonceStore};
+use cs_storage::RestrictedCategoryRepository;
 use futures::Stream;
 use futures::StreamExt;
 use tokio::sync::mpsc;
@@ -37,6 +47,19 @@ pub struct ChainSyncService {
     nonces: Arc<dyn NonceStore>,
     resolver: Arc<ConflictResolver>,
     invoices: Arc<dyn InvoiceRepository>,
+    /// Optional merchant-tier lookup. When present, `SpendConstraint`
+    /// primitives are enforced against the receiver's registered tier and
+    /// category. When `None`, spend constraints are permitted to pass —
+    /// keeps the service usable in development/test deployments without a
+    /// merchant registry.
+    merchants: Option<Arc<dyn MerchantRepository>>,
+    /// Optional CBI-mutable restricted-category list. When present,
+    /// `hard_restrictions::evaluate` fires on government-funded transfers
+    /// (`FundsOrigin::Salary`/`Pension`/`Ubi`/`SocialProtection`) and
+    /// rejects entries routed to Tier 3-4 merchants in restricted
+    /// categories. When `None`, the gate is inert — same permissive
+    /// behaviour as before the tier system was wired.
+    restricted_categories: Option<Arc<dyn RestrictedCategoryRepository>>,
     super_peer_id: String,
 }
 
@@ -55,8 +78,30 @@ impl ChainSyncService {
             nonces,
             resolver,
             invoices,
+            merchants: None,
+            restricted_categories: None,
             super_peer_id,
         }
+    }
+
+    /// Attach a merchant repository so `SpendConstraint` primitives can be
+    /// enforced against the receiver's tier/category. Chainable builder
+    /// form — existing call sites that don't care about merchant tiers
+    /// continue to work unchanged.
+    pub fn with_merchants(mut self, merchants: Arc<dyn MerchantRepository>) -> Self {
+        self.merchants = Some(merchants);
+        self
+    }
+
+    /// Attach a restricted-category repository so the hard-restrictions
+    /// gate can reject government-funded transfers routed to Tier 3-4
+    /// merchants in CBI-restricted categories. Chainable builder form.
+    pub fn with_restricted_categories(
+        mut self,
+        restricted: Arc<dyn RestrictedCategoryRepository>,
+    ) -> Self {
+        self.restricted_categories = Some(restricted);
+        self
     }
 
     /// Validate an incoming entry before it goes near Raft.
@@ -85,7 +130,141 @@ impl ChainSyncService {
             tx.verify_signature()
                 .map_err(|_| Status::invalid_argument("transaction signature invalid"))?;
         }
+
+        // 3. Programmability primitives: expiry / spend constraint / release
+        //    condition. Each is optional on the tx; when absent the checks
+        //    are no-ops. When present and violated, we reject here so bad
+        //    entries never reach Raft.
+        let now_micros = chrono::Utc::now().timestamp_micros();
+        for tx in &entry.transactions {
+            self.validate_primitives(tx, now_micros).await?;
+        }
+
         Ok(())
+    }
+
+    /// Check the three wire-format programmability primitives on a single tx.
+    ///
+    /// Semantics:
+    ///   * `expiry` — reject if `expires_at_micros` is in the past relative
+    ///     to `now_micros`. An already-expired transfer shouldn't enter
+    ///     the ledger; the receiver can't spend it and it would be swept
+    ///     back immediately. Better to fail the submitter than to accept.
+    ///   * `spend_constraint` — require the receiver's tier and category
+    ///     to satisfy the allow-list. If no merchant repository is wired
+    ///     (dev/test), constraints are accepted — matches the historical
+    ///     behaviour before primitives existed.
+    ///   * `release_condition` — if a counter-signature is present, it must
+    ///     verify against the named counter-signer and the transaction_id
+    ///     payload. If absent, the entry is accepted as escrow-pending
+    ///     (the receiver simply won't be able to spend it until it's
+    ///     released; that check happens on the spend side, not here).
+    async fn validate_primitives(
+        &self,
+        tx: &Transaction,
+        now_micros: i64,
+    ) -> Result<(), Status> {
+        if let Some(expiry) = &tx.expiry {
+            if let ExpiryOutcome::Expired { .. } = evaluate_expiry(expiry, now_micros) {
+                return Err(Status::failed_precondition(
+                    "transaction expiry is already in the past",
+                ));
+            }
+        }
+
+        if let Some(constraint) = &tx.spend_constraint {
+            let (merchant_tier, category) =
+                self.resolve_merchant_tier_and_category(&tx.to_public_key).await?;
+            match evaluate_spend_constraint(constraint, merchant_tier, category.as_deref()) {
+                SpendConstraintOutcome::Allowed => {}
+                SpendConstraintOutcome::Rejected { reason } => {
+                    return Err(Status::failed_precondition(format!(
+                        "spend constraint violated: {reason}"
+                    )));
+                }
+            }
+        }
+
+        if let Some(release) = &tx.release_condition {
+            // We only validate the counter-signature if one is already
+            // attached. An escrow with no counter-signature yet is
+            // legitimately pending and accepted into the ledger; it just
+            // won't credit the receiver's spendable balance until release.
+            match evaluate_release_condition(
+                release,
+                tx.counter_signature.as_ref(),
+                &tx.counter_signer_payload(),
+            ) {
+                ReleaseOutcome::Pending | ReleaseOutcome::Released => {}
+                ReleaseOutcome::InvalidSignature => {
+                    return Err(Status::invalid_argument(
+                        "release-condition counter-signature is invalid",
+                    ));
+                }
+            }
+        }
+
+        // Hard-restrictions gate: government transfers to Tier 3-4
+        // merchants in CBI-restricted categories are rejected. Fires only
+        // when a restricted-category repository is wired; otherwise inert
+        // (permissive fallback for dev/test deployments).
+        let declared_origin = tx.funds_origin.unwrap_or(FundsOrigin::Personal);
+        if declared_origin.is_government_transfer() {
+            if let Some(repo) = &self.restricted_categories {
+                let today = chrono::Utc::now().date_naive();
+                let restrictions = repo
+                    .list_active_on(today)
+                    .await
+                    .map_err(storage_err)?;
+                // Resolve the receiver's tier + category; fall back to
+                // (0, None) for P2P — which the gate treats as blocked
+                // for government transfers in restricted categories.
+                let (merchant_tier, product_category) =
+                    self.resolve_merchant_tier_and_category(&tx.to_public_key).await?;
+                let ctx = TransferContext {
+                    funds_origin: declared_origin,
+                    product_category,
+                    merchant_tier,
+                    today,
+                };
+                if let HardRestrictionOutcome::Blocked { reason } =
+                    evaluate_hard_restrictions(&ctx, &restrictions)
+                {
+                    return Err(Status::failed_precondition(format!(
+                        "hard restriction: {reason}"
+                    )));
+                }
+            }
+        }
+
+        Ok(())
+    }
+
+    /// Look up the receiver's merchant tier (1..=4) and product category.
+    /// Returns `(0, None)` — the P2P sentinel — if the receiver isn't a
+    /// registered merchant or if no merchant repository is wired.
+    async fn resolve_merchant_tier_and_category(
+        &self,
+        receiver_pubkey: &[u8; 32],
+    ) -> Result<(u8, Option<String>), Status> {
+        let Some(repo) = &self.merchants else {
+            return Ok((0, None));
+        };
+        let record = repo
+            .get_by_public_key(receiver_pubkey)
+            .await
+            .map_err(storage_err)?;
+        let Some(m) = record else {
+            return Ok((0, None));
+        };
+        let tier = match MerchantTier::from_content_percent(m.iraqi_content_pct) {
+            MerchantTier::Tier1 => 1,
+            MerchantTier::Tier2 => 2,
+            MerchantTier::Tier3 => 3,
+            MerchantTier::Tier4 => 4,
+            MerchantTier::Unclassified => 0,
+        };
+        Ok((tier, Some(m.category)))
     }
 
     /// Handle a single incoming entry: validate → conflict-check → Raft
@@ -262,6 +441,8 @@ impl pb::chain_sync_server::ChainSync for ChainSyncService {
         let nonces = self.nonces.clone();
         let resolver = self.resolver.clone();
         let invoices = self.invoices.clone();
+        let merchants = self.merchants.clone();
+        let restricted_categories = self.restricted_categories.clone();
         let super_peer_id = self.super_peer_id.clone();
 
         tokio::spawn(async move {
@@ -271,6 +452,8 @@ impl pb::chain_sync_server::ChainSync for ChainSyncService {
                 nonces,
                 resolver,
                 invoices,
+                merchants,
+                restricted_categories,
                 super_peer_id,
             };
             while let Some(msg) = inbound.next().await {

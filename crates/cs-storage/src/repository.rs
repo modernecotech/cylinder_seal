@@ -9,8 +9,8 @@ use cs_core::error::Result;
 use uuid::Uuid;
 
 use crate::models::{
-    ApiKeyRecord, BusinessProfileRecord, ConflictLog, CurrencyRate, InvoiceRecord,
-    JournalEntryRecord, UserRecord,
+    ApiKeyRecord, BusinessProfileRecord, ConflictLog, CurrencyRate, EntryPrimitivesRecord,
+    InvoiceRecord, JournalEntryRecord, UserRecord,
 };
 
 /// Repository for journal entries (the super-peer ledger).
@@ -126,4 +126,56 @@ pub trait InvoiceRepository: Send + Sync {
         invoice_id: Uuid,
         fiscal_receipt_ref: &str,
     ) -> Result<()>;
+}
+
+/// Sidecar store for wire-format programmability primitives.
+///
+/// Mirrors the `entry_primitives` table (migration
+/// `20260421000001_wire_format_primitives.sql`). One row per transaction that
+/// carries at least one of `expiry`, `spend_constraint`, or
+/// `release_condition`. Ordinary retail transactions (all three `None`) do
+/// not produce a row — the hot journal path is unaffected.
+///
+/// Called post-commit (in the ledger state machine) to persist primitives,
+/// and during routine sweeps (expiry reversion, escrow dashboard).
+#[async_trait]
+pub trait EntryPrimitivesRepository: Send + Sync {
+    /// Upsert a primitive row for a transaction. Idempotent on
+    /// transaction_id — re-applying a previously-applied entry (e.g., Raft
+    /// re-play) is a no-op.
+    async fn upsert(&self, record: &EntryPrimitivesRecord) -> Result<()>;
+
+    /// Fetch a single primitive row by transaction_id.
+    async fn get(&self, transaction_id: Uuid) -> Result<Option<EntryPrimitivesRecord>>;
+
+    /// Record that a counter-signature has been verified and the escrow
+    /// released. Sets `released_at_micros` to `now_micros`. No-op if the
+    /// row does not exist or has no release-condition columns.
+    async fn mark_released(&self, transaction_id: Uuid, now_micros: i64) -> Result<()>;
+
+    /// Record that an expiring entry was not spent by its deadline and a
+    /// reversion transaction was issued. `reversion_tx_id` references the
+    /// reversion entry in the journal.
+    async fn mark_reverted(
+        &self,
+        transaction_id: Uuid,
+        now_micros: i64,
+        reversion_tx_id: Uuid,
+    ) -> Result<()>;
+
+    /// Return pending (un-reverted) expiring entries whose expires_at
+    /// has passed. Used by the reversion sweeper job.
+    async fn list_pending_expired(
+        &self,
+        now_micros: i64,
+        limit: i64,
+    ) -> Result<Vec<EntryPrimitivesRecord>>;
+
+    /// Return pending (un-released) escrow entries addressed to a given
+    /// counter-signer. Used by the escrow dashboard / counter-signer's
+    /// worklist.
+    async fn list_pending_escrow_for(
+        &self,
+        counter_signer: &[u8; 32],
+    ) -> Result<Vec<EntryPrimitivesRecord>>;
 }

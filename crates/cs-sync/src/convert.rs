@@ -10,6 +10,8 @@ use std::collections::HashMap;
 use cs_core::models::{
     JournalEntry, LocationSource, PaymentChannel, SuperPeerConfirmation, SyncStatus, Transaction,
 };
+use cs_core::primitives::{ExpiryPolicy, ReleaseCondition, SpendConstraint};
+use cs_core::producer::FundsOrigin;
 use rust_decimal::Decimal;
 use std::str::FromStr;
 use uuid::Uuid;
@@ -99,6 +101,34 @@ pub fn domain_source_to_pb(ls: LocationSource) -> i32 {
     }
 }
 
+// --- FundsOrigin -----------------------------------------------------------
+
+pub fn pb_funds_origin_to_domain(v: i32) -> Option<FundsOrigin> {
+    match pb::FundsOrigin::try_from(v).unwrap_or(pb::FundsOrigin::Unspecified) {
+        pb::FundsOrigin::Unspecified => None,
+        pb::FundsOrigin::Personal => Some(FundsOrigin::Personal),
+        pb::FundsOrigin::Salary => Some(FundsOrigin::Salary),
+        pb::FundsOrigin::Pension => Some(FundsOrigin::Pension),
+        pb::FundsOrigin::Ubi => Some(FundsOrigin::Ubi),
+        pb::FundsOrigin::SocialProtection => Some(FundsOrigin::SocialProtection),
+        pb::FundsOrigin::Business => Some(FundsOrigin::Business),
+        pb::FundsOrigin::Refund => Some(FundsOrigin::Refund),
+    }
+}
+
+pub fn domain_funds_origin_to_pb(origin: Option<FundsOrigin>) -> i32 {
+    match origin {
+        None => pb::FundsOrigin::Unspecified as i32,
+        Some(FundsOrigin::Personal) => pb::FundsOrigin::Personal as i32,
+        Some(FundsOrigin::Salary) => pb::FundsOrigin::Salary as i32,
+        Some(FundsOrigin::Pension) => pb::FundsOrigin::Pension as i32,
+        Some(FundsOrigin::Ubi) => pb::FundsOrigin::Ubi as i32,
+        Some(FundsOrigin::SocialProtection) => pb::FundsOrigin::SocialProtection as i32,
+        Some(FundsOrigin::Business) => pb::FundsOrigin::Business as i32,
+        Some(FundsOrigin::Refund) => pb::FundsOrigin::Refund as i32,
+    }
+}
+
 // --- SyncStatus -------------------------------------------------------------
 
 pub fn pb_sync_status_to_domain(s: i32) -> SyncStatus {
@@ -139,6 +169,39 @@ pub fn pb_tx_to_domain(t: &pb::Transaction) -> Result<Transaction, ConvertError>
         Some(t.device_attestation.clone())
     };
 
+    let expiry = t
+        .expiry
+        .as_ref()
+        .map(|e| -> Result<ExpiryPolicy, ConvertError> {
+            Ok(ExpiryPolicy {
+                expires_at_micros: e.expires_at_micros,
+                fallback_pubkey: fixed(&e.fallback_pubkey, "expiry.fallback_pubkey")?,
+            })
+        })
+        .transpose()?;
+    let spend_constraint = t.spend_constraint.as_ref().map(|c| SpendConstraint {
+        allowed_tiers: c.allowed_tiers.iter().map(|v| *v as u8).collect(),
+        allowed_categories: c.allowed_categories.clone(),
+    });
+    let release_condition = t
+        .release_condition
+        .as_ref()
+        .map(|r| -> Result<ReleaseCondition, ConvertError> {
+            Ok(ReleaseCondition {
+                required_counter_signer: fixed(
+                    &r.required_counter_signer,
+                    "release_condition.required_counter_signer",
+                )?,
+            })
+        })
+        .transpose()?;
+    let counter_signature = if t.counter_signature.is_empty() {
+        None
+    } else {
+        Some(fixed::<64>(&t.counter_signature, "counter_signature")?)
+    };
+    let funds_origin = pb_funds_origin_to_domain(t.funds_origin);
+
     Ok(Transaction {
         transaction_id,
         from_public_key: from_pk,
@@ -160,6 +223,11 @@ pub fn pb_tx_to_domain(t: &pb::Transaction) -> Result<Transaction, ConvertError>
         location_accuracy_meters: t.location_accuracy_meters,
         location_timestamp_utc: t.location_timestamp_utc,
         location_source: pb_source_to_domain(t.location_source),
+        expiry,
+        spend_constraint,
+        release_condition,
+        counter_signature,
+        funds_origin,
     })
 }
 
@@ -184,6 +252,22 @@ pub fn domain_tx_to_pb(t: &Transaction) -> pb::Transaction {
         location_accuracy_meters: t.location_accuracy_meters,
         location_timestamp_utc: t.location_timestamp_utc,
         location_source: domain_source_to_pb(t.location_source),
+        expiry: t.expiry.as_ref().map(|e| pb::ExpiryPolicy {
+            expires_at_micros: e.expires_at_micros,
+            fallback_pubkey: e.fallback_pubkey.to_vec(),
+        }),
+        spend_constraint: t.spend_constraint.as_ref().map(|c| pb::SpendConstraint {
+            allowed_tiers: c.allowed_tiers.iter().map(|v| *v as u32).collect(),
+            allowed_categories: c.allowed_categories.clone(),
+        }),
+        release_condition: t.release_condition.as_ref().map(|r| pb::ReleaseCondition {
+            required_counter_signer: r.required_counter_signer.to_vec(),
+        }),
+        counter_signature: t
+            .counter_signature
+            .map(|s| s.to_vec())
+            .unwrap_or_default(),
+        funds_origin: domain_funds_origin_to_pb(t.funds_origin),
         signature: t.signature.to_vec(),
     }
 }

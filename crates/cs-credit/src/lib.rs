@@ -5,9 +5,14 @@
 //! [`scorer::MIN_HISTORY_FOR_SCORE`] confirmed transactions are returned as
 //! `None` rather than a default-to-middle value.
 
+pub mod cashflow;
 pub mod scheduler;
 pub mod scorer;
 
+pub use cashflow::{
+    cashflow_stability, compute_features, income_expense_health, income_periodicity,
+    CashFlowFeatures, Flow,
+};
 pub use scorer::{
     BatchCreditScorer, CreditScorer, MIN_HISTORY_FOR_SCORE, SCORE_MAX, SCORE_MIN,
     cbi_policy_rate, suggested_spread_bps,

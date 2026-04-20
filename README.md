@@ -19,6 +19,22 @@ The **Digital Iraqi Dinar (Digital IQD)** is sovereign digital currency infrastr
 - Zero fees (unlike banks' 2-5%) — retains purchasing power for 21M unbanked Iraqis (~70% of adult population currently excluded from formal banking)
 - Credit scoring from transaction history (no collateral needed) — enables SME working capital and 7-10x export growth
 - Programmable merchant tiers — automatically incentivizes local production over imports
+- **Programmability primitives** — expiring transfers, earmarked spend, and conditional-release escrow enforced at the wire-format / validation layer, not in application code
+
+### Integrated strategic frame: four pathologies, one instrument
+
+Cylinder Seal's design attacks four mutually-reinforcing Iraqi economic pathologies simultaneously. Each is well-established in the literature; none can be solved in isolation:
+
+| Pathology | Primary mechanism in Cylinder Seal |
+|---|---|
+| **1. Invisible informal economy** — ~70% unbanked, 8–12M informal workers, cash-only transaction trails | Tier system + IP (Individual Producer) track + transaction-based credit scoring with cash-flow features |
+| **2. SME credit bottleneck** — collateral-based lending excludes thin-file majority; $50–100B unmet working capital | Transaction-history credit score + mortgage primitive + assignable government forward-purchase commitments as collateral + staged-disbursement construction loans |
+| **3. USD leakage to imports** — oil USD flows out to finished-goods imports, bypassing the 1,200-project industrial portfolio (14:1 import-to-domestic ratio) | Earmarked-spend primitive auto-tiers construction supply chains to Tier-1/2 domestic producers; diaspora merchants capture foreign currency at point of sale abroad into the industrial pool |
+| **4. Dollarization & weak monetary transmission** — citizens hold USD because IQD has no trusted long-duration home | Expiring retail transfers break the salary→USD→import leak; mortgages give households their first IQD-denominated long-duration asset; yield-bearing savings balance |
+
+**Real estate is the integrative sector.** Residential construction formalizes construction labour (1), unlocks the mortgage market via transaction-based scoring (2), drives material demand through the tier-system supply chain and directly displaces imports (3), and gives Iraqi households their first IQD-denominated long-duration asset (4). See [Part 3: Real Estate & Construction Sector](#real-estate--construction-sector) and [Part 6: §7 Real Estate as Integrative Growth Sector](#7-real-estate-as-the-integrative-growth-sector).
+
+**Diaspora as distribution channel, not as capital source.** The diaspora's highest-value contribution is their market access abroad — not their remittance capacity. Iraqi-origin retailers, wholesalers, and tour operators in the US, UK, EU, Gulf, and South Asia already sit on customer trust and shelf space that Iraqi producers cannot build from scratch. The Diaspora Merchant Node / Tourism Aggregator design (see [Part 6: §6](#6-diaspora-as-export-channel-marketers-and-tourism-aggregators)) makes that channel a first-class participant in the tier system, with foreign-currency earnings captured at CBI into the industrial pool at point of sale.
 
 **Investment:** $3-5M | **Timeline:** 12-15 months to national scale | **Payback:** Months 3-6 after pilot | **Year 5 benefit:** $7.5-12.5B/year
 
@@ -159,6 +175,16 @@ Iraq has **1,200+ active industrial projects** (900 large-scale private ventures
 **Freeport & Special Economic Zones:** 3 regional freeport developments (Basra, Baghdad, Erbil) with modern warehousing, customs infrastructure, light manufacturing zones (900M capex total). Targeting $2-3B annual regional trade throughput.
 
 **Dry Ports & Inland Container Facilities:** 6 inland container terminals and dry ports linking Turkey, Syria, Saudi border crossing points (350M capex). Creating logistics backbone for regional trade.
+
+#### Real Estate & Construction
+
+Iraq's housing deficit is **2.5–3M+ units** against an annual need of ~200–250K units/year to stabilize against the ~2.6%/year population growth (per Shafaq News 2025, Al-Bayan Center 2025, the Association of Arab Universities Journal 2024–25, and Statista's $1.17T 2025 market-size forecast). Delivery runs at a fraction of this need, and what does get built is overwhelmingly informal/self-built on family land. The 2025–2030 government housing plan targets a 50% reduction of the deficit with new "housing cities"; the announcement alone moved property prices 10% (Iraqi News 2025), illustrating how sensitive the market is to a formalized supply signal.
+
+**Why this sector is uniquely integrative for Cylinder Seal:** residential construction simultaneously activates the industrial portfolio (cement, steel, gypsum, aluminium, glass, plumbing, electrical fixtures — every one of them either on the existing underutilized base or an import the tier system wants to displace), the informal workforce (masons, carpenters, electricians, plumbers, tilers — exactly the IP-track-eligible population), the credit market (mortgages become possible for the first time in two generations once transaction-based scoring exists), and the monetary-sovereignty story (home ownership is the most natural IQD-denominated long-duration asset Iraqis can hold as an alternative to dollarized savings).
+
+**Indicative material demand at 200K units/year:** cement ~30–40M t (absorbs the full 25–30M t/y installed base plus the new Q4 2026–Q2 2027 capacity); rebar + structural steel ~2–3M t (absorbs the two new integrated mills plus the private rolling-mill base); gypsum ~5–8M t; billions of USD annually in ceramic tile, glass, aluminium, electrical fixtures, and plumbing currently dominated by imports.
+
+**Regulatory tailwind:** CBI's January 2025 reduction of the regulated property-transaction threshold from 500M to 100M IQD (≈$76K) — explicitly to prevent laundering through cash property deals — is the existing hook that Cylinder Seal's property-title + atomic-funds-transfer primitive attaches to. See [Part 3: Real Estate & Construction Sector](#real-estate--construction-sector) for the mechanism detail and projection table.
 
 ---
 
@@ -408,6 +434,43 @@ Year 5 GDP contribution: $800M × 1.4 × 1.9 × 1.2 = $2,560M
 | **Multiplier Effect** | Minimal (import leak) | **1.5-2× (local circulation)** | $1 government → local producer → wages spent locally = $1.5-2.0 in total economic activity |
 
 **Key insight:** The 14:1 import-to-domestic ratio must be attacked through BOTH import reduction AND domestic capacity scaling. Food ($12-15B government shift) + cement/steel ($2.8B displacement) + pharma/apparel ($1.5-2B) + non-oil exports ($8.5B) = $25-40B annual trade balance improvement. This $3-5B surplus by 2031 represents the "new normal" (vs. -$3B baseline), with non-oil revenues finally meaningful relative to oil dependency.
+
+---
+
+### Real Estate & Construction Sector
+
+Real estate is the single highest-leverage sector in the Cylinder Seal framing — the only domain that activates all four pathologies (invisible informal economy, SME credit bottleneck, USD leakage, dollarization) at once. Mechanisms land on the same wire-format primitives and tier/IP/credit-scoring architecture used elsewhere; no parallel infrastructure is introduced.
+
+| Metric | 2026 Baseline | 2027 (Year 1) | 2028 (Year 2) | 2029 (Year 3) | 2030-2031 |
+|--------|--------------|---------------|---------------|---------------|-----------|
+| **Unit Deficit (M units)** | 2.5–3 | 2.4–2.9 | 2.2–2.7 | 1.9–2.4 | 1.3–1.8 |
+| **New Units Delivered / Year** | ~60K (mostly informal) | 90K | 140K | 180K | 200–230K |
+| **Mortgage Origination (cumulative, $B)** | 0 | 4–6 | 12–18 | 22–32 | 45–60 |
+| **Formal Construction Jobs (inspectors, supervisors, admin)** | ~15K | 35K | 60K | 100K | 130–150K |
+| **IP-Track Formalized Trades (masons, electricians, plumbers, day-labour)** | ~0 (informal) | 200K | 500K | 750K | 900K–1M |
+| **Domestic Material Spend Absorbed ($B/yr)** | ~1.5 (cash, informal) | 4 | 8 | 12 | 15–18 |
+| **Taxable Rental Revenue ($B/yr)** | ~0 (informal) | 0.8 | 1.8 | 3 | 4–5 |
+| **GDP Contribution ($B/yr)** | ~8 (informal + small formal) | 14 | 22 | 32 | 40–45 |
+
+**Mechanisms** (each is a primitive that slots into the existing wire-format / tier / IP / credit-scoring architecture):
+
+1. **Transaction-history mortgages.** A bank extends a mortgage against a borrower's Cylinder Seal credit score (cash-flow features — periodicity, stability, income/expense ratio — are explicit inputs). Monthly debit is an **expiring recurring payment** on the borrower's Digital IQD salary account, auto-deducted before the borrower can spend. Auto-debit materially reduces default risk, which is what lets banks offer 10–12% IQD mortgages rather than the 18–25% unsecured rate. The first two cohorts are (a) 5–7M government employees and 2–3M retirees with existing stable cash flow and (b) private-sector formal employees and IP-track workers with 12–24 months of consistent receipts.
+
+2. **Construction supply chain auto-tiered.** Each construction loan's bill of materials is enumerated on the signed entry. Every disbursement tranche is an **earmarked-spend** transfer: the cement tranche can only settle with a Tier-1/Tier-2 cement supplier, steel only with a Tier-1/Tier-2 mill. Routing to a Tier-4 imported-finished-goods supplier is rejected at super-peer validation time. Every new unit becomes a guaranteed demand-pull on the domestic industrial portfolio — without any administrative tariff enforcement.
+
+3. **Construction labour formalization via IP track.** Construction trades (masons, carpenters, electricians, plumbers, tilers, painters, reinforcement-steel fixers, day-labourers) are IP-track eligible. Each site has a site-lead entry; the Digital IQD labour budget is disbursed daily or weekly to workers' wallets directly. After 6 months, workers accrue a formal wage record (currently impossible under cash-only day-labour) and become mortgage-eligible themselves — a recursive loop where the construction workforce for Iraq's housing deficit gradually becomes the buyer pool for the same housing.
+
+4. **Property title as a signed ledger entry.** Titles are dual-registered as Ministry of Justice paper records (primacy retained) + co-signed Cylinder Seal entries. Mortgages cryptographically attach to titles. Property transfer is a single atomic multi-sig entry (buyer funds escrowed, seller's mortgage paid off, new title signed by MoJ + buyer + seller + CBI, buyer's new mortgage registered) — all in one validation step. CBI's January 2025 100M-IQD regulated-transaction threshold is enforced at the wire-format level, not administratively.
+
+5. **Staged-disbursement construction loans.** A construction loan disburses in **inspection-gated tranches** using the conditional-release (escrow) primitive. Each tranche releases only when a licensed inspector (Ministry of Construction & Housing or a certified independent body) signs a site-inspection entry confirming the prior stage. This kills the dominant Iraqi construction-loan fraud pattern (disbursement of funds before construction, followed by abandonment) and creates a licensed-inspector profession with formal Digital IQD fee income.
+
+6. **Public housing as forward-purchase collateral.** The government's 2025–2030 housing plan pre-commits to purchasing X units from construction firm Y in year Z. This commitment is recorded as an escrowed Digital IQD forward entry, **assignable to an Iraqi bank as loan collateral**. The construction firm unlocks working capital *today* against guaranteed government demand *in 2–3 years*. Solves the README's structural "demand uncertainty" barrier and the "financing complex" barrier simultaneously.
+
+7. **Fractional ownership / housing cooperatives.** A conventional MoJ-registered real-estate cooperative issues ownership shares as signed Cylinder Seal entries (no token, no secondary-market trading rail by default; just a digital-native share registry). Middle-income Iraqis can buy 1–5% shares of residential developments for $5–30K; rental income or sale proceeds distribute proportionally. **Restricted to new-supply developments** so the mechanism finances actual construction rather than bidding up existing stock.
+
+8. **Rent-payment formalization.** Landlord-tenant relationships register as signed rental-agreement entries; monthly rent flows as recurring Digital IQD payments. Unlocks three things: **landlord credit history** (rental income becomes a creditworthy revenue stream enabling landlords to mortgage additional properties, scaling rental supply); **tenant credit history** (24 months of clean rent payment is roughly as predictive as 24 months of salary-account visibility — standard in developed markets, absent in Iraq); and **taxable rental income** (currently almost entirely informal).
+
+**Risks & guardrails:** mortgage eligibility capped at reasonable loan-to-income ratios (e.g., 35% DTI); fractional-ownership primitive restricted to new-supply developments; CBI velocity caps on property-transaction flows at the tier-parameter surface; the AML 100M-IQD threshold enforced at the wire-format level; title primitive launches in governorates with clean registries first (Baghdad urban, Erbil, Basra) and expands as Ministry of Justice registry cleanup progresses.
 
 ---
 
@@ -1096,8 +1159,12 @@ Iraq's SME sector (textiles, food, light manufacturing, hospitality, constructio
 
 1. **Transaction-Based Credit Scoring (Months 1-6)**
    - A textile manufacturer makes 100+ Digital Dinar sales over 6 months
-   - Cylinder Seal computes a FICO-equivalent score (300-900) from: transaction count, account age, average size, conflict-free ratio, balance stability
-   - Bank sees verifiable transaction proof + credit score → extends $50-500K credit line at 10-12%
+   - Cylinder Seal computes a FICO-compatible score (300-900) from two blocks:
+     - **Aggregate factors (70% weight when cash-flow features are available)** — transaction count, account age, average transaction size, conflict-free ratio, balance stability
+     - **Cash-flow features (30% weight)** — income periodicity (circular-statistic cadence score over inflow day-of-month), cash-flow stability (normalized stddev of daily net flow over a 90-day window), income-to-expense health (log-space ratio of inflow to outflow)
+   - Cash-flow features are the **research consensus for thin-file underwriting** (FICO × Plaid UltraFICO 2026; Experian Credit+Cashflow 2025 showed +40% predictive accuracy on personal loans; Lee/Yang/Anderson 2026 Peru study showed retail-transaction data raises approval rates for credit-invisible borrowers from 16% → 31–48%; AFI 2025 report on alt-credit for informal workers). They materially improve accuracy for exactly the borrower population collateral-based lending excludes.
+   - The scorer returns a `ScoreExplanation` alongside the score, showing per-feature contribution — this addresses the WEF October 2025 explainability guidance and is a precondition for the CBI lending against it.
+   - Bank sees verifiable transaction proof + explainable credit score → extends $50-500K credit line at 10-12%
    - **Access to formal credit = 2-3× production capacity**
 
 2. **Supply Chain Formalization (Months 6-18)**
@@ -1231,6 +1298,41 @@ TIER 2: CBI Policy
 3. **Device B syncs** (even weeks later)
    - Super-peer already has confirmed entry
    - Device B learns new balance immediately
+
+### Programmability Primitives (Wire-Format Level)
+
+Beyond the basic value transfer, every Transaction carries three optional fields that extend Cylinder Seal into a programmable monetary rail. All three are enforced at super-peer validation time — not in application code — and are covered by the sender's Ed25519 signature so they cannot be tampered with after signing. A Transaction with all three unset is byte-compatible with the pre-2026-04 retail payment.
+
+**1. `ExpiryPolicy` — time-limited transfers.** An Ed25519 fallback public key plus an expiry timestamp (UTC microseconds). If the receiver does not spend the entry before expiry, the credited amount reverts to the fallback. Used for: stimulus with time-bound velocity (e.g. UBI component of government salary "spend at Tier 1–2 merchants within 45 days or revert"), time-bound vouchers, mortgage auto-debit scheduling, construction-loan tranche deadlines.
+
+**2. `SpendConstraint` — earmarked spend.** An allow-list of merchant tiers and/or product categories the receiver must match. Evaluated at the super-peer: a disbursement that attempts to settle at a non-matching merchant is **rejected at validation time**, not caught after the fact. Used for: construction-loan tranches that only settle at Tier-1/Tier-2 cement or steel suppliers; government food-voucher flows locked to the restricted-category list; salary components locked to domestic merchants. Cleaner than enforcing tier rules in the wallet UI because the compliance boundary is cryptographic.
+
+**3. `ReleaseCondition` + counter-signature — conditional-release escrow.** Names a required counter-signer (Ed25519 public key). The entry does not count toward the receiver's balance until that named counter-signer signs the transaction's `transaction_id` and attaches the signature. Used for: government forward-purchase commitments (Ministry as counter-signer attests delivery → escrow releases to producer); staged-disbursement construction loans (Ministry of Construction inspector counter-signs per tranche); diaspora tourism-aggregator bookings (escrow releases to hotels/transport/food on check-in/delivery); supply-chain finance generally.
+
+The counter-signature is deliberately **not** part of the sender's signed payload — the sender commits only to *who* the counter-signer must be, and the counter-signer's signature is evaluated against a separate payload (the 16-byte `transaction_id` raw bytes). This keeps both signatures simple and composable.
+
+These three primitives compose with the existing tier system, hard-restrictions gate, IP track, and credit scoring without modifying any of them. They are the substrate for the §3 Real Estate mechanisms, the §6 Diaspora Merchant Node / Tourism Aggregator settlement model, and the anti-dollarization / anti-import-leakage mechanisms described in the Executive Summary's four-pathology frame.
+
+**Implementation footprint** (concrete files — all shipped, all tested):
+
+| Concern | Code location |
+|---|---|
+| Primitive types + outcome enums | `crates/cs-core/src/primitives.rs` (`ExpiryPolicy`, `SpendConstraint`, `ReleaseCondition`, `ExpiryOutcome`, `SpendConstraintOutcome`, `ReleaseOutcome`) |
+| Fields on the transaction | `crates/cs-core/src/models.rs` (4 new optional fields on `Transaction`; `with_expiry` / `with_spend_constraint` / `with_release_condition` / `attach_counter_signature` builder methods; `counter_signer_payload`) |
+| Sender-signed payload coverage | `Transaction::canonical_cbor_for_signing` (3 nested tuples; counter-signature deliberately excluded because it's attached post-hoc) |
+| Pure-function validators | `crates/cs-policy/src/primitives.rs` (`evaluate_expiry`, `evaluate_spend_constraint`, `evaluate_release_condition`) |
+| Super-peer ingest validation | `crates/cs-sync/src/sync_service.rs::ChainSyncService::validate_primitives` — called per-tx after signature + nonce checks, before Raft propose |
+| Merchant-tier resolution | `crates/cs-sync/src/sync_service.rs::resolve_merchant_tier_and_category` — goes via `cs-policy::MerchantRepository` (optional; `None` ⇒ permissive for dev/test) |
+| Post-commit persistence | `crates/cs-sync/src/state_machine.rs::LedgerApplier::persist` → `primitives_record_for(tx)` → `EntryPrimitivesRepository::upsert` |
+| Escrow balance gating | `crates/cs-sync/src/state_machine.rs::tx_credits_receiver` — escrowed txs don't credit receiver until counter-signature verifies |
+| Sidecar schema | `migrations/20260421000001_wire_format_primitives.sql` (`entry_primitives` table + three partial indexes: expiry-sweep, pending-escrow, has-constraint) |
+| Sidecar repo trait | `crates/cs-storage/src/repository.rs::EntryPrimitivesRepository` |
+| Postgres impl | `crates/cs-storage/src/primitives_repo.rs::PgEntryPrimitivesRepository` |
+| Admin/dashboard operations | `list_pending_expired` (sweeper input), `list_pending_escrow_for` (counter-signer worklist), `mark_released` (attach counter-sig), `mark_reverted` (post-reversion bookkeeping) |
+| Wire/proto interop | `proto/chain_sync.proto` + `crates/cs-sync/src/convert.rs` — fields 21, 22, 23, 24 on `Transaction`; round-trips both directions |
+| End-to-end spec tests | `crates/cs-tests/tests/spec_22_programmability_primitives.rs` — 12 tests, all three primitives + composed, including expiry-tamper, impostor-counter-signer, and replay-to-different-transaction rejection |
+
+**Privacy: location coarsening.** Raw GPS coordinates on every transaction would reveal a surveillance-grade movement graph to the super-peer network. Cylinder Seal coarsens latitude/longitude to ~0.01° (~1.1 km at the equator) and accuracy to the nearest 100 m at transaction-build time. This preserves the fraud-detection signal (a Baghdad wallet suddenly signing in Erbil still raises a flag) while removing "which mosque does this person attend" from the wire. Implementation: `crates/cs-core/src/location.rs::coarsen_to_1km` / `coarsen_accuracy`.
 
 ### Account Types
 
@@ -1370,27 +1472,39 @@ Government transfers — salaries, pensions, social security, UBI — total $106
 
 ---
 
-### 6. Diaspora Capital Repatriation ($100-300B Opportunity)
+### 6. Diaspora as Export Channel, Marketers, and Tourism Aggregators
+
+The diaspora's highest-value contribution to Iraq's industrial formalization is **not the capital they can remit home — it's the distribution, marketing, and local-market trust they already hold abroad.** Iraqi-origin retailers, restaurateurs, spice and food wholesalers, tour operators, and service businesses in the US, UK, EU, Scandinavia, Jordan, UAE, Iran, India, and Pakistan sit on top of consumer relationships, shelf space, and local regulatory compliance that Iraqi producers cannot build from scratch.
+
+The trade-economics literature is clear on this: **ethnic/diaspora networks raise bilateral trade in differentiated consumer goods by 30–60%** (Rauch & Trindade 2002, *QJE*; Parsons & Vézina 2018, *EJ*; Gould 1994, *RESTAT*), and the effect is largest precisely for goods where the home-country brand is not established — which is exactly Iraqi dates, saffron, textiles, handicrafts, processed food, and pharma. Cylinder Seal's unique contribution is making the diaspora merchant a first-class participant in the tier system, without requiring Iraqi retail banks to operate abroad.
 
 **Diaspora Scale:**
-- 6-7M Iraqis abroad (USA 1.5M, Europe 1.5M, Gulf 1.5M, Australia 250K, other)
-- Estimated wealth: $100-300B
-- Currently in foreign real estate, foreign stocks, diaspora bonds (low return, volatile)
+- 6–7M Iraqis abroad (USA 1.5M, Europe 1.5M, Gulf 1.5M, Australia 250K, other)
+- Already informally distribute Iraqi-origin goods and run religious-tourism agencies for Karbala/Najaf pilgrimages — the flow exists, just without a formal rail into Iraq's tier system.
 
-**Barriers removed by Digital Dinar:**
-- Currency risk (Digital Dinar pegged at 1300 IQD/USD)
-- Lack of financial products (now can invest in Iraqi companies, bonds, real estate)
-- Remittance delays (instant settlement via Digital Dinar)
+**Mechanism — Diaspora Merchant Node (DMN):**
 
-**Investment vehicles:**
-- **Growth bonds:** 7-9% yield (government securities)
-- **Equity crowdfunding:** Fund Iraqi startups (technology, agriculture, manufacturing)
-- **Real estate:** Digital escrow + cryptographically-signed title registry (same Raft model as payments)
-- **Corporate credit:** Lend to Iraqi businesses with transaction history + credit scores
+An Iraqi-origin business abroad (a halal grocer in Dearborn, a spice importer in London, a hajj travel agency in Karachi, a restaurant group in Amman) registers with CBI as a DMN through a designated correspondent bank in their country.
 
-**Target:** Repatriate $2-5B/year diaspora capital by Year 3-5. By Year 5, Iraqi startups funded entirely by diaspora equity (no foreign VC needed).
+1. **Registration** — one-time KYC via correspondent bank; issued a Cylinder Seal wallet with a DMN tier marker tied to their local business entity and local tax ID.
+2. **Consignment receipt** — commits to receive and sell Iraqi-origin goods on consignment terms, with Domestic Origin Certificate (DOC) attestation travelling with each shipment as a signed Cylinder Seal entry pairing the Iraqi producer and the DMN.
+3. **Local sales** — sells to end customers abroad in local currency (USD, GBP, EUR, SAR, AED, JOD, PKR, INR). Foreign consumers never touch Digital IQD; the foreign-currency leg is entirely conventional.
+4. **Settlement back to producer** — at agreed intervals the DMN remits the producer's share through the CBI correspondent. **CBI captures the foreign currency into the industrial pool**; Cylinder Seal records the corresponding Digital IQD payment from a CBI-operated FX settlement account into the producer's wallet.
+5. **Margin** — the DMN keeps their local retail/wholesale margin in local currency; no forced repatriation of their business profit. The model pays for their **market access**, not their capital.
 
-**Economic impact:** Diaspora capital unlocks manufacturing expansion, tech sector growth, real estate development — driving non-oil export sector and creating 100K+ new jobs.
+**Tourism overlay — Diaspora Tourism Aggregator (DTA):**
+
+Religious tourism to Karbala/Najaf is already largely organised by diaspora-operated agencies in Iran, Pakistan, India, UK, and Nigeria. The same DMN model applies: tour operator sells packages in local currency to pilgrims in their home market; the package is recorded as a **forward-escrow Cylinder Seal entry** (conditional-release primitive) — foreign currency captured at CBI, Digital IQD escrowed against the specific Iraqi hotels/transport/food providers named in the itinerary. On delivery of services the escrow releases directly to each Tier-1/Tier-2 Iraqi provider. Attacks the tourism sector's "10–15% capacity utilization due to zero formal transaction trails" problem at its real source: the booking happens abroad by a diaspora-operated agent.
+
+**Marketing overlay — verified "Made in Iraq" credential:**
+
+Every DMN-settled sale carries the producer's Domestic Origin Certificate into the foreign market as a verifiable credential (signed by CBI + Ministry of Trade). Diaspora merchants get a cryptographically-verifiable claim they can print on packaging, show on a storefront QR, or include in a product listing — distinguishing authentic Iraqi-origin goods from re-badged imports. **The diaspora merchant becomes the marketing force; Cylinder Seal provides the authenticity rail.**
+
+**Secondary (optional) investor channel:**
+
+Some diaspora participants will prefer a pure financial-return product. A narrow Digital IQD Industrial Bond (sovereign debt through the same correspondent-bank rail — conventional instrument, no blockchain, no token) can exist as an **optional adjunct**, deliberately positioned as secondary. Iraq has more need of diaspora market access than of diaspora capital; conflating the two would undersell the primary mechanism. Precedents: Ethiopia diaspora bonds 2008–2011, India Resurgent India Bonds 1998, Israel Bonds since 1951.
+
+**Target & impact:** formalise $4–10B/year of non-oil exports (on top of the README's $8.5B Year-5 target) via DMN channels; $2–3B/year of formal tourism revenue captured via DTA; foreign currency captured **at point of sale** into Digital IQD-Industrial (the industrial pool) rather than leaking out through finished-goods imports. The investor channel contributes additional diaspora capital to the real-estate fractional-ownership primitive (restricted to new-supply developments) and to the industrial-bond adjunct — but these are complementary, not the headline.
 
 ---
 
@@ -1552,9 +1666,29 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 - BusinessProfile with ISIC v4 industry_code, Iraqi-content percentage
 
 **Database:**
-- PostgreSQL append-only ledger, BRIN time indices, 10 migrations (including CBI economic data tables, compliance Phase 1, Iraq Phase 2, sanctions, business accounts, analytics, producer/IP registry)
-- 21 numbered spec tests covering crypto, consensus, AML, credit, reporting, compliance workflows, UBI, production feedback
+- PostgreSQL append-only ledger, BRIN time indices, 11 migrations (including CBI economic data tables, compliance Phase 1, Iraq Phase 2, sanctions, business accounts, analytics, producer/IP registry, and the `entry_primitives` sidecar for wire-format programmability primitives)
+- 23 numbered spec tests covering crypto, consensus, AML, credit, reporting, compliance workflows, UBI, production feedback, wire-format primitives (spec §22), and tier-policy + hard-restrictions enforcement (spec §23)
 - 2 e2e tests (offline payment, invoice flow)
+
+**Wire-Format Programmability Primitives (live at super-peer):**
+- `ExpiryPolicy`, `SpendConstraint`, `ReleaseCondition` on every `Transaction` (all `Option<T>`; default `None` preserves the pre-primitives retail-payment wire format byte-for-byte)
+- Sender's Ed25519 signature covers all three (no post-sign tampering possible)
+- Super-peer ingest (`ChainSyncService::validate_primitives`) rejects:
+  - already-expired entries at submission time
+  - spend constraints whose receiver's merchant tier / category doesn't satisfy the allow-list (resolved against the `merchants` registry in `cs-policy::MerchantRepository`)
+  - escrows with an invalid counter-signature
+- Raft state machine (`LedgerApplier::persist`) upserts a row into `entry_primitives` for every transaction carrying any primitive; ordinary retail payments are skipped so the hot ledger path is unaffected
+- **Escrowed entries do not credit the receiver's balance** until a valid counter-signature is attached — `tx_credits_receiver(tx)` gates balance application. Sender's debit still applies immediately.
+- Admin/sweeper operations: `EntryPrimitivesRepository::list_pending_expired`, `list_pending_escrow_for`, `mark_released`, `mark_reverted` (Postgres-backed; sweeper job pattern for expiry reversion and counter-signer dashboard view)
+- 12 spec tests (spec §22) cover all three primitives individually + composed, including expiry-tamper detection, impostor counter-signer rejection, and replay-to-different-transaction rejection.
+
+**Tier-Policy Enforcement (live at super-peer — now wired, previously dormant):**
+- **`funds_origin` is now a first-class transaction field.** Optional `FundsOrigin` enum on every `Transaction` (`Personal` / `Salary` / `Pension` / `Ubi` / `SocialProtection` / `Business` / `Refund`), covered by the sender's signature. `None` is interpreted as `Personal`, preserving byte-compatibility with pre-2026-04 wire format. Government-disbursement systems (Ministry of Finance payroll, pension, UBI) set this explicitly so the gate can fire.
+- **Hard-restrictions gate** (`hard_restrictions::evaluate`, previously built but unwired): now invoked per-transaction by `ChainSyncService::validate_primitives` when `funds_origin.is_government_transfer()` is true. Resolves receiver's merchant tier and category via `MerchantRepository`, fetches the active `RestrictedCategory` list via `RestrictedCategoryRepository::list_active_on(today)`, and rejects transfers at ingest with a human-readable reason (`"hard restriction: Salary funds cannot be spent in category 'food' at Tier 3 merchants (max allowed Tier 2, per CBI circular CBI-2026-Q4-001)"`).
+- **`tier_transaction_log` audit trail** (`TierTxLogRepository::record`, previously built but unwired): now populated per-tx by `LedgerApplier::persist` after Raft commit. Each row captures `effective_tier`, `iraqi_content_pct`, `fee_applied_bps` (0/50/300/800 bps for Tier 1/2/3/4), `funds_origin`, `product_category`, `hard_restriction_applied`, and `amount_micro_owc` — exactly the columns CBI analytics need for import-substitution tracking and quarterly restriction-expansion decisions.
+- **Tier-fee schedule (basis points):** Tier 1 = 0 bps; Tier 2 = 50 bps; Tier 3 = 300 bps; Tier 4 = 800 bps. Matches the figures in `cs_policy::merchant_tier::classify_tier` so the audit log agrees byte-for-byte with what the classifier would return.
+- Both `hard_restrictions::evaluate` and the tier-log writer are **wired as optional dependencies** (builder pattern `with_restricted_categories(...)` on `ChainSyncService`, `with_tier_log(...)` on `LedgerApplier`). Dev/test deployments can run without them and fall back to permissive behaviour; production super-peers wire the real Postgres-backed repos.
+- 9 spec tests (spec §23) cover: signature coverage of `funds_origin` (tamper-detection), salary blocked at Tier 4 food, pension blocked at Tier 3 textiles, UBI allowed at Tier 1 food, personal funds always allowed even at Tier 4, salary allowed in unrestricted categories, salary blocked to unregistered receivers in restricted categories, and rules not-yet-effective are ignored.
 
 **Backend Services:**
 - gRPC ChainSync (device-to-super-peer sync), SuperPeerGossip, BusinessApi
@@ -1829,6 +1963,57 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 - **Unemployment:** 15.50%
 - **Population:** 47.02 million (mid-year)
 - **GDP growth 2025:** 0.5%
+
+---
+
+## Appendix: Research References
+
+The design decisions in this document — four-pathology strategic frame, real-estate sector integration, diaspora-as-distribution-channel, cash-flow credit scoring, programmability primitives, AML-compatible offline design — are grounded in published 2024–2026 research. This section makes the grounding explicit so CBI, IMF, rating-agency, and peer-central-bank audiences can cross-reference.
+
+**Central-bank digital currency and programmable money:**
+
+- IMF FTN 2024/007 — *Implications of CBDC for Monetary Operations.* Treats CBDC-enabled programmable fiscal instruments (allocation rules, forward commitments, earmarked transfers) as the highest-value use case for emerging-market resource economies. Direct support for the Digital IQD-Industrial balance class and the tokenized-oil-revenue-allocation-rule design.
+- IMF Working Paper 2025/211 — *Can Retail Central Bank Digital Currencies Improve the Delivery of Monetary Policy?* Empirical basis for Cylinder Seal's "real-time monetary policy transmission" claim.
+- IMF WEO October 2025 — World Economic Outlook industrial-policy section. Frames industrial policy as trade-off between sectoral resilience and transitional consumer prices; grounds the consumer-rebate companion to the tier-fee intensification schedule.
+- IMF WP 2024/086 — *The Pitfalls of Protectionism.* Pure ISI literature: shows pure import-substitution fails without an export-led component. Grounds the "hybrid ISI + export rebate" framing.
+- NBER Working Paper 27919 — *The Rise and Fall of Import Substitution.* Same consensus from the historical side.
+- BIS Working Paper 1242 — *Privacy-enhancing technologies for digital payments.* Taxonomy grounding the privacy-design commitments (location coarsening, compliance-view-keyed blinded retail transactions).
+- IACR ePrint 2024/1746 — *Secure and Privacy-preserving CBDC Offline Payments using a Secure Element.* Threat model and design pattern for the offline-attestation / monotonic-counter work.
+- arxiv 2509.25469 — *Balancing Compliance and Privacy in Offline CBDC Transactions Using a Secure Element-based System* (2025).
+- arxiv 2512.10636 — *Objectives and Design Principles in Offline Payments with CBDC* (2025).
+
+**Alternative credit scoring and financial inclusion:**
+
+- Lee, Yang, Anderson (2026) — *Who Benefits from Alternative Data for Credit Scoring? Evidence from Peru.* Journal of Marketing Research. Retail-transaction data raises approval rates for credit-invisible borrowers from 16% → 31–48%. Direct empirical grounding for the mortgage primitive's addressable-borrower estimates.
+- AFI (Alliance for Financial Inclusion) 2025 — *Alternative Data for Credit Scoring.* Field evidence from Philippines / Kenya / Mexico on cash-flow scoring for informal workers; directly grounds the IP-track + cash-flow-features design.
+- McKinsey Global Institute — estimate of **+$3.7T emerging-market GDP by 2030** from expanded credit via alt-data underwriting.
+- WEF October 2025 — *How Responsibly Deploying AI Credit Scoring Models Can Progress Financial Inclusion.* Grounds the explainability / bias-audit commitments.
+- FICO × Plaid UltraFICO Score (January 2026); Experian Credit+Cashflow Score (November 2025; +40% predictive accuracy on personal loans / cards / mortgages). The commercial state-of-the-art for thin-file borrowers — grounds the weight on cash-flow features in the scorer.
+
+**Diaspora trade networks:**
+
+- Rauch, James E. & Vitor Trindade (2002) — *Ethnic Chinese Networks in International Trade.* Quarterly Journal of Economics 84(1). Foundational: diaspora networks raise bilateral trade in differentiated consumer goods by 30–60%. Direct grounding for the Diaspora Merchant Node channel.
+- Gould, David M. (1994) — *Immigrant Links to the Home Country.* Review of Economics and Statistics 76(2).
+- Parsons, Christopher & Pierre-Louis Vézina (2018) — *Migrant Networks and Trade: The Vietnamese Boat People as a Natural Experiment.* Economic Journal 128(612). Quasi-experimental confirmation of the trade-network effect.
+- World Bank diaspora-and-development programme — field evidence on Ethiopia / India / Philippines using diaspora as trade-channel facilitators rather than as remittance sources.
+- Sovereign-debt precedents for the optional diaspora-bond adjunct: Ethiopia Diaspora Bonds (2008–2011); India Resurgent India Bonds (1998); Israel Bonds (since 1951).
+
+**Iraq-specific sources for the Real Estate section:**
+
+- Shafaq News (2025) — *Out of reach: Iraq's mortgage loans deepen housing crisis.*
+- Al-Bayan Center (March 2025) — *Real Estate and the Banking Intermediary Between Sellers and Buyers.*
+- Iraqi News (2025) — *Iraq's property prices drop 10% as Ministry launches new housing cities.* (Illustrates market sensitivity to formalized supply signals.)
+- The New Region (2025) — *Iraq's housing crisis deepens amid rising rents, failed promises.*
+- The New Arab (2025) — *Iraq's housing crisis: Progress made, but more solutions needed.*
+- Association of Arab Universities Journal of Engineering Sciences — *Housing Challenges and Policy Responses in Iraq: A Comprehensive Review* (2024–2025).
+- Statista Market Forecast — *Residential Real Estate Iraq.* $1.17T market-size projection 2025 (residential $923B), growth to $1.35T by 2029.
+
+**EMDE CBDC landscape (context for Cylinder Seal's relative positioning):**
+
+- Atlantic Council CBDC Tracker — 137 countries/currency-unions exploring CBDC; 72 in advanced phases; 49 active pilots; 3 fully-launched (Bahamas, Jamaica, Nigeria).
+- ScienceDirect (December 2024) — *Understanding the rapid development of CBDC in emerging economies.*
+- India RBI e-rupee — offline functionality expansion in 2025 (most-relevant EMDE peer for Cylinder Seal's offline-first retail mode).
+- Brazil Drex CBDC launch plan (2026, including yield-bearing retail accounts) — direct peer for §5.3.6 yield-bearing savings primitive.
 
 ---
 

@@ -9,6 +9,7 @@ license.workspace = true
 cs-core = { path = "../cs-core" }
 cs-storage = { path = "../cs-storage" }
 cs-consensus = { path = "../cs-consensus" }
+cs-policy = { path = "../cs-policy" }
 tokio.workspace = true
 tokio-stream.workspace = true
 tonic.workspace = true

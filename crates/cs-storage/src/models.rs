@@ -140,3 +140,24 @@ pub struct CurrencyRate {
     pub source: String,         // e.g., "interbank" (real rate, no markup)
     pub fetched_at: DateTime<Utc>,
 }
+
+/// Sidecar row for a transaction carrying at least one programmability
+/// primitive. Mirrors the `entry_primitives` table from migration
+/// `20260421000001_wire_format_primitives.sql`.
+#[derive(Clone, Debug)]
+pub struct EntryPrimitivesRecord {
+    pub transaction_id: Uuid,
+    // ExpiryPolicy mirror. None when no expiry on this tx.
+    pub expires_at_micros: Option<i64>,
+    pub fallback_pubkey: Option<Vec<u8>>, // 32 bytes when Some
+    // SpendConstraint mirror. None when no constraint.
+    pub spend_constraint_json: Option<JsonValue>,
+    // ReleaseCondition + counter-signature state. None when no escrow.
+    pub required_counter_signer: Option<Vec<u8>>, // 32 bytes when Some
+    pub counter_signature: Option<Vec<u8>>,       // 64 bytes; None while pending
+    pub released_at_micros: Option<i64>,
+    // Expiry reversion bookkeeping.
+    pub reverted_at_micros: Option<i64>,
+    pub reversion_transaction_id: Option<Uuid>,
+    pub created_at: DateTime<Utc>,
+}
