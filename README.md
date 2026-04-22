@@ -1,6 +1,6 @@
 # Digital Iraqi Dinar: Economic Quantification & Development Infrastructure
 
-![CylinderSeal Architecture](cylinder_seal_diagram.jpeg)
+![CylinderSeal Architecture](1776870497788.png)
 
 ## Executive Summary
 
