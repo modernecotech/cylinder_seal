@@ -536,6 +536,12 @@ Initial implementation status:
   claim-audit records, separating booked cash from real output, infrastructure,
   environmental resilience, social capability, cultural tourism, and citizen
   distribution metrics.
+- Step 7 has begun in `crates/cs-analytics/src/production_capacity.rs` and
+  `migrations/20260707000001_production_capacity_projection.sql`. It tracks
+  effective output, utilization, local content, quality certification,
+  delivered-cost discipline, booked domestic sales, verified import
+  substitution, local-content-adjusted FX savings, public procurement
+  dependence, and production-capacity gates.
 
 ## Bottom Line
 

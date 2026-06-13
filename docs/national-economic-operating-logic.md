@@ -290,6 +290,12 @@ Initial executable coverage:
   environmental resilience, social capability, cultural tourism, and citizen
   distributions. `migrations/20260706000001_comprehensive_benefits_projection.sql`
   adds projection, benefit-ledger, and claim-audit tables.
+- `crates/cs-analytics/src/production_capacity.rs` adds the first production
+  capacity and import-substitution layer: utilization, local content, quality
+  certification, delivered-cost discipline, booked domestic sales, verified
+  import-substitution value, modelled FX savings, public-procurement
+  dependence, and anti-protectionism gates. `migrations/20260707000001_production_capacity_projection.sql`
+  adds projection, local-content, import-substitution-ledger, and gate tables.
 
 ## Management Dashboards
 
