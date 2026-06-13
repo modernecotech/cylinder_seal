@@ -21,6 +21,10 @@ Current posture:
 - **Federalism discipline:** modeled through authority mapping, governorate or
   regional compacts, allocation-gap checks, local revenue/jobs/suppliers,
   grievance resolution, audit, appeals, and land/water/heritage dispute gates.
+- **Safeguard discipline:** modeled through water, pollution, climate,
+  marshland/biodiversity, heritage, resettlement, livelihood, consultation,
+  grievance, safety, maintenance, remediation, monitoring, audit, waste, and
+  accessibility gates.
 - **Stress discipline:** modeled through oil-equity caps, stressed DSCR, FX
   mismatch, maintenance gaps, guarantees, availability payments, collections,
   capex overruns, and dividend-affordability gates.
@@ -75,6 +79,10 @@ Current posture:
 - Federalism, governorate-equity, and local-compact logic that blocks national
   scale-up when authority, allocation, local benefit capture, grievances,
   appeals, audit, or land/water/heritage issues are unresolved.
+- Environmental, social, water, and cultural safeguard logic that blocks,
+  redesigns, or limits projects when externalized harm, missing clearances,
+  unfunded maintenance/remediation, weak monitoring, or unresolved community
+  risks would make the economics misleading.
 - Fiscal stress and contingent-liability logic that can force defensive or
   stop-scale-up mode when shocks make dividends, guarantees, FX debt, or new
   capex unsafe.
@@ -119,6 +127,10 @@ Current posture:
 - Independent local-compact validation using official authority maps,
   governorate/KRG/municipal input where applicable, real needs data, grievance
   records, and land/water/environment/heritage status.
+- Independent environmental/social validation using field studies, regulator
+  approvals, water budgets, heritage clearance, biodiversity and marshland
+  review, resettlement/livelihood plans, safety systems, remediation estimates,
+  monitoring evidence, and accessibility review.
 - Independent fiscal stress validation of oil-equity caps, project debt,
   contingent liabilities, guarantees, availability payments, FX exposure,
   collection efficiency, maintenance reserves, and dividend rules.

@@ -95,6 +95,19 @@ The executable planning primitive is
 | Local employment | Iraqi-only permanent staffing should include governorate training, local supplier participation, and anti-patronage rules. |
 | Appeals and grievance | Citizens, SMEs, landholders, workers, and municipalities need a clear complaint path before project scale-up. |
 
+## Environmental, Social, Water, And Cultural Safeguards
+
+The working control document is
+[Environmental, Social, Water, And Cultural Safeguards](environmental-social-cultural-safeguards.md).
+The executable planning primitive is
+`crates/cs-analytics/src/environmental_social_safeguards.rs`, with persistence
+in `migrations/20260718000001_environmental_social_safeguards.sql`.
+
+This layer should remain legally independent from commercial project sponsors.
+INDHC, ministries, PPP operators, tourism platforms, and industrial champions
+should not be able to approve their own water, heritage, resettlement,
+pollution, safety, remediation, or monitoring conditions.
+
 ## Phased Legal Roadmap
 
 | Phase | Years | Legal work | Output |
@@ -166,7 +179,7 @@ The legal roadmap should produce a single public stop/go dashboard:
 | Fiscal stress | Oil-equity draw, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability remain inside limits. |
 | INDHC governance | Board, audit, procurement, related-party, competition, and dividend rules are enforceable. |
 | Citizen rights | Eligibility, inheritance, appeals, privacy, and fraud controls are operational. |
-| Environment/culture | Water, marshland, heritage, pollution, resettlement, and carrying-capacity gates are enforceable. |
+| Environment/culture | Water, marshland, biodiversity, heritage, pollution, resettlement, livelihood, safety, maintenance, remediation, monitoring, audit, carrying-capacity, and accessibility gates are enforceable. |
 | Local authority | Governorate, municipality, regional/KRG, producing-governorate, and disputed-authority issues are mapped; local compact, allocation, grievance, audit, appeal, land/water, environmental, and heritage gates pass for each project. |
 | Political economy | Capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, and citizen appeals support the proposed transition mode. |
 

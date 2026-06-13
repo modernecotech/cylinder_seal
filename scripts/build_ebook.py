@@ -45,6 +45,7 @@ BOOK_PARTS = [
     BookPart("Project Pipeline And Investment Gates", ROOT / "docs" / "project-pipeline-and-investment-gates.md"),
     BookPart("Political-Economy Transition And Anti-Capture", ROOT / "docs" / "political-economy-transition-and-anti-capture.md"),
     BookPart("Federalism Governorate Equity And Local Compacts", ROOT / "docs" / "federalism-governorate-equity-and-local-compacts.md"),
+    BookPart("Environmental Social Water And Cultural Safeguards", ROOT / "docs" / "environmental-social-cultural-safeguards.md"),
     BookPart("Fiscal Stress And Contingent Liability", ROOT / "docs" / "fiscal-stress-and-contingent-liability-model.md"),
     BookPart("National Program Sequencing And Dependency Control", ROOT / "docs" / "national-program-sequencing-and-dependency-control.md"),
     BookPart("Procurement Integrity And Market Discipline", ROOT / "docs" / "procurement-integrity-and-market-discipline.md"),

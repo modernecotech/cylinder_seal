@@ -22,27 +22,28 @@ infrastructure and is not an official Central Bank of Iraq project.
 7. Project Pipeline And Investment Gates
 8. Political-Economy Transition And Anti-Capture
 9. Federalism Governorate Equity And Local Compacts
-10. Fiscal Stress And Contingent Liability
-11. National Program Sequencing And Dependency Control
-12. Procurement Integrity And Market Discipline
-13. Benefit Realization And Claim Audit
-14. Iraq Integrated Growth Impact Model
-15. Iraq Comprehensive Benefits Model
-16. Iraq Quantified Affordability And Cashflow Model
-17. System And Financial Flow Diagrams
-18. Business Value Chain Charts
-19. Unified Economic Model
-20. National Dividend Holding Company
-21. INDHC Ten-Year Plan
-22. Import, Services, And Diaspora Expansion
-23. Facility Recycling And Capital Markets
-24. Digitally Governed Industrial Champions
-25. National Civic Work System
-26. Ministry Transition Roadmap
-27. Security Model
-28. Current Implementation Status
-29. Technical Primitives
-30. Legacy Policy Paper Boundary
+10. Environmental Social Water And Cultural Safeguards
+11. Fiscal Stress And Contingent Liability
+12. National Program Sequencing And Dependency Control
+13. Procurement Integrity And Market Discipline
+14. Benefit Realization And Claim Audit
+15. Iraq Integrated Growth Impact Model
+16. Iraq Comprehensive Benefits Model
+17. Iraq Quantified Affordability And Cashflow Model
+18. System And Financial Flow Diagrams
+19. Business Value Chain Charts
+20. Unified Economic Model
+21. National Dividend Holding Company
+22. INDHC Ten-Year Plan
+23. Import, Services, And Diaspora Expansion
+24. Facility Recycling And Capital Markets
+25. Digitally Governed Industrial Champions
+26. National Civic Work System
+27. Ministry Transition Roadmap
+28. Security Model
+29. Current Implementation Status
+30. Technical Primitives
+31. Legacy Policy Paper Boundary
 
 # Diagram Atlas
 
@@ -153,6 +154,7 @@ The model has six practical rules:
 | Project pipeline | Converts sector ambition into project families with capex, revenue source, DSCR, FX exposure, facility reuse, environmental, legal, and evidence gates. | [Project pipeline and investment gates](docs/project-pipeline-and-investment-gates.md) |
 | Political economy | Models resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, and pause/rollback rules. | [Political-economy transition and anti-capture model](docs/political-economy-transition-and-anti-capture.md) |
 | Federalism equity | Controls governorate/regional authority, local compact readiness, needs-adjusted allocation fairness, local revenue/jobs/suppliers, grievance resolution, data publication, audit, appeals, and land/water/heritage disputes. | [Federalism, governorate equity, and local compacts](docs/federalism-governorate-equity-and-local-compacts.md) |
+| Environmental and social safeguards | Blocks or redesigns projects when water, pollution, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, or accessibility gates fail. | [Environmental, social, water, and cultural safeguards](docs/environmental-social-cultural-safeguards.md) |
 | Fiscal stress | Tests oil-equity caps, stressed DSCR, FX mismatch, maintenance gaps, guarantees, collection weakness, capex overruns, and dividend affordability under downside cases. | [Fiscal stress and contingent liability model](docs/fiscal-stress-and-contingent-liability-model.md) |
 | Program sequencing | Decides whether each domain is not ready, evidence-only, pilot, build, controlled scale, or hold/rollback based on dependencies and gates. | [National program sequencing and dependency control](docs/national-program-sequencing-and-dependency-control.md) |
 | Procurement integrity | Controls beneficial ownership, competition depth, price benchmarks, single-source justification, contract variations, milestone evidence, payment discipline, quality, and SME participation. | [Procurement integrity and market discipline](docs/procurement-integrity-and-market-discipline.md) |
@@ -302,6 +304,7 @@ forecasts.
 | Benefit realization and claim audit | `crates/cs-analytics/src/benefit_realization.rs` | `migrations/20260715000001_benefit_realization_claim_audit.sql` |
 | Procurement integrity and market discipline | `crates/cs-analytics/src/procurement_integrity.rs` | `migrations/20260716000001_procurement_integrity.sql` |
 | Federalism, governorate equity, and local compacts | `crates/cs-analytics/src/federalism_equity.rs` | `migrations/20260717000001_federalism_equity_compact.sql` |
+| Environmental, social, water, and cultural safeguards | `crates/cs-analytics/src/environmental_social_safeguards.rs` | `migrations/20260718000001_environmental_social_safeguards.sql` |
 
 ### Developer Appendix: Local Software Demo
 
@@ -426,6 +429,11 @@ dividends only after the portfolio produces audited surplus.
   when authority is mapped, local compacts exist, allocation variance is
   explained, local revenue/jobs/suppliers/benefits are visible, grievances and
   appeals work, and land/water/heritage disputes are resolved.
+- **Environmental, social, water, and cultural safeguards:** projects are
+  blocked, redesigned, limited to pilots, or held at evidence-only status when
+  water budgets, pollution controls, marshland/biodiversity plans, heritage
+  clearance, resettlement, livelihood restoration, safety, maintenance,
+  remediation, monitoring, audit, or accessibility gates fail.
 - **Fiscal stress gates:** scale-up and dividends stop when stressed oil-equity
   capacity, DSCR, FX cover, maintenance reserves, contingent liabilities,
   collections, capex overruns, or dividend affordability fail.
@@ -462,8 +470,9 @@ dividends only after the portfolio produces audited surplus.
   kernel, sovereign holding plan, economic cycle, growth impact, comprehensive
   benefits, production capacity, strategic resilience, tourism services,
   diaspora channels, facility recycling, political-economy transition
-  readiness, federalism/governorate equity, fiscal stress, program sequencing,
-  benefit realization, and procurement integrity.
+  readiness, federalism/governorate equity, environmental/social safeguards,
+  fiscal stress, program sequencing, benefit realization, and procurement
+  integrity.
 - A pilot-grade Digital IQD software appendix covering transaction models,
   signing primitives, policy modules, POS/mobile codecs, dashboard routes,
   PostgreSQL migrations, Redis sessions, and specification tests.
@@ -481,6 +490,9 @@ dividends only after the portfolio produces audited surplus.
 - Independent federalism, governorate, municipal, KRG/regional, land, water,
   grievance, heritage, and environmental validation of any local compact or
   allocation rule.
+- Independent environmental, social, water, heritage, biodiversity, resettlement,
+  livelihood, safety, remediation, monitoring, and accessibility validation for
+  any project that claims to be bankable or scalable.
 - Independent program-management review of sequencing, dependency ownership,
   operator readiness, milestone realism, pilot scope, citizen consultation, and
   rollback authority.
@@ -536,6 +548,10 @@ Current posture:
 - **Federalism discipline:** modeled through authority mapping, governorate or
   regional compacts, allocation-gap checks, local revenue/jobs/suppliers,
   grievance resolution, audit, appeals, and land/water/heritage dispute gates.
+- **Safeguard discipline:** modeled through water, pollution, climate,
+  marshland/biodiversity, heritage, resettlement, livelihood, consultation,
+  grievance, safety, maintenance, remediation, monitoring, audit, waste, and
+  accessibility gates.
 - **Stress discipline:** modeled through oil-equity caps, stressed DSCR, FX
   mismatch, maintenance gaps, guarantees, availability payments, collections,
   capex overruns, and dividend-affordability gates.
@@ -590,6 +606,10 @@ Current posture:
 - Federalism, governorate-equity, and local-compact logic that blocks national
   scale-up when authority, allocation, local benefit capture, grievances,
   appeals, audit, or land/water/heritage issues are unresolved.
+- Environmental, social, water, and cultural safeguard logic that blocks,
+  redesigns, or limits projects when externalized harm, missing clearances,
+  unfunded maintenance/remediation, weak monitoring, or unresolved community
+  risks would make the economics misleading.
 - Fiscal stress and contingent-liability logic that can force defensive or
   stop-scale-up mode when shocks make dividends, guarantees, FX debt, or new
   capex unsafe.
@@ -634,6 +654,10 @@ Current posture:
 - Independent local-compact validation using official authority maps,
   governorate/KRG/municipal input where applicable, real needs data, grievance
   records, and land/water/environment/heritage status.
+- Independent environmental/social validation using field studies, regulator
+  approvals, water budgets, heritage clearance, biodiversity and marshland
+  review, resettlement/livelihood plans, safety systems, remediation estimates,
+  monitoring evidence, and accessibility review.
 - Independent fiscal stress validation of oil-equity caps, project debt,
   contingent liabilities, guarantees, availability payments, FX exposure,
   collection efficiency, maintenance reserves, and dividend rules.
@@ -798,6 +822,7 @@ No ministry funding without visible public value.
 No strategic program without anti-capture controls.
 No transition scale-up without political-economy readiness.
 No national scale-up without governorate compact readiness.
+No project scale-up without environmental, social, water, and cultural safeguards.
 No scale-up under fiscal stress.
 No scale before predecessor dependencies pass.
 No award or privilege without procurement integrity.
@@ -918,6 +943,7 @@ forward no matter how attractive the narrative is.
 | Local capability | Iraqi staffing, training transfer, supplier upgrading, and handover plan exist. |
 | Anti-capture | Related-party exposure, monopoly risk, PEP/sanctions risk, and procurement concentration are within limits. |
 | Local compact readiness | Governorate, municipal, regional, or disputed-authority compact exists where required; allocation variance is explained; local revenue, jobs, suppliers, benefits, grievances, audit, appeals, and land/water/heritage issues are controlled. |
+| Environmental and social safeguards | Water, pollution, climate, biodiversity, marshland, heritage, resettlement, livelihood, consultation, grievance, safety, maintenance, remediation, monitoring, audit, and accessibility gates pass. |
 | Privacy and security | Data use, access controls, auditability, offline settlement, and operator powers meet the security model. |
 | Citizen fairness | Dividends, civic work, transfers, and appeals are rules-based and auditable. |
 | Political-economy readiness | Resistance, capture risk, coalition support, service continuity, staff transition, procurement transparency, competition control, federalism, and appeals support the proposed transition mode. |
@@ -1054,6 +1080,7 @@ kernel, not a complete national operating system.
 | `DiasporaChannelProjection` | Formal remittances, Iraqi-product demand, export distribution, expertise, investment pipeline, marketing attribution, and compliance gates. |
 | `PoliticalEconomyProjection` | Capture risk, resistance pressure, coalition readiness, citizen legitimacy, transition readiness, and recommended transition mode. |
 | `FederalismEquityAssessment` | Governorate/regional compact status, needs-adjusted allocation gap, local revenue/jobs/suppliers/benefits, grievances, authority risk, decision, and required actions. |
+| `EnvironmentalSocialSafeguardAssessment` | Water risk, pollution risk, ecosystem/heritage risk, social risk, safeguard readiness, decision, and required actions. |
 | `FiscalStressProjection` | Stressed oil-equity capacity, fiscal-rule breach, DSCR, FX mismatch, maintenance gap, contingent liability, dividend gap, and recommended stress mode. |
 | `ProgramSequencingDecision` | Domain readiness, dependency completion, operating capacity, legitimacy, recommended phase, blocked dependencies, and next required actions. |
 | `ProcurementIntegrityAssessment` | Competition, integrity, value-for-money, delivery, market-development, overall risk, decision, and required actions for awards and privileges. |
@@ -1146,6 +1173,15 @@ Initial executable coverage:
   appeals, environmental/heritage consent, decision state, and required
   actions. `migrations/20260717000001_federalism_equity_compact.sql` adds
   assessment and gate tables.
+- `crates/cs-analytics/src/environmental_social_safeguards.rs` adds the first
+  environmental, social, water, and cultural safeguard layer: water budgets,
+  withdrawal and reuse, pollution controls, climate resilience, biodiversity
+  and marshland sensitivity, heritage clearance, resettlement, livelihood
+  restoration, consultation, grievances, worker safety, maintenance,
+  remediation escrow, waste/circularity, disability access, monitoring
+  publication, independent audit, decision state, and required actions.
+  `migrations/20260718000001_environmental_social_safeguards.sql` adds
+  assessment and gate tables.
 - `crates/cs-analytics/src/fiscal_stress.rs` adds the first fiscal-stress and
   contingent-liability layer: stressed oil-equity capacity, deficit/debt/reserve
   pressure, stressed DSCR, FX mismatch, maintenance gaps, guarantee and
@@ -1195,6 +1231,7 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Citizen welfare | What changed in wages, transfers, civic income, dividends, prices, and credit access? |
 | Political economy | Which reforms face capture, resistance, weak coalition support, service-continuity failure, staff-transition failure, or federalism risk? |
 | Federalism equity | Which governorates or regions have signed compacts, allocation gaps, weak local benefit capture, unresolved grievances, authority disputes, or appeal/audit gaps? |
+| Environmental and social safeguards | Which projects have water, pollution, marshland, biodiversity, heritage, resettlement, livelihood, safety, maintenance, remediation, monitoring, audit, or accessibility risks? |
 | Fiscal stress | Which projects or portfolios breach oil-equity limits, stressed DSCR, FX cover, maintenance reserves, contingent-liability caps, collection efficiency, or dividend affordability? |
 | Program sequencing | Which domains are not-ready, evidence-only, pilot, build, controlled-scale, or hold/rollback, and which dependencies block the next phase? |
 | Procurement integrity | Which awards, service contracts, concessions, champion privileges, or facility-reuse procurements are eligible, watch, restricted, suspended, or retender/cancel? |
@@ -1211,6 +1248,7 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Related-party or PEP concentration breach | Escalate to audit; suspend affected procurement privileges. |
 | Unpaid public invoices | Stop counting revenue as collectible; review ministry or municipal payment capacity. |
 | Local compact failure | Freeze scale-up, publish the affected compact issue, and move the program to evidence-only, compact-required, pilot-only, or renegotiation mode. |
+| Safeguard failure | Freeze capital release, remove project surplus from dividend logic, and require redesign, mitigation, or evidence-only status. |
 | FX mismatch | Restrict new foreign-currency borrowing unless offset by FX revenue, hedge, or approved reserve. |
 | Benefit overclaim | Move claim to low-confidence public-benefit ledger and remove from policy headline. |
 | Civic-work evidence failure | Hold payment, trigger appeal or re-verification, and flag verifier reliability. |
@@ -1353,6 +1391,19 @@ The executable planning primitive is
 | Local employment | Iraqi-only permanent staffing should include governorate training, local supplier participation, and anti-patronage rules. |
 | Appeals and grievance | Citizens, SMEs, landholders, workers, and municipalities need a clear complaint path before project scale-up. |
 
+### Environmental, Social, Water, And Cultural Safeguards
+
+The working control document is
+[Environmental, Social, Water, And Cultural Safeguards](environmental-social-cultural-safeguards.md).
+The executable planning primitive is
+`crates/cs-analytics/src/environmental_social_safeguards.rs`, with persistence
+in `migrations/20260718000001_environmental_social_safeguards.sql`.
+
+This layer should remain legally independent from commercial project sponsors.
+INDHC, ministries, PPP operators, tourism platforms, and industrial champions
+should not be able to approve their own water, heritage, resettlement,
+pollution, safety, remediation, or monitoring conditions.
+
 ### Phased Legal Roadmap
 
 | Phase | Years | Legal work | Output |
@@ -1424,7 +1475,7 @@ The legal roadmap should produce a single public stop/go dashboard:
 | Fiscal stress | Oil-equity draw, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability remain inside limits. |
 | INDHC governance | Board, audit, procurement, related-party, competition, and dividend rules are enforceable. |
 | Citizen rights | Eligibility, inheritance, appeals, privacy, and fraud controls are operational. |
-| Environment/culture | Water, marshland, heritage, pollution, resettlement, and carrying-capacity gates are enforceable. |
+| Environment/culture | Water, marshland, biodiversity, heritage, pollution, resettlement, livelihood, safety, maintenance, remediation, monitoring, audit, carrying-capacity, and accessibility gates are enforceable. |
 | Local authority | Governorate, municipality, regional/KRG, producing-governorate, and disputed-authority issues are mapped; local compact, allocation, grievance, audit, appeal, land/water, environmental, and heritage gates pass for each project. |
 | Political economy | Capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, and citizen appeals support the proposed transition mode. |
 
@@ -2014,7 +2065,155 @@ counterparties with measurable rights, rather than treating them as passive
 locations where capital happens to land.
 
 
-# Part 10: Fiscal Stress And Contingent Liability
+# Part 10: Environmental Social Water And Cultural Safeguards
+
+## Environmental, Social, Water, And Cultural Safeguards
+
+Status: safeguard control model. This is not an environmental approval,
+heritage authorization, water-rights decision, resettlement plan, safety
+certification, MDB safeguard review, or claim that any Iraqi regulator has
+approved any project.
+
+Cylinder Seal cannot be a coherent economic, environmental, social, and
+cultural model if growth is purchased by exporting costs to water basins,
+marshlands, heritage sites, displaced households, workers, municipalities, or
+future maintenance budgets.
+
+### Core Rule
+
+```text
+No project, concession, industrial privilege, tourism route, rail segment,
+water scheme, facility reuse, civic-work program, or dividend claim should scale
+unless environmental, social, water, heritage, safety, maintenance, remediation,
+monitoring, audit, and grievance gates pass.
+```
+
+The system should not count a project as productive if it only looks profitable
+because pollution, water depletion, heritage loss, resettlement, disability
+access, or maintenance liabilities are hidden.
+
+### What This Layer Controls
+
+| Risk area | Control requirement |
+| --- | --- |
+| Environmental assessment | Project-specific environmental and social assessment before capital release. |
+| Water budget | Basin, withdrawal, reuse, tariff/social-protection, and drought-stress logic before water-intensive projects proceed. |
+| Pollution control | Emissions, effluent, hazardous waste, industrial discharge, dust, noise, and enforcement plan. |
+| Climate resilience | Heat, drought, flood, grid stress, dust, and lifecycle resilience built into design. |
+| Marshland and biodiversity | No sensitive marshland, wetland, river, or habitat impact without approval, mitigation, monitoring, and conservation funding. |
+| Cultural heritage | Heritage authority clearance before tourism, rail, civil works, real estate, or visitor-service commercialization near sensitive assets. |
+| Resettlement and livelihoods | No land access or construction before resettlement and livelihood restoration are approved and funded. |
+| Community consultation | Local consultation, response-to-comments, affected-person registry, and public summary. |
+| Grievance mechanism | Community, worker, SME, landholder, municipal, and disability-access complaint path. |
+| Worker and community safety | Safety plan, training, incident reporting, emergency response, and contractor accountability. |
+| Maintenance funding | Lifecycle maintenance and monitoring funded before dividend or expansion claims. |
+| Remediation escrow | Facility reuse and industrial projects fund known environmental liabilities before restart. |
+| Waste and circularity | Waste handling, recycling, materials reuse, and end-of-life responsibilities. |
+| Disability access | Public infrastructure, tourism, civic work, and service platforms include access requirements. |
+| Monitoring publication | Privacy-safe environmental and social monitoring data is published. |
+| Independent audit | External safeguard review exists before scale-up or external financing. |
+
+### Decision States
+
+| Decision | Meaning | Required response |
+| --- | --- | --- |
+| Blocked | Critical heritage, biodiversity, marshland, resettlement, or livelihood clearance is missing. | Freeze capital release and obtain legal/regulatory clearance. |
+| Redesign required | Water, pollution, or ecosystem/heritage risk is too high. | Redesign project scope, technology, site, water use, or mitigation package. |
+| Mitigation required | Core design may work, but maintenance, monitoring, or remediation funding is missing. | Fund escrow, O&M, and monitoring before scale. |
+| Evidence only | Assessment, public monitoring, or independent audit is missing. | Continue data gathering only; no scale claim. |
+| Pilot only | Social risk or readiness score is weak. | Limit scope and prove consultation, safety, accessibility, and grievance performance. |
+| Monitoring required | Project can proceed only with enhanced public monitoring and annual review. | Keep scale conditional on monitoring results. |
+| Eligible | Safeguard gates pass and risks are controlled. | Proceed with normal monitoring, audit, and maintenance obligations. |
+
+### Sector Application
+
+| Sector | Main safeguard issue |
+| --- | --- |
+| Petrochemicals, fertilizers, cement, glass, and raw-material processing | Pollution, hazardous waste, water use, feedstock handling, worker safety, and remediation liabilities. |
+| Water, desalination, wastewater, and irrigation | Basin effects, brine/discharge, tariff protection, farmer impact, drought resilience, and maintenance funding. |
+| Rail, metro, roads, ports, and logistics | Land acquisition, resettlement, disability access, noise, dust, station-area displacement, and maintenance. |
+| Tourism, heritage, marshlands, pilgrimage, and cultural routes | Carrying capacity, conservation authority, heritage clearance, local community benefit, visitor safety, and waste/water pressure. |
+| Facility recycling | Environmental liability, asbestos/legacy contamination, worker transition, title, cleanup escrow, and safe restart. |
+| Green power, grid, district cooling, and waste-to-energy | Land, grid stability, battery/waste handling, emissions assumptions, and lifecycle O&M. |
+| Food, agriculture, cold chain, and irrigation equipment | Water efficiency, soil salinity, farmer debt, food safety, spoilage, and cold-chain energy use. |
+| Civic work | Safety, child protection, disability access, sensitive heritage tasks, care-work safeguards, and verifier accountability. |
+
+### Use In The Unified Model
+
+The safeguard layer should sit before:
+
+- project-bankability claims;
+- external loans, MDB finance, ECA finance, PPPs, green bonds, or green sukuk;
+- public procurement awards;
+- INDHC equity release;
+- facility-reuse restart;
+- tourism route commercialization;
+- water, irrigation, and desalination expansion;
+- rail and metro construction;
+- dividend claims based on project surplus.
+
+If a project cannot fund its own maintenance, monitoring, remediation, or
+community obligations, its apparent surplus should not enter the dividend
+waterfall.
+
+### Software And Data Surface
+
+The executable implementation is:
+
+- `crates/cs-analytics/src/environmental_social_safeguards.rs`
+- `migrations/20260718000001_environmental_social_safeguards.sql`
+
+Core objects:
+
+| Object | Purpose |
+| --- | --- |
+| `EnvironmentalSocialSafeguardInput` | Captures project, domain, governorate/region, assessment status, water budget, pollution risk, climate resilience, biodiversity/marshland sensitivity, heritage status, resettlement, livelihood restoration, consultation, grievance, safety, maintenance, remediation escrow, waste/circularity, disability access, monitoring, and independent audit. |
+| `EnvironmentalSocialSafeguardAssessment` | Scores water risk, pollution risk, ecosystem/heritage risk, social risk, readiness, decision, and required actions. |
+| `SafeguardGateResult` | Records pass/warn/fail state for environmental, water, pollution, climate, biodiversity, heritage, resettlement, consultation, grievance, safety, maintenance, remediation, waste, accessibility, monitoring, and audit gates. |
+
+### Dashboard Requirements
+
+The safeguard dashboard should show:
+
+- project reference, governorate/region, and domain;
+- assessment status;
+- water withdrawal, water reuse, water stress, and water-budget result;
+- emissions/pollution risk and control status;
+- climate resilience score;
+- biodiversity, marshland, and heritage flags;
+- resettlement and livelihood-restoration status;
+- consultation score and grievance status;
+- worker/community safety status;
+- maintenance and monitoring funding;
+- remediation escrow versus estimated liability;
+- waste/circularity and disability-access scores;
+- monitoring publication and independent audit status;
+- decision and required actions.
+
+### Governance Boundary
+
+This layer should be conservative:
+
+```text
+If heritage clearance is missing, block.
+If marshland or biodiversity approval is missing, block.
+If resettlement or livelihood restoration is unfunded, block.
+If water or pollution risk is extreme, redesign.
+If monitoring or audit is missing, stay evidence-only.
+If maintenance or remediation is unfunded, withhold scale-up.
+If social readiness is weak, keep to pilot.
+```
+
+### Bottom Line
+
+The unified economic model must create durable national wealth, not disguised
+environmental debt. A project that cannot protect water, heritage, communities,
+workers, accessibility, and future maintenance is not cheap. It is simply
+borrowing from Iraq's people, places, and future budgets without recording the
+liability.
+
+
+# Part 11: Fiscal Stress And Contingent Liability
 
 ## Fiscal Stress And Contingent Liability Model
 
@@ -2171,7 +2370,7 @@ If dividends compete with solvency, dividends lose.
 ```
 
 
-# Part 11: National Program Sequencing And Dependency Control
+# Part 12: National Program Sequencing And Dependency Control
 
 ## National Program Sequencing And Dependency Control
 
@@ -2307,7 +2506,7 @@ Rollback before denial.
 ```
 
 
-# Part 12: Procurement Integrity And Market Discipline
+# Part 13: Procurement Integrity And Market Discipline
 
 ## Procurement Integrity And Market Discipline
 
@@ -2473,7 +2672,7 @@ If champions crush suppliers, remove privilege.
 ```
 
 
-# Part 13: Benefit Realization And Claim Audit
+# Part 14: Benefit Realization And Claim Audit
 
 ## Benefit Realization And Claim Audit
 
@@ -2614,7 +2813,7 @@ If it underperforms, publish the variance.
 ```
 
 
-# Part 14: Iraq Integrated Growth Impact Model
+# Part 15: Iraq Integrated Growth Impact Model
 
 ## Iraq Integrated Growth Impact Model
 
@@ -2939,7 +3138,7 @@ citizen-facing accountability.
 ```
 
 
-# Part 15: Iraq Comprehensive Benefits Model
+# Part 16: Iraq Comprehensive Benefits Model
 
 ## Iraq Comprehensive Benefits Model
 
@@ -3411,7 +3610,7 @@ substrate for a post-oil, post-automation Iraqi development model:
 That is the unified economic, environmental, social, and cultural model.
 
 
-# Part 16: Iraq Quantified Affordability And Cashflow Model
+# Part 17: Iraq Quantified Affordability And Cashflow Model
 
 ## Iraq Quantified Affordability And Cashflow Model
 
@@ -3935,7 +4134,7 @@ That is the point of quantifying the model: it converts a sovereign-economic
 vision into a financeable sequence with hard stop/go gates.
 
 
-# Part 17: System And Financial Flow Diagrams
+# Part 18: System And Financial Flow Diagrams
 
 ## System And Financial Flow Diagrams
 
@@ -4407,7 +4606,7 @@ remaining engineering gaps:
   governance, and dividend formula require independent review.
 
 
-# Part 18: Business Value Chain Charts
+# Part 19: Business Value Chain Charts
 
 ## Business Value Chain Charts
 
@@ -4524,7 +4723,7 @@ This chart pack also clarifies three repository boundaries:
   confuse GDP, avoided imports, or social outcomes with dividend capacity.
 
 
-# Part 19: Unified Economic Model
+# Part 20: Unified Economic Model
 
 ## Unified Economic Model
 
@@ -4550,7 +4749,7 @@ audited surplus.
 
 ### System Boundary
 
-The system has twenty layers:
+The system has twenty-one layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
@@ -4560,6 +4759,7 @@ The system has twenty layers:
 | Project pipeline layer | Project-family gates for capex, opex, revenue source, DSCR, FX exposure, facility reuse, environmental/cultural safeguards, legal authority, and evidence bundles. | `docs/project-pipeline-and-investment-gates.md` |
 | Political-economy and anti-capture layer | Resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, and pause/rollback rules. | `docs/political-economy-transition-and-anti-capture.md` |
 | Federalism and governorate-equity layer | Local authority mapping, governorate/regional compacts, allocation fairness, local revenue/jobs/suppliers, grievance resolution, audit, appeals, and land/water/heritage disputes. | `docs/federalism-governorate-equity-and-local-compacts.md` |
+| Environmental, social, water, and cultural safeguard layer | Blocks or redesigns projects when water, pollution, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, or accessibility gates fail. | `docs/environmental-social-cultural-safeguards.md` |
 | Fiscal stress and contingent-liability layer | Downside controls for oil-equity caps, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend suspension. | `docs/fiscal-stress-and-contingent-liability-model.md` |
 | Program sequencing layer | Domain-by-domain phase control for not-ready, evidence-only, pilot, build, controlled-scale, or hold/rollback based on legal, data, audit, procurement, delivery, political, fiscal, service, and cashflow dependencies. | `docs/national-program-sequencing-and-dependency-control.md` |
 | Procurement integrity and market-discipline layer | Controls ownership, competition, single-source justification, price benchmarks, open contracting data, contract variations, advances, milestone evidence, delivery, payment discipline, quality, and SME participation. | `docs/procurement-integrity-and-market-discipline.md` |
@@ -4950,6 +5150,7 @@ separate dashboard widgets.
 | `ComprehensiveBenefitProjection` | GDP, booked revenue, dividend range, rail capacity, clean power, tourism, civic-work capacity, avoided environmental loss, social value, cultural value, confidence labels | Long-horizon economic, infrastructure, environmental, social, and cultural benefits view. |
 | `ProductionCapacityProjection` | Merchant tiers, local-content attestations, project outputs, inventory, procurement | Import substitution, food substitution, and domestic supply view. |
 | `FacilityRecyclingProjection` | Existing facility inventory, utilization, rehab capex, greenfield replacement cost, environmental liabilities, DSCR, FX cover, disclosure, investor protection | Brownfield reuse, international credit readiness, domestic capital-market readiness, and finance-lane view. |
+| `EnvironmentalSocialSafeguardAssessment` | Environmental assessment status, water budget, pollution risk, climate resilience, biodiversity/marshland, heritage, resettlement, livelihood, consultation, safety, maintenance, remediation, monitoring, audit, and accessibility evidence | Project safeguard stop/go, redesign, mitigation, evidence-only, pilot, monitoring, or eligibility view. |
 | `StrategicResilienceProjection` | Defense-sector licenses, electronics/HVAC output, water/desalination equipment, irrigation systems, food-substitution capacity, end-use controls | Critical domestic capability and import-vulnerability view. |
 | `TourismServiceClusterProjection` | Attractions, visitor counts, spend, formal payment capture, local procurement, safety, conservation, lodging, transport, guide capacity | Booked service revenue, non-oil FX capture, local supplier demand, and second-order benefit view. |
 | `DiasporaChannelProjection` | Diaspora region, channel, member conversion, product share, export orders, remittances, expertise, investment pipeline, marketing reach, compliance gates | Diaspora income, formalized remittance, export distribution, expertise, investment, marketing, and no-dividend benefit view. |
@@ -5147,7 +5348,7 @@ The point is not only to digitize money. The point is to make Iraq's economic
 feedback loops visible, governable, productive, and citizen-owned.
 
 
-# Part 20: National Dividend Holding Company
+# Part 21: National Dividend Holding Company
 
 ## National Dividend Holding Company Architecture
 
@@ -5442,7 +5643,7 @@ for the proposed investment program, capital stack, staffing model, sector
 priorities, reinvestment waterfall, and implementation primitives.
 
 
-# Part 21: INDHC Ten-Year Plan
+# Part 22: INDHC Ten-Year Plan
 
 ## INDHC Ten-Year Industrial And Infrastructure Plan
 
@@ -6315,7 +6516,7 @@ productive-capital machine:
 - remaining distributable surplus is paid as a Digital IQD citizen dividend.
 
 
-# Part 22: Import, Services, And Diaspora Expansion
+# Part 23: Import, Services, And Diaspora Expansion
 
 ## Import, Services, And Diaspora Expansion
 
@@ -6491,7 +6692,7 @@ dashboard a way to distinguish cash income, remittance formalization, export
 distribution, expertise value, marketing value, and investment pipeline risk.
 
 
-# Part 23: Facility Recycling And Capital Markets
+# Part 24: Facility Recycling And Capital Markets
 
 ## Facility Recycling And Capital Markets
 
@@ -6714,7 +6915,7 @@ ranked, financeable where justified, and impossible to dress up as value when it
 is actually a liability.
 
 
-# Part 24: Digitally Governed Industrial Champions
+# Part 25: Digitally Governed Industrial Champions
 
 ## Digitally Governed Industrial Champions
 
@@ -7213,7 +7414,7 @@ No competition review, no champion status renewal.
 ```
 
 
-# Part 25: National Civic Work System
+# Part 26: National Civic Work System
 
 ## National Civic Work System
 
@@ -7597,7 +7798,7 @@ productivity gains
 ```
 
 
-# Part 26: Ministry Transition Roadmap
+# Part 27: Ministry Transition Roadmap
 
 ## Ministry Transition And Deprecation Roadmap
 
@@ -7804,7 +8005,7 @@ The end-state is a smaller cabinet with stronger sovereign functions:
 - productive national capital through INDHC.
 
 
-# Part 27: Security Model
+# Part 28: Security Model
 
 ## Security Model And Threat Notes
 
@@ -8007,7 +8208,7 @@ replace it with a dedicated security contact, patch SLA, coordinated-disclosure
 timeline, and legal safe-harbor language.
 
 
-# Part 28: Current Implementation Status
+# Part 29: Current Implementation Status
 
 ## Implementation Status
 
@@ -8034,11 +8235,12 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - Project Pipeline and Investment Gates documented as a project-family structure for capex, revenue sources, DSCR, FX exposure, facility reuse, environmental gates, legal authority, and evidence bundles.
 - Political-Economy Transition and Anti-Capture model documented as a reform-readiness layer for capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, federalism, emergency powers, and citizen appeals.
 - Federalism, Governorate Equity, and Local Compacts documented as a scale-control layer for authority mapping, compact status, allocation fairness, local revenue, local employment, supplier participation, benefit capture, grievances, local audit, citizen appeals, and land/water/heritage disputes.
+- Environmental, Social, Water, and Cultural Safeguards documented as a project-control layer for environmental assessment, water budgets, pollution controls, climate resilience, biodiversity/marshlands, heritage, resettlement, livelihood restoration, consultation, grievance, safety, maintenance, remediation, monitoring, audit, waste/circularity, and disability access.
 - Fiscal Stress and Contingent Liability model documented as a downside-control layer for stressed oil-equity capacity, DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability.
 - National Program Sequencing and Dependency Control documented as a phase-control layer for not-ready, evidence-only, pilot, build, controlled-scale, and hold/rollback decisions.
 - Benefit Realization and Claim Audit documented as an accountability layer for baseline, target, observed value, source confidence, attribution confidence, evidence quality, audit status, cash settlement, no-dividend flags, and corrective actions.
 - Procurement Integrity and Market Discipline documented as an award/privilege-control layer for beneficial ownership, competition, single-source justification, open data, independent evaluation, price benchmarks, contract changes, advances, milestone evidence, delivery, payment discipline, quality, and SME participation.
-- Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, federalism/governorate equity, fiscal stress, program sequencing, benefit realization, and procurement integrity. These are planning primitives, not calibrated national forecasts.
+- Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, federalism/governorate equity, environmental/social safeguards, fiscal stress, program sequencing, benefit realization, and procurement integrity. These are planning primitives, not calibrated national forecasts.
 - Rendered SVG value-chain charts now cover sector business chains, capital and repayment lanes, and society/economy feedback loops.
 
 ### Important Gaps
@@ -8058,6 +8260,7 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - The legal/institutional roadmap and project pipeline are documentation layers only; they need independent legal opinions, official authority mapping, project feasibility studies, procurement review, environmental/social safeguards, and audited baseline data before any project is treated as investable.
 - The political-economy engine is scenario scoring, not a real power map or legitimacy assessment. It needs independent Iraqi constitutional, federalism, anti-corruption, civil-service, labor, competition, citizen-rights, and security-sector review before it can guide any real transition.
 - The federalism equity engine is a compact-readiness screen, not a legal allocation formula or constitutional settlement. It needs official authority maps, governorate/KRG/municipal review where applicable, real population and needs data, grievance records, land/water/heritage status, and independent legal validation before it can guide any allocation or project scale-up.
+- The environmental/social safeguard engine is a planning screen, not an environmental permit, heritage clearance, water-rights decision, resettlement plan, safety certification, or MDB safeguard approval. It needs regulator review, field studies, community consultation, monitoring systems, liability estimates, and independent audit before any project is treated as safeguard-cleared.
 - The fiscal stress engine is a planning control, not a sovereign debt-sustainability analysis. It needs Ministry of Finance, debt-office, CBI, IMF/MDB-style, auditor, and project-finance validation before any real capital allocation or dividend decision.
 - The program sequencer is a dependency-control model, not an official rollout plan. It needs real institutional owners, statutory milestones, operator readiness testing, citizen consultation, and independent PMO review before any public timeline is claimed.
 - The benefit-realization engine is a claim-audit model, not proof that benefits exist. It needs real baselines, audited source systems, attribution methods, evaluator independence, and publication governance before any outcome is treated as delivered.
@@ -8082,7 +8285,7 @@ cargo test --workspace
 Passing these checks should be described as prototype verification, not production certification.
 
 
-# Part 29: Technical Primitives
+# Part 30: Technical Primitives
 
 ## Technical Primitives And Readiness Notes
 

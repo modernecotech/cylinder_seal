@@ -85,6 +85,11 @@ dividends only after the portfolio produces audited surplus.
   when authority is mapped, local compacts exist, allocation variance is
   explained, local revenue/jobs/suppliers/benefits are visible, grievances and
   appeals work, and land/water/heritage disputes are resolved.
+- **Environmental, social, water, and cultural safeguards:** projects are
+  blocked, redesigned, limited to pilots, or held at evidence-only status when
+  water budgets, pollution controls, marshland/biodiversity plans, heritage
+  clearance, resettlement, livelihood restoration, safety, maintenance,
+  remediation, monitoring, audit, or accessibility gates fail.
 - **Fiscal stress gates:** scale-up and dividends stop when stressed oil-equity
   capacity, DSCR, FX cover, maintenance reserves, contingent liabilities,
   collections, capex overruns, or dividend affordability fail.
@@ -121,8 +126,9 @@ dividends only after the portfolio produces audited surplus.
   kernel, sovereign holding plan, economic cycle, growth impact, comprehensive
   benefits, production capacity, strategic resilience, tourism services,
   diaspora channels, facility recycling, political-economy transition
-  readiness, federalism/governorate equity, fiscal stress, program sequencing,
-  benefit realization, and procurement integrity.
+  readiness, federalism/governorate equity, environmental/social safeguards,
+  fiscal stress, program sequencing, benefit realization, and procurement
+  integrity.
 - A pilot-grade Digital IQD software appendix covering transaction models,
   signing primitives, policy modules, POS/mobile codecs, dashboard routes,
   PostgreSQL migrations, Redis sessions, and specification tests.
@@ -140,6 +146,9 @@ dividends only after the portfolio produces audited surplus.
 - Independent federalism, governorate, municipal, KRG/regional, land, water,
   grievance, heritage, and environmental validation of any local compact or
   allocation rule.
+- Independent environmental, social, water, heritage, biodiversity, resettlement,
+  livelihood, safety, remediation, monitoring, and accessibility validation for
+  any project that claims to be bankable or scalable.
 - Independent program-management review of sequencing, dependency ownership,
   operator readiness, milestone realism, pilot scope, citizen consultation, and
   rollback authority.

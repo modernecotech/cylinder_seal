@@ -192,6 +192,7 @@ infrastructure and is not an official Central Bank of Iraq project.</p>
 <li>Project Pipeline And Investment Gates</li>
 <li>Political-Economy Transition And Anti-Capture</li>
 <li>Federalism Governorate Equity And Local Compacts</li>
+<li>Environmental Social Water And Cultural Safeguards</li>
 <li>Fiscal Stress And Contingent Liability</li>
 <li>National Program Sequencing And Dependency Control</li>
 <li>Procurement Integrity And Market Discipline</li>
@@ -322,6 +323,11 @@ macroeconomic forecast.</p>
 <td>Federalism equity</td>
 <td>Controls governorate/regional authority, local compact readiness, needs-adjusted allocation fairness, local revenue/jobs/suppliers, grievance resolution, data publication, audit, appeals, and land/water/heritage disputes.</td>
 <td><a href="docs/federalism-governorate-equity-and-local-compacts.md">Federalism, governorate equity, and local compacts</a></td>
+</tr>
+<tr>
+<td>Environmental and social safeguards</td>
+<td>Blocks or redesigns projects when water, pollution, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, or accessibility gates fail.</td>
+<td><a href="docs/environmental-social-cultural-safeguards.md">Environmental, social, water, and cultural safeguards</a></td>
 </tr>
 <tr>
 <td>Fiscal stress</td>
@@ -655,6 +661,11 @@ forecasts.</p>
 <td><code>crates/cs-analytics/src/federalism_equity.rs</code></td>
 <td><code>migrations/20260717000001_federalism_equity_compact.sql</code></td>
 </tr>
+<tr>
+<td>Environmental, social, water, and cultural safeguards</td>
+<td><code>crates/cs-analytics/src/environmental_social_safeguards.rs</code></td>
+<td><code>migrations/20260718000001_environmental_social_safeguards.sql</code></td>
+</tr>
 </tbody>
 </table>
 <h3 id="developer-appendix-local-software-demo">Developer Appendix: Local Software Demo</h3>
@@ -759,6 +770,11 @@ dividends only after the portfolio produces audited surplus.</p>
   when authority is mapped, local compacts exist, allocation variance is
   explained, local revenue/jobs/suppliers/benefits are visible, grievances and
   appeals work, and land/water/heritage disputes are resolved.</li>
+<li><strong>Environmental, social, water, and cultural safeguards:</strong> projects are
+  blocked, redesigned, limited to pilots, or held at evidence-only status when
+  water budgets, pollution controls, marshland/biodiversity plans, heritage
+  clearance, resettlement, livelihood restoration, safety, maintenance,
+  remediation, monitoring, audit, or accessibility gates fail.</li>
 <li><strong>Fiscal stress gates:</strong> scale-up and dividends stop when stressed oil-equity
   capacity, DSCR, FX cover, maintenance reserves, contingent liabilities,
   collections, capex overruns, or dividend affordability fail.</li>
@@ -795,8 +811,9 @@ dividends only after the portfolio produces audited surplus.</p>
   kernel, sovereign holding plan, economic cycle, growth impact, comprehensive
   benefits, production capacity, strategic resilience, tourism services,
   diaspora channels, facility recycling, political-economy transition
-  readiness, federalism/governorate equity, fiscal stress, program sequencing,
-  benefit realization, and procurement integrity.</li>
+  readiness, federalism/governorate equity, environmental/social safeguards,
+  fiscal stress, program sequencing, benefit realization, and procurement
+  integrity.</li>
 <li>A pilot-grade Digital IQD software appendix covering transaction models,
   signing primitives, policy modules, POS/mobile codecs, dashboard routes,
   PostgreSQL migrations, Redis sessions, and specification tests.</li>
@@ -814,6 +831,9 @@ dividends only after the portfolio produces audited surplus.</p>
 <li>Independent federalism, governorate, municipal, KRG/regional, land, water,
   grievance, heritage, and environmental validation of any local compact or
   allocation rule.</li>
+<li>Independent environmental, social, water, heritage, biodiversity, resettlement,
+  livelihood, safety, remediation, monitoring, and accessibility validation for
+  any project that claims to be bankable or scalable.</li>
 <li>Independent program-management review of sequencing, dependency ownership,
   operator readiness, milestone realism, pilot scope, citizen consultation, and
   rollback authority.</li>
@@ -863,6 +883,10 @@ validated investment program.</p>
 <li><strong>Federalism discipline:</strong> modeled through authority mapping, governorate or
   regional compacts, allocation-gap checks, local revenue/jobs/suppliers,
   grievance resolution, audit, appeals, and land/water/heritage dispute gates.</li>
+<li><strong>Safeguard discipline:</strong> modeled through water, pollution, climate,
+  marshland/biodiversity, heritage, resettlement, livelihood, consultation,
+  grievance, safety, maintenance, remediation, monitoring, audit, waste, and
+  accessibility gates.</li>
 <li><strong>Stress discipline:</strong> modeled through oil-equity caps, stressed DSCR, FX
   mismatch, maintenance gaps, guarantees, availability payments, collections,
   capex overruns, and dividend-affordability gates.</li>
@@ -917,6 +941,10 @@ validated investment program.</p>
 <li>Federalism, governorate-equity, and local-compact logic that blocks national
   scale-up when authority, allocation, local benefit capture, grievances,
   appeals, audit, or land/water/heritage issues are unresolved.</li>
+<li>Environmental, social, water, and cultural safeguard logic that blocks,
+  redesigns, or limits projects when externalized harm, missing clearances,
+  unfunded maintenance/remediation, weak monitoring, or unresolved community
+  risks would make the economics misleading.</li>
 <li>Fiscal stress and contingent-liability logic that can force defensive or
   stop-scale-up mode when shocks make dividends, guarantees, FX debt, or new
   capex unsafe.</li>
@@ -961,6 +989,10 @@ validated investment program.</p>
 <li>Independent local-compact validation using official authority maps,
   governorate/KRG/municipal input where applicable, real needs data, grievance
   records, and land/water/environment/heritage status.</li>
+<li>Independent environmental/social validation using field studies, regulator
+  approvals, water budgets, heritage clearance, biodiversity and marshland
+  review, resettlement/livelihood plans, safety systems, remediation estimates,
+  monitoring evidence, and accessibility review.</li>
 <li>Independent fiscal stress validation of oil-equity caps, project debt,
   contingent liabilities, guarantees, availability payments, FX exposure,
   collection efficiency, maintenance reserves, and dividend rules.</li>
@@ -1158,6 +1190,7 @@ No ministry funding without visible public value.
 No strategic program without anti-capture controls.
 No transition scale-up without political-economy readiness.
 No national scale-up without governorate compact readiness.
+No project scale-up without environmental, social, water, and cultural safeguards.
 No scale-up under fiscal stress.
 No scale before predecessor dependencies pass.
 No award or privilege without procurement integrity.
@@ -1420,6 +1453,10 @@ forward no matter how attractive the narrative is.</p>
 <tr>
 <td>Local compact readiness</td>
 <td>Governorate, municipal, regional, or disputed-authority compact exists where required; allocation variance is explained; local revenue, jobs, suppliers, benefits, grievances, audit, appeals, and land/water/heritage issues are controlled.</td>
+</tr>
+<tr>
+<td>Environmental and social safeguards</td>
+<td>Water, pollution, climate, biodiversity, marshland, heritage, resettlement, livelihood, consultation, grievance, safety, maintenance, remediation, monitoring, audit, and accessibility gates pass.</td>
 </tr>
 <tr>
 <td>Privacy and security</td>
@@ -1736,6 +1773,10 @@ kernel, not a complete national operating system.</p>
 <td>Governorate/regional compact status, needs-adjusted allocation gap, local revenue/jobs/suppliers/benefits, grievances, authority risk, decision, and required actions.</td>
 </tr>
 <tr>
+<td><code>EnvironmentalSocialSafeguardAssessment</code></td>
+<td>Water risk, pollution risk, ecosystem/heritage risk, social risk, safeguard readiness, decision, and required actions.</td>
+</tr>
+<tr>
 <td><code>FiscalStressProjection</code></td>
 <td>Stressed oil-equity capacity, fiscal-rule breach, DSCR, FX mismatch, maintenance gap, contingent liability, dividend gap, and recommended stress mode.</td>
 </tr>
@@ -1840,6 +1881,15 @@ kernel, not a complete national operating system.</p>
   appeals, environmental/heritage consent, decision state, and required
   actions. <code>migrations/20260717000001_federalism_equity_compact.sql</code> adds
   assessment and gate tables.</li>
+<li><code>crates/cs-analytics/src/environmental_social_safeguards.rs</code> adds the first
+  environmental, social, water, and cultural safeguard layer: water budgets,
+  withdrawal and reuse, pollution controls, climate resilience, biodiversity
+  and marshland sensitivity, heritage clearance, resettlement, livelihood
+  restoration, consultation, grievances, worker safety, maintenance,
+  remediation escrow, waste/circularity, disability access, monitoring
+  publication, independent audit, decision state, and required actions.
+  <code>migrations/20260718000001_environmental_social_safeguards.sql</code> adds
+  assessment and gate tables.</li>
 <li><code>crates/cs-analytics/src/fiscal_stress.rs</code> adds the first fiscal-stress and
   contingent-liability layer: stressed oil-equity capacity, deficit/debt/reserve
   pressure, stressed DSCR, FX mismatch, maintenance gaps, guarantee and
@@ -1939,6 +1989,10 @@ kernel, not a complete national operating system.</p>
 <td>Which governorates or regions have signed compacts, allocation gaps, weak local benefit capture, unresolved grievances, authority disputes, or appeal/audit gaps?</td>
 </tr>
 <tr>
+<td>Environmental and social safeguards</td>
+<td>Which projects have water, pollution, marshland, biodiversity, heritage, resettlement, livelihood, safety, maintenance, remediation, monitoring, audit, or accessibility risks?</td>
+</tr>
+<tr>
 <td>Fiscal stress</td>
 <td>Which projects or portfolios breach oil-equity limits, stressed DSCR, FX cover, maintenance reserves, contingent-liability caps, collection efficiency, or dividend affordability?</td>
 </tr>
@@ -1992,6 +2046,10 @@ kernel, not a complete national operating system.</p>
 <tr>
 <td>Local compact failure</td>
 <td>Freeze scale-up, publish the affected compact issue, and move the program to evidence-only, compact-required, pilot-only, or renegotiation mode.</td>
+</tr>
+<tr>
+<td>Safeguard failure</td>
+<td>Freeze capital release, remove project surplus from dividend logic, and require redesign, mitigation, or evidence-only status.</td>
 </tr>
 <tr>
 <td>FX mismatch</td>
@@ -2307,6 +2365,16 @@ The executable planning primitive is
 </tr>
 </tbody>
 </table>
+<h3 id="environmental-social-water-and-cultural-safeguards">Environmental, Social, Water, And Cultural Safeguards</h3>
+<p>The working control document is
+<a href="environmental-social-cultural-safeguards.md">Environmental, Social, Water, And Cultural Safeguards</a>.
+The executable planning primitive is
+<code>crates/cs-analytics/src/environmental_social_safeguards.rs</code>, with persistence
+in <code>migrations/20260718000001_environmental_social_safeguards.sql</code>.</p>
+<p>This layer should remain legally independent from commercial project sponsors.
+INDHC, ministries, PPP operators, tourism platforms, and industrial champions
+should not be able to approve their own water, heritage, resettlement,
+pollution, safety, remediation, or monitoring conditions.</p>
 <h3 id="phased-legal-roadmap">Phased Legal Roadmap</h3>
 <table>
 <thead>
@@ -2538,7 +2606,7 @@ out every failed project.</p>
 </tr>
 <tr>
 <td>Environment/culture</td>
-<td>Water, marshland, heritage, pollution, resettlement, and carrying-capacity gates are enforceable.</td>
+<td>Water, marshland, biodiversity, heritage, pollution, resettlement, livelihood, safety, maintenance, remediation, monitoring, audit, carrying-capacity, and accessibility gates are enforceable.</td>
 </tr>
 <tr>
 <td>Local authority</td>
@@ -3878,7 +3946,270 @@ in control. The federalism-equity layer turns governorates, municipalities,
 producing regions, regional authorities, and affected communities into explicit
 counterparties with measurable rights, rather than treating them as passive
 locations where capital happens to land.</p>
-<h1 id="part-10-fiscal-stress-and-contingent-liability">Part 10: Fiscal Stress And Contingent Liability</h1>
+<h1 id="part-10-environmental-social-water-and-cultural-safeguards">Part 10: Environmental Social Water And Cultural Safeguards</h1>
+<h2 id="environmental-social-water-and-cultural-safeguards_1">Environmental, Social, Water, And Cultural Safeguards</h2>
+<p>Status: safeguard control model. This is not an environmental approval,
+heritage authorization, water-rights decision, resettlement plan, safety
+certification, MDB safeguard review, or claim that any Iraqi regulator has
+approved any project.</p>
+<p>Cylinder Seal cannot be a coherent economic, environmental, social, and
+cultural model if growth is purchased by exporting costs to water basins,
+marshlands, heritage sites, displaced households, workers, municipalities, or
+future maintenance budgets.</p>
+<h3 id="core-rule_1">Core Rule</h3>
+<pre><code class="language-text">No project, concession, industrial privilege, tourism route, rail segment,
+water scheme, facility reuse, civic-work program, or dividend claim should scale
+unless environmental, social, water, heritage, safety, maintenance, remediation,
+monitoring, audit, and grievance gates pass.
+</code></pre>
+<p>The system should not count a project as productive if it only looks profitable
+because pollution, water depletion, heritage loss, resettlement, disability
+access, or maintenance liabilities are hidden.</p>
+<h3 id="what-this-layer-controls">What This Layer Controls</h3>
+<table>
+<thead>
+<tr>
+<th>Risk area</th>
+<th>Control requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Environmental assessment</td>
+<td>Project-specific environmental and social assessment before capital release.</td>
+</tr>
+<tr>
+<td>Water budget</td>
+<td>Basin, withdrawal, reuse, tariff/social-protection, and drought-stress logic before water-intensive projects proceed.</td>
+</tr>
+<tr>
+<td>Pollution control</td>
+<td>Emissions, effluent, hazardous waste, industrial discharge, dust, noise, and enforcement plan.</td>
+</tr>
+<tr>
+<td>Climate resilience</td>
+<td>Heat, drought, flood, grid stress, dust, and lifecycle resilience built into design.</td>
+</tr>
+<tr>
+<td>Marshland and biodiversity</td>
+<td>No sensitive marshland, wetland, river, or habitat impact without approval, mitigation, monitoring, and conservation funding.</td>
+</tr>
+<tr>
+<td>Cultural heritage</td>
+<td>Heritage authority clearance before tourism, rail, civil works, real estate, or visitor-service commercialization near sensitive assets.</td>
+</tr>
+<tr>
+<td>Resettlement and livelihoods</td>
+<td>No land access or construction before resettlement and livelihood restoration are approved and funded.</td>
+</tr>
+<tr>
+<td>Community consultation</td>
+<td>Local consultation, response-to-comments, affected-person registry, and public summary.</td>
+</tr>
+<tr>
+<td>Grievance mechanism</td>
+<td>Community, worker, SME, landholder, municipal, and disability-access complaint path.</td>
+</tr>
+<tr>
+<td>Worker and community safety</td>
+<td>Safety plan, training, incident reporting, emergency response, and contractor accountability.</td>
+</tr>
+<tr>
+<td>Maintenance funding</td>
+<td>Lifecycle maintenance and monitoring funded before dividend or expansion claims.</td>
+</tr>
+<tr>
+<td>Remediation escrow</td>
+<td>Facility reuse and industrial projects fund known environmental liabilities before restart.</td>
+</tr>
+<tr>
+<td>Waste and circularity</td>
+<td>Waste handling, recycling, materials reuse, and end-of-life responsibilities.</td>
+</tr>
+<tr>
+<td>Disability access</td>
+<td>Public infrastructure, tourism, civic work, and service platforms include access requirements.</td>
+</tr>
+<tr>
+<td>Monitoring publication</td>
+<td>Privacy-safe environmental and social monitoring data is published.</td>
+</tr>
+<tr>
+<td>Independent audit</td>
+<td>External safeguard review exists before scale-up or external financing.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-states_1">Decision States</h3>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Meaning</th>
+<th>Required response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Blocked</td>
+<td>Critical heritage, biodiversity, marshland, resettlement, or livelihood clearance is missing.</td>
+<td>Freeze capital release and obtain legal/regulatory clearance.</td>
+</tr>
+<tr>
+<td>Redesign required</td>
+<td>Water, pollution, or ecosystem/heritage risk is too high.</td>
+<td>Redesign project scope, technology, site, water use, or mitigation package.</td>
+</tr>
+<tr>
+<td>Mitigation required</td>
+<td>Core design may work, but maintenance, monitoring, or remediation funding is missing.</td>
+<td>Fund escrow, O&amp;M, and monitoring before scale.</td>
+</tr>
+<tr>
+<td>Evidence only</td>
+<td>Assessment, public monitoring, or independent audit is missing.</td>
+<td>Continue data gathering only; no scale claim.</td>
+</tr>
+<tr>
+<td>Pilot only</td>
+<td>Social risk or readiness score is weak.</td>
+<td>Limit scope and prove consultation, safety, accessibility, and grievance performance.</td>
+</tr>
+<tr>
+<td>Monitoring required</td>
+<td>Project can proceed only with enhanced public monitoring and annual review.</td>
+<td>Keep scale conditional on monitoring results.</td>
+</tr>
+<tr>
+<td>Eligible</td>
+<td>Safeguard gates pass and risks are controlled.</td>
+<td>Proceed with normal monitoring, audit, and maintenance obligations.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sector-application">Sector Application</h3>
+<table>
+<thead>
+<tr>
+<th>Sector</th>
+<th>Main safeguard issue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Petrochemicals, fertilizers, cement, glass, and raw-material processing</td>
+<td>Pollution, hazardous waste, water use, feedstock handling, worker safety, and remediation liabilities.</td>
+</tr>
+<tr>
+<td>Water, desalination, wastewater, and irrigation</td>
+<td>Basin effects, brine/discharge, tariff protection, farmer impact, drought resilience, and maintenance funding.</td>
+</tr>
+<tr>
+<td>Rail, metro, roads, ports, and logistics</td>
+<td>Land acquisition, resettlement, disability access, noise, dust, station-area displacement, and maintenance.</td>
+</tr>
+<tr>
+<td>Tourism, heritage, marshlands, pilgrimage, and cultural routes</td>
+<td>Carrying capacity, conservation authority, heritage clearance, local community benefit, visitor safety, and waste/water pressure.</td>
+</tr>
+<tr>
+<td>Facility recycling</td>
+<td>Environmental liability, asbestos/legacy contamination, worker transition, title, cleanup escrow, and safe restart.</td>
+</tr>
+<tr>
+<td>Green power, grid, district cooling, and waste-to-energy</td>
+<td>Land, grid stability, battery/waste handling, emissions assumptions, and lifecycle O&amp;M.</td>
+</tr>
+<tr>
+<td>Food, agriculture, cold chain, and irrigation equipment</td>
+<td>Water efficiency, soil salinity, farmer debt, food safety, spoilage, and cold-chain energy use.</td>
+</tr>
+<tr>
+<td>Civic work</td>
+<td>Safety, child protection, disability access, sensitive heritage tasks, care-work safeguards, and verifier accountability.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="use-in-the-unified-model_1">Use In The Unified Model</h3>
+<p>The safeguard layer should sit before:</p>
+<ul>
+<li>project-bankability claims;</li>
+<li>external loans, MDB finance, ECA finance, PPPs, green bonds, or green sukuk;</li>
+<li>public procurement awards;</li>
+<li>INDHC equity release;</li>
+<li>facility-reuse restart;</li>
+<li>tourism route commercialization;</li>
+<li>water, irrigation, and desalination expansion;</li>
+<li>rail and metro construction;</li>
+<li>dividend claims based on project surplus.</li>
+</ul>
+<p>If a project cannot fund its own maintenance, monitoring, remediation, or
+community obligations, its apparent surplus should not enter the dividend
+waterfall.</p>
+<h3 id="software-and-data-surface_2">Software And Data Surface</h3>
+<p>The executable implementation is:</p>
+<ul>
+<li><code>crates/cs-analytics/src/environmental_social_safeguards.rs</code></li>
+<li><code>migrations/20260718000001_environmental_social_safeguards.sql</code></li>
+</ul>
+<p>Core objects:</p>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EnvironmentalSocialSafeguardInput</code></td>
+<td>Captures project, domain, governorate/region, assessment status, water budget, pollution risk, climate resilience, biodiversity/marshland sensitivity, heritage status, resettlement, livelihood restoration, consultation, grievance, safety, maintenance, remediation escrow, waste/circularity, disability access, monitoring, and independent audit.</td>
+</tr>
+<tr>
+<td><code>EnvironmentalSocialSafeguardAssessment</code></td>
+<td>Scores water risk, pollution risk, ecosystem/heritage risk, social risk, readiness, decision, and required actions.</td>
+</tr>
+<tr>
+<td><code>SafeguardGateResult</code></td>
+<td>Records pass/warn/fail state for environmental, water, pollution, climate, biodiversity, heritage, resettlement, consultation, grievance, safety, maintenance, remediation, waste, accessibility, monitoring, and audit gates.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dashboard-requirements_1">Dashboard Requirements</h3>
+<p>The safeguard dashboard should show:</p>
+<ul>
+<li>project reference, governorate/region, and domain;</li>
+<li>assessment status;</li>
+<li>water withdrawal, water reuse, water stress, and water-budget result;</li>
+<li>emissions/pollution risk and control status;</li>
+<li>climate resilience score;</li>
+<li>biodiversity, marshland, and heritage flags;</li>
+<li>resettlement and livelihood-restoration status;</li>
+<li>consultation score and grievance status;</li>
+<li>worker/community safety status;</li>
+<li>maintenance and monitoring funding;</li>
+<li>remediation escrow versus estimated liability;</li>
+<li>waste/circularity and disability-access scores;</li>
+<li>monitoring publication and independent audit status;</li>
+<li>decision and required actions.</li>
+</ul>
+<h3 id="governance-boundary_1">Governance Boundary</h3>
+<p>This layer should be conservative:</p>
+<pre><code class="language-text">If heritage clearance is missing, block.
+If marshland or biodiversity approval is missing, block.
+If resettlement or livelihood restoration is unfunded, block.
+If water or pollution risk is extreme, redesign.
+If monitoring or audit is missing, stay evidence-only.
+If maintenance or remediation is unfunded, withhold scale-up.
+If social readiness is weak, keep to pilot.
+</code></pre>
+<h3 id="bottom-line_3">Bottom Line</h3>
+<p>The unified economic model must create durable national wealth, not disguised
+environmental debt. A project that cannot protect water, heritage, communities,
+workers, accessibility, and future maintenance is not cheap. It is simply
+borrowing from Iraq's people, places, and future budgets without recording the
+liability.</p>
+<h1 id="part-11-fiscal-stress-and-contingent-liability">Part 11: Fiscal Stress And Contingent Liability</h1>
 <h2 id="fiscal-stress-and-contingent-liability-model">Fiscal Stress And Contingent Liability Model</h2>
 <p>Status: downside-control model. This is not a sovereign-debt recommendation,
 budget forecast, financing offer, rating view, or investment prospectus.</p>
@@ -3915,7 +4246,7 @@ project guarantees become hidden fiscal claims.</p>
 </table>
 <p>These sources support the control framework. They do not validate the values
 used in any scenario.</p>
-<h3 id="core-rule_1">Core Rule</h3>
+<h3 id="core-rule_2">Core Rule</h3>
 <pre><code class="language-text">When stress appears:
   protect maintenance,
   protect debt service,
@@ -4126,7 +4457,7 @@ today. They must be shown as fiscal exposure.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="software-and-data-surface_2">Software And Data Surface</h3>
+<h3 id="software-and-data-surface_3">Software And Data Surface</h3>
 <p>The executable implementation is:</p>
 <ul>
 <li><code>crates/cs-analytics/src/fiscal_stress.rs</code></li>
@@ -4172,7 +4503,7 @@ today. They must be shown as fiscal exposure.</p>
 <p>The dashboard should not show a project, ministry transition, dividend formula,
 or INDHC expansion as scalable when the fiscal stress mode is defensive or stop
 scale-up.</p>
-<h3 id="bottom-line_3">Bottom Line</h3>
+<h3 id="bottom-line_4">Bottom Line</h3>
 <p>The model becomes more credible when it can say no.</p>
 <pre><code class="language-text">If stress breaks the cashflow, stop scale-up.
 If guarantees become hidden debt, disclose and cap them.
@@ -4181,7 +4512,7 @@ If FX revenue cannot cover FX debt, do not borrow in FX.
 If collections are weak, do not count invoices as cash.
 If dividends compete with solvency, dividends lose.
 </code></pre>
-<h1 id="part-11-national-program-sequencing-and-dependency-control">Part 11: National Program Sequencing And Dependency Control</h1>
+<h1 id="part-12-national-program-sequencing-and-dependency-control">Part 12: National Program Sequencing And Dependency Control</h1>
 <h2 id="national-program-sequencing-and-dependency-control">National Program Sequencing And Dependency Control</h2>
 <p>Status: program-control model. This is not a government implementation plan,
 legal instruction, procurement timetable, financing commitment, or claim that
@@ -4455,7 +4786,7 @@ where every component depends on every other component working immediately.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="software-and-data-surface_3">Software And Data Surface</h3>
+<h3 id="software-and-data-surface_4">Software And Data Surface</h3>
 <p>The executable implementation is:</p>
 <ul>
 <li><code>crates/cs-analytics/src/program_sequencing.rs</code></li>
@@ -4521,7 +4852,7 @@ for policy domains.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="bottom-line_4">Bottom Line</h3>
+<h3 id="bottom-line_5">Bottom Line</h3>
 <p>This layer makes the whole project less theatrical and more governable.</p>
 <pre><code class="language-text">Sequence before scale.
 Pilot before build.
@@ -4531,7 +4862,7 @@ Continuity before ministry transition.
 Stress pass before expansion.
 Rollback before denial.
 </code></pre>
-<h1 id="part-12-procurement-integrity-and-market-discipline">Part 12: Procurement Integrity And Market Discipline</h1>
+<h1 id="part-13-procurement-integrity-and-market-discipline">Part 13: Procurement Integrity And Market Discipline</h1>
 <h2 id="procurement-integrity-and-market-discipline">Procurement Integrity And Market Discipline</h2>
 <p>Status: control model. This is not a procurement accusation, legal opinion,
 bid evaluation, tender document, debarment decision, or claim that any specific
@@ -4541,7 +4872,7 @@ route for rent extraction. This document adds the procurement and market
 discipline layer for projects, ministry service contracts, industrial champion
 privileges, facility reuse, PPP/JV concessions, digital platforms, tourism
 services, civic work, and strategic resilience production.</p>
-<h3 id="core-rule_2">Core Rule</h3>
+<h3 id="core-rule_3">Core Rule</h3>
 <pre><code class="language-text">No award, payment privilege, project disbursement, or champion preference
 without:
   beneficial ownership,
@@ -4705,7 +5036,7 @@ Those contracts need:</p>
 </ul>
 <p>If service contracts become a disguised direct-award channel, the ministry
 transition should pause.</p>
-<h3 id="software-and-data-surface_4">Software And Data Surface</h3>
+<h3 id="software-and-data-surface_5">Software And Data Surface</h3>
 <p>The executable implementation is:</p>
 <ul>
 <li><code>crates/cs-analytics/src/procurement_integrity.rs</code></li>
@@ -4734,7 +5065,7 @@ transition should pause.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="dashboard-requirements_1">Dashboard Requirements</h3>
+<h3 id="dashboard-requirements_2">Dashboard Requirements</h3>
 <p>The procurement dashboard should show:</p>
 <ul>
 <li>procurement reference;</li>
@@ -4754,7 +5085,7 @@ transition should pause.</p>
 <li>SME participation;</li>
 <li>decision and required actions.</li>
 </ul>
-<h3 id="bottom-line_5">Bottom Line</h3>
+<h3 id="bottom-line_6">Bottom Line</h3>
 <p>The economic model can only be a productive-capital model if procurement builds
 markets instead of allocating rents.</p>
 <pre><code class="language-text">If ownership is hidden, suspend.
@@ -4764,7 +5095,7 @@ If evidence is weak, withhold payment.
 If SMEs are paid late, fix the buyer before blaming the market.
 If champions crush suppliers, remove privilege.
 </code></pre>
-<h1 id="part-13-benefit-realization-and-claim-audit">Part 13: Benefit Realization And Claim Audit</h1>
+<h1 id="part-14-benefit-realization-and-claim-audit">Part 14: Benefit Realization And Claim Audit</h1>
 <h2 id="benefit-realization-and-claim-audit">Benefit Realization And Claim Audit</h2>
 <p>Status: accountability model. This is not an official monitoring framework,
 audit opinion, macroeconomic validation, or project-feasibility result.</p>
@@ -4777,7 +5108,7 @@ Is it cash or only public benefit?
 Can it enter the dividend waterfall?
 What happens if it underperforms?
 </code></pre>
-<h3 id="core-rule_3">Core Rule</h3>
+<h3 id="core-rule_4">Core Rule</h3>
 <pre><code class="language-text">No benefit claim becomes verified without:
   baseline,
   target,
@@ -4972,7 +5303,7 @@ What happens if it underperforms?
 </tr>
 </tbody>
 </table>
-<h3 id="software-and-data-surface_5">Software And Data Surface</h3>
+<h3 id="software-and-data-surface_6">Software And Data Surface</h3>
 <p>The executable implementation is:</p>
 <ul>
 <li><code>crates/cs-analytics/src/benefit_realization.rs</code></li>
@@ -5001,7 +5332,7 @@ What happens if it underperforms?
 </tr>
 </tbody>
 </table>
-<h3 id="dashboard-requirements_2">Dashboard Requirements</h3>
+<h3 id="dashboard-requirements_3">Dashboard Requirements</h3>
 <p>Every public benefit dashboard should show:</p>
 <ul>
 <li>claim reference;</li>
@@ -5023,7 +5354,7 @@ What happens if it underperforms?
 presentation as delivered outcomes.</p>
 <p>Claims that are track-only, in-progress, underperforming, overstated, failed, or
 unsupported must stay in internal dashboards or caveated scenario documents.</p>
-<h3 id="bottom-line_6">Bottom Line</h3>
+<h3 id="bottom-line_7">Bottom Line</h3>
 <p>This layer is the antidote to optimism drift.</p>
 <pre><code class="language-text">If it is not measured, it is not delivered.
 If it is not settled, it is not cash.
@@ -5032,14 +5363,14 @@ If it is not attributable, lower confidence.
 If it is public benefit only, keep it out of dividends.
 If it underperforms, publish the variance.
 </code></pre>
-<h1 id="part-14-iraq-integrated-growth-impact-model">Part 14: Iraq Integrated Growth Impact Model</h1>
+<h1 id="part-15-iraq-integrated-growth-impact-model">Part 15: Iraq Integrated Growth Impact Model</h1>
 <h2 id="iraq-integrated-growth-impact-model">Iraq Integrated Growth Impact Model</h2>
 <p>This document quantifies how the Cylinder Seal, INDHC, open-source rail,
 industrial, infrastructure, tourism, green, food/water, Digital IQD, and civic
 work model could affect Iraq's non-oil growth path over ten years.</p>
 <p>Status: scenario model. It is not an official forecast, budget law, investment
 prospectus, debt recommendation, or externally validated macroeconomic model.</p>
-<h3 id="bottom-line_7">Bottom Line</h3>
+<h3 id="bottom-line_8">Bottom Line</h3>
 <p>The model can plausibly create high non-oil growth if it is governed as a
 disciplined productive-capital program rather than a spending program.</p>
 <p>Using IMF 2025 Article IV data, Iraq's baseline non-oil real GDP growth is
@@ -5590,7 +5921,7 @@ become debt, imports, and unfinished assets.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="bottom-line_8">Bottom Line</h3>
+<h3 id="bottom-line_9">Bottom Line</h3>
 <p>The integrated program can justify a high-growth ambition, but only if the
 growth claim is made in the right way:</p>
 <pre><code class="language-text">Baseline Iraq: low-to-moderate non-oil growth under fiscal and infrastructure constraints.
@@ -5603,7 +5934,7 @@ to high non-oil growth, if capital is governed through hard gates, booked cash,
 public-benefit ledgers, reinvestment discipline, open infrastructure, and
 citizen-facing accountability.
 </code></pre>
-<h1 id="part-15-iraq-comprehensive-benefits-model">Part 15: Iraq Comprehensive Benefits Model</h1>
+<h1 id="part-16-iraq-comprehensive-benefits-model">Part 16: Iraq Comprehensive Benefits Model</h1>
 <h2 id="iraq-comprehensive-benefits-model">Iraq Comprehensive Benefits Model</h2>
 <p>This document reworks the Cylinder Seal, Digital IQD, INDHC, open-source rail,
 green power, food/water, tourism, civic-work, and ministry-transition proposal
@@ -6415,7 +6746,7 @@ continues toward a true national operating model prototype.</p>
 <p>The model is only credible if the operating logic can stop attractive projects
 when they fail legal, fiscal, debt, maintenance, revenue, anti-capture,
 privacy, or citizen-fairness gates.</p>
-<h3 id="bottom-line_9">Bottom Line</h3>
+<h3 id="bottom-line_10">Bottom Line</h3>
 <p>Cylinder Seal's coherent national role is to become the evidence and settlement
 substrate for a post-oil, post-automation Iraqi development model:</p>
 <ul>
@@ -6432,7 +6763,7 @@ substrate for a post-oil, post-automation Iraqi development model:</p>
   renewal, public trust, and audited distributable surplus.</li>
 </ul>
 <p>That is the unified economic, environmental, social, and cultural model.</p>
-<h1 id="part-16-iraq-quantified-affordability-and-cashflow-model">Part 16: Iraq Quantified Affordability And Cashflow Model</h1>
+<h1 id="part-17-iraq-quantified-affordability-and-cashflow-model">Part 17: Iraq Quantified Affordability And Cashflow Model</h1>
 <h2 id="iraq-quantified-affordability-and-cashflow-model">Iraq Quantified Affordability And Cashflow Model</h2>
 <p>This document adds a quantified affordability layer to the INDHC, citizen
 dividend, industrial-champion, and civic-work architecture.</p>
@@ -6445,7 +6776,7 @@ and immediately see whether the model remains affordable.</p>
 <a href="national-economic-operating-logic.md">National Economic Operating Logic</a>, which
 separates capital, productive assets, booked cash, public benefits, citizen/state
 distributions, and risk controls before any dividend or scaling decision.</p>
-<h3 id="bottom-line_10">Bottom Line</h3>
+<h3 id="bottom-line_11">Bottom Line</h3>
 <p>The existing USD 190B INDHC planning envelope should be treated as a strategic
 upper envelope, not the default affordable case.</p>
 <p>Using the IMF 2025 Article IV baseline for Iraq, the defensible starting point
@@ -7895,7 +8226,7 @@ then it cannot receive debt and cannot be counted in the dividend forecast.
 </code></pre>
 <p>That is the point of quantifying the model: it converts a sovereign-economic
 vision into a financeable sequence with hard stop/go gates.</p>
-<h1 id="part-17-system-and-financial-flow-diagrams">Part 17: System And Financial Flow Diagrams</h1>
+<h1 id="part-18-system-and-financial-flow-diagrams">Part 18: System And Financial Flow Diagrams</h1>
 <h2 id="system-and-financial-flow-diagrams">System And Financial Flow Diagrams</h2>
 <p>This document maps the Cylinder Seal prototype as a software system and as a set
 of financial-flow patterns. It is intentionally conservative: diagrams describe
@@ -8631,7 +8962,7 @@ remaining engineering gaps:</p>
   its legal authority, oil-revenue handling, share-entitlement rules, investment
   governance, and dividend formula require independent review.</li>
 </ul>
-<h1 id="part-18-business-value-chain-charts">Part 18: Business Value Chain Charts</h1>
+<h1 id="part-19-business-value-chain-charts">Part 19: Business Value Chain Charts</h1>
 <h2 id="business-value-chain-charts">Business Value Chain Charts</h2>
 <p>Status: visual planning aid. These charts explain the business logic of the
 Cylinder Seal economic model. They are not forecasts, investment offers,
@@ -8772,7 +9103,7 @@ flows.</p>
 <li>It separates cashflow charts from public-benefit charts so readers do not
   confuse GDP, avoided imports, or social outcomes with dividend capacity.</li>
 </ul>
-<h1 id="part-19-unified-economic-model">Part 19: Unified Economic Model</h1>
+<h1 id="part-20-unified-economic-model">Part 20: Unified Economic Model</h1>
 <h2 id="unified-economic-model_3">Unified Economic Model</h2>
 <p>This document ties the Cylinder Seal payment rail, policy primitives, INDHC,
 ministries, banks, producers, infrastructure projects, tourism, green capital,
@@ -8790,7 +9121,7 @@ taxes, levies, and service contracts; citizens receive wages, public services,
 credit access, verified civic-work income, and equal Digital IQD dividends from
 audited surplus.</p>
 <h3 id="system-boundary">System Boundary</h3>
-<p>The system has twenty layers:</p>
+<p>The system has twenty-one layers:</p>
 <table>
 <thead>
 <tr>
@@ -8829,6 +9160,11 @@ audited surplus.</p>
 <td>Federalism and governorate-equity layer</td>
 <td>Local authority mapping, governorate/regional compacts, allocation fairness, local revenue/jobs/suppliers, grievance resolution, audit, appeals, and land/water/heritage disputes.</td>
 <td><code>docs/federalism-governorate-equity-and-local-compacts.md</code></td>
+</tr>
+<tr>
+<td>Environmental, social, water, and cultural safeguard layer</td>
+<td>Blocks or redesigns projects when water, pollution, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, or accessibility gates fail.</td>
+<td><code>docs/environmental-social-cultural-safeguards.md</code></td>
 </tr>
 <tr>
 <td>Fiscal stress and contingent-liability layer</td>
@@ -9401,6 +9737,11 @@ separate dashboard widgets.</p>
 <td>Brownfield reuse, international credit readiness, domestic capital-market readiness, and finance-lane view.</td>
 </tr>
 <tr>
+<td><code>EnvironmentalSocialSafeguardAssessment</code></td>
+<td>Environmental assessment status, water budget, pollution risk, climate resilience, biodiversity/marshland, heritage, resettlement, livelihood, consultation, safety, maintenance, remediation, monitoring, audit, and accessibility evidence</td>
+<td>Project safeguard stop/go, redesign, mitigation, evidence-only, pilot, monitoring, or eligibility view.</td>
+</tr>
+<tr>
 <td><code>StrategicResilienceProjection</code></td>
 <td>Defense-sector licenses, electronics/HVAC output, water/desalination equipment, irrigation systems, food-substitution capacity, end-use controls</td>
 <td>Critical domestic capability and import-vulnerability view.</td>
@@ -9680,7 +10021,7 @@ separate dashboard widgets.</p>
   enforcing KYC/AML, sanctions, quality, consumer-protection, privacy,
   distribution, conversion, and investment-suitability gates.</li>
 </ul>
-<h3 id="bottom-line_11">Bottom Line</h3>
+<h3 id="bottom-line_12">Bottom Line</h3>
 <p>Cylinder Seal should be read as one economic operating system:</p>
 <pre><code class="language-text">Oil and international capital
   -&gt; productive Iraqi assets
@@ -9691,7 +10032,7 @@ separate dashboard widgets.</p>
 </code></pre>
 <p>The point is not only to digitize money. The point is to make Iraq's economic
 feedback loops visible, governable, productive, and citizen-owned.</p>
-<h1 id="part-20-national-dividend-holding-company">Part 20: National Dividend Holding Company</h1>
+<h1 id="part-21-national-dividend-holding-company">Part 21: National Dividend Holding Company</h1>
 <h2 id="national-dividend-holding-company-architecture">National Dividend Holding Company Architecture</h2>
 <p>This document adds a policy architecture to Cylinder Seal: Iraq's oil income is
 not treated as a direct ministry-funding stream. It is treated as national
@@ -10181,7 +10522,7 @@ political payroll vehicles.</p>
 <p>See <a href="indhc-10-year-plan.md">INDHC ten-year industrial and infrastructure plan</a>
 for the proposed investment program, capital stack, staffing model, sector
 priorities, reinvestment waterfall, and implementation primitives.</p>
-<h1 id="part-21-indhc-ten-year-plan">Part 21: INDHC Ten-Year Plan</h1>
+<h1 id="part-22-indhc-ten-year-plan">Part 22: INDHC Ten-Year Plan</h1>
 <h2 id="indhc-ten-year-industrial-and-infrastructure-plan">INDHC Ten-Year Industrial And Infrastructure Plan</h2>
 <p>This document translates the National Dividend Holding Company architecture into
 a ten-year investment plan. It is a planning scenario, not a budget law, a
@@ -12080,7 +12421,7 @@ distribution, conversion, and investor-suitability gates explicit.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="bottom-line_12">Bottom Line</h3>
+<h3 id="bottom-line_13">Bottom Line</h3>
 <p>The ten-year plan makes INDHC more than a sovereign fund. It becomes a national
 productive-capital machine:</p>
 <ul>
@@ -12092,7 +12433,7 @@ productive-capital machine:</p>
 <li>profits are reinvested into domestic capacity;</li>
 <li>remaining distributable surplus is paid as a Digital IQD citizen dividend.</li>
 </ul>
-<h1 id="part-22-import-services-and-diaspora-expansion">Part 22: Import, Services, And Diaspora Expansion</h1>
+<h1 id="part-23-import-services-and-diaspora-expansion">Part 23: Import, Services, And Diaspora Expansion</h1>
 <h2 id="import-services-and-diaspora-expansion">Import, Services, And Diaspora Expansion</h2>
 <p>Status: strategy and implementation-extension note. This is not a forecast, a
 trade policy order, a tourism concession, a migration policy, or an investment
@@ -12439,7 +12780,7 @@ receipts.</p>
 <p>The new <code>DiasporaChannelsEngine</code> represents this model in code and gives the
 dashboard a way to distinguish cash income, remittance formalization, export
 distribution, expertise value, marketing value, and investment pipeline risk.</p>
-<h1 id="part-23-facility-recycling-and-capital-markets">Part 23: Facility Recycling And Capital Markets</h1>
+<h1 id="part-24-facility-recycling-and-capital-markets">Part 24: Facility Recycling And Capital Markets</h1>
 <h2 id="facility-recycling-and-capital-markets">Facility Recycling And Capital Markets</h2>
 <p>Status: strategy and implementation-extension note. This is not an investment
 offering, securities prospectus, credit recommendation, privatization order, or
@@ -12447,7 +12788,7 @@ claim that any named facility is currently financeable. It defines how Cylinder
 Seal should screen existing underutilized assets before approving greenfield
 projects, and how rehabilitation can attract international credit or domestic
 stock and bond market funding only after bankability and disclosure gates pass.</p>
-<h3 id="core-rule_4">Core Rule</h3>
+<h3 id="core-rule_5">Core Rule</h3>
 <p>For every sector, the first capital-allocation question should be:</p>
 <pre><code class="language-text">Can an existing Iraqi facility, depot, workshop, warehouse, hotel, industrial
 site, public utility asset, or state-company plant be rehabilitated faster,
@@ -12982,7 +13323,7 @@ collected.</p>
 capital base it needs. Cylinder Seal should make that latent asset base visible,
 ranked, financeable where justified, and impossible to dress up as value when it
 is actually a liability.</p>
-<h1 id="part-24-digitally-governed-industrial-champions">Part 24: Digitally Governed Industrial Champions</h1>
+<h1 id="part-25-digitally-governed-industrial-champions">Part 25: Digitally Governed Industrial Champions</h1>
 <h2 id="digitally-governed-industrial-champions">Digitally Governed Industrial Champions</h2>
 <p>This document refines the INDHC industrial-conglomerate idea. The model should
 not be described as copying Korean chaebols. It should be described as building
@@ -14045,7 +14386,7 @@ No export or cost discipline, no protection.
 No audit, no public demand contract.
 No competition review, no champion status renewal.
 </code></pre>
-<h1 id="part-25-national-civic-work-system">Part 25: National Civic Work System</h1>
+<h1 id="part-26-national-civic-work-system">Part 26: National Civic Work System</h1>
 <h2 id="national-civic-work-system_2">National Civic Work System</h2>
 <p>As Iraq formalizes, automates, and industrializes through Digital IQD, INDHC,
 and digitally governed industrial champions, some low-productivity work will
@@ -14796,7 +15137,7 @@ privacy-bounded. The system should not normalize surveillance for low-risk work.
 <li>Add legal review for labor law, child protection, care work, biometric use,
    data protection, municipal authority, and anti-corruption enforcement.</li>
 </ol>
-<h3 id="bottom-line_13">Bottom Line</h3>
+<h3 id="bottom-line_14">Bottom Line</h3>
 <p>Productivity gains are socially legitimate only if citizens see a pathway from
 lost low-value work into income, dignity, skill, and visible contribution.</p>
 <p>The National Civic Work System makes that pathway measurable:</p>
@@ -14806,7 +15147,7 @@ lost low-value work into income, dignity, skill, and visible contribution.</p>
   -&gt; income history, skills, public value, and social cohesion
   -&gt; better private-sector and INDHC employability
 </code></pre>
-<h1 id="part-26-ministry-transition-roadmap">Part 26: Ministry Transition Roadmap</h1>
+<h1 id="part-27-ministry-transition-roadmap">Part 27: Ministry Transition Roadmap</h1>
 <h2 id="ministry-transition-and-deprecation-roadmap">Ministry Transition And Deprecation Roadmap</h2>
 <p>This document describes how the unified Cylinder Seal / INDHC model could
 eventually deprecate ministry structures that become duplicative, low-feedback,
@@ -15331,7 +15672,7 @@ from low-feedback bureaucracy into productive, regulated, or local service work.
 </tr>
 </tbody>
 </table>
-<h3 id="bottom-line_14">Bottom Line</h3>
+<h3 id="bottom-line_15">Bottom Line</h3>
 <p>The unified model should make many ministry forms unnecessary over time, but not
 because public services disappear. They become unnecessary because services are
 delivered through audited operators, regulators, digital transfers, municipal
@@ -15347,7 +15688,7 @@ contracts, INDHC subsidiaries, and public dashboards.</p>
 <li>audited service contracts;</li>
 <li>productive national capital through INDHC.</li>
 </ul>
-<h1 id="part-27-security-model">Part 27: Security Model</h1>
+<h1 id="part-28-security-model">Part 28: Security Model</h1>
 <h2 id="security-model-and-threat-notes">Security Model And Threat Notes</h2>
 <p>Cylinder Seal is a prototype. This document describes the security posture expected before production use and highlights the current gaps. It is not a completed audit.</p>
 <h3 id="supported-security-claims-today">Supported Security Claims Today</h3>
@@ -15531,7 +15872,7 @@ project contact listed in <code>EXECUTIVE_SUMMARY.md</code>. Include:</p>
 <p>This process is a prototype disclosure policy. Before external deployment,
 replace it with a dedicated security contact, patch SLA, coordinated-disclosure
 timeline, and legal safe-harbor language.</p>
-<h1 id="part-28-current-implementation-status">Part 28: Current Implementation Status</h1>
+<h1 id="part-29-current-implementation-status">Part 29: Current Implementation Status</h1>
 <h2 id="implementation-status">Implementation Status</h2>
 <h3 id="honest-status">Honest Status</h3>
 <p>Cylinder Seal is a prototype implementation with meaningful code coverage across domain modules, policy logic, dashboard routes, and tests. It is not production-ready CBDC/payment infrastructure.</p>
@@ -15554,11 +15895,12 @@ timeline, and legal safe-harbor language.</p>
 <li>Project Pipeline and Investment Gates documented as a project-family structure for capex, revenue sources, DSCR, FX exposure, facility reuse, environmental gates, legal authority, and evidence bundles.</li>
 <li>Political-Economy Transition and Anti-Capture model documented as a reform-readiness layer for capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, federalism, emergency powers, and citizen appeals.</li>
 <li>Federalism, Governorate Equity, and Local Compacts documented as a scale-control layer for authority mapping, compact status, allocation fairness, local revenue, local employment, supplier participation, benefit capture, grievances, local audit, citizen appeals, and land/water/heritage disputes.</li>
+<li>Environmental, Social, Water, and Cultural Safeguards documented as a project-control layer for environmental assessment, water budgets, pollution controls, climate resilience, biodiversity/marshlands, heritage, resettlement, livelihood restoration, consultation, grievance, safety, maintenance, remediation, monitoring, audit, waste/circularity, and disability access.</li>
 <li>Fiscal Stress and Contingent Liability model documented as a downside-control layer for stressed oil-equity capacity, DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability.</li>
 <li>National Program Sequencing and Dependency Control documented as a phase-control layer for not-ready, evidence-only, pilot, build, controlled-scale, and hold/rollback decisions.</li>
 <li>Benefit Realization and Claim Audit documented as an accountability layer for baseline, target, observed value, source confidence, attribution confidence, evidence quality, audit status, cash settlement, no-dividend flags, and corrective actions.</li>
 <li>Procurement Integrity and Market Discipline documented as an award/privilege-control layer for beneficial ownership, competition, single-source justification, open data, independent evaluation, price benchmarks, contract changes, advances, milestone evidence, delivery, payment discipline, quality, and SME participation.</li>
-<li>Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, federalism/governorate equity, fiscal stress, program sequencing, benefit realization, and procurement integrity. These are planning primitives, not calibrated national forecasts.</li>
+<li>Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, federalism/governorate equity, environmental/social safeguards, fiscal stress, program sequencing, benefit realization, and procurement integrity. These are planning primitives, not calibrated national forecasts.</li>
 <li>Rendered SVG value-chain charts now cover sector business chains, capital and repayment lanes, and society/economy feedback loops.</li>
 </ul>
 <h3 id="important-gaps">Important Gaps</h3>
@@ -15578,6 +15920,7 @@ timeline, and legal safe-harbor language.</p>
 <li>The legal/institutional roadmap and project pipeline are documentation layers only; they need independent legal opinions, official authority mapping, project feasibility studies, procurement review, environmental/social safeguards, and audited baseline data before any project is treated as investable.</li>
 <li>The political-economy engine is scenario scoring, not a real power map or legitimacy assessment. It needs independent Iraqi constitutional, federalism, anti-corruption, civil-service, labor, competition, citizen-rights, and security-sector review before it can guide any real transition.</li>
 <li>The federalism equity engine is a compact-readiness screen, not a legal allocation formula or constitutional settlement. It needs official authority maps, governorate/KRG/municipal review where applicable, real population and needs data, grievance records, land/water/heritage status, and independent legal validation before it can guide any allocation or project scale-up.</li>
+<li>The environmental/social safeguard engine is a planning screen, not an environmental permit, heritage clearance, water-rights decision, resettlement plan, safety certification, or MDB safeguard approval. It needs regulator review, field studies, community consultation, monitoring systems, liability estimates, and independent audit before any project is treated as safeguard-cleared.</li>
 <li>The fiscal stress engine is a planning control, not a sovereign debt-sustainability analysis. It needs Ministry of Finance, debt-office, CBI, IMF/MDB-style, auditor, and project-finance validation before any real capital allocation or dividend decision.</li>
 <li>The program sequencer is a dependency-control model, not an official rollout plan. It needs real institutional owners, statutory milestones, operator readiness testing, citizen consultation, and independent PMO review before any public timeline is claimed.</li>
 <li>The benefit-realization engine is a claim-audit model, not proof that benefits exist. It needs real baselines, audited source systems, attribution methods, evaluator independence, and publication governance before any outcome is treated as delivered.</li>
@@ -15594,7 +15937,7 @@ cargo run --package cbi-dashboard
 cargo test --workspace
 </code></pre>
 <p>Passing these checks should be described as prototype verification, not production certification.</p>
-<h1 id="part-29-technical-primitives">Part 29: Technical Primitives</h1>
+<h1 id="part-30-technical-primitives">Part 30: Technical Primitives</h1>
 <h2 id="technical-primitives-and-readiness-notes">Technical Primitives And Readiness Notes</h2>
 <p>This document maps the main technical claims to code that exists today and to the production gaps that still need to be closed. It is intentionally conservative: if something has a prototype implementation but lacks deployment hardening, it is marked as partial.</p>
 <p>For visual maps of the software architecture, transaction lifecycle, and financial-flow combinations, see <a href="system-and-financial-flow-diagrams.md">System And Financial Flow Diagrams</a>.</p>
