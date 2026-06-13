@@ -12,8 +12,10 @@
 - `docs/national-legal-institutional-roadmap.md` - authority path for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, domestic securities, privacy, emergency powers, federalism, and appeals.
 - `docs/project-pipeline-and-investment-gates.md` - project-family pipeline with capex, revenue source, DSCR, FX exposure, facility reuse, environmental, legal, and evidence gates.
 - `docs/political-economy-transition-and-anti-capture.md` - resistance, capture-risk, coalition, service-continuity, staff-transition, procurement-transparency, and pause/rollback logic.
+- `docs/federalism-governorate-equity-and-local-compacts.md` - governorate, municipal, regional, and disputed-authority compact gates for allocation fairness, local benefit capture, grievances, audit, appeals, and land/water/heritage disputes.
 - `docs/fiscal-stress-and-contingent-liability-model.md` - downside stress controls for oil-equity caps, DSCR, FX mismatch, maintenance gaps, guarantees, collection weakness, capex overruns, and dividend suspension.
 - `docs/national-program-sequencing-and-dependency-control.md` - sequencing controller that decides not-ready, evidence-only, pilot, build, controlled-scale, or hold/rollback phase for each domain.
+- `docs/procurement-integrity-and-market-discipline.md` - procurement and market-discipline gates for ownership, competition, price benchmarks, contract changes, payment discipline, quality, and SME participation.
 - `docs/benefit-realization-and-claim-audit.md` - claim-audit model for proving whether cashflows, public benefits, avoided costs, service outcomes, and dividends actually materialized.
 - `docs/iraq-integrated-growth-impact-model.md` - quantified non-oil growth-impact timeline for infrastructure, industry, open-source rail, green power, food/water systems, tourism, Digital IQD formalization, and civic work.
 - `docs/iraq-comprehensive-benefits-model.md` - long-horizon 2036, 2040, and 2050 benefits model for economic, infrastructure, environmental, social, and cultural outcomes.

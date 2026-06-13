@@ -24,7 +24,7 @@ the repository.
 
 ## The Problem It Addresses
 
-The model is designed around seven linked Iraqi economic problems:
+The model is designed around eight linked Iraqi economic problems:
 
 1. Oil income can act as an automatic funding source for ministries, weakening
    the feedback loop between public spending and productive economic results.
@@ -81,6 +81,10 @@ dividends only after the portfolio produces audited surplus.
   controlled transition, and scale modes when capture, resistance, coalition,
   service-continuity, staff-transition, federalism, and citizen-appeal gates
   pass.
+- **Federalism and governorate-equity gates:** national programs can scale only
+  when authority is mapped, local compacts exist, allocation variance is
+  explained, local revenue/jobs/suppliers/benefits are visible, grievances and
+  appeals work, and land/water/heritage disputes are resolved.
 - **Fiscal stress gates:** scale-up and dividends stop when stressed oil-equity
   capacity, DSCR, FX cover, maintenance reserves, contingent liabilities,
   collections, capex overruns, or dividend affordability fail.
@@ -88,6 +92,9 @@ dividends only after the portfolio produces audited surplus.
   pilot, build, controlled-scale, or hold/rollback until legal, data, audit,
   procurement, delivery, political, fiscal, service, and cashflow dependencies
   pass.
+- **Procurement integrity:** awards and privileges are restricted, suspended,
+  cancelled, or retendered when ownership, competition, pricing, contract
+  changes, payment discipline, quality, or SME participation fails.
 - **Benefit realization:** delivered-outcome claims require baseline, target,
   observed value, evidence quality, source confidence, attribution confidence,
   audit status, cash settlement, and dividend-boundary classification.
@@ -114,7 +121,8 @@ dividends only after the portfolio produces audited surplus.
   kernel, sovereign holding plan, economic cycle, growth impact, comprehensive
   benefits, production capacity, strategic resilience, tourism services,
   diaspora channels, facility recycling, political-economy transition
-  readiness, fiscal stress, program sequencing, and benefit realization.
+  readiness, federalism/governorate equity, fiscal stress, program sequencing,
+  benefit realization, and procurement integrity.
 - A pilot-grade Digital IQD software appendix covering transaction models,
   signing primitives, policy modules, POS/mobile codecs, dashboard routes,
   PostgreSQL migrations, Redis sessions, and specification tests.
@@ -129,9 +137,14 @@ dividends only after the portfolio produces audited surplus.
 - Independent debt-sustainability and contingent-liability review of guarantees,
   availability payments, FX mismatch, collection risk, and dividend
   affordability.
+- Independent federalism, governorate, municipal, KRG/regional, land, water,
+  grievance, heritage, and environmental validation of any local compact or
+  allocation rule.
 - Independent program-management review of sequencing, dependency ownership,
   operator readiness, milestone realism, pilot scope, citizen consultation, and
   rollback authority.
+- Independent procurement-law, open-contracting, beneficial-ownership,
+  price-benchmarking, supplier-market, and audit validation.
 - Independent monitoring, evaluation, and audit review before any scenario
   output becomes a delivered-outcome claim.
 - Independent political-economy validation, including real actor incentives,

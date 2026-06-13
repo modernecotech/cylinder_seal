@@ -4,7 +4,7 @@ Digital IQD, Industrial Dividends, Civic Work, and Iraq's Unified Economic Model
 
 **Status:** Prototype and policy-design ebook. Not production CBDC infrastructure.
 
-**Generated:** 2026-06-13
+**Generated:** 2026-06-14
 
 This ebook is generated from the repository documentation. It preserves the
 prototype boundary: Cylinder Seal is suitable for technical review, policy
@@ -21,26 +21,28 @@ infrastructure and is not an official Central Bank of Iraq project.
 6. National Legal And Institutional Roadmap
 7. Project Pipeline And Investment Gates
 8. Political-Economy Transition And Anti-Capture
-9. Fiscal Stress And Contingent Liability
-10. National Program Sequencing And Dependency Control
-11. Benefit Realization And Claim Audit
-12. Iraq Integrated Growth Impact Model
-13. Iraq Comprehensive Benefits Model
-14. Iraq Quantified Affordability And Cashflow Model
-15. System And Financial Flow Diagrams
-16. Business Value Chain Charts
-17. Unified Economic Model
-18. National Dividend Holding Company
-19. INDHC Ten-Year Plan
-20. Import, Services, And Diaspora Expansion
-21. Facility Recycling And Capital Markets
-22. Digitally Governed Industrial Champions
-23. National Civic Work System
-24. Ministry Transition Roadmap
-25. Security Model
-26. Current Implementation Status
-27. Technical Primitives
-28. Legacy Policy Paper Boundary
+9. Federalism Governorate Equity And Local Compacts
+10. Fiscal Stress And Contingent Liability
+11. National Program Sequencing And Dependency Control
+12. Procurement Integrity And Market Discipline
+13. Benefit Realization And Claim Audit
+14. Iraq Integrated Growth Impact Model
+15. Iraq Comprehensive Benefits Model
+16. Iraq Quantified Affordability And Cashflow Model
+17. System And Financial Flow Diagrams
+18. Business Value Chain Charts
+19. Unified Economic Model
+20. National Dividend Holding Company
+21. INDHC Ten-Year Plan
+22. Import, Services, And Diaspora Expansion
+23. Facility Recycling And Capital Markets
+24. Digitally Governed Industrial Champions
+25. National Civic Work System
+26. Ministry Transition Roadmap
+27. Security Model
+28. Current Implementation Status
+29. Technical Primitives
+30. Legacy Policy Paper Boundary
 
 # Diagram Atlas
 
@@ -150,8 +152,10 @@ The model has six practical rules:
 | Legal roadmap | Maps the authority path for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals. | [National legal and institutional roadmap](docs/national-legal-institutional-roadmap.md) |
 | Project pipeline | Converts sector ambition into project families with capex, revenue source, DSCR, FX exposure, facility reuse, environmental, legal, and evidence gates. | [Project pipeline and investment gates](docs/project-pipeline-and-investment-gates.md) |
 | Political economy | Models resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, and pause/rollback rules. | [Political-economy transition and anti-capture model](docs/political-economy-transition-and-anti-capture.md) |
+| Federalism equity | Controls governorate/regional authority, local compact readiness, needs-adjusted allocation fairness, local revenue/jobs/suppliers, grievance resolution, data publication, audit, appeals, and land/water/heritage disputes. | [Federalism, governorate equity, and local compacts](docs/federalism-governorate-equity-and-local-compacts.md) |
 | Fiscal stress | Tests oil-equity caps, stressed DSCR, FX mismatch, maintenance gaps, guarantees, collection weakness, capex overruns, and dividend affordability under downside cases. | [Fiscal stress and contingent liability model](docs/fiscal-stress-and-contingent-liability-model.md) |
 | Program sequencing | Decides whether each domain is not ready, evidence-only, pilot, build, controlled scale, or hold/rollback based on dependencies and gates. | [National program sequencing and dependency control](docs/national-program-sequencing-and-dependency-control.md) |
+| Procurement integrity | Controls beneficial ownership, competition depth, price benchmarks, single-source justification, contract variations, milestone evidence, payment discipline, quality, and SME participation. | [Procurement integrity and market discipline](docs/procurement-integrity-and-market-discipline.md) |
 | Benefit realization | Audits whether claimed cashflows, public benefits, avoided costs, service outcomes, and dividends are measured, attributable, audited, and correctly classified. | [Benefit realization and claim audit](docs/benefit-realization-and-claim-audit.md) |
 | Public-finance architecture | Proposes an oil-income lockbox, citizen beneficial shares, ministry-funding feedback, cash formalization controls, and Digital IQD dividends. | [National dividend holding company](docs/national-dividend-holding-company.md) |
 | Ten-year productive plan | Maps import substitution, profitable subsidiaries, strategic resilience, electronics, HVAC, water, irrigation, food, tourism, green capital, rail, raw-material processing, and Iraqi-only staffing. | [INDHC ten-year plan](docs/indhc-10-year-plan.md) |
@@ -296,6 +300,8 @@ forecasts.
 | Fiscal stress and contingent liabilities | `crates/cs-analytics/src/fiscal_stress.rs` | `migrations/20260713000001_fiscal_stress_projection.sql` |
 | Program sequencing and dependencies | `crates/cs-analytics/src/program_sequencing.rs` | `migrations/20260714000001_program_sequencing.sql` |
 | Benefit realization and claim audit | `crates/cs-analytics/src/benefit_realization.rs` | `migrations/20260715000001_benefit_realization_claim_audit.sql` |
+| Procurement integrity and market discipline | `crates/cs-analytics/src/procurement_integrity.rs` | `migrations/20260716000001_procurement_integrity.sql` |
+| Federalism, governorate equity, and local compacts | `crates/cs-analytics/src/federalism_equity.rs` | `migrations/20260717000001_federalism_equity_compact.sql` |
 
 ### Developer Appendix: Local Software Demo
 
@@ -359,7 +365,7 @@ the repository.
 
 ### The Problem It Addresses
 
-The model is designed around seven linked Iraqi economic problems:
+The model is designed around eight linked Iraqi economic problems:
 
 1. Oil income can act as an automatic funding source for ministries, weakening
    the feedback loop between public spending and productive economic results.
@@ -416,6 +422,10 @@ dividends only after the portfolio produces audited surplus.
   controlled transition, and scale modes when capture, resistance, coalition,
   service-continuity, staff-transition, federalism, and citizen-appeal gates
   pass.
+- **Federalism and governorate-equity gates:** national programs can scale only
+  when authority is mapped, local compacts exist, allocation variance is
+  explained, local revenue/jobs/suppliers/benefits are visible, grievances and
+  appeals work, and land/water/heritage disputes are resolved.
 - **Fiscal stress gates:** scale-up and dividends stop when stressed oil-equity
   capacity, DSCR, FX cover, maintenance reserves, contingent liabilities,
   collections, capex overruns, or dividend affordability fail.
@@ -423,6 +433,9 @@ dividends only after the portfolio produces audited surplus.
   pilot, build, controlled-scale, or hold/rollback until legal, data, audit,
   procurement, delivery, political, fiscal, service, and cashflow dependencies
   pass.
+- **Procurement integrity:** awards and privileges are restricted, suspended,
+  cancelled, or retendered when ownership, competition, pricing, contract
+  changes, payment discipline, quality, or SME participation fails.
 - **Benefit realization:** delivered-outcome claims require baseline, target,
   observed value, evidence quality, source confidence, attribution confidence,
   audit status, cash settlement, and dividend-boundary classification.
@@ -449,7 +462,8 @@ dividends only after the portfolio produces audited surplus.
   kernel, sovereign holding plan, economic cycle, growth impact, comprehensive
   benefits, production capacity, strategic resilience, tourism services,
   diaspora channels, facility recycling, political-economy transition
-  readiness, fiscal stress, program sequencing, and benefit realization.
+  readiness, federalism/governorate equity, fiscal stress, program sequencing,
+  benefit realization, and procurement integrity.
 - A pilot-grade Digital IQD software appendix covering transaction models,
   signing primitives, policy modules, POS/mobile codecs, dashboard routes,
   PostgreSQL migrations, Redis sessions, and specification tests.
@@ -464,9 +478,14 @@ dividends only after the portfolio produces audited surplus.
 - Independent debt-sustainability and contingent-liability review of guarantees,
   availability payments, FX mismatch, collection risk, and dividend
   affordability.
+- Independent federalism, governorate, municipal, KRG/regional, land, water,
+  grievance, heritage, and environmental validation of any local compact or
+  allocation rule.
 - Independent program-management review of sequencing, dependency ownership,
   operator readiness, milestone realism, pilot scope, citizen consultation, and
   rollback authority.
+- Independent procurement-law, open-contracting, beneficial-ownership,
+  price-benchmarking, supplier-market, and audit validation.
 - Independent monitoring, evaluation, and audit review before any scenario
   output becomes a delivered-outcome claim.
 - Independent political-economy validation, including real actor incentives,
@@ -514,11 +533,17 @@ Current posture:
 - **Political-economy discipline:** modeled through explicit capture,
   resistance, coalition, service-continuity, staff-transition, federalism,
   emergency-power, and citizen-appeal gates before reforms can scale.
+- **Federalism discipline:** modeled through authority mapping, governorate or
+  regional compacts, allocation-gap checks, local revenue/jobs/suppliers,
+  grievance resolution, audit, appeals, and land/water/heritage dispute gates.
 - **Stress discipline:** modeled through oil-equity caps, stressed DSCR, FX
   mismatch, maintenance gaps, guarantees, availability payments, collections,
   capex overruns, and dividend-affordability gates.
 - **Sequencing discipline:** modeled through not-ready, evidence-only, pilot,
   build, controlled-scale, and hold/rollback phases for each domain.
+- **Procurement discipline:** modeled through ownership, competition, price,
+  contract-variation, evidence, delivery, payment, quality, and SME gates before
+  awards or privileges proceed.
 - **Outcome discipline:** modeled through benefit-realization reports that
   classify claims as verified, track-only, in-progress, underperforming,
   overstated, failed, or unsupported.
@@ -562,12 +587,17 @@ Current posture:
 - Political-economy transition and anti-capture logic that can force a reform
   into visibility-only, pilot, pause, rollback, or redesign even when the
   financial case is attractive.
+- Federalism, governorate-equity, and local-compact logic that blocks national
+  scale-up when authority, allocation, local benefit capture, grievances,
+  appeals, audit, or land/water/heritage issues are unresolved.
 - Fiscal stress and contingent-liability logic that can force defensive or
   stop-scale-up mode when shocks make dividends, guarantees, FX debt, or new
   capex unsafe.
 - Program sequencing logic that blocks domains from jumping to scale before
   legal, baseline, audit, procurement, delivery, political, fiscal, service, and
   cashflow dependencies pass.
+- Procurement integrity logic that can restrict, suspend, cancel, or retender
+  awards and industrial privileges when market-discipline gates fail.
 - Benefit-realization logic that keeps public benefits out of dividend
   waterfalls and removes overstated or failed claims from front-door summaries.
 - Rust workspace with core models, storage, API, policy, AML, credit, consensus,
@@ -601,12 +631,18 @@ Current posture:
 - Independent political-economy validation that maps real actors, incentives,
   veto points, coercive risks, governorate authority, citizen trust, and
   implementation capacity.
+- Independent local-compact validation using official authority maps,
+  governorate/KRG/municipal input where applicable, real needs data, grievance
+  records, and land/water/environment/heritage status.
 - Independent fiscal stress validation of oil-equity caps, project debt,
   contingent liabilities, guarantees, availability payments, FX exposure,
   collection efficiency, maintenance reserves, and dividend rules.
 - Independent sequencing validation that turns the model into a realistic
   rollout with owners, pilot limits, milestones, public consultation, operator
   readiness tests, and rollback authority.
+- Independent procurement validation using real bid data, ownership registries,
+  price benchmarks, supplier-market data, sanctions/PEP feeds, protest records,
+  and payment history.
 - Independent monitoring, evaluation, and audit validation for any claim that is
   presented as delivered rather than modelled.
 
@@ -761,8 +797,10 @@ No dividend without audited distributable surplus.
 No ministry funding without visible public value.
 No strategic program without anti-capture controls.
 No transition scale-up without political-economy readiness.
+No national scale-up without governorate compact readiness.
 No scale-up under fiscal stress.
 No scale before predecessor dependencies pass.
+No award or privilege without procurement integrity.
 No delivered-outcome claim without benefit-realization audit.
 ```
 
@@ -879,6 +917,7 @@ forward no matter how attractive the narrative is.
 | Benefit discipline | Second-order benefits are source-tagged and excluded from dividend cash. |
 | Local capability | Iraqi staffing, training transfer, supplier upgrading, and handover plan exist. |
 | Anti-capture | Related-party exposure, monopoly risk, PEP/sanctions risk, and procurement concentration are within limits. |
+| Local compact readiness | Governorate, municipal, regional, or disputed-authority compact exists where required; allocation variance is explained; local revenue, jobs, suppliers, benefits, grievances, audit, appeals, and land/water/heritage issues are controlled. |
 | Privacy and security | Data use, access controls, auditability, offline settlement, and operator powers meet the security model. |
 | Citizen fairness | Dividends, civic work, transfers, and appeals are rules-based and auditable. |
 | Political-economy readiness | Resistance, capture risk, coalition support, service continuity, staff transition, procurement transparency, competition control, federalism, and appeals support the proposed transition mode. |
@@ -1014,8 +1053,10 @@ kernel, not a complete national operating system.
 | `TourismServiceClusterProjection` | Attraction-based service revenue, non-oil FX capture, local supplier demand, second-order benefit, visitor safety, conservation, and capacity gates. |
 | `DiasporaChannelProjection` | Formal remittances, Iraqi-product demand, export distribution, expertise, investment pipeline, marketing attribution, and compliance gates. |
 | `PoliticalEconomyProjection` | Capture risk, resistance pressure, coalition readiness, citizen legitimacy, transition readiness, and recommended transition mode. |
+| `FederalismEquityAssessment` | Governorate/regional compact status, needs-adjusted allocation gap, local revenue/jobs/suppliers/benefits, grievances, authority risk, decision, and required actions. |
 | `FiscalStressProjection` | Stressed oil-equity capacity, fiscal-rule breach, DSCR, FX mismatch, maintenance gap, contingent liability, dividend gap, and recommended stress mode. |
 | `ProgramSequencingDecision` | Domain readiness, dependency completion, operating capacity, legitimacy, recommended phase, blocked dependencies, and next required actions. |
+| `ProcurementIntegrityAssessment` | Competition, integrity, value-for-money, delivery, market-development, overall risk, decision, and required actions for awards and privileges. |
 | `BenefitRealizationReport` | Claim achievement, target variance, evidence score, realization score, cash eligibility, public-benefit-only value, disposition, and corrective actions. |
 
 Initial executable coverage:
@@ -1097,6 +1138,14 @@ Initial executable coverage:
   procurement transparency, beneficial ownership, competition, federalism, and
   emergency powers. `migrations/20260712000001_political_economy_transition.sql`
   adds projection and gate tables.
+- `crates/cs-analytics/src/federalism_equity.rs` adds the first federalism,
+  governorate-equity, and local-compact layer: authority mapping, compact
+  status, needs-adjusted allocation fairness, local revenue, employment,
+  supplier participation, local benefit capture, grievance resolution, land and
+  water authority, municipal approval, data publication, local audit, citizen
+  appeals, environmental/heritage consent, decision state, and required
+  actions. `migrations/20260717000001_federalism_equity_compact.sql` adds
+  assessment and gate tables.
 - `crates/cs-analytics/src/fiscal_stress.rs` adds the first fiscal-stress and
   contingent-liability layer: stressed oil-equity capacity, deficit/debt/reserve
   pressure, stressed DSCR, FX mismatch, maintenance gaps, guarantee and
@@ -1111,6 +1160,13 @@ Initial executable coverage:
   political mode, fiscal stress mode, recommended phase, blocked dependencies,
   and next required actions. `migrations/20260714000001_program_sequencing.sql`
   adds decision and gate tables.
+- `crates/cs-analytics/src/procurement_integrity.rs` adds the first procurement
+  integrity and market-discipline layer: beneficial ownership, PEP/sanctions,
+  competition depth, single-source justification, open contracting data,
+  independent evaluation, price benchmarks, contract variations, advances,
+  milestone evidence, delivery, payment discipline, quality, SME participation,
+  decision state, and required actions. `migrations/20260716000001_procurement_integrity.sql`
+  adds assessment and gate tables.
 - `crates/cs-analytics/src/benefit_realization.rs` adds the first benefit
   realization and claim-audit layer: baseline/target/observed values, source
   confidence, attribution confidence, evidence quality, audit status, cash
@@ -1138,8 +1194,10 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Ministry productivity | Which public budgets now buy measured outputs? |
 | Citizen welfare | What changed in wages, transfers, civic income, dividends, prices, and credit access? |
 | Political economy | Which reforms face capture, resistance, weak coalition support, service-continuity failure, staff-transition failure, or federalism risk? |
+| Federalism equity | Which governorates or regions have signed compacts, allocation gaps, weak local benefit capture, unresolved grievances, authority disputes, or appeal/audit gaps? |
 | Fiscal stress | Which projects or portfolios breach oil-equity limits, stressed DSCR, FX cover, maintenance reserves, contingent-liability caps, collection efficiency, or dividend affordability? |
 | Program sequencing | Which domains are not-ready, evidence-only, pilot, build, controlled-scale, or hold/rollback, and which dependencies block the next phase? |
+| Procurement integrity | Which awards, service contracts, concessions, champion privileges, or facility-reuse procurements are eligible, watch, restricted, suspended, or retender/cancel? |
 | Benefit realization | Which claimed benefits are verified, track-only, in-progress, underperforming, overstated, failed, or unsupported? |
 | Risk and capture | Where are procurement, related-party, concentration, AML, or security risks rising? |
 | Dividend sustainability | Is the dividend funded by recurring surplus after all senior claims? |
@@ -1152,6 +1210,7 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Maintenance reserve breach | Block distributions from the asset or subsidiary. |
 | Related-party or PEP concentration breach | Escalate to audit; suspend affected procurement privileges. |
 | Unpaid public invoices | Stop counting revenue as collectible; review ministry or municipal payment capacity. |
+| Local compact failure | Freeze scale-up, publish the affected compact issue, and move the program to evidence-only, compact-required, pilot-only, or renegotiation mode. |
 | FX mismatch | Restrict new foreign-currency borrowing unless offset by FX revenue, hedge, or approved reserve. |
 | Benefit overclaim | Move claim to low-confidence public-benefit ledger and remove from policy headline. |
 | Civic-work evidence failure | Hold payment, trigger appeal or re-verification, and flag verifier reliability. |
@@ -1279,6 +1338,12 @@ Economic design
 The model needs a federalism layer before any real lockbox, rail, water,
 tourism, facility-reuse, or dividend program can be credible.
 
+The working control document is
+[Federalism, Governorate Equity, And Local Compacts](federalism-governorate-equity-and-local-compacts.md).
+The executable planning primitive is
+`crates/cs-analytics/src/federalism_equity.rs`, with persistence in
+`migrations/20260717000001_federalism_equity_compact.sql`.
+
 | Compact issue | Required rule |
 | --- | --- |
 | Revenue fairness | Oil-equity allocation must be reconciled with population, producing-governorate, damaged-region, and balanced-development principles. |
@@ -1360,7 +1425,7 @@ The legal roadmap should produce a single public stop/go dashboard:
 | INDHC governance | Board, audit, procurement, related-party, competition, and dividend rules are enforceable. |
 | Citizen rights | Eligibility, inheritance, appeals, privacy, and fraud controls are operational. |
 | Environment/culture | Water, marshland, heritage, pollution, resettlement, and carrying-capacity gates are enforceable. |
-| Local authority | Governorate, municipality, and KRG issues are mapped for each project. |
+| Local authority | Governorate, municipality, regional/KRG, producing-governorate, and disputed-authority issues are mapped; local compact, allocation, grievance, audit, appeal, land/water, environmental, and heritage gates pass for each project. |
 | Political economy | Capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, and citizen appeals support the proposed transition mode. |
 
 If any gate is red, the model remains a planning architecture and may not be
@@ -1775,7 +1840,181 @@ If dividends compete with maintenance or debt service, dividends lose.
 ```
 
 
-# Part 9: Fiscal Stress And Contingent Liability
+# Part 9: Federalism Governorate Equity And Local Compacts
+
+## Federalism, Governorate Equity, And Local Compacts
+
+Status: governance control model. This is not a constitutional opinion,
+revenue-sharing law, KRG settlement, land-title determination, governorate
+allocation formula, or claim that any Iraqi authority has accepted this model.
+
+Cylinder Seal cannot be credible if oil income is merely centralized under a
+new name. A national oil lockbox, INDHC, Digital IQD dividend, rail program,
+water program, tourism program, facility-reuse program, or ministry-service
+transition has to pass a federalism and governorate-equity layer before it
+scales.
+
+### Core Rule
+
+```text
+No national flow is scalable unless:
+  the local authority is mapped,
+  the compact is negotiated or signed,
+  allocation variance is explained,
+  local revenue, jobs, suppliers, and benefits are visible,
+  grievances and appeals work,
+  audit data is published,
+  and land, water, environmental, heritage, municipal, or regional disputes are resolved.
+```
+
+The model is national, but it cannot behave as if every project belongs only to
+the center. Producing governorates, municipalities, damaged regions, disputed
+areas, and regional authorities need enforceable rules for participation,
+benefit, grievance, and audit.
+
+### Why This Layer Exists
+
+The oil-lockbox proposal is meant to stop ministries from passively consuming
+oil income. It should not replace ministry capture with central-company capture.
+
+This layer exists to prevent five failures:
+
+- Baghdad-centered allocation without governorate consent or evidence.
+- Producing regions bearing environmental and infrastructure burdens while
+  benefits are booked elsewhere.
+- KRG, disputed-territory, municipal, or governorate authority issues being
+  hidden until projects are already financed.
+- Local citizens seeing construction, logistics, water, rail, tourism, or
+  facility-reuse projects but not receiving jobs, supplier access, services, or
+  grievance rights.
+- National dashboards counting a benefit that the affected locality cannot see
+  or challenge.
+
+### Compact Surface
+
+Each project family or program should have a governorate or regional compact
+record before scale-up.
+
+| Compact issue | Required control |
+| --- | --- |
+| Authority map | Identify whether the competent authority is federal, governorate, municipal, regional, joint, producing-governorate, or disputed. |
+| Compact status | Missing, draft, negotiated, signed, disputed, or suspended. |
+| Allocation fairness | Compare planned allocation share with population, damage, production burden, poverty, infrastructure deficit, and balanced-development need. |
+| Local revenue share | Identify what share of cash revenue, fees, leases, service contracts, taxes, or municipal income is locally visible. |
+| Local employment | Track Iraqi staffing by governorate, training seats, apprenticeships, worker safety, and anti-patronage rules. |
+| Local suppliers | Track local SME participation, payment discipline, certification, and supplier upgrading. |
+| Local benefit capture | Measure whether roads, water, power, transport, parks, services, tourism facilities, or environmental restoration are delivered locally. |
+| Grievances | Record open grievances, resolution rate, escalation path, and independent review. |
+| Land and water | Block scale-up when title, water rights, land-use permits, resettlement, or authority are disputed. |
+| Municipality approval | Require local approval where city assets, streets, utilities, permits, or service contracts are affected. |
+| Regional/KRG coordination | Require a separate compact where regional authority, revenue sharing, payments, data, border flows, or disputed authority is involved. |
+| Data publication | Publish governorate-level allocation and benefit data at aggregate/privacy-safe level. |
+| Local audit | Enable local audit access and public summary reporting. |
+| Citizen appeals | Give citizens, SMEs, workers, landholders, and municipalities a usable appeal path. |
+| Environmental and heritage consent | Require marshland, water, pollution, resettlement, carrying-capacity, and heritage gates before projects scale. |
+
+### Decision States
+
+| Decision | Meaning | Required response |
+| --- | --- | --- |
+| Blocked | Authority risk, land-title dispute, water/land authority dispute, or unresolved local legal conflict prevents scale-up. | Freeze capital release and publish dispute-resolution path. |
+| Evidence only | Compact may be acceptable but publication, audit, or appeals are not live. | Continue analysis or limited evidence gathering, but do not scale. |
+| Compact required | Local, regional, municipal, or disputed-authority compact is missing or too immature. | Negotiate compact and publish minimum terms. |
+| Pilot only | Compact exists, but allocation variance or equity score is weak. | Limit scope, test delivery, and fix allocation or benefit capture before expansion. |
+| Eligible | Authority, compact, allocation, local capture, grievance, audit, and appeal gates pass. | Proceed with routine annual compact review. |
+| Pause or renegotiate | Compact is disputed or suspended. | Stop new commitments and renegotiate terms. |
+
+### Allocation Logic
+
+The model should not use population alone. A fair-share estimate should combine:
+
+- population;
+- infrastructure deficit;
+- poverty and unemployment;
+- historical underinvestment;
+- oil and gas production burden;
+- environmental damage or water stress;
+- displacement and reconstruction needs;
+- regional balance;
+- project-specific land, water, tourism, logistics, or industrial footprint.
+
+The executable engine compares the planned allocation share with a
+needs-adjusted fair share. A large unexplained variance does not automatically
+prove unfairness, but it forces disclosure and can cap the program at pilot
+scale.
+
+### Use In The Unified Model
+
+This layer should be applied to:
+
+- oil-equity allocations from the lockbox;
+- INDHC industrial subsidiaries and industrial parks;
+- rail, metro, freight, port, and logistics projects;
+- water, desalination, irrigation, marshland, and wastewater projects;
+- tourism and cultural-service clusters;
+- facility recycling and brownfield concessions;
+- ministry service contracts affecting local services;
+- civic-work programs;
+- strategic resilience and controlled-sector production where lawful;
+- Digital IQD dividend, appeal, and service-channel deployment.
+
+### Software And Data Surface
+
+The executable implementation is:
+
+- `crates/cs-analytics/src/federalism_equity.rs`
+- `migrations/20260717000001_federalism_equity_compact.sql`
+
+Core objects:
+
+| Object | Purpose |
+| --- | --- |
+| `FederalismEquityInput` | Captures period, program, governorate/region, authority type, compact status, population and fair-share assumptions, planned allocation, local revenue/jobs/suppliers/benefits, grievances, disputes, publication, audit, appeals, and consent status. |
+| `FederalismEquityAssessment` | Scores allocation gap, compact readiness, local capture, grievance quality, authority risk, equity score, decision, and required actions. |
+| `FederalismEquityGateResult` | Records pass/warn/fail state for authority, compact, allocation, revenue, employment, supplier, benefit, grievance, land/water, municipal, data, audit, appeal, and consent gates. |
+
+### Dashboard Requirements
+
+The federalism dashboard should show:
+
+- program reference and period;
+- governorate or region;
+- authority type;
+- compact status;
+- population share, needs-adjusted fair share, planned allocation share, and
+  allocation gap;
+- local revenue, employment, supplier, and benefit-capture shares;
+- grievance resolution rate and backlog;
+- land-title, water, municipal, regional, environmental, and heritage flags;
+- data-publication, local-audit, and citizen-appeal status;
+- decision and required actions.
+
+### Governance Boundary
+
+This layer does not solve Iraq's federalism disputes. It makes the model honest
+about them.
+
+The correct behavior is conservative:
+
+```text
+If authority is disputed, block.
+If compact is missing, require compact.
+If compact is disputed, pause and renegotiate.
+If local data, audit, or appeals are missing, stay evidence-only.
+If allocation variance is large, limit to pilot.
+If local jobs, suppliers, and benefits are weak, fix the compact before scaling.
+```
+
+### Bottom Line
+
+The national economic model has to be national in benefit, not merely national
+in control. The federalism-equity layer turns governorates, municipalities,
+producing regions, regional authorities, and affected communities into explicit
+counterparties with measurable rights, rather than treating them as passive
+locations where capital happens to land.
+
+
+# Part 10: Fiscal Stress And Contingent Liability
 
 ## Fiscal Stress And Contingent Liability Model
 
@@ -1932,7 +2171,7 @@ If dividends compete with solvency, dividends lose.
 ```
 
 
-# Part 10: National Program Sequencing And Dependency Control
+# Part 11: National Program Sequencing And Dependency Control
 
 ## National Program Sequencing And Dependency Control
 
@@ -2068,7 +2307,173 @@ Rollback before denial.
 ```
 
 
-# Part 11: Benefit Realization And Claim Audit
+# Part 12: Procurement Integrity And Market Discipline
+
+## Procurement Integrity And Market Discipline
+
+Status: control model. This is not a procurement accusation, legal opinion,
+bid evaluation, tender document, debarment decision, or claim that any specific
+Iraqi contractor or institution has failed.
+
+Cylinder Seal cannot be rational if capital allocation simply becomes a new
+route for rent extraction. This document adds the procurement and market
+discipline layer for projects, ministry service contracts, industrial champion
+privileges, facility reuse, PPP/JV concessions, digital platforms, tourism
+services, civic work, and strategic resilience production.
+
+### Core Rule
+
+```text
+No award, payment privilege, project disbursement, or champion preference
+without:
+  beneficial ownership,
+  competition depth or justified exception,
+  price benchmark,
+  open contracting data,
+  independent evaluation,
+  milestone evidence,
+  delivery performance,
+  payment discipline,
+  and SME market protection.
+```
+
+### Procurement Decisions
+
+| Decision | Meaning | Required response |
+| --- | --- | --- |
+| Eligible | Gates pass and risk is low. | Award or continue with routine monitoring. |
+| Watch | Some risks need monitoring. | Proceed only with enhanced disclosure and review. |
+| Restricted | Competition, transparency, delivery, or market risks are high. | Cap scope, withhold privilege, or require board/audit approval. |
+| Suspended | Ownership, justification, related-party, or concentration gates fail. | Freeze award or payment until remediated. |
+| Cancel or retender | PEP/sanctions, severe price variance, or extreme amendment risk appears. | Cancel, retender, or refer for legal/audit review. |
+
+### Gate Logic
+
+| Gate | Pass condition |
+| --- | --- |
+| Beneficial ownership | Contractors, suppliers, SPVs, and major subcontractors disclose beneficial ownership. |
+| PEP/sanctions | No unresolved PEP, sanctions, or high-risk ownership hit. |
+| Competition depth | At least three qualified bidders, or justified exception. |
+| Single-source justification | Direct or emergency awards have published legal and technical justification. |
+| Open contracting data | Tender, award, contract, amendment, delivery, invoice, and payment data are structured and visible to auditors or the public where lawful. |
+| Independent evaluation | Technical and financial evaluation is separated from political instruction. |
+| Price benchmark | Winning bid is within benchmark tolerance or variance is justified. |
+| Contract variation | Amendments are limited and independently reviewed. |
+| Advance payment | Advances are capped and secured. |
+| Milestone evidence | Payments are backed by delivery evidence. |
+| Delivery performance | Delays stay inside tolerance or trigger recovery plan. |
+| Payment discipline | Government/INDHC pays valid invoices on time, especially for SMEs. |
+| Quality | Defect, warranty, and certification failures stay inside tolerance. |
+| SME participation | Domestic SMEs are not crowded out by protected champions. |
+
+### Why Payment Discipline Is A Market Integrity Issue
+
+Procurement corruption is not only overpaying connected suppliers. It is also
+paying legitimate suppliers late until only politically protected firms can
+survive.
+
+The model therefore treats payment delay as a market-integrity gate. If valid
+SME invoices are not paid on time, supplier diversity collapses and the program
+creates the monopoly structure it was meant to prevent.
+
+### Use In Industrial Champions
+
+Industrial champion privileges should be suspended when:
+
+- related-party exposure is high;
+- domestic SME participation is thin;
+- prices drift above benchmark;
+- contract amendments repeatedly inflate value;
+- quality defects rise;
+- public procurement data is missing;
+- valid SME suppliers are paid late.
+
+Champion status is not a license to bypass procurement. It is a temporary
+privilege conditional on better measurement and better market formation.
+
+### Use In Facility Recycling
+
+Facility reuse can become asset stripping if procurement discipline is weak.
+
+Before a rehabilitated facility receives public capital, external debt, PPP/JV
+capital, or domestic securities, the procurement layer should check:
+
+- title and beneficial owner chain;
+- rehabilitation benchmark cost;
+- environmental remediation procurement;
+- worker transition contracts;
+- lease or concession terms;
+- related-party subcontractors;
+- payment evidence and delivery milestones.
+
+### Use In Ministry Service Contracts
+
+Ministry transition depends on service contracts replacing opaque budget claims.
+Those contracts need:
+
+- clear service level;
+- price rule;
+- grievance path;
+- payment trigger;
+- performance evidence;
+- public dashboard;
+- payment discipline.
+
+If service contracts become a disguised direct-award channel, the ministry
+transition should pause.
+
+### Software And Data Surface
+
+The executable implementation is:
+
+- `crates/cs-analytics/src/procurement_integrity.rs`
+- `migrations/20260716000001_procurement_integrity.sql`
+
+Core objects:
+
+| Object | Purpose |
+| --- | --- |
+| `ProcurementIntegrityInput` | Captures method, contract value, reference cost, bid data, SME share, related parties, concentration, variations, advances, evidence, delays, quality, ownership, sanctions, open data, evaluation, protest window, and justification. |
+| `ProcurementIntegrityAssessment` | Scores competition, integrity, value for money, delivery, market development, overall risk, decision, and required actions. |
+| `ProcurementIntegrityGateResult` | Records pass/warn/fail state for procurement gates. |
+
+### Dashboard Requirements
+
+The procurement dashboard should show:
+
+- procurement reference;
+- domain and method;
+- reference cost and winning bid;
+- benchmark variance;
+- bidder count and qualified bidder count;
+- beneficial ownership status;
+- PEP/sanctions flag;
+- related-party and supplier concentration;
+- contract variation;
+- advance payment;
+- milestone evidence;
+- delivery delay;
+- payment delay;
+- quality defect rate;
+- SME participation;
+- decision and required actions.
+
+### Bottom Line
+
+The economic model can only be a productive-capital model if procurement builds
+markets instead of allocating rents.
+
+```text
+If ownership is hidden, suspend.
+If sanctions or PEP risk is unresolved, cancel or refer.
+If the price is irrational, retender.
+If evidence is weak, withhold payment.
+If SMEs are paid late, fix the buyer before blaming the market.
+If champions crush suppliers, remove privilege.
+```
+
+
+# Part 13: Benefit Realization And Claim Audit
 
 ## Benefit Realization And Claim Audit
 
@@ -2209,7 +2614,7 @@ If it underperforms, publish the variance.
 ```
 
 
-# Part 12: Iraq Integrated Growth Impact Model
+# Part 14: Iraq Integrated Growth Impact Model
 
 ## Iraq Integrated Growth Impact Model
 
@@ -2534,7 +2939,7 @@ citizen-facing accountability.
 ```
 
 
-# Part 13: Iraq Comprehensive Benefits Model
+# Part 15: Iraq Comprehensive Benefits Model
 
 ## Iraq Comprehensive Benefits Model
 
@@ -3006,7 +3411,7 @@ substrate for a post-oil, post-automation Iraqi development model:
 That is the unified economic, environmental, social, and cultural model.
 
 
-# Part 14: Iraq Quantified Affordability And Cashflow Model
+# Part 16: Iraq Quantified Affordability And Cashflow Model
 
 ## Iraq Quantified Affordability And Cashflow Model
 
@@ -3530,7 +3935,7 @@ That is the point of quantifying the model: it converts a sovereign-economic
 vision into a financeable sequence with hard stop/go gates.
 
 
-# Part 15: System And Financial Flow Diagrams
+# Part 17: System And Financial Flow Diagrams
 
 ## System And Financial Flow Diagrams
 
@@ -4002,7 +4407,7 @@ remaining engineering gaps:
   governance, and dividend formula require independent review.
 
 
-# Part 16: Business Value Chain Charts
+# Part 18: Business Value Chain Charts
 
 ## Business Value Chain Charts
 
@@ -4119,7 +4524,7 @@ This chart pack also clarifies three repository boundaries:
   confuse GDP, avoided imports, or social outcomes with dividend capacity.
 
 
-# Part 17: Unified Economic Model
+# Part 19: Unified Economic Model
 
 ## Unified Economic Model
 
@@ -4145,7 +4550,7 @@ audited surplus.
 
 ### System Boundary
 
-The system has eighteen layers:
+The system has twenty layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
@@ -4154,8 +4559,10 @@ The system has eighteen layers:
 | Legal and institutional layer | Authority path for oil lockbox, INDHC, citizen shares, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals. | `docs/national-legal-institutional-roadmap.md` |
 | Project pipeline layer | Project-family gates for capex, opex, revenue source, DSCR, FX exposure, facility reuse, environmental/cultural safeguards, legal authority, and evidence bundles. | `docs/project-pipeline-and-investment-gates.md` |
 | Political-economy and anti-capture layer | Resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, and pause/rollback rules. | `docs/political-economy-transition-and-anti-capture.md` |
+| Federalism and governorate-equity layer | Local authority mapping, governorate/regional compacts, allocation fairness, local revenue/jobs/suppliers, grievance resolution, audit, appeals, and land/water/heritage disputes. | `docs/federalism-governorate-equity-and-local-compacts.md` |
 | Fiscal stress and contingent-liability layer | Downside controls for oil-equity caps, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend suspension. | `docs/fiscal-stress-and-contingent-liability-model.md` |
 | Program sequencing layer | Domain-by-domain phase control for not-ready, evidence-only, pilot, build, controlled-scale, or hold/rollback based on legal, data, audit, procurement, delivery, political, fiscal, service, and cashflow dependencies. | `docs/national-program-sequencing-and-dependency-control.md` |
+| Procurement integrity and market-discipline layer | Controls ownership, competition, single-source justification, price benchmarks, open contracting data, contract variations, advances, milestone evidence, delivery, payment discipline, quality, and SME participation. | `docs/procurement-integrity-and-market-discipline.md` |
 | Benefit realization and claim-audit layer | Verifies whether claimed cashflows, avoided costs, second-order benefits, capacity metrics, service outcomes, and distributions actually materialized and are correctly excluded from or admitted to cash waterfalls. | `docs/benefit-realization-and-claim-audit.md` |
 | Public-finance and capital layer | Oil Income Lockbox, INDHC, gross-profit levy, ministry budgets, cash formalization, citizen share entitlements, dividends. | `docs/national-dividend-holding-company.md` |
 | Ten-year productive economy layer | Import substitution, strategic resilience manufacturing, defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, food substitution, tourism/services, green capital, open rail, raw-material processing, Iraqi-only permanent staffing. | `docs/indhc-10-year-plan.md` |
@@ -4740,7 +5147,7 @@ The point is not only to digitize money. The point is to make Iraq's economic
 feedback loops visible, governable, productive, and citizen-owned.
 
 
-# Part 18: National Dividend Holding Company
+# Part 20: National Dividend Holding Company
 
 ## National Dividend Holding Company Architecture
 
@@ -5035,7 +5442,7 @@ for the proposed investment program, capital stack, staffing model, sector
 priorities, reinvestment waterfall, and implementation primitives.
 
 
-# Part 19: INDHC Ten-Year Plan
+# Part 21: INDHC Ten-Year Plan
 
 ## INDHC Ten-Year Industrial And Infrastructure Plan
 
@@ -5908,7 +6315,7 @@ productive-capital machine:
 - remaining distributable surplus is paid as a Digital IQD citizen dividend.
 
 
-# Part 20: Import, Services, And Diaspora Expansion
+# Part 22: Import, Services, And Diaspora Expansion
 
 ## Import, Services, And Diaspora Expansion
 
@@ -6084,7 +6491,7 @@ dashboard a way to distinguish cash income, remittance formalization, export
 distribution, expertise value, marketing value, and investment pipeline risk.
 
 
-# Part 21: Facility Recycling And Capital Markets
+# Part 23: Facility Recycling And Capital Markets
 
 ## Facility Recycling And Capital Markets
 
@@ -6307,7 +6714,7 @@ ranked, financeable where justified, and impossible to dress up as value when it
 is actually a liability.
 
 
-# Part 22: Digitally Governed Industrial Champions
+# Part 24: Digitally Governed Industrial Champions
 
 ## Digitally Governed Industrial Champions
 
@@ -6806,7 +7213,7 @@ No competition review, no champion status renewal.
 ```
 
 
-# Part 23: National Civic Work System
+# Part 25: National Civic Work System
 
 ## National Civic Work System
 
@@ -7190,7 +7597,7 @@ productivity gains
 ```
 
 
-# Part 24: Ministry Transition Roadmap
+# Part 26: Ministry Transition Roadmap
 
 ## Ministry Transition And Deprecation Roadmap
 
@@ -7397,7 +7804,7 @@ The end-state is a smaller cabinet with stronger sovereign functions:
 - productive national capital through INDHC.
 
 
-# Part 25: Security Model
+# Part 27: Security Model
 
 ## Security Model And Threat Notes
 
@@ -7600,7 +8007,7 @@ replace it with a dedicated security contact, patch SLA, coordinated-disclosure
 timeline, and legal safe-harbor language.
 
 
-# Part 26: Current Implementation Status
+# Part 28: Current Implementation Status
 
 ## Implementation Status
 
@@ -7626,10 +8033,12 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - National Legal and Institutional Roadmap documented as an authority checklist for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, securities, privacy, federalism, emergency powers, and appeals.
 - Project Pipeline and Investment Gates documented as a project-family structure for capex, revenue sources, DSCR, FX exposure, facility reuse, environmental gates, legal authority, and evidence bundles.
 - Political-Economy Transition and Anti-Capture model documented as a reform-readiness layer for capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, federalism, emergency powers, and citizen appeals.
+- Federalism, Governorate Equity, and Local Compacts documented as a scale-control layer for authority mapping, compact status, allocation fairness, local revenue, local employment, supplier participation, benefit capture, grievances, local audit, citizen appeals, and land/water/heritage disputes.
 - Fiscal Stress and Contingent Liability model documented as a downside-control layer for stressed oil-equity capacity, DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability.
 - National Program Sequencing and Dependency Control documented as a phase-control layer for not-ready, evidence-only, pilot, build, controlled-scale, and hold/rollback decisions.
 - Benefit Realization and Claim Audit documented as an accountability layer for baseline, target, observed value, source confidence, attribution confidence, evidence quality, audit status, cash settlement, no-dividend flags, and corrective actions.
-- Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, fiscal stress, program sequencing, and benefit realization. These are planning primitives, not calibrated national forecasts.
+- Procurement Integrity and Market Discipline documented as an award/privilege-control layer for beneficial ownership, competition, single-source justification, open data, independent evaluation, price benchmarks, contract changes, advances, milestone evidence, delivery, payment discipline, quality, and SME participation.
+- Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, federalism/governorate equity, fiscal stress, program sequencing, benefit realization, and procurement integrity. These are planning primitives, not calibrated national forecasts.
 - Rendered SVG value-chain charts now cover sector business chains, capital and repayment lanes, and society/economy feedback loops.
 
 ### Important Gaps
@@ -7648,9 +8057,11 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - The National Civic Work System is not implemented in code and needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, and fiscal validation before any `cs-civic-work` module is treated as deployable.
 - The legal/institutional roadmap and project pipeline are documentation layers only; they need independent legal opinions, official authority mapping, project feasibility studies, procurement review, environmental/social safeguards, and audited baseline data before any project is treated as investable.
 - The political-economy engine is scenario scoring, not a real power map or legitimacy assessment. It needs independent Iraqi constitutional, federalism, anti-corruption, civil-service, labor, competition, citizen-rights, and security-sector review before it can guide any real transition.
+- The federalism equity engine is a compact-readiness screen, not a legal allocation formula or constitutional settlement. It needs official authority maps, governorate/KRG/municipal review where applicable, real population and needs data, grievance records, land/water/heritage status, and independent legal validation before it can guide any allocation or project scale-up.
 - The fiscal stress engine is a planning control, not a sovereign debt-sustainability analysis. It needs Ministry of Finance, debt-office, CBI, IMF/MDB-style, auditor, and project-finance validation before any real capital allocation or dividend decision.
 - The program sequencer is a dependency-control model, not an official rollout plan. It needs real institutional owners, statutory milestones, operator readiness testing, citizen consultation, and independent PMO review before any public timeline is claimed.
 - The benefit-realization engine is a claim-audit model, not proof that benefits exist. It needs real baselines, audited source systems, attribution methods, evaluator independence, and publication governance before any outcome is treated as delivered.
+- The procurement integrity engine is a screening primitive, not a legal procurement decision or debarment system. It needs procurement-law review, official supplier data, beneficial-owner registries, sanctions/PEP feeds, price benchmarks, bid records, and independent audit before operational use.
 
 ### Running The Dashboard
 
@@ -7671,7 +8082,7 @@ cargo test --workspace
 Passing these checks should be described as prototype verification, not production certification.
 
 
-# Part 27: Technical Primitives
+# Part 29: Technical Primitives
 
 ## Technical Primitives And Readiness Notes
 

@@ -80,6 +80,12 @@ Economic design
 The model needs a federalism layer before any real lockbox, rail, water,
 tourism, facility-reuse, or dividend program can be credible.
 
+The working control document is
+[Federalism, Governorate Equity, And Local Compacts](federalism-governorate-equity-and-local-compacts.md).
+The executable planning primitive is
+`crates/cs-analytics/src/federalism_equity.rs`, with persistence in
+`migrations/20260717000001_federalism_equity_compact.sql`.
+
 | Compact issue | Required rule |
 | --- | --- |
 | Revenue fairness | Oil-equity allocation must be reconciled with population, producing-governorate, damaged-region, and balanced-development principles. |
@@ -161,7 +167,7 @@ The legal roadmap should produce a single public stop/go dashboard:
 | INDHC governance | Board, audit, procurement, related-party, competition, and dividend rules are enforceable. |
 | Citizen rights | Eligibility, inheritance, appeals, privacy, and fraud controls are operational. |
 | Environment/culture | Water, marshland, heritage, pollution, resettlement, and carrying-capacity gates are enforceable. |
-| Local authority | Governorate, municipality, and KRG issues are mapped for each project. |
+| Local authority | Governorate, municipality, regional/KRG, producing-governorate, and disputed-authority issues are mapped; local compact, allocation, grievance, audit, appeal, land/water, environmental, and heritage gates pass for each project. |
 | Political economy | Capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, and citizen appeals support the proposed transition mode. |
 
 If any gate is red, the model remains a planning architecture and may not be

@@ -20,8 +20,10 @@ No dividend without audited distributable surplus.
 No ministry funding without visible public value.
 No strategic program without anti-capture controls.
 No transition scale-up without political-economy readiness.
+No national scale-up without governorate compact readiness.
 No scale-up under fiscal stress.
 No scale before predecessor dependencies pass.
+No award or privilege without procurement integrity.
 No delivered-outcome claim without benefit-realization audit.
 ```
 
@@ -138,6 +140,7 @@ forward no matter how attractive the narrative is.
 | Benefit discipline | Second-order benefits are source-tagged and excluded from dividend cash. |
 | Local capability | Iraqi staffing, training transfer, supplier upgrading, and handover plan exist. |
 | Anti-capture | Related-party exposure, monopoly risk, PEP/sanctions risk, and procurement concentration are within limits. |
+| Local compact readiness | Governorate, municipal, regional, or disputed-authority compact exists where required; allocation variance is explained; local revenue, jobs, suppliers, benefits, grievances, audit, appeals, and land/water/heritage issues are controlled. |
 | Privacy and security | Data use, access controls, auditability, offline settlement, and operator powers meet the security model. |
 | Citizen fairness | Dividends, civic work, transfers, and appeals are rules-based and auditable. |
 | Political-economy readiness | Resistance, capture risk, coalition support, service continuity, staff transition, procurement transparency, competition control, federalism, and appeals support the proposed transition mode. |
@@ -273,8 +276,10 @@ kernel, not a complete national operating system.
 | `TourismServiceClusterProjection` | Attraction-based service revenue, non-oil FX capture, local supplier demand, second-order benefit, visitor safety, conservation, and capacity gates. |
 | `DiasporaChannelProjection` | Formal remittances, Iraqi-product demand, export distribution, expertise, investment pipeline, marketing attribution, and compliance gates. |
 | `PoliticalEconomyProjection` | Capture risk, resistance pressure, coalition readiness, citizen legitimacy, transition readiness, and recommended transition mode. |
+| `FederalismEquityAssessment` | Governorate/regional compact status, needs-adjusted allocation gap, local revenue/jobs/suppliers/benefits, grievances, authority risk, decision, and required actions. |
 | `FiscalStressProjection` | Stressed oil-equity capacity, fiscal-rule breach, DSCR, FX mismatch, maintenance gap, contingent liability, dividend gap, and recommended stress mode. |
 | `ProgramSequencingDecision` | Domain readiness, dependency completion, operating capacity, legitimacy, recommended phase, blocked dependencies, and next required actions. |
+| `ProcurementIntegrityAssessment` | Competition, integrity, value-for-money, delivery, market-development, overall risk, decision, and required actions for awards and privileges. |
 | `BenefitRealizationReport` | Claim achievement, target variance, evidence score, realization score, cash eligibility, public-benefit-only value, disposition, and corrective actions. |
 
 Initial executable coverage:
@@ -356,6 +361,14 @@ Initial executable coverage:
   procurement transparency, beneficial ownership, competition, federalism, and
   emergency powers. `migrations/20260712000001_political_economy_transition.sql`
   adds projection and gate tables.
+- `crates/cs-analytics/src/federalism_equity.rs` adds the first federalism,
+  governorate-equity, and local-compact layer: authority mapping, compact
+  status, needs-adjusted allocation fairness, local revenue, employment,
+  supplier participation, local benefit capture, grievance resolution, land and
+  water authority, municipal approval, data publication, local audit, citizen
+  appeals, environmental/heritage consent, decision state, and required
+  actions. `migrations/20260717000001_federalism_equity_compact.sql` adds
+  assessment and gate tables.
 - `crates/cs-analytics/src/fiscal_stress.rs` adds the first fiscal-stress and
   contingent-liability layer: stressed oil-equity capacity, deficit/debt/reserve
   pressure, stressed DSCR, FX mismatch, maintenance gaps, guarantee and
@@ -370,6 +383,13 @@ Initial executable coverage:
   political mode, fiscal stress mode, recommended phase, blocked dependencies,
   and next required actions. `migrations/20260714000001_program_sequencing.sql`
   adds decision and gate tables.
+- `crates/cs-analytics/src/procurement_integrity.rs` adds the first procurement
+  integrity and market-discipline layer: beneficial ownership, PEP/sanctions,
+  competition depth, single-source justification, open contracting data,
+  independent evaluation, price benchmarks, contract variations, advances,
+  milestone evidence, delivery, payment discipline, quality, SME participation,
+  decision state, and required actions. `migrations/20260716000001_procurement_integrity.sql`
+  adds assessment and gate tables.
 - `crates/cs-analytics/src/benefit_realization.rs` adds the first benefit
   realization and claim-audit layer: baseline/target/observed values, source
   confidence, attribution confidence, evidence quality, audit status, cash
@@ -397,8 +417,10 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Ministry productivity | Which public budgets now buy measured outputs? |
 | Citizen welfare | What changed in wages, transfers, civic income, dividends, prices, and credit access? |
 | Political economy | Which reforms face capture, resistance, weak coalition support, service-continuity failure, staff-transition failure, or federalism risk? |
+| Federalism equity | Which governorates or regions have signed compacts, allocation gaps, weak local benefit capture, unresolved grievances, authority disputes, or appeal/audit gaps? |
 | Fiscal stress | Which projects or portfolios breach oil-equity limits, stressed DSCR, FX cover, maintenance reserves, contingent-liability caps, collection efficiency, or dividend affordability? |
 | Program sequencing | Which domains are not-ready, evidence-only, pilot, build, controlled-scale, or hold/rollback, and which dependencies block the next phase? |
+| Procurement integrity | Which awards, service contracts, concessions, champion privileges, or facility-reuse procurements are eligible, watch, restricted, suspended, or retender/cancel? |
 | Benefit realization | Which claimed benefits are verified, track-only, in-progress, underperforming, overstated, failed, or unsupported? |
 | Risk and capture | Where are procurement, related-party, concentration, AML, or security risks rising? |
 | Dividend sustainability | Is the dividend funded by recurring surplus after all senior claims? |
@@ -411,6 +433,7 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Maintenance reserve breach | Block distributions from the asset or subsidiary. |
 | Related-party or PEP concentration breach | Escalate to audit; suspend affected procurement privileges. |
 | Unpaid public invoices | Stop counting revenue as collectible; review ministry or municipal payment capacity. |
+| Local compact failure | Freeze scale-up, publish the affected compact issue, and move the program to evidence-only, compact-required, pilot-only, or renegotiation mode. |
 | FX mismatch | Restrict new foreign-currency borrowing unless offset by FX revenue, hedge, or approved reserve. |
 | Benefit overclaim | Move claim to low-confidence public-benefit ledger and remove from policy headline. |
 | Civic-work evidence failure | Hold payment, trigger appeal or re-verification, and flag verifier reliability. |

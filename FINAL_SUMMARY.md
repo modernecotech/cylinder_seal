@@ -18,11 +18,17 @@ Current posture:
 - **Political-economy discipline:** modeled through explicit capture,
   resistance, coalition, service-continuity, staff-transition, federalism,
   emergency-power, and citizen-appeal gates before reforms can scale.
+- **Federalism discipline:** modeled through authority mapping, governorate or
+  regional compacts, allocation-gap checks, local revenue/jobs/suppliers,
+  grievance resolution, audit, appeals, and land/water/heritage dispute gates.
 - **Stress discipline:** modeled through oil-equity caps, stressed DSCR, FX
   mismatch, maintenance gaps, guarantees, availability payments, collections,
   capex overruns, and dividend-affordability gates.
 - **Sequencing discipline:** modeled through not-ready, evidence-only, pilot,
   build, controlled-scale, and hold/rollback phases for each domain.
+- **Procurement discipline:** modeled through ownership, competition, price,
+  contract-variation, evidence, delivery, payment, quality, and SME gates before
+  awards or privileges proceed.
 - **Outcome discipline:** modeled through benefit-realization reports that
   classify claims as verified, track-only, in-progress, underperforming,
   overstated, failed, or unsupported.
@@ -66,12 +72,17 @@ Current posture:
 - Political-economy transition and anti-capture logic that can force a reform
   into visibility-only, pilot, pause, rollback, or redesign even when the
   financial case is attractive.
+- Federalism, governorate-equity, and local-compact logic that blocks national
+  scale-up when authority, allocation, local benefit capture, grievances,
+  appeals, audit, or land/water/heritage issues are unresolved.
 - Fiscal stress and contingent-liability logic that can force defensive or
   stop-scale-up mode when shocks make dividends, guarantees, FX debt, or new
   capex unsafe.
 - Program sequencing logic that blocks domains from jumping to scale before
   legal, baseline, audit, procurement, delivery, political, fiscal, service, and
   cashflow dependencies pass.
+- Procurement integrity logic that can restrict, suspend, cancel, or retender
+  awards and industrial privileges when market-discipline gates fail.
 - Benefit-realization logic that keeps public benefits out of dividend
   waterfalls and removes overstated or failed claims from front-door summaries.
 - Rust workspace with core models, storage, API, policy, AML, credit, consensus,
@@ -105,12 +116,18 @@ Current posture:
 - Independent political-economy validation that maps real actors, incentives,
   veto points, coercive risks, governorate authority, citizen trust, and
   implementation capacity.
+- Independent local-compact validation using official authority maps,
+  governorate/KRG/municipal input where applicable, real needs data, grievance
+  records, and land/water/environment/heritage status.
 - Independent fiscal stress validation of oil-equity caps, project debt,
   contingent liabilities, guarantees, availability payments, FX exposure,
   collection efficiency, maintenance reserves, and dividend rules.
 - Independent sequencing validation that turns the model into a realistic
   rollout with owners, pilot limits, milestones, public consultation, operator
   readiness tests, and rollback authority.
+- Independent procurement validation using real bid data, ownership registries,
+  price benchmarks, supplier-market data, sanctions/PEP feeds, protest records,
+  and payment history.
 - Independent monitoring, evaluation, and audit validation for any claim that is
   presented as delivered rather than modelled.
 
