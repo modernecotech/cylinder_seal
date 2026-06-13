@@ -510,6 +510,27 @@ The model gives each existing Cylinder Seal component a place:
 13. Gate all public claims behind source labels, model assumptions, and confidence
    levels from `docs/economic-assumptions.md`.
 
+Initial implementation status:
+
+- Step 2 has begun in `crates/cs-analytics/src/economic_operating.rs` and
+  `migrations/20260702000001_economic_operating_kernel.sql`.
+- Step 3 has begun in `crates/cs-analytics/src/sovereign_holding.rs` and
+  `migrations/20260703000001_sovereign_holding_capital_plan.sql`.
+- The step-3 implementation also adds first-pass holding-company governance
+  gates for ownership separation, board independence, audit transparency,
+  citizen share protection, competitive neutrality, related-party exposure,
+  procurement integrity, political instruction controls, and citizen appeals.
+- Step 4 has begun in `crates/cs-analytics/src/economic_cycle.rs` and
+  `migrations/20260704000001_economic_cycle_projection.sql`. It tracks the
+  economic loop from oil-equity allocation and external capital to booked
+  portfolio revenue, treasury revenue, citizen income, domestic recirculation,
+  import leakage, non-oil FX capture, dividend cover, and household income.
+- Step 5 has begun in `crates/cs-analytics/src/growth_impact.rs` and
+  `migrations/20260705000001_growth_impact_projection.sql`. It mirrors the
+  integrated growth timeline as auditable scenario projections, sector
+  contribution rows, and claim-audit labels so high-growth statements remain
+  source-tagged and caveated.
+
 ## Bottom Line
 
 Cylinder Seal should be read as one economic operating system:

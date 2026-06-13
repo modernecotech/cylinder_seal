@@ -52,6 +52,13 @@ not validate the exact sector contributions below.
 Machine-readable table:
 [docs/data/iraq-integrated-growth-impact-timeline.csv](data/iraq-integrated-growth-impact-timeline.csv).
 
+Initial executable coverage now exists in `crates/cs-analytics/src/growth_impact.rs`,
+with persistence tables in
+`migrations/20260705000001_growth_impact_projection.sql`. The code mirrors the
+CSV as scenario projections, sector contribution rows, additional non-oil GDP
+ranges, phase filters, and claim-confidence controls. It does not convert the
+scenario into an official forecast.
+
 The model starts from IMF's 2026 non-oil GDP level of IQD 235.6T. Using a simple
 IQD 1,300 per USD conversion, this equals about USD 181B in 2026-price terms.
 

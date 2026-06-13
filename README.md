@@ -66,6 +66,10 @@ The public-facing technical evidence has been split out of the original long REA
 - [Implementation status](IMPLEMENTATION_STATUS.md) summarizes dashboard implementation state.
 - [Specification and fixture results](SPECIFICATION_AND_FIXTURE_RESULTS.md) and [cs-tests README](crates/cs-tests/README.md) describe current test evidence and the missing live PostgreSQL/Redis coverage.
 - [API reference](API_REFERENCE.md) documents the dashboard API.
+- The first executable economic-operating kernel lives in `crates/cs-analytics/src/economic_operating.rs`, with persistence tables in `migrations/20260702000001_economic_operating_kernel.sql`.
+- Sovereign holding-company capital-plan primitives live in `crates/cs-analytics/src/sovereign_holding.rs`, with persistence tables in `migrations/20260703000001_sovereign_holding_capital_plan.sql`.
+- Economic-cycle and citizen-income projection primitives live in `crates/cs-analytics/src/economic_cycle.rs`, with persistence tables in `migrations/20260704000001_economic_cycle_projection.sql`.
+- Integrated non-oil growth-impact projections live in `crates/cs-analytics/src/growth_impact.rs`, with persistence tables in `migrations/20260705000001_growth_impact_projection.sql`.
 
 ## Economic And Policy Framing
 

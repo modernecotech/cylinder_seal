@@ -111,7 +111,7 @@ Production requirements:
 Current state:
 
 - Role concepts exist: auditor, analyst, officer, supervisor.
-- Current sensitive route stubs enforce officer or supervisor roles and have route-level tests.
+- Current sensitive routes enforce officer or supervisor roles and have route-level tests.
 
 Production requirements:
 

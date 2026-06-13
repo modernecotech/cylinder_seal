@@ -233,7 +233,10 @@ base that must produce future dividends.
 
 ## Data Model Surface
 
-Cylinder Seal should eventually represent this logic with explicit objects:
+Cylinder Seal has now started representing this logic with explicit objects in
+`crates/cs-analytics/src/economic_operating.rs` and persistence tables in
+`migrations/20260702000001_economic_operating_kernel.sql`. This is an initial
+kernel, not a complete national operating system.
 
 | Primitive | Purpose |
 | --- | --- |
@@ -251,6 +254,36 @@ Cylinder Seal should eventually represent this logic with explicit objects:
 | `PublicDashboardSnapshot` | Published aggregate view with confidence levels and privacy protection. |
 | `GrowthImpactProjection` | Baseline, constrained-base, and strategic-upper non-oil growth paths from [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md). |
 | `ComprehensiveBenefitProjection` | Long-horizon economic, infrastructure, environmental, social, and cultural benefit paths from [Iraq Comprehensive Benefits Model](iraq-comprehensive-benefits-model.md). |
+
+Initial executable coverage:
+
+- `LedgerKind` and `LedgerImpact` enforce that public benefits do not become
+  distributable cash.
+- `EconomicOperatingKernel::evaluate_hard_gates` checks the first legal,
+  fiscal, debt, maintenance, revenue, benefit, local-capability, anti-capture,
+  privacy/security, and citizen-fairness gates.
+- `EconomicOperatingKernel::compute_waterfall` pays senior claims before
+  distributable surplus.
+- `EconomicOperatingKernel::decide_dividend` blocks dividends unless the
+  waterfall is solvent, holding-company DSCR passes, and audit is complete.
+- The new migration creates operating-period, assumption-set, event, impact,
+  hard-gate, waterfall, capital-allocation, and dividend-gate tables.
+- `crates/cs-analytics/src/sovereign_holding.rs` adds the first capital-plan
+  layer: capital stacks, milestones, revenue streams, gross-profit levies,
+  retained-earnings allocation, dividend distribution math, and holding-company
+  governance gates. `migrations/20260703000001_sovereign_holding_capital_plan.sql`
+  adds the corresponding persistence surface.
+- `crates/cs-analytics/src/economic_cycle.rs` adds the first economic-cycle
+  projection layer: capital formation, oil dependence, booked revenue, treasury
+  revenue, citizen income, domestic recirculation, import leakage, non-oil FX,
+  dividend revenue cover, cycle-quality warnings, and citizen-income math.
+  `migrations/20260704000001_economic_cycle_projection.sql` adds the
+  corresponding projection and gate tables.
+- `crates/cs-analytics/src/growth_impact.rs` adds the first integrated
+  non-oil growth-impact layer: baseline, constrained-base, and strategic-upper
+  real-growth paths, sector contribution rows, additional GDP ranges, phase
+  filtering, and claim-confidence controls. `migrations/20260705000001_growth_impact_projection.sql`
+  adds projection, sector-contribution, and claim-audit tables.
 
 ## Management Dashboards
 

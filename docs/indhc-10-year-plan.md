@@ -681,6 +681,14 @@ before any production implementation:
 | `DividendDistribution` | Monthly equal dividend batch to citizen wallets. |
 | `PublicProjectDisclosure` | Aggregated public evidence for citizens, parliament, auditors, and lenders. |
 
+Initial executable coverage now exists in
+`crates/cs-analytics/src/sovereign_holding.rs`, with persistence tables in
+`migrations/20260703000001_sovereign_holding_capital_plan.sql`. This covers
+capital-stack use rules, milestone payment release checks, revenue-stream
+bankability, gross-profit levy calculation, retained-earnings allocation,
+equal dividend distribution math, and first-pass holding-company governance
+gates.
+
 Dashboard views:
 
 - Oil Income Lockbox.
