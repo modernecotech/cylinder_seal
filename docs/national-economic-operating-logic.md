@@ -284,6 +284,12 @@ Initial executable coverage:
   real-growth paths, sector contribution rows, additional GDP ranges, phase
   filtering, and claim-confidence controls. `migrations/20260705000001_growth_impact_projection.sql`
   adds projection, sector-contribution, and claim-audit tables.
+- `crates/cs-analytics/src/comprehensive_benefits.rs` now produces
+  comprehensive benefit-ledger statements for 2036, 2040, and 2050. It
+  separates booked cash from real output, infrastructure capacity,
+  environmental resilience, social capability, cultural tourism, and citizen
+  distributions. `migrations/20260706000001_comprehensive_benefits_projection.sql`
+  adds projection, benefit-ledger, and claim-audit tables.
 
 ## Management Dashboards
 

@@ -57,6 +57,15 @@ They do not validate the scenario ranges below.
 Machine-readable table:
 [docs/data/iraq-comprehensive-benefits-timeline.csv](data/iraq-comprehensive-benefits-timeline.csv).
 
+Initial executable coverage now exists in
+`crates/cs-analytics/src/comprehensive_benefits.rs`, with persistence tables in
+`migrations/20260706000001_comprehensive_benefits_projection.sql`. The code
+turns each projection into benefit-ledger entries and claim-audit records. Only
+`booked_cash` entries are eligible for the cash waterfall; real output,
+infrastructure capacity, environmental resilience, social capability, cultural
+tourism, and citizen-distribution entries remain non-distributable unless a
+separate settled-cash conversion is proven.
+
 The long-horizon GDP path extends the ten-year
 [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md).
 

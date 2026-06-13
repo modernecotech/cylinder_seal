@@ -70,6 +70,7 @@ The public-facing technical evidence has been split out of the original long REA
 - Sovereign holding-company capital-plan primitives live in `crates/cs-analytics/src/sovereign_holding.rs`, with persistence tables in `migrations/20260703000001_sovereign_holding_capital_plan.sql`.
 - Economic-cycle and citizen-income projection primitives live in `crates/cs-analytics/src/economic_cycle.rs`, with persistence tables in `migrations/20260704000001_economic_cycle_projection.sql`.
 - Integrated non-oil growth-impact projections live in `crates/cs-analytics/src/growth_impact.rs`, with persistence tables in `migrations/20260705000001_growth_impact_projection.sql`.
+- Comprehensive-benefit ledger and claim-audit primitives live in `crates/cs-analytics/src/comprehensive_benefits.rs`, with persistence tables in `migrations/20260706000001_comprehensive_benefits_projection.sql`.
 
 ## Economic And Policy Framing
 

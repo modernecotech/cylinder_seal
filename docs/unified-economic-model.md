@@ -530,6 +530,12 @@ Initial implementation status:
   integrated growth timeline as auditable scenario projections, sector
   contribution rows, and claim-audit labels so high-growth statements remain
   source-tagged and caveated.
+- Step 6 has begun in `crates/cs-analytics/src/comprehensive_benefits.rs` and
+  `migrations/20260706000001_comprehensive_benefits_projection.sql`. It turns
+  the 2036/2040/2050 comprehensive model into benefit-ledger entries and
+  claim-audit records, separating booked cash from real output, infrastructure,
+  environmental resilience, social capability, cultural tourism, and citizen
+  distribution metrics.
 
 ## Bottom Line
 
