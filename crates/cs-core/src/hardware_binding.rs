@@ -3,9 +3,9 @@
 //! This module provides types and utilities for binding cryptographic operations
 //! to specific hardware, preventing device cloning attacks and key compromise.
 
-use uuid::Uuid;
-use serde::{Deserialize, Serialize};
 use crate::error::Result;
+use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 /// Unique hardware identifiers for a device
 /// These are gathered at app install time and used to:
@@ -33,11 +33,7 @@ pub struct DeviceHardwareIds {
 
 impl DeviceHardwareIds {
     /// Create new hardware IDs from raw values
-    pub fn new(
-        device_serial: String,
-        device_imei: String,
-        device_model: String,
-    ) -> Self {
+    pub fn new(device_serial: String, device_imei: String, device_model: String) -> Self {
         Self {
             device_serial,
             device_imei,
@@ -112,12 +108,10 @@ impl DeviceHardwareIds {
             && !other.device_serial.is_empty()
             && self.device_serial != other.device_serial
         {
-            return Err(crate::error::CylinderSealError::DeviceIdMismatch(
-                format!(
-                    "Serial mismatch: {} vs {}",
-                    self.device_serial, other.device_serial
-                ),
-            ));
+            return Err(crate::error::CylinderSealError::DeviceIdMismatch(format!(
+                "Serial mismatch: {} vs {}",
+                self.device_serial, other.device_serial
+            )));
         }
 
         // Model SHOULD match (catches user switching devices)
@@ -289,7 +283,11 @@ impl RegisteredDevice {
 
     /// Check if device is in good standing
     pub fn is_in_good_standing(&self) -> bool {
-        !self.is_suspicious() && self.latest_attestation.as_ref().map_or(false, |a| a.is_valid())
+        !self.is_suspicious()
+            && self
+                .latest_attestation
+                .as_ref()
+                .map_or(false, |a| a.is_valid())
     }
 }
 
@@ -360,7 +358,10 @@ mod tests {
         );
 
         let result = hw1.verify_same_device(&hw2);
-        assert!(result.is_err(), "Different serial should fail (device swap)");
+        assert!(
+            result.is_err(),
+            "Different serial should fail (device swap)"
+        );
     }
 
     #[test]

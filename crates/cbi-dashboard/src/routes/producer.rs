@@ -64,9 +64,7 @@ pub struct DocRow {
     pub status: String,
 }
 
-pub async fn list_docs(
-    State(app): State<Arc<AppState>>,
-) -> Result<Json<Vec<DocRow>>, StatusCode> {
+pub async fn list_docs(State(app): State<Arc<AppState>>) -> Result<Json<Vec<DocRow>>, StatusCode> {
     let rows = sqlx::query(
         "SELECT doc_id, producer_id, sku, product_name, iraqi_content_pct, status
          FROM domestic_origin_certificates
@@ -108,9 +106,7 @@ pub struct IpRow {
     pub registered_at: String,
 }
 
-pub async fn list_ip(
-    State(app): State<Arc<AppState>>,
-) -> Result<Json<Vec<IpRow>>, StatusCode> {
+pub async fn list_ip(State(app): State<Arc<AppState>>) -> Result<Json<Vec<IpRow>>, StatusCode> {
     let rows = sqlx::query(
         "SELECT ip_id, user_id, category, governorate, display_name, monthly_cap_iqd,
                 registered_at

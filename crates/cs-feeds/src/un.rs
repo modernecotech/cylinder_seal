@@ -75,8 +75,8 @@ impl FeedWorker for UnConsolidatedWorker {
             .await
             .map_err(|e| FeedError::Network(e.to_string()))?
             .to_vec();
-        let text = std::str::from_utf8(&body)
-            .map_err(|e| FeedError::Parse(format!("utf8: {e}")))?;
+        let text =
+            std::str::from_utf8(&body).map_err(|e| FeedError::Parse(format!("utf8: {e}")))?;
         let entries = parse_consolidated(text)?;
         Ok(FeedFetchResult {
             raw: RawFeed {
@@ -158,8 +158,7 @@ struct EntityAlias {
 }
 
 fn parse_consolidated(text: &str) -> Result<Vec<SanctionEntry>, FeedError> {
-    let parsed: ConsolidatedList =
-        from_str(text).map_err(|e| FeedError::Parse(e.to_string()))?;
+    let parsed: ConsolidatedList = from_str(text).map_err(|e| FeedError::Parse(e.to_string()))?;
     let mut out = Vec::new();
     if let Some(inds) = parsed.individuals {
         for i in inds.individual {

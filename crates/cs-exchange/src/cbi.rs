@@ -605,13 +605,11 @@ pub struct LicensedPaymentProvider {
 /// Known CBI-licensed e-payment providers. This list is not exhaustive —
 /// the CBI grants licenses via individual circulars.
 pub fn licensed_payment_providers() -> Vec<LicensedPaymentProvider> {
-    vec![
-        LicensedPaymentProvider {
-            name: "Al-Aman Company for Electronic Payment Services".into(),
-            license_date: NaiveDate::from_ymd_opt(2026, 4, 12).unwrap(),
-            service_type: "Electronic Payment Services".into(),
-        },
-    ]
+    vec![LicensedPaymentProvider {
+        name: "Al-Aman Company for Electronic Payment Services".into(),
+        license_date: NaiveDate::from_ymd_opt(2026, 4, 12).unwrap(),
+        service_type: "Electronic Payment Services".into(),
+    }]
 }
 
 // ============================================================================
@@ -732,14 +730,20 @@ mod tests {
         let d = latest_denomination_breakdown();
         // 25000 IQD notes are the dominant denomination (~56% of total)
         let ratio = d.denom_25000 / d.total;
-        assert!(ratio > dec("0.5"), "25000 IQD notes should be >50% of issued currency");
+        assert!(
+            ratio > dec("0.5"),
+            "25000 IQD notes should be >50% of issued currency"
+        );
     }
 
     #[test]
     fn historical_rates_ordered() {
         let rates = historical_exchange_rates();
         for w in rates.windows(2) {
-            assert!(w[0].date <= w[1].date, "rates must be chronologically ordered");
+            assert!(
+                w[0].date <= w[1].date,
+                "rates must be chronologically ordered"
+            );
         }
     }
 
@@ -784,9 +788,13 @@ mod tests {
         let policy = current_policy_rates().policy_rate;
         for a in &auctions {
             if let Some(y) = a.yield_pct {
-                assert!(y <= policy,
+                assert!(
+                    y <= policy,
                     "Auction {} yield {} should be <= policy rate {}",
-                    a.code, y, policy);
+                    a.code,
+                    y,
+                    policy
+                );
             }
         }
     }

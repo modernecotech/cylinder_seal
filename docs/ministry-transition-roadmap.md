@@ -21,6 +21,13 @@ and public audit.
 These sources support the institutional baseline. They do not validate the legal
 feasibility of any transition.
 
+Use this roadmap with the
+[Political-Economy Transition And Anti-Capture Model](political-economy-transition-and-anti-capture.md).
+No ministry function should move beyond visibility or pilot mode when legal
+authority, service continuity, staff transition, procurement transparency,
+federal/governorate authority, citizen appeals, or anti-capture controls are not
+ready.
+
 ## Principle
 
 Deprecating a ministry does not mean deleting the public service.
@@ -57,6 +64,8 @@ No ministry can be deprecated until all gates pass:
    in force.
 8. Independent audit confirms the transition does not hide debt, service cuts, or
    politically directed layoffs.
+9. The political-economy readiness engine permits pilot, controlled transition,
+   or scale mode for the specific function and governorates affected.
 
 ## Permanent Sovereign Core
 
@@ -192,4 +201,3 @@ The end-state is a smaller cabinet with stronger sovereign functions:
 - independent regulators;
 - audited service contracts;
 - productive national capital through INDHC.
-

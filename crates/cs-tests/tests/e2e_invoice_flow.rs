@@ -99,15 +99,13 @@ impl InvoiceRepository for MemInvoices {
             .lock()
             .unwrap()
             .iter()
-            .filter(|i| i.status == "paid" && i.webhook_url.is_some() && i.webhook_delivered_at.is_none())
+            .filter(|i| {
+                i.status == "paid" && i.webhook_url.is_some() && i.webhook_delivered_at.is_none()
+            })
             .cloned()
             .collect())
     }
-    async fn set_fiscal_receipt(
-        &self,
-        invoice_id: Uuid,
-        fiscal_receipt_ref: &str,
-    ) -> Result<()> {
+    async fn set_fiscal_receipt(&self, invoice_id: Uuid, fiscal_receipt_ref: &str) -> Result<()> {
         for inv in self.inner.lock().unwrap().iter_mut() {
             if inv.invoice_id == invoice_id {
                 inv.fiscal_receipt_ref = Some(fiscal_receipt_ref.to_string());
@@ -204,7 +202,10 @@ async fn e2e_invoice_lifecycle_register_issue_create_pay_reconcile() {
     // Amount must match exactly.
     assert_eq!(tx.amount_owc, inv.amount_owc, "Amount matches invoice");
     // Currency must match.
-    assert_eq!(tx.currency_context, inv.currency, "Currency matches invoice");
+    assert_eq!(
+        tx.currency_context, inv.currency,
+        "Currency matches invoice"
+    );
 
     // ---- Step 6: Mark paid -----------------------------------------------
     let customer_user_id = User::derive_user_id_from_public_key(&cust_pk);
@@ -262,5 +263,8 @@ async fn e2e_invoice_amount_mismatch_is_rejected() {
     // Don't call mark_paid because the reconciler's amount check fails.
     // Verify status stays open.
     let inv = invoices.get(invoice_id).await.unwrap().unwrap();
-    assert_eq!(inv.status, "open", "Spec: amount mismatch keeps invoice open");
+    assert_eq!(
+        inv.status, "open",
+        "Spec: amount mismatch keeps invoice open"
+    );
 }

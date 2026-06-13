@@ -38,7 +38,10 @@ impl ProjectGdpCalculator {
 
     /// Heuristic defaults for the three multiplier factors given project lifecycle
     /// stage and how many years the project has been operating.
-    pub fn estimate_multipliers(project: &IndustrialProject, year_of_operation: i32) -> (f64, f64, f64) {
+    pub fn estimate_multipliers(
+        project: &IndustrialProject,
+        year_of_operation: i32,
+    ) -> (f64, f64, f64) {
         let visibility = match project.status {
             ProjectStatus::Planning => 1.0,
             ProjectStatus::Construction => 1.1,
@@ -66,7 +69,8 @@ impl ProjectGdpCalculator {
     ) -> Result<()> {
         for year in start_year..=end_year {
             let year_of_operation = year - start_year.max(2027) + 1;
-            let (visibility, financing, tax) = Self::estimate_multipliers(project, year_of_operation);
+            let (visibility, financing, tax) =
+                Self::estimate_multipliers(project, year_of_operation);
             let multiplier = Self::compute_multiplier(
                 project.project_id,
                 base_gdp_usd,

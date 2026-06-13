@@ -56,14 +56,7 @@ pub struct IssueDirectiveResponse {
     pub expires_at: DateTime<Utc>,
 }
 
-const ALLOWED_ACTIONS: &[&str] = &[
-    "Allow",
-    "Flag",
-    "HoldForReview",
-    "Block",
-    "Sar",
-    "Edd",
-];
+const ALLOWED_ACTIONS: &[&str] = &["Allow", "Flag", "HoldForReview", "Block", "Sar", "Edd"];
 
 pub async fn issue_directive(
     State(state): State<EmergencyDirectiveState>,
@@ -77,7 +70,10 @@ pub async fn issue_directive(
         ));
     }
     if req.code.trim().is_empty() || req.title.trim().is_empty() {
-        return Err((StatusCode::BAD_REQUEST, "code and title are required".into()));
+        return Err((
+            StatusCode::BAD_REQUEST,
+            "code and title are required".into(),
+        ));
     }
     if !ALLOWED_ACTIONS.contains(&req.action.as_str()) {
         return Err((

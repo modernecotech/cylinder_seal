@@ -47,7 +47,11 @@ fn spec_quorum_math_3_of_5() {
         heartbeat_interval: Duration::from_millis(50),
     };
     // Majority of 5 = 3.
-    assert_eq!(cfg.quorum(), 3, "Spec violation: 5-node cluster must require 3-of-5 quorum");
+    assert_eq!(
+        cfg.quorum(),
+        3,
+        "Spec violation: 5-node cluster must require 3-of-5 quorum"
+    );
 }
 
 #[test]
@@ -89,7 +93,10 @@ async fn spec_stale_term_append_is_rejected() {
         })
         .await;
     assert!(!resp.success, "Spec violation: stale-term append must fail");
-    assert!(resp.term >= high_term, "Response must echo the current term");
+    assert!(
+        resp.term >= high_term,
+        "Response must echo the current term"
+    );
 }
 
 #[tokio::test]
@@ -107,7 +114,10 @@ async fn spec_log_conflict_returns_conflict_index() {
         })
         .await;
     assert!(!resp.success);
-    assert!(resp.conflict_index.is_some(), "Spec: must return a conflict hint for fast backoff");
+    assert!(
+        resp.conflict_index.is_some(),
+        "Spec: must return a conflict hint for fast backoff"
+    );
 }
 
 #[tokio::test]
@@ -131,7 +141,10 @@ async fn spec_append_entries_extends_log_and_advances_commit() {
         .await;
     assert!(resp.success);
     let state = node.state().await;
-    assert_eq!(state.commit_index, 1, "Commit index must advance to leader_commit");
+    assert_eq!(
+        state.commit_index, 1,
+        "Commit index must advance to leader_commit"
+    );
     assert_eq!(state.last_log_index, 1);
 }
 
@@ -145,8 +158,18 @@ async fn spec_request_vote_rejects_stale_log() {
         prev_log_index: 0,
         prev_log_term: 0,
         entries: vec![
-            LogEntry { term: 1, index: 1, kind: EntryKind::NoOp, payload: vec![] },
-            LogEntry { term: 1, index: 2, kind: EntryKind::NoOp, payload: vec![] },
+            LogEntry {
+                term: 1,
+                index: 1,
+                kind: EntryKind::NoOp,
+                payload: vec![],
+            },
+            LogEntry {
+                term: 1,
+                index: 2,
+                kind: EntryKind::NoOp,
+                payload: vec![],
+            },
         ],
         leader_commit: 0,
     })
@@ -161,7 +184,10 @@ async fn spec_request_vote_rejects_stale_log() {
             last_log_term: 0,
         })
         .await;
-    assert!(!resp.vote_granted, "Spec §5.4: reject vote when candidate log is behind");
+    assert!(
+        !resp.vote_granted,
+        "Spec §5.4: reject vote when candidate log is behind"
+    );
 }
 
 #[test]
@@ -188,7 +214,11 @@ fn spec_raft_log_truncate_is_destructive() {
 async fn spec_initial_role_is_follower() {
     let node = make_node("self", vec!["a", "b"]);
     let state = node.state().await;
-    assert_eq!(state.role, RaftRole::Follower, "Raft nodes must start as followers");
+    assert_eq!(
+        state.role,
+        RaftRole::Follower,
+        "Raft nodes must start as followers"
+    );
     assert_eq!(state.term, 0);
     assert_eq!(state.commit_index, 0);
 }

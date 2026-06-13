@@ -121,11 +121,7 @@ pub trait InvoiceRepository: Send + Sync {
     async fn find_pending_webhook(&self, limit: i32) -> Result<Vec<InvoiceRecord>>;
     /// Persist the GTBD-issued fiscal receipt id for a paid invoice.
     /// Idempotent; later overwrites are allowed because GTBD may reissue.
-    async fn set_fiscal_receipt(
-        &self,
-        invoice_id: Uuid,
-        fiscal_receipt_ref: &str,
-    ) -> Result<()>;
+    async fn set_fiscal_receipt(&self, invoice_id: Uuid, fiscal_receipt_ref: &str) -> Result<()>;
 }
 
 /// Sidecar store for wire-format programmability primitives.

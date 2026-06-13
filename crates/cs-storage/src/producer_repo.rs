@@ -480,10 +480,7 @@ impl DocRepository for PgDocRepository {
         Ok(row.as_ref().map(row_to_doc))
     }
 
-    async fn list_for_producer(
-        &self,
-        producer_id: Uuid,
-    ) -> Result<Vec<DomesticOriginCertificate>> {
+    async fn list_for_producer(&self, producer_id: Uuid) -> Result<Vec<DomesticOriginCertificate>> {
         let rows = sqlx::query(
             "SELECT doc_id, producer_id, sku, product_name, iraqi_content_pct,
                     bill_of_materials, issued_at, expires_at, issued_by, status, revocation_reason

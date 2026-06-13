@@ -68,11 +68,11 @@ pub fn cbi_policy_rate() -> Decimal {
 /// borrowers. We use this as the floor.
 pub fn suggested_spread_bps(score: u32) -> u32 {
     match score {
-        800.. => 300,        // Excellent: 3% over policy rate
-        700..=799 => 490,    // Good: ~CBI commercial bank spread
-        600..=699 => 750,    // Fair: 7.5%
-        500..=599 => 1200,   // Below average: 12%
-        _ => 1800,           // Poor: 18%
+        800.. => 300,      // Excellent: 3% over policy rate
+        700..=799 => 490,  // Good: ~CBI commercial bank spread
+        600..=699 => 750,  // Fair: 7.5%
+        500..=599 => 1200, // Below average: 12%
+        _ => 1800,         // Poor: 18%
     }
 }
 
@@ -82,10 +82,7 @@ pub struct CreditScorer {
 }
 
 impl CreditScorer {
-    pub fn new(
-        journal: Arc<dyn JournalRepository>,
-        users: Arc<dyn UserRepository>,
-    ) -> Self {
+    pub fn new(journal: Arc<dyn JournalRepository>, users: Arc<dyn UserRepository>) -> Self {
         Self { journal, users }
     }
 
@@ -102,8 +99,7 @@ impl CreditScorer {
         }
 
         let entries = self.journal.get_entries_for_user(user_id).await?;
-        let (confirmed, conflicted, total_amount) =
-            summarize_entries(&entries);
+        let (confirmed, conflicted, total_amount) = summarize_entries(&entries);
         let account_age_days = account_age_days(&user.created_at);
         let avg_amount = if confirmed > 0 {
             total_amount / confirmed.max(1)
@@ -263,9 +259,7 @@ fn cashflow_weighted(c: &CashFlowFeatures) -> f64 {
     // Within the cash-flow component: periodicity is the strongest single
     // signal per the FICO UltraFICO 2026 and AFI 2025 findings, so it gets
     // the largest sub-weight.
-    0.40 * c.income_periodicity
-        + 0.30 * c.cashflow_stability
-        + 0.30 * c.income_expense_health
+    0.40 * c.income_periodicity + 0.30 * c.cashflow_stability + 0.30 * c.income_expense_health
 }
 
 fn compute_weighted_score(f: Factors) -> u32 {
@@ -441,7 +435,8 @@ mod tests {
     #[test]
     fn spread_plus_policy_rate_reasonable() {
         // Best borrower: 5.5% + 3% = 8.5% — below CBI commercial bank rate
-        let best = cbi_policy_rate() + Decimal::from(suggested_spread_bps(850)) / Decimal::from(100);
+        let best =
+            cbi_policy_rate() + Decimal::from(suggested_spread_bps(850)) / Decimal::from(100);
         assert!(best < Decimal::from_str("10.0").unwrap());
 
         // Average borrower: 5.5% + 4.9% = 10.4% — matches CBI bank lending rate

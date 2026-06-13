@@ -22,8 +22,8 @@ use cs_policy::rule_engine::{
     AmlRule, EvaluationContext, EvaluationResult, RuleAction, RuleEngine, RuleMatch,
 };
 use cs_storage::compliance::{
-    FeedRunRepository, RiskAssessmentSnapshot, RiskSnapshotRepository,
-    TransactionEvaluationRecord, TransactionEvaluationRepository,
+    FeedRunRepository, RiskAssessmentSnapshot, RiskSnapshotRepository, TransactionEvaluationRecord,
+    TransactionEvaluationRepository,
 };
 use cs_storage::repository::JournalRepository;
 
@@ -334,7 +334,11 @@ pub async fn dashboard(
     State(state): State<ComplianceState>,
 ) -> Result<Json<DashboardResponse>, (StatusCode, String)> {
     let counts_agg = state.evaluations.report_counts().await.map_err(internal)?;
-    let dist_agg = state.evaluations.risk_distribution().await.map_err(internal)?;
+    let dist_agg = state
+        .evaluations
+        .risk_distribution()
+        .await
+        .map_err(internal)?;
     let top = state
         .evaluations
         .top_triggered_rules(30, 10)
@@ -367,7 +371,10 @@ pub async fn dashboard(
         rule_count: cs_policy::rule_engine::default_rules().len(),
         top_triggered_rules: top
             .into_iter()
-            .map(|(rule_code, hit_count)| TopRuleDto { rule_code, hit_count })
+            .map(|(rule_code, hit_count)| TopRuleDto {
+                rule_code,
+                hit_count,
+            })
             .collect(),
         feeds: feeds
             .into_iter()
@@ -398,9 +405,7 @@ pub struct ExchangeRateResponse {
     pub supported_currencies: Vec<&'static str>,
 }
 
-pub async fn exchange_rates(
-    State(_state): State<ComplianceState>,
-) -> Json<ExchangeRateResponse> {
+pub async fn exchange_rates(State(_state): State<ComplianceState>) -> Json<ExchangeRateResponse> {
     let agg = FeedAggregator::new();
     let policy = agg.policy_summary();
     Json(ExchangeRateResponse {

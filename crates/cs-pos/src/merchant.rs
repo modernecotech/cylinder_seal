@@ -90,7 +90,8 @@ fn unwrap_private(wrapped: &[u8], pk: &[u8; 32]) -> Result<[u8; 32]> {
 /// install time. For production this is replaced by an HSM-derived secret.
 fn device_seed() -> Vec<u8> {
     let host = hostname();
-    let anchor = std::fs::read_to_string("/etc/machine-id").unwrap_or_else(|_| "no-machine-id".into());
+    let anchor =
+        std::fs::read_to_string("/etc/machine-id").unwrap_or_else(|_| "no-machine-id".into());
     let mut s = Vec::new();
     s.extend_from_slice(host.as_bytes());
     s.extend_from_slice(b"|");
@@ -141,7 +142,11 @@ mod tests {
     fn wrap_unwrap_is_xor_inverse() {
         let (pk, sk) = cs_core::cryptography::generate_keypair();
         let wrapped = wrap_private(&sk, &pk);
-        assert_ne!(wrapped, sk.to_vec(), "wrapped blob must differ from plaintext");
+        assert_ne!(
+            wrapped,
+            sk.to_vec(),
+            "wrapped blob must differ from plaintext"
+        );
         let round = unwrap_private(&wrapped, &pk).unwrap();
         assert_eq!(round, sk);
     }

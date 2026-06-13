@@ -6,9 +6,9 @@
 //! - Chain-linked (depends on previous nonce for causality)
 //! - Cryptographically secure (HMAC-SHA256 based)
 
-use sha2::Sha256;
-use hmac::{Hmac, Mac};
 use crate::error::Result;
+use hmac::{Hmac, Mac};
+use sha2::Sha256;
 
 type HmacSha256 = Hmac<Sha256>;
 
@@ -79,8 +79,9 @@ pub fn derive_nonce_with_hardware(
     hardware_ids: &HardwareIds,
     counter: u64,
 ) -> Result<[u8; 32]> {
-    let mut hasher = HmacSha256::new_from_slice(previous_nonce)
-        .map_err(|_| crate::error::CylinderSealError::CryptographyError("Invalid HMAC key".to_string()))?;
+    let mut hasher = HmacSha256::new_from_slice(previous_nonce).map_err(|_| {
+        crate::error::CylinderSealError::CryptographyError("Invalid HMAC key".to_string())
+    })?;
 
     // Mix in device hardware identifiers
     hasher.update(&hardware_ids.to_bytes());
@@ -118,7 +119,7 @@ pub fn verify_nonce_chain(
     let expected_nonce = derive_nonce_with_hardware(previous_nonce, hardware_ids, counter)?;
     if expected_nonce != *next_nonce {
         return Err(crate::error::CylinderSealError::InvalidNonce(
-            "Nonce chain validation failed".to_string()
+            "Nonce chain validation failed".to_string(),
         ));
     }
     Ok(())
@@ -148,8 +149,14 @@ mod tests {
         let nonce2 = derive_nonce_with_hardware(&prev, &hw, 2).unwrap();
         let nonce3 = derive_nonce_with_hardware(&nonce1, &hw, 1).unwrap();
 
-        assert_ne!(nonce1, nonce2, "Different counter must produce different nonce");
-        assert_ne!(nonce1, nonce3, "Different previous nonce must produce different nonce");
+        assert_ne!(
+            nonce1, nonce2,
+            "Different counter must produce different nonce"
+        );
+        assert_ne!(
+            nonce1, nonce3,
+            "Different previous nonce must produce different nonce"
+        );
     }
 
     #[test]
@@ -161,7 +168,10 @@ mod tests {
         let nonce1 = derive_nonce_with_hardware(&prev, &hw1, 1).unwrap();
         let nonce2 = derive_nonce_with_hardware(&prev, &hw2, 1).unwrap();
 
-        assert_ne!(nonce1, nonce2, "Different hardware must produce different nonce (prevents cloning)");
+        assert_ne!(
+            nonce1, nonce2,
+            "Different hardware must produce different nonce (prevents cloning)"
+        );
     }
 
     #[test]

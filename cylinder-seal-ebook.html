@@ -184,11 +184,14 @@ infrastructure and is not an official Central Bank of Iraq project.</p>
 <h1 id="contents">Contents</h1><div class="contents">
 <ol>
 <li>Project Overview</li>
-<li>Current Implementation Status</li>
+<li>Executive Summary</li>
 <li>Final Summary</li>
-<li>Security Model</li>
 <li>Economic Assumptions And Source Discipline</li>
 <li>National Economic Operating Logic</li>
+<li>National Legal And Institutional Roadmap</li>
+<li>Project Pipeline And Investment Gates</li>
+<li>Political-Economy Transition And Anti-Capture</li>
+<li>Fiscal Stress And Contingent Liability</li>
 <li>Iraq Integrated Growth Impact Model</li>
 <li>Iraq Comprehensive Benefits Model</li>
 <li>Iraq Quantified Affordability And Cashflow Model</li>
@@ -202,6 +205,8 @@ infrastructure and is not an official Central Bank of Iraq project.</p>
 <li>Digitally Governed Industrial Champions</li>
 <li>National Civic Work System</li>
 <li>Ministry Transition Roadmap</li>
+<li>Security Model</li>
+<li>Current Implementation Status</li>
 <li>Technical Primitives</li>
 <li>Legacy Policy Paper Boundary</li>
 </ol>
@@ -295,6 +300,26 @@ macroeconomic forecast.</p>
 <td><a href="docs/national-economic-operating-logic.md">National economic operating logic</a></td>
 </tr>
 <tr>
+<td>Legal roadmap</td>
+<td>Maps the authority path for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals.</td>
+<td><a href="docs/national-legal-institutional-roadmap.md">National legal and institutional roadmap</a></td>
+</tr>
+<tr>
+<td>Project pipeline</td>
+<td>Converts sector ambition into project families with capex, revenue source, DSCR, FX exposure, facility reuse, environmental, legal, and evidence gates.</td>
+<td><a href="docs/project-pipeline-and-investment-gates.md">Project pipeline and investment gates</a></td>
+</tr>
+<tr>
+<td>Political economy</td>
+<td>Models resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, and pause/rollback rules.</td>
+<td><a href="docs/political-economy-transition-and-anti-capture.md">Political-economy transition and anti-capture model</a></td>
+</tr>
+<tr>
+<td>Fiscal stress</td>
+<td>Tests oil-equity caps, stressed DSCR, FX mismatch, maintenance gaps, guarantees, collection weakness, capex overruns, and dividend affordability under downside cases.</td>
+<td><a href="docs/fiscal-stress-and-contingent-liability-model.md">Fiscal stress and contingent liability model</a></td>
+</tr>
+<tr>
 <td>Public-finance architecture</td>
 <td>Proposes an oil-income lockbox, citizen beneficial shares, ministry-funding feedback, cash formalization controls, and Digital IQD dividends.</td>
 <td><a href="docs/national-dividend-holding-company.md">National dividend holding company</a></td>
@@ -384,7 +409,7 @@ macroeconomic forecast.</p>
 <tbody>
 <tr>
 <td>Economic-system front door</td>
-<td>Unified economic architecture, business value-chain charts, source discipline, affordability framing, ministry transition, civic work, facility recycling, industrial champions, tourism, diaspora channels, domestic capital markets, and long-horizon benefit scenarios.</td>
+<td>Unified economic architecture, business value-chain charts, source discipline, legal/institutional roadmap, political-economy controls, project pipeline, affordability framing, ministry transition, civic work, facility recycling, industrial champions, tourism, diaspora channels, domestic capital markets, and long-horizon benefit scenarios.</td>
 </tr>
 <tr>
 <td>Governance and cashflow model</td>
@@ -392,7 +417,7 @@ macroeconomic forecast.</p>
 </tr>
 <tr>
 <td>Sector production model</td>
-<td>Import substitution, profitable domestic subsidiaries, defence manufacturing, electronics, HVAC, water desalination, irrigation, food substitution, raw-material post-processing, Open Source Rail, green technology, tourism, services, and cultural production.</td>
+<td>Import substitution, profitable domestic subsidiaries, defence manufacturing, electronics, HVAC, water desalination, irrigation, food substitution, raw-material post-processing, Open Source Rail, green technology, tourism, services, and cultural production, reduced to project families before capital allocation.</td>
 </tr>
 <tr>
 <td>Evidence software appendix</td>
@@ -451,6 +476,9 @@ project would need at minimum:</p>
   tests;</li>
 <li>project-level feasibility studies, debt-capacity analysis, procurement
   sequencing, and independent macroeconomic review;</li>
+<li>legal and institutional validation for the lockbox, INDHC, citizen shares,
+  federal/governorate compacts, project finance, domestic securities, privacy,
+  appeals, and emergency powers;</li>
 <li>independent security audit, compliance review, and economic model validation.</li>
 </ul>
 <h3 id="software-appendix">Software Appendix</h3>
@@ -573,6 +601,16 @@ forecasts.</p>
 <td><code>crates/cs-analytics/src/facility_recycling.rs</code></td>
 <td><code>migrations/20260711000001_facility_recycling_projection.sql</code></td>
 </tr>
+<tr>
+<td>Political-economy transition and anti-capture</td>
+<td><code>crates/cs-analytics/src/political_economy.rs</code></td>
+<td><code>migrations/20260712000001_political_economy_transition.sql</code></td>
+</tr>
+<tr>
+<td>Fiscal stress and contingent liabilities</td>
+<td><code>crates/cs-analytics/src/fiscal_stress.rs</code></td>
+<td><code>migrations/20260713000001_fiscal_stress_projection.sql</code></td>
+</tr>
 </tbody>
 </table>
 <h3 id="developer-appendix-local-software-demo">Developer Appendix: Local Software Demo</h3>
@@ -600,94 +638,239 @@ deploying, or connecting real systems.</p>
 <p>Local artifacts such as generated databases, Redis dumps, virtualenvs, local
 env files, ad hoc logs, and build outputs are ignored. Do not commit generated
 database state.</p>
-<h1 id="part-2-current-implementation-status">Part 2: Current Implementation Status</h1>
-<h2 id="implementation-status">Implementation Status</h2>
-<h3 id="honest-status">Honest Status</h3>
-<p>Cylinder Seal is a prototype implementation with meaningful code coverage across domain modules, policy logic, dashboard routes, and tests. It is not production-ready CBDC/payment infrastructure.</p>
-<h3 id="implemented-or-partially-implemented">Implemented Or Partially Implemented</h3>
-<ul>
-<li>Core transaction models, signing primitives, nonce/journal concepts, and KYC tier limits.</li>
-<li>Policy modules for AML, rule evaluation, risk scoring, merchant tiers, hard restrictions, and programmability primitives.</li>
-<li>Consensus and sync prototypes, including Raft abstractions and conflict-resolution logic.</li>
-<li>POS/mobile-core codecs for QR/NFC/BLE-oriented payment payloads.</li>
-<li>CBI dashboard Axum service with PostgreSQL pool, Redis sessions, and route modules.</li>
-<li>Testable dashboard app builder plus route-level tests for session middleware, CSRF checks, logout invalidation, current role gates, and admin action audit recording.</li>
-<li>PostgreSQL-backed admin audit recorder for current sensitive dashboard actions, with in-memory test recorder.</li>
-<li>PostgreSQL migrations for the main application stack.</li>
-<li>Specification tests for many protocol and policy behaviors.</li>
-<li>Unified economic model documented as an integrated planning layer across Digital IQD, INDHC, ministries, credit, domestic production, strategic resilience manufacturing, tourism/exports, green/rail infrastructure, reinvestment, and dividends.</li>
-<li>National Dividend Holding Company policy architecture documented as a proposal, including oil-income lockbox, citizen share entitlements, cash formalization controls, ten-year investment plan, ministry funding, and monthly dividend flows.</li>
-<li>Ministry transition roadmap documented as a governance scenario for moving selected ministry functions into regulators, service contracts, municipalities, INDHC subsidiaries, or sunset agencies.</li>
-<li>National Civic Work System documented as a policy scenario for verified civic wages, civic credits, training records, public-value tasks, and productivity-transition support.</li>
-<li>Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, and facility recycling. These are planning primitives, not calibrated national forecasts.</li>
-<li>Rendered SVG value-chain charts now cover sector business chains, capital and repayment lanes, and society/economy feedback loops.</li>
-</ul>
-<h3 id="important-gaps">Important Gaps</h3>
-<ul>
-<li>Dashboard route integration tests now cover security middleware and selected skeletal handlers, but live PostgreSQL/Redis endpoint coverage is still incomplete.</li>
-<li>Some route handlers remain skeletal or demo-oriented.</li>
-<li>Role enforcement must continue to be applied as future sensitive handlers are implemented.</li>
-<li>Browser security hardening has a basic cookie/CSRF foundation but still needs full browser automation and deployment review.</li>
-<li>Admin audit logging is not yet a complete immutable retention system or regulator evidence-pack workflow.</li>
-<li>The unified economic model has scenario engines and persistence tables for several layers, but it is still not calibrated, independently validated, or suitable for real budget, debt, investment, or dividend decisions.</li>
-<li>The ministry transition roadmap is not implemented and would require legislation, civil-service transition, federal/governorate coordination, service-continuity testing, and independent audit before any real-world use.</li>
-<li>SQLite is not a supported dashboard runtime despite the presence of historical fixture scripts.</li>
-<li>Offline double-spend handling is not yet backed by audited secure hardware/attestation.</li>
-<li>HSM custody, national identity/KYC integration, CBI/core-banking integration, DR, and privacy review remain future work.</li>
-<li>The National Dividend Holding Company proposal and ten-year investment plan are only partially represented in scenario code and need legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation before data models or routes are treated as deployable.</li>
-<li>The National Civic Work System is not implemented in code and needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, and fiscal validation before any <code>cs-civic-work</code> module is treated as deployable.</li>
-</ul>
-<h3 id="running-the-dashboard">Running The Dashboard</h3>
-<pre><code class="language-bash">cp .env.example .env
-docker compose up -d
-export DATABASE_URL=&quot;postgresql://postgres:${DB_PASSWORD:-change-me-dev-only}@localhost:5432/cylinder_seal&quot;
-cargo run --package cbi-dashboard
+<h1 id="part-2-executive-summary">Part 2: Executive Summary</h1>
+<h2 id="cylinder-seal-executive-summary">Cylinder Seal Executive Summary</h2>
+<p><strong>Contact:</strong> Hayder Aziz, Modern EcoTech - hayder@modernecotech.com
+<strong>Repository:</strong> internal / provided on request
+<strong>Status:</strong> economic-system proposal with a pilot-grade evidence software
+appendix. Not production CBDC infrastructure, not an official Central Bank of
+Iraq project, and not a validated investment program.</p>
+<hr>
+<h3 id="what-it-is">What It Is</h3>
+<p>Cylinder Seal is an economic, environmental, social, and cultural operating
+model for Iraq. Its purpose is to turn oil income, project finance, domestic
+facilities, Iraqi labor, tourism, culture, services, industrial production,
+green infrastructure, and civic work into auditable cashflows and public
+benefits.</p>
+<p>The Digital IQD software prototype sits behind the economic model. It is an
+evidence rail for testing how contracts, payments, invoices, tax flows,
+local-content evidence, project milestones, civic-work proofs, credit features,
+and public dashboards could be measured. The software is not the main claim of
+the repository.</p>
+<h3 id="the-problem-it-addresses">The Problem It Addresses</h3>
+<p>The model is designed around seven linked Iraqi economic problems:</p>
+<ol>
+<li>Oil income can act as an automatic funding source for ministries, weakening
+   the feedback loop between public spending and productive economic results.</li>
+<li>Domestic production is too often displaced by finished-goods imports, so oil
+   revenue leaks back out through external supply chains.</li>
+<li>SMEs, individual producers, and informal workers lack verified transaction
+   histories that banks can use for cashflow lending.</li>
+<li>Infrastructure gaps in power, water, logistics, transport, housing inputs,
+   and urban services raise the cost base of the whole economy.</li>
+<li>Tourism, culture, heritage, medical services, education services, and
+   diaspora distribution channels are not yet treated as coordinated export and
+   foreign-currency industries.</li>
+<li>Productivity gains from automation, digitization, and industrial champions
+   could displace low-productivity work unless a civic-work and training layer
+   converts spare labor capacity into public value.</li>
+<li>Public-benefit claims can become fiscal illusion unless cash revenue,
+   avoided losses, second-order benefits, and distributable surplus are kept in
+   separate ledgers.</li>
+<li>Reform designs that look rational on a spreadsheet can fail if they ignore
+   political capture, ministry resistance, staff transition, federal/governorate
+   authority, public-service continuity, and citizen appeal rights.</li>
+</ol>
+<h3 id="core-operating-model">Core Operating Model</h3>
+<pre><code class="language-text">Oil income and project finance
+  -&gt; productive Iraqi assets and services
+  -&gt; booked operating cash plus source-tagged public benefits
+  -&gt; maintenance, debt service, Treasury levy, retained earnings
+  -&gt; citizen dividends only from audited distributable surplus
 </code></pre>
-<h3 id="verification">Verification</h3>
-<pre><code class="language-bash">cargo check --package cbi-dashboard
-cargo test --workspace
-</code></pre>
-<p>Passing these checks should be described as prototype verification, not production certification.</p>
+<p>The model rejects direct dividends from raw oil receipts, borrowing, asset
+revaluation, or estimated GDP benefits. Citizens benefit through wages, public
+services, credit access, civic-work income, lower system costs, and equal
+dividends only after the portfolio produces audited surplus.</p>
+<h3 id="main-components">Main Components</h3>
+<ul>
+<li><strong>Oil Income Lockbox and INDHC:</strong> a proposed national dividend holding-company
+  architecture that converts a capped share of oil income into productive
+  capital rather than automatic ministry funding.</li>
+<li><strong>Industrial champions:</strong> sectoral Iraqi production groups with conditional
+  demand, conditional credit, export discipline, competition gates, debt caps,
+  local-content evidence, and anti-capture controls.</li>
+<li><strong>Constrained-base capital plan:</strong> a USD 115B ten-year scenario is the
+  default planning case under the IMF-baseline affordability discipline. USD
+  190B is treated only as a strategic upper envelope after fiscal, debt, cashflow,
+  and delivery gates are proven.</li>
+<li><strong>Project pipeline:</strong> every sector must be reduced to project families with
+  capex, opex, revenue source, DSCR, FX exposure, local-content target,
+  facility-reuse status, environmental risk, legal authority, and audit evidence.</li>
+<li><strong>Political-economy gates:</strong> reforms can move only through visibility, pilot,
+  controlled transition, and scale modes when capture, resistance, coalition,
+  service-continuity, staff-transition, federalism, and citizen-appeal gates
+  pass.</li>
+<li><strong>Fiscal stress gates:</strong> scale-up and dividends stop when stressed oil-equity
+  capacity, DSCR, FX cover, maintenance reserves, contingent liabilities,
+  collections, capex overruns, or dividend affordability fail.</li>
+<li><strong>Tourism, services, and diaspora:</strong> Iraq's natural, religious, historical,
+  cultural, medical, education, and business-service assets are treated as
+  service-production inputs, with diaspora channels used for demand, expertise,
+  distribution, formal payments, tourism referrals, and optional capital.</li>
+<li><strong>Civic work:</strong> productivity displacement is managed through verified paid
+  work in municipal repair, care, education support, environmental restoration,
+  sport, culture, disaster resilience, food security, and bridge-to-work
+  training.</li>
+<li><strong>Legal and institutional roadmap:</strong> the model requires enabling laws,
+  federal/governorate compacts, CBI/payment authority decisions, Treasury rules,
+  securities safeguards, privacy and audit authority, procurement controls, and
+  citizen appeals before real deployment.</li>
+</ul>
+<h3 id="what-exists-in-the-repository">What Exists In The Repository</h3>
+<ul>
+<li>Source-disciplined economic model documents, business value-chain charts,
+  affordability/cashflow models, growth and benefits scenarios, ministry
+  transition logic, facility-recycling screens, capital-market lanes, and
+  diaspora/service expansion logic.</li>
+<li>A Rust analytics crate with scenario primitives for the economic operating
+  kernel, sovereign holding plan, economic cycle, growth impact, comprehensive
+  benefits, production capacity, strategic resilience, tourism services,
+  diaspora channels, facility recycling, political-economy transition
+  readiness, and fiscal stress.</li>
+<li>A pilot-grade Digital IQD software appendix covering transaction models,
+  signing primitives, policy modules, POS/mobile codecs, dashboard routes,
+  PostgreSQL migrations, Redis sessions, and specification tests.</li>
+</ul>
+<h3 id="what-is-not-proven">What Is Not Proven</h3>
+<ul>
+<li>Legal authority for the Oil Income Lockbox, INDHC, citizen entitlement shares,
+  ministry funding transition, Digital IQD, project borrowing, securities
+  issuance, privacy, audit powers, or dispute resolution.</li>
+<li>Independent macroeconomic validation, project finance review, debt-capacity
+  analysis, procurement sequencing, or sector-level feasibility studies.</li>
+<li>Independent debt-sustainability and contingent-liability review of guarantees,
+  availability payments, FX mismatch, collection risk, and dividend
+  affordability.</li>
+<li>Independent political-economy validation, including real actor incentives,
+  veto points, anti-capture enforcement capacity, federal/governorate authority,
+  civil-service transition, and citizen legitimacy.</li>
+<li>Production-grade CBDC/payment infrastructure: national identity/KYC
+  integration, HSM or secure-element custody, audited offline double-spend
+  prevention, real multi-peer deployment, CBI/core-banking integration, privacy
+  review, disaster recovery, and independent security audit.</li>
+</ul>
+<h3 id="review-questions">Review Questions</h3>
+<ol>
+<li>Are the legal and institutional gates complete enough for a sovereign reader?</li>
+<li>Are the capital envelopes, DSCR rules, FX rules, and dividend gates
+   conservative enough under Iraq's fiscal baseline?</li>
+<li>Which sector project families should be removed, delayed, or repriced before
+   any external presentation?</li>
+<li>Which governorate, KRG, municipal, or citizen-appeal risks are still missing?</li>
+<li>Which public-benefit claims need stronger source labels, confidence levels,
+   or independent validation before being shown outside the repo?</li>
+</ol>
+<p>Not seeking: procurement conversations, claims of official endorsement, or
+representation that this is production-ready infrastructure.</p>
 <h1 id="part-3-final-summary">Part 3: Final Summary</h1>
-<h2 id="cylinder-seal-prototype-summary">Cylinder Seal Prototype Summary</h2>
+<h2 id="cylinder-seal-summary">Cylinder Seal Summary</h2>
 <h3 id="status">Status</h3>
-<p>Cylinder Seal is a prototype backend and dashboard for Digital IQD policy and economic-visibility workflows. It is not production-ready payment infrastructure.</p>
+<p>Cylinder Seal is an economic-system proposal for Iraq with a pilot-grade Digital
+IQD evidence and analytics appendix. It is not production-ready CBDC/payment
+infrastructure, not an official Central Bank of Iraq project, and not a
+validated investment program.</p>
 <p>Current posture:</p>
 <ul>
-<li><strong>Backend:</strong> prototype implementation with substantial domain modules and route scaffolding.</li>
-<li><strong>Dashboard:</strong> PostgreSQL-backed Axum service with CBI-style API/page routes and Redis sessions.</li>
-<li><strong>Tests:</strong> specification and skeleton/integration-style tests exist, but they are not enough to claim production readiness.</li>
-<li><strong>Security:</strong> threat model and production controls are documented as requirements in <code>SECURITY.md</code>; they are not complete.</li>
+<li><strong>Economic model:</strong> documented as a unified operating architecture for oil
+  income, productive capital, domestic industry, tourism, services, civic work,
+  ministry funding, credit, public benefits, and citizen dividends.</li>
+<li><strong>Cashflow discipline:</strong> modeled through capital, productive asset, booked
+  cash, public benefit, distribution, and risk ledgers so public benefits are
+  not confused with distributable cash.</li>
+<li><strong>Political-economy discipline:</strong> modeled through explicit capture,
+  resistance, coalition, service-continuity, staff-transition, federalism,
+  emergency-power, and citizen-appeal gates before reforms can scale.</li>
+<li><strong>Stress discipline:</strong> modeled through oil-equity caps, stressed DSCR, FX
+  mismatch, maintenance gaps, guarantees, availability payments, collections,
+  capex overruns, and dividend-affordability gates.</li>
+<li><strong>Affordability:</strong> USD 65B fiscal-safe and USD 115B constrained-base scenarios
+  are the credible starting envelopes; USD 190B is a strategic upper envelope
+  only after fiscal, debt, cashflow, governance, and delivery gates pass.</li>
+<li><strong>Software appendix:</strong> Rust crates, dashboard routes, migrations, and tests
+  demonstrate how evidence, settlement, analytics, and policy controls might be
+  measured. They are not production infrastructure.</li>
+<li><strong>Security:</strong> threat model and production controls are documented as
+  requirements in <code>SECURITY.md</code>; they are not complete.</li>
 </ul>
 <h3 id="what-exists">What Exists</h3>
 <ul>
-<li>Rust workspace with core models, storage, API, policy, AML, credit, consensus, sync, POS, mobile-core, analytics, and dashboard crates.</li>
-<li>CBI dashboard routes for overview, industrial projects, analytics, compliance, monetary policy, accounts, risk, audit, producers, and authentication.</li>
-<li>PostgreSQL migrations for production-like development.</li>
-<li>Historical root SQLite dashboard fixtures removed; the dashboard runtime is
-  PostgreSQL-only. POS-local SQLite remains for terminal storage.</li>
-<li>Redis-backed session storage, Argon2id password hash verification, and admin action audit recording for current sensitive handlers.</li>
-<li>Specification tests covering crypto primitives, signing, nonce chains, Raft behavior, AML, credit scoring, wire formats, conflict resolution, programmability primitives, and tier policy behavior.</li>
-<li>Unified economic model documentation connecting Digital IQD transactions, INDHC capital allocation, ministry funding, credit expansion, domestic production, strategic resilience manufacturing, tourism/exports, green/rail cost reduction, reinvestment, and citizen dividends.</li>
-<li>Policy documentation for a proposed National Dividend Holding Company: oil-income lockbox, citizen non-saleable beneficial shares, ten-year industrial/infrastructure plan including defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, and imported-food substitution, gross-profit levy for ministry funding, and Digital IQD monthly dividend distribution.</li>
-<li>Ministry transition roadmap for deprecating, merging, regulating, corporatizing, or sunsetting low-feedback ministry functions after legal, service-continuity, staff-transition, and audit gates.</li>
-<li>National Civic Work System policy architecture for converting productivity displacement into verified Digital IQD civic wages, training records, care, environmental restoration, sport, culture, municipal repair, and disaster-resilience work.</li>
+<li>Economic-system documentation connecting Digital IQD evidence, INDHC capital
+  allocation, oil-income lockbox rules, ministry feedback, credit expansion,
+  domestic production, strategic resilience manufacturing, tourism/exports,
+  green/rail cost reduction, civic work, reinvestment, and citizen dividends.</li>
+<li>Business value-chain diagrams covering sector chains, capital and repayment
+  lanes, and society/economy feedback loops.</li>
+<li>Quantified affordability and cashflow models separating fiscal-safe,
+  constrained-base, and strategic-upper capital envelopes.</li>
+<li>Growth and long-horizon benefit scenario models for infrastructure, industry,
+  Open Source Rail, green power, food/water systems, tourism, Digital IQD
+  formalization, civic work, environmental repair, and cultural production.</li>
+<li>Policy documentation for a proposed National Dividend Holding Company:
+  oil-income lockbox, citizen non-saleable beneficial shares, ten-year
+  industrial/infrastructure plan, gross-profit levy for Treasury and ministries,
+  and equal Digital IQD dividend distribution from audited surplus.</li>
+<li>Ministry transition roadmap for deprecating, merging, regulating,
+  corporatizing, or sunsetting low-feedback ministry functions only after legal,
+  service-continuity, staff-transition, and audit gates.</li>
+<li>National Civic Work System policy architecture for turning productivity
+  displacement into verified Digital IQD civic wages, training records, care,
+  environmental restoration, sport, culture, municipal repair, and
+  disaster-resilience work.</li>
+<li>Facility-recycling and capital-market logic for screening underutilized Iraqi
+  assets before greenfield capex and attracting international credit, PPP/JV
+  capital, local bank finance, domestic sukuk/bonds/equity, and diaspora
+  co-investment only through audited project vehicles.</li>
+<li>Political-economy transition and anti-capture logic that can force a reform
+  into visibility-only, pilot, pause, rollback, or redesign even when the
+  financial case is attractive.</li>
+<li>Fiscal stress and contingent-liability logic that can force defensive or
+  stop-scale-up mode when shocks make dividends, guarantees, FX debt, or new
+  capex unsafe.</li>
+<li>Rust workspace with core models, storage, API, policy, AML, credit, consensus,
+  sync, POS, mobile-core, analytics, and dashboard crates.</li>
+<li>PostgreSQL-backed dashboard routes, Redis-backed session storage, Argon2id
+  password hash verification, and admin action audit recording for current
+  sensitive handlers.</li>
+<li>Specification tests covering crypto primitives, signing, nonce chains, Raft
+  behavior, AML, credit scoring, wire formats, conflict resolution,
+  programmability primitives, and tier policy behavior.</li>
 </ul>
 <h3 id="what-is-not-proven-yet">What Is Not Proven Yet</h3>
 <ul>
+<li>Legal authority for Digital IQD, INDHC, citizen share entitlements,
+  oil-income allocation, ministry funding transition, securities issuance,
+  privacy boundaries, emergency powers, procurement controls, and appeals.</li>
+<li>Independent macroeconomic validation, audited baselines, calibrated equations,
+  project-level feasibility studies, debt-capacity analysis, procurement
+  sequencing, and sensitivity testing.</li>
 <li>Real endpoint/database integration coverage across all dashboard routes.</li>
 <li>Production-grade role enforcement on every sensitive route.</li>
 <li>Full browser-session hardening beyond the current cookie/CSRF foundation.</li>
 <li>HSM or secure-element key custody.</li>
 <li>Audited offline double-spend prevention.</li>
 <li>National identity/KYC integration.</li>
-<li>Real multi-peer Raft deployment and recovery testing.</li>
-<li>Immutable audit-log storage.</li>
-<li>Independent macroeconomic model validation.</li>
-<li>Calibration of the unified economic model with audited baselines, equations, sensitivity analysis, and independent review.</li>
-<li>Independent legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation for the National Dividend Holding Company and ten-year investment plan.</li>
-<li>Independent constitutional, administrative-law, labor, federalism, and service-continuity review for the ministry transition roadmap.</li>
-<li>Independent labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, and fiscal review for the National Civic Work System.</li>
+<li>Real multi-peer consensus deployment and recovery testing.</li>
+<li>Immutable audit-log storage and regulator evidence-pack workflows.</li>
+<li>Independent constitutional, administrative-law, labor, federalism,
+  service-continuity, AML/CFT, competition, privacy, disability-access, and
+  anti-corruption review for the economic model.</li>
+<li>Independent political-economy validation that maps real actors, incentives,
+  veto points, coercive risks, governorate authority, citizen trust, and
+  implementation capacity.</li>
+<li>Independent fiscal stress validation of oil-equity caps, project debt,
+  contingent liabilities, guarantees, availability payments, FX exposure,
+  collection efficiency, maintenance reserves, and dividend rules.</li>
 </ul>
 <h3 id="development-stack">Development Stack</h3>
 <pre><code class="language-bash">cp .env.example .env
@@ -695,211 +878,38 @@ docker compose up -d
 export DATABASE_URL=&quot;postgresql://postgres:${DB_PASSWORD:-change-me-dev-only}@localhost:5432/cylinder_seal&quot;
 cargo run --package cbi-dashboard
 </code></pre>
-<p>Use local demo operators only for development. Replace all seeded operator hashes and all placeholder secrets before sharing, staging, or deploying.</p>
+<p>Use local demo operators only for development. Replace all seeded operator
+hashes and all placeholder secrets before sharing, staging, or deploying.</p>
 <h3 id="credible-positioning">Credible Positioning</h3>
 <p>Use this language externally:</p>
 <blockquote>
-<p>Cylinder Seal is an open-source prototype for Digital IQD economic-visibility infrastructure, with a CBI dashboard, policy analytics, AML/account-management APIs, and a PostgreSQL development stack.</p>
+<p>Cylinder Seal is a source-disciplined proposal for an Iraqi economic operating
+model, with a pilot-grade Digital IQD evidence and analytics prototype used to
+test how cashflows, public benefits, policy controls, and citizen dividends
+could be measured.</p>
 </blockquote>
 <p>Avoid this language:</p>
 <blockquote>
 <p>Production-ready national digital dinar infrastructure.</p>
 </blockquote>
+<p>Also avoid:</p>
+<blockquote>
+<p>A guaranteed national growth plan, official CBI project, or validated
+investment program.</p>
+</blockquote>
 <h3 id="next-readiness-work">Next Readiness Work</h3>
 <ol>
+<li>Add a full legal and institutional validation package.</li>
+<li>Convert the sector plan into a project-level pipeline with capex, opex,
+   revenue, DSCR, FX exposure, facility-reuse status, environmental gates, and
+   responsible public authority.</li>
+<li>Validate policy/economic scenarios with cited sources and independent review.</li>
 <li>Add real dashboard route integration tests against PostgreSQL and Redis.</li>
 <li>Enforce role-based authorization consistently.</li>
 <li>Add CSRF/session hardening for browser flows.</li>
 <li>Implement and test immutable audit logging.</li>
-<li>Complete the threat model in <code>SECURITY.md</code> with design decisions and residual risks.</li>
-<li>Validate policy/economic scenarios with cited sources and independent review.</li>
-<li>Convert the National Dividend Holding Company and ten-year investment plan into explicit legal assumptions, data models, and tests only after policy review.</li>
 </ol>
-<h1 id="part-4-security-model">Part 4: Security Model</h1>
-<h2 id="security-model-and-threat-notes">Security Model And Threat Notes</h2>
-<p>Cylinder Seal is a prototype. This document describes the security posture expected before production use and highlights the current gaps. It is not a completed audit.</p>
-<h3 id="supported-security-claims-today">Supported Security Claims Today</h3>
-<ul>
-<li>Transaction signing primitives exist in <code>crates/cs-core</code>.</li>
-<li>Admin password verification uses Argon2id hashes.</li>
-<li>Dashboard sessions are stored as opaque Redis-backed tokens with HttpOnly cookie support for page flows.</li>
-<li>Current sensitive dashboard handlers enforce role checks and record <code>ok</code> or <code>denied</code> admin actions through an audit recorder.</li>
-<li>AML/risk and audit-log route modules exist.</li>
-<li>Offline conflict-resolution logic exists in prototype form.</li>
-</ul>
-<p>These are implementation building blocks, not certification that the system is safe for real funds.</p>
-<h3 id="key-custody">Key Custody</h3>
-<p>Current state:</p>
-<ul>
-<li>Wallet/POS signing code exists at prototype level.</li>
-<li>Admin bootstrap can generate an initial supervisor password.</li>
-<li>No HSM-backed key ceremony or production custody policy is implemented.</li>
-</ul>
-<p>Production requirements:</p>
-<ul>
-<li>HSM or secure enclave custody for super-peer, operator, settlement, and signing keys.</li>
-<li>Documented key ceremony with split control and witness logs.</li>
-<li>Rotation, revocation, and compromise runbooks.</li>
-<li>Hardware-backed attestation for payment devices that can spend offline.</li>
-<li>Recovery policy for citizens, merchants, and operators.</li>
-</ul>
-<h3 id="offline-double-spend-model">Offline Double-Spend Model</h3>
-<p>Current state:</p>
-<ul>
-<li>Offline transactions can be signed and later synchronized.</li>
-<li>Conflict detection/reconciliation logic exists for sibling entries.</li>
-<li>KYC tiers cap offline exposure in the domain model.</li>
-</ul>
-<p>Production requirements:</p>
-<ul>
-<li>Secure monotonic counters or equivalent secure-element attestation.</li>
-<li>Offline balance reservation or risk-bounded credit exposure model.</li>
-<li>Clear liability rules for conflicting offline spends.</li>
-<li>Reconciliation process approved by legal, supervisory, and consumer-protection stakeholders.</li>
-<li>Red-team testing of compromised devices, cloned keys, clock tampering, and replay attempts.</li>
-</ul>
-<h3 id="transaction-signing-and-validation">Transaction Signing And Validation</h3>
-<p>Current state:</p>
-<ul>
-<li>Canonical signing tests exist.</li>
-<li>Wire-format primitives exist for expiry, spend constraints, and conditional release.</li>
-</ul>
-<p>Production requirements:</p>
-<ul>
-<li>Published transaction-envelope specification and golden test vectors.</li>
-<li>Version negotiation and backwards-compatible migration rules.</li>
-<li>Independent cryptographic review of canonicalization, signature scope, nonce semantics, and replay protection.</li>
-<li>Validation rules documented as normative protocol behavior, not only Rust implementation details.</li>
-</ul>
-<h3 id="device-compromise">Device Compromise</h3>
-<p>Production threat cases:</p>
-<ul>
-<li>Stolen or rooted mobile device.</li>
-<li>Compromised POS terminal.</li>
-<li>Malware exfiltrating private keys or queued offline payments.</li>
-<li>Cloned merchant terminal.</li>
-<li>Malicious operator attempting to override risk controls.</li>
-</ul>
-<p>Required controls:</p>
-<ul>
-<li>Device binding and attestation.</li>
-<li>Local storage encryption with hardware-backed keys.</li>
-<li>Remote revocation and velocity downgrades.</li>
-<li>Tamper-evident device logs.</li>
-<li>Risk-based offline spending ceilings.</li>
-</ul>
-<h3 id="account-recovery">Account Recovery</h3>
-<p>Current state:</p>
-<ul>
-<li>No complete recovery model is documented.</li>
-</ul>
-<p>Production requirements:</p>
-<ul>
-<li>Citizen recovery without single-operator abuse.</li>
-<li>Merchant recovery for lost POS devices and staff turnover.</li>
-<li>Multi-party approval for privileged account recovery.</li>
-<li>Clear audit trail and mandatory cooling-off periods for high-risk recovery events.</li>
-</ul>
-<h3 id="audit-log-immutability">Audit Log Immutability</h3>
-<p>Current state:</p>
-<ul>
-<li>Audit-log tables and routes exist.</li>
-<li>Current sensitive dashboard handlers write admin action records for account freeze/unfreeze, emergency directive creation, compliance-report actions, and industrial-project mutations.</li>
-<li>Route-level tests assert audit records for allowed and denied actions through an in-memory audit recorder.</li>
-</ul>
-<p>Production requirements:</p>
-<ul>
-<li>Append-only storage with tamper-evident hashes.</li>
-<li>WORM or equivalent immutable retention for privileged actions.</li>
-<li>Exportable regulator evidence packs.</li>
-<li>Separate audit-reader role with no mutation authority.</li>
-<li>Monitoring for audit-log gaps, rewrites, and clock anomalies.</li>
-</ul>
-<h3 id="operator-privilege-controls">Operator Privilege Controls</h3>
-<p>Current state:</p>
-<ul>
-<li>Role concepts exist: auditor, analyst, officer, supervisor.</li>
-<li>Current sensitive routes enforce officer or supervisor roles and have route-level tests.</li>
-</ul>
-<p>Production requirements:</p>
-<ul>
-<li>Least-privilege role matrix for every endpoint.</li>
-<li>Four-eyes approval for account freezes, emergency directives, rule changes, and recovery.</li>
-<li>MFA for all operators.</li>
-<li>Session timeout, step-up authentication, and device-bound operator sessions.</li>
-<li>Break-glass authority with automatic expiry and independent review.</li>
-</ul>
-<h3 id="emergency-authority-limits">Emergency Authority Limits</h3>
-<p>Current state:</p>
-<ul>
-<li>Emergency directive models and dashboard routes exist.</li>
-</ul>
-<p>Production requirements:</p>
-<ul>
-<li>Legal basis for each emergency action type.</li>
-<li>Time-bound directives with automatic expiry.</li>
-<li>Scope constraints by region, account class, merchant tier, or risk class.</li>
-<li>Dual approval and post-event review.</li>
-<li>Public transparency policy where appropriate.</li>
-</ul>
-<h3 id="privacy-and-data-minimization">Privacy And Data Minimization</h3>
-<p>Production requirements:</p>
-<ul>
-<li>Separation of payment, identity, AML, location, and aggregate analytics data.</li>
-<li>Role-scoped access to personally identifiable data.</li>
-<li>Coarsened location by default.</li>
-<li>Data retention schedules.</li>
-<li>Privacy impact assessment before any real citizen or merchant data is used.</li>
-</ul>
-<h3 id="national-dividend-and-cash-formalization-threat-boundary">National Dividend And Cash Formalization Threat Boundary</h3>
-<p>The proposed National Dividend Holding Company model adds higher-risk workflows
-than ordinary retail payments: oil-income receipts, citizen share entitlements,
-cash formalization, ministry funding, investment allocations, and dividend
-distribution. These workflows should be treated as public-finance critical
-infrastructure.</p>
-<p>Required controls before implementation:</p>
-<ul>
-<li>Statutory authority for oil-income handling, cash demonetization, dividend
-  formulas, share entitlement, and inheritance rules.</li>
-<li>Strict separation between citizen base shares and supplemental transition
-  entitlements created during any cash formalization window.</li>
-<li>KYC, sanctions screening, politically exposed person screening, enhanced due
-  diligence, caps, holds, referrals, and appeal paths for cash conversion.</li>
-<li>Four-eyes approval and immutable audit records for lockbox allocation,
-  stabilization-reserve release, gross-profit levy calculation, dividend-batch
-  creation, and post-facto correction.</li>
-<li>Public aggregate transparency for oil receipts, allocations, ministry
-  transfers, investment performance, dividend pool size, and audit exceptions.</li>
-<li>No anonymous conversion of cash into liquid or pledgeable assets.</li>
-<li>No operator, ministry, political party, contractor, bank, or private entity
-  ability to acquire citizen base shares.</li>
-</ul>
-<h3 id="reporting-vulnerabilities">Reporting Vulnerabilities</h3>
-<p>Do not disclose exploitable vulnerabilities through public issues, social media,
-or public pull requests.</p>
-<p>Until a dedicated security mailbox is provisioned, report privately to the
-project contact listed in <code>EXECUTIVE_SUMMARY.md</code>. Include:</p>
-<ul>
-<li>Affected component, endpoint, route, crate, or document.</li>
-<li>Reproduction steps or proof-of-concept details.</li>
-<li>Potential impact, including whether funds, identity data, audit logs, or
-  privileged operator actions are affected.</li>
-<li>Whether the issue has been shared with any third party.</li>
-</ul>
-<p>Expected handling:</p>
-<ul>
-<li>Acknowledge receipt within 3 business days when a valid contact channel is
-  available.</li>
-<li>Triage severity as critical, high, medium, or low.</li>
-<li>Avoid requesting public disclosure until a mitigation or documented residual
-  risk decision exists.</li>
-<li>Credit the reporter when appropriate and requested, subject to legal and
-  safety constraints.</li>
-</ul>
-<p>This process is a prototype disclosure policy. Before external deployment,
-replace it with a dedicated security contact, patch SLA, coordinated-disclosure
-timeline, and legal safe-harbor language.</p>
-<h1 id="part-5-economic-assumptions-and-source-discipline">Part 5: Economic Assumptions And Source Discipline</h1>
+<h1 id="part-4-economic-assumptions-and-source-discipline">Part 4: Economic Assumptions And Source Discipline</h1>
 <h2 id="economic-assumptions-and-source-discipline">Economic Assumptions And Source Discipline</h2>
 <p>The economic narrative is the strongest part of Cylinder Seal, but it must be presented as an illustrative model until every number is independently sourced, dated, and stress-tested.</p>
 <h3 id="current-public-facts-to-use">Current Public Facts To Use</h3>
@@ -1002,7 +1012,7 @@ timeline, and legal safe-harbor language.</p>
 <li>"Cylinder Seal is a complete economic operating system" should become "unified economic model proposal requiring legal authority, audited data, calibrated equations, policy review, and independent macroeconomic validation."</li>
 <li>"Cylinder Seal will abolish frivolous ministries" should become "ministry-transition scenario in which specific functions are deprecated, merged, regulated, corporatized, or sunset only after legal authority, service-continuity gates, staff-transition plans, and independent audits."</li>
 <li>"Oil income should fund a citizen-owned state industrial holding company" should become "proposed national dividend holding-company architecture requiring constitutional, fiscal, oil-revenue, AML/CFT, competition, and governance review."</li>
-<li>"The holding company will invest $190B over ten years" should become "base-case planning envelope requiring oil-revenue stress testing, debt-capacity analysis, procurement sequencing, and independent project finance review."</li>
+<li>"The holding company will invest $190B over ten years" should become "strategic upper envelope requiring fiscal reform, oil-revenue stress testing, debt-capacity analysis, procurement sequencing, audited cashflow, and independent project finance review; the constrained-base front plan is USD 115B."</li>
 <li>"INDHC will make Iraq self-sufficient in defense, electronics, HVAC, water, irrigation, and food" should become "strategic resilience manufacturing objective requiring delivered-cost tests, quality certification, legal controls, supplier development, and security/procurement review."</li>
 <li>"INDHC will generate $43B in Year 10 revenue" should become "illustrative Year 10 consolidated revenue run-rate in the base-case cashflow model, requiring audited baseline demand, project-level feasibility studies, utilization assumptions, and downside sensitivity tests."</li>
 <li>The state-conglomerate shorthand should become "digitally governed sectoral industrial champions with conditional demand, conditional credit, export discipline, competition gates, debt caps, and anti-capture governance."</li>
@@ -1022,10 +1032,14 @@ timeline, and legal safe-harbor language.</p>
 <h3 id="recommended-external-pitch">Recommended External Pitch</h3>
 <p>Use this positioning until the economic model is independently validated:</p>
 <blockquote>
-<p>Cylinder Seal is a sovereign digital-payment and economic-visibility prototype for Iraq, designed to show how CBI-backed digital IQD transactions could support financial inclusion, SME credit scoring, public-transfer controls, and domestic-production incentives.</p>
+<p>Cylinder Seal is a source-disciplined proposal for an Iraqi economic operating
+model, with a pilot-grade Digital IQD evidence and analytics prototype used to
+test how cashflows, public benefits, policy controls, credit signals, public
+transfers, and citizen dividends could be measured.</p>
 </blockquote>
-<p>That claim is strong, defensible, and aligned with the code that exists today.</p>
-<h1 id="part-6-national-economic-operating-logic">Part 6: National Economic Operating Logic</h1>
+<p>That claim keeps the national economic model in front while preserving the
+prototype boundary around the software.</p>
+<h1 id="part-5-national-economic-operating-logic">Part 5: National Economic Operating Logic</h1>
 <h2 id="national-economic-operating-logic">National Economic Operating Logic</h2>
 <p>This document defines the management logic that holds the Cylinder Seal,
 Digital IQD, INDHC, ministry-transition, industrial-champion, civic-work,
@@ -1041,6 +1055,8 @@ No capital allocation without gates.
 No dividend without audited distributable surplus.
 No ministry funding without visible public value.
 No strategic program without anti-capture controls.
+No transition scale-up without political-economy readiness.
+No scale-up under fiscal stress.
 </code></pre>
 <p>The purpose is to stop oil income from flowing directly into passive ministry
 budgets while also avoiding a new opaque conglomerate. Oil, loans, PPP capital,
@@ -1304,6 +1320,14 @@ forward no matter how attractive the narrative is.</p>
 <td>Citizen fairness</td>
 <td>Dividends, civic work, transfers, and appeals are rules-based and auditable.</td>
 </tr>
+<tr>
+<td>Political-economy readiness</td>
+<td>Resistance, capture risk, coalition support, service continuity, staff transition, procurement transparency, competition control, federalism, and appeals support the proposed transition mode.</td>
+</tr>
+<tr>
+<td>Fiscal stress</td>
+<td>Oil-equity draw, stressed DSCR, FX cover, maintenance reserves, contingent liabilities, collection efficiency, capex overruns, and dividend affordability remain inside limits.</td>
+</tr>
 </tbody>
 </table>
 <h3 id="portfolio-scoring">Portfolio Scoring</h3>
@@ -1445,6 +1469,9 @@ after all subsidiary and holding-company gates pass.</p>
 <li>Fund dividends only from audited surplus after reserves and retained
    earnings.</li>
 </ol>
+<p>If a project or reform passes commercial scoring but fails political-economy
+readiness, the correct action is visibility-only measurement, a smaller pilot,
+pause, rollback, or redesign. A rational spreadsheet is not enough.</p>
 <p>This order prevents a politically attractive dividend from consuming the capital
 base that must produce future dividends.</p>
 <h3 id="governance-roles">Governance Roles</h3>
@@ -1591,6 +1618,14 @@ kernel, not a complete national operating system.</p>
 <td><code>DiasporaChannelProjection</code></td>
 <td>Formal remittances, Iraqi-product demand, export distribution, expertise, investment pipeline, marketing attribution, and compliance gates.</td>
 </tr>
+<tr>
+<td><code>PoliticalEconomyProjection</code></td>
+<td>Capture risk, resistance pressure, coalition readiness, citizen legitimacy, transition readiness, and recommended transition mode.</td>
+</tr>
+<tr>
+<td><code>FiscalStressProjection</code></td>
+<td>Stressed oil-equity capacity, fiscal-rule breach, DSCR, FX mismatch, maintenance gap, contingent liability, dividend gap, and recommended stress mode.</td>
+</tr>
 </tbody>
 </table>
 <p>Initial executable coverage:</p>
@@ -1665,6 +1700,20 @@ kernel, not a complete national operating system.</p>
   consumer protection, data privacy, distribution coverage, conversion evidence,
   and investment suitability. <code>migrations/20260710000001_diaspora_channels_projection.sql</code>
   adds projection, ledger, and gate tables.</li>
+<li><code>crates/cs-analytics/src/political_economy.rs</code> adds the first
+  political-economy transition layer: capture risk, resistance pressure,
+  coalition readiness, citizen legitimacy, transition mode selection, and gates
+  for legal authority, service continuity, staff transition, audit, appeals,
+  procurement transparency, beneficial ownership, competition, federalism, and
+  emergency powers. <code>migrations/20260712000001_political_economy_transition.sql</code>
+  adds projection and gate tables.</li>
+<li><code>crates/cs-analytics/src/fiscal_stress.rs</code> adds the first fiscal-stress and
+  contingent-liability layer: stressed oil-equity capacity, deficit/debt/reserve
+  pressure, stressed DSCR, FX mismatch, maintenance gaps, guarantee and
+  availability-payment exposure, collection efficiency, capex overruns,
+  dividend affordability, and stable/watch/defensive/stop-scale-up mode
+  selection. <code>migrations/20260713000001_fiscal_stress_projection.sql</code> adds
+  projection and gate tables.</li>
 </ul>
 <h3 id="management-dashboards">Management Dashboards</h3>
 <p>The operating dashboard should show the economy as a controlled portfolio:</p>
@@ -1727,6 +1776,14 @@ kernel, not a complete national operating system.</p>
 <tr>
 <td>Citizen welfare</td>
 <td>What changed in wages, transfers, civic income, dividends, prices, and credit access?</td>
+</tr>
+<tr>
+<td>Political economy</td>
+<td>Which reforms face capture, resistance, weak coalition support, service-continuity failure, staff-transition failure, or federalism risk?</td>
+</tr>
+<tr>
+<td>Fiscal stress</td>
+<td>Which projects or portfolios breach oil-equity limits, stressed DSCR, FX cover, maintenance reserves, contingent-liability caps, collection efficiency, or dividend affordability?</td>
 </tr>
 <tr>
 <td>Risk and capture</td>
@@ -1812,14 +1869,1901 @@ Reallocate away from failure.
 second-order benefits, civic work, credit, and citizen dividends without
 collapsing into either a passive sovereign fund or another opaque state
 bureaucracy.</p>
-<h1 id="part-7-iraq-integrated-growth-impact-model">Part 7: Iraq Integrated Growth Impact Model</h1>
+<h1 id="part-6-national-legal-and-institutional-roadmap">Part 6: National Legal And Institutional Roadmap</h1>
+<h2 id="national-legal-and-institutional-roadmap">National Legal And Institutional Roadmap</h2>
+<p>Status: legal-design checklist. This is not legal advice, not a draft bill, not
+an opinion on Iraqi constitutional law, and not a claim that any public body has
+approved Cylinder Seal, Digital IQD, INDHC, or the ministry transition model.</p>
+<p>This roadmap exists because the economic model cannot be credible without a
+clear authority path. The software, cashflow model, citizen-share design,
+project debt, domestic securities, public dashboards, ministry contracts, and
+dividend rules all depend on law and institutional mandate.</p>
+<h3 id="source-discipline_1">Source Discipline</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.constituteproject.org/constitution/Iraq_2005">Iraq Constitution 2005, Articles 111-112</a></td>
+<td>Oil and gas ownership, revenue distribution, federal/regional/governorate roles, and balanced-development principles must be respected before any oil-income lockbox is proposed.</td>
+</tr>
+<tr>
+<td><a href="https://investpromo.gov.iq/wp-content/uploads/2013/06/Central-Bank-2004-En.pdf">Central Bank of Iraq Law 2004</a></td>
+<td>Any Digital IQD, settlement, wallet limit, monetary-control, or payment-system role needs CBI legal review and must not undermine central-bank autonomy.</td>
+</tr>
+<tr>
+<td><a href="https://www.elibrary.imf.org/view/journals/002/2019/249/article-A001-en.xml">IMF note on Iraq's 2019 General Financial Management Law</a></td>
+<td>Public-finance reform, budget control, debt treatment, and reporting discipline are central to oil-equity allocation and ministry funding.</td>
+</tr>
+<tr>
+<td><a href="https://www.isc.gov.iq/en">Iraqi Securities Commission</a> and <a href="https://csd.gov.iq/en/rules-and-instructions/">Iraqi Depository Center rules and instructions</a></td>
+<td>Domestic bonds, sukuk, listed minority equity, project-company securities, foreign investors, depository rules, and AML/CFT controls need capital-market authority.</td>
+</tr>
+<tr>
+<td><a href="https://resourcegovernance.org/sites/default/files/documents/oil-gas-revenue-sharing-iraq.pdf">Natural Resource Governance Institute, oil and gas revenue sharing in Iraq</a></td>
+<td>Oil-revenue allocation has federalism and interpretation risks; the model must not assume a frictionless central lockbox.</td>
+</tr>
+<tr>
+<td><a href="https://documents1.worldbank.org/curated/en/669171643036848080/pdf/Iraq-Oil-revenue-management-for-economic-diversification.pdf">World Bank, Iraq oil revenue management for economic diversification</a></td>
+<td>Supports the public-finance logic of converting oil revenue into productive capital, while leaving implementation design to legal and fiscal review.</td>
+</tr>
+</tbody>
+</table>
+<p>These sources identify the authority surface. They do not validate the proposed
+institution, capital plan, dividend formula, or legal structure.</p>
+<h3 id="legal-principle">Legal Principle</h3>
+<p>No economic flow should be deployed until the legal owner, public authority,
+budget treatment, audit authority, appeal right, privacy boundary, and dispute
+forum are explicit.</p>
+<pre><code class="language-text">Economic design
+  -&gt; legal mandate
+  -&gt; institutional owner
+  -&gt; fiscal treatment
+  -&gt; operating rule
+  -&gt; audit trail
+  -&gt; citizen/business appeal
+  -&gt; public reporting
+</code></pre>
+<h3 id="authority-map">Authority Map</h3>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Required authority question</th>
+<th>Possible instrument</th>
+<th>Hard gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oil Income Lockbox</td>
+<td>Who may receive, classify, hold, allocate, and report oil receipts before Treasury appropriation?</td>
+<td>Framework law, budget law amendments, revenue-management law, federal/governorate compact.</td>
+<td>Constitutional and public-finance review complete.</td>
+</tr>
+<tr>
+<td>INDHC charter</td>
+<td>Is INDHC a public corporation, sovereign holding company, statutory fund, trust-like vehicle, or state-owned enterprise group?</td>
+<td>INDHC enabling law and charter.</td>
+<td>Ownership, board powers, audit rights, dividend rules, debt limits, and anti-capture controls enacted.</td>
+</tr>
+<tr>
+<td>Citizen beneficial shares</td>
+<td>What legal right does each citizen hold, and how are inheritance, minors, death, displacement, fraud, and appeals handled?</td>
+<td>Citizen entitlement law and registry rules.</td>
+<td>Non-saleability, equal treatment, inheritance, appeals, and data correction rules are live.</td>
+</tr>
+<tr>
+<td>Digital IQD</td>
+<td>Does the model require a CBDC, tokenized claim, payment instrument, regulated wallet, or only payment evidence rails?</td>
+<td>CBI regulation, payment-system rulebook, statutory amendment if required.</td>
+<td>CBI and legal review define monetary status, settlement finality, wallet limits, and operator duties.</td>
+</tr>
+<tr>
+<td>Ministry funding transition</td>
+<td>Which functions can move to service contracts, regulators, municipalities, operators, or sunset agencies?</td>
+<td>Budget law, civil-service law, procurement rules, service-contract rules.</td>
+<td>Service continuity, staff transition, and citizen appeal gates pass before any function moves.</td>
+</tr>
+<tr>
+<td>Project borrowing</td>
+<td>Who may borrow, in what currency, against which revenue, with which sovereign support?</td>
+<td>Public debt rules, project-finance SPV contracts, guarantees law.</td>
+<td>DSCR, FX, contingent-liability, and disclosure rules pass.</td>
+</tr>
+<tr>
+<td>Domestic securities</td>
+<td>Can project sukuk, bonds, or minority equity be issued to domestic or diaspora investors?</td>
+<td>Securities approval, prospectus, trustee, depository, listing rules.</td>
+<td>Investor protection, AML/CFT, no-forced-purchase, and use-of-proceeds controls pass.</td>
+</tr>
+<tr>
+<td>PPP/JV concessions</td>
+<td>Which assets may be concessioned, leased, operated, or co-owned?</td>
+<td>PPP/concession law, procurement law, public-asset rules.</td>
+<td>Competitive procurement, public value test, termination rights, and audit access pass.</td>
+</tr>
+<tr>
+<td>Political-economy transition</td>
+<td>Is the reform coalition strong enough, are capture risks controlled, and can services continue without coercive or arbitrary disruption?</td>
+<td>Transition law, audit mandate, procurement disclosure rulebook, civil-service transition rules, governorate compact, appeals code.</td>
+<td>The political-economy readiness engine permits pilot, controlled transition, or scale mode.</td>
+</tr>
+<tr>
+<td>Fiscal stress and contingent liabilities</td>
+<td>Are guarantees, availability payments, FX support, collection risk, and dividend pressure visible before they become public debt?</td>
+<td>Fiscal-risk statement, guarantee register, availability-payment register, debt-office approval, budget disclosure.</td>
+<td>Fiscal stress mode is stable or watch; defensive and stop-scale-up modes block expansion and dividends.</td>
+</tr>
+<tr>
+<td>Data and privacy</td>
+<td>Which actors can see identity, transaction, tax, health, welfare, diaspora, and civic-work data?</td>
+<td>Privacy law, data-sharing agreements, CBI confidentiality rules.</td>
+<td>Purpose limitation, minimization, consent/authority, retention, and redress controls pass.</td>
+</tr>
+<tr>
+<td>Emergency powers</td>
+<td>Who can freeze payments, suspend dividends, halt disbursements, or override ordinary rules?</td>
+<td>Emergency-control statute and board/CBI/Treasury rulebook.</td>
+<td>Time limits, public notice, audit, parliamentary review, and judicial path exist.</td>
+</tr>
+<tr>
+<td>Defense-controlled production</td>
+<td>What can be produced, procured, exported, classified, or publicly reported?</td>
+<td>Defense procurement law, licensing, export-control and classification rules.</td>
+<td>Public finance is auditable without disclosing sensitive specifications.</td>
+</tr>
+<tr>
+<td>Heritage and environmental assets</td>
+<td>Who protects cultural sites, marshlands, water, land, emissions, and resettlement rights?</td>
+<td>Environmental, heritage, municipal, water, and land-use approvals.</td>
+<td>Carrying capacity, conservation funding, water limits, and community safeguards pass.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="institutional-design">Institutional Design</h3>
+<table>
+<thead>
+<tr>
+<th>Institution</th>
+<th>Role</th>
+<th>Must not do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parliament</td>
+<td>Enact enabling authority, debt limits, disclosure duties, citizen rights, emergency limits, and oversight powers.</td>
+<td>Delegate unlimited oil-revenue or borrowing power without public accounts.</td>
+</tr>
+<tr>
+<td>CBI / payment authority</td>
+<td>Define monetary status, settlement finality, payment-system rules, wallet limits, AML/CFT, and payment resilience.</td>
+<td>Become an industrial allocator or weaken monetary-policy independence.</td>
+</tr>
+<tr>
+<td>Treasury / Ministry of Finance</td>
+<td>Own fiscal classification, levy/tax flows, debt exposure, budget treatment, guarantees, and ministry appropriations.</td>
+<td>Treat INDHC borrowing or dividends as off-book fiscal magic.</td>
+</tr>
+<tr>
+<td>Oil Income Lockbox</td>
+<td>Record oil receipts, stabilization allocation, fiscal transfer, INDHC oil-equity allocation, and reconciliation.</td>
+<td>Become an opaque parallel budget.</td>
+</tr>
+<tr>
+<td>INDHC board</td>
+<td>Allocate capital, govern subsidiaries, enforce waterfall rules, publish accounts, and protect citizen benefit rights.</td>
+<td>Become another ministry, patronage vehicle, or unchecked monopoly.</td>
+</tr>
+<tr>
+<td>Portfolio risk committee</td>
+<td>Suspend capex, borrowing, dividends, or project disbursements when hard gates fail.</td>
+<td>Override legal rights without published reason and appeal path.</td>
+</tr>
+<tr>
+<td>Supreme audit body / external auditors</td>
+<td>Audit source-of-funds, procurement, related parties, project accounts, and public dashboards.</td>
+<td>Rely only on management self-reporting.</td>
+</tr>
+<tr>
+<td>Securities regulator and depository</td>
+<td>Approve listed instruments, disclosure, trustee arrangements, depository records, and investor protection.</td>
+<td>Allow forced purchases by banks, pension funds, citizens, or captive institutions.</td>
+</tr>
+<tr>
+<td>Competition and procurement authorities</td>
+<td>Control concentration, related-party procurement, bid design, price discipline, and public-service obligations.</td>
+<td>Grant permanent protection without export, price, quality, and SME-inclusion discipline.</td>
+</tr>
+<tr>
+<td>Governorates, municipalities, and KRG authorities where applicable</td>
+<td>Contract local services, protect local assets, manage land/use permits, and receive fair development benefits.</td>
+<td>Be bypassed by a central project model where local authority is legally required.</td>
+</tr>
+<tr>
+<td>Citizens and businesses</td>
+<td>Hold entitlements, receive dividends/services, use appeals, see aggregate dashboards, and challenge errors.</td>
+<td>Lose privacy, appeal rights, or equal treatment in exchange for digitization.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="federalism-and-governorate-compact">Federalism And Governorate Compact</h3>
+<p>The model needs a federalism layer before any real lockbox, rail, water,
+tourism, facility-reuse, or dividend program can be credible.</p>
+<table>
+<thead>
+<tr>
+<th>Compact issue</th>
+<th>Required rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Revenue fairness</td>
+<td>Oil-equity allocation must be reconciled with population, producing-governorate, damaged-region, and balanced-development principles.</td>
+</tr>
+<tr>
+<td>Asset location</td>
+<td>Facilities, rail, water, tourism, land, and industrial assets need ownership and permitting clarity by governorate.</td>
+</tr>
+<tr>
+<td>KRG and regional coordination</td>
+<td>Projects touching regional authority need separate legal mapping, revenue sharing, payments, data, and dispute rules.</td>
+</tr>
+<tr>
+<td>Municipal service contracts</td>
+<td>City services should be contracted with local authority and measured through service-level evidence.</td>
+</tr>
+<tr>
+<td>Local employment</td>
+<td>Iraqi-only permanent staffing should include governorate training, local supplier participation, and anti-patronage rules.</td>
+</tr>
+<tr>
+<td>Appeals and grievance</td>
+<td>Citizens, SMEs, landholders, workers, and municipalities need a clear complaint path before project scale-up.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phased-legal-roadmap">Phased Legal Roadmap</h3>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Years</th>
+<th>Legal work</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0. Independent review</td>
+<td>0-1</td>
+<td>Commission constitutional, fiscal, CBI, securities, procurement, privacy, AML/CFT, competition, labor, federalism, environment, and heritage reviews.</td>
+<td>Legal risk register and stop/go memo.</td>
+</tr>
+<tr>
+<td>1. Framework mandate</td>
+<td>1-2</td>
+<td>Draft economic operating framework: ledgers, public dashboards, source tags, audit hashes, evidence admissibility, and public-benefit discipline.</td>
+<td>Cylinder Seal Economic Evidence Act or equivalent.</td>
+</tr>
+<tr>
+<td>2. Oil lockbox and INDHC</td>
+<td>1-3</td>
+<td>Define oil-receipt treatment, stabilization reserve, Treasury transfer, capped oil-equity allocation, INDHC charter, board duties, citizen shares, and audit publication.</td>
+<td>Oil Income Lockbox and INDHC enabling package.</td>
+</tr>
+<tr>
+<td>3. Payment authority</td>
+<td>1-3</td>
+<td>Decide whether Digital IQD is CBDC, regulated wallet rail, payment-evidence layer, or staged pilot; define settlement finality, wallet limits, AML/CFT, privacy, and operator rules.</td>
+<td>CBI/payment authority rulebook.</td>
+</tr>
+<tr>
+<td>4. Project finance and securities</td>
+<td>2-4</td>
+<td>Define SPV standards, DSCR covenants, FX rules, guarantees, green sukuk/bond rules, project-company disclosure, trustee, depository, and investor-protection requirements.</td>
+<td>Project finance and domestic capital-market readiness package.</td>
+</tr>
+<tr>
+<td>5. Ministry service transition</td>
+<td>2-6</td>
+<td>Convert selected functions into service contracts, regulators, municipalities, autonomous operators, or sunset agencies with civil-service and continuity protections.</td>
+<td>Ministry function registry and transition decrees.</td>
+</tr>
+<tr>
+<td>6. Citizen rights and appeals</td>
+<td>2-5</td>
+<td>Define entitlement registry, inheritance, minors, death, displacement, diaspora eligibility, fraud review, correction, privacy, and dividend appeals.</td>
+<td>Citizen entitlement and appeals code.</td>
+</tr>
+<tr>
+<td>7. Environmental/cultural safeguards</td>
+<td>2-6</td>
+<td>Define marshland, water, heritage, resettlement, pollution, carrying-capacity, conservation, and community-benefit rules.</td>
+<td>Environmental and cultural project gate rulebook.</td>
+</tr>
+<tr>
+<td>8. Pilot authority</td>
+<td>3-6</td>
+<td>Authorize limited pilots by sector, governorate, project type, payment channel, data scope, and fiscal exposure.</td>
+<td>Time-bounded pilot licenses and public reporting.</td>
+</tr>
+<tr>
+<td>9. Scale authority</td>
+<td>6-10</td>
+<td>Scale only after audited cashflow, service continuity, legal compliance, citizen appeals, and independent review.</td>
+<td>Annual operating plan and parliamentary/audit report.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="citizen-share-and-dividend-law-questions">Citizen Share And Dividend Law Questions</h3>
+<p>The citizen share is the most politically sensitive part of the model. It must
+be a rule-bound public entitlement, not a tradable private asset.</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Required answer before deployment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eligibility</td>
+<td>Citizens by what registry, date, age, residency, diaspora status, displacement status, and appeal process?</td>
+</tr>
+<tr>
+<td>Non-saleability</td>
+<td>How are sale, pledge, seizure, collateralization, political capture, and coercive transfer prohibited?</td>
+</tr>
+<tr>
+<td>Inheritance</td>
+<td>How do shares transfer to children or legal heirs, and what happens when heirs are disputed?</td>
+</tr>
+<tr>
+<td>Minors</td>
+<td>Who receives dividend flows for minors, and how is misuse prevented?</td>
+</tr>
+<tr>
+<td>Death and fraud</td>
+<td>How are death records, duplicate identities, forged documents, and dormant accounts reconciled?</td>
+</tr>
+<tr>
+<td>Divorce/family law</td>
+<td>Are dividend claims individual, marital, household, or personal rights?</td>
+</tr>
+<tr>
+<td>Sanctions/AML</td>
+<td>Can dividends be suspended for sanctions, court order, or fraud investigation, and with what appeal?</td>
+</tr>
+<tr>
+<td>Appeals</td>
+<td>Which body hears entitlement, payment, privacy, or suspension disputes?</td>
+</tr>
+<tr>
+<td>Privacy</td>
+<td>Which agencies can see entitlement, identity, wallet, and payment records?</td>
+</tr>
+</tbody>
+</table>
+<h3 id="debt-guarantees-and-fiscal-exposure">Debt, Guarantees, And Fiscal Exposure</h3>
+<p>No project debt is credible if investors believe the sovereign will quietly bail
+out every failed project.</p>
+<table>
+<thead>
+<tr>
+<th>Exposure type</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sovereign guarantee</td>
+<td>Explicit, capped, budgeted, disclosed, and approved through fiscal authority.</td>
+</tr>
+<tr>
+<td>Availability payment</td>
+<td>Budgeted as a real future obligation, not hidden debt.</td>
+</tr>
+<tr>
+<td>FX debt</td>
+<td>Matched to FX revenue, hedged, concessional, or backed by approved reserve buffer.</td>
+</tr>
+<tr>
+<td>Local-currency debt</td>
+<td>Used only for assets with IQD cashflows and investor-protection readiness.</td>
+</tr>
+<tr>
+<td>PPP termination</td>
+<td>Compensation formula and public step-in rights must be public before signing.</td>
+</tr>
+<tr>
+<td>Dividend pressure</td>
+<td>Dividends stop before maintenance, debt service, reserves, or fiscal obligations are weakened.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-evidence-and-privacy-authority">Data, Evidence, And Privacy Authority</h3>
+<p>Cylinder Seal can be useful only if evidence is trusted and privacy is bounded.</p>
+<table>
+<thead>
+<tr>
+<th>Evidence domain</th>
+<th>Legal need</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Payment evidence</td>
+<td>Settlement finality, reversal rules, dispute handling, fraud liability, and record retention.</td>
+</tr>
+<tr>
+<td>Project evidence</td>
+<td>Procurement record, milestone proof, inspection authority, engineering signoff, and audit hash.</td>
+</tr>
+<tr>
+<td>Citizen evidence</td>
+<td>Identity, eligibility, appeal history, wallet status, and privacy tier.</td>
+</tr>
+<tr>
+<td>Tax and levy evidence</td>
+<td>Legal basis for collection, reconciliation, audit, and taxpayer/business rights.</td>
+</tr>
+<tr>
+<td>Civic-work evidence</td>
+<td>Labor status, safety, child protection, disability access, municipal authority, and task verification.</td>
+</tr>
+<tr>
+<td>Public dashboard evidence</td>
+<td>Aggregation, anonymization, confidence labels, source tags, and redaction rules.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-gate">Decision Gate</h3>
+<p>The legal roadmap should produce a single public stop/go dashboard:</p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Green means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Constitutional/federalism</td>
+<td>Oil, revenue, governorate, regional, and citizen-rights issues have legal path and dispute forum.</td>
+</tr>
+<tr>
+<td>CBI/payment</td>
+<td>Monetary status, settlement, wallet, AML/CFT, and privacy rules are approved for pilot scope.</td>
+</tr>
+<tr>
+<td>Fiscal/debt</td>
+<td>Oil-equity cap, guarantees, project debt, and budget treatment are disclosed and approved.</td>
+</tr>
+<tr>
+<td>Fiscal stress</td>
+<td>Oil-equity draw, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability remain inside limits.</td>
+</tr>
+<tr>
+<td>INDHC governance</td>
+<td>Board, audit, procurement, related-party, competition, and dividend rules are enforceable.</td>
+</tr>
+<tr>
+<td>Citizen rights</td>
+<td>Eligibility, inheritance, appeals, privacy, and fraud controls are operational.</td>
+</tr>
+<tr>
+<td>Environment/culture</td>
+<td>Water, marshland, heritage, pollution, resettlement, and carrying-capacity gates are enforceable.</td>
+</tr>
+<tr>
+<td>Local authority</td>
+<td>Governorate, municipality, and KRG issues are mapped for each project.</td>
+</tr>
+<tr>
+<td>Political economy</td>
+<td>Capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, and citizen appeals support the proposed transition mode.</td>
+</tr>
+</tbody>
+</table>
+<p>If any gate is red, the model remains a planning architecture and may not be
+presented as deployable public infrastructure.</p>
+<h1 id="part-7-project-pipeline-and-investment-gates">Part 7: Project Pipeline And Investment Gates</h1>
+<h2 id="project-pipeline-and-investment-gates">Project Pipeline And Investment Gates</h2>
+<p>Status: investment-pipeline design. This is not an investment recommendation,
+procurement plan, financing offer, project-feasibility study, or budget
+submission.</p>
+<p>The unified model is credible only if broad sectors become project families
+with falsifiable numbers, legal owners, revenue sources, environmental gates,
+facility-reuse screens, and debt-service logic. This document turns the
+constrained-base USD 115B plan into a pipeline structure.</p>
+<p>Machine-readable starter table:
+<a href="data/iraq-project-pipeline-template.csv">docs/data/iraq-project-pipeline-template.csv</a>.</p>
+<h3 id="pipeline-rule">Pipeline Rule</h3>
+<p>No sector receives capital only because it appears in the national strategy.
+Every project family must pass through the same pipeline:</p>
+<pre><code class="language-text">Sector thesis
+  -&gt; facility-reuse screen
+  -&gt; legal authority
+  -&gt; political-economy readiness
+  -&gt; fiscal stress screen
+  -&gt; project concept note
+  -&gt; feasibility and safeguards
+  -&gt; bankability package
+  -&gt; procurement / PPP / SPV structure
+  -&gt; financial close
+  -&gt; milestone disbursement
+  -&gt; operation and maintenance
+  -&gt; audited cashflow and public-benefit reporting
+</code></pre>
+<h3 id="required-project-fields">Required Project Fields</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project family</td>
+<td>Prevents vague sector claims.</td>
+</tr>
+<tr>
+<td>Governorate / corridor</td>
+<td>Shows local authority, land, water, labor, and service implications.</td>
+</tr>
+<tr>
+<td>Asset owner</td>
+<td>Identifies public, municipal, INDHC, SPV, PPP, or private ownership.</td>
+</tr>
+<tr>
+<td>Existing-facility option</td>
+<td>Forces brownfield-first screening before greenfield capex.</td>
+</tr>
+<tr>
+<td>Capex range</td>
+<td>Keeps ambition tied to affordability.</td>
+</tr>
+<tr>
+<td>Opex and maintenance reserve</td>
+<td>Prevents assets from becoming unfunded liabilities.</td>
+</tr>
+<tr>
+<td>Revenue source</td>
+<td>Distinguishes sale, lease, fare, PPA, service contract, platform fee, export receipt, tax, or levy.</td>
+</tr>
+<tr>
+<td>Public-benefit source</td>
+<td>Allows avoided imports, avoided losses, resilience, jobs, and cultural value to be tracked without becoming dividend cash.</td>
+</tr>
+<tr>
+<td>DSCR base / stress</td>
+<td>Tests debt safety.</td>
+</tr>
+<tr>
+<td>FX exposure</td>
+<td>Prevents foreign-currency debt from becoming hidden sovereign pressure.</td>
+</tr>
+<tr>
+<td>Local-content target</td>
+<td>Converts import substitution into measurable supplier development.</td>
+</tr>
+<tr>
+<td>Iraqi staffing plan</td>
+<td>Implements the Iraqi-only permanent staffing rule through training and succession.</td>
+</tr>
+<tr>
+<td>Environmental and cultural gate</td>
+<td>Protects water, marshlands, heritage, pollution, biodiversity, land, and community rights.</td>
+</tr>
+<tr>
+<td>Legal authority</td>
+<td>Identifies the required law, regulator, municipality, CBI rule, procurement authority, concession, or securities approval.</td>
+</tr>
+<tr>
+<td>Evidence bundle</td>
+<td>Defines what Cylinder Seal must record.</td>
+</tr>
+<tr>
+<td>Stop condition</td>
+<td>Makes failure enforceable.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="constrained-base-portfolio">Constrained-Base Portfolio</h3>
+<p>The default pipeline uses the USD 115B constrained-base envelope from
+<a href="iraq-quantified-affordability-model.md">Iraq Quantified Affordability And Cashflow Model</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Sector</th>
+<th style="text-align: right;">Ten-year capex</th>
+<th>First pipeline objective</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strategic manufacturing, import substitution, electronics, HVAC, defense-controlled sustainment, and raw-material post-processing</td>
+<td style="text-align: right;">USD 37.0B</td>
+<td>Convert public demand and Iraqi inputs into audited domestic production and selective exports.</td>
+</tr>
+<tr>
+<td>Open rail, metro, logistics, and intercity connections</td>
+<td style="text-align: right;">USD 19.0B</td>
+<td>Lower transport/logistics costs while building domestic operating and maintenance capability.</td>
+</tr>
+<tr>
+<td>Green power, grid, and efficiency</td>
+<td style="text-align: right;">USD 18.0B</td>
+<td>Reduce energy bottlenecks and create bankable PPA/savings cashflows.</td>
+</tr>
+<tr>
+<td>Agriculture, food substitution, water/desalination, irrigation, and cold chain</td>
+<td style="text-align: right;">USD 16.0B</td>
+<td>Turn water and food security into recurring industrial and service revenue.</td>
+</tr>
+<tr>
+<td>Tourism and tradable services</td>
+<td style="text-align: right;">USD 12.0B</td>
+<td>Capture non-oil FX, visitor services, diaspora demand, and cultural-service exports.</td>
+</tr>
+<tr>
+<td>Housing inputs and urban services</td>
+<td style="text-align: right;">USD 5.0B</td>
+<td>Supply domestic materials and municipal services without reviving broad housing speculation.</td>
+</tr>
+<tr>
+<td>Digital public infrastructure and SME platforms</td>
+<td style="text-align: right;">USD 4.0B</td>
+<td>Make the evidence, payment, procurement, compliance, and credit layer self-sustaining.</td>
+</tr>
+<tr>
+<td>Workforce, R&amp;D, and standards</td>
+<td style="text-align: right;">USD 4.0B</td>
+<td>Fund capability, certification, quality labs, and Iraqi staff succession across all sectors.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="starter-project-families">Starter Project Families</h3>
+<p>These are project families, not final procurement lots. Each one needs a
+separate feasibility study and legal owner before funding.</p>
+<table>
+<thead>
+<tr>
+<th>Project family</th>
+<th>Sector</th>
+<th style="text-align: right;">Capex band</th>
+<th>Revenue source</th>
+<th>Main public benefit</th>
+<th>First gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cement, brick, glass, rebar, and construction-input rehabilitation</td>
+<td>Manufacturing / housing inputs</td>
+<td style="text-align: right;">USD 4-7B</td>
+<td>Domestic sales, public procurement, contractor supply contracts</td>
+<td>Reduced import leakage and lower housing/infrastructure input costs</td>
+<td>Facility registry and environmental audit.</td>
+</tr>
+<tr>
+<td>Basra petrochemical, fertilizer, plastics, and raw-material processing belt</td>
+<td>Raw-material processing</td>
+<td style="text-align: right;">USD 6-10B</td>
+<td>Feedstock-linked sales, export receipts, industrial offtake</td>
+<td>More value captured from Iraqi resources</td>
+<td>Feedstock, pollution, water, and FX gate.</td>
+</tr>
+<tr>
+<td>Electronics, smart meters, control cabinets, CPE/router assembly, and repair centers</td>
+<td>Electronics / telecom / grid</td>
+<td style="text-align: right;">USD 3-5B</td>
+<td>Utility procurement, telecom operators, maintenance contracts</td>
+<td>Import substitution and technical skills</td>
+<td>Cybersecurity and standards gate.</td>
+</tr>
+<tr>
+<td>HVAC, pumps, valves, filters, irrigation equipment, and water-treatment assemblies</td>
+<td>HVAC / water / irrigation</td>
+<td style="text-align: right;">USD 5-8B</td>
+<td>Public works, farms, hotels, hospitals, industrial users</td>
+<td>Water efficiency and lower building costs</td>
+<td>Delivered-cost and warranty gate.</td>
+</tr>
+<tr>
+<td>Defense-controlled sustainment, protective equipment, uniforms, field medical supplies, and secure repair depots</td>
+<td>Strategic resilience</td>
+<td style="text-align: right;">USD 3-6B</td>
+<td>Controlled public procurement and maintenance contracts</td>
+<td>Emergency readiness and domestic capability</td>
+<td>Legal classification and end-use gate.</td>
+</tr>
+<tr>
+<td>Grain storage, milling, feed, poultry, dairy, dates, tomato paste, and cold chain</td>
+<td>Food substitution</td>
+<td style="text-align: right;">USD 5-8B</td>
+<td>Food sales, storage fees, offtake contracts, logistics fees</td>
+<td>Food security and farmer market access</td>
+<td>Water-use and delivered-cost gate.</td>
+</tr>
+<tr>
+<td>Desalination, leakage reduction, water treatment, irrigation modernization, and efficient pumping</td>
+<td>Water</td>
+<td style="text-align: right;">USD 4-7B</td>
+<td>Water-service contracts, equipment sales, municipal/industrial service fees</td>
+<td>Reduced water stress and climate resilience</td>
+<td>Basin, tariff, and social-protection gate.</td>
+</tr>
+<tr>
+<td>Solar, storage, grid-loss reduction, public-building efficiency, waste-to-energy, and district cooling</td>
+<td>Green / grid</td>
+<td style="text-align: right;">USD 12-18B</td>
+<td>PPAs, verified savings contracts, industrial power, waste fees</td>
+<td>Lower energy costs, emissions, and fuel burn</td>
+<td>PPA, grid connection, and green-verification gate.</td>
+</tr>
+<tr>
+<td>Baghdad metro and city light-metro/open rail reference systems</td>
+<td>Rail / urban mobility</td>
+<td style="text-align: right;">USD 8-12B</td>
+<td>Fares, availability payments, station concessions, land-value capture</td>
+<td>Congestion relief and urban productivity</td>
+<td>Right-of-way, affordability, and O&amp;M gate.</td>
+</tr>
+<tr>
+<td>Rail depots, bus depots, logistics hubs, dry ports, cold-chain nodes, and station-area development</td>
+<td>Rail / logistics</td>
+<td style="text-align: right;">USD 5-8B</td>
+<td>Freight, warehousing, leases, concessions, station retail</td>
+<td>Lower logistics cost and facility reuse</td>
+<td>Land title and brownfield gate.</td>
+</tr>
+<tr>
+<td>Najaf-Karbala visitor corridor, Baghdad/Kadhimiya services, Babylon/Ur heritage, marshland eco-services, and mountain routes</td>
+<td>Tourism / culture</td>
+<td style="text-align: right;">USD 5-8B</td>
+<td>Hotel/JV revenue, guide/ticketing/platform fees, transport contracts</td>
+<td>Non-oil FX, cultural jobs, conservation funding</td>
+<td>Carrying-capacity and conservation gate.</td>
+</tr>
+<tr>
+<td>Medical, education, business, software, professional, and diaspora-distributed tradable services</td>
+<td>Tradable services</td>
+<td style="text-align: right;">USD 2-4B</td>
+<td>Service invoices, platform fees, referral fees, export receipts</td>
+<td>Human-capital exports and diaspora channels</td>
+<td>Certification and consumer-protection gate.</td>
+</tr>
+<tr>
+<td>Municipal repair, waste services, street lighting, drainage, public-building maintenance, and urban service contracts</td>
+<td>Urban services</td>
+<td style="text-align: right;">USD 3-5B</td>
+<td>Municipal service contracts, savings contracts, availability payments</td>
+<td>Visible city improvements and civic-work bridge</td>
+<td>Municipality authority and payment-capacity gate.</td>
+</tr>
+<tr>
+<td>Payment, procurement, tax/levy, facility registry, citizen entitlement, and public dashboard platforms</td>
+<td>Digital public infrastructure</td>
+<td style="text-align: right;">USD 3-4B</td>
+<td>Public-service contracts, low platform fees, analytics services</td>
+<td>Formalization, auditability, credit histories</td>
+<td>Privacy, CBI/payment, and cybersecurity gate.</td>
+</tr>
+<tr>
+<td>Standards labs, INDHC Academy, quality certification, supplier development, and Iraqi management pipeline</td>
+<td>Workforce / standards</td>
+<td style="text-align: right;">USD 3-4B</td>
+<td>Mostly cost center; indirect returns through sector performance</td>
+<td>Iraqi-only permanent staffing and quality discipline</td>
+<td>Accreditation and labor-law gate.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bankability-package">Bankability Package</h3>
+<p>Every project family must produce a bankability package before it can move from
+concept to capital allocation.</p>
+<table>
+<thead>
+<tr>
+<th>Package item</th>
+<th>Required evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Demand</td>
+<td>Signed offtake, procurement framework, PPA, service contract, fare model, lease, platform customer pipeline, or export order evidence.</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>Capex estimate, opex estimate, maintenance reserve, lifecycle cost, contingency, imported-input exposure.</td>
+</tr>
+<tr>
+<td>Revenue</td>
+<td>Tariff, price, fee, lease, platform fee, levy, tax, export receipt, or availability-payment basis.</td>
+</tr>
+<tr>
+<td>DSCR</td>
+<td>Base and stress DSCR, grace period, tenor, currency, and reserve account.</td>
+</tr>
+<tr>
+<td>FX</td>
+<td>FX revenue match, hedge, concessional terms, or approved reserve buffer.</td>
+</tr>
+<tr>
+<td>Legal</td>
+<td>Authority to build, own, borrow, procure, charge, operate, collect data, and enforce contracts.</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>Water use, emissions, waste, biodiversity, cultural heritage, resettlement, and community impact.</td>
+</tr>
+<tr>
+<td>Local capability</td>
+<td>Iraqi staffing, training, vendor handover, local supplier plan, and quality certification.</td>
+</tr>
+<tr>
+<td>Facility reuse</td>
+<td>Existing facility screened and accepted, rejected with reason, or paired with partial reuse.</td>
+</tr>
+<tr>
+<td>Anti-capture</td>
+<td>Related-party check, procurement concentration, PEP/sanctions screen, competition plan.</td>
+</tr>
+<tr>
+<td>Political economy</td>
+<td>Reform coalition, resistance pressure, staff transition, service continuity, governorate compact, appeal process, and pause/rollback authority.</td>
+</tr>
+<tr>
+<td>Fiscal stress</td>
+<td>Stressed oil-equity capacity, DSCR, FX cover, maintenance gap, guarantee exposure, collection efficiency, capex overrun, and dividend-affordability status.</td>
+</tr>
+<tr>
+<td>Public dashboard</td>
+<td>Published source labels, confidence level, monthly milestones, risk flags, and citizen-facing summary.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="project-stage-gates">Project Stage Gates</h3>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Can spend money on</th>
+<th>Cannot spend money on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0. Idea</td>
+<td>Desk research and source labeling.</td>
+<td>Capex, debt draw, public promise, or dividend claim.</td>
+</tr>
+<tr>
+<td>1. Concept note</td>
+<td>Technical scoping, legal mapping, site screening, facility registry work.</td>
+<td>Construction or procurement commitment.</td>
+</tr>
+<tr>
+<td>2. Feasibility</td>
+<td>Engineering, safeguards, demand studies, financial model, local-capability plan.</td>
+<td>Debt close or public securities.</td>
+</tr>
+<tr>
+<td>3. Bankability</td>
+<td>Term sheets, offtake negotiation, SPV/PPP design, procurement documents.</td>
+<td>Irreversible capex before hard gates pass.</td>
+</tr>
+<tr>
+<td>4. Financial close</td>
+<td>Milestone-backed disbursement, escrow, guarantee registration, procurement award.</td>
+<td>Dividends, unrelated ministry payroll, or loss cover.</td>
+</tr>
+<tr>
+<td>5. Construction / rehab</td>
+<td>Milestone payments after inspection evidence.</td>
+<td>Advances without performance bond or evidence.</td>
+</tr>
+<tr>
+<td>6. Operations</td>
+<td>O&amp;M, debt service, reserves, levy/tax, retained earnings, audited surplus.</td>
+<td>Dividend before waterfall gates pass.</td>
+</tr>
+<tr>
+<td>7. Renewal / exit</td>
+<td>Reinvestment, debt reduction, concession renewal, listing pilot, or shutdown.</td>
+<td>Permanent subsidy without public vote and audit.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="revenue-and-benefit-classification">Revenue And Benefit Classification</h3>
+<table>
+<thead>
+<tr>
+<th>Project output</th>
+<th>Cash ledger when</th>
+<th>Public-benefit ledger when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domestic product</td>
+<td>Invoice settles with verified buyer.</td>
+<td>It only estimates avoided imports or resilience.</td>
+</tr>
+<tr>
+<td>Energy savings</td>
+<td>Savings contract or tariff/budget transfer settles.</td>
+<td>Engineers estimate reduced fuel burn or grid loss.</td>
+</tr>
+<tr>
+<td>Rail value</td>
+<td>Fare, lease, concession, availability payment, freight fee, or land-value charge settles.</td>
+<td>Congestion, pollution, travel-time, or land-value uplift is estimated.</td>
+</tr>
+<tr>
+<td>Tourism value</td>
+<td>Ticket, platform fee, JV distribution, service contract, or tax/fee settles.</td>
+<td>Visitor multiplier, brand effect, repeat-visit potential, or merchant bankability is estimated.</td>
+</tr>
+<tr>
+<td>Civic work</td>
+<td>Task evidence is verified and payment released.</td>
+<td>Public value is assigned before verification or payment.</td>
+</tr>
+<tr>
+<td>Facility reuse</td>
+<td>Lease, sale, concession, output, or service contract settles.</td>
+<td>Asset is identified or engineering value is estimated.</td>
+</tr>
+</tbody>
+</table>
+<p>Only cash-ledger items can enter debt service, Treasury levy, retained earnings,
+or dividends.</p>
+<h3 id="financing-lanes">Financing Lanes</h3>
+<table>
+<thead>
+<tr>
+<th>Financing lane</th>
+<th>Best fit</th>
+<th>Gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oil-equity allocation</td>
+<td>First-loss capital, strategic assets, feasibility, brownfield cleanup, standards, training.</td>
+<td>Annual fiscal cap and no direct dividend from oil.</td>
+</tr>
+<tr>
+<td>MDB / concessional debt</td>
+<td>Water, grid, climate adaptation, public transport, governance systems, safeguards-heavy public goods.</td>
+<td>Debt sustainability and procurement safeguards.</td>
+</tr>
+<tr>
+<td>Green sukuk / green bonds</td>
+<td>Solar, storage, grid, efficiency, district cooling, waste-to-energy, water efficiency.</td>
+<td>External use-of-proceeds verification.</td>
+</tr>
+<tr>
+<td>ECA / supplier finance</td>
+<td>Rail equipment, machinery, grid systems, factory tooling, certified production lines.</td>
+<td>Technology transfer and open-interface procurement.</td>
+</tr>
+<tr>
+<td>PPP / JV equity</td>
+<td>Tourism, logistics, industrial parks, station retail, facility concessions, private operations.</td>
+<td>Public asset-control and anti-capture rules.</td>
+</tr>
+<tr>
+<td>Domestic IQD sukuk / bonds</td>
+<td>Mature local-currency assets with audited cashflow.</td>
+<td>No forced purchases and investor-protection readiness.</td>
+</tr>
+<tr>
+<td>Diaspora project bond / syndicate</td>
+<td>Tourism, export platforms, facility-reuse pools, cultural goods distribution.</td>
+<td>Suitability, AML/CFT, disclosure, and optional participation.</td>
+</tr>
+<tr>
+<td>Local bank finance</td>
+<td>Working capital, receivables, SME suppliers, inventory, maintenance contractors.</td>
+<td>Cashflow evidence and credit-risk discipline.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stop-conditions">Stop Conditions</h3>
+<p>A project should be paused, restructured, or cancelled when any of these occur:</p>
+<ul>
+<li>Legal authority is challenged and no dispute forum is available.</li>
+<li>Facility reuse was skipped without a public reason.</li>
+<li>Base DSCR falls below 1.30 or stress DSCR below 1.10.</li>
+<li>FX debt is not matched to FX revenue, hedge, concessional terms, or reserve.</li>
+<li>Maintenance reserve is unfunded.</li>
+<li>Water, heritage, environmental, resettlement, or safety gate fails.</li>
+<li>Local-content claims are unsupported by invoices and supplier evidence.</li>
+<li>Procurement concentration or related-party exposure exceeds limits.</li>
+<li>Political-economy readiness falls to blocked, visibility-only for a scale
+  request, or pause/rollback mode.</li>
+<li>Fiscal stress mode moves to defensive or stop-scale-up.</li>
+<li>Public-benefit estimates are being used to justify dividends.</li>
+<li>Citizen, worker, SME, governorate, or municipality appeals are not functioning.</li>
+</ul>
+<h3 id="dashboard-views">Dashboard Views</h3>
+<p>The public dashboard should show enough to make the pipeline contestable without
+publishing sensitive or private data.</p>
+<table>
+<thead>
+<tr>
+<th>View</th>
+<th>Shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Portfolio map</td>
+<td>Project family, governorate, stage, capex, financing lane, public owner, risk status.</td>
+</tr>
+<tr>
+<td>Cashflow view</td>
+<td>Revenue source, collections, O&amp;M, debt service, levy, retained earnings, dividend eligibility.</td>
+</tr>
+<tr>
+<td>Facility reuse view</td>
+<td>Existing asset screened, reuse decision, audit, engineering status, and reason for greenfield if chosen.</td>
+</tr>
+<tr>
+<td>Safeguards view</td>
+<td>Water, environment, heritage, resettlement, labor, disability access, and conservation gates.</td>
+</tr>
+<tr>
+<td>Local capability view</td>
+<td>Iraqi staffing, training, supplier participation, quality certification, and handover milestones.</td>
+</tr>
+<tr>
+<td>Capital market view</td>
+<td>Instrument, trustee, disclosure, use-of-proceeds, investor class, repayment source, and covenant status.</td>
+</tr>
+<tr>
+<td>Public-benefit view</td>
+<td>Source-tagged benefits, confidence level, conversion-to-cash status, and no-dividend flag.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="minimum-first-year-pipeline">Minimum First-Year Pipeline</h3>
+<p>The first year should be boring on purpose. It should prove measurement before
+committing to scale.</p>
+<ol>
+<li>Create the project registry schema and publish all required fields.</li>
+<li>Map at least 100 reusable facilities, depots, workshops, public buildings,
+   industrial sites, hotels, warehouses, laboratories, and logistics nodes.</li>
+<li>Select 20 concept notes across manufacturing, food/water, green/grid, rail,
+   tourism, digital public infrastructure, urban services, and standards.</li>
+<li>Advance only 8-10 to feasibility after legal, facility-reuse, and source
+   discipline gates.</li>
+<li>Advance only 3-5 to bankability after demand, DSCR, FX, safeguards, and
+   procurement gates.</li>
+<li>Fund no dividends from the first-year pipeline.</li>
+</ol>
+<p>This makes the model credible: capital follows evidence, not enthusiasm.</p>
+<h1 id="part-8-political-economy-transition-and-anti-capture">Part 8: Political-Economy Transition And Anti-Capture</h1>
+<h2 id="political-economy-transition-and-anti-capture-model">Political-Economy Transition And Anti-Capture Model</h2>
+<p>Status: governance-risk model. This is not a political forecast, legal opinion,
+security assessment, party strategy, procurement accusation, or claim that any
+Iraqi institution has endorsed the plan.</p>
+<p>This document implements the main rationality correction to Cylinder Seal: the
+model cannot assume that ministries, state-owned enterprises, procurement
+networks, political intermediaries, banks, contractors, or local authorities will
+quietly surrender rents, discretion, jobs, or control. The economic model is
+rational only if it treats resistance, capture, service continuity, federalism,
+and citizen legitimacy as first-class operating risks.</p>
+<h3 id="source-discipline_2">Source Discipline</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Use in this model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.imf.org/en/news/articles/2025/07/08/pr-25243-iraq-imf-executive-board-concludes-2025-article-iv-consultation">IMF Iraq 2025 Article IV</a></td>
+<td>IMF staff emphasize fiscal pressure, wage-bill reform, governance weaknesses, corruption, data gaps, and the need to improve procurement, public financial management, and accountability.</td>
+</tr>
+<tr>
+<td><a href="https://www.oecd.org/en/publications/2024/06/oecd-guidelines-on-corporate-governance-of-state-owned-enterprises-2024_68fa05cd.html">OECD Guidelines on Corporate Governance of State-Owned Enterprises 2024</a></td>
+<td>INDHC and industrial champions need professional ownership, integrity, disclosure, fair competition, and sustainability discipline.</td>
+</tr>
+<tr>
+<td><a href="https://eiti.org/countries/iraq">EITI Iraq country page</a> and <a href="https://www.worldbank.org/en/news/feature/2025/05/14/iraq-makes-strides-in-extractives-transparency-with-eiti-validation-milestone">World Bank EITI validation note</a></td>
+<td>Oil-revenue transparency remains central; the lockbox must strengthen disclosure rather than create a parallel opaque account.</td>
+</tr>
+<tr>
+<td><a href="https://www.open-contracting.org/impact/evidence/">Open Contracting Partnership evidence</a></td>
+<td>Procurement data, competition, red flags, and public monitoring are core anti-capture tools.</td>
+</tr>
+<tr>
+<td><a href="https://www.constituteproject.org/constitution/Iraq_2005">Iraq Constitution 2005, Articles 111-112</a></td>
+<td>Oil ownership, fair distribution, producing governorates, regions, and balanced development make federalism a transition constraint, not a footnote.</td>
+</tr>
+</tbody>
+</table>
+<p>These sources justify the risk model. They do not prove that the proposed
+institutions would succeed.</p>
+<h3 id="core-correction">Core Correction</h3>
+<p>The model should be read like this:</p>
+<pre><code class="language-text">Economic opportunity
+  + legal authority
+  + political coalition
+  + service continuity
+  + staff transition
+  + anti-capture controls
+  + citizen-visible benefit
+  = reform that can scale
+</code></pre>
+<p>Without those political-economy conditions, the correct output is not scale. It
+is visibility-only measurement, a smaller pilot, pause, rollback, or redesign.</p>
+<h3 id="actor-incentive-map">Actor Incentive Map</h3>
+<table>
+<thead>
+<tr>
+<th>Actor</th>
+<th>What they gain if model works</th>
+<th>What they may lose</th>
+<th>Design response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Citizens</td>
+<td>Better services, jobs, credit access, civic-work income, dividends from audited surplus, public dashboards.</td>
+<td>Privacy risk, payment errors, entitlement disputes, weak dividends if expectations are inflated.</td>
+<td>Appeals, privacy tiers, plain-language dashboards, dividend conservatism, service-first messaging.</td>
+</tr>
+<tr>
+<td>Ministries</td>
+<td>Measurable funding, service contracts, professional regulator role, better project evidence.</td>
+<td>Automatic oil-funded budget entitlement, opaque procurement, patronage jobs, discretionary delays.</td>
+<td>No sudden abolition; service-continuity gates; staff transition; budget movement into priced outputs.</td>
+</tr>
+<tr>
+<td>Civil servants</td>
+<td>Training, transfer to regulators/operators/municipalities/INDHC, digital service roles.</td>
+<td>Loss of low-feedback administrative positions or informal influence.</td>
+<td>Staff transition fund, retraining, no arbitrary dismissal, appeal and placement records.</td>
+</tr>
+<tr>
+<td>State-owned enterprises</td>
+<td>Capital, audit, facility rehabilitation, contracts, professional management.</td>
+<td>Protected losses, hidden payroll, political board control, unpriced assets.</td>
+<td>Ring-fenced accounts, board independence, restructuring triggers, sunset/exit rules.</td>
+</tr>
+<tr>
+<td>Procurement intermediaries</td>
+<td>Legitimate supplier roles and open competition.</td>
+<td>Rent extraction, sole-source influence, invoice padding, related-party concealment.</td>
+<td>Open contracting data, beneficial ownership, concentration caps, audit red flags, payment holds.</td>
+</tr>
+<tr>
+<td>Political parties and blocs</td>
+<td>Visible delivery and citizen benefit if reforms work.</td>
+<td>Ministry allocation as patronage currency.</td>
+<td>Parliamentary oversight, phased transition, public dashboards, no emergency powers without review.</td>
+</tr>
+<tr>
+<td>Governorates and municipalities</td>
+<td>Local service contracts, facility reuse, jobs, infrastructure, fair development evidence.</td>
+<td>Central bypass, land/use conflicts, unfunded mandates.</td>
+<td>Federalism compact, local asset registry, municipal authority gates, revenue-sharing visibility.</td>
+</tr>
+<tr>
+<td>Private SMEs</td>
+<td>Supplier access, receivables finance, lower barriers, formal credit histories.</td>
+<td>Being crushed by protected champions.</td>
+<td>SME quotas, modular contracts, payment-speed rules, competition review, supplier appeals.</td>
+</tr>
+<tr>
+<td>Banks and investors</td>
+<td>Better cashflow evidence, bankable projects, ring-fenced instruments.</td>
+<td>Political lending pressure, forced bond purchases, hidden guarantees.</td>
+<td>No-forced-purchase rule, DSCR gates, trustee/depository controls, investor suitability.</td>
+</tr>
+<tr>
+<td>External lenders</td>
+<td>Revenue-backed projects with safeguards and disclosure.</td>
+<td>Sovereign bailout ambiguity and weak procurement.</td>
+<td>SPV accounts, use-of-proceeds registry, covenant dashboards, no hidden guarantee.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resistance-register">Resistance Register</h3>
+<p>Every reform area receives a resistance register before capital allocation.</p>
+<table>
+<thead>
+<tr>
+<th>Resistance type</th>
+<th>Signal</th>
+<th>Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Budget-holder resistance</td>
+<td>Delay in moving funds to service contracts; refusal to publish outputs.</td>
+<td>Visibility-only mode; freeze new discretionary capex; require Treasury/audit escalation.</td>
+</tr>
+<tr>
+<td>Procurement capture</td>
+<td>Concentrated awards, repeated single-source contracts, related-party suppliers, bid tailoring.</td>
+<td>Open contracting data; beneficial ownership; concentration caps; payment holds.</td>
+</tr>
+<tr>
+<td>SOE preservation</td>
+<td>Loss-making assets request capital without audited accounts or restructuring plan.</td>
+<td>Public rehab only; no external debt; management change; payroll liability disclosure.</td>
+</tr>
+<tr>
+<td>Staff anxiety</td>
+<td>High displacement, rumors, low placement rates, payroll disputes.</td>
+<td>Staff transition fund; retraining ledger; no deprecation before placement/appeal gates.</td>
+</tr>
+<tr>
+<td>Governorate objection</td>
+<td>Local asset, land, water, or service authority disputed.</td>
+<td>Pause project; negotiate compact; publish local benefit and grievance path.</td>
+</tr>
+<tr>
+<td>Political sabotage</td>
+<td>Artificial service failures, misinformation, blockages, emergency-power abuse.</td>
+<td>Public evidence, audit trail, bounded pause powers, parliamentary review.</td>
+</tr>
+<tr>
+<td>Citizen distrust</td>
+<td>Low wallet uptake, high complaints, perceived unfairness, privacy concerns.</td>
+<td>Slower rollout; service-first benefits; public appeal metrics; independent privacy review.</td>
+</tr>
+<tr>
+<td>Bank/investor refusal</td>
+<td>No market bid, high risk premium, weak disclosure, fear of forced participation.</td>
+<td>Reduce debt, improve ring-fencing, pilot smaller instrument, never compel purchase.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="transition-modes">Transition Modes</h3>
+<p>The new <code>PoliticalEconomyEngine</code> turns reform conditions into one of six modes.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Meaning</th>
+<th>Allowed actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Blocked</td>
+<td>Legal authority or capture risk fails.</td>
+<td>No transition; publish missing gates; keep measuring only if lawful.</td>
+</tr>
+<tr>
+<td>Visibility only</td>
+<td>Reform is too sensitive or service continuity is unproven.</td>
+<td>Publish baseline, budgets, procurement, payroll, service metrics, and risk flags.</td>
+</tr>
+<tr>
+<td>Pilot</td>
+<td>Coalition and controls are adequate for limited scope.</td>
+<td>Run one governorate, one service, one sector, or one project-family pilot.</td>
+</tr>
+<tr>
+<td>Controlled transition</td>
+<td>Gates pass and continuity is proven.</td>
+<td>Move budgets into service contracts, transfer assets, or grant conditional privileges.</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>Readiness is high and audit evidence is clean.</td>
+<td>Expand across sectors/governorates with annual review.</td>
+</tr>
+<tr>
+<td>Pause or rollback</td>
+<td>Resistance, capture, service risk, or citizen harm rises.</td>
+<td>Stop new disbursement, preserve services, restructure or reverse the transfer.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="political-economy-gates">Political-Economy Gates</h3>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Pass condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legal authority</td>
+<td>Enabling authority exists and dispute forum is known.</td>
+</tr>
+<tr>
+<td>Service continuity</td>
+<td>Critical services have operated under the replacement model for at least 12 months.</td>
+</tr>
+<tr>
+<td>Staff transition</td>
+<td>Funding, retraining, placement, compensation, and appeals are active.</td>
+</tr>
+<tr>
+<td>Independent audit</td>
+<td>Audit body can see source-of-funds, procurement, payroll, related parties, and project accounts.</td>
+</tr>
+<tr>
+<td>Citizen appeals</td>
+<td>Citizens and businesses can challenge entitlement, service, payment, privacy, or suspension errors.</td>
+</tr>
+<tr>
+<td>Procurement transparency</td>
+<td>Procurement lifecycle data is published or available to auditors in a structured form.</td>
+</tr>
+<tr>
+<td>Beneficial ownership</td>
+<td>Contractors, SPVs, champion groups, and major suppliers disclose beneficial ownership.</td>
+</tr>
+<tr>
+<td>Competition control</td>
+<td>Procurement concentration and related-party exposure stay within limits.</td>
+</tr>
+<tr>
+<td>Federalism compact</td>
+<td>Governorate, municipality, or regional authority is mapped and consent/dispute path exists.</td>
+</tr>
+<tr>
+<td>Coalition support</td>
+<td>Reform coalition is strong enough for the selected phase.</td>
+</tr>
+<tr>
+<td>Emergency power bounded</td>
+<td>Pause/freeze/suspend powers have time limits, publication, audit, and review.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="indhc-anti-capture-constitution">INDHC Anti-Capture Constitution</h3>
+<p>INDHC is rational only if it is harder to capture than the ministry-funding
+system it replaces.</p>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Separate ownership and policy</td>
+<td>Treasury/Parliament set mandate and limits; INDHC board allocates within mandate; CBI does not become industrial allocator.</td>
+</tr>
+<tr>
+<td>Professional board</td>
+<td>Fit-and-proper rules, conflict disclosure, fixed terms, removal for cause, public minutes for non-sensitive decisions.</td>
+</tr>
+<tr>
+<td>Sector ring-fencing</td>
+<td>Each subsidiary/project has separate accounts, debt, board, KPIs, and failure path.</td>
+</tr>
+<tr>
+<td>No cross-subsidy without vote</td>
+<td>Profitable lines cannot silently rescue failing lines; rescue requires board, Treasury, audit, and public reason.</td>
+</tr>
+<tr>
+<td>Related-party firewall</td>
+<td>Board, management, suppliers, banks, political figures, and relatives are screened and disclosed.</td>
+</tr>
+<tr>
+<td>Open procurement default</td>
+<td>Tender, award, amendment, delivery, invoice, payment, and audit data are published or regulator-visible.</td>
+</tr>
+<tr>
+<td>Competition sunset</td>
+<td>Procurement preference, tier advantage, or credit support expires unless scorecard renews it.</td>
+</tr>
+<tr>
+<td>Debt firewall</td>
+<td>Subsidiary debt is not sovereign debt unless explicitly guaranteed, budgeted, and disclosed.</td>
+</tr>
+<tr>
+<td>Bankruptcy/restructuring rule</td>
+<td>Persistent failure triggers management change, sale/concession, merger, asset reuse, or closure.</td>
+</tr>
+<tr>
+<td>Citizen dividend firewall</td>
+<td>Dividends are never used to justify hiding losses, debt rollovers, unfunded maintenance, or public-benefit estimates.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="champion-failure-and-exit-rules">Champion Failure And Exit Rules</h3>
+<p>Industrial champions must be allowed to fail in controlled ways.</p>
+<table>
+<thead>
+<tr>
+<th>Failure signal</th>
+<th>Automatic consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Score below 50 for two quarters</td>
+<td>New privileges stop; recovery plan required.</td>
+</tr>
+<tr>
+<td>DSCR below covenant</td>
+<td>No dividend contribution; new debt blocked; lender/Treasury review.</td>
+</tr>
+<tr>
+<td>Price above import parity beyond learning margin</td>
+<td>Procurement preference narrows or expires.</td>
+</tr>
+<tr>
+<td>Quality or safety failure</td>
+<td>Procurement eligibility suspended until certification returns.</td>
+</tr>
+<tr>
+<td>Related-party abuse</td>
+<td>Payment hold, investigation, board review, possible removal from champion registry.</td>
+</tr>
+<tr>
+<td>Export/FX promise not met</td>
+<td>Export-credit access stops; line becomes domestic-only and must justify public-good value.</td>
+</tr>
+<tr>
+<td>Payroll expansion without output</td>
+<td>Hiring freeze and productivity review.</td>
+</tr>
+<tr>
+<td>Environmental or heritage breach</td>
+<td>Project stop, remediation escrow, public report, possible termination.</td>
+</tr>
+<tr>
+<td>Refusal to publish evidence</td>
+<td>Treated as gate failure regardless of financial performance.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ministry-transition-political-design">Ministry Transition Political Design</h3>
+<p>Ministry transition should start with visibility, not abolition.</p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Political objective</th>
+<th>Operating rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseline</td>
+<td>Make costs and outputs visible without immediate threat.</td>
+<td>Publish budgets, procurement, payroll bands, service outputs, delays, complaints.</td>
+</tr>
+<tr>
+<td>Contracting</td>
+<td>Move new money before old structure.</td>
+<td>New projects use service contracts and milestones; existing payroll protected during audit.</td>
+</tr>
+<tr>
+<td>Staff transition</td>
+<td>Reduce fear and sabotage risk.</td>
+<td>Retraining, placement, pension protection, municipal/operator transfer, appeal desk.</td>
+</tr>
+<tr>
+<td>Function transfer</td>
+<td>Move functions only after service continuity.</td>
+<td>No transfer without 12-month continuity and citizen complaint metrics.</td>
+</tr>
+<tr>
+<td>Sunset</td>
+<td>Close redundant legal form.</td>
+<td>Final audit, parliamentary report, staff map, service continuity certificate.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="citizen-legitimacy-design">Citizen Legitimacy Design</h3>
+<p>The model should not ask citizens to trust a new institution blindly.</p>
+<table>
+<thead>
+<tr>
+<th>Citizen concern</th>
+<th>Required answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Will I lose services?"</td>
+<td>Service continuity dashboard and complaint path before ministry transition.</td>
+</tr>
+<tr>
+<td>"Will this become another corruption channel?"</td>
+<td>Open procurement, beneficial ownership, audit exceptions, and payment-hold reports.</td>
+</tr>
+<tr>
+<td>"Where is the dividend?"</td>
+<td>Clear statement that dividends are small or zero until audited surplus exists.</td>
+</tr>
+<tr>
+<td>"Who benefits locally?"</td>
+<td>Governorate-level jobs, contracts, facility reuse, service metrics, and project maps.</td>
+</tr>
+<tr>
+<td>"What happens to my data?"</td>
+<td>Privacy tier, purpose limitation, retention rule, and redress path.</td>
+</tr>
+<tr>
+<td>"What if I am excluded?"</td>
+<td>Entitlement appeal, identity correction, death/inheritance dispute, and payment exception queues.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="software-and-data-surface">Software And Data Surface</h3>
+<p>The new analytics implementation is:</p>
+<ul>
+<li><code>crates/cs-analytics/src/political_economy.rs</code></li>
+<li><code>migrations/20260712000001_political_economy_transition.sql</code></li>
+</ul>
+<p>Core objects:</p>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PoliticalEconomyInput</code></td>
+<td>Captures affected budget, staff count, patronage exposure, procurement concentration, related-party exposure, service continuity, coalition support, opposition risk, citizen-visible benefit, and gate status.</td>
+</tr>
+<tr>
+<td><code>PoliticalEconomyProjection</code></td>
+<td>Scores capture risk, resistance pressure, coalition readiness, citizen legitimacy, transition readiness, and recommended transition mode.</td>
+</tr>
+<tr>
+<td><code>PoliticalEconomyGateResult</code></td>
+<td>Records pass/warn/fail state for legal, continuity, staff, audit, appeals, procurement, ownership, competition, federalism, coalition, and emergency-power gates.</td>
+</tr>
+</tbody>
+</table>
+<p>The dashboard should never show a ministry, champion, project, lockbox, dividend,
+or securities reform as scalable unless this layer returns a green or controlled
+transition state.</p>
+<h3 id="bottom-line_1">Bottom Line</h3>
+<p>Cylinder Seal is rational only if it behaves like a disciplined reform operating
+system, not like an optimistic master plan. The political-economy rule is:</p>
+<pre><code class="language-text">If capture risk rises, slow down.
+If service continuity fails, stop.
+If legal authority is missing, block.
+If citizens cannot appeal, do not scale.
+If procurement is opaque, no privilege.
+If dividends compete with maintenance or debt service, dividends lose.
+</code></pre>
+<h1 id="part-9-fiscal-stress-and-contingent-liability">Part 9: Fiscal Stress And Contingent Liability</h1>
+<h2 id="fiscal-stress-and-contingent-liability-model">Fiscal Stress And Contingent Liability Model</h2>
+<p>Status: downside-control model. This is not a sovereign-debt recommendation,
+budget forecast, financing offer, rating view, or investment prospectus.</p>
+<p>This document adds the missing pessimistic logic to Cylinder Seal. The unified
+economic model is rational only if it keeps working when oil revenue falls,
+collections disappoint, debt costs rise, FX exposure opens, capex overruns, or
+project guarantees become hidden fiscal claims.</p>
+<h3 id="source-discipline_3">Source Discipline</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Use in this model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.imf.org/en/news/articles/2025/07/08/pr-25243-iraq-imf-executive-board-concludes-2025-article-iv-consultation">IMF Iraq 2025 Article IV</a></td>
+<td>Baseline fiscal pressure, deficit, debt, reserve, public-finance, and consolidation discipline.</td>
+</tr>
+<tr>
+<td><a href="iraq-quantified-affordability-model.md">Iraq Quantified Affordability And Cashflow Model</a></td>
+<td>Defines the fiscal-safe, constrained-base, and strategic-upper envelopes and the existing stress-test table.</td>
+</tr>
+<tr>
+<td><a href="national-economic-operating-logic.md">National Economic Operating Logic</a></td>
+<td>Defines the capital, productive asset, booked cash, public benefit, distribution, and risk ledgers.</td>
+</tr>
+<tr>
+<td><a href="project-pipeline-and-investment-gates.md">Project Pipeline And Investment Gates</a></td>
+<td>Defines DSCR, FX, guarantees, project-stage gates, stop conditions, and bankability package requirements.</td>
+</tr>
+</tbody>
+</table>
+<p>These sources support the control framework. They do not validate the values
+used in any scenario.</p>
+<h3 id="core-rule">Core Rule</h3>
+<pre><code class="language-text">When stress appears:
+  protect maintenance,
+  protect debt service,
+  protect essential services,
+  protect legal reserves,
+  disclose contingent liabilities,
+  suspend dividends,
+  stop scale-up.
+</code></pre>
+<p>The model should never solve a fiscal problem by pretending that project debt,
+availability payments, or guarantees are not state exposure.</p>
+<h3 id="stress-inputs">Stress Inputs</h3>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GDP, oil revenue, public capex, deficit, debt, and reserves</td>
+<td>Shows whether the sovereign balance sheet can support oil-equity allocation.</td>
+</tr>
+<tr>
+<td>Oil-equity draw</td>
+<td>Tests the rule that oil equity must fit inside stressed oil revenue and public-capex limits.</td>
+</tr>
+<tr>
+<td>New project debt and debt service</td>
+<td>Tests whether projects can service debt after shocks.</td>
+</tr>
+<tr>
+<td>Foreign-currency debt service, FX revenue, and approved buffer</td>
+<td>Exposes currency mismatch before it becomes a bailout claim.</td>
+</tr>
+<tr>
+<td>Operating cash after maintenance</td>
+<td>Keeps debt and dividends tied to cash, not benefit estimates.</td>
+</tr>
+<tr>
+<td>Maintenance reserve required and funded</td>
+<td>Prevents asset stripping and premature distributions.</td>
+</tr>
+<tr>
+<td>Gross-profit levy and retained earnings</td>
+<td>Senior claims before dividends.</td>
+</tr>
+<tr>
+<td>Dividend pool</td>
+<td>Residual distribution that must fail first under stress.</td>
+</tr>
+<tr>
+<td>Government guarantees and availability payments</td>
+<td>Contingent liabilities that can migrate back onto Treasury.</td>
+</tr>
+<tr>
+<td>Collection efficiency</td>
+<td>Distinguishes invoiced revenue from settled cash.</td>
+</tr>
+<tr>
+<td>Capex overrun, oil shock, revenue shortfall, interest shock, FX shock, and delay</td>
+<td>Makes downside assumptions explicit and testable.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fiscal-stress-modes">Fiscal Stress Modes</h3>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Meaning</th>
+<th>Required posture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stable</td>
+<td>Stress gates pass and dividends remain affordable after senior claims.</td>
+<td>Continue only within normal gates.</td>
+</tr>
+<tr>
+<td>Watch</td>
+<td>Debt, collections, contingent liabilities, debt/GDP, or delays are weakening.</td>
+<td>Slow new commitments and tighten monitoring.</td>
+</tr>
+<tr>
+<td>Defensive</td>
+<td>DSCR, deficit, overruns, or contingent liabilities are materially stressed.</td>
+<td>Freeze non-critical capex; protect water, food, power, maintenance, and debt service.</td>
+</tr>
+<tr>
+<td>Stop scale-up</td>
+<td>Oil-equity rule, DSCR, maintenance, FX, collections, or dividend affordability fails.</td>
+<td>Stop new scale-up, suspend dividends, restructure or cancel weak projects.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gate-logic">Gate Logic</h3>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Pass</th>
+<th>Warn</th>
+<th>Fail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oil-equity fiscal rule</td>
+<td>Draw fits the stressed cap.</td>
+<td>N/A</td>
+<td>Draw exceeds the stressed cap.</td>
+</tr>
+<tr>
+<td>Debt-service cover</td>
+<td>Stressed DSCR at or above 1.30.</td>
+<td>1.10 to 1.30.</td>
+<td>Below 1.10.</td>
+</tr>
+<tr>
+<td>FX cover</td>
+<td>FX debt service is covered by FX revenue or approved buffer.</td>
+<td>Mismatch is limited.</td>
+<td>Mismatch exceeds tolerance.</td>
+</tr>
+<tr>
+<td>Maintenance coverage</td>
+<td>Maintenance reserve is fully funded.</td>
+<td>N/A</td>
+<td>Maintenance reserve has a funding gap.</td>
+</tr>
+<tr>
+<td>Contingent liability</td>
+<td>Guarantees and availability payments below 2% of GDP.</td>
+<td>2-5% of GDP.</td>
+<td>Above 5% of GDP.</td>
+</tr>
+<tr>
+<td>Collection efficiency</td>
+<td>At least 85%.</td>
+<td>70-85%.</td>
+<td>Below 70%.</td>
+</tr>
+<tr>
+<td>Capex overrun</td>
+<td>At or below 10%.</td>
+<td>10-20%.</td>
+<td>Above 20%.</td>
+</tr>
+<tr>
+<td>Dividend affordability</td>
+<td>Dividend is zero or fully covered after senior claims.</td>
+<td>N/A</td>
+<td>Dividend is not covered after senior claims.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dividend-suspension-rule">Dividend Suspension Rule</h3>
+<p>Dividends are not a political promise. They are a residual cash distribution.</p>
+<p>Under stress, dividends are suspended before:</p>
+<ul>
+<li>maintenance reserves;</li>
+<li>debt service;</li>
+<li>FX buffers;</li>
+<li>gross-profit levy or lawful tax obligations;</li>
+<li>retained earnings required for asset renewal;</li>
+<li>essential public-service continuity;</li>
+<li>cybersecurity, safety, audit, and legal compliance.</li>
+</ul>
+<p>This prevents the citizen dividend from becoming a disguised asset-stripping
+mechanism.</p>
+<h3 id="contingent-liability-rule">Contingent Liability Rule</h3>
+<p>Guarantees and availability payments are not free because they are not paid
+today. They must be shown as fiscal exposure.</p>
+<table>
+<thead>
+<tr>
+<th>Exposure</th>
+<th>Required treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sovereign guarantee</td>
+<td>Explicit, capped, budgeted, disclosed, and legally approved.</td>
+</tr>
+<tr>
+<td>Project-company guarantee</td>
+<td>Counted against the contingent-liability dashboard even if not called.</td>
+</tr>
+<tr>
+<td>Availability payment</td>
+<td>Treated as a future public payment obligation.</td>
+</tr>
+<tr>
+<td>Minimum revenue guarantee</td>
+<td>Counted as public exposure unless private demand risk is real.</td>
+</tr>
+<tr>
+<td>FX support</td>
+<td>Counted as reserve or fiscal exposure.</td>
+</tr>
+<tr>
+<td>Political rescue expectation</td>
+<td>Flagged as implicit guarantee risk even without signed documents.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="software-and-data-surface_1">Software And Data Surface</h3>
+<p>The executable implementation is:</p>
+<ul>
+<li><code>crates/cs-analytics/src/fiscal_stress.rs</code></li>
+<li><code>migrations/20260713000001_fiscal_stress_projection.sql</code></li>
+</ul>
+<p>Core objects:</p>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FiscalStressInput</code></td>
+<td>Captures macro baseline, oil-equity draw, project debt, cashflow, FX, maintenance, dividends, guarantees, collections, overruns, and shocks.</td>
+</tr>
+<tr>
+<td><code>FiscalStressProjection</code></td>
+<td>Computes stressed oil revenue, fiscal-rule breach, DSCR, FX mismatch, maintenance gap, contingent liability, dividend gap, and recommended mode.</td>
+</tr>
+<tr>
+<td><code>FiscalStressGateResult</code></td>
+<td>Records pass/warn/fail state for fiscal, debt, FX, maintenance, contingent-liability, collection, capex-overrun, and dividend gates.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dashboard-implications">Dashboard Implications</h3>
+<p>The public dashboard should show:</p>
+<ul>
+<li>stressed oil-equity capacity;</li>
+<li>oil-equity breach amount;</li>
+<li>stressed DSCR;</li>
+<li>FX mismatch;</li>
+<li>maintenance gap;</li>
+<li>guarantees and availability payments as percent of GDP;</li>
+<li>collection efficiency;</li>
+<li>capex overrun;</li>
+<li>dividend affordability gap;</li>
+<li>recommended mode.</li>
+</ul>
+<p>The dashboard should not show a project, ministry transition, dividend formula,
+or INDHC expansion as scalable when the fiscal stress mode is defensive or stop
+scale-up.</p>
+<h3 id="bottom-line_2">Bottom Line</h3>
+<p>The model becomes more credible when it can say no.</p>
+<pre><code class="language-text">If stress breaks the cashflow, stop scale-up.
+If guarantees become hidden debt, disclose and cap them.
+If maintenance is underfunded, block distributions.
+If FX revenue cannot cover FX debt, do not borrow in FX.
+If collections are weak, do not count invoices as cash.
+If dividends compete with solvency, dividends lose.
+</code></pre>
+<h1 id="part-10-iraq-integrated-growth-impact-model">Part 10: Iraq Integrated Growth Impact Model</h1>
 <h2 id="iraq-integrated-growth-impact-model">Iraq Integrated Growth Impact Model</h2>
 <p>This document quantifies how the Cylinder Seal, INDHC, open-source rail,
 industrial, infrastructure, tourism, green, food/water, Digital IQD, and civic
 work model could affect Iraq's non-oil growth path over ten years.</p>
 <p>Status: scenario model. It is not an official forecast, budget law, investment
 prospectus, debt recommendation, or externally validated macroeconomic model.</p>
-<h3 id="bottom-line_1">Bottom Line</h3>
+<h3 id="bottom-line_3">Bottom Line</h3>
 <p>The model can plausibly create high non-oil growth if it is governed as a
 disciplined productive-capital program rather than a spending program.</p>
 <p>Using IMF 2025 Article IV data, Iraq's baseline non-oil real GDP growth is
@@ -1873,7 +3817,7 @@ potential growth in the medium term.</p>
 oil production, OPEC+ constraints, oil prices, and export interruptions. The
 success test is whether Iraq's non-oil economy compounds faster and becomes less
 dependent on raw oil allocation.</p>
-<h3 id="source-discipline_1">Source Discipline</h3>
+<h3 id="source-discipline_4">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -2370,7 +4314,7 @@ become debt, imports, and unfinished assets.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="bottom-line_2">Bottom Line</h3>
+<h3 id="bottom-line_4">Bottom Line</h3>
 <p>The integrated program can justify a high-growth ambition, but only if the
 growth claim is made in the right way:</p>
 <pre><code class="language-text">Baseline Iraq: low-to-moderate non-oil growth under fiscal and infrastructure constraints.
@@ -2383,7 +4327,7 @@ to high non-oil growth, if capital is governed through hard gates, booked cash,
 public-benefit ledgers, reinvestment discipline, open infrastructure, and
 citizen-facing accountability.
 </code></pre>
-<h1 id="part-8-iraq-comprehensive-benefits-model">Part 8: Iraq Comprehensive Benefits Model</h1>
+<h1 id="part-11-iraq-comprehensive-benefits-model">Part 11: Iraq Comprehensive Benefits Model</h1>
 <h2 id="iraq-comprehensive-benefits-model">Iraq Comprehensive Benefits Model</h2>
 <p>This document reworks the Cylinder Seal, Digital IQD, INDHC, open-source rail,
 green power, food/water, tourism, civic-work, and ministry-transition proposal
@@ -2440,7 +4384,7 @@ industrial-policy idea. The coherent model is broader:</p>
 </table>
 <p>This separation is the anti-overclaim rule. The national model can measure all
 five, but only booked cash funds debt service and dividends.</p>
-<h3 id="source-discipline_2">Source Discipline</h3>
+<h3 id="source-discipline_5">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -3189,7 +5133,7 @@ continues toward a true national operating model prototype.</p>
 <p>The model is only credible if the operating logic can stop attractive projects
 when they fail legal, fiscal, debt, maintenance, revenue, anti-capture,
 privacy, or citizen-fairness gates.</p>
-<h3 id="bottom-line_3">Bottom Line</h3>
+<h3 id="bottom-line_5">Bottom Line</h3>
 <p>Cylinder Seal's coherent national role is to become the evidence and settlement
 substrate for a post-oil, post-automation Iraqi development model:</p>
 <ul>
@@ -3206,7 +5150,7 @@ substrate for a post-oil, post-automation Iraqi development model:</p>
   renewal, public trust, and audited distributable surplus.</li>
 </ul>
 <p>That is the unified economic, environmental, social, and cultural model.</p>
-<h1 id="part-9-iraq-quantified-affordability-and-cashflow-model">Part 9: Iraq Quantified Affordability And Cashflow Model</h1>
+<h1 id="part-12-iraq-quantified-affordability-and-cashflow-model">Part 12: Iraq Quantified Affordability And Cashflow Model</h1>
 <h2 id="iraq-quantified-affordability-and-cashflow-model">Iraq Quantified Affordability And Cashflow Model</h2>
 <p>This document adds a quantified affordability layer to the INDHC, citizen
 dividend, industrial-champion, and civic-work architecture.</p>
@@ -3219,7 +5163,7 @@ and immediately see whether the model remains affordable.</p>
 <a href="national-economic-operating-logic.md">National Economic Operating Logic</a>, which
 separates capital, productive assets, booked cash, public benefits, citizen/state
 distributions, and risk controls before any dividend or scaling decision.</p>
-<h3 id="bottom-line_4">Bottom Line</h3>
+<h3 id="bottom-line_6">Bottom Line</h3>
 <p>The existing USD 190B INDHC planning envelope should be treated as a strategic
 upper envelope, not the default affordable case.</p>
 <p>Using the IMF 2025 Article IV baseline for Iraq, the defensible starting point
@@ -3272,7 +5216,7 @@ Start with a USD 65-115B gated program.
 Scale toward USD 190B only after audited cashflow, debt safety, and fiscal
 space are proven.
 </code></pre>
-<h3 id="source-discipline_3">Source Discipline</h3>
+<h3 id="source-discipline_6">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -4368,6 +6312,62 @@ than an externally validated forecast.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="executable-fiscal-stress-layer">Executable Fiscal Stress Layer</h3>
+<p>The stress table above is now represented by the first executable downside
+control layer:</p>
+<ul>
+<li><code>crates/cs-analytics/src/fiscal_stress.rs</code></li>
+<li><code>migrations/20260713000001_fiscal_stress_projection.sql</code></li>
+<li><a href="fiscal-stress-and-contingent-liability-model.md">Fiscal Stress And Contingent Liability Model</a></li>
+</ul>
+<p>The engine converts macro and portfolio stress inputs into:</p>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>max_oil_equity_draw_usd</code></td>
+<td>Stressed oil-equity capacity using the lower of 8% of stressed oil revenue and 35% of public capex.</td>
+</tr>
+<tr>
+<td><code>oil_equity_rule_breach_usd</code></td>
+<td>Amount by which planned oil equity exceeds the stressed fiscal rule.</td>
+</tr>
+<tr>
+<td><code>stressed_dscr</code></td>
+<td>Portfolio debt-service coverage after revenue and interest shocks.</td>
+</tr>
+<tr>
+<td><code>fx_mismatch_usd</code></td>
+<td>FX debt service not covered by FX revenue or approved buffer.</td>
+</tr>
+<tr>
+<td><code>maintenance_gap_usd</code></td>
+<td>Required maintenance reserve not funded before distributions.</td>
+</tr>
+<tr>
+<td><code>contingent_liability_to_gdp_pct</code></td>
+<td>Guarantees and availability payments as explicit fiscal exposure.</td>
+</tr>
+<tr>
+<td><code>dividend_affordability_gap_usd</code></td>
+<td>Dividend amount not covered after senior claims.</td>
+</tr>
+<tr>
+<td><code>recommended_mode</code></td>
+<td>Stable, watch, defensive, or stop-scale-up.</td>
+</tr>
+</tbody>
+</table>
+<p>Rule:</p>
+<pre><code class="language-text">If the fiscal stress mode is defensive or stop-scale-up,
+new expansion pauses and dividends are suspended before maintenance, debt
+service, essential services, or disclosed fiscal limits are weakened.
+</code></pre>
 <h3 id="what-becomes-affordable-first">What Becomes Affordable First</h3>
 <p>Priority 1: projects that save foreign exchange, reduce critical imports, or
 create immediate cashflow.</p>
@@ -4558,6 +6558,10 @@ environmental, revenue, DSCR, FX, maintenance, or investor-protection gates.</p>
 <td>Tests underutilized facility reuse before greenfield capex, including utilization gain, rehab economics, DSCR, FX cover, credit readiness, domestic market readiness, guarantee exposure, and finance lane.</td>
 </tr>
 <tr>
+<td><code>FiscalStressProjection</code></td>
+<td>Tests stressed oil-equity capacity, DSCR, FX mismatch, maintenance gaps, contingent liabilities, collection efficiency, capex overruns, and dividend affordability before scale-up.</td>
+</tr>
+<tr>
 <td><code>OfftakeAgreement</code></td>
 <td>Stores buyer, volume, price formula, currency, tenor, and delivery evidence.</td>
 </tr>
@@ -4609,7 +6613,7 @@ then it cannot receive debt and cannot be counted in the dividend forecast.
 </code></pre>
 <p>That is the point of quantifying the model: it converts a sovereign-economic
 vision into a financeable sequence with hard stop/go gates.</p>
-<h1 id="part-10-system-and-financial-flow-diagrams">Part 10: System And Financial Flow Diagrams</h1>
+<h1 id="part-13-system-and-financial-flow-diagrams">Part 13: System And Financial Flow Diagrams</h1>
 <h2 id="system-and-financial-flow-diagrams">System And Financial Flow Diagrams</h2>
 <p>This document maps the Cylinder Seal prototype as a software system and as a set
 of financial-flow patterns. It is intentionally conservative: diagrams describe
@@ -5345,7 +7349,7 @@ remaining engineering gaps:</p>
   its legal authority, oil-revenue handling, share-entitlement rules, investment
   governance, and dividend formula require independent review.</li>
 </ul>
-<h1 id="part-11-business-value-chain-charts">Part 11: Business Value Chain Charts</h1>
+<h1 id="part-14-business-value-chain-charts">Part 14: Business Value Chain Charts</h1>
 <h2 id="business-value-chain-charts">Business Value Chain Charts</h2>
 <p>Status: visual planning aid. These charts explain the business logic of the
 Cylinder Seal economic model. They are not forecasts, investment offers,
@@ -5486,7 +7490,7 @@ flows.</p>
 <li>It separates cashflow charts from public-benefit charts so readers do not
   confuse GDP, avoided imports, or social outcomes with dividend capacity.</li>
 </ul>
-<h1 id="part-12-unified-economic-model">Part 12: Unified Economic Model</h1>
+<h1 id="part-15-unified-economic-model">Part 15: Unified Economic Model</h1>
 <h2 id="unified-economic-model_3">Unified Economic Model</h2>
 <p>This document ties the Cylinder Seal payment rail, policy primitives, INDHC,
 ministries, banks, producers, infrastructure projects, tourism, green capital,
@@ -5504,7 +7508,7 @@ taxes, levies, and service contracts; citizens receive wages, public services,
 credit access, verified civic-work income, and equal Digital IQD dividends from
 audited surplus.</p>
 <h3 id="system-boundary">System Boundary</h3>
-<p>The system has twelve layers:</p>
+<p>The system has sixteen layers:</p>
 <table>
 <thead>
 <tr>
@@ -5523,6 +7527,26 @@ audited surplus.</p>
 <td>Economic operating layer</td>
 <td>Six ledgers, canonical economic events, hard gates, portfolio modes, scorecards, cash/benefit conversion, waterfalls, capital allocation, dashboards, and escalation rules.</td>
 <td><code>docs/national-economic-operating-logic.md</code></td>
+</tr>
+<tr>
+<td>Legal and institutional layer</td>
+<td>Authority path for oil lockbox, INDHC, citizen shares, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals.</td>
+<td><code>docs/national-legal-institutional-roadmap.md</code></td>
+</tr>
+<tr>
+<td>Project pipeline layer</td>
+<td>Project-family gates for capex, opex, revenue source, DSCR, FX exposure, facility reuse, environmental/cultural safeguards, legal authority, and evidence bundles.</td>
+<td><code>docs/project-pipeline-and-investment-gates.md</code></td>
+</tr>
+<tr>
+<td>Political-economy and anti-capture layer</td>
+<td>Resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, and pause/rollback rules.</td>
+<td><code>docs/political-economy-transition-and-anti-capture.md</code></td>
+</tr>
+<tr>
+<td>Fiscal stress and contingent-liability layer</td>
+<td>Downside controls for oil-equity caps, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend suspension.</td>
+<td><code>docs/fiscal-stress-and-contingent-liability-model.md</code></td>
 </tr>
 <tr>
 <td>Public-finance and capital layer</td>
@@ -6354,7 +8378,7 @@ separate dashboard widgets.</p>
   enforcing KYC/AML, sanctions, quality, consumer-protection, privacy,
   distribution, conversion, and investment-suitability gates.</li>
 </ul>
-<h3 id="bottom-line_5">Bottom Line</h3>
+<h3 id="bottom-line_7">Bottom Line</h3>
 <p>Cylinder Seal should be read as one economic operating system:</p>
 <pre><code class="language-text">Oil and international capital
   -&gt; productive Iraqi assets
@@ -6365,7 +8389,7 @@ separate dashboard widgets.</p>
 </code></pre>
 <p>The point is not only to digitize money. The point is to make Iraq's economic
 feedback loops visible, governable, productive, and citizen-owned.</p>
-<h1 id="part-13-national-dividend-holding-company">Part 13: National Dividend Holding Company</h1>
+<h1 id="part-16-national-dividend-holding-company">Part 16: National Dividend Holding Company</h1>
 <h2 id="national-dividend-holding-company-architecture">National Dividend Holding Company Architecture</h2>
 <p>This document adds a policy architecture to Cylinder Seal: Iraq's oil income is
 not treated as a direct ministry-funding stream. It is treated as national
@@ -6376,7 +8400,9 @@ product, and not a production-ready public-finance design.</p>
 <p>This document is one component of the broader
 <a href="unified-economic-model.md">Unified Economic Model</a>, which connects the Oil
 Income Lockbox, INDHC, Digital IQD, ministries, banks, producers, infrastructure,
-tourism, credit, reinvestment, and citizen dividends into one accounting loop.</p>
+tourism, credit, reinvestment, and citizen dividends into one accounting loop.
+For resistance, capture, continuity, and legitimacy controls, use the
+<a href="political-economy-transition-and-anti-capture.md">Political-Economy Transition And Anti-Capture Model</a>.</p>
 <h3 id="rationale">Rationale</h3>
 <p>Iraq's public finance problem is not only that the state receives oil income. It
 is that oil income can fund ministries directly even when the broader economy is
@@ -6401,7 +8427,7 @@ returns.</p>
 capacity into paid, verified public value, training, and bridge-to-work records.
 Dividends should not be used to hide unemployment, and civic wages should not be
 funded by quietly raiding the dividend pool.</p>
-<h3 id="source-discipline_4">Source Discipline</h3>
+<h3 id="source-discipline_7">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -6430,7 +8456,7 @@ funded by quietly raiding the dividend pool.</p>
 </table>
 <p>These sources support the problem framing. They do not validate the proposed
 institutional design.</p>
-<h3 id="institutional-design">Institutional Design</h3>
+<h3 id="institutional-design_1">Institutional Design</h3>
 <p>Working name: <strong>Iraq National Dividend Holding Company (INDHC)</strong>.</p>
 <p>Alternative local branding can use "People's Development Holding Company" or
 "Citizen Development Holding Company." The industrial holding-group analogy is
@@ -6782,6 +8808,28 @@ productive investment, ministry funding, and citizen capital income.</p>
 <li>Recourse process for mistaken identity, inheritance disputes, cash holds, and
   dividend errors.</li>
 </ul>
+<h3 id="failure-and-exit-discipline">Failure And Exit Discipline</h3>
+<p>INDHC is rational only if subsidiaries can fail without becoming permanent
+political payroll vehicles.</p>
+<p>Rules:</p>
+<ul>
+<li>Every subsidiary has separate accounts, debt, board minutes, KPIs, audit
+  opinions, and a failure path.</li>
+<li>No silent cross-subsidy between subsidiaries. Any rescue must be public,
+  board-approved, time-limited, and tied to management or mandate changes.</li>
+<li>Persistent failure triggers one of five actions: management replacement,
+  merger, concession or lease to a qualified operator, sale of non-strategic
+  assets, or closure.</li>
+<li>Strategic status does not exempt a subsidiary from procurement, related-party,
+  beneficial-ownership, debt, maintenance, or citizen-appeal gates.</li>
+<li>Citizen dividends are a residual result, not the main selling point. In the
+  first decade, the larger benefits should come from jobs, lower system costs,
+  infrastructure, reliable services, formal credit, and domestic production.</li>
+<li>Dividends fail before maintenance, debt service, tax/levy obligations,
+  statutory reserves, safety, cybersecurity, and essential-service continuity.</li>
+<li>A subsidiary that needs repeated rescue cannot fund dividends and should not
+  be used to justify ministry deprecation.</li>
+</ul>
 <h3 id="risks">Risks</h3>
 <table>
 <thead>
@@ -6831,7 +8879,7 @@ productive investment, ministry funding, and citizen capital income.</p>
 <p>See <a href="indhc-10-year-plan.md">INDHC ten-year industrial and infrastructure plan</a>
 for the proposed investment program, capital stack, staffing model, sector
 priorities, reinvestment waterfall, and implementation primitives.</p>
-<h1 id="part-14-indhc-ten-year-plan">Part 14: INDHC Ten-Year Plan</h1>
+<h1 id="part-17-indhc-ten-year-plan">Part 17: INDHC Ten-Year Plan</h1>
 <h2 id="indhc-ten-year-industrial-and-infrastructure-plan">INDHC Ten-Year Industrial And Infrastructure Plan</h2>
 <p>This document translates the National Dividend Holding Company architecture into
 a ten-year investment plan. It is a planning scenario, not a budget law, a
@@ -6856,7 +8904,7 @@ Digital IQD, green, food/water, and civic-work layers could raise non-oil growth
 over ten years.
 The <a href="iraq-quantified-affordability-model.md">Iraq Quantified Affordability And Cashflow Model</a>
 uses IMF baseline data to distinguish a fiscal-safe starter case, a USD 115B
-constrained base case, and the USD 190B strategic upper envelope used below.
+constrained base case, and a USD 190B strategic upper envelope.
 Under the IMF baseline, the USD 190B envelope should not be treated as the
 default affordable case.
 See <a href="national-civic-work-system.md">National Civic Work System</a> for the
@@ -6871,8 +8919,12 @@ for the anti-capture model governing sectoral champion groups, conditional
 demand, conditional credit, export discipline, competition gates, and debt caps.
 See <a href="facility-recycling-and-capital-markets.md">Facility Recycling And Capital Markets</a>
 for the brownfield-first registry, rehabilitation screening, international
-credit routes, and domestic bond/sukuk/equity financing logic.</p>
-<h3 id="source-discipline_5">Source Discipline</h3>
+credit routes, and domestic bond/sukuk/equity financing logic.
+See <a href="national-legal-institutional-roadmap.md">National Legal And Institutional Roadmap</a>
+for the legal authority path. See
+<a href="project-pipeline-and-investment-gates.md">Project Pipeline And Investment Gates</a>
+for the project-family fields that must exist before capital is allocated.</p>
+<h3 id="source-discipline_8">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -6994,9 +9046,10 @@ envelope, dividend formula, debt capacity, or legal design.</p>
 <li>Pay monthly Digital IQD dividends from audited distributable surplus.</li>
 </ol>
 <h3 id="capital-stack">Capital Stack</h3>
-<p>The strategic upper envelope uses USD 190 billion. The constrained base case is
-USD 115 billion and is detailed in
-<a href="iraq-quantified-affordability-model.md">Iraq Quantified Affordability And Cashflow Model</a>.</p>
+<p>The default plan now uses the USD 115 billion constrained-base envelope from
+<a href="iraq-quantified-affordability-model.md">Iraq Quantified Affordability And Cashflow Model</a>.
+USD 190 billion remains a strategic upper envelope only after audited cashflow,
+debt safety, fiscal space, private crowd-in, and delivery capacity are proven.</p>
 <p>This is not a recommendation to borrow blindly. It is a stress-testable planning
 envelope showing how oil equity and debt could combine without turning INDHC into
 a payroll vehicle.</p>
@@ -7004,7 +9057,7 @@ a payroll vehicle.</p>
 <thead>
 <tr>
 <th>Source</th>
-<th style="text-align: right;">Ten-year base case</th>
+<th style="text-align: right;">Constrained-base amount</th>
 <th>Use</th>
 <th>Guardrail</th>
 </tr>
@@ -7012,119 +9065,123 @@ a payroll vehicle.</p>
 <tbody>
 <tr>
 <td>Oil-income equity capital</td>
-<td style="text-align: right;">USD 120B</td>
-<td>First-loss equity, domestic capital projects, strategic assets, training, early works, legal cleanup and engineering audits for facility recycling</td>
-<td>Set by statute as a capped share of oil receipts after stabilization allocation; no dividend from asset revaluation.</td>
+<td style="text-align: right;">USD 65.8B</td>
+<td>First-loss equity, domestic capital projects, strategic assets, training, early works, legal cleanup, and engineering audits for facility recycling.</td>
+<td>Mostly reclassified from disciplined public capex while deficits persist; no dividend from asset revaluation.</td>
 </tr>
 <tr>
-<td>Concessional and MDB loans</td>
-<td style="text-align: right;">USD 22B</td>
-<td>Water, grid, climate adaptation, public transport, skills, governance systems, and rehabilitation packages with public-good value</td>
-<td>Only for projects with public-good value and transparent repayment source.</td>
+<td>Project loans and debt</td>
+<td style="text-align: right;">USD 33.8B</td>
+<td>Revenue-generating green, water, rail, manufacturing, logistics, tourism, industrial assets, and rehabilitated facilities with signed contracts.</td>
+<td>No hidden ministry bailout; DSCR covenant required; FX debt must match FX revenue or approved reserve buffer.</td>
 </tr>
 <tr>
-<td>Green bonds / green sukuk</td>
-<td style="text-align: right;">USD 20B</td>
-<td>Solar, wind, storage, grid, waste-to-energy, energy efficiency</td>
-<td>Certified use-of-proceeds, external verification, public project register.</td>
+<td>PPP / JV equity</td>
+<td style="text-align: right;">USD 15.4B</td>
+<td>Tourism, logistics, industrial parks, selected manufacturing, station-area development, and private operation of rehabilitated assets.</td>
+<td>No asset stripping, no related-party capture, public audit, and public asset-control rules.</td>
 </tr>
 <tr>
-<td>Export-credit and supplier finance</td>
-<td style="text-align: right;">USD 18B</td>
-<td>Rail equipment, factories, grid equipment, industrial machinery, rehab machinery, and certified production lines</td>
-<td>Requires technology transfer, Iraqi staff training, and open-interface procurement.</td>
+<td>Domestic IQD sukuk / infrastructure bonds</td>
+<td style="text-align: right;">Pilot only</td>
+<td>Mature ring-fenced local-currency assets after audited cashflow and market testing.</td>
+<td>No forced bank purchases; CBI monetary-policy compatibility, trustee, disclosure, and investor-protection rules must be in force.</td>
 </tr>
 <tr>
-<td>Project finance / PPP debt</td>
-<td style="text-align: right;">USD 10B</td>
-<td>Revenue assets with user fees, offtake contracts, industrial parks, ports, tourism, and private-operation concessions for rehabilitated facilities</td>
-<td>No hidden ministry bailout; project debt service coverage ratio above 1.30.</td>
-</tr>
-<tr>
-<td>Local IQD infrastructure bonds</td>
-<td style="text-align: right;">USD 0-10B equivalent</td>
-<td>Optional domestic savings instrument after market validation; later-stage funding for audited, ring-fenced local-currency assets</td>
-<td>No forced bank purchases; CBI monetary-policy compatibility required; trustee, disclosure, and investor-protection rules must be in force.</td>
+<td>Retained earnings</td>
+<td style="text-align: right;">Later-stage</td>
+<td>Maintenance, reinvestment, debt reduction, dividend stabilization, and resilience reserves.</td>
+<td>Builds only after audited operating cash exists.</td>
 </tr>
 </tbody>
 </table>
-<p>Base case totals USD 190B without counting optional local bonds. A conservative
-case is USD 115B over ten years. An aggressive case is USD 260B, but only if
-oil receipts, debt capacity, governance, and project delivery improve.</p>
+<p>The constrained base totals USD 115B over ten years. A fiscal-safe starter case
+is USD 65B. The USD 190B strategic upper case should be kept as a later
+scale-up option, not as the front plan.</p>
 <h3 id="capital-allocation-by-sector">Capital Allocation By Sector</h3>
 <table>
 <thead>
 <tr>
 <th>Sector</th>
-<th style="text-align: right;">Base case allocation</th>
+<th style="text-align: right;">Constrained-base allocation</th>
 <th style="text-align: right;">Oil equity</th>
-<th style="text-align: right;">Loans and project debt</th>
+<th style="text-align: right;">Loans / debt</th>
+<th style="text-align: right;">PPP / JV</th>
 <th>Main return path</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Strategic manufacturing, import substitution, electronics, HVAC, defense industrial base, and raw-material post-processing</td>
-<td style="text-align: right;">USD 62B</td>
-<td style="text-align: right;">USD 42B</td>
-<td style="text-align: right;">USD 20B</td>
-<td>Domestic sales, public procurement savings, export margin, gross-profit levy.</td>
+<td>Strategic manufacturing, import substitution, electronics, HVAC, defense-controlled sustainment, and raw-material post-processing</td>
+<td style="text-align: right;">USD 37.0B</td>
+<td style="text-align: right;">USD 22.0B</td>
+<td style="text-align: right;">USD 9.0B</td>
+<td style="text-align: right;">USD 6.0B</td>
+<td>Domestic sales, public procurement substitution, maintenance, selective exports, gross-profit levy.</td>
 </tr>
 <tr>
 <td>Open rail, metro, logistics, and intercity connections</td>
-<td style="text-align: right;">USD 38B</td>
-<td style="text-align: right;">USD 20B</td>
-<td style="text-align: right;">USD 18B</td>
-<td>Fares, land-value capture, service contracts, freight/logistics revenue.</td>
+<td style="text-align: right;">USD 19.0B</td>
+<td style="text-align: right;">USD 10.0B</td>
+<td style="text-align: right;">USD 7.0B</td>
+<td style="text-align: right;">USD 2.0B</td>
+<td>Fares, availability payments, service contracts, freight/logistics revenue, station services, land-value capture.</td>
 </tr>
 <tr>
 <td>Green technology, power, grid, and waste-to-energy</td>
-<td style="text-align: right;">USD 32B</td>
-<td style="text-align: right;">USD 16B</td>
-<td style="text-align: right;">USD 16B</td>
-<td>PPAs, industrial power sales, avoided fuel cost, green finance.</td>
+<td style="text-align: right;">USD 18.0B</td>
+<td style="text-align: right;">USD 10.0B</td>
+<td style="text-align: right;">USD 8.0B</td>
+<td style="text-align: right;">USD 0.0B</td>
+<td>PPAs, industrial power sales, grid services, verified efficiency contracts.</td>
 </tr>
 <tr>
 <td>Tourism and tradable services</td>
-<td style="text-align: right;">USD 20B</td>
-<td style="text-align: right;">USD 13B</td>
-<td style="text-align: right;">USD 7B</td>
-<td>Visitor spending, hotel/platform revenue, service exports.</td>
+<td style="text-align: right;">USD 12.0B</td>
+<td style="text-align: right;">USD 4.0B</td>
+<td style="text-align: right;">USD 1.6B</td>
+<td style="text-align: right;">USD 6.4B</td>
+<td>Visitor logistics, hotel/JV revenue, booking/payment platforms, service exports.</td>
 </tr>
 <tr>
 <td>Agriculture, food substitution, water/desalination, irrigation, and cold chain</td>
-<td style="text-align: right;">USD 22B</td>
-<td style="text-align: right;">USD 14B</td>
-<td style="text-align: right;">USD 8B</td>
-<td>Domestic food sales, reduced imports, water-service revenue, agro-export margin.</td>
+<td style="text-align: right;">USD 16.0B</td>
+<td style="text-align: right;">USD 9.5B</td>
+<td style="text-align: right;">USD 5.5B</td>
+<td style="text-align: right;">USD 1.0B</td>
+<td>Food processing, water services, irrigation equipment, storage, cold chain, agro-export margin.</td>
 </tr>
 <tr>
 <td>Housing inputs and urban services</td>
-<td style="text-align: right;">USD 8B</td>
-<td style="text-align: right;">USD 7B</td>
-<td style="text-align: right;">USD 1B</td>
-<td>Materials sales, utility service contracts, municipal availability payments.</td>
+<td style="text-align: right;">USD 5.0B</td>
+<td style="text-align: right;">USD 3.0B</td>
+<td style="text-align: right;">USD 2.0B</td>
+<td style="text-align: right;">USD 0.0B</td>
+<td>Materials sales, utility maintenance, leakage reduction, municipal service contracts.</td>
 </tr>
 <tr>
 <td>Digital public infrastructure and SME platforms</td>
-<td style="text-align: right;">USD 5B</td>
-<td style="text-align: right;">USD 5B</td>
-<td style="text-align: right;">USD 0B</td>
-<td>Transaction fees, analytics services, credit enablement, public savings.</td>
+<td style="text-align: right;">USD 4.0B</td>
+<td style="text-align: right;">USD 3.3B</td>
+<td style="text-align: right;">USD 0.7B</td>
+<td style="text-align: right;">USD 0.0B</td>
+<td>Payment/compliance services, analytics, credit enablement, procurement platforms.</td>
 </tr>
 <tr>
 <td>Workforce, R&amp;D, and industrial standards</td>
-<td style="text-align: right;">USD 3B</td>
-<td style="text-align: right;">USD 3B</td>
-<td style="text-align: right;">USD 0B</td>
-<td>Capability building; not expected to be a standalone profit center.</td>
+<td style="text-align: right;">USD 4.0B</td>
+<td style="text-align: right;">USD 4.0B</td>
+<td style="text-align: right;">USD 0.0B</td>
+<td style="text-align: right;">USD 0.0B</td>
+<td>Capability building; return appears through other sectors.</td>
 </tr>
 <tr>
 <td><strong>Total</strong></td>
-<td style="text-align: right;"><strong>USD 190B</strong></td>
-<td style="text-align: right;"><strong>USD 120B</strong></td>
-<td style="text-align: right;"><strong>USD 70B</strong></td>
-<td>Base-case planning envelope.</td>
+<td style="text-align: right;"><strong>USD 115.0B</strong></td>
+<td style="text-align: right;"><strong>USD 65.8B</strong></td>
+<td style="text-align: right;"><strong>USD 33.8B</strong></td>
+<td style="text-align: right;"><strong>USD 15.4B</strong></td>
+<td>Constrained-base planning envelope.</td>
 </tr>
 </tbody>
 </table>
@@ -7134,69 +9191,80 @@ oil receipts, debt capacity, governance, and project delivery improve.</p>
 <tr>
 <th>Year</th>
 <th style="text-align: right;">Oil equity</th>
-<th style="text-align: right;">Loans / project debt</th>
+<th style="text-align: right;">Loans / debt</th>
+<th style="text-align: right;">PPP / JV</th>
 <th>Core work</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>1</td>
-<td style="text-align: right;">USD 8B</td>
-<td style="text-align: right;">USD 2B</td>
+<td style="text-align: right;">USD 5.0B</td>
+<td style="text-align: right;">USD 1.0B</td>
+<td style="text-align: right;">USD 0.5B</td>
 <td>Pass enabling law, create Oil Income Lockbox, appoint board, open public project and facility-reuse registries, launch Iraqi-only permanent staffing rule, define defense-industrial legal controls, begin feasibility studies, start quick-rehab projects in cement, food processing, grid loss reduction, and tourism services.</td>
 </tr>
 <tr>
 <td>2</td>
-<td style="text-align: right;">USD 10B</td>
-<td style="text-align: right;">USD 4B</td>
-<td>Create first subsidiaries, launch INDHC Academy, start cash formalization systems, issue first green sukuk pilot, complete open rail reference architecture, package first facility-recycling candidates for IFC/MDB/ECA/local-bank and domestic sukuk feasibility, begin Baghdad metro co-investment, and design electronics/HVAC/water-equipment procurement localization.</td>
+<td style="text-align: right;">USD 5.5B</td>
+<td style="text-align: right;">USD 2.8B</td>
+<td style="text-align: right;">USD 1.2B</td>
+<td>Create first subsidiaries, launch INDHC Academy, start cash formalization systems, prepare green sukuk and PPP pilots, complete open rail reference architecture, package first facility-recycling candidates, begin Baghdad metro co-investment, and design electronics/HVAC/water-equipment procurement localization.</td>
 </tr>
 <tr>
 <td>3</td>
-<td style="text-align: right;">USD 11B</td>
-<td style="text-align: right;">USD 5B</td>
+<td style="text-align: right;">USD 6.2B</td>
+<td style="text-align: right;">USD 4.2B</td>
+<td style="text-align: right;">USD 1.6B</td>
 <td>Start Basra industrial processing belt, fertilizer/gas-feedstock projects, construction-material network, solar procurement, regulated defense sustainment/protective-equipment lines, irrigation-equipment assembly, religious tourism logistics platform, and first domestic rail fabrication work packages.</td>
 </tr>
 <tr>
 <td>4</td>
-<td style="text-align: right;">USD 12B</td>
-<td style="text-align: right;">USD 6B</td>
+<td style="text-align: right;">USD 6.7B</td>
+<td style="text-align: right;">USD 4.8B</td>
+<td style="text-align: right;">USD 2.0B</td>
 <td>Build first rail corridors, expand cement/brick/glass/pipes, launch agro-processing clusters, start Najaf-Karbala visitor services corridor, launch desalination and water-treatment equipment assembly, and move first ministry service payments onto performance contracts.</td>
 </tr>
 <tr>
 <td>5</td>
-<td style="text-align: right;">USD 12B</td>
-<td style="text-align: right;">USD 7B</td>
-<td>Reach first operating-profit cycle in quick-win subsidiaries, commission first large solar/storage batches, scale domestic steel/rebar capacity, expand electronics and HVAC assembly, publish first dividend formula stress test, and begin monthly pilot dividends from audited surplus.</td>
+<td style="text-align: right;">USD 6.8B</td>
+<td style="text-align: right;">USD 3.8B</td>
+<td style="text-align: right;">USD 1.4B</td>
+<td>Reach first operating-profit cycle in quick-win subsidiaries, commission first large solar/storage batches, scale domestic steel/rebar capacity, expand electronics and HVAC assembly, publish first dividend formula stress test, and begin only if audited surplus exists.</td>
 </tr>
 <tr>
 <td>6</td>
-<td style="text-align: right;">USD 13B</td>
-<td style="text-align: right;">USD 8B</td>
-<td>Expand metro/light-metro delivery to Basra, Mosul, Najaf-Karbala, and Erbil/Sulaymaniyah subject to local agreements; scale petrochemical/plastics, fertilizer exports, food-staple substitution, and national tourism booking/payment rails.</td>
+<td style="text-align: right;">USD 6.8B</td>
+<td style="text-align: right;">USD 3.8B</td>
+<td style="text-align: right;">USD 1.4B</td>
+<td>Expand metro/light-metro delivery subject to local agreements; scale petrochemical/plastics, fertilizer exports, food-staple substitution, and national tourism booking/payment rails.</td>
 </tr>
 <tr>
 <td>7</td>
-<td style="text-align: right;">USD 13B</td>
-<td style="text-align: right;">USD 9B</td>
+<td style="text-align: right;">USD 7.0B</td>
+<td style="text-align: right;">USD 3.8B</td>
+<td style="text-align: right;">USD 1.7B</td>
 <td>Move from import substitution to export competition in selected products, expand grid and industrial parks, launch domestic battery-pack/smart-meter assembly, mature HVAC and electronics supplier networks, and deepen rail operations training.</td>
 </tr>
 <tr>
 <td>8</td>
-<td style="text-align: right;">USD 13B</td>
-<td style="text-align: right;">USD 9B</td>
-<td>Complete second wave of city transit networks, integrate cold chain and food logistics nationally, scale medical/pharma import substitution, expand desalination/irrigation manufacturing, and increase retained earnings reinvestment from operating subsidiaries.</td>
+<td style="text-align: right;">USD 7.2B</td>
+<td style="text-align: right;">USD 3.5B</td>
+<td style="text-align: right;">USD 1.8B</td>
+<td>Complete second wave of city transit networks where gates pass, integrate cold chain and food logistics nationally, scale medical/pharma import substitution, expand desalination/irrigation manufacturing, and increase retained earnings reinvestment.</td>
 </tr>
 <tr>
 <td>9</td>
-<td style="text-align: right;">USD 14B</td>
-<td style="text-align: right;">USD 10B</td>
-<td>Consolidate underperforming projects, list minority non-voting project bonds where appropriate, expand regional service exports, upgrade industrial parks to low-carbon export zones, and raise dividend stability reserve.</td>
+<td style="text-align: right;">USD 7.4B</td>
+<td style="text-align: right;">USD 3.2B</td>
+<td style="text-align: right;">USD 1.9B</td>
+<td>Consolidate underperforming projects, pilot minority non-voting project securities where appropriate, expand regional service exports, upgrade industrial parks to low-carbon export zones, and raise dividend stability reserve.</td>
 </tr>
 <tr>
 <td>10</td>
-<td style="text-align: right;">USD 14B</td>
-<td style="text-align: right;">USD 10B</td>
+<td style="text-align: right;">USD 7.2B</td>
+<td style="text-align: right;">USD 2.9B</td>
+<td style="text-align: right;">USD 1.9B</td>
 <td>Shift from construction-heavy spending to renewal, maintenance, export growth, dividends, and debt reduction; publish ten-year audit, citizen return statement, and next ten-year plan.</td>
 </tr>
 </tbody>
@@ -8710,7 +10778,7 @@ distribution, conversion, and investor-suitability gates explicit.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="bottom-line_6">Bottom Line</h3>
+<h3 id="bottom-line_8">Bottom Line</h3>
 <p>The ten-year plan makes INDHC more than a sovereign fund. It becomes a national
 productive-capital machine:</p>
 <ul>
@@ -8722,14 +10790,14 @@ productive-capital machine:</p>
 <li>profits are reinvested into domestic capacity;</li>
 <li>remaining distributable surplus is paid as a Digital IQD citizen dividend.</li>
 </ul>
-<h1 id="part-15-import-services-and-diaspora-expansion">Part 15: Import, Services, And Diaspora Expansion</h1>
+<h1 id="part-18-import-services-and-diaspora-expansion">Part 18: Import, Services, And Diaspora Expansion</h1>
 <h2 id="import-services-and-diaspora-expansion">Import, Services, And Diaspora Expansion</h2>
 <p>Status: strategy and implementation-extension note. This is not a forecast, a
 trade policy order, a tourism concession, a migration policy, or an investment
 solicitation. It defines what Cylinder Seal should measure before Iraq treats
 import substitution, attraction-based services, or diaspora channels as real
 economic operating levers.</p>
-<h3 id="source-discipline_6">Source Discipline</h3>
+<h3 id="source-discipline_9">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -9069,7 +11137,7 @@ receipts.</p>
 <p>The new <code>DiasporaChannelsEngine</code> represents this model in code and gives the
 dashboard a way to distinguish cash income, remittance formalization, export
 distribution, expertise value, marketing value, and investment pipeline risk.</p>
-<h1 id="part-16-facility-recycling-and-capital-markets">Part 16: Facility Recycling And Capital Markets</h1>
+<h1 id="part-19-facility-recycling-and-capital-markets">Part 19: Facility Recycling And Capital Markets</h1>
 <h2 id="facility-recycling-and-capital-markets">Facility Recycling And Capital Markets</h2>
 <p>Status: strategy and implementation-extension note. This is not an investment
 offering, securities prospectus, credit recommendation, privatization order, or
@@ -9077,7 +11145,7 @@ claim that any named facility is currently financeable. It defines how Cylinder
 Seal should screen existing underutilized assets before approving greenfield
 projects, and how rehabilitation can attract international credit or domestic
 stock and bond market funding only after bankability and disclosure gates pass.</p>
-<h3 id="core-rule">Core Rule</h3>
+<h3 id="core-rule_1">Core Rule</h3>
 <p>For every sector, the first capital-allocation question should be:</p>
 <pre><code class="language-text">Can an existing Iraqi facility, depot, workshop, warehouse, hotel, industrial
 site, public utility asset, or state-company plant be rehabilitated faster,
@@ -9089,7 +11157,7 @@ must explain why reuse failed.</p>
 project should proceed only when legal title, asset registry, engineering audit,
 environmental liabilities, labor transition, revenue contracts, maintenance
 reserve, DSCR, FX match, disclosure, and investor-protection gates pass.</p>
-<h3 id="source-discipline_7">Source Discipline</h3>
+<h3 id="source-discipline_10">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -9612,7 +11680,7 @@ collected.</p>
 capital base it needs. Cylinder Seal should make that latent asset base visible,
 ranked, financeable where justified, and impossible to dress up as value when it
 is actually a liability.</p>
-<h1 id="part-17-digitally-governed-industrial-champions">Part 17: Digitally Governed Industrial Champions</h1>
+<h1 id="part-20-digitally-governed-industrial-champions">Part 20: Digitally Governed Industrial Champions</h1>
 <h2 id="digitally-governed-industrial-champions">Digitally Governed Industrial Champions</h2>
 <p>This document refines the INDHC industrial-conglomerate idea. The model should
 not be described as copying Korean chaebols. It should be described as building
@@ -9623,7 +11691,12 @@ audit quality through Cylinder Seal data.</p>
 <p>Status: policy-design scenario. It is not a competition-law opinion, investment
 recommendation, procurement plan, or claim that any champion group should receive
 permanent protection.</p>
-<h3 id="source-discipline_8">Source Discipline</h3>
+<p>Use this document with the
+<a href="political-economy-transition-and-anti-capture.md">Political-Economy Transition And Anti-Capture Model</a>.
+No champion privilege should scale if capture risk, resistance pressure,
+procurement opacity, service-continuity risk, or citizen-appeal failure pushes
+the political-economy engine into blocked, visibility-only, or rollback mode.</p>
+<h3 id="source-discipline_11">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -10226,6 +12299,51 @@ status, procurement preference, credit eligibility, and public dashboard color.<
 </tr>
 </tbody>
 </table>
+<h3 id="failure-and-exit-rules">Failure And Exit Rules</h3>
+<p>Champion groups are tools for capability building, not protected permanent
+entitlements.</p>
+<table>
+<thead>
+<tr>
+<th>Failure signal</th>
+<th>Required response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Score below 50 for two consecutive quarters</td>
+<td>Suspend new privileges and publish a turnaround decision.</td>
+</tr>
+<tr>
+<td>DSCR below threshold without approved recovery</td>
+<td>Freeze new debt and dividend claims from the group.</td>
+</tr>
+<tr>
+<td>Repeated price above import parity after the learning period</td>
+<td>Remove procurement preference or open the line to competitors.</td>
+</tr>
+<tr>
+<td>Certification, safety, or product-quality breach</td>
+<td>Suspend affected product line until independent clearance.</td>
+</tr>
+<tr>
+<td>Related-party, beneficial-ownership, sanctions, or PEP breach</td>
+<td>Suspend procurement privileges and refer to audit/legal authority.</td>
+</tr>
+<tr>
+<td>SME exclusion or supplier concentration breach</td>
+<td>Narrow champion status and require supplier-market remediation.</td>
+</tr>
+<tr>
+<td>No export or FX pathway for tradable sectors by the competition phase</td>
+<td>Graduate to ordinary domestic company status or restructure.</td>
+</tr>
+</tbody>
+</table>
+<p>Exit tools include management replacement, sale or lease of non-strategic assets,
+competitive concession, merger into a stronger group, SME spin-out, orderly
+closure, or conversion into a regulated public-service operator. A failing group
+cannot be kept alive only to preserve a headline industrial policy narrative.</p>
 <h3 id="export-discipline">Export Discipline</h3>
 <p>Import substitution is not enough. Every champion group needs an export or
 foreign-currency pathway unless the sector is explicitly domestic-public-good
@@ -10625,7 +12743,7 @@ No export or cost discipline, no protection.
 No audit, no public demand contract.
 No competition review, no champion status renewal.
 </code></pre>
-<h1 id="part-18-national-civic-work-system">Part 18: National Civic Work System</h1>
+<h1 id="part-21-national-civic-work-system">Part 21: National Civic Work System</h1>
 <h2 id="national-civic-work-system_2">National Civic Work System</h2>
 <p>As Iraq formalizes, automates, and industrializes through Digital IQD, INDHC,
 and digitally governed industrial champions, some low-productivity work will
@@ -10637,7 +12755,7 @@ education, municipal, food-security, and disaster-resilience work.</p>
 budget appropriation, or implemented software module.</p>
 <p>The objective is not to hide unemployment. The objective is to convert spare
 labor capacity into public value.</p>
-<h3 id="source-discipline_9">Source Discipline</h3>
+<h3 id="source-discipline_12">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -11376,7 +13494,7 @@ privacy-bounded. The system should not normalize surveillance for low-risk work.
 <li>Add legal review for labor law, child protection, care work, biometric use,
    data protection, municipal authority, and anti-corruption enforcement.</li>
 </ol>
-<h3 id="bottom-line_7">Bottom Line</h3>
+<h3 id="bottom-line_9">Bottom Line</h3>
 <p>Productivity gains are socially legitimate only if citizens see a pathway from
 lost low-value work into income, dignity, skill, and visible contribution.</p>
 <p>The National Civic Work System makes that pathway measurable:</p>
@@ -11386,7 +13504,7 @@ lost low-value work into income, dignity, skill, and visible contribution.</p>
   -&gt; income history, skills, public value, and social cohesion
   -&gt; better private-sector and INDHC employability
 </code></pre>
-<h1 id="part-19-ministry-transition-roadmap">Part 19: Ministry Transition Roadmap</h1>
+<h1 id="part-22-ministry-transition-roadmap">Part 22: Ministry Transition Roadmap</h1>
 <h2 id="ministry-transition-and-deprecation-roadmap">Ministry Transition And Deprecation Roadmap</h2>
 <p>This document describes how the unified Cylinder Seal / INDHC model could
 eventually deprecate ministry structures that become duplicative, low-feedback,
@@ -11396,7 +13514,7 @@ municipal service contracts, and public dashboards are operating.</p>
 constitutional plan, and not a claim that any current ministry can be abolished
 without parliamentary action, staff transition, service-continuity guarantees,
 and public audit.</p>
-<h3 id="source-discipline_10">Source Discipline</h3>
+<h3 id="source-discipline_13">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -11425,6 +13543,12 @@ and public audit.</p>
 </table>
 <p>These sources support the institutional baseline. They do not validate the legal
 feasibility of any transition.</p>
+<p>Use this roadmap with the
+<a href="political-economy-transition-and-anti-capture.md">Political-Economy Transition And Anti-Capture Model</a>.
+No ministry function should move beyond visibility or pilot mode when legal
+authority, service continuity, staff transition, procurement transparency,
+federal/governorate authority, citizen appeals, or anti-capture controls are not
+ready.</p>
 <h3 id="principle">Principle</h3>
 <p>Deprecating a ministry does not mean deleting the public service.</p>
 <p>It means moving from:</p>
@@ -11451,6 +13575,8 @@ opaque procurement, duplicated administration, and weak feedback.</p>
    in force.</li>
 <li>Independent audit confirms the transition does not hide debt, service cuts, or
    politically directed layoffs.</li>
+<li>The political-economy readiness engine permits pilot, controlled transition,
+   or scale mode for the specific function and governorates affected.</li>
 </ol>
 <h3 id="permanent-sovereign-core">Permanent Sovereign Core</h3>
 <p>These functions should not be deprecated. They may be modernized, audited, and
@@ -11903,7 +14029,7 @@ from low-feedback bureaucracy into productive, regulated, or local service work.
 </tr>
 </tbody>
 </table>
-<h3 id="bottom-line_8">Bottom Line</h3>
+<h3 id="bottom-line_10">Bottom Line</h3>
 <p>The unified model should make many ministry forms unnecessary over time, but not
 because public services disappear. They become unnecessary because services are
 delivered through audited operators, regulators, digital transfers, municipal
@@ -11919,7 +14045,246 @@ contracts, INDHC subsidiaries, and public dashboards.</p>
 <li>audited service contracts;</li>
 <li>productive national capital through INDHC.</li>
 </ul>
-<h1 id="part-20-technical-primitives">Part 20: Technical Primitives</h1>
+<h1 id="part-23-security-model">Part 23: Security Model</h1>
+<h2 id="security-model-and-threat-notes">Security Model And Threat Notes</h2>
+<p>Cylinder Seal is a prototype. This document describes the security posture expected before production use and highlights the current gaps. It is not a completed audit.</p>
+<h3 id="supported-security-claims-today">Supported Security Claims Today</h3>
+<ul>
+<li>Transaction signing primitives exist in <code>crates/cs-core</code>.</li>
+<li>Admin password verification uses Argon2id hashes.</li>
+<li>Dashboard sessions are stored as opaque Redis-backed tokens with HttpOnly cookie support for page flows.</li>
+<li>Current sensitive dashboard handlers enforce role checks and record <code>ok</code> or <code>denied</code> admin actions through an audit recorder.</li>
+<li>AML/risk and audit-log route modules exist.</li>
+<li>Offline conflict-resolution logic exists in prototype form.</li>
+</ul>
+<p>These are implementation building blocks, not certification that the system is safe for real funds.</p>
+<h3 id="key-custody">Key Custody</h3>
+<p>Current state:</p>
+<ul>
+<li>Wallet/POS signing code exists at prototype level.</li>
+<li>Admin bootstrap can generate an initial supervisor password.</li>
+<li>No HSM-backed key ceremony or production custody policy is implemented.</li>
+</ul>
+<p>Production requirements:</p>
+<ul>
+<li>HSM or secure enclave custody for super-peer, operator, settlement, and signing keys.</li>
+<li>Documented key ceremony with split control and witness logs.</li>
+<li>Rotation, revocation, and compromise runbooks.</li>
+<li>Hardware-backed attestation for payment devices that can spend offline.</li>
+<li>Recovery policy for citizens, merchants, and operators.</li>
+</ul>
+<h3 id="offline-double-spend-model">Offline Double-Spend Model</h3>
+<p>Current state:</p>
+<ul>
+<li>Offline transactions can be signed and later synchronized.</li>
+<li>Conflict detection/reconciliation logic exists for sibling entries.</li>
+<li>KYC tiers cap offline exposure in the domain model.</li>
+</ul>
+<p>Production requirements:</p>
+<ul>
+<li>Secure monotonic counters or equivalent secure-element attestation.</li>
+<li>Offline balance reservation or risk-bounded credit exposure model.</li>
+<li>Clear liability rules for conflicting offline spends.</li>
+<li>Reconciliation process approved by legal, supervisory, and consumer-protection stakeholders.</li>
+<li>Red-team testing of compromised devices, cloned keys, clock tampering, and replay attempts.</li>
+</ul>
+<h3 id="transaction-signing-and-validation">Transaction Signing And Validation</h3>
+<p>Current state:</p>
+<ul>
+<li>Canonical signing tests exist.</li>
+<li>Wire-format primitives exist for expiry, spend constraints, and conditional release.</li>
+</ul>
+<p>Production requirements:</p>
+<ul>
+<li>Published transaction-envelope specification and golden test vectors.</li>
+<li>Version negotiation and backwards-compatible migration rules.</li>
+<li>Independent cryptographic review of canonicalization, signature scope, nonce semantics, and replay protection.</li>
+<li>Validation rules documented as normative protocol behavior, not only Rust implementation details.</li>
+</ul>
+<h3 id="device-compromise">Device Compromise</h3>
+<p>Production threat cases:</p>
+<ul>
+<li>Stolen or rooted mobile device.</li>
+<li>Compromised POS terminal.</li>
+<li>Malware exfiltrating private keys or queued offline payments.</li>
+<li>Cloned merchant terminal.</li>
+<li>Malicious operator attempting to override risk controls.</li>
+</ul>
+<p>Required controls:</p>
+<ul>
+<li>Device binding and attestation.</li>
+<li>Local storage encryption with hardware-backed keys.</li>
+<li>Remote revocation and velocity downgrades.</li>
+<li>Tamper-evident device logs.</li>
+<li>Risk-based offline spending ceilings.</li>
+</ul>
+<h3 id="account-recovery">Account Recovery</h3>
+<p>Current state:</p>
+<ul>
+<li>No complete recovery model is documented.</li>
+</ul>
+<p>Production requirements:</p>
+<ul>
+<li>Citizen recovery without single-operator abuse.</li>
+<li>Merchant recovery for lost POS devices and staff turnover.</li>
+<li>Multi-party approval for privileged account recovery.</li>
+<li>Clear audit trail and mandatory cooling-off periods for high-risk recovery events.</li>
+</ul>
+<h3 id="audit-log-immutability">Audit Log Immutability</h3>
+<p>Current state:</p>
+<ul>
+<li>Audit-log tables and routes exist.</li>
+<li>Current sensitive dashboard handlers write admin action records for account freeze/unfreeze, emergency directive creation, compliance-report actions, and industrial-project mutations.</li>
+<li>Route-level tests assert audit records for allowed and denied actions through an in-memory audit recorder.</li>
+</ul>
+<p>Production requirements:</p>
+<ul>
+<li>Append-only storage with tamper-evident hashes.</li>
+<li>WORM or equivalent immutable retention for privileged actions.</li>
+<li>Exportable regulator evidence packs.</li>
+<li>Separate audit-reader role with no mutation authority.</li>
+<li>Monitoring for audit-log gaps, rewrites, and clock anomalies.</li>
+</ul>
+<h3 id="operator-privilege-controls">Operator Privilege Controls</h3>
+<p>Current state:</p>
+<ul>
+<li>Role concepts exist: auditor, analyst, officer, supervisor.</li>
+<li>Current sensitive routes enforce officer or supervisor roles and have route-level tests.</li>
+</ul>
+<p>Production requirements:</p>
+<ul>
+<li>Least-privilege role matrix for every endpoint.</li>
+<li>Four-eyes approval for account freezes, emergency directives, rule changes, and recovery.</li>
+<li>MFA for all operators.</li>
+<li>Session timeout, step-up authentication, and device-bound operator sessions.</li>
+<li>Break-glass authority with automatic expiry and independent review.</li>
+</ul>
+<h3 id="emergency-authority-limits">Emergency Authority Limits</h3>
+<p>Current state:</p>
+<ul>
+<li>Emergency directive models and dashboard routes exist.</li>
+</ul>
+<p>Production requirements:</p>
+<ul>
+<li>Legal basis for each emergency action type.</li>
+<li>Time-bound directives with automatic expiry.</li>
+<li>Scope constraints by region, account class, merchant tier, or risk class.</li>
+<li>Dual approval and post-event review.</li>
+<li>Public transparency policy where appropriate.</li>
+</ul>
+<h3 id="privacy-and-data-minimization">Privacy And Data Minimization</h3>
+<p>Production requirements:</p>
+<ul>
+<li>Separation of payment, identity, AML, location, and aggregate analytics data.</li>
+<li>Role-scoped access to personally identifiable data.</li>
+<li>Coarsened location by default.</li>
+<li>Data retention schedules.</li>
+<li>Privacy impact assessment before any real citizen or merchant data is used.</li>
+</ul>
+<h3 id="national-dividend-and-cash-formalization-threat-boundary">National Dividend And Cash Formalization Threat Boundary</h3>
+<p>The proposed National Dividend Holding Company model adds higher-risk workflows
+than ordinary retail payments: oil-income receipts, citizen share entitlements,
+cash formalization, ministry funding, investment allocations, and dividend
+distribution. These workflows should be treated as public-finance critical
+infrastructure.</p>
+<p>Required controls before implementation:</p>
+<ul>
+<li>Statutory authority for oil-income handling, cash demonetization, dividend
+  formulas, share entitlement, and inheritance rules.</li>
+<li>Strict separation between citizen base shares and supplemental transition
+  entitlements created during any cash formalization window.</li>
+<li>KYC, sanctions screening, politically exposed person screening, enhanced due
+  diligence, caps, holds, referrals, and appeal paths for cash conversion.</li>
+<li>Four-eyes approval and immutable audit records for lockbox allocation,
+  stabilization-reserve release, gross-profit levy calculation, dividend-batch
+  creation, and post-facto correction.</li>
+<li>Public aggregate transparency for oil receipts, allocations, ministry
+  transfers, investment performance, dividend pool size, and audit exceptions.</li>
+<li>No anonymous conversion of cash into liquid or pledgeable assets.</li>
+<li>No operator, ministry, political party, contractor, bank, or private entity
+  ability to acquire citizen base shares.</li>
+</ul>
+<h3 id="reporting-vulnerabilities">Reporting Vulnerabilities</h3>
+<p>Do not disclose exploitable vulnerabilities through public issues, social media,
+or public pull requests.</p>
+<p>Until a dedicated security mailbox is provisioned, report privately to the
+project contact listed in <code>EXECUTIVE_SUMMARY.md</code>. Include:</p>
+<ul>
+<li>Affected component, endpoint, route, crate, or document.</li>
+<li>Reproduction steps or proof-of-concept details.</li>
+<li>Potential impact, including whether funds, identity data, audit logs, or
+  privileged operator actions are affected.</li>
+<li>Whether the issue has been shared with any third party.</li>
+</ul>
+<p>Expected handling:</p>
+<ul>
+<li>Acknowledge receipt within 3 business days when a valid contact channel is
+  available.</li>
+<li>Triage severity as critical, high, medium, or low.</li>
+<li>Avoid requesting public disclosure until a mitigation or documented residual
+  risk decision exists.</li>
+<li>Credit the reporter when appropriate and requested, subject to legal and
+  safety constraints.</li>
+</ul>
+<p>This process is a prototype disclosure policy. Before external deployment,
+replace it with a dedicated security contact, patch SLA, coordinated-disclosure
+timeline, and legal safe-harbor language.</p>
+<h1 id="part-24-current-implementation-status">Part 24: Current Implementation Status</h1>
+<h2 id="implementation-status">Implementation Status</h2>
+<h3 id="honest-status">Honest Status</h3>
+<p>Cylinder Seal is a prototype implementation with meaningful code coverage across domain modules, policy logic, dashboard routes, and tests. It is not production-ready CBDC/payment infrastructure.</p>
+<h3 id="implemented-or-partially-implemented">Implemented Or Partially Implemented</h3>
+<ul>
+<li>Core transaction models, signing primitives, nonce/journal concepts, and KYC tier limits.</li>
+<li>Policy modules for AML, rule evaluation, risk scoring, merchant tiers, hard restrictions, and programmability primitives.</li>
+<li>Consensus and sync prototypes, including Raft abstractions and conflict-resolution logic.</li>
+<li>POS/mobile-core codecs for QR/NFC/BLE-oriented payment payloads.</li>
+<li>CBI dashboard Axum service with PostgreSQL pool, Redis sessions, and route modules.</li>
+<li>Testable dashboard app builder plus route-level tests for session middleware, CSRF checks, logout invalidation, current role gates, and admin action audit recording.</li>
+<li>PostgreSQL-backed admin audit recorder for current sensitive dashboard actions, with in-memory test recorder.</li>
+<li>PostgreSQL migrations for the main application stack.</li>
+<li>Specification tests for many protocol and policy behaviors.</li>
+<li>Unified economic model documented as an integrated planning layer across Digital IQD, INDHC, ministries, credit, domestic production, strategic resilience manufacturing, tourism/exports, green/rail infrastructure, reinvestment, and dividends.</li>
+<li>National Dividend Holding Company policy architecture documented as a proposal, including oil-income lockbox, citizen share entitlements, cash formalization controls, ten-year investment plan, ministry funding, and monthly dividend flows.</li>
+<li>Ministry transition roadmap documented as a governance scenario for moving selected ministry functions into regulators, service contracts, municipalities, INDHC subsidiaries, or sunset agencies.</li>
+<li>National Civic Work System documented as a policy scenario for verified civic wages, civic credits, training records, public-value tasks, and productivity-transition support.</li>
+<li>National Legal and Institutional Roadmap documented as an authority checklist for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, securities, privacy, federalism, emergency powers, and appeals.</li>
+<li>Project Pipeline and Investment Gates documented as a project-family structure for capex, revenue sources, DSCR, FX exposure, facility reuse, environmental gates, legal authority, and evidence bundles.</li>
+<li>Political-Economy Transition and Anti-Capture model documented as a reform-readiness layer for capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, federalism, emergency powers, and citizen appeals.</li>
+<li>Fiscal Stress and Contingent Liability model documented as a downside-control layer for stressed oil-equity capacity, DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability.</li>
+<li>Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, and fiscal stress. These are planning primitives, not calibrated national forecasts.</li>
+<li>Rendered SVG value-chain charts now cover sector business chains, capital and repayment lanes, and society/economy feedback loops.</li>
+</ul>
+<h3 id="important-gaps">Important Gaps</h3>
+<ul>
+<li>Dashboard route integration tests now cover security middleware and selected skeletal handlers, but live PostgreSQL/Redis endpoint coverage is still incomplete.</li>
+<li>Some route handlers remain skeletal or demo-oriented.</li>
+<li>Role enforcement must continue to be applied as future sensitive handlers are implemented.</li>
+<li>Browser security hardening has a basic cookie/CSRF foundation but still needs full browser automation and deployment review.</li>
+<li>Admin audit logging is not yet a complete immutable retention system or regulator evidence-pack workflow.</li>
+<li>The unified economic model has scenario engines and persistence tables for several layers, but it is still not calibrated, independently validated, or suitable for real budget, debt, investment, or dividend decisions.</li>
+<li>The ministry transition roadmap is not implemented and would require legislation, civil-service transition, federal/governorate coordination, service-continuity testing, and independent audit before any real-world use.</li>
+<li>SQLite is not a supported dashboard runtime despite the presence of historical fixture scripts.</li>
+<li>Offline double-spend handling is not yet backed by audited secure hardware/attestation.</li>
+<li>HSM custody, national identity/KYC integration, CBI/core-banking integration, DR, and privacy review remain future work.</li>
+<li>The National Dividend Holding Company proposal and ten-year investment plan are only partially represented in scenario code and need legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation before data models or routes are treated as deployable.</li>
+<li>The National Civic Work System is not implemented in code and needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, and fiscal validation before any <code>cs-civic-work</code> module is treated as deployable.</li>
+<li>The legal/institutional roadmap and project pipeline are documentation layers only; they need independent legal opinions, official authority mapping, project feasibility studies, procurement review, environmental/social safeguards, and audited baseline data before any project is treated as investable.</li>
+<li>The political-economy engine is scenario scoring, not a real power map or legitimacy assessment. It needs independent Iraqi constitutional, federalism, anti-corruption, civil-service, labor, competition, citizen-rights, and security-sector review before it can guide any real transition.</li>
+<li>The fiscal stress engine is a planning control, not a sovereign debt-sustainability analysis. It needs Ministry of Finance, debt-office, CBI, IMF/MDB-style, auditor, and project-finance validation before any real capital allocation or dividend decision.</li>
+</ul>
+<h3 id="running-the-dashboard">Running The Dashboard</h3>
+<pre><code class="language-bash">cp .env.example .env
+docker compose up -d
+export DATABASE_URL=&quot;postgresql://postgres:${DB_PASSWORD:-change-me-dev-only}@localhost:5432/cylinder_seal&quot;
+cargo run --package cbi-dashboard
+</code></pre>
+<h3 id="verification">Verification</h3>
+<pre><code class="language-bash">cargo check --package cbi-dashboard
+cargo test --workspace
+</code></pre>
+<p>Passing these checks should be described as prototype verification, not production certification.</p>
+<h1 id="part-25-technical-primitives">Part 25: Technical Primitives</h1>
 <h2 id="technical-primitives-and-readiness-notes">Technical Primitives And Readiness Notes</h2>
 <p>This document maps the main technical claims to code that exists today and to the production gaps that still need to be closed. It is intentionally conservative: if something has a prototype implementation but lacks deployment hardening, it is marked as partial.</p>
 <p>For visual maps of the software architecture, transaction lifecycle, and financial-flow combinations, see <a href="system-and-financial-flow-diagrams.md">System And Financial Flow Diagrams</a>.</p>

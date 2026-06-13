@@ -61,7 +61,10 @@ pub async fn create_invoice(
     Json(req): Json<CreateInvoiceRequest>,
 ) -> Result<Json<CreateInvoiceResponse>, (StatusCode, String)> {
     if !principal.has_scope("invoice.create") && !principal.scopes.is_empty() {
-        return Err((StatusCode::FORBIDDEN, "missing scope: invoice.create".into()));
+        return Err((
+            StatusCode::FORBIDDEN,
+            "missing scope: invoice.create".into(),
+        ));
     }
     if req.amount_owc <= 0 {
         return Err((StatusCode::BAD_REQUEST, "amount_owc must be > 0".into()));
@@ -210,7 +213,10 @@ pub async fn set_fiscal_receipt(
 ) -> Result<Json<InvoiceStatusDto>, (StatusCode, String)> {
     let receipt = req.fiscal_receipt_ref.trim();
     if receipt.is_empty() {
-        return Err((StatusCode::BAD_REQUEST, "fiscal_receipt_ref must be non-empty".into()));
+        return Err((
+            StatusCode::BAD_REQUEST,
+            "fiscal_receipt_ref must be non-empty".into(),
+        ));
     }
     let inv = state
         .invoices
@@ -239,7 +245,10 @@ pub async fn set_fiscal_receipt(
         .get(invoice_id)
         .await
         .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()))?
-        .ok_or((StatusCode::NOT_FOUND, "invoice not found after update".into()))?;
+        .ok_or((
+            StatusCode::NOT_FOUND,
+            "invoice not found after update".into(),
+        ))?;
     Ok(Json(updated.into()))
 }
 

@@ -32,8 +32,7 @@ pub struct PrinterConfig {
 impl PosConfig {
     pub fn from_env() -> Self {
         Self {
-            merchant_name: std::env::var("POS_MERCHANT_NAME")
-                .unwrap_or_else(|_| "Merchant".into()),
+            merchant_name: std::env::var("POS_MERCHANT_NAME").unwrap_or_else(|_| "Merchant".into()),
             super_peer_url: std::env::var("POS_SUPER_PEER_URL")
                 .unwrap_or_else(|_| "https://sp-baghdad.cbi.iq:50051".into()),
             super_peer_http_url: std::env::var("POS_SUPER_PEER_HTTP_URL")

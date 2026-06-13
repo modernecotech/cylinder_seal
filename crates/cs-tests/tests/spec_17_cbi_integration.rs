@@ -115,8 +115,7 @@ fn spec_credit_scoring_calibrated_to_cbi_rates() {
     // The credit scoring spread must be calibrated against the CBI policy rate.
     let policy_rate = cbi::current_policy_rates().policy_rate;
     let best_spread_bps = cs_credit::suggested_spread_bps(850);
-    let best_total = policy_rate
-        + Decimal::from(best_spread_bps) / Decimal::from(100);
+    let best_total = policy_rate + Decimal::from(best_spread_bps) / Decimal::from(100);
     assert!(
         best_total < Decimal::from_str("10.0").unwrap(),
         "Spec violation: best borrower rate (policy + spread) should be below CBI commercial rate"

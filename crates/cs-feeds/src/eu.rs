@@ -137,8 +137,8 @@ struct EuCitizenship {
 }
 
 fn parse_json(bytes: &[u8]) -> Result<Vec<SanctionEntry>, FeedError> {
-    let parsed: EuExport = serde_json::from_slice(bytes)
-        .map_err(|e| FeedError::Parse(format!("eu json: {e}")))?;
+    let parsed: EuExport =
+        serde_json::from_slice(bytes).map_err(|e| FeedError::Parse(format!("eu json: {e}")))?;
     let mut out = Vec::with_capacity(parsed.entities.len());
     for e in parsed.entities {
         // Strong name = the canonical legal name; fall back to first
@@ -162,10 +162,7 @@ fn parse_json(bytes: &[u8]) -> Result<Vec<SanctionEntry>, FeedError> {
             _ => "individual",
         }
         .to_string();
-        let country = e
-            .citizenship
-            .into_iter()
-            .find_map(|c| c.country_iso2);
+        let country = e.citizenship.into_iter().find_map(|c| c.country_iso2);
         let program = e.regulation.and_then(|r| r.programme);
         out.push(SanctionEntry {
             source: "EU_CFSP".into(),

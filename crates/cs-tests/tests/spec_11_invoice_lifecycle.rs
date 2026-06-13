@@ -34,7 +34,10 @@ fn open_invoice(amount: i64, webhook: Option<&str>) -> InvoiceRecord {
 fn spec_invoice_uri_format_is_cs1_inv_hex() {
     let inv = open_invoice(1_000_000, None);
     let uri = format!("CS1:INV:{}", hex::encode_upper(inv.invoice_id.as_bytes()));
-    assert!(uri.starts_with("CS1:INV:"), "Spec: invoice URI prefix is CS1:INV:");
+    assert!(
+        uri.starts_with("CS1:INV:"),
+        "Spec: invoice URI prefix is CS1:INV:"
+    );
     let rest = uri.strip_prefix("CS1:INV:").unwrap();
     assert_eq!(rest.len(), 32, "Spec: 16-byte UUID encodes as 32 hex chars");
     assert!(
@@ -98,5 +101,8 @@ fn spec_memo_matching_uses_exact_invoice_id() {
     let mut arr = [0u8; 16];
     arr.copy_from_slice(&bytes);
     let parsed = Uuid::from_bytes(arr);
-    assert_eq!(parsed, id, "Spec: memo → invoice-id roundtrip must be bitwise exact");
+    assert_eq!(
+        parsed, id,
+        "Spec: memo → invoice-id roundtrip must be bitwise exact"
+    );
 }

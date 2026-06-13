@@ -62,7 +62,10 @@ fn spec_entry_is_confirmed_requires_3_of_5_quorum() {
 
     let kp = seeded_keypair("user");
     let mut entry = JournalEntry::genesis(kp.0);
-    assert!(!entry.is_confirmed(), "0 confirmations must not be confirmed");
+    assert!(
+        !entry.is_confirmed(),
+        "0 confirmations must not be confirmed"
+    );
 
     for i in 0..2 {
         entry.super_peer_confirmations.push(SuperPeerConfirmation {

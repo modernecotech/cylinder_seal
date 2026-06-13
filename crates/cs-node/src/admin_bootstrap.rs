@@ -10,9 +10,7 @@ use anyhow::{bail, Context, Result};
 use argon2::password_hash::{rand_core::OsRng, PasswordHasher, SaltString};
 use argon2::Argon2;
 use chrono::Utc;
-use cs_storage::compliance::{
-    AdminOperator, AdminOperatorRepository, PgAdminOperatorRepository,
-};
+use cs_storage::compliance::{AdminOperator, AdminOperatorRepository, PgAdminOperatorRepository};
 use cs_storage::postgres::PostgresConfig;
 use rand::RngCore;
 use std::sync::Arc;
@@ -100,7 +98,9 @@ async fn bootstrap(
             println!("Role: supervisor");
             println!("Password: {}", plain_password);
             println!("\nLog in via POST /v1/admin/auth/login with that password,");
-            println!("then immediately use POST /v1/admin/operators to create role-specific accounts");
+            println!(
+                "then immediately use POST /v1/admin/operators to create role-specific accounts"
+            );
             println!("for the rest of the team. Rotate this bootstrap password ASAP.");
         }
     }

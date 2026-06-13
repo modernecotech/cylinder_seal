@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use anyhow::Result;
+use serde::{Deserialize, Serialize};
 use std::env;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -86,7 +86,10 @@ impl Config {
         let environment = Environment::from_str(&env_str);
 
         if let Some(path) = config_path {
-            tracing::info!("Config file loading not yet implemented, ignoring: {}", path);
+            tracing::info!(
+                "Config file loading not yet implemented, ignoring: {}",
+                path
+            );
         }
 
         let server = ServerConfig {
@@ -130,7 +133,12 @@ impl Config {
 
         let peers: Vec<String> = env::var("SUPER_PEER_PEERS")
             .ok()
-            .map(|s| s.split(',').map(|p| p.trim().to_string()).filter(|p| !p.is_empty()).collect())
+            .map(|s| {
+                s.split(',')
+                    .map(|p| p.trim().to_string())
+                    .filter(|p| !p.is_empty())
+                    .collect()
+            })
             .unwrap_or_default();
 
         let super_peer = SuperPeerConfig {

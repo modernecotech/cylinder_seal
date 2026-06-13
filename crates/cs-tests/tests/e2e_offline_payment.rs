@@ -32,8 +32,7 @@ fn e2e_offline_payment_nfc_to_wallet() {
 
     // ---- Alice's prior nonce state (from her journal) ---------------------
     let prev_nonce = [0u8; 32];
-    let next_nonce = derive_nonce_with_hardware(&prev_nonce, &alice_hw, 1)
-        .expect("nonce derive");
+    let next_nonce = derive_nonce_with_hardware(&prev_nonce, &alice_hw, 1).expect("nonce derive");
 
     // ---- Step 1: Alice builds and signs a transaction ---------------------
     let mut tx = Transaction::new(
@@ -53,7 +52,10 @@ fn e2e_offline_payment_nfc_to_wallet() {
         LocationSource::GPS,
     );
     tx.sign(&alice_sk).expect("sign");
-    assert!(tx.verify_signature().is_ok(), "Alice's signature must be valid");
+    assert!(
+        tx.verify_signature().is_ok(),
+        "Alice's signature must be valid"
+    );
 
     // ---- Step 2: Wire-encode as CBOR (what travels NFC/BLE/QR) ------------
     let wire_bytes = serde_cbor::to_vec(&tx).expect("CBOR encode");
@@ -94,7 +96,10 @@ fn e2e_offline_payment_nfc_to_wallet() {
         (pk, sk)
     };
     entry.sign_with_device_key(&bob_kp2.1).unwrap();
-    assert!(entry.verify(&bob_kp2.0).is_ok(), "Journal entry must self-verify");
+    assert!(
+        entry.verify(&bob_kp2.0).is_ok(),
+        "Journal entry must self-verify"
+    );
 
     // ---- Step 5: Entry's prev_hash links to genesis -----------------------
     // Genesis-style: prev_entry_hash = BLAKE2b-256(owner_public_key).

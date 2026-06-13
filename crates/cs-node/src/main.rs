@@ -20,12 +20,12 @@ use cs_consensus::node::{RaftConfig, RaftNode};
 use cs_consensus::state_machine::LedgerStateMachine;
 use cs_credit::scheduler::CreditScheduler;
 use cs_credit::scorer::CreditScorer;
-use cs_storage::postgres::PostgresConfig;
 use cs_storage::compliance::{
     PgAdminAuditRepository, PgAdminOperatorRepository, PgBeneficialOwnerRepository,
     PgFeedRunRepository, PgRiskSnapshotRepository, PgRuleVersionRepository,
     PgSanctionsListRepository, PgTransactionEvaluationRepository, PgTravelRuleRepository,
 };
+use cs_storage::postgres::PostgresConfig;
 use cs_storage::postgres_impl::{
     PgApiKeyRepository, PgBusinessProfileRepository, PgInvoiceRepository, PgJournalRepository,
     PgUserRepository,
@@ -128,15 +128,11 @@ async fn main() -> Result<()> {
         port: cfg.redis.port,
         database: cfg.redis.db,
     };
-    let redis_pool = redis_cfg
-        .connect()
-        .await
-        .context("create redis pool")?;
+    let redis_pool = redis_cfg.connect().await.context("create redis pool")?;
 
     let journal: Arc<dyn cs_storage::JournalRepository> =
         Arc::new(PgJournalRepository::new(pool.clone()));
-    let users: Arc<dyn cs_storage::UserRepository> =
-        Arc::new(PgUserRepository::new(pool.clone()));
+    let users: Arc<dyn cs_storage::UserRepository> = Arc::new(PgUserRepository::new(pool.clone()));
     let business_profiles: Arc<dyn cs_storage::BusinessProfileRepository> =
         Arc::new(PgBusinessProfileRepository::new(pool.clone()));
     let api_keys: Arc<dyn cs_storage::ApiKeyRepository> =
@@ -167,21 +163,20 @@ async fn main() -> Result<()> {
         Arc::new(PgFeedRunRepository::new(pool.clone()));
     let sanctions_list: Arc<dyn cs_storage::compliance::SanctionsListRepository> =
         Arc::new(PgSanctionsListRepository::new(pool.clone()));
-    let user_regions: Arc<dyn cs_storage::iraq_phase2::UserRegionRepository> =
-        Arc::new(cs_storage::iraq_phase2::PgUserRegionRepository::new(pool.clone()));
+    let user_regions: Arc<dyn cs_storage::iraq_phase2::UserRegionRepository> = Arc::new(
+        cs_storage::iraq_phase2::PgUserRegionRepository::new(pool.clone()),
+    );
     let device_bindings: Arc<dyn cs_storage::iraq_phase2::DeviceBindingRepository> = Arc::new(
         cs_storage::iraq_phase2::PgDeviceBindingRepository::new(pool.clone()),
     );
-    let emergency_directives:
-        Arc<dyn cs_storage::iraq_phase2::EmergencyDirectiveRepository> = Arc::new(
-            cs_storage::iraq_phase2::PgEmergencyDirectiveRepository::new(pool.clone()),
-        );
-    let wallet_balances: Arc<dyn cs_storage::iraq_phase2::WalletBalanceRepository> =
-        Arc::new(cs_storage::iraq_phase2::PgWalletBalanceRepository::new(
-            pool.clone(),
-        ));
-    let cbi_peg: Arc<dyn cs_storage::iraq_phase2::CbiPegRepository> =
-        Arc::new(cs_storage::iraq_phase2::PgCbiPegRepository::new(pool.clone()));
+    let emergency_directives: Arc<dyn cs_storage::iraq_phase2::EmergencyDirectiveRepository> =
+        Arc::new(cs_storage::iraq_phase2::PgEmergencyDirectiveRepository::new(pool.clone()));
+    let wallet_balances: Arc<dyn cs_storage::iraq_phase2::WalletBalanceRepository> = Arc::new(
+        cs_storage::iraq_phase2::PgWalletBalanceRepository::new(pool.clone()),
+    );
+    let cbi_peg: Arc<dyn cs_storage::iraq_phase2::CbiPegRepository> = Arc::new(
+        cs_storage::iraq_phase2::PgCbiPegRepository::new(pool.clone()),
+    );
     let otp_repo: Arc<dyn cs_storage::iraq_phase2::OtpRepository> =
         Arc::new(cs_storage::iraq_phase2::PgOtpRepository::new(pool.clone()));
     let otp_sender: Arc<dyn cs_api::OtpSender> = Arc::new(cs_api::LogOnlyOtpSender);
@@ -194,16 +189,16 @@ async fn main() -> Result<()> {
     );
 
     // Producer registry / DOC / IP / restricted categories.
-    let producers: Arc<dyn cs_storage::producer_repo::ProducerRepository> =
-        Arc::new(cs_storage::producer_repo::PgProducerRepository::new(pool.clone()));
-    let docs: Arc<dyn cs_storage::producer_repo::DocRepository> =
-        Arc::new(cs_storage::producer_repo::PgDocRepository::new(pool.clone()));
-    let individual_producers: Arc<dyn cs_storage::producer_repo::IndividualProducerRepository> = Arc::new(
-        cs_storage::producer_repo::PgIndividualProducerRepository::new(pool.clone()),
+    let producers: Arc<dyn cs_storage::producer_repo::ProducerRepository> = Arc::new(
+        cs_storage::producer_repo::PgProducerRepository::new(pool.clone()),
     );
-    let restricted_categories: Arc<dyn cs_storage::producer_repo::RestrictedCategoryRepository> = Arc::new(
-        cs_storage::producer_repo::PgRestrictedCategoryRepository::new(pool.clone()),
+    let docs: Arc<dyn cs_storage::producer_repo::DocRepository> = Arc::new(
+        cs_storage::producer_repo::PgDocRepository::new(pool.clone()),
     );
+    let individual_producers: Arc<dyn cs_storage::producer_repo::IndividualProducerRepository> =
+        Arc::new(cs_storage::producer_repo::PgIndividualProducerRepository::new(pool.clone()));
+    let restricted_categories: Arc<dyn cs_storage::producer_repo::RestrictedCategoryRepository> =
+        Arc::new(cs_storage::producer_repo::PgRestrictedCategoryRepository::new(pool.clone()));
 
     // ---------------- Raft ----------------
     let applier: Arc<dyn LedgerStateMachine> =
@@ -309,8 +304,7 @@ async fn main() -> Result<()> {
             interval: Duration::from_secs(86_400),
         },
     ];
-    cs_feeds::FeedScheduler::new(feed_runs.clone(), sanctions_list.clone(), feeds_schedule)
-        .spawn();
+    cs_feeds::FeedScheduler::new(feed_runs.clone(), sanctions_list.clone(), feeds_schedule).spawn();
 
     // ---------------- Run all three servers ----------------
     tracing::info!(%grpc_addr, "gRPC listening");

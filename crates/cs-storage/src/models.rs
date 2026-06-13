@@ -1,8 +1,8 @@
 // Database models (may differ slightly from domain models)
-use uuid::Uuid;
 use chrono::{DateTime, Utc};
 use rust_decimal::Decimal;
 use serde_json::Value as JsonValue;
+use uuid::Uuid;
 
 /// Represents a journal entry in the super-ledger (PostgreSQL)
 /// Storage representation of JournalEntry from domain models
@@ -126,7 +126,7 @@ pub struct ConflictLog {
     pub id: i64,
     pub user_id: Uuid,
     pub conflicting_entries: JsonValue, // Details of competing JournalEntries
-    pub resolution_status: String,       // "pending", "resolved", "escalated"
+    pub resolution_status: String,      // "pending", "resolved", "escalated"
     pub created_at: DateTime<Utc>,
     pub resolved_at: Option<DateTime<Utc>>,
 }
@@ -137,7 +137,7 @@ pub struct CurrencyRate {
     pub id: i64,
     pub currency_pair: String, // e.g., "OWC/KES"
     pub rate: Decimal,
-    pub source: String,         // e.g., "interbank" (real rate, no markup)
+    pub source: String, // e.g., "interbank" (real rate, no markup)
     pub fetched_at: DateTime<Utc>,
 }
 

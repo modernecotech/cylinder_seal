@@ -128,10 +128,7 @@ pub enum RuleCondition {
     },
 
     /// Transaction count in a window exceeds threshold.
-    FrequencyExceeds {
-        window_minutes: u32,
-        max_count: u32,
-    },
+    FrequencyExceeds { window_minutes: u32, max_count: u32 },
 
     /// Multiple transactions within percentage of a reference amount
     /// (structuring indicator).
@@ -184,7 +181,10 @@ pub enum RuleCondition {
     BehavioralDeviation { deviation_factor: f64 },
 
     /// Custom condition evaluated by external webhook / plugin.
-    Custom { key: String, params: serde_json::Value },
+    Custom {
+        key: String,
+        params: serde_json::Value,
+    },
 }
 
 /// Action to take when a rule fires.
@@ -362,9 +362,7 @@ impl RuleEngine {
         let risk_score = raw_score.min(100);
         let risk_level = RiskLevel::from(risk_score);
 
-        let blocked = matches
-            .iter()
-            .any(|m| m.action == RuleAction::Block);
+        let blocked = matches.iter().any(|m| m.action == RuleAction::Block);
         let held = matches
             .iter()
             .any(|m| m.action == RuleAction::HoldForReview);
@@ -381,13 +379,11 @@ impl RuleEngine {
     }
 
     /// Check a single condition against the context.
-    fn check_condition(
-        &self,
-        cond: &RuleCondition,
-        ctx: &EvaluationContext,
-    ) -> Option<String> {
+    fn check_condition(&self, cond: &RuleCondition, ctx: &EvaluationContext) -> Option<String> {
         match cond {
-            RuleCondition::AmountExceeds { threshold_micro_owc } => {
+            RuleCondition::AmountExceeds {
+                threshold_micro_owc,
+            } => {
                 if ctx.amount_micro_owc >= *threshold_micro_owc {
                     Some(format!(
                         "Amount {} exceeds threshold {}",
@@ -446,8 +442,8 @@ impl RuleEngine {
                 ..
             } => {
                 let tolerance = (*reference_micro_owc as f64) * (*tolerance_pct as f64 / 100.0);
-                let near = (ctx.amount_micro_owc as f64 - *reference_micro_owc as f64).abs()
-                    <= tolerance;
+                let near =
+                    (ctx.amount_micro_owc as f64 - *reference_micro_owc as f64).abs() <= tolerance;
                 if near && ctx.near_threshold_count_15m + 1 >= *min_count {
                     Some(format!(
                         "Structuring: {} txs near {} threshold",
@@ -468,8 +464,7 @@ impl RuleEngine {
                 {
                     if ctx.latitude != 0.0 || ctx.longitude != 0.0 {
                         let km = haversine_km(lat, lon, ctx.latitude, ctx.longitude);
-                        let minutes =
-                            (ctx.timestamp_utc - ts).max(0) as f64 / 60_000_000.0;
+                        let minutes = (ctx.timestamp_utc - ts).max(0) as f64 / 60_000_000.0;
                         if minutes > 0.0
                             && km > *min_distance_km
                             && km / minutes > *max_km_per_minute
@@ -515,8 +510,8 @@ impl RuleEngine {
                 min_round_count,
                 ..
             } => {
-                let is_round = *round_unit_micro_owc > 0
-                    && ctx.amount_micro_owc % *round_unit_micro_owc == 0;
+                let is_round =
+                    *round_unit_micro_owc > 0 && ctx.amount_micro_owc % *round_unit_micro_owc == 0;
                 if is_round && ctx.round_amount_count_last_1h + 1 >= *min_round_count {
                     Some(format!(
                         "Round amount pattern: {} round txs, current = {}",
@@ -682,7 +677,6 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- Large cash / CTR ---
         AmlRule {
             rule_id: Uuid::new_v4(),
@@ -700,7 +694,6 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- Structuring ---
         AmlRule {
             rule_id: Uuid::new_v4(),
@@ -721,7 +714,6 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- Round amount patterns (layering) ---
         AmlRule {
             rule_id: Uuid::new_v4(),
@@ -741,7 +733,6 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- Rapid fan-out (layering) ---
         AmlRule {
             rule_id: Uuid::new_v4(),
@@ -760,7 +751,6 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- High-frequency burst ---
         AmlRule {
             rule_id: Uuid::new_v4(),
@@ -779,7 +769,6 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- Geographic anomaly ---
         AmlRule {
             rule_id: Uuid::new_v4(),
@@ -798,7 +787,6 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- Dormant account reactivation ---
         AmlRule {
             rule_id: Uuid::new_v4(),
@@ -818,7 +806,6 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- Behavioral deviation ---
         AmlRule {
             rule_id: Uuid::new_v4(),
@@ -836,7 +823,6 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- Counterparty risk ---
         AmlRule {
             rule_id: Uuid::new_v4(),
@@ -846,15 +832,12 @@ pub fn default_rules() -> Vec<AmlRule> {
             category: RuleCategory::Network,
             severity: RuleSeverity::Medium,
             enabled: true,
-            condition: RuleCondition::CounterpartyRiskAbove {
-                min_risk_score: 70,
-            },
+            condition: RuleCondition::CounterpartyRiskAbove { min_risk_score: 70 },
             action: RuleAction::EnhancedMonitoring,
             priority: 55,
             created_at: now,
             created_by: by.into(),
         },
-
         // --- PEP involvement ---
         AmlRule {
             rule_id: Uuid::new_v4(),
@@ -870,7 +853,6 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- High-risk jurisdictions (FATF grey/blacklist) ---
         AmlRule {
             rule_id: Uuid::new_v4(),
@@ -883,8 +865,11 @@ pub fn default_rules() -> Vec<AmlRule> {
             condition: RuleCondition::HighRiskJurisdiction {
                 // FATF blacklist/greylist as of 2025
                 country_codes: vec![
-                    "KP".into(), "IR".into(), "MM".into(), // Blacklist
-                    "SY".into(), "YE".into(),              // High-risk
+                    "KP".into(),
+                    "IR".into(),
+                    "MM".into(), // Blacklist
+                    "SY".into(),
+                    "YE".into(), // High-risk
                 ],
             },
             action: RuleAction::HoldForReview,
@@ -892,14 +877,14 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- Hawala typology: tight fan-out ---
         AmlRule {
             rule_id: Uuid::new_v4(),
             code: "HAW-001".into(),
             name: "Hawala-pattern fan-out".into(),
             description: "Funds dispersed to 6+ unique recipients in a 30-minute window — \
-                          tighter than LAY-002 to catch hawaladar settlement bursts".into(),
+                          tighter than LAY-002 to catch hawaladar settlement bursts"
+                .into(),
             category: RuleCategory::Network,
             severity: RuleSeverity::High,
             enabled: true,
@@ -912,14 +897,14 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- Hawala typology: structuring just under CBI CTR threshold ---
         AmlRule {
             rule_id: Uuid::new_v4(),
             code: "HAW-002".into(),
             name: "Hawala structuring under CTR threshold".into(),
             description: "Repeated transactions clustered within ~10% of the 10,000 OWC \
-                          CTR reporting threshold — classic hawala settlement smurfing".into(),
+                          CTR reporting threshold — classic hawala settlement smurfing"
+                .into(),
             category: RuleCategory::Structuring,
             severity: RuleSeverity::High,
             enabled: true,
@@ -934,14 +919,14 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- Hawala typology: round-tripping (A→B→A) ---
         AmlRule {
             rule_id: Uuid::new_v4(),
             code: "HAW-003".into(),
             name: "Hawala round-tripping".into(),
             description: "Funds returning to the originating wallet via an intermediary \
-                          within a short window — evaluated by the round-trip plugin".into(),
+                          within a short window — evaluated by the round-trip plugin"
+                .into(),
             category: RuleCategory::Custom,
             severity: RuleSeverity::High,
             enabled: true,
@@ -958,14 +943,14 @@ pub fn default_rules() -> Vec<AmlRule> {
             created_at: now,
             created_by: by.into(),
         },
-
         // --- Hawala typology: cross-region settlement (federal ↔ KRG) ---
         AmlRule {
             rule_id: Uuid::new_v4(),
             code: "HAW-004".into(),
             name: "Cross-region hawala settlement".into(),
             description: "Repeated cross-region (federal ↔ KRG) transfers from a single \
-                          sender — evaluated by the regional-flow plugin".into(),
+                          sender — evaluated by the regional-flow plugin"
+                .into(),
             category: RuleCategory::Custom,
             severity: RuleSeverity::Medium,
             enabled: true,
@@ -1038,7 +1023,12 @@ mod tests {
         let result = engine.evaluate(&ctx);
         assert!(result.matches.iter().any(|m| m.rule_code == "DOR-001"));
         assert_eq!(
-            result.matches.iter().find(|m| m.rule_code == "DOR-001").unwrap().action,
+            result
+                .matches
+                .iter()
+                .find(|m| m.rule_code == "DOR-001")
+                .unwrap()
+                .action,
             RuleAction::EnhancedMonitoring
         );
     }
@@ -1069,7 +1059,7 @@ mod tests {
         ctx.amount_micro_owc = 100_000_000; // 100 OWC
         ctx.historical_avg_amount = Some(5_000_000); // avg 5 OWC
         ctx.historical_std_dev = Some(10_000_000.0); // σ = 10 OWC
-        // 100 > 5 + 3*10 = 35 → triggers
+                                                     // 100 > 5 + 3*10 = 35 → triggers
         let result = engine.evaluate(&ctx);
         assert!(result.matches.iter().any(|m| m.rule_code == "BEH-001"));
     }
@@ -1100,9 +1090,9 @@ mod tests {
         let mut ctx = base_ctx();
         // Trigger multiple rules simultaneously
         ctx.amount_micro_owc = 15_000_000_000; // CTR (medium = 30)
-        ctx.sender_is_pep = true;               // PEP (high = 60)
+        ctx.sender_is_pep = true; // PEP (high = 60)
         ctx.days_since_last_activity = Some(100);
-        ctx.tx_count_last_1h = 3;               // Dormant (high = 60)
+        ctx.tx_count_last_1h = 3; // Dormant (high = 60)
         let result = engine.evaluate(&ctx);
         // Score should be capped at 100
         assert!(result.risk_score > 50);
@@ -1127,9 +1117,9 @@ mod tests {
     fn geographic_anomaly_detected() {
         let engine = RuleEngine::with_defaults();
         let mut ctx = base_ctx();
-        ctx.latitude = 33.3152;  // Baghdad
+        ctx.latitude = 33.3152; // Baghdad
         ctx.longitude = 44.3661;
-        ctx.last_tx_lat = Some(36.1901);  // Erbil (~350km away)
+        ctx.last_tx_lat = Some(36.1901); // Erbil (~350km away)
         ctx.last_tx_lon = Some(44.0091);
         ctx.last_tx_timestamp = Some(ctx.timestamp_utc - 60_000_000); // 1 min ago
         let result = engine.evaluate(&ctx);

@@ -62,11 +62,7 @@ pub async fn register_business(
     }
 
     // The user must already exist; registration upgrades the account type.
-    let user = state
-        .users
-        .get_user(req.user_id)
-        .await
-        .map_err(internal)?;
+    let user = state.users.get_user(req.user_id).await.map_err(internal)?;
     let Some(mut user) = user else {
         return Err((StatusCode::NOT_FOUND, "user not found".into()));
     };
@@ -77,9 +73,13 @@ pub async fn register_business(
     // Validate & collect signer keys.
     let mut signers: Vec<String> = Vec::with_capacity(req.authorized_signer_public_keys_hex.len());
     for hex_key in &req.authorized_signer_public_keys_hex {
-        let bytes = hex::decode(hex_key).map_err(|e| (StatusCode::BAD_REQUEST, format!("invalid signer hex: {e}")))?;
+        let bytes = hex::decode(hex_key)
+            .map_err(|e| (StatusCode::BAD_REQUEST, format!("invalid signer hex: {e}")))?;
         if bytes.len() != 32 {
-            return Err((StatusCode::BAD_REQUEST, "signer public key must be 32 bytes".into()));
+            return Err((
+                StatusCode::BAD_REQUEST,
+                "signer public key must be 32 bytes".into(),
+            ));
         }
         signers.push(hex_key.clone());
     }
@@ -137,7 +137,11 @@ pub async fn get_business(
     State(state): State<ApiState>,
     Path(user_id): Path<Uuid>,
 ) -> Result<Json<BusinessProfileDto>, (StatusCode, String)> {
-    let profile = state.business_profiles.get(user_id).await.map_err(internal)?;
+    let profile = state
+        .business_profiles
+        .get(user_id)
+        .await
+        .map_err(internal)?;
     let Some(p) = profile else {
         return Err((StatusCode::NOT_FOUND, "business profile not found".into()));
     };
@@ -164,7 +168,11 @@ pub async fn approve_business(
     State(state): State<ApiState>,
     Path(user_id): Path<Uuid>,
 ) -> Result<StatusCode, (StatusCode, String)> {
-    state.business_profiles.approve(user_id).await.map_err(internal)?;
+    state
+        .business_profiles
+        .approve(user_id)
+        .await
+        .map_err(internal)?;
     Ok(StatusCode::NO_CONTENT)
 }
 
@@ -172,7 +180,11 @@ pub async fn mark_edd_cleared(
     State(state): State<ApiState>,
     Path(user_id): Path<Uuid>,
 ) -> Result<StatusCode, (StatusCode, String)> {
-    state.business_profiles.mark_edd_cleared(user_id).await.map_err(internal)?;
+    state
+        .business_profiles
+        .mark_edd_cleared(user_id)
+        .await
+        .map_err(internal)?;
     Ok(StatusCode::NO_CONTENT)
 }
 
@@ -255,7 +267,11 @@ pub async fn list_api_keys(
     State(state): State<ApiState>,
     Path(user_id): Path<Uuid>,
 ) -> Result<Json<Vec<ListKeyItem>>, (StatusCode, String)> {
-    let keys = state.api_keys.list_for_user(user_id).await.map_err(internal)?;
+    let keys = state
+        .api_keys
+        .list_for_user(user_id)
+        .await
+        .map_err(internal)?;
     Ok(Json(
         keys.into_iter()
             .map(|k| ListKeyItem {

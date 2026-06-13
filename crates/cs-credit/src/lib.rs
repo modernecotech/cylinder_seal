@@ -14,6 +14,6 @@ pub use cashflow::{
     CashFlowFeatures, Flow,
 };
 pub use scorer::{
-    BatchCreditScorer, CreditScorer, MIN_HISTORY_FOR_SCORE, SCORE_MAX, SCORE_MIN,
-    cbi_policy_rate, suggested_spread_bps,
+    cbi_policy_rate, suggested_spread_bps, BatchCreditScorer, CreditScorer, MIN_HISTORY_FOR_SCORE,
+    SCORE_MAX, SCORE_MIN,
 };

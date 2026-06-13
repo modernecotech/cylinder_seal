@@ -110,7 +110,10 @@ impl<R: MerchantRepository> MerchantTierClassifier<R> {
         recipient_public_key: &[u8],
         amount_micro_owc: i64,
     ) -> Result<TierPolicy> {
-        let merchant = self.merchants.get_by_public_key(recipient_public_key).await?;
+        let merchant = self
+            .merchants
+            .get_by_public_key(recipient_public_key)
+            .await?;
         let Some(merchant) = merchant else {
             // Recipient isn't a registered merchant — treat as P2P, zero fee.
             return Ok(TierPolicy {
@@ -127,11 +130,7 @@ impl<R: MerchantRepository> MerchantTierClassifier<R> {
     }
 }
 
-fn classify_tier(
-    merchant: &MerchantRecord,
-    tier: MerchantTier,
-    amount: i64,
-) -> TierPolicy {
+fn classify_tier(merchant: &MerchantRecord, tier: MerchantTier, amount: i64) -> TierPolicy {
     match tier {
         MerchantTier::Tier1 => TierPolicy {
             tier,
@@ -178,10 +177,7 @@ fn classify_tier(
                     merchant.display_name, merchant.category
                 )
             } else {
-                format!(
-                    "Tier 4 merchant '{}' (pure imports)",
-                    merchant.display_name
-                )
+                format!("Tier 4 merchant '{}' (pure imports)", merchant.display_name)
             },
         },
         MerchantTier::Unclassified => TierPolicy {

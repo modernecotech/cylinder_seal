@@ -2,15 +2,17 @@
 
 ## Start Here
 
-- `README.md` - concise project overview, current status, quick start, and production-readiness boundary.
-- `DEVELOPMENT_GUIDE.md` - PostgreSQL/Redis development runbook.
-- `SECURITY.md` - security model, threat areas, and production requirements.
-- `docs/technical-primitives.md` - implementation evidence and gaps for offline payments, consensus, AML, privacy, and disaster recovery.
-- `docs/system-and-financial-flow-diagrams.md` - rendered SVG architecture diagrams, transaction lifecycles, and financial-flow combinations.
+- `README.md` - economic-system front door, source discipline, production-readiness boundary, and software appendix.
+- `EXECUTIVE_SUMMARY.md` - economic-system summary for expert review.
+- `FINAL_SUMMARY.md` - current repository summary with economic model first and software appendix second.
 - `docs/business-value-chain-charts.md` - rendered SVG business charts for all sector value chains, capital and repayment lanes, and society/economy feedback loops.
 - `docs/economic-assumptions.md` - source discipline and current public facts for Iraq-specific claims.
 - `docs/unified-economic-model.md` - integrated economic model linking Digital IQD, INDHC, ministries, banks, producers, strategic resilience manufacturing, infrastructure, tourism, credit, taxes, civic work, reinvestment, and citizen dividends.
 - `docs/national-economic-operating-logic.md` - management spine for the model: ledgers, hard gates, portfolio modes, scoring, cash/benefit conversion, capital allocation, dashboards, and escalation rules.
+- `docs/national-legal-institutional-roadmap.md` - authority path for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, domestic securities, privacy, emergency powers, federalism, and appeals.
+- `docs/project-pipeline-and-investment-gates.md` - project-family pipeline with capex, revenue source, DSCR, FX exposure, facility reuse, environmental, legal, and evidence gates.
+- `docs/political-economy-transition-and-anti-capture.md` - resistance, capture-risk, coalition, service-continuity, staff-transition, procurement-transparency, and pause/rollback logic.
+- `docs/fiscal-stress-and-contingent-liability-model.md` - downside stress controls for oil-equity caps, DSCR, FX mismatch, maintenance gaps, guarantees, collection weakness, capex overruns, and dividend suspension.
 - `docs/iraq-integrated-growth-impact-model.md` - quantified non-oil growth-impact timeline for infrastructure, industry, open-source rail, green power, food/water systems, tourism, Digital IQD formalization, and civic work.
 - `docs/iraq-comprehensive-benefits-model.md` - long-horizon 2036, 2040, and 2050 benefits model for economic, infrastructure, environmental, social, and cultural outcomes.
 - `docs/policy-paper.md` - deprecated policy-paper boundary note; the earlier long-form narrative is no longer the front-door claim source.
@@ -22,13 +24,16 @@
 - `docs/digitally-governed-industrial-champions.md` - anti-capture model for sectoral Iraqi industrial champion groups with conditional demand, conditional credit, export discipline, competition gates, and public audit.
 - `docs/national-civic-work-system.md` - digitally verified civic labor, wage, training, care, environmental, sport, culture, municipal, and climate-resilience transition layer.
 - `docs/ministry-transition-roadmap.md` - staged roadmap for deprecating, merging, regulating, corporatizing, or sunsetting ministry functions once service continuity and audit gates are met.
+- `docs/system-and-financial-flow-diagrams.md` - rendered SVG architecture diagrams, transaction lifecycles, and financial-flow combinations, with software treated as implementation appendix.
 
 ## API And Implementation
 
+- `DEVELOPMENT_GUIDE.md` - PostgreSQL/Redis development runbook.
+- `SECURITY.md` - security model, threat areas, and production requirements.
+- `docs/technical-primitives.md` - implementation evidence and gaps for offline payments, consensus, AML, privacy, and disaster recovery.
 - `API_REFERENCE.md` - dashboard endpoint reference and local demo operator notes.
 - `IMPLEMENTATION_STATUS.md` - honest prototype status and gaps.
 - `SPECIFICATION_AND_FIXTURE_RESULTS.md` - specification checks, fixture checks, route-level evidence, and missing live integration/security coverage.
-- `FINAL_SUMMARY.md` - concise current prototype summary.
 - `COMPLETION_CHECKLIST.md` - production-readiness checklist.
 
 ## Runtime Note

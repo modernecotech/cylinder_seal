@@ -95,7 +95,8 @@ mod ubi_distribution_tests {
         let trade_pct = 0.05;
         let trade_contribution = total_ubi_budget * trade_pct;
 
-        let total_sources = gov_contribution + seigniorage_contribution + levy_contribution + trade_contribution;
+        let total_sources =
+            gov_contribution + seigniorage_contribution + levy_contribution + trade_contribution;
         assert!((total_sources - total_ubi_budget).abs() < 1.0); // Within rounding error
     }
 
@@ -217,7 +218,7 @@ mod ubi_distribution_tests {
 
         // With UBI ($200/month × 10M citizens = $2B/month → 2T IQD/month)
         let ubi_monthly_iqd = 2_000_000_000_000_i64; // IQD
-        // Assume 60% goes to food (Tier 1), 40% to other goods/services (Tier 2)
+                                                     // Assume 60% goes to food (Tier 1), 40% to other goods/services (Tier 2)
         let ubi_tier1_allocation = (ubi_monthly_iqd as f64 * 0.60) as i64;
         let ubi_tier2_allocation = (ubi_monthly_iqd as f64 * 0.40) as i64;
 

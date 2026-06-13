@@ -106,12 +106,7 @@ impl RaftLog {
     }
 
     /// Convenience: append a fresh entry with the next available index.
-    pub fn append_new(
-        &mut self,
-        term: RaftTerm,
-        kind: EntryKind,
-        payload: Vec<u8>,
-    ) -> LogIndex {
+    pub fn append_new(&mut self, term: RaftTerm, kind: EntryKind, payload: Vec<u8>) -> LogIndex {
         let index = self.len() + 1;
         self.entries.push(LogEntry {
             term,

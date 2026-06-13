@@ -9,9 +9,7 @@ use axum::extract::{Path, State};
 use axum::http::StatusCode;
 use axum::Extension;
 use axum::Json;
-use cs_storage::iraq_phase2::{
-    DeviceBindingRepository, Region, UserRegionRepository,
-};
+use cs_storage::iraq_phase2::{DeviceBindingRepository, Region, UserRegionRepository};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
@@ -47,8 +45,10 @@ pub async fn set_user_region(
             "officer role required to retag region".into(),
         ));
     }
-    let region = Region::from_str(&req.region)
-        .ok_or((StatusCode::BAD_REQUEST, "region must be 'federal' or 'krg'".into()))?;
+    let region = Region::from_str(&req.region).ok_or((
+        StatusCode::BAD_REQUEST,
+        "region must be 'federal' or 'krg'".into(),
+    ))?;
     let prev = state
         .region_repo
         .set_region(user_id, region)
@@ -103,8 +103,12 @@ pub async fn set_device_binding(
     Path(user_id): Path<Uuid>,
     Json(req): Json<SetDeviceBindingRequest>,
 ) -> Result<Json<DeviceBindingResponse>, (StatusCode, String)> {
-    let signature = hex::decode(req.signature_hex.trim())
-        .map_err(|e| (StatusCode::BAD_REQUEST, format!("invalid signature_hex: {e}")))?;
+    let signature = hex::decode(req.signature_hex.trim()).map_err(|e| {
+        (
+            StatusCode::BAD_REQUEST,
+            format!("invalid signature_hex: {e}"),
+        )
+    })?;
     if signature.len() != 32 {
         return Err((
             StatusCode::BAD_REQUEST,

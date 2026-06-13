@@ -186,7 +186,13 @@ async fn spec_nfc_receipt_beats_online_in_a_tie() {
     // Stored sibling = Online channel.
     let sibling_hash = [0xBBu8; 32];
     journal
-        .insert_entry(&stored_entry(user_id, [0u8; 32], sibling_hash, ts, "Online"))
+        .insert_entry(&stored_entry(
+            user_id,
+            [0u8; 32],
+            sibling_hash,
+            ts,
+            "Online",
+        ))
         .await
         .unwrap();
 

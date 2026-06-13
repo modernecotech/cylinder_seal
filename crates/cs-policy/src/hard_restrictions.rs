@@ -54,7 +54,10 @@ impl HardRestrictionOutcome {
 /// - If product_category is not on the restricted list → allow.
 /// - If effective_from is in the future → allow (not yet active).
 /// - If merchant_tier > max_allowed_tier → block.
-pub fn evaluate(ctx: &TransferContext, restrictions: &[RestrictedCategory]) -> HardRestrictionOutcome {
+pub fn evaluate(
+    ctx: &TransferContext,
+    restrictions: &[RestrictedCategory],
+) -> HardRestrictionOutcome {
     if !ctx.funds_origin.is_government_transfer() {
         return HardRestrictionOutcome::Allowed;
     }
@@ -89,7 +92,9 @@ pub fn evaluate(ctx: &TransferContext, restrictions: &[RestrictedCategory]) -> H
                 rule.category,
                 ctx.merchant_tier,
                 rule.max_allowed_tier,
-                rule.cbi_circular_ref.clone().unwrap_or_else(|| "n/a".into())
+                rule.cbi_circular_ref
+                    .clone()
+                    .unwrap_or_else(|| "n/a".into())
             ),
         }
     } else {
@@ -117,7 +122,12 @@ mod tests {
         }]
     }
 
-    fn ctx(origin: FundsOrigin, cat: Option<&str>, tier: u8, d: (i32, u32, u32)) -> TransferContext {
+    fn ctx(
+        origin: FundsOrigin,
+        cat: Option<&str>,
+        tier: u8,
+        d: (i32, u32, u32),
+    ) -> TransferContext {
         TransferContext {
             funds_origin: origin,
             product_category: cat.map(|s| s.to_string()),
@@ -147,13 +157,19 @@ mod tests {
     #[test]
     fn gov_funds_tier_3_blocked_for_food() {
         let c = ctx(FundsOrigin::Salary, Some("food"), 3, (2026, 12, 1));
-        assert!(matches!(evaluate(&c, &rules()), HardRestrictionOutcome::Blocked { .. }));
+        assert!(matches!(
+            evaluate(&c, &rules()),
+            HardRestrictionOutcome::Blocked { .. }
+        ));
     }
 
     #[test]
     fn gov_funds_tier_4_blocked_for_food() {
         let c = ctx(FundsOrigin::Pension, Some("food"), 4, (2026, 12, 1));
-        assert!(matches!(evaluate(&c, &rules()), HardRestrictionOutcome::Blocked { .. }));
+        assert!(matches!(
+            evaluate(&c, &rules()),
+            HardRestrictionOutcome::Blocked { .. }
+        ));
     }
 
     #[test]
@@ -177,6 +193,9 @@ mod tests {
     #[test]
     fn case_insensitive_category_match() {
         let c = ctx(FundsOrigin::Salary, Some("FOOD"), 3, (2026, 12, 1));
-        assert!(matches!(evaluate(&c, &rules()), HardRestrictionOutcome::Blocked { .. }));
+        assert!(matches!(
+            evaluate(&c, &rules()),
+            HardRestrictionOutcome::Blocked { .. }
+        ));
     }
 }

@@ -17,6 +17,10 @@ mod tests {
     #[test]
     fn test_conversion_uses_real_rate() {
         let rate = Decimal::new(15050, 2); // 150.50
-        assert_eq!(convert_at_real_rate(rate), rate, "Must use real rate with zero markup");
+        assert_eq!(
+            convert_at_real_rate(rate),
+            rate,
+            "Must use real rate with zero markup"
+        );
     }
 }

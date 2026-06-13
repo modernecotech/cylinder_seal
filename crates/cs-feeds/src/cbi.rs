@@ -109,8 +109,14 @@ fn parse_csv(bytes: &[u8]) -> Result<Vec<SanctionEntry>, FeedError> {
             .filter(|s| !s.is_empty())
             .collect();
         let entity_type = r.get(3).unwrap_or("individual").trim().to_lowercase();
-        let country = r.get(4).map(|s| s.trim().to_string()).filter(|s| !s.is_empty());
-        let program = r.get(5).map(|s| s.trim().to_string()).filter(|s| !s.is_empty());
+        let country = r
+            .get(4)
+            .map(|s| s.trim().to_string())
+            .filter(|s| !s.is_empty());
+        let program = r
+            .get(5)
+            .map(|s| s.trim().to_string())
+            .filter(|s| !s.is_empty());
         out.push(SanctionEntry {
             source: "CBI_IQ".into(),
             external_id: id.clone(),

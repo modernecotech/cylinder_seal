@@ -47,9 +47,7 @@ pub fn render_qr_to_slint_image(payload: &str, target_px: u32) -> Result<slint::
         rgba.extend_from_slice(&[v, v, v, 255]);
     }
 
-    let pixel_buf = slint::SharedPixelBuffer::<slint::Rgba8Pixel>::clone_from_slice(
-        &rgba, w, h,
-    );
+    let pixel_buf = slint::SharedPixelBuffer::<slint::Rgba8Pixel>::clone_from_slice(&rgba, w, h);
     Ok(slint::Image::from_rgba8(pixel_buf))
 }
 
@@ -68,7 +66,8 @@ pub fn spawn_scanner(camera_index: u32) -> Result<mpsc::Receiver<String>> {
 
 fn run_scanner(camera_index: u32, tx: mpsc::Sender<String>) -> Result<()> {
     let index = CameraIndex::Index(camera_index);
-    let requested = RequestedFormat::new::<RgbFormat>(RequestedFormatType::AbsoluteHighestFrameRate);
+    let requested =
+        RequestedFormat::new::<RgbFormat>(RequestedFormatType::AbsoluteHighestFrameRate);
     let mut camera = Camera::new(index, requested).context("open camera")?;
     camera.open_stream().context("open stream")?;
 

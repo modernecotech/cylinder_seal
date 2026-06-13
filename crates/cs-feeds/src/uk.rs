@@ -122,14 +122,8 @@ fn parse_csv(bytes: &[u8]) -> Result<Vec<SanctionEntry>, FeedError> {
         .get("country")
         .or_else(|| idx.get("countryofbirth"))
         .copied();
-    let regime = idx
-        .get("regimename")
-        .or_else(|| idx.get("regime"))
-        .copied();
-    let group_type = idx
-        .get("grouptype")
-        .or_else(|| idx.get("type"))
-        .copied();
+    let regime = idx.get("regimename").or_else(|| idx.get("regime")).copied();
+    let group_type = idx.get("grouptype").or_else(|| idx.get("type")).copied();
 
     // Group rows by group_id so we collapse the per-alias rows that HMT
     // emits as separate lines into a single SanctionEntry.

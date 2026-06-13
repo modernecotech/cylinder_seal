@@ -11,6 +11,12 @@ Status: policy-design scenario. It is not a competition-law opinion, investment
 recommendation, procurement plan, or claim that any champion group should receive
 permanent protection.
 
+Use this document with the
+[Political-Economy Transition And Anti-Capture Model](political-economy-transition-and-anti-capture.md).
+No champion privilege should scale if capture risk, resistance pressure,
+procurement opacity, service-continuity risk, or citizen-appeal failure pushes
+the political-economy engine into blocked, visibility-only, or rollback mode.
+
 ## Source Discipline
 
 | Lesson | Use in Cylinder Seal | Source |
@@ -250,6 +256,26 @@ Protection must be time-limited and performance-linked.
 | Learning | 3-5 | Tier advantages, procurement preference, quality-lab support, export-market assistance. | Unit cost must converge toward import parity after learning period. |
 | Competition | 6-8 | Declining fee advantages and procurement preference; export credit only for proven lines. | Excessive prices, weak quality, or low export progress removes privileges. |
 | Mature | 9-10 | Normal commercial finance, open procurement competition, targeted R&D only. | Champion status is renewed only for strategic sectors with proven public value. |
+
+## Failure And Exit Rules
+
+Champion groups are tools for capability building, not protected permanent
+entitlements.
+
+| Failure signal | Required response |
+| --- | --- |
+| Score below 50 for two consecutive quarters | Suspend new privileges and publish a turnaround decision. |
+| DSCR below threshold without approved recovery | Freeze new debt and dividend claims from the group. |
+| Repeated price above import parity after the learning period | Remove procurement preference or open the line to competitors. |
+| Certification, safety, or product-quality breach | Suspend affected product line until independent clearance. |
+| Related-party, beneficial-ownership, sanctions, or PEP breach | Suspend procurement privileges and refer to audit/legal authority. |
+| SME exclusion or supplier concentration breach | Narrow champion status and require supplier-market remediation. |
+| No export or FX pathway for tradable sectors by the competition phase | Graduate to ordinary domestic company status or restructure. |
+
+Exit tools include management replacement, sale or lease of non-strategic assets,
+competitive concession, merger into a stronger group, SME spin-out, orderly
+closure, or conversion into a regulated public-service operator. A failing group
+cannot be kept alive only to preserve a headline industrial policy narrative.
 
 ## Export Discipline
 

@@ -57,8 +57,7 @@ impl FeedAggregator {
         // The CBI publishes rates for currencies traded at the Iraqi
         // foreign currency auction (see cbi.iq/page/144).
         self.cross_rates.insert("USD".into(), Decimal::ONE);
-        self.cross_rates
-            .insert("IQD".into(), cbi_rate.iqd_per_usd);
+        self.cross_rates.insert("IQD".into(), cbi_rate.iqd_per_usd);
 
         // TODO: fetch live cross-rates from external APIs
         // (exchangerate.host, Open Exchange Rates, etc.) for non-IQD pairs.
@@ -107,10 +106,7 @@ impl FeedAggregator {
     pub fn latest_monetary_snapshot(&self) -> Option<cbi::CbiMonetarySnapshot> {
         let snaps = cbi::monetary_snapshots();
         // Find the latest snapshot that has full M0/M1/M2 data
-        snaps
-            .into_iter()
-            .rev()
-            .find(|s| !s.m0.is_zero())
+        snaps.into_iter().rev().find(|s| !s.m0.is_zero())
     }
 
     /// Get Iraq e-payment infrastructure statistics for benchmarking.

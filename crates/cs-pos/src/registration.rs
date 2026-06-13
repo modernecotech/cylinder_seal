@@ -165,7 +165,10 @@ impl Registrar {
         let cached = self.read_status().ok();
         self.write_status(&RegistrationStatusFile {
             state: state.as_str().to_string(),
-            legal_name: cached.as_ref().map(|c| c.legal_name.clone()).unwrap_or_default(),
+            legal_name: cached
+                .as_ref()
+                .map(|c| c.legal_name.clone())
+                .unwrap_or_default(),
             commercial_registration_id: cached
                 .as_ref()
                 .map(|c| c.commercial_registration_id.clone())
@@ -212,10 +215,16 @@ mod tests {
 
     #[test]
     fn approval_state_roundtrip_strings() {
-        assert_eq!(ApprovalState::from_str("pending_review"), ApprovalState::PendingReview);
+        assert_eq!(
+            ApprovalState::from_str("pending_review"),
+            ApprovalState::PendingReview
+        );
         assert_eq!(ApprovalState::from_str("approved"), ApprovalState::Approved);
         assert_eq!(ApprovalState::from_str("rejected"), ApprovalState::Rejected);
-        assert_eq!(ApprovalState::from_str("anything-else"), ApprovalState::Unregistered);
+        assert_eq!(
+            ApprovalState::from_str("anything-else"),
+            ApprovalState::Unregistered
+        );
 
         assert_eq!(ApprovalState::PendingReview.as_str(), "pending_review");
         assert_eq!(ApprovalState::Approved.as_str(), "approved");

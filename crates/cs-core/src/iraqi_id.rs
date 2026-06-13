@@ -65,7 +65,9 @@ pub fn validate_iraqi_national_card(s: &str) -> Result<String, IraqiIdError> {
         .collect();
 
     if digits.len() != IQ_NATIONAL_CARD_LEN {
-        return Err(IraqiIdError::WrongLength { actual: digits.len() });
+        return Err(IraqiIdError::WrongLength {
+            actual: digits.len(),
+        });
     }
     if !digits.chars().all(|c| c.is_ascii_digit()) {
         return Err(IraqiIdError::NonDigit);
@@ -109,7 +111,10 @@ mod tests {
 
     #[test]
     fn rejects_empty() {
-        assert_eq!(validate_iraqi_national_card("   "), Err(IraqiIdError::Empty));
+        assert_eq!(
+            validate_iraqi_national_card("   "),
+            Err(IraqiIdError::Empty)
+        );
     }
 
     #[test]

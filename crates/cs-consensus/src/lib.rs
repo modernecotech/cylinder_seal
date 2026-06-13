@@ -18,8 +18,8 @@
 pub mod log;
 pub mod node;
 pub mod rpc;
-pub mod transport;
 pub mod state_machine;
+pub mod transport;
 
 pub use log::{LogEntry, LogIndex, RaftLog, RaftTerm};
 pub use node::{NodeId, RaftConfig, RaftNode, RaftRole, RaftState};

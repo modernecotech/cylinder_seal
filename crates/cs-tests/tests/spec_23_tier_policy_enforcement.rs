@@ -155,10 +155,7 @@ fn signed_tx(
 
 /// Resolve (tier, category) via the stub repo the same way
 /// `ChainSyncService::resolve_merchant_tier_and_category` does.
-fn resolve_tier_and_category(
-    repo: &StubMerchantRepository,
-    pk: &[u8; 32],
-) -> (u8, Option<String>) {
+fn resolve_tier_and_category(repo: &StubMerchantRepository, pk: &[u8; 32]) -> (u8, Option<String>) {
     let rt = tokio::runtime::Builder::new_current_thread()
         .enable_all()
         .build()
@@ -247,7 +244,10 @@ fn spec_salary_blocked_at_tier4_food_merchant() {
 
     match evaluate(&ctx, &rules) {
         HardRestrictionOutcome::Blocked { reason } => {
-            assert!(reason.contains("food"), "reason must reference category: {reason}");
+            assert!(
+                reason.contains("food"),
+                "reason must reference category: {reason}"
+            );
         }
         other => panic!("expected Blocked, got {other:?}"),
     }

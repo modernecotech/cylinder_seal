@@ -25,7 +25,7 @@ Digital IQD, green, food/water, and civic-work layers could raise non-oil growth
 over ten years.
 The [Iraq Quantified Affordability And Cashflow Model](iraq-quantified-affordability-model.md)
 uses IMF baseline data to distinguish a fiscal-safe starter case, a USD 115B
-constrained base case, and the USD 190B strategic upper envelope used below.
+constrained base case, and a USD 190B strategic upper envelope.
 Under the IMF baseline, the USD 190B envelope should not be treated as the
 default affordable case.
 See [National Civic Work System](national-civic-work-system.md) for the
@@ -42,6 +42,10 @@ demand, conditional credit, export discipline, competition gates, and debt caps.
 See [Facility Recycling And Capital Markets](facility-recycling-and-capital-markets.md)
 for the brownfield-first registry, rehabilitation screening, international
 credit routes, and domestic bond/sukuk/equity financing logic.
+See [National Legal And Institutional Roadmap](national-legal-institutional-roadmap.md)
+for the legal authority path. See
+[Project Pipeline And Investment Gates](project-pipeline-and-investment-gates.md)
+for the project-family fields that must exist before capital is allocated.
 
 ## Source Discipline
 
@@ -93,55 +97,55 @@ INDHC exists to create a sovereign economic feedback loop:
 
 ## Capital Stack
 
-The strategic upper envelope uses USD 190 billion. The constrained base case is
-USD 115 billion and is detailed in
+The default plan now uses the USD 115 billion constrained-base envelope from
 [Iraq Quantified Affordability And Cashflow Model](iraq-quantified-affordability-model.md).
+USD 190 billion remains a strategic upper envelope only after audited cashflow,
+debt safety, fiscal space, private crowd-in, and delivery capacity are proven.
 
 This is not a recommendation to borrow blindly. It is a stress-testable planning
 envelope showing how oil equity and debt could combine without turning INDHC into
 a payroll vehicle.
 
-| Source | Ten-year base case | Use | Guardrail |
+| Source | Constrained-base amount | Use | Guardrail |
 | --- | ---: | --- | --- |
-| Oil-income equity capital | USD 120B | First-loss equity, domestic capital projects, strategic assets, training, early works, legal cleanup and engineering audits for facility recycling | Set by statute as a capped share of oil receipts after stabilization allocation; no dividend from asset revaluation. |
-| Concessional and MDB loans | USD 22B | Water, grid, climate adaptation, public transport, skills, governance systems, and rehabilitation packages with public-good value | Only for projects with public-good value and transparent repayment source. |
-| Green bonds / green sukuk | USD 20B | Solar, wind, storage, grid, waste-to-energy, energy efficiency | Certified use-of-proceeds, external verification, public project register. |
-| Export-credit and supplier finance | USD 18B | Rail equipment, factories, grid equipment, industrial machinery, rehab machinery, and certified production lines | Requires technology transfer, Iraqi staff training, and open-interface procurement. |
-| Project finance / PPP debt | USD 10B | Revenue assets with user fees, offtake contracts, industrial parks, ports, tourism, and private-operation concessions for rehabilitated facilities | No hidden ministry bailout; project debt service coverage ratio above 1.30. |
-| Local IQD infrastructure bonds | USD 0-10B equivalent | Optional domestic savings instrument after market validation; later-stage funding for audited, ring-fenced local-currency assets | No forced bank purchases; CBI monetary-policy compatibility required; trustee, disclosure, and investor-protection rules must be in force. |
+| Oil-income equity capital | USD 65.8B | First-loss equity, domestic capital projects, strategic assets, training, early works, legal cleanup, and engineering audits for facility recycling. | Mostly reclassified from disciplined public capex while deficits persist; no dividend from asset revaluation. |
+| Project loans and debt | USD 33.8B | Revenue-generating green, water, rail, manufacturing, logistics, tourism, industrial assets, and rehabilitated facilities with signed contracts. | No hidden ministry bailout; DSCR covenant required; FX debt must match FX revenue or approved reserve buffer. |
+| PPP / JV equity | USD 15.4B | Tourism, logistics, industrial parks, selected manufacturing, station-area development, and private operation of rehabilitated assets. | No asset stripping, no related-party capture, public audit, and public asset-control rules. |
+| Domestic IQD sukuk / infrastructure bonds | Pilot only | Mature ring-fenced local-currency assets after audited cashflow and market testing. | No forced bank purchases; CBI monetary-policy compatibility, trustee, disclosure, and investor-protection rules must be in force. |
+| Retained earnings | Later-stage | Maintenance, reinvestment, debt reduction, dividend stabilization, and resilience reserves. | Builds only after audited operating cash exists. |
 
-Base case totals USD 190B without counting optional local bonds. A conservative
-case is USD 115B over ten years. An aggressive case is USD 260B, but only if
-oil receipts, debt capacity, governance, and project delivery improve.
+The constrained base totals USD 115B over ten years. A fiscal-safe starter case
+is USD 65B. The USD 190B strategic upper case should be kept as a later
+scale-up option, not as the front plan.
 
 ## Capital Allocation By Sector
 
-| Sector | Base case allocation | Oil equity | Loans and project debt | Main return path |
-| --- | ---: | ---: | ---: | --- |
-| Strategic manufacturing, import substitution, electronics, HVAC, defense industrial base, and raw-material post-processing | USD 62B | USD 42B | USD 20B | Domestic sales, public procurement savings, export margin, gross-profit levy. |
-| Open rail, metro, logistics, and intercity connections | USD 38B | USD 20B | USD 18B | Fares, land-value capture, service contracts, freight/logistics revenue. |
-| Green technology, power, grid, and waste-to-energy | USD 32B | USD 16B | USD 16B | PPAs, industrial power sales, avoided fuel cost, green finance. |
-| Tourism and tradable services | USD 20B | USD 13B | USD 7B | Visitor spending, hotel/platform revenue, service exports. |
-| Agriculture, food substitution, water/desalination, irrigation, and cold chain | USD 22B | USD 14B | USD 8B | Domestic food sales, reduced imports, water-service revenue, agro-export margin. |
-| Housing inputs and urban services | USD 8B | USD 7B | USD 1B | Materials sales, utility service contracts, municipal availability payments. |
-| Digital public infrastructure and SME platforms | USD 5B | USD 5B | USD 0B | Transaction fees, analytics services, credit enablement, public savings. |
-| Workforce, R&D, and industrial standards | USD 3B | USD 3B | USD 0B | Capability building; not expected to be a standalone profit center. |
-| **Total** | **USD 190B** | **USD 120B** | **USD 70B** | Base-case planning envelope. |
+| Sector | Constrained-base allocation | Oil equity | Loans / debt | PPP / JV | Main return path |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Strategic manufacturing, import substitution, electronics, HVAC, defense-controlled sustainment, and raw-material post-processing | USD 37.0B | USD 22.0B | USD 9.0B | USD 6.0B | Domestic sales, public procurement substitution, maintenance, selective exports, gross-profit levy. |
+| Open rail, metro, logistics, and intercity connections | USD 19.0B | USD 10.0B | USD 7.0B | USD 2.0B | Fares, availability payments, service contracts, freight/logistics revenue, station services, land-value capture. |
+| Green technology, power, grid, and waste-to-energy | USD 18.0B | USD 10.0B | USD 8.0B | USD 0.0B | PPAs, industrial power sales, grid services, verified efficiency contracts. |
+| Tourism and tradable services | USD 12.0B | USD 4.0B | USD 1.6B | USD 6.4B | Visitor logistics, hotel/JV revenue, booking/payment platforms, service exports. |
+| Agriculture, food substitution, water/desalination, irrigation, and cold chain | USD 16.0B | USD 9.5B | USD 5.5B | USD 1.0B | Food processing, water services, irrigation equipment, storage, cold chain, agro-export margin. |
+| Housing inputs and urban services | USD 5.0B | USD 3.0B | USD 2.0B | USD 0.0B | Materials sales, utility maintenance, leakage reduction, municipal service contracts. |
+| Digital public infrastructure and SME platforms | USD 4.0B | USD 3.3B | USD 0.7B | USD 0.0B | Payment/compliance services, analytics, credit enablement, procurement platforms. |
+| Workforce, R&D, and industrial standards | USD 4.0B | USD 4.0B | USD 0.0B | USD 0.0B | Capability building; return appears through other sectors. |
+| **Total** | **USD 115.0B** | **USD 65.8B** | **USD 33.8B** | **USD 15.4B** | Constrained-base planning envelope. |
 
 ## Ten-Year Phasing
 
-| Year | Oil equity | Loans / project debt | Core work |
-| --- | ---: | ---: | --- |
-| 1 | USD 8B | USD 2B | Pass enabling law, create Oil Income Lockbox, appoint board, open public project and facility-reuse registries, launch Iraqi-only permanent staffing rule, define defense-industrial legal controls, begin feasibility studies, start quick-rehab projects in cement, food processing, grid loss reduction, and tourism services. |
-| 2 | USD 10B | USD 4B | Create first subsidiaries, launch INDHC Academy, start cash formalization systems, issue first green sukuk pilot, complete open rail reference architecture, package first facility-recycling candidates for IFC/MDB/ECA/local-bank and domestic sukuk feasibility, begin Baghdad metro co-investment, and design electronics/HVAC/water-equipment procurement localization. |
-| 3 | USD 11B | USD 5B | Start Basra industrial processing belt, fertilizer/gas-feedstock projects, construction-material network, solar procurement, regulated defense sustainment/protective-equipment lines, irrigation-equipment assembly, religious tourism logistics platform, and first domestic rail fabrication work packages. |
-| 4 | USD 12B | USD 6B | Build first rail corridors, expand cement/brick/glass/pipes, launch agro-processing clusters, start Najaf-Karbala visitor services corridor, launch desalination and water-treatment equipment assembly, and move first ministry service payments onto performance contracts. |
-| 5 | USD 12B | USD 7B | Reach first operating-profit cycle in quick-win subsidiaries, commission first large solar/storage batches, scale domestic steel/rebar capacity, expand electronics and HVAC assembly, publish first dividend formula stress test, and begin monthly pilot dividends from audited surplus. |
-| 6 | USD 13B | USD 8B | Expand metro/light-metro delivery to Basra, Mosul, Najaf-Karbala, and Erbil/Sulaymaniyah subject to local agreements; scale petrochemical/plastics, fertilizer exports, food-staple substitution, and national tourism booking/payment rails. |
-| 7 | USD 13B | USD 9B | Move from import substitution to export competition in selected products, expand grid and industrial parks, launch domestic battery-pack/smart-meter assembly, mature HVAC and electronics supplier networks, and deepen rail operations training. |
-| 8 | USD 13B | USD 9B | Complete second wave of city transit networks, integrate cold chain and food logistics nationally, scale medical/pharma import substitution, expand desalination/irrigation manufacturing, and increase retained earnings reinvestment from operating subsidiaries. |
-| 9 | USD 14B | USD 10B | Consolidate underperforming projects, list minority non-voting project bonds where appropriate, expand regional service exports, upgrade industrial parks to low-carbon export zones, and raise dividend stability reserve. |
-| 10 | USD 14B | USD 10B | Shift from construction-heavy spending to renewal, maintenance, export growth, dividends, and debt reduction; publish ten-year audit, citizen return statement, and next ten-year plan. |
+| Year | Oil equity | Loans / debt | PPP / JV | Core work |
+| --- | ---: | ---: | ---: | --- |
+| 1 | USD 5.0B | USD 1.0B | USD 0.5B | Pass enabling law, create Oil Income Lockbox, appoint board, open public project and facility-reuse registries, launch Iraqi-only permanent staffing rule, define defense-industrial legal controls, begin feasibility studies, start quick-rehab projects in cement, food processing, grid loss reduction, and tourism services. |
+| 2 | USD 5.5B | USD 2.8B | USD 1.2B | Create first subsidiaries, launch INDHC Academy, start cash formalization systems, prepare green sukuk and PPP pilots, complete open rail reference architecture, package first facility-recycling candidates, begin Baghdad metro co-investment, and design electronics/HVAC/water-equipment procurement localization. |
+| 3 | USD 6.2B | USD 4.2B | USD 1.6B | Start Basra industrial processing belt, fertilizer/gas-feedstock projects, construction-material network, solar procurement, regulated defense sustainment/protective-equipment lines, irrigation-equipment assembly, religious tourism logistics platform, and first domestic rail fabrication work packages. |
+| 4 | USD 6.7B | USD 4.8B | USD 2.0B | Build first rail corridors, expand cement/brick/glass/pipes, launch agro-processing clusters, start Najaf-Karbala visitor services corridor, launch desalination and water-treatment equipment assembly, and move first ministry service payments onto performance contracts. |
+| 5 | USD 6.8B | USD 3.8B | USD 1.4B | Reach first operating-profit cycle in quick-win subsidiaries, commission first large solar/storage batches, scale domestic steel/rebar capacity, expand electronics and HVAC assembly, publish first dividend formula stress test, and begin only if audited surplus exists. |
+| 6 | USD 6.8B | USD 3.8B | USD 1.4B | Expand metro/light-metro delivery subject to local agreements; scale petrochemical/plastics, fertilizer exports, food-staple substitution, and national tourism booking/payment rails. |
+| 7 | USD 7.0B | USD 3.8B | USD 1.7B | Move from import substitution to export competition in selected products, expand grid and industrial parks, launch domestic battery-pack/smart-meter assembly, mature HVAC and electronics supplier networks, and deepen rail operations training. |
+| 8 | USD 7.2B | USD 3.5B | USD 1.8B | Complete second wave of city transit networks where gates pass, integrate cold chain and food logistics nationally, scale medical/pharma import substitution, expand desalination/irrigation manufacturing, and increase retained earnings reinvestment. |
+| 9 | USD 7.4B | USD 3.2B | USD 1.9B | Consolidate underperforming projects, pilot minority non-voting project securities where appropriate, expand regional service exports, upgrade industrial parks to low-carbon export zones, and raise dividend stability reserve. |
+| 10 | USD 7.2B | USD 2.9B | USD 1.9B | Shift from construction-heavy spending to renewal, maintenance, export growth, dividends, and debt reduction; publish ten-year audit, citizen return statement, and next ten-year plan. |
 
 ## Cashflow Model Rules
 

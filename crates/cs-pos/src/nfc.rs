@@ -84,7 +84,8 @@ fn watch_one(
 ) -> Result<()> {
     // Block until a card is present.
     let mut states = vec![ReaderState::new(reader.clone(), State::UNAWARE)];
-    ctx.get_status_change(None, &mut states).context("status change")?;
+    ctx.get_status_change(None, &mut states)
+        .context("status change")?;
 
     if !states[0].event_state().contains(State::PRESENT) {
         return Ok(());
@@ -147,8 +148,7 @@ fn exchange(card: &pcsc::Card, apdu: &[u8], recv_buf: &mut [u8]) -> Result<u16> 
         if response.len() < 2 {
             anyhow::bail!("truncated APDU response");
         }
-        let sw =
-            ((response[response.len() - 2] as u16) << 8) | response[response.len() - 1] as u16;
+        let sw = ((response[response.len() - 2] as u16) << 8) | response[response.len() - 1] as u16;
         (sw, response.len() - 2)
     };
     // The response bytes already live at `recv_buf[0..data_len]`; zero

@@ -27,7 +27,9 @@ pub fn qr_encode(cbor: &[u8]) -> Result<String, CoreError> {
 }
 
 pub fn qr_decode(qr: &str) -> Result<Vec<u8>, CoreError> {
-    let payload = qr.strip_prefix(QR_PREFIX).ok_or(CoreError::InvalidPayload)?;
+    let payload = qr
+        .strip_prefix(QR_PREFIX)
+        .ok_or(CoreError::InvalidPayload)?;
     hex::decode(payload).map_err(|_| CoreError::InvalidPayload)
 }
 

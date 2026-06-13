@@ -13,8 +13,7 @@ use chrono::{DateTime, Datelike, Utc};
 use uuid::Uuid;
 
 use cs_core::producer::{
-    IndividualProducer, IpCategory, IpFlag, IpFlagSeverity, IpFlagSource, IpMonthlyRollup,
-    IpStatus,
+    IndividualProducer, IpCategory, IpFlag, IpFlagSeverity, IpFlagSource, IpMonthlyRollup, IpStatus,
 };
 
 /// Default monthly gross cap for newly-registered IPs (IQD).

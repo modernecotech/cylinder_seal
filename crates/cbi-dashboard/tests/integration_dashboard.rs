@@ -131,15 +131,33 @@ mod tests {
         let projects = vec![
             ("proj-001", "Najaf Cement Plant", "Cement", "operational"),
             ("proj-002", "Basra Steel Mill", "Steel", "commissioning"),
-            ("proj-003", "Karbala Pharma Complex", "Pharmaceuticals", "construction"),
-            ("proj-004", "Basra Petrochemical Hub", "Petrochemicals", "planning"),
-            ("proj-005", "Baghdad Tourism District", "Tourism", "operational"),
+            (
+                "proj-003",
+                "Karbala Pharma Complex",
+                "Pharmaceuticals",
+                "construction",
+            ),
+            (
+                "proj-004",
+                "Basra Petrochemical Hub",
+                "Petrochemicals",
+                "planning",
+            ),
+            (
+                "proj-005",
+                "Baghdad Tourism District",
+                "Tourism",
+                "operational",
+            ),
         ];
 
         assert_eq!(projects.len(), 5, "Expected 5 test projects");
 
         // Verify status distribution
-        let operational = projects.iter().filter(|(_, _, _, s)| *s == "operational").count();
+        let operational = projects
+            .iter()
+            .filter(|(_, _, _, s)| *s == "operational")
+            .count();
         assert_eq!(operational, 2, "Expected 2 operational projects");
     }
 

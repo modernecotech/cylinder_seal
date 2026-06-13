@@ -108,7 +108,9 @@ impl WebhookDispatcher {
             .map_err(|e| CylinderSealError::NetworkError(e.to_string()))?;
 
         if resp.status().is_success() {
-            self.invoices.record_webhook_delivery(inv.invoice_id).await?;
+            self.invoices
+                .record_webhook_delivery(inv.invoice_id)
+                .await?;
             Ok(())
         } else {
             Err(CylinderSealError::NetworkError(format!(

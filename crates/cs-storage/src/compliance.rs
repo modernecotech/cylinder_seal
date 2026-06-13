@@ -295,11 +295,7 @@ pub struct TransactionEvaluationRow {
 pub trait RiskSnapshotRepository: Send + Sync {
     async fn record(&self, snapshot: &RiskAssessmentSnapshot) -> Result<i64>;
     async fn latest_for_user(&self, user_id: Uuid) -> Result<Option<RiskAssessmentSnapshot>>;
-    async fn history_for_user(
-        &self,
-        user_id: Uuid,
-        limit: i32,
-    ) -> Result<Vec<RiskSnapshotRow>>;
+    async fn history_for_user(&self, user_id: Uuid, limit: i32) -> Result<Vec<RiskSnapshotRow>>;
 }
 
 #[derive(Clone, Debug)]
@@ -333,7 +329,8 @@ pub trait TravelRuleRepository: Send + Sync {
 #[async_trait]
 pub trait BeneficialOwnerRepository: Send + Sync {
     async fn add(&self, owner: &BeneficialOwnerRecord) -> Result<i64>;
-    async fn list_for_business(&self, business_user_id: Uuid) -> Result<Vec<BeneficialOwnerRecord>>;
+    async fn list_for_business(&self, business_user_id: Uuid)
+        -> Result<Vec<BeneficialOwnerRecord>>;
     async fn mark_verified(&self, owner_id: i64, verified_by: Uuid) -> Result<()>;
     async fn total_disclosed_pct(&self, business_user_id: Uuid) -> Result<Decimal>;
 }
@@ -376,19 +373,12 @@ pub trait SanctionsListRepository: Send + Sync {
     /// Upsert all entries from one feed. Bumps `last_seen_at` on every
     /// row even if otherwise unchanged (so the soft-delete sweep below
     /// can identify rows that the upstream stopped publishing).
-    async fn upsert_batch(
-        &self,
-        entries: &[SanctionsEntryInput],
-    ) -> Result<SanctionsUpsertCounts>;
+    async fn upsert_batch(&self, entries: &[SanctionsEntryInput]) -> Result<SanctionsUpsertCounts>;
 
     /// Soft-delete rows from `source` whose `last_seen_at` is older than
     /// `cutoff` — i.e. didn't appear in the most recent fetch. Returns
     /// the number of rows transitioned to `effective = false`.
-    async fn mark_unseen_inactive(
-        &self,
-        source: &str,
-        cutoff: DateTime<Utc>,
-    ) -> Result<i64>;
+    async fn mark_unseen_inactive(&self, source: &str, cutoff: DateTime<Utc>) -> Result<i64>;
 
     /// Equality + alias-array screening on the normalised name. Returns
     /// only `effective = true` rows. Cheap fast-path; production should
@@ -848,11 +838,7 @@ impl RiskSnapshotRepository for PgRiskSnapshotRepository {
         }))
     }
 
-    async fn history_for_user(
-        &self,
-        user_id: Uuid,
-        limit: i32,
-    ) -> Result<Vec<RiskSnapshotRow>> {
+    async fn history_for_user(&self, user_id: Uuid, limit: i32) -> Result<Vec<RiskSnapshotRow>> {
         let rows = sqlx::query(
             r#"
             SELECT composite_score, risk_tier, assessed_at, assessed_by
@@ -1353,14 +1339,12 @@ fn canonicalise_tokens(s: &str) -> String {
 fn canonicalise_token(tok: &str) -> String {
     match tok {
         // Muhammad cluster
-        "mohammed" | "mohamed" | "mohammad" | "mohamad" | "muhammed" | "mohammet"
-        | "mehmet" | "mahomet" => "muhammad".into(),
+        "mohammed" | "mohamed" | "mohammad" | "mohamad" | "muhammed" | "mohammet" | "mehmet"
+        | "mahomet" => "muhammad".into(),
         // Ahmad cluster
         "ahmed" | "ahmet" | "ahmod" => "ahmad".into(),
         // Hussein cluster
-        "hussain" | "husain" | "huseyin" | "hussien" | "hossein" | "husayn" => {
-            "hussein".into()
-        }
+        "hussain" | "husain" | "huseyin" | "hussien" | "hossein" | "husayn" => "hussein".into(),
         // Hassan cluster
         "hasan" | "hassen" | "hasen" => "hassan".into(),
         // Ali cluster (already canonical, but fold close variants)
@@ -1381,10 +1365,7 @@ fn canonicalise_token(tok: &str) -> String {
 
 #[async_trait]
 impl SanctionsListRepository for PgSanctionsListRepository {
-    async fn upsert_batch(
-        &self,
-        entries: &[SanctionsEntryInput],
-    ) -> Result<SanctionsUpsertCounts> {
+    async fn upsert_batch(&self, entries: &[SanctionsEntryInput]) -> Result<SanctionsUpsertCounts> {
         let mut tx = self.pool.begin().await.map_err(db_err)?;
         let mut counts = SanctionsUpsertCounts::default();
 
@@ -1492,11 +1473,7 @@ impl SanctionsListRepository for PgSanctionsListRepository {
         Ok(counts)
     }
 
-    async fn mark_unseen_inactive(
-        &self,
-        source: &str,
-        cutoff: DateTime<Utc>,
-    ) -> Result<i64> {
+    async fn mark_unseen_inactive(&self, source: &str, cutoff: DateTime<Utc>) -> Result<i64> {
         let row = sqlx::query(
             r#"
             UPDATE sanctions_list_entries
@@ -1663,10 +1640,7 @@ mod tests {
     #[test]
     fn normalises_diacritics_and_case() {
         assert_eq!(normalise_screening_name("José García"), "jose garcia");
-        assert_eq!(
-            normalise_screening_name("  Müller   AG "),
-            "muller ag"
-        );
+        assert_eq!(normalise_screening_name("  Müller   AG "), "muller ag");
     }
 
     #[test]
@@ -1697,7 +1671,10 @@ mod tests {
             normalise_screening_name("فاطمه")
         );
         // alef maqsura ى at the end folds to yaa ي
-        assert_eq!(normalise_screening_name("هدى"), normalise_screening_name("هدي"));
+        assert_eq!(
+            normalise_screening_name("هدى"),
+            normalise_screening_name("هدي")
+        );
     }
 
     #[test]

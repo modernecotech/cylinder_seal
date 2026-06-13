@@ -19,6 +19,8 @@ No capital allocation without gates.
 No dividend without audited distributable surplus.
 No ministry funding without visible public value.
 No strategic program without anti-capture controls.
+No transition scale-up without political-economy readiness.
+No scale-up under fiscal stress.
 ```
 
 The purpose is to stop oil income from flowing directly into passive ministry
@@ -136,6 +138,8 @@ forward no matter how attractive the narrative is.
 | Anti-capture | Related-party exposure, monopoly risk, PEP/sanctions risk, and procurement concentration are within limits. |
 | Privacy and security | Data use, access controls, auditability, offline settlement, and operator powers meet the security model. |
 | Citizen fairness | Dividends, civic work, transfers, and appeals are rules-based and auditable. |
+| Political-economy readiness | Resistance, capture risk, coalition support, service continuity, staff transition, procurement transparency, competition control, federalism, and appeals support the proposed transition mode. |
+| Fiscal stress | Oil-equity draw, stressed DSCR, FX cover, maintenance reserves, contingent liabilities, collection efficiency, capex overruns, and dividend affordability remain inside limits. |
 
 ## Portfolio Scoring
 
@@ -215,6 +219,10 @@ Capital allocation should proceed in this order:
 8. Fund dividends only from audited surplus after reserves and retained
    earnings.
 
+If a project or reform passes commercial scoring but fails political-economy
+readiness, the correct action is visibility-only measurement, a smaller pilot,
+pause, rollback, or redesign. A rational spreadsheet is not enough.
+
 This order prevents a politically attractive dividend from consuming the capital
 base that must produce future dividends.
 
@@ -262,6 +270,8 @@ kernel, not a complete national operating system.
 | `StrategicResilienceProjection` | Controlled-sector resilience, import-vulnerability reduction, critical spares, supplier diversification, end-use controls, and audit boundaries. |
 | `TourismServiceClusterProjection` | Attraction-based service revenue, non-oil FX capture, local supplier demand, second-order benefit, visitor safety, conservation, and capacity gates. |
 | `DiasporaChannelProjection` | Formal remittances, Iraqi-product demand, export distribution, expertise, investment pipeline, marketing attribution, and compliance gates. |
+| `PoliticalEconomyProjection` | Capture risk, resistance pressure, coalition readiness, citizen legitimacy, transition readiness, and recommended transition mode. |
+| `FiscalStressProjection` | Stressed oil-equity capacity, fiscal-rule breach, DSCR, FX mismatch, maintenance gap, contingent liability, dividend gap, and recommended stress mode. |
 
 Initial executable coverage:
 
@@ -335,6 +345,20 @@ Initial executable coverage:
   consumer protection, data privacy, distribution coverage, conversion evidence,
   and investment suitability. `migrations/20260710000001_diaspora_channels_projection.sql`
   adds projection, ledger, and gate tables.
+- `crates/cs-analytics/src/political_economy.rs` adds the first
+  political-economy transition layer: capture risk, resistance pressure,
+  coalition readiness, citizen legitimacy, transition mode selection, and gates
+  for legal authority, service continuity, staff transition, audit, appeals,
+  procurement transparency, beneficial ownership, competition, federalism, and
+  emergency powers. `migrations/20260712000001_political_economy_transition.sql`
+  adds projection and gate tables.
+- `crates/cs-analytics/src/fiscal_stress.rs` adds the first fiscal-stress and
+  contingent-liability layer: stressed oil-equity capacity, deficit/debt/reserve
+  pressure, stressed DSCR, FX mismatch, maintenance gaps, guarantee and
+  availability-payment exposure, collection efficiency, capex overruns,
+  dividend affordability, and stable/watch/defensive/stop-scale-up mode
+  selection. `migrations/20260713000001_fiscal_stress_projection.sql` adds
+  projection and gate tables.
 
 ## Management Dashboards
 
@@ -355,6 +379,8 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Diaspora channels | Which diaspora markets are producing settled income, export orders, expertise, investment leads, marketing conversion, or formalized remittances? |
 | Ministry productivity | Which public budgets now buy measured outputs? |
 | Citizen welfare | What changed in wages, transfers, civic income, dividends, prices, and credit access? |
+| Political economy | Which reforms face capture, resistance, weak coalition support, service-continuity failure, staff-transition failure, or federalism risk? |
+| Fiscal stress | Which projects or portfolios breach oil-equity limits, stressed DSCR, FX cover, maintenance reserves, contingent-liability caps, collection efficiency, or dividend affordability? |
 | Risk and capture | Where are procurement, related-party, concentration, AML, or security risks rising? |
 | Dividend sustainability | Is the dividend funded by recurring surplus after all senior claims? |
 

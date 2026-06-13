@@ -37,11 +37,14 @@ BOOK_STATUS = "Prototype and policy-design ebook. Not production CBDC infrastruc
 
 BOOK_PARTS = [
     BookPart("Project Overview", ROOT / "README.md"),
-    BookPart("Current Implementation Status", ROOT / "IMPLEMENTATION_STATUS.md"),
+    BookPart("Executive Summary", ROOT / "EXECUTIVE_SUMMARY.md"),
     BookPart("Final Summary", ROOT / "FINAL_SUMMARY.md"),
-    BookPart("Security Model", ROOT / "SECURITY.md"),
     BookPart("Economic Assumptions And Source Discipline", ROOT / "docs" / "economic-assumptions.md"),
     BookPart("National Economic Operating Logic", ROOT / "docs" / "national-economic-operating-logic.md"),
+    BookPart("National Legal And Institutional Roadmap", ROOT / "docs" / "national-legal-institutional-roadmap.md"),
+    BookPart("Project Pipeline And Investment Gates", ROOT / "docs" / "project-pipeline-and-investment-gates.md"),
+    BookPart("Political-Economy Transition And Anti-Capture", ROOT / "docs" / "political-economy-transition-and-anti-capture.md"),
+    BookPart("Fiscal Stress And Contingent Liability", ROOT / "docs" / "fiscal-stress-and-contingent-liability-model.md"),
     BookPart("Iraq Integrated Growth Impact Model", ROOT / "docs" / "iraq-integrated-growth-impact-model.md"),
     BookPart("Iraq Comprehensive Benefits Model", ROOT / "docs" / "iraq-comprehensive-benefits-model.md"),
     BookPart("Iraq Quantified Affordability And Cashflow Model", ROOT / "docs" / "iraq-quantified-affordability-model.md"),
@@ -55,6 +58,8 @@ BOOK_PARTS = [
     BookPart("Digitally Governed Industrial Champions", ROOT / "docs" / "digitally-governed-industrial-champions.md"),
     BookPart("National Civic Work System", ROOT / "docs" / "national-civic-work-system.md"),
     BookPart("Ministry Transition Roadmap", ROOT / "docs" / "ministry-transition-roadmap.md"),
+    BookPart("Security Model", ROOT / "SECURITY.md"),
+    BookPart("Current Implementation Status", ROOT / "IMPLEMENTATION_STATUS.md"),
     BookPart("Technical Primitives", ROOT / "docs" / "technical-primitives.md"),
 ]
 

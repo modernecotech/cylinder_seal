@@ -57,7 +57,9 @@ impl Store {
         }
         let conn = Connection::open(path).context("open pos.db")?;
         conn.execute_batch(SCHEMA).context("apply schema")?;
-        Ok(Self { conn: Mutex::new(conn) })
+        Ok(Self {
+            conn: Mutex::new(conn),
+        })
     }
 
     // ---- Merchant key management ----
@@ -101,7 +103,13 @@ impl Store {
             "INSERT OR IGNORE INTO pending
                 (entry_hash, cbor, amount_micro_owc, transport, received_at, attempt_count)
              VALUES (?1, ?2, ?3, ?4, ?5, 0)",
-            params![row.entry_hash, row.cbor, row.amount_micro_owc, row.transport, row.received_at],
+            params![
+                row.entry_hash,
+                row.cbor,
+                row.amount_micro_owc,
+                row.transport,
+                row.received_at
+            ],
         )?;
         Ok(())
     }
@@ -129,7 +137,10 @@ impl Store {
 
     pub fn remove_pending(&self, entry_hash: &[u8]) -> Result<()> {
         let conn = self.conn.lock().unwrap();
-        conn.execute("DELETE FROM pending WHERE entry_hash = ?1", params![entry_hash])?;
+        conn.execute(
+            "DELETE FROM pending WHERE entry_hash = ?1",
+            params![entry_hash],
+        )?;
         Ok(())
     }
 

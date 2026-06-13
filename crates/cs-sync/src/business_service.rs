@@ -54,8 +54,8 @@ impl BusinessApiService {
         let secret_hex = token
             .strip_prefix("cs_sk_")
             .ok_or_else(|| Status::unauthenticated("expected cs_sk_<hex>"))?;
-        let secret = hex::decode(secret_hex)
-            .map_err(|_| Status::unauthenticated("malformed token hex"))?;
+        let secret =
+            hex::decode(secret_hex).map_err(|_| Status::unauthenticated("malformed token hex"))?;
         if secret.len() != 32 {
             return Err(Status::unauthenticated("token must be 32 bytes"));
         }
@@ -94,7 +94,9 @@ impl pb::business_api_server::BusinessApi for BusinessApiService {
 
         // The account's primary key must already exist as a user.
         if req.account_public_key.len() != 32 {
-            return Err(Status::invalid_argument("account_public_key must be 32 bytes"));
+            return Err(Status::invalid_argument(
+                "account_public_key must be 32 bytes",
+            ));
         }
         let mut pk = [0u8; 32];
         pk.copy_from_slice(&req.account_public_key);
@@ -344,7 +346,10 @@ impl pb::business_api_server::BusinessApi for BusinessApiService {
                 .paid_by_transaction_id
                 .map(|u| u.as_bytes().to_vec())
                 .unwrap_or_default(),
-            paid_at: inv.paid_at.map(|t| t.timestamp_micros()).unwrap_or_default(),
+            paid_at: inv
+                .paid_at
+                .map(|t| t.timestamp_micros())
+                .unwrap_or_default(),
         }))
     }
 }
@@ -374,7 +379,10 @@ fn record_to_pb(p: &BusinessProfileRecord) -> pb::BusinessProfile {
         daily_volume_limit_owc: p.daily_volume_limit_owc,
         per_transaction_limit_owc: p.per_transaction_limit_owc.unwrap_or(0),
         edd_cleared: p.edd_cleared,
-        approved_at: p.approved_at.map(|t| t.timestamp_micros()).unwrap_or_default(),
+        approved_at: p
+            .approved_at
+            .map(|t| t.timestamp_micros())
+            .unwrap_or_default(),
         created_at: p.created_at.timestamp_micros(),
     }
 }

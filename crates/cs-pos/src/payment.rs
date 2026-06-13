@@ -60,12 +60,9 @@ impl PaymentRequest {
 }
 
 /// Validate an inbound signed Transaction against the pending request.
-pub fn validate_against_request(
-    request: &PaymentRequest,
-    cbor: &[u8],
-) -> Result<ValidatedPayment> {
-    let tx: Transaction = serde_cbor::from_slice(cbor)
-        .map_err(|e| anyhow::anyhow!("decode transaction: {e}"))?;
+pub fn validate_against_request(request: &PaymentRequest, cbor: &[u8]) -> Result<ValidatedPayment> {
+    let tx: Transaction =
+        serde_cbor::from_slice(cbor).map_err(|e| anyhow::anyhow!("decode transaction: {e}"))?;
 
     // Cryptographic check first.
     tx.verify_signature()

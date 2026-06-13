@@ -281,10 +281,7 @@ impl RaftNode {
         }
     }
 
-    pub async fn on_append_entries(
-        &self,
-        req: AppendEntriesRequest,
-    ) -> AppendEntriesResponse {
+    pub async fn on_append_entries(&self, req: AppendEntriesRequest) -> AppendEntriesResponse {
         let mut i = self.inner.lock().await;
 
         // §5.1: stale leader — reject.
@@ -405,8 +402,8 @@ impl RaftNode {
             i.role = RaftRole::Candidate;
             i.votes_received = 1; // vote for self
             i.last_heartbeat = Instant::now();
-            i.election_deadline = i.last_heartbeat
-                + randomized_election_timeout(self.config.election_timeout_min);
+            i.election_deadline =
+                i.last_heartbeat + randomized_election_timeout(self.config.election_timeout_min);
             let (li, lt) = i.log.last();
             (i.persistent.current_term, li, lt)
         };

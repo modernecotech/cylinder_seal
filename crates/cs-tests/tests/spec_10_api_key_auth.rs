@@ -5,9 +5,9 @@
 //! Validates the hash-only storage contract: the raw secret must never be
 //! recoverable from the stored record, and auth lookup must be by hash.
 
+use chrono::Utc;
 use cs_core::cryptography;
 use cs_storage::models::ApiKeyRecord;
-use chrono::Utc;
 use uuid::Uuid;
 
 #[test]
@@ -52,7 +52,10 @@ fn spec_api_key_stored_as_blake2b_hash_not_plaintext() {
     // fields, allows recovering the original secret.
     let fields_as_string = format!(
         "{}|{}|{}|{:?}",
-        record.key_prefix, hex::encode(&record.key_hash), record.label, record.scopes
+        record.key_prefix,
+        hex::encode(&record.key_hash),
+        record.label,
+        record.scopes
     );
     assert!(
         !fields_as_string.contains(&hex::encode(secret)),

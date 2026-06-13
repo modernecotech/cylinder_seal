@@ -16,7 +16,10 @@ fn spec_nonce_derivation_is_deterministic() {
     let h = hw("SER-A", "IMEI-A");
     let a = derive_nonce_with_hardware(&prev, &h, 1).unwrap();
     let b = derive_nonce_with_hardware(&prev, &h, 1).unwrap();
-    assert_eq!(a, b, "Spec violation: RFC 6979-style nonce derivation must be deterministic");
+    assert_eq!(
+        a, b,
+        "Spec violation: RFC 6979-style nonce derivation must be deterministic"
+    );
 }
 
 #[test]
@@ -24,7 +27,10 @@ fn spec_nonce_derivation_bound_to_hardware_serial() {
     let prev = [0u8; 32];
     let a = derive_nonce_with_hardware(&prev, &hw("SER-A", "IMEI-X"), 1).unwrap();
     let b = derive_nonce_with_hardware(&prev, &hw("SER-B", "IMEI-X"), 1).unwrap();
-    assert_ne!(a, b, "Spec violation: different device serials must produce different nonces");
+    assert_ne!(
+        a, b,
+        "Spec violation: different device serials must produce different nonces"
+    );
 }
 
 #[test]
@@ -32,7 +38,10 @@ fn spec_nonce_derivation_bound_to_imei() {
     let prev = [0u8; 32];
     let a = derive_nonce_with_hardware(&prev, &hw("SER-X", "IMEI-A"), 1).unwrap();
     let b = derive_nonce_with_hardware(&prev, &hw("SER-X", "IMEI-B"), 1).unwrap();
-    assert_ne!(a, b, "Spec violation: different IMEIs must produce different nonces");
+    assert_ne!(
+        a, b,
+        "Spec violation: different IMEIs must produce different nonces"
+    );
 }
 
 #[test]

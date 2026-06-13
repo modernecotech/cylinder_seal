@@ -395,10 +395,5 @@ fn error_page(status: StatusCode, msg: &str) -> Response {
         msg,
         head = BASE_HEAD,
     );
-    (
-        status,
-        [(CONTENT_TYPE, "text/html; charset=utf-8")],
-        body,
-    )
-        .into_response()
+    (status, [(CONTENT_TYPE, "text/html; charset=utf-8")], body).into_response()
 }

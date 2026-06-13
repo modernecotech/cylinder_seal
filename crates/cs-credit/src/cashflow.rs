@@ -214,11 +214,12 @@ mod tests {
     #[test]
     fn periodicity_salary_cadence() {
         // Salary lands on the 1st of each month for 6 months.
-        let flows: Vec<Flow> = (1..=6)
-            .map(|m| inflow(2026, m, 1, 500_000_000))
-            .collect();
+        let flows: Vec<Flow> = (1..=6).map(|m| inflow(2026, m, 1, 500_000_000)).collect();
         let p = income_periodicity(&flows);
-        assert!(p > 0.95, "salary-cadence periodicity should be ~1.0, got {p}");
+        assert!(
+            p > 0.95,
+            "salary-cadence periodicity should be ~1.0, got {p}"
+        );
     }
 
     #[test]
@@ -256,9 +257,7 @@ mod tests {
     #[test]
     fn stability_huge_spike_is_low() {
         // One huge outflow on a background of tiny flows.
-        let mut flows: Vec<Flow> = (1..=20)
-            .map(|d| outflow(2026, 1, d, 100))
-            .collect();
+        let mut flows: Vec<Flow> = (1..=20).map(|d| outflow(2026, 1, d, 100)).collect();
         flows.push(outflow(2026, 1, 10, 10_000_000_000));
         flows.push(inflow(2026, 1, 1, 1_000_000));
         let s = cashflow_stability(&flows);
@@ -267,20 +266,14 @@ mod tests {
 
     #[test]
     fn income_expense_health_positive_ratio() {
-        let flows = vec![
-            inflow(2026, 1, 1, 1_000_000),
-            outflow(2026, 1, 5, 500_000),
-        ];
+        let flows = vec![inflow(2026, 1, 1, 1_000_000), outflow(2026, 1, 5, 500_000)];
         let h = income_expense_health(&flows);
         assert!(h > 0.5, "positive cashflow should score > 0.5, got {h}");
     }
 
     #[test]
     fn income_expense_health_negative_ratio() {
-        let flows = vec![
-            inflow(2026, 1, 1, 500_000),
-            outflow(2026, 1, 5, 1_500_000),
-        ];
+        let flows = vec![inflow(2026, 1, 1, 500_000), outflow(2026, 1, 5, 1_500_000)];
         let h = income_expense_health(&flows);
         assert!(h < 0.5, "negative cashflow should score < 0.5, got {h}");
     }
@@ -300,9 +293,7 @@ mod tests {
     #[test]
     fn compute_features_returns_all_three() {
         // Six-month salaried worker with low volatility and positive cash flow.
-        let mut flows: Vec<Flow> = (1..=6)
-            .map(|m| inflow(2026, m, 1, 500_000_000))
-            .collect();
+        let mut flows: Vec<Flow> = (1..=6).map(|m| inflow(2026, m, 1, 500_000_000)).collect();
         for m in 1..=6 {
             for d in [5, 10, 15, 20, 25] {
                 flows.push(outflow(2026, m, d, 50_000_000));

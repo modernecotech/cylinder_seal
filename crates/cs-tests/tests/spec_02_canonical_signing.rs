@@ -44,7 +44,10 @@ fn spec_canonical_cbor_differs_on_amount_change() {
     let a = tx.canonical_cbor_for_signing().unwrap();
     tx.amount_owc = 2_000_000;
     let b = tx.canonical_cbor_for_signing().unwrap();
-    assert_ne!(a, b, "Spec violation: different amounts must produce different canonical encodings");
+    assert_ne!(
+        a, b,
+        "Spec violation: different amounts must produce different canonical encodings"
+    );
 }
 
 #[test]

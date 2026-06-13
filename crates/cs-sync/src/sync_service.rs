@@ -16,9 +16,7 @@ use cs_consensus::log::EntryKind;
 use cs_consensus::node::RaftNode;
 use cs_core::error::CylinderSealError;
 use cs_core::models::{JournalEntry, Transaction};
-use cs_core::primitives::{
-    ExpiryOutcome, ReleaseOutcome, SpendConstraintOutcome,
-};
+use cs_core::primitives::{ExpiryOutcome, ReleaseOutcome, SpendConstraintOutcome};
 use cs_core::producer::FundsOrigin;
 use cs_policy::hard_restrictions::{
     evaluate as evaluate_hard_restrictions, HardRestrictionOutcome, TransferContext,
@@ -159,11 +157,7 @@ impl ChainSyncService {
     ///     payload. If absent, the entry is accepted as escrow-pending
     ///     (the receiver simply won't be able to spend it until it's
     ///     released; that check happens on the spend side, not here).
-    async fn validate_primitives(
-        &self,
-        tx: &Transaction,
-        now_micros: i64,
-    ) -> Result<(), Status> {
+    async fn validate_primitives(&self, tx: &Transaction, now_micros: i64) -> Result<(), Status> {
         if let Some(expiry) = &tx.expiry {
             if let ExpiryOutcome::Expired { .. } = evaluate_expiry(expiry, now_micros) {
                 return Err(Status::failed_precondition(
@@ -173,8 +167,9 @@ impl ChainSyncService {
         }
 
         if let Some(constraint) = &tx.spend_constraint {
-            let (merchant_tier, category) =
-                self.resolve_merchant_tier_and_category(&tx.to_public_key).await?;
+            let (merchant_tier, category) = self
+                .resolve_merchant_tier_and_category(&tx.to_public_key)
+                .await?;
             match evaluate_spend_constraint(constraint, merchant_tier, category.as_deref()) {
                 SpendConstraintOutcome::Allowed => {}
                 SpendConstraintOutcome::Rejected { reason } => {
@@ -212,15 +207,13 @@ impl ChainSyncService {
         if declared_origin.is_government_transfer() {
             if let Some(repo) = &self.restricted_categories {
                 let today = chrono::Utc::now().date_naive();
-                let restrictions = repo
-                    .list_active_on(today)
-                    .await
-                    .map_err(storage_err)?;
+                let restrictions = repo.list_active_on(today).await.map_err(storage_err)?;
                 // Resolve the receiver's tier + category; fall back to
                 // (0, None) for P2P — which the gate treats as blocked
                 // for government transfers in restricted categories.
-                let (merchant_tier, product_category) =
-                    self.resolve_merchant_tier_and_category(&tx.to_public_key).await?;
+                let (merchant_tier, product_category) = self
+                    .resolve_merchant_tier_and_category(&tx.to_public_key)
+                    .await?;
                 let ctx = TransferContext {
                     funds_origin: declared_origin,
                     product_category,
@@ -331,9 +324,8 @@ impl ChainSyncService {
 
         match self.raft.await_commit(index, proposal_term).await {
             Ok(_result) => {
-                let user_id = cs_core::models::User::derive_user_id_from_public_key(
-                    &entry.user_public_key,
-                );
+                let user_id =
+                    cs_core::models::User::derive_user_id_from_public_key(&entry.user_public_key);
                 let balance = self.journal.get_user_balance(user_id).await.unwrap_or(0);
 
                 // Invoice reconciliation: if any transaction's memo looks
@@ -394,9 +386,8 @@ impl ChainSyncService {
 
             // Cross-check the invoice's intended recipient and amount
             // before crediting payment.
-            let recipient_id = cs_core::models::User::derive_user_id_from_public_key(
-                &tx.to_public_key,
-            );
+            let recipient_id =
+                cs_core::models::User::derive_user_id_from_public_key(&tx.to_public_key);
             if recipient_id != inv.user_id
                 || tx.amount_owc != inv.amount_owc
                 || tx.currency_context != inv.currency
@@ -408,9 +399,8 @@ impl ChainSyncService {
                 continue;
             }
 
-            let sender_id = cs_core::models::User::derive_user_id_from_public_key(
-                &tx.from_public_key,
-            );
+            let sender_id =
+                cs_core::models::User::derive_user_id_from_public_key(&tx.from_public_key);
             if let Err(e) = self
                 .invoices
                 .mark_paid(invoice_id, sender_id, tx.transaction_id)
@@ -459,16 +449,18 @@ impl pb::chain_sync_server::ChainSync for ChainSyncService {
             while let Some(msg) = inbound.next().await {
                 let ack = match msg {
                     Ok(pb_entry) => match pb_entry_to_domain(&pb_entry) {
-                        Ok(domain) => svc.handle_entry(domain).await.unwrap_or_else(|s| {
-                            pb::SyncAck {
-                                entry_id: pb_entry.entry_id.clone(),
-                                status: pb::SyncAckStatus::AckStatusRejected as i32,
-                                conflict_reason: s.message().to_string(),
-                                balance_owc: 0,
-                                credit_score: String::new(),
-                                confirmed_at: 0,
-                            }
-                        }),
+                        Ok(domain) => {
+                            svc.handle_entry(domain)
+                                .await
+                                .unwrap_or_else(|s| pb::SyncAck {
+                                    entry_id: pb_entry.entry_id.clone(),
+                                    status: pb::SyncAckStatus::AckStatusRejected as i32,
+                                    conflict_reason: s.message().to_string(),
+                                    balance_owc: 0,
+                                    credit_score: String::new(),
+                                    confirmed_at: 0,
+                                })
+                        }
                         Err(e) => pb::SyncAck {
                             entry_id: pb_entry.entry_id.clone(),
                             status: pb::SyncAckStatus::AckStatusRejected as i32,
@@ -558,7 +550,9 @@ impl pb::chain_sync_server::ChainSync for ChainSyncService {
         &self,
         _request: Request<pb::AuditLogRequest>,
     ) -> Result<Response<pb::AuditLogResponse>, Status> {
-        Ok(Response::new(pb::AuditLogResponse { entries: Vec::new() }))
+        Ok(Response::new(pb::AuditLogResponse {
+            entries: Vec::new(),
+        }))
     }
 
     async fn request_witness_approval(

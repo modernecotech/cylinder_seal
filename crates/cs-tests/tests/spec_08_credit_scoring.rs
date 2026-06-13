@@ -18,5 +18,8 @@ fn spec_score_bounds_respected_for_all_inputs() {
     // public constants plus the sanity test already in cs-credit's unit
     // tests. This file pins the range promised to third parties.
     assert!(SCORE_MIN >= 300 && SCORE_MAX <= 900);
-    assert!(SCORE_MAX - SCORE_MIN == 600, "Spec: score range is exactly 600");
+    assert!(
+        SCORE_MAX - SCORE_MIN == 600,
+        "Spec: score range is exactly 600"
+    );
 }

@@ -264,9 +264,7 @@ pub fn compute_user_risk(input: &UserRiskInput) -> UserRiskProfile {
         raw_score: tx_pattern_score,
         rationale: format!(
             "avg={}, max={}, count={}",
-            input.avg_tx_amount_micro_owc,
-            input.max_tx_amount_micro_owc,
-            input.total_tx_count
+            input.avg_tx_amount_micro_owc, input.max_tx_amount_micro_owc, input.total_tx_count
         ),
     });
 
@@ -287,10 +285,7 @@ pub fn compute_user_risk(input: &UserRiskInput) -> UserRiskProfile {
         raw_score: (aml_score + sar_bump).min(100),
         rationale: format!(
             "flagged={}, held={}, blocked={}, SARs={}",
-            input.flagged_tx_count,
-            input.held_tx_count,
-            input.blocked_tx_count,
-            input.sar_count
+            input.flagged_tx_count, input.held_tx_count, input.blocked_tx_count, input.sar_count
         ),
     });
 
@@ -348,10 +343,7 @@ pub fn compute_user_risk(input: &UserRiskInput) -> UserRiskProfile {
 
     // Composite: weighted sum (normalizing weights to 1.0)
     let total_weight: f64 = factors.iter().map(|f| f.weight).sum();
-    let weighted_sum: f64 = factors
-        .iter()
-        .map(|f| f.weight * f.raw_score as f64)
-        .sum();
+    let weighted_sum: f64 = factors.iter().map(|f| f.weight * f.raw_score as f64).sum();
     let composite = if total_weight > 0.0 {
         (weighted_sum / total_weight).round() as u32
     } else {
@@ -367,10 +359,8 @@ pub fn compute_user_risk(input: &UserRiskInput) -> UserRiskProfile {
         risk_tier,
         factors,
         assessed_at: now,
-        next_assessment: now
-            + chrono::Duration::days(risk_tier.review_interval_days() as i64),
-        enhanced_due_diligence: risk_tier.requires_edd()
-            || input.active_enhanced_monitoring,
+        next_assessment: now + chrono::Duration::days(risk_tier.review_interval_days() as i64),
+        enhanced_due_diligence: risk_tier.requires_edd() || input.active_enhanced_monitoring,
         review_notes: None,
     }
 }
@@ -402,7 +392,11 @@ mod tests {
     #[test]
     fn low_risk_user_scores_low() {
         let profile = compute_user_risk(&low_risk_input());
-        assert!(profile.composite_score <= 25, "score={}", profile.composite_score);
+        assert!(
+            profile.composite_score <= 25,
+            "score={}",
+            profile.composite_score
+        );
         assert_eq!(profile.risk_tier, RiskTier::Low);
         assert!(!profile.enhanced_due_diligence);
     }
@@ -416,7 +410,11 @@ mod tests {
             ..low_risk_input()
         };
         let profile = compute_user_risk(&input);
-        assert!(profile.composite_score >= 25, "score={}", profile.composite_score);
+        assert!(
+            profile.composite_score >= 25,
+            "score={}",
+            profile.composite_score
+        );
     }
 
     #[test]

@@ -104,7 +104,10 @@ pub async fn issue(
     }
     let channel = req.channel.unwrap_or_else(|| "dev_log".into());
     if !ALLOWED_CHANNELS.contains(&channel.as_str()) {
-        return Err((StatusCode::BAD_REQUEST, format!("unknown channel: {channel}")));
+        return Err((
+            StatusCode::BAD_REQUEST,
+            format!("unknown channel: {channel}"),
+        ));
     }
 
     let code = generate_otp_code();

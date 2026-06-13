@@ -400,10 +400,7 @@ impl ReportBuilder {
         total_amount: i64,
         risk_score: u32,
     ) -> String {
-        let categories: Vec<String> = rule_categories
-            .iter()
-            .map(|c| format!("{:?}", c))
-            .collect();
+        let categories: Vec<String> = rule_categories.iter().map(|c| format!("{:?}", c)).collect();
 
         format!(
             "Suspicious Activity Report: {} AML rules triggered ({}) with composite risk score {}. \
@@ -514,12 +511,8 @@ mod tests {
 
     #[test]
     fn ctr_builder_creates_draft() {
-        let ctr = ReportBuilder::build_ctr(
-            Uuid::new_v4(),
-            Uuid::new_v4(),
-            15_000_000_000,
-            "OWC".into(),
-        );
+        let ctr =
+            ReportBuilder::build_ctr(Uuid::new_v4(), Uuid::new_v4(), 15_000_000_000, "OWC".into());
         assert_eq!(ctr.base.report_type, ReportType::Ctr);
         assert_eq!(ctr.amount_micro_owc, 15_000_000_000);
         assert!(!ctr.aggregated);
@@ -562,7 +555,9 @@ mod tests {
     #[test]
     fn withdrawal_allowed_from_draft_and_review() {
         assert!(transition_report_status(ReportStatus::Draft, ReportStatus::Withdrawn).is_ok());
-        assert!(transition_report_status(ReportStatus::UnderReview, ReportStatus::Withdrawn).is_ok());
+        assert!(
+            transition_report_status(ReportStatus::UnderReview, ReportStatus::Withdrawn).is_ok()
+        );
         assert!(transition_report_status(ReportStatus::Filed, ReportStatus::Withdrawn).is_err());
     }
 

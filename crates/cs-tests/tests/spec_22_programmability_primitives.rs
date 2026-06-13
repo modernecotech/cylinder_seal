@@ -62,11 +62,7 @@ impl MerchantRepository for StubMerchantRepository {
     }
 }
 
-fn make_tx(
-    sender_kp: ([u8; 32], [u8; 32]),
-    recipient_pk: [u8; 32],
-    amount: i64,
-) -> Transaction {
+fn make_tx(sender_kp: ([u8; 32], [u8; 32]), recipient_pk: [u8; 32], amount: i64) -> Transaction {
     let (from_pk, from_sk) = sender_kp;
     let mut tx = Transaction::new(
         from_pk,
@@ -96,21 +92,18 @@ fn resolve_merchant_tier(repo: &StubMerchantRepository, pk: &[u8; 32]) -> (u8, O
         .enable_all()
         .build()
         .expect("rt");
-    let rec = rt
-        .block_on(repo.get_by_public_key(pk))
-        .expect("stub get");
+    let rec = rt.block_on(repo.get_by_public_key(pk)).expect("stub get");
     let Some(m) = rec else {
         return (0, None);
     };
-    let tier = match cs_policy::merchant_tier::MerchantTier::from_content_percent(
-        m.iraqi_content_pct,
-    ) {
-        cs_policy::merchant_tier::MerchantTier::Tier1 => 1,
-        cs_policy::merchant_tier::MerchantTier::Tier2 => 2,
-        cs_policy::merchant_tier::MerchantTier::Tier3 => 3,
-        cs_policy::merchant_tier::MerchantTier::Tier4 => 4,
-        cs_policy::merchant_tier::MerchantTier::Unclassified => 0,
-    };
+    let tier =
+        match cs_policy::merchant_tier::MerchantTier::from_content_percent(m.iraqi_content_pct) {
+            cs_policy::merchant_tier::MerchantTier::Tier1 => 1,
+            cs_policy::merchant_tier::MerchantTier::Tier2 => 2,
+            cs_policy::merchant_tier::MerchantTier::Tier3 => 3,
+            cs_policy::merchant_tier::MerchantTier::Tier4 => 4,
+            cs_policy::merchant_tier::MerchantTier::Unclassified => 0,
+        };
     (tier, Some(m.category))
 }
 

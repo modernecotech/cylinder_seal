@@ -12,6 +12,8 @@ This document is one component of the broader
 [Unified Economic Model](unified-economic-model.md), which connects the Oil
 Income Lockbox, INDHC, Digital IQD, ministries, banks, producers, infrastructure,
 tourism, credit, reinvestment, and citizen dividends into one accounting loop.
+For resistance, capture, continuity, and legitimacy controls, use the
+[Political-Economy Transition And Anti-Capture Model](political-economy-transition-and-anti-capture.md).
 
 ## Rationale
 
@@ -237,6 +239,30 @@ productive investment, ministry funding, and citizen capital income.
 - Explicit ban on borrowing against citizen base shares.
 - Recourse process for mistaken identity, inheritance disputes, cash holds, and
   dividend errors.
+
+## Failure And Exit Discipline
+
+INDHC is rational only if subsidiaries can fail without becoming permanent
+political payroll vehicles.
+
+Rules:
+
+- Every subsidiary has separate accounts, debt, board minutes, KPIs, audit
+  opinions, and a failure path.
+- No silent cross-subsidy between subsidiaries. Any rescue must be public,
+  board-approved, time-limited, and tied to management or mandate changes.
+- Persistent failure triggers one of five actions: management replacement,
+  merger, concession or lease to a qualified operator, sale of non-strategic
+  assets, or closure.
+- Strategic status does not exempt a subsidiary from procurement, related-party,
+  beneficial-ownership, debt, maintenance, or citizen-appeal gates.
+- Citizen dividends are a residual result, not the main selling point. In the
+  first decade, the larger benefits should come from jobs, lower system costs,
+  infrastructure, reliable services, formal credit, and domestic production.
+- Dividends fail before maintenance, debt service, tax/levy obligations,
+  statutory reserves, safety, cybersecurity, and essential-service continuity.
+- A subsidiary that needs repeated rescue cannot fund dividends and should not
+  be used to justify ministry deprecation.
 
 ## Risks
 

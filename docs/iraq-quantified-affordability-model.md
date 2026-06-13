@@ -389,6 +389,36 @@ Each loan-funded project needs its own repayment source.
 | Weak governance | Procurement capture inflates capex by 20%. | USD 115B buys only USD 92B of assets. | Suspend sector privileges, rotate auditors, publish project-level cost benchmarks. |
 | Demand shortfall | Manufacturing/tourism revenue is 30% below plan. | Holding-company DSCR can fall below dividend gate. | Dividends suspended; capex redirected to bankable water, power, food, and maintenance assets. |
 
+## Executable Fiscal Stress Layer
+
+The stress table above is now represented by the first executable downside
+control layer:
+
+- `crates/cs-analytics/src/fiscal_stress.rs`
+- `migrations/20260713000001_fiscal_stress_projection.sql`
+- [Fiscal Stress And Contingent Liability Model](fiscal-stress-and-contingent-liability-model.md)
+
+The engine converts macro and portfolio stress inputs into:
+
+| Output | Meaning |
+| --- | --- |
+| `max_oil_equity_draw_usd` | Stressed oil-equity capacity using the lower of 8% of stressed oil revenue and 35% of public capex. |
+| `oil_equity_rule_breach_usd` | Amount by which planned oil equity exceeds the stressed fiscal rule. |
+| `stressed_dscr` | Portfolio debt-service coverage after revenue and interest shocks. |
+| `fx_mismatch_usd` | FX debt service not covered by FX revenue or approved buffer. |
+| `maintenance_gap_usd` | Required maintenance reserve not funded before distributions. |
+| `contingent_liability_to_gdp_pct` | Guarantees and availability payments as explicit fiscal exposure. |
+| `dividend_affordability_gap_usd` | Dividend amount not covered after senior claims. |
+| `recommended_mode` | Stable, watch, defensive, or stop-scale-up. |
+
+Rule:
+
+```text
+If the fiscal stress mode is defensive or stop-scale-up,
+new expansion pauses and dividends are suspended before maintenance, debt
+service, essential services, or disclosed fiscal limits are weakened.
+```
+
 ## What Becomes Affordable First
 
 Priority 1: projects that save foreign exchange, reduce critical imports, or
@@ -451,6 +481,7 @@ New model primitives needed:
 | `RevenueStream` | Classifies revenue by sector, source, currency, contract type, counterparty, and recurrence. |
 | `RevenueContract` | Links sales, PPAs, availability payments, platform fees, land-value capture, or service charges to invoices and settlement. |
 | `FacilityRecyclingProjection` | Tests underutilized facility reuse before greenfield capex, including utilization gain, rehab economics, DSCR, FX cover, credit readiness, domestic market readiness, guarantee exposure, and finance lane. |
+| `FiscalStressProjection` | Tests stressed oil-equity capacity, DSCR, FX mismatch, maintenance gaps, contingent liabilities, collection efficiency, capex overruns, and dividend affordability before scale-up. |
 | `OfftakeAgreement` | Stores buyer, volume, price formula, currency, tenor, and delivery evidence. |
 | `ImportSubstitutionSaving` | Records estimated FX and import-leakage savings separately from booked cash revenue. |
 | `LandValueCaptureReceipt` | Records station-area leases, development charges, revenue shares, and municipal splits. |

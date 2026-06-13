@@ -60,16 +60,20 @@ pub async fn require_api_key(
         .headers()
         .get(header::AUTHORIZATION)
         .and_then(|v| v.to_str().ok())
-        .ok_or((StatusCode::UNAUTHORIZED, "missing Authorization header".into()))?;
+        .ok_or((
+            StatusCode::UNAUTHORIZED,
+            "missing Authorization header".into(),
+        ))?;
 
     let token = header_value
         .strip_prefix("Bearer ")
         .ok_or((StatusCode::UNAUTHORIZED, "expected Bearer token".into()))?
         .trim();
 
-    let secret_hex = token
-        .strip_prefix("cs_sk_")
-        .ok_or((StatusCode::UNAUTHORIZED, "expected cs_sk_<hex> token format".into()))?;
+    let secret_hex = token.strip_prefix("cs_sk_").ok_or((
+        StatusCode::UNAUTHORIZED,
+        "expected cs_sk_<hex> token format".into(),
+    ))?;
 
     let secret_bytes = hex::decode(secret_hex)
         .map_err(|_| (StatusCode::UNAUTHORIZED, "malformed token hex".into()))?;
@@ -93,7 +97,11 @@ pub async fn require_api_key(
     let scopes = record
         .scopes
         .as_array()
-        .map(|arr| arr.iter().filter_map(|v| v.as_str().map(str::to_string)).collect())
+        .map(|arr| {
+            arr.iter()
+                .filter_map(|v| v.as_str().map(str::to_string))
+                .collect()
+        })
         .unwrap_or_default();
 
     req.extensions_mut().insert(BusinessPrincipal {
@@ -225,7 +233,9 @@ fn extract_admin_token(req: &Request<Body>) -> Option<String> {
 /// candidate password against a stored hash. Centralised so the
 /// algorithm can be rotated in one place.
 pub mod password {
-    use argon2::password_hash::{rand_core::OsRng, PasswordHash, PasswordHasher, PasswordVerifier, SaltString};
+    use argon2::password_hash::{
+        rand_core::OsRng, PasswordHash, PasswordHasher, PasswordVerifier, SaltString,
+    };
     use argon2::Argon2;
 
     pub fn hash(password: &str) -> Result<String, String> {
@@ -328,8 +338,13 @@ mod tests {
     /// Helper mirroring the middleware's token-parsing branch so we can
     /// unit-test edge cases without a full axum service stack.
     fn parse_bearer(auth: &str) -> Result<[u8; 32], &'static str> {
-        let token = auth.strip_prefix("Bearer ").ok_or("expected Bearer")?.trim();
-        let hex = token.strip_prefix("cs_sk_").ok_or("expected cs_sk_ prefix")?;
+        let token = auth
+            .strip_prefix("Bearer ")
+            .ok_or("expected Bearer")?
+            .trim();
+        let hex = token
+            .strip_prefix("cs_sk_")
+            .ok_or("expected cs_sk_ prefix")?;
         let bytes = hex::decode(hex).map_err(|_| "malformed hex")?;
         if bytes.len() != 32 {
             return Err("wrong length");

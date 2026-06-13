@@ -10,15 +10,19 @@ use rust_decimal::Decimal;
 use sqlx::PgPool;
 use uuid::Uuid;
 
-use crate::{
-    EconomicSector, IndustrialProject, ProjectGdpMultiplier, ProjectStatus, Result,
-};
+use crate::{EconomicSector, IndustrialProject, ProjectGdpMultiplier, ProjectStatus, Result};
 
 #[async_trait]
 pub trait AnalyticsRepository: Send + Sync {
     async fn get_project(&self, project_id: Uuid) -> Result<Option<IndustrialProject>>;
-    async fn list_projects_by_sector(&self, sector: EconomicSector) -> Result<Vec<IndustrialProject>>;
-    async fn list_projects_by_status(&self, status: ProjectStatus) -> Result<Vec<IndustrialProject>>;
+    async fn list_projects_by_sector(
+        &self,
+        sector: EconomicSector,
+    ) -> Result<Vec<IndustrialProject>>;
+    async fn list_projects_by_status(
+        &self,
+        status: ProjectStatus,
+    ) -> Result<Vec<IndustrialProject>>;
     async fn list_all_projects(&self) -> Result<Vec<IndustrialProject>>;
     async fn create_project(&self, project: &IndustrialProject) -> Result<()>;
     async fn update_project(&self, project: &IndustrialProject) -> Result<()>;
@@ -135,9 +139,7 @@ const GDP_COLS: &str = "multiplier_id, project_id, direct_gdp_usd, visibility_mu
 #[async_trait]
 impl AnalyticsRepository for SqlxAnalyticsRepository {
     async fn get_project(&self, project_id: Uuid) -> Result<Option<IndustrialProject>> {
-        let sql = format!(
-            "SELECT {PROJECT_COLS} FROM industrial_projects WHERE project_id = $1"
-        );
+        let sql = format!("SELECT {PROJECT_COLS} FROM industrial_projects WHERE project_id = $1");
         let row: Option<ProjectRow> = sqlx::query_as(&sql)
             .bind(project_id)
             .fetch_optional(&self.pool)
@@ -145,7 +147,10 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
         Ok(row.map(ProjectRow::into_domain))
     }
 
-    async fn list_projects_by_sector(&self, sector: EconomicSector) -> Result<Vec<IndustrialProject>> {
+    async fn list_projects_by_sector(
+        &self,
+        sector: EconomicSector,
+    ) -> Result<Vec<IndustrialProject>> {
         let sql = format!(
             "SELECT {PROJECT_COLS} FROM industrial_projects WHERE sector = $1 ORDER BY created_at DESC"
         );
@@ -156,7 +161,10 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
         Ok(rows.into_iter().map(ProjectRow::into_domain).collect())
     }
 
-    async fn list_projects_by_status(&self, status: ProjectStatus) -> Result<Vec<IndustrialProject>> {
+    async fn list_projects_by_status(
+        &self,
+        status: ProjectStatus,
+    ) -> Result<Vec<IndustrialProject>> {
         let sql = format!(
             "SELECT {PROJECT_COLS} FROM industrial_projects WHERE status = $1 ORDER BY created_at DESC"
         );
@@ -168,9 +176,8 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
     }
 
     async fn list_all_projects(&self) -> Result<Vec<IndustrialProject>> {
-        let sql = format!(
-            "SELECT {PROJECT_COLS} FROM industrial_projects ORDER BY created_at DESC"
-        );
+        let sql =
+            format!("SELECT {PROJECT_COLS} FROM industrial_projects ORDER BY created_at DESC");
         let rows: Vec<ProjectRow> = sqlx::query_as(&sql).fetch_all(&self.pool).await?;
         Ok(rows.into_iter().map(ProjectRow::into_domain).collect())
     }
@@ -225,9 +232,8 @@ impl AnalyticsRepository for SqlxAnalyticsRepository {
     }
 
     async fn get_gdp_multiplier(&self, multiplier_id: i64) -> Result<Option<ProjectGdpMultiplier>> {
-        let sql = format!(
-            "SELECT {GDP_COLS} FROM project_gdp_multipliers WHERE multiplier_id = $1"
-        );
+        let sql =
+            format!("SELECT {GDP_COLS} FROM project_gdp_multipliers WHERE multiplier_id = $1");
         let row: Option<GdpRow> = sqlx::query_as(&sql)
             .bind(multiplier_id)
             .fetch_optional(&self.pool)

@@ -61,7 +61,10 @@ fn spec_tier4_pure_imports() {
 
 #[test]
 fn spec_invalid_content_pct_unclassified() {
-    assert_eq!(MerchantTier::from_content_percent(101), MerchantTier::Unclassified);
+    assert_eq!(
+        MerchantTier::from_content_percent(101),
+        MerchantTier::Unclassified
+    );
 }
 
 // --- Fee / cap assertions via a mock classifier -----------------------------
@@ -79,7 +82,10 @@ struct StubRepo {
 
 #[async_trait]
 impl MerchantRepository for StubRepo {
-    async fn get_by_public_key(&self, _pk: &[u8]) -> cs_core::error::Result<Option<MerchantRecord>> {
+    async fn get_by_public_key(
+        &self,
+        _pk: &[u8],
+    ) -> cs_core::error::Result<Option<MerchantRecord>> {
         Ok(self.merchant.clone())
     }
     async fn get_by_id(&self, _id: Uuid) -> cs_core::error::Result<Option<MerchantRecord>> {
@@ -105,7 +111,10 @@ async fn spec_tier1_zero_fee_uncapped() {
     let policy = classify(merchant(100, false), 1_000_000).await;
     assert_eq!(policy.tier, MerchantTier::Tier1);
     assert_eq!(policy.fee_micro_owc, 0, "Spec: Tier 1 fee must be 0%");
-    assert!(policy.salary_cap_bps.is_none(), "Spec: Tier 1 must be uncapped");
+    assert!(
+        policy.salary_cap_bps.is_none(),
+        "Spec: Tier 1 must be uncapped"
+    );
     assert!(policy.allowed);
 }
 
@@ -115,7 +124,11 @@ async fn spec_tier2_half_percent_fee_and_50pct_cap() {
     let policy = classify(merchant(75, false), 1_000_000).await;
     assert_eq!(policy.tier, MerchantTier::Tier2);
     assert_eq!(policy.fee_micro_owc, 5_000, "Spec: Tier 2 fee must be 0.5%");
-    assert_eq!(policy.salary_cap_bps, Some(5000), "Spec: Tier 2 cap is 50% of salary");
+    assert_eq!(
+        policy.salary_cap_bps,
+        Some(5000),
+        "Spec: Tier 2 cap is 50% of salary"
+    );
 }
 
 #[tokio::test]
@@ -124,15 +137,25 @@ async fn spec_tier3_three_percent_fee_uncapped() {
     let policy = classify(merchant(25, false), 10_000_000).await;
     assert_eq!(policy.tier, MerchantTier::Tier3);
     assert_eq!(policy.fee_micro_owc, 300_000, "Spec: Tier 3 fee must be 3%");
-    assert!(policy.salary_cap_bps.is_none(), "Spec: Tier 3 is not capped");
+    assert!(
+        policy.salary_cap_bps.is_none(),
+        "Spec: Tier 3 is not capped"
+    );
 }
 
 #[tokio::test]
 async fn spec_tier4_eight_percent_import_levy() {
     let policy = classify(merchant(0, false), 10_000_000).await;
     assert_eq!(policy.tier, MerchantTier::Tier4);
-    assert_eq!(policy.fee_micro_owc, 800_000, "Spec: Tier 4 import levy must be 8%");
-    assert_eq!(policy.salary_cap_bps, Some(1500), "Spec: Tier 4 capped at 15% of salary");
+    assert_eq!(
+        policy.fee_micro_owc, 800_000,
+        "Spec: Tier 4 import levy must be 8%"
+    );
+    assert_eq!(
+        policy.salary_cap_bps,
+        Some(1500),
+        "Spec: Tier 4 capped at 15% of salary"
+    );
 }
 
 #[tokio::test]
@@ -152,6 +175,9 @@ async fn spec_unregistered_recipient_is_p2p_zero_fee() {
         .classify(&[0u8; 32], 1_000_000)
         .await
         .expect("classify");
-    assert_eq!(policy.fee_micro_owc, 0, "P2P transfers to non-merchants must be fee-free");
+    assert_eq!(
+        policy.fee_micro_owc, 0,
+        "P2P transfers to non-merchants must be fee-free"
+    );
     assert_eq!(policy.tier, MerchantTier::Tier1);
 }

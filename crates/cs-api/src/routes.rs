@@ -8,9 +8,9 @@ use tower_http::timeout::TimeoutLayer;
 use tower_http::trace::TraceLayer;
 
 use cs_storage::compliance::{
-    AdminAuditRepository, AdminOperatorRepository, AdminSessionStore,
-    BeneficialOwnerRepository, FeedRunRepository, RiskSnapshotRepository,
-    RuleVersionRepository, TransactionEvaluationRepository, TravelRuleRepository,
+    AdminAuditRepository, AdminOperatorRepository, AdminSessionStore, BeneficialOwnerRepository,
+    FeedRunRepository, RiskSnapshotRepository, RuleVersionRepository,
+    TransactionEvaluationRepository, TravelRuleRepository,
 };
 use cs_storage::iraq_phase2::{
     CbiPegRepository, DeviceBindingRepository, EmergencyDirectiveRepository, OtpRepository,
@@ -29,15 +29,13 @@ use crate::admin_ui;
 use crate::beneficial_owners::{self, BeneficialOwnerState};
 use crate::business;
 use crate::compliance::{self, ComplianceState};
+use crate::emergency_directive::{self, EmergencyDirectiveState};
 use crate::handlers::{
     get_balance, health, kyc_callback, list_entries, readiness, stats, ApiState,
 };
-use crate::emergency_directive::{self, EmergencyDirectiveState};
 use crate::invoices;
 use crate::iraq_admin::{self, IraqAdminState};
-use crate::middleware::{
-    require_admin, require_api_key, AdminAuthState, AuthState,
-};
+use crate::middleware::{require_admin, require_api_key, AdminAuthState, AuthState};
 use crate::otp::{self, OtpSender, OtpState};
 use crate::producer::{self, ProducerApiState};
 use crate::rule_governance::{self, RuleGovernanceState};
@@ -112,8 +110,7 @@ pub fn create_router(deps: RouterDeps) -> Router {
 
     // Server-rendered admin UI (HTMX). Login page is public; dashboard
     // sits behind require_admin like the JSON endpoints do.
-    let admin_ui_public = Router::new()
-        .route("/admin/login", get(admin_ui::login_page));
+    let admin_ui_public = Router::new().route("/admin/login", get(admin_ui::login_page));
     let admin_ui_dashboard = Router::new()
         .route("/admin/", get(admin_ui::index))
         .with_state(compliance_state.clone())
@@ -170,10 +167,7 @@ pub fn create_router(deps: RouterDeps) -> Router {
             require_admin,
         ));
     let admin_ui_owners = Router::new()
-        .route(
-            "/admin/businesses/:user_id/owners",
-            get(admin_ui::ubo_page),
-        )
+        .route("/admin/businesses/:user_id/owners", get(admin_ui::ubo_page))
         .with_state(owner_state.clone())
         .layer(axum_mw::from_fn_with_state(
             admin_auth_state.clone(),
@@ -214,8 +208,14 @@ pub fn create_router(deps: RouterDeps) -> Router {
 
     // Admin-gated routes (analyst+ unless handler asserts a higher role).
     let admin_business = Router::new()
-        .route("/v1/businesses/:user_id/approve", post(business::approve_business))
-        .route("/v1/businesses/:user_id/edd", post(business::mark_edd_cleared))
+        .route(
+            "/v1/businesses/:user_id/approve",
+            post(business::approve_business),
+        )
+        .route(
+            "/v1/businesses/:user_id/edd",
+            post(business::mark_edd_cleared),
+        )
         .route(
             "/v1/businesses/:user_id/api-keys",
             post(business::issue_api_key).get(business::list_api_keys),
@@ -243,7 +243,10 @@ pub fn create_router(deps: RouterDeps) -> Router {
         .route("/v1/compliance/dashboard", get(compliance::dashboard))
         .route("/v1/compliance/rules", get(compliance::list_rules))
         .route("/v1/compliance/rules/:code", get(compliance::get_rule))
-        .route("/v1/compliance/evaluate", post(compliance::evaluate_transaction))
+        .route(
+            "/v1/compliance/evaluate",
+            post(compliance::evaluate_transaction),
+        )
         .route(
             "/v1/compliance/users/:user_id/risk",
             get(compliance::get_user_risk),
@@ -252,7 +255,10 @@ pub fn create_router(deps: RouterDeps) -> Router {
             "/v1/compliance/users/:user_id/explanations",
             get(compliance::user_transaction_explanations),
         )
-        .route("/v1/compliance/exchange-rates", get(compliance::exchange_rates))
+        .route(
+            "/v1/compliance/exchange-rates",
+            get(compliance::exchange_rates),
+        )
         .with_state(compliance_state)
         .layer(axum_mw::from_fn_with_state(
             admin_auth_state.clone(),
@@ -289,13 +295,11 @@ pub fn create_router(deps: RouterDeps) -> Router {
     let iraq_admin_routes = Router::new()
         .route(
             "/v1/admin/users/:user_id/region",
-            axum::routing::get(iraq_admin::get_user_region)
-                .post(iraq_admin::set_user_region),
+            axum::routing::get(iraq_admin::get_user_region).post(iraq_admin::set_user_region),
         )
         .route(
             "/v1/admin/users/:user_id/device-binding",
-            axum::routing::get(iraq_admin::get_device_binding)
-                .post(iraq_admin::set_device_binding),
+            axum::routing::get(iraq_admin::get_device_binding).post(iraq_admin::set_device_binding),
         )
         .with_state(iraq_admin_state)
         .layer(axum_mw::from_fn_with_state(
@@ -323,7 +327,10 @@ pub fn create_router(deps: RouterDeps) -> Router {
     // dashboard); the peg + conversion endpoints are public so the mobile
     // app can fetch them without an auth round-trip.
     let wallet_admin_routes = Router::new()
-        .route("/v1/admin/users/:user_id/wallets", get(wallets::list_wallets))
+        .route(
+            "/v1/admin/users/:user_id/wallets",
+            get(wallets::list_wallets),
+        )
         .route(
             "/v1/admin/users/:user_id/wallets/:currency",
             get(wallets::get_wallet),
@@ -339,8 +346,14 @@ pub fn create_router(deps: RouterDeps) -> Router {
         .with_state(wallet_state);
 
     let governance_routes = Router::new()
-        .route("/v1/governance/rules/proposals", post(rule_governance::propose_rule))
-        .route("/v1/governance/rules/proposals", get(rule_governance::list_pending))
+        .route(
+            "/v1/governance/rules/proposals",
+            post(rule_governance::propose_rule),
+        )
+        .route(
+            "/v1/governance/rules/proposals",
+            get(rule_governance::list_pending),
+        )
         .route(
             "/v1/governance/rules/proposals/:version_id/approve",
             post(rule_governance::approve_rule),
@@ -354,10 +367,7 @@ pub fn create_router(deps: RouterDeps) -> Router {
             get(rule_governance::rule_history),
         )
         .with_state(governance_state)
-        .layer(axum_mw::from_fn_with_state(
-            admin_auth_state,
-            require_admin,
-        ));
+        .layer(axum_mw::from_fn_with_state(admin_auth_state, require_admin));
 
     // API-key-gated router (server-to-server for business_electronic).
     let authed = Router::new()

@@ -262,12 +262,7 @@ pub async fn register_ip(
 ) -> Result<Json<IpRegisterResponse>, (StatusCode, String)> {
     let category = parse_ip_category(&req.category)?;
 
-    if let Some(existing) = state
-        .ips
-        .get_by_user(req.user_id)
-        .await
-        .map_err(internal)?
-    {
+    if let Some(existing) = state.ips.get_by_user(req.user_id).await.map_err(internal)? {
         return Ok(Json(IpRegisterResponse {
             ip_id: existing.ip_id,
             category: existing.category.as_str().into(),
@@ -345,7 +340,9 @@ pub async fn get_my_rollups(
             })
         })
         .collect();
-    Ok(Json(serde_json::json!({ "ip_id": ip.ip_id, "rollups": items })))
+    Ok(Json(
+        serde_json::json!({ "ip_id": ip.ip_id, "rollups": items }),
+    ))
 }
 
 pub async fn list_restricted_categories(

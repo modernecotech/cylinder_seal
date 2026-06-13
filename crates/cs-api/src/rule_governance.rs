@@ -13,9 +13,7 @@ use axum::http::StatusCode;
 use axum::Extension;
 use axum::Json;
 use chrono::{DateTime, Utc};
-use cs_storage::compliance::{
-    RuleVersionProposal, RuleVersionRecord, RuleVersionRepository,
-};
+use cs_storage::compliance::{RuleVersionProposal, RuleVersionRecord, RuleVersionRepository};
 use serde::{Deserialize, Serialize};
 
 use crate::middleware::AdminPrincipal;

@@ -170,15 +170,15 @@ pub async fn convert(
         ("IQD", "USD") => {
             // micro-IQD → micro-USD: amount / rate (rate is IQD per USD)
             let v = Decimal::from(q.amount_micro) / rate;
-            v.round().try_into().map_err(|_| {
-                (StatusCode::BAD_REQUEST, "conversion overflow".into())
-            })?
+            v.round()
+                .try_into()
+                .map_err(|_| (StatusCode::BAD_REQUEST, "conversion overflow".into()))?
         }
         ("USD", "IQD") => {
             let v = Decimal::from(q.amount_micro) * rate;
-            v.round().try_into().map_err(|_| {
-                (StatusCode::BAD_REQUEST, "conversion overflow".into())
-            })?
+            v.round()
+                .try_into()
+                .map_err(|_| (StatusCode::BAD_REQUEST, "conversion overflow".into()))?
         }
         (a, b) if a == b => q.amount_micro,
         _ => {

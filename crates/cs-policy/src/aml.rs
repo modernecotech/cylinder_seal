@@ -105,16 +105,16 @@ impl VelocityLimits {
     pub fn for_tier(tier: KYCTier) -> Self {
         match tier {
             KYCTier::Anonymous => VelocityLimits {
-                per_hour: 5_000_000,  // 5 OWC/h
-                per_day: 10_000_000,  // 10 OWC/day
+                per_hour: 5_000_000, // 5 OWC/h
+                per_day: 10_000_000, // 10 OWC/day
             },
             KYCTier::PhoneVerified => VelocityLimits {
                 per_hour: 25_000_000, // 25 OWC/h
                 per_day: 50_000_000,
             },
             KYCTier::FullKYC => VelocityLimits {
-                per_hour: 500_000_000,   // 500 OWC/h
-                per_day: 5_000_000_000,  // 5000 OWC/day
+                per_hour: 500_000_000,  // 500 OWC/h
+                per_day: 5_000_000_000, // 5000 OWC/day
             },
         }
     }
@@ -187,9 +187,8 @@ impl<S: SanctionsRepository> AmlEngine<S> {
 
         // 3. Structuring detection.
         let threshold = tier.attestation_threshold();
-        let near_threshold = (tx.amount_owc as f64 - threshold as f64).abs()
-            / (threshold.max(1) as f64)
-            <= 0.10;
+        let near_threshold =
+            (tx.amount_owc as f64 - threshold as f64).abs() / (threshold.max(1) as f64) <= 0.10;
         if near_threshold && activity.near_threshold_count_15m >= 3 {
             flags.push(AmlFlag::PossibleStructuring {
                 count: activity.near_threshold_count_15m + 1,
@@ -221,7 +220,9 @@ impl<S: SanctionsRepository> AmlEngine<S> {
             });
         }
 
-        let blocking = flags.iter().any(|f| matches!(f, AmlFlag::SanctionsHit { .. }));
+        let blocking = flags
+            .iter()
+            .any(|f| matches!(f, AmlFlag::SanctionsHit { .. }));
         Ok(AmlDecision {
             allowed: !blocking,
             flags,
@@ -271,7 +272,7 @@ mod tests {
             Uuid::new_v4(),
             [0u8; 32],
             [1u8; 32],
-            33.3152,  // Baghdad
+            33.3152, // Baghdad
             44.3661,
             10,
             LocationSource::GPS,

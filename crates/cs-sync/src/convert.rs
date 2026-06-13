@@ -263,10 +263,7 @@ pub fn domain_tx_to_pb(t: &Transaction) -> pb::Transaction {
         release_condition: t.release_condition.as_ref().map(|r| pb::ReleaseCondition {
             required_counter_signer: r.required_counter_signer.to_vec(),
         }),
-        counter_signature: t
-            .counter_signature
-            .map(|s| s.to_vec())
-            .unwrap_or_default(),
+        counter_signature: t.counter_signature.map(|s| s.to_vec()).unwrap_or_default(),
         funds_origin: domain_funds_origin_to_pb(t.funds_origin),
         signature: t.signature.to_vec(),
     }

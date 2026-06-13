@@ -60,19 +60,29 @@ pub async fn add_owner(
     if !["passport", "national_id", "residence_permit", "tax_id"].contains(&req.id_type.as_str()) {
         return Err((StatusCode::BAD_REQUEST, "invalid id_type".into()));
     }
-    if !["direct_ownership", "indirect_ownership", "voting_rights", "board_appointment", "other"]
-        .contains(&req.control_type.as_str())
+    if ![
+        "direct_ownership",
+        "indirect_ownership",
+        "voting_rights",
+        "board_appointment",
+        "other",
+    ]
+    .contains(&req.control_type.as_str())
     {
         return Err((StatusCode::BAD_REQUEST, "invalid control_type".into()));
     }
-    let normalised_id = if req.id_type == "national_id" && req.id_country.eq_ignore_ascii_case("IQ") {
+    let normalised_id = if req.id_type == "national_id" && req.id_country.eq_ignore_ascii_case("IQ")
+    {
         validate_iraqi_national_card(&req.id_number)
             .map_err(|e| (StatusCode::BAD_REQUEST, e.to_string()))?
     } else {
         req.id_number.trim().to_string()
     };
     if normalised_id.is_empty() {
-        return Err((StatusCode::BAD_REQUEST, "id_number must not be empty".into()));
+        return Err((
+            StatusCode::BAD_REQUEST,
+            "id_number must not be empty".into(),
+        ));
     }
     let pct_min = Decimal::new(0, 2);
     let pct_max = Decimal::new(100, 0);

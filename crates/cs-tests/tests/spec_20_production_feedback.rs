@@ -32,7 +32,11 @@ mod production_feedback_tests {
         assert!(textile_utilization_pct < 75);
 
         // Total industrial production index
-        let avg_utilization = (cement_utilization_pct + steel_utilization_pct + pharma_utilization_pct + textile_utilization_pct) / 4;
+        let avg_utilization = (cement_utilization_pct
+            + steel_utilization_pct
+            + pharma_utilization_pct
+            + textile_utilization_pct)
+            / 4;
         assert!(avg_utilization < 75);
     }
 
@@ -58,7 +62,11 @@ mod production_feedback_tests {
         assert!(dairy_self_sufficiency < 0.50);
 
         // Combined agricultural index
-        let ag_index = (grain_self_sufficiency + vegetable_self_sufficiency + meat_self_sufficiency + dairy_self_sufficiency) / 4.0;
+        let ag_index = (grain_self_sufficiency
+            + vegetable_self_sufficiency
+            + meat_self_sufficiency
+            + dairy_self_sufficiency)
+            / 4.0;
         assert!(ag_index < 0.40);
     }
 

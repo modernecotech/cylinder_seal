@@ -22,12 +22,16 @@ audited surplus.
 
 ## System Boundary
 
-The system has twelve layers:
+The system has sixteen layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
 | Digital IQD transaction layer | Wallets, POS, offline transactions, settlement, policy primitives, AML, audit, credit features, dashboards. | `README.md`, `docs/technical-primitives.md`, `docs/system-and-financial-flow-diagrams.md` |
 | Economic operating layer | Six ledgers, canonical economic events, hard gates, portfolio modes, scorecards, cash/benefit conversion, waterfalls, capital allocation, dashboards, and escalation rules. | `docs/national-economic-operating-logic.md` |
+| Legal and institutional layer | Authority path for oil lockbox, INDHC, citizen shares, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals. | `docs/national-legal-institutional-roadmap.md` |
+| Project pipeline layer | Project-family gates for capex, opex, revenue source, DSCR, FX exposure, facility reuse, environmental/cultural safeguards, legal authority, and evidence bundles. | `docs/project-pipeline-and-investment-gates.md` |
+| Political-economy and anti-capture layer | Resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, and pause/rollback rules. | `docs/political-economy-transition-and-anti-capture.md` |
+| Fiscal stress and contingent-liability layer | Downside controls for oil-equity caps, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend suspension. | `docs/fiscal-stress-and-contingent-liability-model.md` |
 | Public-finance and capital layer | Oil Income Lockbox, INDHC, gross-profit levy, ministry budgets, cash formalization, citizen share entitlements, dividends. | `docs/national-dividend-holding-company.md` |
 | Ten-year productive economy layer | Import substitution, strategic resilience manufacturing, defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, food substitution, tourism/services, green capital, open rail, raw-material processing, Iraqi-only permanent staffing. | `docs/indhc-10-year-plan.md` |
 | Growth-impact layer | Quantified baseline, constrained-base, and strategic-upper non-oil growth paths from infrastructure, industry, open-source rail, green power, food/water systems, tourism, Digital IQD formalization, and civic work. | `docs/iraq-integrated-growth-impact-model.md` |

@@ -1,6 +1,6 @@
 //! Domain models for economic analytics
 
-use chrono::{DateTime, Utc, NaiveDate};
+use chrono::{DateTime, NaiveDate, Utc};
 use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
@@ -165,7 +165,10 @@ pub struct ImportSubstitutionSummary {
 impl ImportSubstitutionSummary {
     /// Total transaction volume across all tiers (in micro-OWC)
     pub fn total_volume_owc(&self) -> i64 {
-        self.tier1_volume_owc + self.tier2_volume_owc + self.tier3_volume_owc + self.tier4_volume_owc
+        self.tier1_volume_owc
+            + self.tier2_volume_owc
+            + self.tier3_volume_owc
+            + self.tier4_volume_owc
     }
 
     /// Percentage of total volume in Tier 1 (100% Iraqi content)
@@ -198,7 +201,7 @@ pub struct ProjectGdpMultiplier {
     pub direct_gdp_usd: f64,
     pub visibility_multiplier: f64, // 1.3-1.5
     pub financing_multiplier: f64,  // 1.5-2.0
-    pub tax_multiplier: f64,         // 1.2
+    pub tax_multiplier: f64,        // 1.2
 
     pub total_gdp_impact_usd: f64, // direct_gdp * visibility * financing * tax
 
@@ -216,7 +219,8 @@ impl ProjectGdpMultiplier {
         tax_multiplier: f64,
         computed_for_year: i32,
     ) -> Self {
-        let total_gdp_impact = direct_gdp_usd * visibility_multiplier * financing_multiplier * tax_multiplier;
+        let total_gdp_impact =
+            direct_gdp_usd * visibility_multiplier * financing_multiplier * tax_multiplier;
 
         Self {
             multiplier_id: 0, // will be assigned by DB

@@ -10,16 +10,25 @@ fn spec_three_account_types_exist() {
     let t = AccountType::Individual;
     assert!(!t.is_business());
     let t = AccountType::BusinessPos;
-    assert!(t.is_business(), "Spec: BusinessPos must be_business() = true");
+    assert!(
+        t.is_business(),
+        "Spec: BusinessPos must be_business() = true"
+    );
     let t = AccountType::BusinessElectronic;
-    assert!(t.is_business(), "Spec: BusinessElectronic must be_business() = true");
+    assert!(
+        t.is_business(),
+        "Spec: BusinessElectronic must be_business() = true"
+    );
 }
 
 #[test]
 fn spec_account_type_strings_match_api_contract() {
     assert_eq!(AccountType::Individual.as_str(), "individual");
     assert_eq!(AccountType::BusinessPos.as_str(), "business_pos");
-    assert_eq!(AccountType::BusinessElectronic.as_str(), "business_electronic");
+    assert_eq!(
+        AccountType::BusinessElectronic.as_str(),
+        "business_electronic"
+    );
 }
 
 #[test]
@@ -47,7 +56,10 @@ fn spec_kyc_tier_limits_current_implementation() {
     // advertises. This test pins the current behavior so a future diff
     // makes the gap visible — whichever side moves, both must be updated.
     assert_eq!(KYCTier::Anonymous.max_offline_transaction(), 20_000_000);
-    assert_eq!(KYCTier::PhoneVerified.max_offline_transaction(), 100_000_000);
+    assert_eq!(
+        KYCTier::PhoneVerified.max_offline_transaction(),
+        100_000_000
+    );
     assert_eq!(KYCTier::FullKYC.max_offline_transaction(), 500_000_000);
 }
 
@@ -75,7 +87,10 @@ fn spec_business_profile_defaults_pre_edd() {
         "Karrada, Baghdad".into(),
     );
 
-    assert!(!profile.edd_cleared, "Spec: new businesses start with edd_cleared=false");
+    assert!(
+        !profile.edd_cleared,
+        "Spec: new businesses start with edd_cleared=false"
+    );
     assert_eq!(
         profile.signature_threshold, 1,
         "Spec: default single-signer threshold"

@@ -47,17 +47,15 @@ pub async fn serve(sender: mpsc::Sender<IncomingPayload>) -> Result<()> {
                 uuid: PAYLOAD_CHAR_UUID,
                 write: Some(CharacteristicWrite {
                     write_without_response: true,
-                    method: CharacteristicWriteMethod::Fun(Box::new(
-                        move |new_value, req| {
-                            let buffer = buffer.clone();
-                            let sender = sender.clone();
-                            async move {
-                                handle_write(&buffer, new_value, &sender).await;
-                                Ok(())
-                            }
-                            .boxed()
-                        },
-                    )),
+                    method: CharacteristicWriteMethod::Fun(Box::new(move |new_value, req| {
+                        let buffer = buffer.clone();
+                        let sender = sender.clone();
+                        async move {
+                            handle_write(&buffer, new_value, &sender).await;
+                            Ok(())
+                        }
+                        .boxed()
+                    })),
                     ..Default::default()
                 }),
                 control_handle: char_handle,
@@ -69,7 +67,10 @@ pub async fn serve(sender: mpsc::Sender<IncomingPayload>) -> Result<()> {
         ..Default::default()
     };
 
-    let _app_handle = adapter.serve_gatt_application(app).await.context("serve gatt")?;
+    let _app_handle = adapter
+        .serve_gatt_application(app)
+        .await
+        .context("serve gatt")?;
 
     let adv = Advertisement {
         service_uuids: vec![SERVICE_UUID].into_iter().collect(),

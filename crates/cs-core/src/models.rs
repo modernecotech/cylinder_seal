@@ -1,12 +1,12 @@
-use serde::{Deserialize, Deserializer, Serialize, Serializer};
-use serde_big_array::BigArray;
-use uuid::Uuid;
 use chrono::{DateTime, Utc};
 use rust_decimal::Decimal;
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
+use serde_big_array::BigArray;
 use std::collections::HashMap;
+use uuid::Uuid;
 
-use crate::error::Result;
 use crate::cryptography;
+use crate::error::Result;
 use crate::primitives::{ExpiryPolicy, ReleaseCondition, SpendConstraint};
 use crate::producer::FundsOrigin;
 
@@ -14,16 +14,19 @@ use crate::producer::FundsOrigin;
 mod option_big_array {
     use super::*;
 
-    pub fn serialize<S: Serializer>(val: &Option<[u8; 64]>, s: S) -> std::result::Result<S::Ok, S::Error> {
+    pub fn serialize<S: Serializer>(
+        val: &Option<[u8; 64]>,
+        s: S,
+    ) -> std::result::Result<S::Ok, S::Error> {
         match val {
-            Some(arr) => {
-                s.serialize_some(&BigArrayHelper(*arr))
-            }
+            Some(arr) => s.serialize_some(&BigArrayHelper(*arr)),
             None => s.serialize_none(),
         }
     }
 
-    pub fn deserialize<'de, D: Deserializer<'de>>(d: D) -> std::result::Result<Option<[u8; 64]>, D::Error> {
+    pub fn deserialize<'de, D: Deserializer<'de>>(
+        d: D,
+    ) -> std::result::Result<Option<[u8; 64]>, D::Error> {
         let opt: Option<BigArrayHelper> = Deserialize::deserialize(d)?;
         Ok(opt.map(|h| h.0))
     }
@@ -252,7 +255,6 @@ impl Transaction {
         *self.transaction_id.as_bytes()
     }
 
-
     /// Get current monotonic clock value in nanoseconds.
     ///
     /// Uses `Instant` which is guaranteed to never go backward, unlike `SystemTime`.
@@ -260,8 +262,8 @@ impl Transaction {
     /// so it is only meaningful for ordering within a single device session.
     /// On Android, this corresponds to `System.nanoTime()`.
     pub fn monotonic_clock() -> i64 {
-        use std::time::Instant;
         use std::sync::OnceLock;
+        use std::time::Instant;
         // Anchor to a fixed point so successive calls produce increasing values
         static EPOCH: OnceLock<Instant> = OnceLock::new();
         let epoch = EPOCH.get_or_init(Instant::now);
@@ -338,10 +340,10 @@ pub enum PaymentChannel {
 #[derive(Clone, Copy, Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub enum LocationSource {
     Unspecified,
-    GPS,           // Real-time GPS (high accuracy)
-    Network,       // Network-based (WiFi/cell, lower accuracy)
-    LastKnown,     // Last known location from prior sync
-    Offline,       // User provided (when offline, no automated source)
+    GPS,       // Real-time GPS (high accuracy)
+    Network,   // Network-based (WiFi/cell, lower accuracy)
+    LastKnown, // Last known location from prior sync
+    Offline,   // User provided (when offline, no automated source)
 }
 
 // ============================================================================
@@ -471,7 +473,10 @@ impl JournalEntry {
 
     /// Sign the entry with user master private key (for high-value txs)
     pub fn sign_with_user_key(&mut self, user_private_key: &[u8; 32]) -> Result<()> {
-        self.user_signature = Some(cryptography::sign_message(&self.entry_hash, user_private_key)?);
+        self.user_signature = Some(cryptography::sign_message(
+            &self.entry_hash,
+            user_private_key,
+        )?);
         Ok(())
     }
 
@@ -489,7 +494,11 @@ impl JournalEntry {
         }
 
         // Verify device signature against the provided device public key
-        cryptography::verify_signature(&self.entry_hash, &self.device_signature, device_public_key)?;
+        cryptography::verify_signature(
+            &self.entry_hash,
+            &self.device_signature,
+            device_public_key,
+        )?;
 
         // If user signature is present, verify it against the entry owner's key
         if let Some(ref user_sig) = self.user_signature {
@@ -508,7 +517,14 @@ impl JournalEntry {
     pub fn genesis(user_public_key: [u8; 32]) -> Self {
         let prev_hash = cryptography::blake2b_256(&user_public_key);
         let device_id = Uuid::nil(); // Genesis entries have no device (super-peer generated)
-        Self::new(user_public_key, device_id, 0, prev_hash, vec![], HashMap::new())
+        Self::new(
+            user_public_key,
+            device_id,
+            0,
+            prev_hash,
+            vec![],
+            HashMap::new(),
+        )
     }
 }
 
@@ -731,9 +747,9 @@ impl KYCTier {
     /// Maximum balance for this KYC tier (in micro-OWC)
     pub fn max_balance(&self) -> Option<i64> {
         match self {
-            KYCTier::Anonymous => Some(50_000_000),       // 50 OWC
-            KYCTier::PhoneVerified => Some(250_000_000),  // 250 OWC
-            KYCTier::FullKYC => None,                      // unlimited
+            KYCTier::Anonymous => Some(50_000_000),      // 50 OWC
+            KYCTier::PhoneVerified => Some(250_000_000), // 250 OWC
+            KYCTier::FullKYC => None,                    // unlimited
         }
     }
 
@@ -741,36 +757,36 @@ impl KYCTier {
     /// This is per-transaction limit (not per-day)
     pub fn max_offline_transaction(&self) -> i64 {
         match self {
-            KYCTier::Anonymous => 20_000_000,         // 20 OWC
-            KYCTier::PhoneVerified => 100_000_000,    // 100 OWC
-            KYCTier::FullKYC => 500_000_000,          // 500 OWC
+            KYCTier::Anonymous => 20_000_000,      // 20 OWC
+            KYCTier::PhoneVerified => 100_000_000, // 100 OWC
+            KYCTier::FullKYC => 500_000_000,       // 500 OWC
         }
     }
 
     /// Maximum daily offline spending per device (in micro-OWC)
     pub fn max_daily_offline_per_device(&self) -> i64 {
         match self {
-            KYCTier::Anonymous => 10_000_000,         // 10 OWC per device per day
-            KYCTier::PhoneVerified => 50_000_000,     // 50 OWC per device per day
-            KYCTier::FullKYC => i64::MAX,             // unlimited
+            KYCTier::Anonymous => 10_000_000,     // 10 OWC per device per day
+            KYCTier::PhoneVerified => 50_000_000, // 50 OWC per device per day
+            KYCTier::FullKYC => i64::MAX,         // unlimited
         }
     }
 
     /// Threshold above which device attestation is required (in micro-OWC)
     pub fn attestation_threshold(&self) -> i64 {
         match self {
-            KYCTier::Anonymous => 5_000_000,          // 5 OWC
-            KYCTier::PhoneVerified => 20_000_000,     // 20 OWC
-            KYCTier::FullKYC => 100_000_000,          // 100 OWC
+            KYCTier::Anonymous => 5_000_000,      // 5 OWC
+            KYCTier::PhoneVerified => 20_000_000, // 20 OWC
+            KYCTier::FullKYC => 100_000_000,      // 100 OWC
         }
     }
 
     /// Threshold above which biometric auth is required (in micro-OWC)
     pub fn biometric_threshold(&self) -> i64 {
         match self {
-            KYCTier::Anonymous => 5_000_000,          // 5 OWC
-            KYCTier::PhoneVerified => 50_000_000,     // 50 OWC
-            KYCTier::FullKYC => i64::MAX,             // never (optional)
+            KYCTier::Anonymous => 5_000_000,      // 5 OWC
+            KYCTier::PhoneVerified => 50_000_000, // 50 OWC
+            KYCTier::FullKYC => i64::MAX,         // never (optional)
         }
     }
 }
@@ -801,9 +817,9 @@ mod tests {
             device_id,
             previous_nonce,
             current_nonce,
-            -1.286389,  // latitude (Nairobi)
-            36.817223,  // longitude
-            10,         // accuracy meters
+            -1.286389, // latitude (Nairobi)
+            36.817223, // longitude
+            10,        // accuracy meters
             LocationSource::GPS,
         );
 
@@ -825,7 +841,10 @@ mod tests {
     #[test]
     fn test_kyc_tier_limits() {
         assert_eq!(KYCTier::Anonymous.max_offline_transaction(), 20_000_000);
-        assert_eq!(KYCTier::PhoneVerified.max_offline_transaction(), 100_000_000);
+        assert_eq!(
+            KYCTier::PhoneVerified.max_offline_transaction(),
+            100_000_000
+        );
         assert_eq!(KYCTier::Anonymous.max_balance(), Some(50_000_000));
         assert_eq!(KYCTier::FullKYC.max_balance(), None);
     }
@@ -886,11 +905,17 @@ mod tests {
         );
 
         tx.sign(&priv_key).unwrap();
-        assert!(tx.verify_signature().is_ok(), "Valid signature should verify");
+        assert!(
+            tx.verify_signature().is_ok(),
+            "Valid signature should verify"
+        );
 
         // Tamper with amount after signing
         tx.amount_owc = 100_000_000;
-        assert!(tx.verify_signature().is_err(), "Signature must fail after amount tamper");
+        assert!(
+            tx.verify_signature().is_err(),
+            "Signature must fail after amount tamper"
+        );
     }
 
     #[test]
@@ -908,7 +933,7 @@ mod tests {
             pub_key,
             Uuid::new_v4(),
             1,
-            entry0.entry_hash,  // prev_entry_hash links to entry 0
+            entry0.entry_hash, // prev_entry_hash links to entry 0
             vec![],
             HashMap::new(),
         );
@@ -917,26 +942,36 @@ mod tests {
         assert!(entry1.verify(&pub_key).is_ok());
 
         // Verify the chain link
-        assert_eq!(entry1.prev_entry_hash, entry0.entry_hash,
-            "Entry 1 must chain from entry 0");
-        assert_eq!(entry1.sequence_number, entry0.sequence_number + 1,
-            "Sequence numbers must increment by 1");
+        assert_eq!(
+            entry1.prev_entry_hash, entry0.entry_hash,
+            "Entry 1 must chain from entry 0"
+        );
+        assert_eq!(
+            entry1.sequence_number,
+            entry0.sequence_number + 1,
+            "Sequence numbers must increment by 1"
+        );
 
         // A broken chain (wrong prev_entry_hash) should be detectable
         let mut entry_bad = JournalEntry::new(
             pub_key,
             Uuid::new_v4(),
             2,
-            [0xFFu8; 32],  // deliberately wrong prev hash
+            [0xFFu8; 32], // deliberately wrong prev hash
             vec![],
             HashMap::new(),
         );
         entry_bad.compute_entry_hash().unwrap();
         entry_bad.sign_with_device_key(&priv_key).unwrap();
         // The entry itself is valid (hash + sig match), but the chain is broken
-        assert!(entry_bad.verify(&pub_key).is_ok(), "Entry is structurally valid");
-        assert_ne!(entry_bad.prev_entry_hash, entry1.entry_hash,
-            "Chain link should be broken (wrong prev hash)");
+        assert!(
+            entry_bad.verify(&pub_key).is_ok(),
+            "Entry is structurally valid"
+        );
+        assert_ne!(
+            entry_bad.prev_entry_hash, entry1.entry_hash,
+            "Chain link should be broken (wrong prev hash)"
+        );
     }
 
     #[test]
@@ -958,7 +993,10 @@ mod tests {
             signature: [2u8; 64],
             confirmed_at: 1001,
         });
-        assert!(!entry.is_confirmed(), "2 confirmations should NOT be enough");
+        assert!(
+            !entry.is_confirmed(),
+            "2 confirmations should NOT be enough"
+        );
 
         // 3 confirmations: confirmed
         entry.super_peer_confirmations.push(SuperPeerConfirmation {
@@ -966,7 +1004,10 @@ mod tests {
             signature: [3u8; 64],
             confirmed_at: 1002,
         });
-        assert!(entry.is_confirmed(), "3 confirmations should be enough (3-of-5 quorum)");
+        assert!(
+            entry.is_confirmed(),
+            "3 confirmations should be enough (3-of-5 quorum)"
+        );
     }
 
     #[test]
@@ -979,8 +1020,10 @@ mod tests {
 
         // Genesis prev_entry_hash = blake2b_256(user_public_key)
         let expected_prev_hash = cryptography::blake2b_256(&pub_key);
-        assert_eq!(entry.prev_entry_hash, expected_prev_hash,
-            "Genesis prev_entry_hash must be BLAKE2b-256(public_key)");
+        assert_eq!(
+            entry.prev_entry_hash, expected_prev_hash,
+            "Genesis prev_entry_hash must be BLAKE2b-256(public_key)"
+        );
 
         // Genesis device_id is nil (super-peer generated)
         assert_eq!(entry.device_id, Uuid::nil());
@@ -993,8 +1036,11 @@ mod tests {
 
         // Vector clock should contain the user's own sequence
         let user_id = User::derive_user_id_from_public_key(&pub_key);
-        assert_eq!(entry.vector_clock.get(&user_id), Some(&0u64),
-            "Genesis vector clock must contain user's sequence 0");
+        assert_eq!(
+            entry.vector_clock.get(&user_id),
+            Some(&0u64),
+            "Genesis vector clock must contain user's sequence 0"
+        );
     }
 
     #[test]
@@ -1009,13 +1055,17 @@ mod tests {
         let user_id_in_vector_clock: Vec<&Uuid> = entry.vector_clock.keys().collect();
 
         assert_eq!(user_id_in_vector_clock.len(), 1);
-        assert_eq!(*user_id_in_vector_clock[0], user_id_from_user,
-            "User ID in vector clock must match User::derive_user_id_from_public_key");
+        assert_eq!(
+            *user_id_in_vector_clock[0], user_id_from_user,
+            "User ID in vector clock must match User::derive_user_id_from_public_key"
+        );
 
         // Also verify that User::new produces the same user_id
         let user = User::new(pub_key, "Test User".to_string());
-        assert_eq!(user.user_id, user_id_from_user,
-            "User::new must derive same user_id as derive_user_id_from_public_key");
+        assert_eq!(
+            user.user_id, user_id_from_user,
+            "User::new must derive same user_id as derive_user_id_from_public_key"
+        );
     }
 
     #[test]
@@ -1031,12 +1081,21 @@ mod tests {
 
         // Derive nonce for first transaction
         let nonce1 = derive_nonce_with_hardware(&genesis_nonce, &hw, 1).unwrap();
-        let tx1 = make_test_tx(pub_key, recipient_pub, 10_000_000, &priv_key, genesis_nonce, nonce1);
+        let tx1 = make_test_tx(
+            pub_key,
+            recipient_pub,
+            10_000_000,
+            &priv_key,
+            genesis_nonce,
+            nonce1,
+        );
         assert!(tx1.verify_signature().is_ok());
 
         // Verify nonce chain: genesis -> nonce1
-        assert!(verify_nonce_chain(&genesis_nonce, &nonce1, &hw, 1).is_ok(),
-            "Nonce chain from genesis to tx1 must verify");
+        assert!(
+            verify_nonce_chain(&genesis_nonce, &nonce1, &hw, 1).is_ok(),
+            "Nonce chain from genesis to tx1 must verify"
+        );
 
         // Derive nonce for second transaction (chains from first)
         let nonce2 = derive_nonce_with_hardware(&nonce1, &hw, 2).unwrap();
@@ -1044,8 +1103,10 @@ mod tests {
         assert!(tx2.verify_signature().is_ok());
 
         // Verify full chain
-        assert!(verify_nonce_chain(&nonce1, &nonce2, &hw, 2).is_ok(),
-            "Nonce chain from tx1 to tx2 must verify");
+        assert!(
+            verify_nonce_chain(&nonce1, &nonce2, &hw, 2).is_ok(),
+            "Nonce chain from tx1 to tx2 must verify"
+        );
 
         // Transaction nonce fields match the derived values
         assert_eq!(tx1.previous_nonce, genesis_nonce);
@@ -1064,8 +1125,10 @@ mod tests {
         entry.sign_with_device_key(&priv_key).unwrap();
 
         // Verify with wrong key must fail
-        assert!(entry.verify(&wrong_key).is_err(),
-            "Verification with wrong device key must fail");
+        assert!(
+            entry.verify(&wrong_key).is_err(),
+            "Verification with wrong device key must fail"
+        );
 
         // Verify with correct key must pass
         assert!(entry.verify(&pub_key).is_ok());
@@ -1090,9 +1153,20 @@ mod tests {
         let (fallback_pk, _) = cryptography::generate_keypair();
 
         let mut tx = Transaction::new(
-            pub_key, to_pk, 1_000_000, "IQD".into(), Decimal::ONE,
-            PaymentChannel::NFC, "expiring".into(), Uuid::new_v4(),
-            [0u8; 32], [1u8; 32], 33.31, 44.36, 10, LocationSource::GPS,
+            pub_key,
+            to_pk,
+            1_000_000,
+            "IQD".into(),
+            Decimal::ONE,
+            PaymentChannel::NFC,
+            "expiring".into(),
+            Uuid::new_v4(),
+            [0u8; 32],
+            [1u8; 32],
+            33.31,
+            44.36,
+            10,
+            LocationSource::GPS,
         )
         .with_expiry(ExpiryPolicy {
             expires_at_micros: 2_000_000_000_000_000,
@@ -1122,9 +1196,20 @@ mod tests {
         let (to_pk, _) = cryptography::generate_keypair();
 
         let mut tx = Transaction::new(
-            pub_key, to_pk, 1_000_000, "IQD".into(), Decimal::ONE,
-            PaymentChannel::NFC, "cement-earmarked".into(), Uuid::new_v4(),
-            [0u8; 32], [1u8; 32], 33.31, 44.36, 10, LocationSource::GPS,
+            pub_key,
+            to_pk,
+            1_000_000,
+            "IQD".into(),
+            Decimal::ONE,
+            PaymentChannel::NFC,
+            "cement-earmarked".into(),
+            Uuid::new_v4(),
+            [0u8; 32],
+            [1u8; 32],
+            33.31,
+            44.36,
+            10,
+            LocationSource::GPS,
         )
         .with_spend_constraint(SpendConstraint {
             allowed_tiers: vec![1, 2],
@@ -1152,9 +1237,20 @@ mod tests {
         let (inspector_pk, inspector_sk) = cryptography::generate_keypair();
 
         let mut tx = Transaction::new(
-            sender_pk, receiver_pk, 10_000_000, "IQD".into(), Decimal::ONE,
-            PaymentChannel::Online, "construction tranche 1".into(), Uuid::new_v4(),
-            [0u8; 32], [1u8; 32], 33.31, 44.36, 10, LocationSource::GPS,
+            sender_pk,
+            receiver_pk,
+            10_000_000,
+            "IQD".into(),
+            Decimal::ONE,
+            PaymentChannel::Online,
+            "construction tranche 1".into(),
+            Uuid::new_v4(),
+            [0u8; 32],
+            [1u8; 32],
+            33.31,
+            44.36,
+            10,
+            LocationSource::GPS,
         )
         .with_release_condition(ReleaseCondition {
             required_counter_signer: inspector_pk,
@@ -1168,8 +1264,7 @@ mod tests {
 
         // Inspector signs the transaction_id payload.
         let payload = tx.counter_signer_payload();
-        let counter_sig =
-            cryptography::sign_message(&payload, &inspector_sk).unwrap();
+        let counter_sig = cryptography::sign_message(&payload, &inspector_sk).unwrap();
         tx.attach_counter_signature(counter_sig);
 
         // Sender's signature still verifies (counter_signature is not
@@ -1198,16 +1293,28 @@ mod tests {
         let (pub_key, _) = cryptography::generate_keypair();
 
         let mut entry_a = JournalEntry::new(
-            pub_key, Uuid::new_v4(), 1, [0u8; 32], vec![], HashMap::new(),
+            pub_key,
+            Uuid::new_v4(),
+            1,
+            [0u8; 32],
+            vec![],
+            HashMap::new(),
         );
         entry_a.compute_entry_hash().unwrap();
 
         let mut entry_b = JournalEntry::new(
-            pub_key, Uuid::new_v4(), 2, [0u8; 32], vec![], HashMap::new(),
+            pub_key,
+            Uuid::new_v4(),
+            2,
+            [0u8; 32],
+            vec![],
+            HashMap::new(),
         );
         entry_b.compute_entry_hash().unwrap();
 
-        assert_ne!(entry_a.entry_hash, entry_b.entry_hash,
-            "Entries with different sequence numbers must produce different hashes");
+        assert_ne!(
+            entry_a.entry_hash, entry_b.entry_hash,
+            "Entries with different sequence numbers must produce different hashes"
+        );
     }
 }

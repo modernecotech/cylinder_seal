@@ -1,6 +1,6 @@
+use crate::state::AppState;
 use axum::{extract::State, http::StatusCode};
 use std::sync::Arc;
-use crate::state::AppState;
 
 pub async fn import_substitution(_: State<Arc<AppState>>) -> StatusCode {
     StatusCode::NOT_IMPLEMENTED

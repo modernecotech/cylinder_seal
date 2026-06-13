@@ -128,13 +128,12 @@ impl JournalRepository for PgJournalRepository {
     }
 
     async fn get_user_balance(&self, user_id: Uuid) -> Result<i64> {
-        let bal: Option<i64> = sqlx::query_scalar(
-            r#"SELECT balance_owc FROM users WHERE user_id = $1"#,
-        )
-        .bind(user_id)
-        .fetch_optional(&self.pool)
-        .await
-        .map_err(db_err)?;
+        let bal: Option<i64> =
+            sqlx::query_scalar(r#"SELECT balance_owc FROM users WHERE user_id = $1"#)
+                .bind(user_id)
+                .fetch_optional(&self.pool)
+                .await
+                .map_err(db_err)?;
         Ok(bal.unwrap_or(0))
     }
 
@@ -356,26 +355,22 @@ impl UserRepository for PgUserRepository {
     }
 
     async fn update_balance(&self, user_id: Uuid, balance: i64) -> Result<()> {
-        sqlx::query(
-            r#"UPDATE users SET balance_owc = $2, updated_at = NOW() WHERE user_id = $1"#,
-        )
-        .bind(user_id)
-        .bind(balance)
-        .execute(&self.pool)
-        .await
-        .map_err(db_err)?;
+        sqlx::query(r#"UPDATE users SET balance_owc = $2, updated_at = NOW() WHERE user_id = $1"#)
+            .bind(user_id)
+            .bind(balance)
+            .execute(&self.pool)
+            .await
+            .map_err(db_err)?;
         Ok(())
     }
 
     async fn update_credit_score(&self, user_id: Uuid, score: Decimal) -> Result<()> {
-        sqlx::query(
-            r#"UPDATE users SET credit_score = $2, updated_at = NOW() WHERE user_id = $1"#,
-        )
-        .bind(user_id)
-        .bind(score)
-        .execute(&self.pool)
-        .await
-        .map_err(db_err)?;
+        sqlx::query(r#"UPDATE users SET credit_score = $2, updated_at = NOW() WHERE user_id = $1"#)
+            .bind(user_id)
+            .bind(score)
+            .execute(&self.pool)
+            .await
+            .map_err(db_err)?;
         Ok(())
     }
 }
@@ -470,13 +465,11 @@ impl BusinessProfileRepository for PgBusinessProfileRepository {
     }
 
     async fn get(&self, user_id: Uuid) -> Result<Option<BusinessProfileRecord>> {
-        let row = sqlx::query(
-            r#"SELECT * FROM business_profiles WHERE user_id = $1"#,
-        )
-        .bind(user_id)
-        .fetch_optional(&self.pool)
-        .await
-        .map_err(db_err)?;
+        let row = sqlx::query(r#"SELECT * FROM business_profiles WHERE user_id = $1"#)
+            .bind(user_id)
+            .fetch_optional(&self.pool)
+            .await
+            .map_err(db_err)?;
         Ok(row.map(row_to_business))
     }
 
@@ -484,13 +477,12 @@ impl BusinessProfileRepository for PgBusinessProfileRepository {
         &self,
         commercial_registration_id: &str,
     ) -> Result<Option<BusinessProfileRecord>> {
-        let row = sqlx::query(
-            r#"SELECT * FROM business_profiles WHERE commercial_registration_id = $1"#,
-        )
-        .bind(commercial_registration_id)
-        .fetch_optional(&self.pool)
-        .await
-        .map_err(db_err)?;
+        let row =
+            sqlx::query(r#"SELECT * FROM business_profiles WHERE commercial_registration_id = $1"#)
+                .bind(commercial_registration_id)
+                .fetch_optional(&self.pool)
+                .await
+                .map_err(db_err)?;
         Ok(row.map(row_to_business))
     }
 
@@ -585,24 +577,22 @@ impl ApiKeyRepository for PgApiKeyRepository {
     }
 
     async fn find_by_hash(&self, key_hash: &[u8]) -> Result<Option<ApiKeyRecord>> {
-        let row = sqlx::query(
-            r#"SELECT * FROM api_keys WHERE key_hash = $1 AND revoked_at IS NULL"#,
-        )
-        .bind(key_hash)
-        .fetch_optional(&self.pool)
-        .await
-        .map_err(db_err)?;
+        let row =
+            sqlx::query(r#"SELECT * FROM api_keys WHERE key_hash = $1 AND revoked_at IS NULL"#)
+                .bind(key_hash)
+                .fetch_optional(&self.pool)
+                .await
+                .map_err(db_err)?;
         Ok(row.map(row_to_api_key))
     }
 
     async fn list_for_user(&self, user_id: Uuid) -> Result<Vec<ApiKeyRecord>> {
-        let rows = sqlx::query(
-            r#"SELECT * FROM api_keys WHERE user_id = $1 ORDER BY created_at DESC"#,
-        )
-        .bind(user_id)
-        .fetch_all(&self.pool)
-        .await
-        .map_err(db_err)?;
+        let rows =
+            sqlx::query(r#"SELECT * FROM api_keys WHERE user_id = $1 ORDER BY created_at DESC"#)
+                .bind(user_id)
+                .fetch_all(&self.pool)
+                .await
+                .map_err(db_err)?;
         Ok(rows.into_iter().map(row_to_api_key).collect())
     }
 
@@ -618,13 +608,11 @@ impl ApiKeyRepository for PgApiKeyRepository {
     }
 
     async fn touch(&self, id: i64) -> Result<()> {
-        sqlx::query(
-            r#"UPDATE api_keys SET last_used_at = NOW() WHERE id = $1"#,
-        )
-        .bind(id)
-        .execute(&self.pool)
-        .await
-        .map_err(db_err)?;
+        sqlx::query(r#"UPDATE api_keys SET last_used_at = NOW() WHERE id = $1"#)
+            .bind(id)
+            .execute(&self.pool)
+            .await
+            .map_err(db_err)?;
         Ok(())
     }
 }
@@ -831,13 +819,11 @@ impl InvoiceRepository for PgInvoiceRepository {
     }
 
     async fn record_webhook_delivery(&self, invoice_id: Uuid) -> Result<()> {
-        sqlx::query(
-            r#"UPDATE invoices SET webhook_delivered_at = NOW() WHERE invoice_id = $1"#,
-        )
-        .bind(invoice_id)
-        .execute(&self.pool)
-        .await
-        .map_err(db_err)?;
+        sqlx::query(r#"UPDATE invoices SET webhook_delivered_at = NOW() WHERE invoice_id = $1"#)
+            .bind(invoice_id)
+            .execute(&self.pool)
+            .await
+            .map_err(db_err)?;
         Ok(())
     }
 
@@ -875,19 +861,13 @@ impl InvoiceRepository for PgInvoiceRepository {
         Ok(rows.into_iter().map(row_to_invoice).collect())
     }
 
-    async fn set_fiscal_receipt(
-        &self,
-        invoice_id: Uuid,
-        fiscal_receipt_ref: &str,
-    ) -> Result<()> {
-        sqlx::query(
-            r#"UPDATE invoices SET fiscal_receipt_ref = $2 WHERE invoice_id = $1"#,
-        )
-        .bind(invoice_id)
-        .bind(fiscal_receipt_ref)
-        .execute(&self.pool)
-        .await
-        .map_err(db_err)?;
+    async fn set_fiscal_receipt(&self, invoice_id: Uuid, fiscal_receipt_ref: &str) -> Result<()> {
+        sqlx::query(r#"UPDATE invoices SET fiscal_receipt_ref = $2 WHERE invoice_id = $1"#)
+            .bind(invoice_id)
+            .bind(fiscal_receipt_ref)
+            .execute(&self.pool)
+            .await
+            .map_err(db_err)?;
         Ok(())
     }
 }

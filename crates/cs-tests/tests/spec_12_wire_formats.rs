@@ -38,10 +38,20 @@ fn spec_cbor_transaction_size_fits_under_qr_v20_limit() {
     let (pk, _sk) = seeded_keypair("a");
     let (to_pk, _) = seeded_keypair("b");
     let mut tx = Transaction::new(
-        pk, to_pk, 1_000_000, "IQD".into(), Decimal::ONE,
-        PaymentChannel::NFC, "typical memo".into(), Uuid::new_v4(),
-        [0u8; 32], [1u8; 32],
-        33.3152, 44.3661, 10, LocationSource::GPS,
+        pk,
+        to_pk,
+        1_000_000,
+        "IQD".into(),
+        Decimal::ONE,
+        PaymentChannel::NFC,
+        "typical memo".into(),
+        Uuid::new_v4(),
+        [0u8; 32],
+        [1u8; 32],
+        33.3152,
+        44.3661,
+        10,
+        LocationSource::GPS,
     );
     tx.signature = [0x42u8; 64];
     let cbor = serde_cbor::to_vec(&tx).expect("cbor encode");
@@ -66,7 +76,11 @@ fn spec_nfc_apdu_chunk_size_is_253() {
 #[test]
 fn spec_payment_channel_roundtrips_through_cbor() {
     use cs_core::models::PaymentChannel;
-    let channels = [PaymentChannel::NFC, PaymentChannel::BLE, PaymentChannel::Online];
+    let channels = [
+        PaymentChannel::NFC,
+        PaymentChannel::BLE,
+        PaymentChannel::Online,
+    ];
     for c in channels {
         let bytes = serde_cbor::to_vec(&c).unwrap();
         let back: PaymentChannel = serde_cbor::from_slice(&bytes).unwrap();

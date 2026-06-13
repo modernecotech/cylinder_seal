@@ -50,7 +50,7 @@ Avoid language that implies certainty:
 - "Cylinder Seal is a complete economic operating system" should become "unified economic model proposal requiring legal authority, audited data, calibrated equations, policy review, and independent macroeconomic validation."
 - "Cylinder Seal will abolish frivolous ministries" should become "ministry-transition scenario in which specific functions are deprecated, merged, regulated, corporatized, or sunset only after legal authority, service-continuity gates, staff-transition plans, and independent audits."
 - "Oil income should fund a citizen-owned state industrial holding company" should become "proposed national dividend holding-company architecture requiring constitutional, fiscal, oil-revenue, AML/CFT, competition, and governance review."
-- "The holding company will invest $190B over ten years" should become "base-case planning envelope requiring oil-revenue stress testing, debt-capacity analysis, procurement sequencing, and independent project finance review."
+- "The holding company will invest $190B over ten years" should become "strategic upper envelope requiring fiscal reform, oil-revenue stress testing, debt-capacity analysis, procurement sequencing, audited cashflow, and independent project finance review; the constrained-base front plan is USD 115B."
 - "INDHC will make Iraq self-sufficient in defense, electronics, HVAC, water, irrigation, and food" should become "strategic resilience manufacturing objective requiring delivered-cost tests, quality certification, legal controls, supplier development, and security/procurement review."
 - "INDHC will generate $43B in Year 10 revenue" should become "illustrative Year 10 consolidated revenue run-rate in the base-case cashflow model, requiring audited baseline demand, project-level feasibility studies, utilization assumptions, and downside sensitivity tests."
 - The state-conglomerate shorthand should become "digitally governed sectoral industrial champions with conditional demand, conditional credit, export discipline, competition gates, debt caps, and anti-capture governance."
@@ -71,6 +71,10 @@ Avoid language that implies certainty:
 
 Use this positioning until the economic model is independently validated:
 
-> Cylinder Seal is a sovereign digital-payment and economic-visibility prototype for Iraq, designed to show how CBI-backed digital IQD transactions could support financial inclusion, SME credit scoring, public-transfer controls, and domestic-production incentives.
+> Cylinder Seal is a source-disciplined proposal for an Iraqi economic operating
+> model, with a pilot-grade Digital IQD evidence and analytics prototype used to
+> test how cashflows, public benefits, policy controls, credit signals, public
+> transfers, and citizen dividends could be measured.
 
-That claim is strong, defensible, and aligned with the code that exists today.
+That claim keeps the national economic model in front while preserving the
+prototype boundary around the software.

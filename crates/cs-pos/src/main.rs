@@ -35,7 +35,9 @@ slint::include_modules!();
 #[tokio::main]
 async fn main() -> Result<()> {
     tracing_subscriber::fmt()
-        .with_env_filter(EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info")))
+        .with_env_filter(
+            EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info")),
+        )
         .init();
 
     let cfg = PosConfig::from_env();
@@ -195,7 +197,9 @@ async fn main() -> Result<()> {
         let active = active_request.clone();
         ui.on_cancel_clicked(move || {
             let active2 = active.clone();
-            tokio::spawn(async move { *active2.lock().await = None; });
+            tokio::spawn(async move {
+                *active2.lock().await = None;
+            });
             if let Some(ui) = ui_weak.upgrade() {
                 ui.set_screen(Screen::AmountEntry);
                 ui.set_status_text("".into());

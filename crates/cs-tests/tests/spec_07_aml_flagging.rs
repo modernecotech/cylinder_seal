@@ -51,10 +51,18 @@ fn tx(amount: i64, lat: f64, lon: f64, ts_micros: i64) -> Transaction {
 async fn spec_clean_transaction_passes_with_no_flags() {
     let eng = AmlEngine::new(Stub { listed: None });
     let decision = eng
-        .screen(&tx(1_000_000, 33.31, 44.36, 0), KYCTier::FullKYC, &UserActivity::default())
+        .screen(
+            &tx(1_000_000, 33.31, 44.36, 0),
+            KYCTier::FullKYC,
+            &UserActivity::default(),
+        )
         .await
         .unwrap();
-    assert_eq!(decision, AmlDecision::clean(), "Spec: clean inputs must produce no flags");
+    assert_eq!(
+        decision,
+        AmlDecision::clean(),
+        "Spec: clean inputs must produce no flags"
+    );
 }
 
 #[tokio::test]
@@ -67,10 +75,17 @@ async fn spec_sanctions_hit_is_blocking() {
         }),
     });
     let d = eng
-        .screen(&tx(1_000_000, 33.3, 44.3, 0), KYCTier::Anonymous, &UserActivity::default())
+        .screen(
+            &tx(1_000_000, 33.3, 44.3, 0),
+            KYCTier::Anonymous,
+            &UserActivity::default(),
+        )
         .await
         .unwrap();
-    assert!(!d.allowed, "Spec violation: sanctions hits must BLOCK (allowed=false)");
+    assert!(
+        !d.allowed,
+        "Spec violation: sanctions hits must BLOCK (allowed=false)"
+    );
     assert!(
         matches!(d.flags[0], AmlFlag::SanctionsHit { .. }),
         "First flag must be SanctionsHit"
@@ -85,10 +100,18 @@ async fn spec_velocity_breach_is_flagged_but_not_blocking() {
         volume_last_hour: 2_000_000, // + 10M would breach Anonymous tier's 5 OWC/h
         ..Default::default()
     };
-    let d = eng.screen(&tx, KYCTier::Anonymous, &activity).await.unwrap();
-    assert!(d.allowed, "Spec: velocity breach is flagged-for-review, not blocking");
+    let d = eng
+        .screen(&tx, KYCTier::Anonymous, &activity)
+        .await
+        .unwrap();
     assert!(
-        d.flags.iter().any(|f| matches!(f, AmlFlag::VelocityBreach { .. })),
+        d.allowed,
+        "Spec: velocity breach is flagged-for-review, not blocking"
+    );
+    assert!(
+        d.flags
+            .iter()
+            .any(|f| matches!(f, AmlFlag::VelocityBreach { .. })),
         "Spec: VelocityBreach flag must appear"
     );
 }
@@ -104,7 +127,9 @@ async fn spec_structuring_detected_near_attestation_threshold() {
     };
     let d = eng.screen(&tx, KYCTier::FullKYC, &activity).await.unwrap();
     assert!(
-        d.flags.iter().any(|f| matches!(f, AmlFlag::PossibleStructuring { .. })),
+        d.flags
+            .iter()
+            .any(|f| matches!(f, AmlFlag::PossibleStructuring { .. })),
         "Spec: structuring (smurfing) pattern must raise a flag"
     );
 }
@@ -119,9 +144,14 @@ async fn spec_geographic_jump_detected() {
         last_tx_location: Some((33.31, 44.36, 0)),
         ..Default::default()
     };
-    let d = eng.screen(&incoming, KYCTier::FullKYC, &activity).await.unwrap();
+    let d = eng
+        .screen(&incoming, KYCTier::FullKYC, &activity)
+        .await
+        .unwrap();
     assert!(
-        d.flags.iter().any(|f| matches!(f, AmlFlag::GeographicJump { .. })),
+        d.flags
+            .iter()
+            .any(|f| matches!(f, AmlFlag::GeographicJump { .. })),
         "Spec: geographic jumps beyond commercial-jet speed must be flagged"
     );
 }
@@ -131,7 +161,10 @@ async fn spec_ctr_threshold_10k_owc() {
     let eng = AmlEngine::new(Stub { listed: None });
     // 10k OWC in micro-units.
     let big = tx(10_000_000_000, 33.3, 44.3, 0);
-    let d = eng.screen(&big, KYCTier::FullKYC, &UserActivity::default()).await.unwrap();
+    let d = eng
+        .screen(&big, KYCTier::FullKYC, &UserActivity::default())
+        .await
+        .unwrap();
     assert!(
         d.flags
             .iter()

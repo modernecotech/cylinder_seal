@@ -15,7 +15,7 @@ use chrono::{DateTime, Utc};
 use cs_consensus::log::LogEntry;
 use cs_consensus::state_machine::{ApplyError, LedgerStateMachine, ProposalResult};
 use cs_core::models::{JournalEntry, Transaction};
-use cs_core::primitives::{ReleaseOutcome};
+use cs_core::primitives::ReleaseOutcome;
 use cs_core::producer::FundsOrigin;
 use cs_policy::evaluate_release_condition;
 use cs_policy::merchant_tier::{MerchantRepository, MerchantTier};
@@ -47,10 +47,7 @@ pub struct LedgerApplier {
 }
 
 impl LedgerApplier {
-    pub fn new(
-        journal: Arc<dyn JournalRepository>,
-        users: Arc<dyn UserRepository>,
-    ) -> Self {
+    pub fn new(journal: Arc<dyn JournalRepository>, users: Arc<dyn UserRepository>) -> Self {
         Self {
             journal,
             users,
@@ -62,10 +59,7 @@ impl LedgerApplier {
 
     /// Attach an [`EntryPrimitivesRepository`] so the Raft state machine
     /// persists wire-format primitives into the sidecar table.
-    pub fn with_primitives(
-        mut self,
-        primitives: Arc<dyn EntryPrimitivesRepository>,
-    ) -> Self {
+    pub fn with_primitives(mut self, primitives: Arc<dyn EntryPrimitivesRepository>) -> Self {
         self.primitives = Some(primitives);
         self
     }
@@ -84,9 +78,7 @@ impl LedgerApplier {
     }
 
     async fn persist(&self, entry: &JournalEntry) -> Result<i64, ApplyError> {
-        let user_id = cs_core::models::User::derive_user_id_from_public_key(
-            &entry.user_public_key,
-        );
+        let user_id = cs_core::models::User::derive_user_id_from_public_key(&entry.user_public_key);
 
         // Serialize the full proto entry as JSON for the `entry_data` column.
         let pb_entry = domain_entry_to_pb(entry);
@@ -126,14 +118,11 @@ impl LedgerApplier {
         // receiver by merchant tier and append an audit row. Both the
         // merchant registry and the tier-log repo must be wired — either
         // being absent disables the audit trail silently.
-        if let (Some(merchants), Some(tier_log)) =
-            (&self.merchants, &self.tier_log)
-        {
+        if let (Some(merchants), Some(tier_log)) = (&self.merchants, &self.tier_log) {
             for tx in &entry.transactions {
-                let log_entry =
-                    build_tier_log_entry(tx, merchants.as_ref())
-                        .await
-                        .map_err(|e| ApplyError::Storage(e.to_string()))?;
+                let log_entry = build_tier_log_entry(tx, merchants.as_ref())
+                    .await
+                    .map_err(|e| ApplyError::Storage(e.to_string()))?;
                 tier_log
                     .record(&log_entry)
                     .await
@@ -150,12 +139,9 @@ impl LedgerApplier {
         // count toward the receiver's balance until released" rule.
         let mut delta: i64 = 0;
         for tx in &entry.transactions {
-            let from_id = cs_core::models::User::derive_user_id_from_public_key(
-                &tx.from_public_key,
-            );
-            let to_id = cs_core::models::User::derive_user_id_from_public_key(
-                &tx.to_public_key,
-            );
+            let from_id =
+                cs_core::models::User::derive_user_id_from_public_key(&tx.from_public_key);
+            let to_id = cs_core::models::User::derive_user_id_from_public_key(&tx.to_public_key);
             let credits_receiver = tx_credits_receiver(tx);
             if from_id == user_id {
                 delta = delta.saturating_sub(tx.amount_owc);
@@ -300,9 +286,9 @@ fn merchant_tier_to_u8(tier: MerchantTier) -> u8 {
 fn tier_fee_bps(tier: MerchantTier) -> i32 {
     match tier {
         MerchantTier::Tier1 => 0,
-        MerchantTier::Tier2 => 50,    // 0.5%
-        MerchantTier::Tier3 => 300,   // 3%
-        MerchantTier::Tier4 => 800,   // 8% import levy
+        MerchantTier::Tier2 => 50,  // 0.5%
+        MerchantTier::Tier3 => 300, // 3%
+        MerchantTier::Tier4 => 800, // 8% import levy
         MerchantTier::Unclassified => 0,
     }
 }
@@ -343,9 +329,9 @@ async fn build_tier_log_entry(
         log_id: uuid::Uuid::new_v4(),
         transaction_id: tx.transaction_id,
         merchant_id,
-        producer_id: None,       // set by merchant-registry wiring (future)
-        doc_id: None,            // SKU-level DOC wiring (future)
-        ip_id: None,             // set when receiver is an IP (future)
+        producer_id: None, // set by merchant-registry wiring (future)
+        doc_id: None,      // SKU-level DOC wiring (future)
+        ip_id: None,       // set when receiver is an IP (future)
         effective_tier: merchant_tier_to_u8(tier),
         iraqi_content_pct,
         fee_applied_bps: tier_fee_bps(tier),

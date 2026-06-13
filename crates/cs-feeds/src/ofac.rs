@@ -79,8 +79,8 @@ impl FeedWorker for OfacSdnWorker {
             .await
             .map_err(|e| FeedError::Network(e.to_string()))?
             .to_vec();
-        let text = std::str::from_utf8(&body)
-            .map_err(|e| FeedError::Parse(format!("utf8: {e}")))?;
+        let text =
+            std::str::from_utf8(&body).map_err(|e| FeedError::Parse(format!("utf8: {e}")))?;
         let entries = parse_sdn(text)?;
         Ok(FeedFetchResult {
             raw: RawFeed {
@@ -182,9 +182,7 @@ fn parse_sdn(text: &str) -> Result<Vec<SanctionEntry>, FeedError> {
         let country = e
             .address_list
             .and_then(|al| al.address.into_iter().find_map(|a| a.country));
-        let program = e
-            .program_list
-            .and_then(|pl| pl.program.into_iter().next());
+        let program = e.program_list.and_then(|pl| pl.program.into_iter().next());
         out.push(SanctionEntry {
             source: "OFAC_SDN".into(),
             external_id: e.uid.clone(),

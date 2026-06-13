@@ -23,21 +23,24 @@ mod ubi_feedback_algorithm_tests {
         let capacity_index_1 = 0.60;
         let demand_index_1 = 0.60;
         let inflation_adj_1 = 0.00; // No inflation
-        let ubi_adjusted_1 = ubi_base * (capacity_index_1 / demand_index_1) * (1.0 - inflation_adj_1);
+        let ubi_adjusted_1 =
+            ubi_base * (capacity_index_1 / demand_index_1) * (1.0 - inflation_adj_1);
         assert!((ubi_adjusted_1 - ubi_base).abs() < 1.0); // Should be ~= base
 
         // Scenario 2: Excess capacity (capacity > demand)
         let capacity_index_2 = 0.70;
         let demand_index_2 = 0.60;
         let inflation_adj_2 = 0.00;
-        let ubi_adjusted_2 = ubi_base * (capacity_index_2 / demand_index_2) * (1.0 - inflation_adj_2);
+        let ubi_adjusted_2 =
+            ubi_base * (capacity_index_2 / demand_index_2) * (1.0 - inflation_adj_2);
         assert!(ubi_adjusted_2 > ubi_base); // Should increase
 
         // Scenario 3: Demand exceeds capacity (capacity < demand)
         let capacity_index_3 = 0.50;
         let demand_index_3 = 0.60;
         let inflation_adj_3 = 0.00;
-        let ubi_adjusted_3 = ubi_base * (capacity_index_3 / demand_index_3) * (1.0 - inflation_adj_3);
+        let ubi_adjusted_3 =
+            ubi_base * (capacity_index_3 / demand_index_3) * (1.0 - inflation_adj_3);
         assert!(ubi_adjusted_3 < ubi_base); // Should decrease
     }
 
@@ -143,7 +146,8 @@ mod ubi_feedback_algorithm_tests {
         let board_review_weeks = 2;
         let announcement_weeks = 1;
 
-        let total_cycle_weeks = data_collection_weeks + calculation_weeks + board_review_weeks + announcement_weeks;
+        let total_cycle_weeks =
+            data_collection_weeks + calculation_weeks + board_review_weeks + announcement_weeks;
         assert_eq!(total_cycle_weeks, 7); // ~1.75 weeks of buffer
 
         // All steps must complete before quarter end
@@ -261,19 +265,22 @@ mod ubi_feedback_algorithm_tests {
         // Q2 2027
         let q2_2027_ubi = 150.0_f64;
         let q2_2027_production = 12_000_000_000_000_i64;
-        let production_growth_q2 = ((q2_2027_production as f64 / q4_2026_production as f64) - 1.0) * 100.0;
+        let production_growth_q2 =
+            ((q2_2027_production as f64 / q4_2026_production as f64) - 1.0) * 100.0;
         assert!(production_growth_q2 > 50.0); // >50% growth
 
         // Q4 2027
         let q4_2027_ubi = 175.0_f64;
         let q4_2027_production = 18_000_000_000_000_i64;
-        let production_growth_q4_27 = ((q4_2027_production as f64 / q4_2026_production as f64) - 1.0) * 100.0;
+        let production_growth_q4_27 =
+            ((q4_2027_production as f64 / q4_2026_production as f64) - 1.0) * 100.0;
         assert!(production_growth_q4_27 > 150.0); // >150% growth
 
         // Q2 2028
         let q2_2028_ubi = 200.0_f64;
         let q2_2028_production = 32_000_000_000_000_i64;
-        let production_growth_q2_28 = ((q2_2028_production as f64 / q4_2026_production as f64) - 1.0) * 100.0;
+        let production_growth_q2_28 =
+            ((q2_2028_production as f64 / q4_2026_production as f64) - 1.0) * 100.0;
         assert!(production_growth_q2_28 > 350.0); // >350% growth
 
         // UBI growth lags production growth (prevents inflation)

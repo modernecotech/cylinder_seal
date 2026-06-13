@@ -44,9 +44,8 @@ impl ConflictResolver {
 
     /// Check for and resolve a conflict for an incoming entry.
     pub async fn check(&self, incoming: &JournalEntry) -> Result<Resolution> {
-        let user_id = cs_core::models::User::derive_user_id_from_public_key(
-            &incoming.user_public_key,
-        );
+        let user_id =
+            cs_core::models::User::derive_user_id_from_public_key(&incoming.user_public_key);
 
         // Find any existing entries that chain from the same prev hash.
         let siblings = self

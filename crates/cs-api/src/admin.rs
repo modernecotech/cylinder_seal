@@ -19,9 +19,7 @@ use cs_storage::compliance::{
 };
 use serde::{Deserialize, Serialize};
 
-use crate::middleware::{
-    new_admin_session_token, password, session_from, AdminPrincipal,
-};
+use crate::middleware::{new_admin_session_token, password, session_from, AdminPrincipal};
 
 #[derive(Clone)]
 pub struct AdminApiState {
@@ -142,10 +140,7 @@ pub async fn whoami(axum::Extension(p): axum::Extension<AdminPrincipal>) -> Json
     })
 }
 
-pub async fn logout(
-    State(state): State<AdminApiState>,
-    headers: HeaderMap,
-) -> StatusCode {
+pub async fn logout(State(state): State<AdminApiState>, headers: HeaderMap) -> StatusCode {
     if let Some(t) = headers
         .get(header::AUTHORIZATION)
         .and_then(|v| v.to_str().ok())
@@ -184,8 +179,7 @@ pub async fn create_operator(
     if !["analyst", "officer", "supervisor", "auditor"].contains(&req.role.as_str()) {
         return Err((StatusCode::BAD_REQUEST, "invalid role".into()));
     }
-    let hash = password::hash(&req.password)
-        .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e))?;
+    let hash = password::hash(&req.password).map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e))?;
     let op = AdminOperator {
         operator_id: uuid::Uuid::nil(),
         username: req.username.clone(),

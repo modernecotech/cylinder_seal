@@ -1,8 +1,8 @@
-use blake2::{Blake2b, Digest, digest::consts::U32};
+use blake2::{digest::consts::U32, Blake2b, Digest};
 
 /// BLAKE2b with 256-bit (32-byte) output
 type Blake2b256 = Blake2b<U32>;
-use ed25519_dalek::{Signer, SigningKey, VerifyingKey, Signature};
+use ed25519_dalek::{Signature, Signer, SigningKey, VerifyingKey};
 use rand::rngs::OsRng;
 
 use crate::error::{CylinderSealError, Result};
@@ -24,12 +24,17 @@ pub fn blake2b_256(data: &[u8]) -> [u8; BLAKE2B_DIGEST_SIZE] {
 
 /// Derive a user identity hash from their public key
 /// Returns: BLAKE2b-256(public_key) — first 16 bytes used as UUID
-pub fn derive_user_id_from_public_key(public_key: &[u8; ED25519_PUBLIC_KEY_SIZE]) -> [u8; BLAKE2B_DIGEST_SIZE] {
+pub fn derive_user_id_from_public_key(
+    public_key: &[u8; ED25519_PUBLIC_KEY_SIZE],
+) -> [u8; BLAKE2B_DIGEST_SIZE] {
     blake2b_256(public_key)
 }
 
 /// Generate a new Ed25519 keypair
-pub fn generate_keypair() -> ([u8; ED25519_PUBLIC_KEY_SIZE], [u8; ED25519_PRIVATE_KEY_SIZE]) {
+pub fn generate_keypair() -> (
+    [u8; ED25519_PUBLIC_KEY_SIZE],
+    [u8; ED25519_PRIVATE_KEY_SIZE],
+) {
     let signing_key = SigningKey::generate(&mut OsRng);
     let verifying_key = signing_key.verifying_key();
 
@@ -43,7 +48,10 @@ pub fn generate_keypair() -> ([u8; ED25519_PUBLIC_KEY_SIZE], [u8; ED25519_PRIVAT
 }
 
 /// Sign a message with an Ed25519 private key
-pub fn sign_message(message: &[u8], private_key: &[u8; ED25519_PRIVATE_KEY_SIZE]) -> Result<[u8; ED25519_SIGNATURE_SIZE]> {
+pub fn sign_message(
+    message: &[u8],
+    private_key: &[u8; ED25519_PRIVATE_KEY_SIZE],
+) -> Result<[u8; ED25519_SIGNATURE_SIZE]> {
     let signing_key = SigningKey::from_bytes(private_key);
     let signature = signing_key.sign(message);
 
@@ -58,8 +66,8 @@ pub fn verify_signature(
     signature: &[u8; ED25519_SIGNATURE_SIZE],
     public_key: &[u8; ED25519_PUBLIC_KEY_SIZE],
 ) -> Result<()> {
-    let verifying_key = VerifyingKey::from_bytes(public_key)
-        .map_err(|_| CylinderSealError::InvalidSignature)?;
+    let verifying_key =
+        VerifyingKey::from_bytes(public_key).map_err(|_| CylinderSealError::InvalidSignature)?;
 
     let sig = Signature::from_bytes(signature);
 

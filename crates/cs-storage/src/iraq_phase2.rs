@@ -26,7 +26,7 @@ fn db_err(e: sqlx::Error) -> CylinderSealError {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum AccountStatus {
     Active,
-    Frozen, // reversible (e.g. CBI 72h hold, dispute review)
+    Frozen,  // reversible (e.g. CBI 72h hold, dispute review)
     Blocked, // terminal (e.g. confirmed sanctions hit, court order)
 }
 
@@ -58,11 +58,11 @@ impl AccountStatus {
 /// what supervisor approval is required to reverse.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum StatusChangeSource {
-    Admin,         // manual freeze via dashboard
-    Sanctions,     // automatic block from screening hit
-    CourtOrder,    // judicial freeze
-    CbiDirective,  // CBI emergency circular
-    UserSelf,      // user-initiated account closure
+    Admin,        // manual freeze via dashboard
+    Sanctions,    // automatic block from screening hit
+    CourtOrder,   // judicial freeze
+    CbiDirective, // CBI emergency circular
+    UserSelf,     // user-initiated account closure
 }
 
 impl StatusChangeSource {
@@ -313,7 +313,8 @@ impl UserRegionRepository for PgUserRegionRepository {
             .fetch_optional(&self.pool)
             .await
             .map_err(db_err)?;
-        Ok(s.and_then(|x| Region::from_str(&x)).unwrap_or(Region::Federal))
+        Ok(s.and_then(|x| Region::from_str(&x))
+            .unwrap_or(Region::Federal))
     }
 }
 
@@ -426,7 +427,11 @@ impl DeviceBindingRepository for PgDeviceBindingRepository {
     }
 
     async fn outbound_allowed(&self, user_id: Uuid) -> Result<bool> {
-        Ok(self.status(user_id).await?.cooldown_remaining_hours.is_none())
+        Ok(self
+            .status(user_id)
+            .await?
+            .cooldown_remaining_hours
+            .is_none())
     }
 }
 
@@ -931,7 +936,11 @@ mod tests {
 
     #[test]
     fn account_status_roundtrips_via_str() {
-        for s in [AccountStatus::Active, AccountStatus::Frozen, AccountStatus::Blocked] {
+        for s in [
+            AccountStatus::Active,
+            AccountStatus::Frozen,
+            AccountStatus::Blocked,
+        ] {
             assert_eq!(AccountStatus::from_str(s.as_str()), Some(s));
         }
         assert_eq!(AccountStatus::from_str("nonsense"), None);

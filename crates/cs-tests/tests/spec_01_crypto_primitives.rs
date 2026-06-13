@@ -22,7 +22,10 @@ fn spec_ed25519_rejects_tampered_message() {
     let (pk, sk) = cryptography::generate_keypair();
     let sig = cryptography::sign_message(b"original", &sk).unwrap();
     let err = cryptography::verify_signature(b"altered", &sig, &pk);
-    assert!(err.is_err(), "Spec violation: tampered message must fail verification");
+    assert!(
+        err.is_err(),
+        "Spec violation: tampered message must fail verification"
+    );
 }
 
 #[test]
@@ -86,7 +89,11 @@ fn spec_user_id_derivation_from_public_key() {
 #[test]
 fn spec_generated_nonce_is_16_bytes() {
     let n = cryptography::generate_nonce();
-    assert_eq!(n.len(), 16, "Replay-prevention nonce must be 16 bytes (2^128 space)");
+    assert_eq!(
+        n.len(),
+        16,
+        "Replay-prevention nonce must be 16 bytes (2^128 space)"
+    );
 }
 
 #[test]

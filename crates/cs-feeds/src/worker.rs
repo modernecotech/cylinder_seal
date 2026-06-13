@@ -15,13 +15,13 @@ use sha2::{Digest, Sha256};
 /// raw payload.
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct SanctionEntry {
-    pub source: String,           // "OFAC_SDN" | "UN_CONS" | "CBI_IQ" | ...
-    pub external_id: String,      // upstream's unique ID (uid in OFAC)
+    pub source: String,      // "OFAC_SDN" | "UN_CONS" | "CBI_IQ" | ...
+    pub external_id: String, // upstream's unique ID (uid in OFAC)
     pub primary_name: String,
     pub aliases: Vec<String>,
-    pub entity_type: String,      // "individual" | "entity" | "vessel" | ...
+    pub entity_type: String, // "individual" | "entity" | "vessel" | ...
     pub country: Option<String>,
-    pub program: Option<String>,  // e.g. "SDGT", "IRAN-EO13599"
+    pub program: Option<String>, // e.g. "SDGT", "IRAN-EO13599"
     pub raw: serde_json::Value,
 }
 
