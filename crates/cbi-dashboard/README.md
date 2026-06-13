@@ -14,10 +14,10 @@ The CBI Dashboard is a dedicated web application for Iraqi Central Bank staff to
 
 ## Architecture
 
-**Framework:** Axum (Rust async web framework) + Askama (server-side templates) + HTMX  
-**Auth:** Redis-backed session tokens + Argon2id password hashing  
-**Database:** PostgreSQL (shared with main cs-node)  
-**Port:** 8081 (configurable via `BIND_ADDR` env var)  
+**Framework:** Axum (Rust async web framework) + server-rendered HTML snippets
+**Auth:** Redis-backed session tokens, HttpOnly session cookie support, bearer API tokens, Argon2id password hashing
+**Database:** PostgreSQL (shared with main cs-node)
+**Port:** 8081 (configurable via `BIND_ADDR` env var)
 **Deployment:** Single Rust binary, reuses all existing `cs-*` crate infrastructure
 
 ## Scaffolding Status
@@ -26,8 +26,8 @@ The CBI Dashboard is a dedicated web application for Iraqi Central Bank staff to
 
 - **Configuration** (`src/config.rs`) — environment-based config (DATABASE_URL, REDIS_URL, BIND_ADDR, etc.)
 - **Auth module** (`src/auth.rs`) — session management, operator roles (Auditor/Analyst/Officer/Supervisor), password hashing
-- **Middleware** (`src/middleware.rs`) — session enforcement, token validation
-- **State management** (`src/state.rs`) — pooled DB/Redis connections, repository injection
+- **Middleware** (`src/middleware.rs`) — session enforcement, cookie/bearer token validation, CSRF guard for unsafe cookie-only requests
+- **State management** (`src/state.rs`) — PostgreSQL pool plus Redis-backed/in-memory session stores and audit recorders
 - **Route scaffolding** (`src/routes/`) — module structure for all 8 operational domains
 - **Overview route** (`src/routes/overview.rs`) — sample KPI endpoint (stub data)
 
@@ -58,7 +58,7 @@ Implement each route module in `src/routes/`:
 
 ### Phase 2: Templates (Week 2-3)
 
-Create Askama HTML templates in `templates/` directory:
+Create HTML templates or server-rendered page fragments in `templates/`:
 
 - **`base.html`** — Layout with nav sidebar, header, footer
 - **`overview.html`** — KPI grid + charts (Chart.js) for GDP, M2, inflation, reserves
@@ -75,7 +75,7 @@ Create Askama HTML templates in `templates/` directory:
 
 - Add Chart.js visualizations for GDP projections, tier trends, employment by sector
 - Implement role-based route access (e.g., only `supervisor` can approve rule changes)
-- Add CSRF tokens to form submissions
+- Expand CSRF/session coverage into browser automation tests
 - Implement search/filtering on list views (date range, sector, status, operator)
 - Add confirmation dialogs for destructive actions (freeze account, revoke API key)
 - Proper error messages and form validation feedback
@@ -116,11 +116,12 @@ crates/cbi-dashboard/
 ├── Cargo.toml
 ├── README.md (this file)
 └── src/
-    ├── main.rs          — startup, router assembly
+    ├── lib.rs           — router assembly and testable app surface
+    ├── main.rs          — runtime startup
     ├── config.rs        — environment configuration
     ├── auth.rs          — session tokens, operator roles, password hashing
     ├── middleware.rs    — session enforcement middleware
-    ├── state.rs         — AppState with DB/Redis pools + repositories
+    ├── state.rs         — AppState with DB pool and session store
     └── routes/
         ├── mod.rs       — module exports
         ├── overview.rs  — economic overview KPIs (IMPLEMENTED)
@@ -149,21 +150,21 @@ No new dependencies on payment processing, cryptography, or consensus — those 
 
 See `cs-tests/` for spec test patterns. For cbi-dashboard:
 
-- Integration tests should mock AppState with a test PostgreSQL and Redis (or use Testcontainers)
-- Test each route handler with realistic payloads
-- Verify session token validation, role-based access, and audit logging
+- `tests/route_integration.rs` exercises the real Axum router with in-memory stores for session enforcement, CSRF checks, logout invalidation, current role gates, and admin action audit recording.
+- Live PostgreSQL/Redis integration tests are still needed for database-backed endpoints and migrations.
+- Future handler work should add realistic payload tests and audit-log assertions.
 
 ## Security Considerations
 
 - **Session tokens:** opaque 32-byte hex, stored in Redis with TTL (default 12h)
 - **Passwords:** Argon2id hashed, never stored in plaintext
 - **Database:** SQL injection prevention via SQLx compile-time query checking
-- **CSRF:** Use token validation on form submissions
-- **XSS:** Askama auto-escapes template variables (set `|safe` only for trusted HTML)
-- **Role enforcement:** Middleware checks role on every request; handlers double-check for sensitive operations
-- **Audit trail:** Every admin action logged to `admin_audit_log` by middleware
+- **CSRF:** Unsafe cookie-only requests require an `X-CSRF-Token` match; bearer API requests are accepted.
+- **XSS:** Template output and any interpolated HTML need escaping or sanitization before real data is exposed.
+- **Role enforcement:** Sensitive handlers currently require officer or supervisor roles where appropriate.
+- **Audit trail:** Current sensitive handlers record `ok` and `denied` admin actions to `admin_audit_log`; immutable retention and evidence-pack export remain future work.
 
 ---
 
 **Last Updated:** 2026-04-19  
-**Status:** Scaffolded. Awaiting implementation of route handlers, templates, and integration testing.
+**Status:** Prototype scaffold with route-level security tests. Awaiting full handler implementation and live PostgreSQL/Redis integration testing.

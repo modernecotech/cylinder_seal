@@ -1,9 +1,9 @@
 //! HTML page route handlers
 
-use axum::{extract::State, response::Html};
-use std::sync::Arc;
-use sqlx::Row;
 use crate::state::AppState;
+use axum::{extract::State, response::Html};
+use sqlx::Row;
+use std::sync::Arc;
 
 const HTML_HEADER: &str = r#"<!DOCTYPE html>
 <html>
@@ -20,13 +20,15 @@ const HTML_HEADER: &str = r#"<!DOCTYPE html>
 
         // Add token to all fetch requests
         const originalFetch = window.fetch;
-        window.fetch = function(...args) {
+        window.fetch = function(input, init = {}) {
             const token = sessionStorage.getItem('cbi_token');
-            if (token && args[1]) {
-                args[1].headers = args[1].headers || {};
-                args[1].headers['Authorization'] = `Bearer ${token}`;
+            if (token) {
+                const headers = new Headers(init.headers || {});
+                headers.set('Authorization', `Bearer ${token}`);
+                headers.set('X-CSRF-Token', token);
+                init = {...init, headers};
             }
-            return originalFetch.apply(this, args);
+            return originalFetch.call(this, input, init);
         };
     </script>
 </head>
@@ -46,7 +48,13 @@ const HTML_HEADER: &str = r#"<!DOCTYPE html>
 </nav>
 <main class="max-w-7xl mx-auto px-4 py-6">
 <script>
-function logout() {
+async function logout() {
+    const token = sessionStorage.getItem('cbi_token');
+    if (token) {
+        try {
+            await fetch('/auth/logout', {method: 'POST'});
+        } catch (_) {}
+    }
     sessionStorage.removeItem('cbi_token');
     sessionStorage.removeItem('cbi_username');
     window.location.href = '/login';
@@ -63,13 +71,12 @@ pub async fn login_page() -> Html<&'static str> {
     Html(include_str!("../../templates/login.html"))
 }
 
-pub async fn overview_page(
-    State(app_state): State<Arc<AppState>>,
-) -> Html<String> {
-    let user_count = sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM users WHERE balance_owc > 0")
-        .fetch_one(&app_state.db_pool)
-        .await
-        .unwrap_or(0);
+pub async fn overview_page(State(app_state): State<Arc<AppState>>) -> Html<String> {
+    let user_count =
+        sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM users WHERE balance_owc > 0")
+            .fetch_one(&app_state.db_pool)
+            .await
+            .unwrap_or(0);
 
     let gdp = user_count as f64 * 5500.0 / 1_000_000_000.0;
 
@@ -78,10 +85,12 @@ pub async fn overview_page(
         .await
         .unwrap_or(0);
 
-    let report_count = sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM regulatory_reports WHERE status IN ('Draft', 'UnderReview')")
-        .fetch_one(&app_state.db_pool)
-        .await
-        .unwrap_or(0);
+    let report_count = sqlx::query_scalar::<_, i64>(
+        "SELECT COUNT(*) FROM regulatory_reports WHERE status IN ('Draft', 'UnderReview')",
+    )
+    .fetch_one(&app_state.db_pool)
+    .await
+    .unwrap_or(0);
 
     let html = format!(
         r#"{}<h1 class="text-3xl font-bold mb-6">Economic Command Center</h1>
@@ -108,9 +117,7 @@ pub async fn overview_page(
     Html(html)
 }
 
-pub async fn projects_page(
-    State(app_state): State<Arc<AppState>>,
-) -> Html<String> {
+pub async fn projects_page(State(app_state): State<Arc<AppState>>) -> Html<String> {
     let rows = sqlx::query("SELECT name, sector, status, employment_count, capacity_pct_utilized FROM industrial_projects LIMIT 20")
         .fetch_all(&app_state.db_pool)
         .await
@@ -127,7 +134,7 @@ pub async fn projects_page(
                     <th class="border p-2 text-right">Capacity %</th>
                 </tr>
             </thead>
-            <tbody>"#
+            <tbody>"#,
     );
 
     for row in rows {
@@ -158,13 +165,13 @@ pub async fn projects_page(
     Html(html)
 }
 
-pub async fn analytics_page(
-    State(app_state): State<Arc<AppState>>,
-) -> Html<String> {
-    let rows = sqlx::query("SELECT sector, employment, gdp_contribution_usd FROM sector_economic_snapshots LIMIT 10")
-        .fetch_all(&app_state.db_pool)
-        .await
-        .unwrap_or_default();
+pub async fn analytics_page(State(app_state): State<Arc<AppState>>) -> Html<String> {
+    let rows = sqlx::query(
+        "SELECT sector, employment, gdp_contribution_usd FROM sector_economic_snapshots LIMIT 10",
+    )
+    .fetch_all(&app_state.db_pool)
+    .await
+    .unwrap_or_default();
 
     let mut table = String::from(
         r#"<table class="w-full border-collapse border border-gray-300">
@@ -175,7 +182,7 @@ pub async fn analytics_page(
                     <th class="border p-2 text-right">GDP Contribution</th>
                 </tr>
             </thead>
-            <tbody>"#
+            <tbody>"#,
     );
 
     for row in rows {
@@ -189,7 +196,9 @@ pub async fn analytics_page(
                 <td class="border p-2 text-right">{}</td>
                 <td class="border p-2 text-right">${:.2}M</td>
             </tr>"#,
-            sector, employment, gdp / 1_000_000.0
+            sector,
+            employment,
+            gdp / 1_000_000.0
         ));
     }
 
@@ -202,13 +211,13 @@ pub async fn analytics_page(
     Html(html)
 }
 
-pub async fn compliance_page(
-    State(app_state): State<Arc<AppState>>,
-) -> Html<String> {
-    let rows = sqlx::query("SELECT report_id, report_type, status, risk_score FROM regulatory_reports LIMIT 20")
-        .fetch_all(&app_state.db_pool)
-        .await
-        .unwrap_or_default();
+pub async fn compliance_page(State(app_state): State<Arc<AppState>>) -> Html<String> {
+    let rows = sqlx::query(
+        "SELECT report_id, report_type, status, risk_score FROM regulatory_reports LIMIT 20",
+    )
+    .fetch_all(&app_state.db_pool)
+    .await
+    .unwrap_or_default();
 
     let mut table = String::from(
         r#"<table class="w-full border-collapse border border-gray-300">
@@ -220,7 +229,7 @@ pub async fn compliance_page(
                     <th class="border p-2 text-right">Risk Score</th>
                 </tr>
             </thead>
-            <tbody>"#
+            <tbody>"#,
     );
 
     for row in rows {
@@ -249,13 +258,12 @@ pub async fn compliance_page(
     Html(html)
 }
 
-pub async fn accounts_page(
-    State(app_state): State<Arc<AppState>>,
-) -> Html<String> {
-    let rows = sqlx::query("SELECT display_name, kyc_tier, balance_owc, credit_score FROM users LIMIT 50")
-        .fetch_all(&app_state.db_pool)
-        .await
-        .unwrap_or_default();
+pub async fn accounts_page(State(app_state): State<Arc<AppState>>) -> Html<String> {
+    let rows =
+        sqlx::query("SELECT display_name, kyc_tier, balance_owc, credit_score FROM users LIMIT 50")
+            .fetch_all(&app_state.db_pool)
+            .await
+            .unwrap_or_default();
 
     let mut table = String::from(
         r#"<table class="w-full border-collapse border border-gray-300">
@@ -267,7 +275,7 @@ pub async fn accounts_page(
                     <th class="border p-2 text-right">Credit Score</th>
                 </tr>
             </thead>
-            <tbody>"#
+            <tbody>"#,
     );
 
     for row in rows {
@@ -276,9 +284,15 @@ pub async fn accounts_page(
         let balance: i64 = row.get("balance_owc");
         let credit_score: Option<f64> = row.get("credit_score");
 
-        let score_str = credit_score.map(|s| format!("{:.0}", s)).unwrap_or_else(|| "N/A".to_string());
+        let score_str = credit_score
+            .map(|s| format!("{:.0}", s))
+            .unwrap_or_else(|| "N/A".to_string());
         let score_class = if let Some(s) = credit_score {
-            if s > 700.0 { "text-green-600" } else { "text-red-600" }
+            if s > 700.0 {
+                "text-green-600"
+            } else {
+                "text-red-600"
+            }
         } else {
             "text-gray-600"
         };

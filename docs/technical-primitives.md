@@ -2,6 +2,8 @@
 
 This document maps the main technical claims to code that exists today and to the production gaps that still need to be closed. It is intentionally conservative: if something has a prototype implementation but lacks deployment hardening, it is marked as partial.
 
+For visual maps of the software architecture, transaction lifecycle, and financial-flow combinations, see [System And Financial Flow Diagrams](system-and-financial-flow-diagrams.md).
+
 ## Summary
 
 | Primitive | Current evidence | Readiness |

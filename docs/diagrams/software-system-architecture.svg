@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Cylinder Seal Software System Architecture</title>
+  <desc id="desc">Architecture diagram showing user surfaces, prototype runtime modules, data stores, and external production integrations.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#344054"/>
+    </marker>
+    <marker id="arrow-soft" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#667085"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 34px Arial, sans-serif; fill: #101828; }
+      .subtitle { font: 400 17px Arial, sans-serif; fill: #475467; }
+      .zone-title { font: 700 19px Arial, sans-serif; fill: #101828; }
+      .zone-note { font: 400 13px Arial, sans-serif; fill: #667085; }
+      .box-title { font: 700 15px Arial, sans-serif; fill: #101828; }
+      .box-text { font: 400 12px Arial, sans-serif; fill: #344054; }
+      .small { font: 400 11px Arial, sans-serif; fill: #475467; }
+      .zone { stroke-width: 2; rx: 18; }
+      .user-zone { fill: #eef6ff; stroke: #2e73b8; }
+      .runtime-zone { fill: #edf7f0; stroke: #2f7d45; }
+      .store-zone { fill: #fff7e6; stroke: #b26a00; }
+      .external-zone { fill: #f4f4f5; stroke: #71717a; stroke-dasharray: 8 6; }
+      .box { stroke-width: 1.5; rx: 10; }
+      .user { fill: #ffffff; stroke: #2e73b8; }
+      .runtime { fill: #ffffff; stroke: #2f7d45; }
+      .store { fill: #ffffff; stroke: #b26a00; }
+      .external { fill: #ffffff; stroke: #71717a; stroke-dasharray: 6 5; }
+      .arrow { stroke: #344054; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .arrow-soft { stroke: #667085; stroke-width: 1.8; fill: none; marker-end: url(#arrow-soft); stroke-dasharray: 7 5; }
+      .legend { fill: #ffffff; stroke: #d0d5dd; rx: 12; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="1100"/>
+  <text class="title" x="56" y="58">Cylinder Seal Software System Architecture</text>
+  <text class="subtitle" x="56" y="88">Prototype modules, data stores, and production integrations required for real Digital IQD infrastructure.</text>
+
+  <rect class="zone user-zone" x="50" y="130" width="330" height="670"/>
+  <text class="zone-title" x="78" y="168">User and merchant surfaces</text>
+  <text class="zone-note" x="78" y="192">Wallets and payment endpoints</text>
+
+  <rect class="box user" x="84" y="230" width="260" height="76"/>
+  <text class="box-title" x="108" y="258">Citizen wallet</text>
+  <text class="box-text" x="108" y="282">Android, iOS, Flutter</text>
+
+  <rect class="box user" x="84" y="332" width="260" height="76"/>
+  <text class="box-title" x="108" y="360">Individual producer</text>
+  <text class="box-text" x="108" y="384">Informal-worker wallet track</text>
+
+  <rect class="box user" x="84" y="434" width="260" height="76"/>
+  <text class="box-title" x="108" y="462">Merchant POS</text>
+  <text class="box-text" x="108" y="486">QR, NFC, BLE, local queue</text>
+
+  <rect class="box user" x="84" y="536" width="260" height="76"/>
+  <text class="box-title" x="108" y="564">Bank / lender portal</text>
+  <text class="box-text" x="108" y="588">Future integration surface</text>
+
+  <rect class="box user" x="84" y="638" width="260" height="76"/>
+  <text class="box-title" x="108" y="666">CBI operator browser</text>
+  <text class="box-text" x="108" y="690">Dashboard and control plane</text>
+
+  <rect class="zone runtime-zone" x="430" y="130" width="650" height="670"/>
+  <text class="zone-title" x="458" y="168">Prototype runtime</text>
+  <text class="zone-note" x="458" y="192">Rust workspace modules and validation path</text>
+
+  <rect class="box runtime" x="470" y="230" width="210" height="72"/>
+  <text class="box-title" x="494" y="258">cs-mobile-core</text>
+  <text class="box-text" x="494" y="280">Wire codecs, signing helpers</text>
+
+  <rect class="box runtime" x="470" y="332" width="210" height="72"/>
+  <text class="box-title" x="494" y="360">cs-pos</text>
+  <text class="box-text" x="494" y="382">Tender flow and device queue</text>
+
+  <rect class="box runtime" x="735" y="230" width="260" height="72"/>
+  <text class="box-title" x="759" y="258">cs-api / cs-node</text>
+  <text class="box-text" x="759" y="280">Ingress, schema, runtime APIs</text>
+
+  <rect class="box runtime" x="735" y="332" width="260" height="72"/>
+  <text class="box-title" x="759" y="360">cs-sync</text>
+  <text class="box-text" x="759" y="382">Validation and conflict handling</text>
+
+  <rect class="box runtime" x="470" y="448" width="210" height="72"/>
+  <text class="box-title" x="494" y="476">cs-policy</text>
+  <text class="box-text" x="494" y="498">AML, tiers, primitives, reports</text>
+
+  <rect class="box runtime" x="735" y="448" width="260" height="72"/>
+  <text class="box-title" x="759" y="476">cs-consensus</text>
+  <text class="box-text" x="759" y="498">Raft concepts and finality boundary</text>
+
+  <rect class="box runtime" x="470" y="550" width="210" height="72"/>
+  <text class="box-title" x="494" y="578">cs-credit</text>
+  <text class="box-text" x="494" y="600">Cash-flow score features</text>
+
+  <rect class="box runtime" x="735" y="550" width="260" height="72"/>
+  <text class="box-title" x="759" y="578">cs-storage</text>
+  <text class="box-text" x="759" y="600">Ledger persistence and sidecars</text>
+
+  <rect class="box runtime" x="470" y="652" width="210" height="72"/>
+  <text class="box-title" x="494" y="680">cbi-dashboard</text>
+  <text class="box-text" x="494" y="702">Operator UI, sessions, roles</text>
+
+  <rect class="box runtime" x="735" y="652" width="260" height="72"/>
+  <text class="box-title" x="759" y="680">cs-analytics</text>
+  <text class="box-text" x="759" y="702">Aggregate policy projections</text>
+
+  <rect class="zone external-zone" x="1130" y="130" width="420" height="670"/>
+  <text class="zone-title" x="1160" y="168">External production integrations</text>
+  <text class="zone-note" x="1160" y="192">Required before real deployment</text>
+
+  <rect class="box external" x="1170" y="230" width="330" height="66"/>
+  <text class="box-title" x="1194" y="256">CBI monetary authority</text>
+  <text class="box-text" x="1194" y="278">Policy authority and operating rules</text>
+
+  <rect class="box external" x="1170" y="318" width="330" height="66"/>
+  <text class="box-title" x="1194" y="344">Commercial banks</text>
+  <text class="box-text" x="1194" y="366">Core banking, lending, settlement</text>
+
+  <rect class="box external" x="1170" y="406" width="330" height="66"/>
+  <text class="box-title" x="1194" y="432">National ID / KYC</text>
+  <text class="box-text" x="1194" y="454">Identity, business registry, recovery</text>
+
+  <rect class="box external" x="1170" y="494" width="330" height="66"/>
+  <text class="box-title" x="1194" y="520">HSM / secure element</text>
+  <text class="box-text" x="1194" y="542">Key custody and device attestation</text>
+
+  <rect class="box external" x="1170" y="582" width="330" height="66"/>
+  <text class="box-title" x="1194" y="608">Sanctions, FX, market feeds</text>
+  <text class="box-text" x="1194" y="630">Risk and reference data</text>
+
+  <rect class="box external" x="1170" y="670" width="330" height="66"/>
+  <text class="box-title" x="1194" y="696">Ministries and auditors</text>
+  <text class="box-text" x="1194" y="718">Procurement, tax, justice, review</text>
+
+  <rect class="zone store-zone" x="50" y="845" width="1500" height="150"/>
+  <text class="zone-title" x="78" y="883">Data stores and evidence targets</text>
+
+  <rect class="box store" x="92" y="910" width="270" height="58"/>
+  <text class="box-title" x="116" y="934">PostgreSQL</text>
+  <text class="box-text" x="116" y="954">Dashboard data and projections</text>
+
+  <rect class="box store" x="412" y="910" width="270" height="58"/>
+  <text class="box-title" x="436" y="934">Redis</text>
+  <text class="box-text" x="436" y="954">TTL-bound operator sessions</text>
+
+  <rect class="box store" x="732" y="910" width="270" height="58"/>
+  <text class="box-title" x="756" y="934">Device local stores</text>
+  <text class="box-text" x="756" y="954">Offline pending queues</text>
+
+  <rect class="box store" x="1052" y="910" width="270" height="58"/>
+  <text class="box-title" x="1076" y="934">Immutable audit target</text>
+  <text class="box-text" x="1076" y="954">Production requirement</text>
+
+  <rect class="box store" x="1372" y="910" width="130" height="58"/>
+  <text class="box-title" x="1395" y="934">Exports</text>
+  <text class="box-text" x="1395" y="954">Reports</text>
+
+  <path class="arrow" d="M344 268 C405 268 420 266 470 266"/>
+  <path class="arrow" d="M344 370 C405 370 420 266 470 266"/>
+  <path class="arrow" d="M344 472 C405 472 420 368 470 368"/>
+  <path class="arrow" d="M344 574 C520 574 600 266 735 266"/>
+  <path class="arrow" d="M344 676 C405 676 420 688 470 688"/>
+
+  <path class="arrow" d="M680 266 L735 266"/>
+  <path class="arrow" d="M680 368 L735 368"/>
+  <path class="arrow" d="M865 302 L865 332"/>
+  <path class="arrow" d="M735 368 C690 390 680 448 680 484"/>
+  <path class="arrow" d="M865 404 L865 448"/>
+  <path class="arrow" d="M680 484 C710 484 705 484 735 484"/>
+  <path class="arrow" d="M865 520 L865 550"/>
+  <path class="arrow" d="M680 586 C710 586 705 586 735 586"/>
+  <path class="arrow" d="M575 622 L575 652"/>
+  <path class="arrow" d="M865 622 L865 652"/>
+
+  <path class="arrow" d="M865 724 C865 805 550 850 227 910"/>
+  <path class="arrow" d="M575 724 C575 805 545 850 547 910"/>
+  <path class="arrow" d="M575 230 C575 188 700 170 735 230"/>
+  <path class="arrow" d="M575 302 C575 750 815 820 867 910"/>
+  <path class="arrow" d="M865 724 C1000 810 1125 850 1187 910"/>
+
+  <path class="arrow-soft" d="M1170 263 C1100 263 1085 265 995 266"/>
+  <path class="arrow-soft" d="M1170 351 C1070 351 1050 266 995 266"/>
+  <path class="arrow-soft" d="M1170 439 C1090 439 1040 368 995 368"/>
+  <path class="arrow-soft" d="M1170 527 C1090 527 1035 484 995 484"/>
+  <path class="arrow-soft" d="M1170 615 C1090 615 1035 484 995 484"/>
+  <path class="arrow-soft" d="M1170 703 C1085 703 1040 688 995 688"/>
+
+  <rect class="legend" x="56" y="1018" width="500" height="50"/>
+  <rect class="box runtime" x="80" y="1033" width="24" height="18"/>
+  <text class="small" x="114" y="1047">Prototype module or development store</text>
+  <rect class="box external" x="330" y="1033" width="24" height="18"/>
+  <text class="small" x="364" y="1047">Production integration requirement</text>
+</svg>

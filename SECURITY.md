@@ -6,7 +6,8 @@ Cylinder Seal is a prototype. This document describes the security posture expec
 
 - Transaction signing primitives exist in `crates/cs-core`.
 - Admin password verification uses Argon2id hashes.
-- Dashboard sessions are stored as opaque Redis-backed tokens.
+- Dashboard sessions are stored as opaque Redis-backed tokens with HttpOnly cookie support for page flows.
+- Current sensitive dashboard handlers enforce role checks and record `ok` or `denied` admin actions through an audit recorder.
 - AML/risk and audit-log route modules exist.
 - Offline conflict-resolution logic exists in prototype form.
 
@@ -94,6 +95,8 @@ Production requirements:
 Current state:
 
 - Audit-log tables and routes exist.
+- Current sensitive dashboard handlers write admin action records for account freeze/unfreeze, emergency directive creation, compliance-report actions, and industrial-project mutations.
+- Route-level tests assert audit records for allowed and denied actions through an in-memory audit recorder.
 
 Production requirements:
 
@@ -108,7 +111,7 @@ Production requirements:
 Current state:
 
 - Role concepts exist: auditor, analyst, officer, supervisor.
-- Some sensitive flows still need consistent route-level enforcement and tests.
+- Current sensitive route stubs enforce officer or supervisor roles and have route-level tests.
 
 Production requirements:
 

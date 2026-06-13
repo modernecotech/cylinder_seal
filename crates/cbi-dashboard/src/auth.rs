@@ -9,7 +9,7 @@ pub struct SessionToken(pub String);
 impl SessionToken {
     pub fn generate() -> Self {
         let bytes = rand::random::<[u8; 32]>();
-        Self(format!("{:x}", u64::from_ne_bytes(bytes[0..8].try_into().unwrap())))
+        Self(hex::encode(bytes))
     }
 
     pub fn to_string(&self) -> String {
@@ -23,6 +23,24 @@ pub struct AuthenticatedOperator {
     pub operator_id: String,
     pub username: String,
     pub role: String,
+}
+
+impl AuthenticatedOperator {
+    pub fn role(&self) -> Option<OperatorRole> {
+        OperatorRole::from_str(&self.role)
+    }
+
+    pub fn require_role(&self, required_role: OperatorRole) -> Result<(), StatusCode> {
+        if self
+            .role()
+            .map(|role| role.has_privilege(required_role))
+            .unwrap_or(false)
+        {
+            Ok(())
+        } else {
+            Err(StatusCode::FORBIDDEN)
+        }
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -75,8 +93,8 @@ impl OperatorRole {
 
 /// Utility for validating argon2id password hashes
 pub fn verify_password(password: &str, hash: &str) -> Result<bool, argon2::password_hash::Error> {
-    use argon2::PasswordHash;
     use argon2::Argon2;
+    use argon2::PasswordHash;
     use argon2::PasswordVerifier;
 
     let parsed_hash = PasswordHash::new(hash)?;
@@ -87,11 +105,49 @@ pub fn verify_password(password: &str, hash: &str) -> Result<bool, argon2::passw
 
 /// Utility for hashing passwords with argon2id
 pub fn hash_password(password: &str) -> Result<String, argon2::password_hash::Error> {
-    use argon2::{Argon2, PasswordHasher};
     use argon2::password_hash::SaltString;
+    use argon2::{Argon2, PasswordHasher};
 
     let salt = SaltString::generate(rand::thread_rng());
     let password_hash = Argon2::default().hash_password(password.as_bytes(), &salt)?;
 
     Ok(password_hash.to_string())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn session_token_is_32_byte_hex() {
+        let token = SessionToken::generate().to_string();
+
+        assert_eq!(token.len(), 64);
+        assert!(token.chars().all(|c| c.is_ascii_hexdigit()));
+    }
+
+    #[test]
+    fn operator_role_hierarchy_is_enforced() {
+        let officer = AuthenticatedOperator {
+            operator_id: "op-1".into(),
+            username: "officer".into(),
+            role: "officer".into(),
+        };
+        let auditor = AuthenticatedOperator {
+            operator_id: "op-2".into(),
+            username: "auditor".into(),
+            role: "auditor".into(),
+        };
+
+        assert!(officer.require_role(OperatorRole::Auditor).is_ok());
+        assert!(officer.require_role(OperatorRole::Officer).is_ok());
+        assert_eq!(
+            officer.require_role(OperatorRole::Supervisor),
+            Err(StatusCode::FORBIDDEN)
+        );
+        assert_eq!(
+            auditor.require_role(OperatorRole::Officer),
+            Err(StatusCode::FORBIDDEN)
+        );
+    }
 }

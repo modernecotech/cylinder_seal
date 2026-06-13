@@ -58,6 +58,7 @@ Change all demo secrets before sharing, deploying, or connecting real systems.
 The public-facing technical evidence has been split out of the original long README:
 
 - [Technical primitives](docs/technical-primitives.md) maps claims such as offline payments, double-spend checks, wire-format primitives, Raft, key handling, privacy, AML, and disaster recovery to code and remaining gaps.
+- [System and financial flow diagrams](docs/system-and-financial-flow-diagrams.md) provides rendered SVG architecture diagrams, transaction lifecycles, and valid financial-flow combinations.
 - [Implementation status](IMPLEMENTATION_STATUS.md) summarizes dashboard implementation state.
 - [Test results](TEST_RESULTS.md) and [cs-tests README](crates/cs-tests/README.md) describe specification and end-to-end tests.
 - [API reference](API_REFERENCE.md) documents the dashboard API.

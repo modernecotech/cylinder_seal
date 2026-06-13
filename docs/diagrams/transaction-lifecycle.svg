@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1200" viewBox="0 0 1700 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Cylinder Seal Transaction Lifecycle</title>
+  <desc id="desc">Diagram showing online, offline, and control-plane transaction lifecycles through validation, finality, projections, and audit.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#344054"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 34px Arial, sans-serif; fill: #101828; }
+      .subtitle { font: 400 17px Arial, sans-serif; fill: #475467; }
+      .lane { fill: #ffffff; stroke: #d0d5dd; stroke-width: 1.5; rx: 18; }
+      .lane-title { font: 700 20px Arial, sans-serif; fill: #101828; }
+      .step { stroke-width: 1.6; rx: 12; }
+      .online { fill: #eef6ff; stroke: #2e73b8; }
+      .offline { fill: #edf7f0; stroke: #2f7d45; }
+      .control { fill: #fff7e6; stroke: #b26a00; }
+      .finality { fill: #f3e8ff; stroke: #7e3fb2; }
+      .risk { fill: #fff0f0; stroke: #b23b3b; }
+      .text-title { font: 700 14px Arial, sans-serif; fill: #101828; }
+      .text { font: 400 12px Arial, sans-serif; fill: #344054; }
+      .small { font: 400 11px Arial, sans-serif; fill: #475467; }
+      .arrow { stroke: #344054; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .arrow-soft { stroke: #667085; stroke-width: 1.8; fill: none; marker-end: url(#arrow); stroke-dasharray: 7 5; }
+      .check { fill: #ffffff; stroke: #98a2b3; stroke-width: 1.2; rx: 10; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1700" height="1200"/>
+  <text class="title" x="56" y="58">Transaction Lifecycle: Online, Offline, And Control-Plane Paths</text>
+  <text class="subtitle" x="56" y="88">The same validation chain creates settlement, audit evidence, risk signals, credit features, and aggregate analytics.</text>
+
+  <rect class="lane" x="52" y="130" width="1596" height="245"/>
+  <text class="lane-title" x="84" y="168">A. Online value flow</text>
+
+  <rect class="step online" x="84" y="215" width="190" height="72"/>
+  <text class="text-title" x="108" y="242">Payment intent</text>
+  <text class="text" x="108" y="264">wallet, POS, bank,</text>
+  <text class="text" x="108" y="282">or government batch</text>
+
+  <rect class="step online" x="326" y="215" width="190" height="72"/>
+  <text class="text-title" x="350" y="242">Envelope</text>
+  <text class="text" x="350" y="264">amount, parties, tier,</text>
+  <text class="text" x="350" y="282">optional primitive</text>
+
+  <rect class="step online" x="568" y="215" width="190" height="72"/>
+  <text class="text-title" x="592" y="242">Sign and submit</text>
+  <text class="text" x="592" y="264">canonical payload</text>
+  <text class="text" x="592" y="282">over online API</text>
+
+  <rect class="step risk" x="810" y="198" width="240" height="106"/>
+  <text class="text-title" x="834" y="226">Validation chain</text>
+  <text class="text" x="834" y="248">signature, nonce, limits,</text>
+  <text class="text" x="834" y="266">primitive, tier, AML,</text>
+  <text class="text" x="834" y="284">reporting triggers</text>
+
+  <rect class="step finality" x="1102" y="215" width="190" height="72"/>
+  <text class="text-title" x="1126" y="242">Finality</text>
+  <text class="text" x="1126" y="264">Raft proposal and</text>
+  <text class="text" x="1126" y="282">ledger apply</text>
+
+  <rect class="step online" x="1344" y="198" width="240" height="106"/>
+  <text class="text-title" x="1368" y="226">Projections</text>
+  <text class="text" x="1368" y="248">balances, credit features,</text>
+  <text class="text" x="1368" y="266">risk queues, reports,</text>
+  <text class="text" x="1368" y="284">analytics</text>
+
+  <path class="arrow" d="M274 251 L326 251"/>
+  <path class="arrow" d="M516 251 L568 251"/>
+  <path class="arrow" d="M758 251 L810 251"/>
+  <path class="arrow" d="M1050 251 L1102 251"/>
+  <path class="arrow" d="M1292 251 L1344 251"/>
+
+  <rect class="lane" x="52" y="420" width="1596" height="325"/>
+  <text class="lane-title" x="84" y="458">B. Offline pending-receipt flow</text>
+
+  <rect class="step offline" x="84" y="520" width="190" height="72"/>
+  <text class="text-title" x="108" y="547">Local cap check</text>
+  <text class="text" x="108" y="569">device nonce state and</text>
+  <text class="text" x="108" y="587">offline exposure limit</text>
+
+  <rect class="step offline" x="326" y="520" width="190" height="72"/>
+  <text class="text-title" x="350" y="547">Offline transport</text>
+  <text class="text" x="350" y="569">QR, NFC, or BLE</text>
+  <text class="text" x="350" y="587">signed payload</text>
+
+  <rect class="step offline" x="568" y="520" width="190" height="72"/>
+  <text class="text-title" x="592" y="547">Receiver queue</text>
+  <text class="text" x="592" y="569">verify signature and</text>
+  <text class="text" x="592" y="587">store pending receipt</text>
+
+  <rect class="step offline" x="810" y="500" width="240" height="112"/>
+  <text class="text-title" x="834" y="528">Reconnect and sync</text>
+  <text class="text" x="834" y="550">upload pending receipt,</text>
+  <text class="text" x="834" y="568">resolve sibling spends,</text>
+  <text class="text" x="834" y="586">apply policy checks</text>
+
+  <rect class="step finality" x="1102" y="520" width="190" height="72"/>
+  <text class="text-title" x="1126" y="547">Commit or conflict</text>
+  <text class="text" x="1126" y="569">ledger entry or</text>
+  <text class="text" x="1126" y="587">reconciliation outcome</text>
+
+  <rect class="step offline" x="1344" y="500" width="240" height="112"/>
+  <text class="text-title" x="1368" y="528">Evidence update</text>
+  <text class="text" x="1368" y="550">recipient settlement,</text>
+  <text class="text" x="1368" y="568">conflict evidence,</text>
+  <text class="text" x="1368" y="586">credit history</text>
+
+  <path class="arrow" d="M274 556 L326 556"/>
+  <path class="arrow" d="M516 556 L568 556"/>
+  <path class="arrow" d="M758 556 L810 556"/>
+  <path class="arrow" d="M1050 556 L1102 556"/>
+  <path class="arrow" d="M1292 556 L1344 556"/>
+
+  <rect class="check" x="326" y="642" width="972" height="58"/>
+  <text class="text-title" x="354" y="666">Production boundary</text>
+  <text class="text" x="354" y="686">Secure element or equivalent attested monotonic counter, revocation, liability rules, and physical interoperability tests are still required.</text>
+
+  <rect class="lane" x="52" y="790" width="1596" height="245"/>
+  <text class="lane-title" x="84" y="828">C. Control-plane and supervisory overlay</text>
+
+  <rect class="step control" x="84" y="890" width="190" height="72"/>
+  <text class="text-title" x="108" y="917">Operator login</text>
+  <text class="text" x="108" y="939">Argon2id password</text>
+  <text class="text" x="108" y="957">verification</text>
+
+  <rect class="step control" x="326" y="890" width="190" height="72"/>
+  <text class="text-title" x="350" y="917">Redis session</text>
+  <text class="text" x="350" y="939">TTL-bound bearer</text>
+  <text class="text" x="350" y="957">token</text>
+
+  <rect class="step control" x="568" y="890" width="190" height="72"/>
+  <text class="text-title" x="592" y="917">Role gate</text>
+  <text class="text" x="592" y="939">auditor, analyst,</text>
+  <text class="text" x="592" y="957">officer, supervisor</text>
+
+  <rect class="step risk" x="810" y="872" width="240" height="106"/>
+  <text class="text-title" x="834" y="900">Sensitive action</text>
+  <text class="text" x="834" y="922">freeze, unfreeze,</text>
+  <text class="text" x="834" y="940">directive, report status,</text>
+  <text class="text" x="834" y="958">project mutation</text>
+
+  <rect class="step finality" x="1102" y="890" width="190" height="72"/>
+  <text class="text-title" x="1126" y="917">Audit log</text>
+  <text class="text" x="1126" y="939">who, what, when,</text>
+  <text class="text" x="1126" y="957">why, evidence</text>
+
+  <rect class="step control" x="1344" y="872" width="240" height="106"/>
+  <text class="text-title" x="1368" y="900">Review and recourse</text>
+  <text class="text" x="1368" y="922">four-eyes target state,</text>
+  <text class="text" x="1368" y="940">appeal path, exports,</text>
+  <text class="text" x="1368" y="958">regulator evidence</text>
+
+  <path class="arrow" d="M274 926 L326 926"/>
+  <path class="arrow" d="M516 926 L568 926"/>
+  <path class="arrow" d="M758 926 L810 926"/>
+  <path class="arrow" d="M1050 926 L1102 926"/>
+  <path class="arrow" d="M1292 926 L1344 926"/>
+
+  <rect class="check" x="82" y="1070" width="1518" height="70"/>
+  <text class="text-title" x="110" y="1096">Validator checklist</text>
+  <text class="text" x="110" y="1118">1 signature and hash | 2 nonce and replay | 3 KYC, velocity, offline limits | 4 expiry, spend constraint, release condition | 5 merchant tier and restrictions | 6 AML and reporting</text>
+</svg>

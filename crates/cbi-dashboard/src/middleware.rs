@@ -2,12 +2,11 @@
 
 use axum::{
     extract::{Request, State},
-    http::StatusCode,
+    http::{header::COOKIE, HeaderMap, Method, StatusCode},
     middleware::Next,
     response::Response,
 };
 use std::sync::Arc;
-use redis::AsyncCommands;
 
 use crate::{auth::AuthenticatedOperator, state::AppState};
 
@@ -20,26 +19,21 @@ pub async fn require_session(
     mut request: Request,
     next: Next,
 ) -> Result<Response, StatusCode> {
-    // Extract session token from header
-    let token = request
-        .headers()
-        .get("authorization")
-        .and_then(|h| h.to_str().ok())
-        .and_then(|s| s.strip_prefix("Bearer "))
-        .map(|s| s.to_string())
+    let token = extracted_session_token(request.headers()).ok_or(StatusCode::UNAUTHORIZED)?;
+
+    if !token.from_authorization && is_unsafe_method(request.method()) {
+        require_csrf_header(request.headers(), &token.value)?;
+    }
+
+    let session_data = app_state
+        .session_store
+        .get_session(&token.value)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
         .ok_or(StatusCode::UNAUTHORIZED)?;
 
-    // Validate token in Redis
-    let mut conn = app_state.redis_pool.get().await
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
-
-    let session_data: String = conn.get(format!("session:{}", token))
-        .await
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
-
-    // Parse session data
-    let session: serde_json::Value = serde_json::from_str(&session_data)
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    let session: serde_json::Value =
+        serde_json::from_str(&session_data).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
     let operator_id = session
         .get("operator_id")
@@ -69,6 +63,10 @@ pub async fn require_session(
     Ok(next.run(request).await)
 }
 
+pub fn session_token_from_headers(headers: &HeaderMap) -> Option<String> {
+    extracted_session_token(headers).map(|token| token.value)
+}
+
 /// Extract authenticated operator from request extensions
 pub fn extract_operator(request: &Request) -> Result<AuthenticatedOperator, StatusCode> {
     request
@@ -76,4 +74,63 @@ pub fn extract_operator(request: &Request) -> Result<AuthenticatedOperator, Stat
         .get::<AuthenticatedOperator>()
         .cloned()
         .ok_or(StatusCode::UNAUTHORIZED)
+}
+
+struct ExtractedSessionToken {
+    value: String,
+    from_authorization: bool,
+}
+
+fn extracted_session_token(headers: &HeaderMap) -> Option<ExtractedSessionToken> {
+    if let Some(token) = bearer_token(headers) {
+        return Some(ExtractedSessionToken {
+            value: token,
+            from_authorization: true,
+        });
+    }
+
+    cookie_token(headers).map(|token| ExtractedSessionToken {
+        value: token,
+        from_authorization: false,
+    })
+}
+
+fn bearer_token(headers: &HeaderMap) -> Option<String> {
+    headers
+        .get("authorization")
+        .and_then(|h| h.to_str().ok())
+        .and_then(|s| s.strip_prefix("Bearer "))
+        .map(|s| s.to_string())
+}
+
+fn cookie_token(headers: &HeaderMap) -> Option<String> {
+    headers
+        .get(COOKIE)
+        .and_then(|h| h.to_str().ok())
+        .and_then(|cookies| {
+            cookies.split(';').find_map(|cookie| {
+                cookie
+                    .trim()
+                    .strip_prefix("cs_dash_session=")
+                    .filter(|token| !token.is_empty())
+                    .map(|token| token.to_string())
+            })
+        })
+}
+
+fn is_unsafe_method(method: &Method) -> bool {
+    !matches!(method, &Method::GET | &Method::HEAD | &Method::OPTIONS)
+}
+
+fn require_csrf_header(headers: &HeaderMap, token: &str) -> Result<(), StatusCode> {
+    let csrf_token = headers
+        .get("x-csrf-token")
+        .and_then(|h| h.to_str().ok())
+        .ok_or(StatusCode::FORBIDDEN)?;
+
+    if csrf_token == token {
+        Ok(())
+    } else {
+        Err(StatusCode::FORBIDDEN)
+    }
 }

@@ -18,17 +18,17 @@ See [economic assumptions](economic-assumptions.md) for the current source disci
 
 **Cylinder Seal is not just a payment system. It's an economic quantification and policy-transmission engine.**
 
-The **Digital Iraqi Dinar (Digital IQD)** is sovereign digital currency infrastructure enabling Iraq's Central Bank to:
-1. **Make the invisible economy visible** — transform 70% unbanked and informal economic activity into auditable, taxable, bankable transactions
+The **Digital Iraqi Dinar (Digital IQD)** scenario explores sovereign digital currency infrastructure that could enable Iraq's Central Bank to:
+1. **Make more of the informal economy visible** — bring low-formality cash activity into auditable, taxable, bankable transaction trails, subject to NFIS-aligned baseline definitions
 2. **Finance unfinished industrial projects** — cement, steel, petrochemicals, pharmaceuticals, tourism — by converting transaction history into credit scores
-3. **Implement trade policy without tariffs** — combine merchant tier fees (0% for 100% Iraqi content, up to 8% for pure imports) with hard restrictions on government transfers (Tier 1–2 only for food/textiles/household goods) to shift $106B annual government spending toward local goods
-4. **Transmit monetary policy in real-time** — CBI sees transactions across Iraq's ~43M residents instantly, adjusts velocity limits and credit policy within hours
-5. **Generate $7.5-12.5B annual economic benefit by Year 5** — seigniorage ($2-3B), improved tax compliance ($1-2B), stronger trade balance ($3-5B), monetary stability ($1.5-2.5B)
+3. **Test programmable trade-policy mechanisms** — combine merchant tier fees with restricted public-transfer categories where domestic capacity exists
+4. **Improve monetary-policy visibility** — provide aggregate, privacy-bounded transaction signals for policy and risk analysis
+5. **Model potential economic benefits** — keep benefit ranges explicitly illustrative until independently validated
 
 **Core technical advantages:**
 - Offline-first P2P payments (NFC/BLE) — works without internet in rural/conflict zones
 - 3-of-5 Raft consensus — tolerates 2 CBI regional branch outages simultaneously
-- Zero fees (unlike banks' 2-5%) — retains purchasing power for 21M unbanked Iraqis (~70% of adult population currently excluded from formal banking)
+- Low/zero retail fees in the prototype scenario — financial-inclusion baselines and target populations require NFIS-aligned sourcing
 - Credit scoring from transaction history (no collateral needed) — enables SME working capital and 7-10x export growth
 - Programmable merchant tiers — automatically incentivizes local production over imports
 - **Programmability primitives** — expiring transfers, earmarked spend, and conditional-release escrow enforced at the wire-format / validation layer, not in application code
@@ -39,7 +39,7 @@ Cylinder Seal's design attacks four mutually-reinforcing Iraqi economic patholog
 
 | Pathology | Primary mechanism in Cylinder Seal |
 |---|---|
-| **1. Invisible informal economy** — ~70% unbanked, 8–12M informal workers, cash-only transaction trails | Tier system + IP (Individual Producer) track + transaction-based credit scoring with cash-flow features |
+| **1. Invisible informal economy** — low formal account ownership, informal workers, cash-only transaction trails | Tier system + IP (Individual Producer) track + transaction-based credit scoring with cash-flow features |
 | **2. SME credit bottleneck** — collateral-based lending excludes thin-file majority; $50–100B unmet working capital | Transaction-history credit score + mortgage primitive + assignable government forward-purchase commitments as collateral + staged-disbursement construction loans |
 | **3. USD leakage to imports** — oil USD flows out to finished-goods imports, bypassing the 1,200-project industrial portfolio (14:1 import-to-domestic ratio) | Earmarked-spend primitive auto-tiers construction supply chains to Tier-1/2 domestic producers; diaspora merchants capture foreign currency at point of sale abroad into the industrial pool |
 | **4. Dollarization & weak monetary transmission** — citizens hold USD because IQD has no trusted long-duration home | Expiring retail transfers break the salary→USD→import leak; mortgages give households their first IQD-denominated long-duration asset; yield-bearing savings balance |
@@ -671,7 +671,7 @@ The informal economy employs an estimated 8-12M Iraqis across street trade, tran
 - Every IP accumulates transaction history on the same credit-scoring pipeline as formal producers
 - After 6 months, a taxi driver with 1,500+ micro-transactions has a **documented income record** — usable for microfinance, vehicle financing, housing loans, and education credit. This is currently impossible under cash-only operation.
 - A small farmer with two seasons of visible sales becomes eligible for seed/equipment credit at 10-12% instead of informal lending at 10-20% monthly.
-- **This is the single largest financial-inclusion lever in Cylinder Seal**: the 8-12M informal workers are exactly the population that "70% unbanked" refers to, and the IP track brings them in without forcing them to become something they are not.
+- **This is one of the largest financial-inclusion levers in the scenario**: informal workers are a core population for NFIS-aligned inclusion work, and the IP track is designed to bring them in without forcing them to become something they are not.
 
 **Revenue & scale illustration:**
 - If 3M IPs average IQD 3M/month ($2K) in gross receipts and pay 1.2% micro-tax → ~IQD 108B/month (~$70M/month, ~$840M/year) in new tax revenue, collected entirely by passive withholding with no filing burden.
@@ -1245,10 +1245,10 @@ Iraq's SME sector (textiles, food, light manufacturing, hospitality, constructio
 - Manufacturing is largest non-oil sector by 2030 (25-30% of total GDP)
 - Hard restrictions lock $27-38B government spending to domestic (creates $40-60B GDP via multiplier)
 
-**Key Drivers by Phase (Aggressive Hybrid Model):**
+**Key Drivers by Phase (Aggressive Hybrid Model, Illustrative Only):**
 - **Phase 1 (Q4 2026 - Q1 2027):** Hard restrictions on food/textiles/household goods ($16-21B locked to domestic); government salary & pension visibility; pilot user base transitions to national scale
 - **Phase 2 (Q2 2027 - Q4 2028):** Quarterly expansion of restrictions (cement→pharma→steel milestones); $27-38B government spending hard-restricted; SME credit market explodes to $22B; manufacturing capacity jumps 40%→85%; import bill drops 100T→70T IQD
-- **Phase 3 (2029-2031):** Full SME formalization (28K+ firms); industrial output 50-60 trillion IQD (vs. 7T baseline); sovereign rating reaches investment grade (Ba3 by late 2028); diaspora capital repatriation; regional hub status; trade balance surplus established
+- **Phase 3 (2029-2031):** SME formalization, industrial-output growth, diaspora distribution-channel effects, and trade-balance improvement are scenario assumptions requiring independent validation
 
 ---
 

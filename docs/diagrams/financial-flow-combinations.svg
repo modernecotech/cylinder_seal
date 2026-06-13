@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1300" viewBox="0 0 1800 1300" role="img" aria-labelledby="title desc">
+  <title id="title">Cylinder Seal Financial Flow Combinations</title>
+  <desc id="desc">Financial flow diagram showing actors, channels, Digital IQD rail primitives, destinations, and oversight side effects.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#344054"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 34px Arial, sans-serif; fill: #101828; }
+      .subtitle { font: 400 17px Arial, sans-serif; fill: #475467; }
+      .zone { fill: #ffffff; stroke: #d0d5dd; stroke-width: 2; rx: 18; }
+      .zone-title { font: 700 20px Arial, sans-serif; fill: #101828; }
+      .box { stroke-width: 1.5; rx: 12; }
+      .actor { fill: #eef6ff; stroke: #2e73b8; }
+      .rail { fill: #edf7f0; stroke: #2f7d45; }
+      .primitive { fill: #fff7e6; stroke: #b26a00; }
+      .side { fill: #fff0f0; stroke: #b23b3b; }
+      .out { fill: #f3e8ff; stroke: #7e3fb2; }
+      .title-text { font: 700 14px Arial, sans-serif; fill: #101828; }
+      .text { font: 400 12px Arial, sans-serif; fill: #344054; }
+      .tiny { font: 400 10.5px Arial, sans-serif; fill: #475467; }
+      .arrow { stroke: #344054; stroke-width: 2.1; fill: none; marker-end: url(#arrow); }
+      .arrow-soft { stroke: #667085; stroke-width: 1.6; fill: none; marker-end: url(#arrow); stroke-dasharray: 7 5; }
+      .divider { stroke: #d0d5dd; stroke-width: 1.2; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1800" height="1300"/>
+  <text class="title" x="56" y="58">Financial Flow Combination Map</text>
+  <text class="subtitle" x="56" y="88">Every modeled transaction combines an actor pair, channel, settlement mode, primitive, and oversight path.</text>
+
+  <rect class="zone" x="52" y="130" width="330" height="800"/>
+  <text class="zone-title" x="84" y="170">Sources of value</text>
+
+  <rect class="box actor" x="92" y="225" width="245" height="62"/>
+  <text class="title-text" x="116" y="251">C - Citizen</text>
+  <text class="text" x="116" y="273">household wallet</text>
+
+  <rect class="box actor" x="92" y="315" width="245" height="62"/>
+  <text class="title-text" x="116" y="341">M - Merchant / SME</text>
+  <text class="text" x="116" y="363">formal business account</text>
+
+  <rect class="box actor" x="92" y="405" width="245" height="62"/>
+  <text class="title-text" x="116" y="431">IP - Individual producer</text>
+  <text class="text" x="116" y="453">informal-worker track</text>
+
+  <rect class="box actor" x="92" y="495" width="245" height="62"/>
+  <text class="title-text" x="116" y="521">G - Government</text>
+  <text class="text" x="116" y="543">salary, pension, tax, procurement</text>
+
+  <rect class="box actor" x="92" y="585" width="245" height="62"/>
+  <text class="title-text" x="116" y="611">B - Bank / lender</text>
+  <text class="text" x="116" y="633">loan, mortgage, settlement</text>
+
+  <rect class="box actor" x="92" y="675" width="245" height="62"/>
+  <text class="title-text" x="116" y="701">D - Diaspora / tourist</text>
+  <text class="text" x="116" y="723">foreign demand channel</text>
+
+  <rect class="box actor" x="92" y="765" width="245" height="62"/>
+  <text class="title-text" x="116" y="791">CBI - Monetary account</text>
+  <text class="text" x="116" y="813">liquidity and policy funding</text>
+
+  <rect class="zone" x="450" y="130" width="870" height="800"/>
+  <text class="zone-title" x="482" y="170">Digital IQD validation rail</text>
+
+  <rect class="box rail" x="504" y="210" width="760" height="84"/>
+  <text class="title-text" x="532" y="238">Common transaction envelope</text>
+  <text class="text" x="532" y="260">payer, payee, amount, channel, nonce, signatures, tier data, optional primitive</text>
+  <text class="tiny" x="532" y="280">Used by online, QR, NFC, BLE, batch, and future bridge submissions</text>
+
+  <rect class="box primitive" x="504" y="336" width="350" height="78"/>
+  <text class="title-text" x="532" y="364">Standard transfer</text>
+  <text class="text" x="532" y="386">ordinary settlement, refund, repayment, tax, fee</text>
+
+  <rect class="box primitive" x="914" y="336" width="350" height="78"/>
+  <text class="title-text" x="942" y="364">Offline pending receipt</text>
+  <text class="text" x="942" y="386">low-value QR, NFC, BLE until sync</text>
+
+  <rect class="box primitive" x="504" y="452" width="350" height="78"/>
+  <text class="title-text" x="532" y="480">Expiring transfer</text>
+  <text class="text" x="532" y="502">stimulus, voucher-like, velocity experiment</text>
+
+  <rect class="box primitive" x="914" y="452" width="350" height="78"/>
+  <text class="title-text" x="942" y="480">Spend constraint</text>
+  <text class="text" x="942" y="502">eligible merchant tier, category, or program</text>
+
+  <rect class="box primitive" x="504" y="568" width="350" height="78"/>
+  <text class="title-text" x="532" y="596">Conditional release escrow</text>
+  <text class="text" x="532" y="618">invoice, inspection, title, delivery milestone</text>
+
+  <rect class="box primitive" x="914" y="568" width="350" height="78"/>
+  <text class="title-text" x="942" y="596">Recurring debit</text>
+  <text class="text" x="942" y="618">mortgage, loan, utility, tax installment</text>
+
+  <rect class="box rail" x="504" y="700" width="760" height="96"/>
+  <text class="title-text" x="532" y="728">Validation and finality side effects</text>
+  <text class="text" x="532" y="750">limits, primitive checks, tier policy, AML, conflict resolution, Raft finality, ledger persistence</text>
+  <text class="tiny" x="532" y="772">The same validation path keeps ordinary payments and policy-program payments on one architecture.</text>
+
+  <rect class="zone" x="1388" y="130" width="360" height="800"/>
+  <text class="zone-title" x="1420" y="170">Destinations</text>
+
+  <rect class="box out" x="1430" y="225" width="270" height="62"/>
+  <text class="title-text" x="1454" y="251">Citizen / household</text>
+  <text class="text" x="1454" y="273">receipt, benefit, refund, wage</text>
+
+  <rect class="box out" x="1430" y="315" width="270" height="62"/>
+  <text class="title-text" x="1454" y="341">Merchant / SME</text>
+  <text class="text" x="1454" y="363">retail, invoice, procurement</text>
+
+  <rect class="box out" x="1430" y="405" width="270" height="62"/>
+  <text class="title-text" x="1454" y="431">Individual producer</text>
+  <text class="text" x="1454" y="453">documented informal income</text>
+
+  <rect class="box out" x="1430" y="495" width="270" height="62"/>
+  <text class="title-text" x="1454" y="521">Government / tax</text>
+  <text class="text" x="1454" y="543">fee, withholding, fine, utility</text>
+
+  <rect class="box out" x="1430" y="585" width="270" height="62"/>
+  <text class="title-text" x="1454" y="611">Bank / lender</text>
+  <text class="text" x="1454" y="633">repayment, settlement, reserve flow</text>
+
+  <rect class="box out" x="1430" y="675" width="270" height="62"/>
+  <text class="title-text" x="1454" y="701">Audit / AML evidence</text>
+  <text class="text" x="1454" y="723">case queues and reports</text>
+
+  <rect class="box out" x="1430" y="765" width="270" height="62"/>
+  <text class="title-text" x="1454" y="791">Credit / analytics</text>
+  <text class="text" x="1454" y="813">cash-flow and sector signals</text>
+
+  <path class="arrow" d="M337 256 C410 256 430 252 504 252"/>
+  <path class="arrow" d="M337 346 C410 346 430 374 504 374"/>
+  <path class="arrow" d="M337 436 C410 436 430 374 504 374"/>
+  <path class="arrow" d="M337 526 C410 526 430 490 504 490"/>
+  <path class="arrow" d="M337 616 C410 616 430 606 504 606"/>
+  <path class="arrow" d="M337 706 C410 706 430 374 504 374"/>
+  <path class="arrow" d="M337 796 C410 796 430 748 504 748"/>
+
+  <path class="arrow" d="M1264 252 C1340 252 1360 256 1430 256"/>
+  <path class="arrow" d="M1264 374 C1340 374 1360 346 1430 346"/>
+  <path class="arrow" d="M1264 374 C1340 405 1360 436 1430 436"/>
+  <path class="arrow" d="M1264 490 C1340 490 1360 526 1430 526"/>
+  <path class="arrow" d="M1264 606 C1340 606 1360 616 1430 616"/>
+  <path class="arrow-soft" d="M884 796 C1100 910 1300 700 1430 706"/>
+  <path class="arrow-soft" d="M884 796 C1120 965 1300 790 1430 796"/>
+
+  <rect class="zone" x="52" y="980" width="1696" height="210"/>
+  <text class="zone-title" x="84" y="1020">Oversight paths produced by settlement</text>
+  <rect class="box side" x="92" y="1060" width="250" height="72"/>
+  <text class="title-text" x="116" y="1088">Tier policy</text>
+  <text class="text" x="116" y="1110">domestic-content fee and category controls</text>
+  <rect class="box side" x="382" y="1060" width="250" height="72"/>
+  <text class="title-text" x="406" y="1088">AML / risk</text>
+  <text class="text" x="406" y="1110">flags, thresholds, reports, reviews</text>
+  <rect class="box side" x="672" y="1060" width="250" height="72"/>
+  <text class="title-text" x="696" y="1088">Tax / fee withholding</text>
+  <text class="text" x="696" y="1110">split entries and receipt evidence</text>
+  <rect class="box side" x="962" y="1060" width="250" height="72"/>
+  <text class="title-text" x="986" y="1088">Credit features</text>
+  <text class="text" x="986" y="1110">periodicity, stability, income ratios</text>
+  <rect class="box side" x="1252" y="1060" width="250" height="72"/>
+  <text class="title-text" x="1276" y="1088">Supervisor control</text>
+  <text class="text" x="1276" y="1110">freeze, cap, directive, recourse</text>
+</svg>

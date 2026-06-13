@@ -6,6 +6,7 @@
 - `DEVELOPMENT_GUIDE.md` - PostgreSQL/Redis development runbook.
 - `SECURITY.md` - security model, threat areas, and production requirements.
 - `docs/technical-primitives.md` - implementation evidence and gaps for offline payments, consensus, AML, privacy, and disaster recovery.
+- `docs/system-and-financial-flow-diagrams.md` - rendered SVG architecture diagrams, transaction lifecycles, and financial-flow combinations.
 - `docs/economic-assumptions.md` - source discipline and current public facts for Iraq-specific claims.
 - `docs/policy-paper.md` - long-form policy thesis draft; illustrative and not a readiness statement.
 

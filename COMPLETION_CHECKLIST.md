@@ -11,15 +11,18 @@
 - [x] Technical primitives and readiness gaps documented.
 - [x] Economic assumptions and source discipline documented.
 - [x] Security/threat-model requirements documented in `SECURITY.md`.
+- [x] Route-level dashboard tests for session middleware, CSRF checks, logout invalidation, and current role gates.
+- [x] Basic HttpOnly cookie support for dashboard page sessions alongside bearer-token API calls.
+- [x] Admin action audit recorder wired for current sensitive dashboard handlers.
 
 ## Still Required Before Production Claims
 
-- [ ] Real PostgreSQL/Redis integration tests for dashboard endpoints.
-- [ ] Consistent role-based authorization checks on sensitive routes.
-- [ ] CSRF protection and hardened browser-session flow.
+- [ ] Live PostgreSQL/Redis integration tests for dashboard endpoints and migrations.
+- [ ] Role-based authorization checks for every future sensitive route as handlers become real.
+- [ ] Full browser-session security review, including automated browser tests and deployment cookie flags.
 - [ ] HSM or secure-element custody design for privileged keys.
 - [ ] Audited offline double-spend prevention model.
-- [ ] Immutable audit-log storage and retention policy.
+- [ ] Immutable audit-log storage, retention policy, exportable evidence packs, and external tamper-evidence.
 - [ ] Disaster-recovery runbooks and restore drills.
 - [ ] Privacy impact assessment and data-minimization rules.
 - [ ] Independent economic model validation.

@@ -13,14 +13,17 @@ The repository includes Rust tests under `crates/cs-tests/tests/` for:
 - AML flagging, rule-engine behavior, risk scoring, and regulatory reporting models.
 - Credit scoring, account types, invoice flow, wire formats, and offline-payment serialization.
 
-The dashboard also has `crates/cbi-dashboard/tests/integration_dashboard.rs`, but much of that file is structural or placeholder validation. It should not be cited as proof that every endpoint has been exercised against a real database and Redis session store.
+The dashboard also has route-level integration coverage in `crates/cbi-dashboard/tests/route_integration.rs`. These tests exercise the real Axum router, session middleware, CSRF checks, logout invalidation, role-gated handlers, and admin audit recording through in-memory stores and a lazy PostgreSQL pool. They are meaningful route tests, but they are not a substitute for live PostgreSQL/Redis end-to-end tests.
+
+`crates/cbi-dashboard/tests/integration_dashboard.rs` remains mostly structural or placeholder validation. It should not be cited as proof that every endpoint has been exercised against a real database and Redis session store.
 
 ## Current Limitations
 
 - Dashboard route tests do not yet cover the full request path with live PostgreSQL, Redis, authentication, and realistic fixtures.
 - Some tests validate expected shapes and constants rather than executing production handlers.
 - No load, soak, partition, recovery, or security regression test suite is present.
-- Browser flows do not yet have CSRF/session-hardening tests.
+- Browser flows now have route-level session and CSRF checks, but not full browser automation coverage.
+- Admin action audit rows are recorded for current sensitive handlers, but immutable retention and exportable evidence packs still need production design.
 - Offline double-spend tests cover conflict handling patterns, not a formally audited secure-element model.
 
 ## How To Verify Today
@@ -28,16 +31,14 @@ The dashboard also has `crates/cbi-dashboard/tests/integration_dashboard.rs`, bu
 ```bash
 cargo test --workspace
 cargo check --package cbi-dashboard
+cargo test --package cbi-dashboard --test route_integration
 ```
 
-For dashboard integration credibility, add a PostgreSQL/Redis test harness and assert real HTTP responses for:
+For the next dashboard integration step, add a live PostgreSQL/Redis test harness and assert real HTTP responses for:
 
 - `/auth/login` and `/auth/logout`
 - `/api/overview`
-- `/api/projects`
 - `/api/compliance/reports`
-- `/api/accounts/:user_id/freeze`
-- `/api/accounts/:user_id/unfreeze`
 - `/api/audit/logs`
 
 ## Readiness Label

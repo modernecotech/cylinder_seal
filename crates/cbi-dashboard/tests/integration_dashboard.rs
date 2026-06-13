@@ -7,7 +7,7 @@ mod tests {
     #[test]
     fn test_database_schema_tables() {
         // This test validates that all required tables exist
-        // It would require SQLite connection to run fully
+        // Full execution requires the PostgreSQL dashboard test harness.
         let expected_tables = vec![
             "admin_operators",
             "users",

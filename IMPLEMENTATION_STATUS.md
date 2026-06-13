@@ -11,15 +11,18 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - Consensus and sync prototypes, including Raft abstractions and conflict-resolution logic.
 - POS/mobile-core codecs for QR/NFC/BLE-oriented payment payloads.
 - CBI dashboard Axum service with PostgreSQL pool, Redis sessions, and route modules.
+- Testable dashboard app builder plus route-level tests for session middleware, CSRF checks, logout invalidation, current role gates, and admin action audit recording.
+- PostgreSQL-backed admin audit recorder for current sensitive dashboard actions, with in-memory test recorder.
 - PostgreSQL migrations for the main application stack.
 - Specification tests for many protocol and policy behaviors.
 
 ## Important Gaps
 
-- Dashboard route integration tests are incomplete.
+- Dashboard route integration tests now cover security middleware and selected skeletal handlers, but live PostgreSQL/Redis endpoint coverage is still incomplete.
 - Some route handlers remain skeletal or demo-oriented.
-- Role enforcement is not yet consistently proven.
-- Browser security hardening is incomplete.
+- Role enforcement must continue to be applied as future sensitive handlers are implemented.
+- Browser security hardening has a basic cookie/CSRF foundation but still needs full browser automation and deployment review.
+- Admin audit logging is not yet a complete immutable retention system or regulator evidence-pack workflow.
 - SQLite is not a supported dashboard runtime despite the presence of historical fixture scripts.
 - Offline double-spend handling is not yet backed by audited secure hardware/attestation.
 - HSM custody, national identity/KYC integration, CBI/core-banking integration, DR, and privacy review remain future work.

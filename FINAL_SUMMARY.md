@@ -17,14 +17,14 @@ Current posture:
 - CBI dashboard routes for overview, industrial projects, analytics, compliance, monetary policy, accounts, risk, audit, producers, and authentication.
 - PostgreSQL migrations for production-like development.
 - SQLite fixture scripts retained only for local schema/seed inspection; the dashboard runtime is PostgreSQL-only.
-- Redis-backed session storage and Argon2id password hash verification.
+- Redis-backed session storage, Argon2id password hash verification, and admin action audit recording for current sensitive handlers.
 - Specification tests covering crypto primitives, signing, nonce chains, Raft behavior, AML, credit scoring, wire formats, conflict resolution, programmability primitives, and tier policy behavior.
 
 ## What Is Not Proven Yet
 
 - Real endpoint/database integration coverage across all dashboard routes.
 - Production-grade role enforcement on every sensitive route.
-- CSRF protection and hardened browser session handling.
+- Full browser-session hardening beyond the current cookie/CSRF foundation.
 - HSM or secure-element key custody.
 - Audited offline double-spend prevention.
 - National identity/KYC integration.
