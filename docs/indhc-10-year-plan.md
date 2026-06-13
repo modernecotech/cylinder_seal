@@ -15,10 +15,17 @@ This plan sits inside the [Unified Economic Model](unified-economic-model.md).
 The ten-year investments are the productive-asset side of the model; Digital IQD
 is the evidence and distribution rail; ministry funding, credit, taxes,
 reinvestment, and dividends are the feedback mechanisms.
+See [National Civic Work System](national-civic-work-system.md) for the
+transition layer that turns productivity gains and displaced low-productivity
+labor into paid civic work, training, care, environmental restoration, sport,
+culture, municipal repair, and bridge-to-work records.
 
 See [Ministry Transition And Deprecation Roadmap](ministry-transition-roadmap.md)
 for the staged plan to move duplicative ministry functions into regulators,
 service contracts, municipalities, INDHC subsidiaries, or sunset agencies.
+See [Digitally Governed Industrial Champions](digitally-governed-industrial-champions.md)
+for the anti-capture model governing sectoral champion groups, conditional
+demand, conditional credit, export discipline, competition gates, and debt caps.
 
 ## Source Discipline
 
@@ -34,6 +41,8 @@ service contracts, municipalities, INDHC subsidiaries, or sunset agencies.
 | FAO GIEWS reports Iraq's wheat import requirements are still material even when domestic harvests are strong. | Food substitution should focus on storage, milling, feed, irrigation, productivity, and staples rather than pretending imports disappear immediately. | [FAO GIEWS Iraq country brief archive](https://www.fao.org/giews/countrybrief/country/IRQ/pdf_archive/IRQ_Archive.pdf) |
 | World Bank analysis warns that lower water supply and crop-yield impacts could materially reduce Iraq's GDP. | Desalination, irrigation, water treatment, leakage reduction, and water-efficiency manufacturing are treated as economic infrastructure. | [World Bank Iraq Economic Monitor press release, Nov. 24, 2021](https://www.worldbank.org/en/news/press-release/2021/11/24/iraq-rising-fiscal-risks-water-scarcity-and-climate-change-threaten-gradual-recovery-from-pandemic) |
 | Defense expenditure and arms-import indicators are tracked by SIPRI and World Bank datasets. | Defense manufacturing is framed as regulated domestic sustainment and resilience, with legal and audit controls, not public technical weapons design. | [SIPRI Military Expenditure Database](https://www.sipri.org/databases/milex), [World Bank military expenditure indicators for Iraq](https://data.worldbank.org/indicator/MS.MIL.XPND.GD.ZS?locations=IQ) |
+| Korea's large business groups helped scale development and exports, but also created concentration, governance, and competition risks. | INDHC should use sectoral industrial champions with anti-capture controls rather than a family-controlled chaebol model. | [OECD Korea large business groups paper](https://www.oecd.org/en/publications/reforming-the-large-business-groups-to-promote-productivity-and-inclusion-in-korea_9e9052b5-en.html) |
+| Korea's export support system used export targets, credit allocation, technology acquisition, and marketing institutions. | INDHC privileges should be tied to export discipline, technology transfer, and performance monitoring. | [World Bank, Korea: A Case of Government-Led Development](https://documents1.worldbank.org/curated/en/441571468753249695/pdf/multi0page.pdf) |
 
 These sources support sector selection. They do not validate the capital
 envelope, dividend formula, debt capacity, or legal design.
@@ -302,10 +311,16 @@ Required business rules:
 - No subsidiary can hide losses by receiving automatic oil transfers.
 - Public-service obligations must be priced as explicit service contracts.
 - Debt is project-linked, not payroll-linked.
+- Debt caps are enforced at subsidiary and holding-company level.
 - Management compensation is tied to delivery, profitability, maintenance, local
   employment, and audit quality.
 - Procurement is open-book, with beneficial ownership disclosure.
 - Loss-making subsidiaries enter turnaround, merger, sale, or closure review.
+- Tier advantages, procurement preferences, and credit support expire unless
+  the subsidiary passes local-content, price, quality, export, tax, SME
+  inclusion, and debt-safety gates.
+- No family-control pyramids, circular holdings, hidden related-party control,
+  or permanent protection.
 
 Initial subsidiary groups:
 
@@ -322,6 +337,12 @@ Initial subsidiary groups:
 8. **INDHC Tourism And Services** - hospitality, visitor logistics, platforms.
 9. **INDHC Digital Infrastructure** - Digital IQD rails, registries, analytics.
 10. **INDHC Industrial Parks** - land, utilities, logistics, tenant services.
+
+The champion-group design should remain sectoral. Iraq needs coordinated scale,
+but not one untouchable mega-conglomerate. Public demand and credit should move
+toward the groups that prove performance through Cylinder Seal data, and away
+from groups that become lazy, expensive, politically captured, or hostile to
+SMEs.
 
 ## Pillar 2A: Strategic Resilience Manufacturing
 

@@ -1,6 +1,12 @@
-# Test Evidence And Gaps
+# Specification And Fixture Results
 
-This document records what the current tests demonstrate and what they do not demonstrate. It intentionally avoids calling the backend production-ready.
+This document records what the current checks demonstrate and what they do not
+demonstrate. It intentionally avoids calling the backend production-ready.
+
+These checks validate schema expectations, seed data, selected domain
+invariants, route middleware behavior, and specification-level transaction
+logic. They do not prove live dashboard endpoint coverage against PostgreSQL,
+Redis, browser sessions, or production-like infrastructure.
 
 ## Current Evidence
 
@@ -13,9 +19,17 @@ The repository includes Rust tests under `crates/cs-tests/tests/` for:
 - AML flagging, rule-engine behavior, risk scoring, and regulatory reporting models.
 - Credit scoring, account types, invoice flow, wire formats, and offline-payment serialization.
 
-The dashboard also has route-level integration coverage in `crates/cbi-dashboard/tests/route_integration.rs`. These tests exercise the real Axum router, session middleware, CSRF checks, logout invalidation, role-gated handlers, and admin audit recording through in-memory stores and a lazy PostgreSQL pool. They are meaningful route tests, but they are not a substitute for live PostgreSQL/Redis end-to-end tests.
+The dashboard also has route-level coverage in
+`crates/cbi-dashboard/tests/route_integration.rs`. These tests exercise the real
+Axum router, session middleware, CSRF checks, logout invalidation, role-gated
+handlers, and admin audit recording through in-memory stores and a lazy
+PostgreSQL pool. They are meaningful route tests, but they are not a substitute
+for live PostgreSQL/Redis end-to-end tests.
 
-`crates/cbi-dashboard/tests/integration_dashboard.rs` remains mostly structural or placeholder validation. It should not be cited as proof that every endpoint has been exercised against a real database and Redis session store.
+`crates/cbi-dashboard/tests/integration_dashboard.rs` and
+`crates/cbi-dashboard/tests/fixture_inventory.rs` are structural fixture and
+route-inventory checks. They should not be cited as proof that every endpoint
+has been exercised against a real database and Redis session store.
 
 ## Current Limitations
 
@@ -31,6 +45,8 @@ The dashboard also has route-level integration coverage in `crates/cbi-dashboard
 ```bash
 cargo test --workspace
 cargo check --package cbi-dashboard
+cargo test --package cbi-dashboard --test fixture_inventory
+cargo test --package cbi-dashboard --test integration_dashboard
 cargo test --package cbi-dashboard --test route_integration
 ```
 
@@ -43,7 +59,8 @@ For the next dashboard integration step, add a live PostgreSQL/Redis test harnes
 
 ## Readiness Label
 
-Current test evidence supports the label **prototype with specification coverage**.
+Current evidence supports the label **prototype with specification and fixture
+coverage**.
 
 It does not yet support:
 

@@ -60,7 +60,7 @@ The public-facing technical evidence has been split out of the original long REA
 - [Technical primitives](docs/technical-primitives.md) maps claims such as offline payments, double-spend checks, wire-format primitives, Raft, key handling, privacy, AML, and disaster recovery to code and remaining gaps.
 - [System and financial flow diagrams](docs/system-and-financial-flow-diagrams.md) provides rendered SVG architecture diagrams, transaction lifecycles, and valid financial-flow combinations.
 - [Implementation status](IMPLEMENTATION_STATUS.md) summarizes dashboard implementation state.
-- [Test results](TEST_RESULTS.md) and [cs-tests README](crates/cs-tests/README.md) describe specification and end-to-end tests.
+- [Specification and fixture results](SPECIFICATION_AND_FIXTURE_RESULTS.md) and [cs-tests README](crates/cs-tests/README.md) describe current test evidence and the missing live PostgreSQL/Redis coverage.
 - [API reference](API_REFERENCE.md) documents the dashboard API.
 
 ## Economic And Policy Framing
@@ -68,13 +68,20 @@ The public-facing technical evidence has been split out of the original long REA
 The Iraq-specific policy narrative is intentionally separate from the implementation README:
 
 - [Economic assumptions](docs/economic-assumptions.md) lists current public facts, source discipline, and claims that must remain illustrative until independently modeled.
-- [Unified economic model](docs/unified-economic-model.md) connects Digital IQD, INDHC, ministries, banks, producers, strategic resilience manufacturing, tourism, green capital, rail, taxes, reinvestment, and citizen dividends into one accounting and feedback structure.
+- [Unified economic model](docs/unified-economic-model.md) connects Digital IQD, INDHC, ministries, banks, producers, strategic resilience manufacturing, tourism, green capital, rail, taxes, civic work, reinvestment, and citizen dividends into one accounting and feedback structure.
 - [Policy paper draft](docs/policy-paper.md) preserves the full sovereign-economic thesis from the previous README. It is a working draft, not an externally validated forecast.
 - [National dividend holding company](docs/national-dividend-holding-company.md) describes a proposed oil-income-to-productive-capital architecture where citizens hold non-saleable beneficial shares and receive audited Digital IQD dividends from distributable surplus.
 - [INDHC ten-year plan](docs/indhc-10-year-plan.md) turns that architecture into a planning envelope and cashflow model for import substitution, profitable national businesses, defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, imported-food substitution, tourism and services, green capital, open rail, raw-material processing, Iraqi-only permanent staffing, and domestic reinvestment.
+- [Digitally governed industrial champions](docs/digitally-governed-industrial-champions.md) reframes the Korean large-industrial-group analogy into sectoral Iraqi production groups with conditional demand, conditional credit, export discipline, debt caps, competition gates, and anti-capture controls.
+- [National civic work system](docs/national-civic-work-system.md) adds a dignity-preserving transition layer where citizens are paid in Digital IQD for verified environmental, care, sport, culture, education, municipal, food-security, and disaster-resilience work.
 - [Ministry transition roadmap](docs/ministry-transition-roadmap.md) lists candidate ministry functions to deprecate, merge, regulate, corporatize, or sunset as services move to audited operators, municipalities, regulators, INDHC, and Digital IQD service contracts.
 
-Within the policy architecture, the unified model is the front-door economic frame. Digital IQD is the auditable payment, identity, compliance, and dividend-distribution substrate; INDHC is the productive-capital engine; ministries are funded through explicit taxes, levies, and service contracts; citizens receive wages, services, credit access, and equal dividends from audited surplus.
+Within the policy architecture, the unified model is the front-door economic frame. Digital IQD is the auditable payment, identity, compliance, civic-work, and dividend-distribution substrate; INDHC is the productive-capital engine; ministries are funded through explicit taxes, levies, and service contracts; citizens receive wages, services, credit access, civic-work income, and equal dividends from audited surplus.
+
+The README intentionally does not present national-scale timelines, sovereign
+rating outcomes, diaspora capital figures, or Year 5 benefit ranges as project
+deliverables. Those figures belong only in scenario documents with explicit
+caveats, source notes, and independent-validation requirements.
 
 Current public facts that shape the framing:
 

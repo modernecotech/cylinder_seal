@@ -1249,7 +1249,7 @@ Iraq's SME sector (textiles, food, light manufacturing, hospitality, constructio
 - Hard restrictions lock $27-38B government spending to domestic (creates $40-60B GDP via multiplier)
 
 **Key Drivers by Phase (Aggressive Hybrid Model, Illustrative Only):**
-- **Phase 1 (Q4 2026 - Q1 2027):** Hard restrictions on food/textiles/household goods ($16-21B locked to domestic); government salary & pension visibility; pilot user base transitions to national scale
+- **Phase 1 (Q4 2026 - Q1 2027):** Hard restrictions on food/textiles/household goods ($16-21B locked to domestic); government salary & pension visibility; pilot-to-scale transition modeled as an aggressive scenario, not an implementation claim
 - **Phase 2 (Q2 2027 - Q4 2028):** Quarterly expansion of restrictions (cement→pharma→steel milestones); $27-38B government spending hard-restricted; SME credit market explodes to $22B; manufacturing capacity jumps 40%→85%; import bill drops 100T→70T IQD
 - **Phase 3 (2029-2031):** SME formalization, industrial-output growth, diaspora distribution-channel effects, and trade-balance improvement are scenario assumptions requiring independent validation
 
@@ -1781,23 +1781,25 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 - Regional trade settlement pilot (UAE, Turkey, Iran correspondent integration)
 - **Timeline:** 16 weeks
 
-### Phase 4 (Months 9-15): National Scale
+### Phase 4 (Months 9-15): Illustrative National Rollout Scenario
 
-- 32-35M active users (70% of population)
+- 32-35M active users (70% of population) as an aggressive adoption hypothesis
 - 5-node Raft voting set unchanged; 10+ nodes total (read replicas)
-- Trade-policy effects measurable (imports down 15-25%, local production scaling)
-- Regional hub volume $10-20B/month
-- Financial inclusion 70-75% (from 30% baseline)
-- Non-oil exports growing 30-40% YoY
-- **Timeline:** 28 weeks
+- Trade-policy effects measurable (imports down 15-25%, local production scaling) as a modeled scenario
+- Regional hub volume $10-20B/month as an externally unvalidated scenario assumption
+- Financial inclusion 70-75% from a 30% baseline, requiring reconciliation with NFIS definitions and measured adoption
+- Non-oil exports growing 30-40% YoY as a sensitivity-case assumption
+- **Timeline:** 28-week hypothesis after legal, security, procurement, bank, and operator readiness gates
 
-**Total: 12-15 months from legal kickoff to national scale.**
+**Illustrative total: 12-15 months from legal kickoff to pilot-to-scale
+readiness, subject to regulatory approval, security audit, procurement, bank
+integration, and independent validation.**
 
 ---
 
 ## Part 12: Investment & Returns
 
-### Infrastructure Cost (12-15 months)
+### Infrastructure Cost Scenario (12-15 months)
 
 - Software (AI-generated Rust + mobile): $300-600K
 - Super-peer infrastructure (10 x86 servers across 5 CBI branches): $400-700K
@@ -1821,7 +1823,7 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 | **Sovereign credit rating relevance** | Scenario only; no rating outcome should be forecast as a project deliverable | Illustrative only |
 | **SME credit market maturation** | $50B formal credit market (vs. $0 in baseline) supporting 25K+ companies = $500M+ in avoided informal lending losses and increased economic efficiency | Built into GDP multiplier |
 | **Citizen purchasing power preservation** | $18B annual government spending recaptured from import leak maintains local circulation, preventing wage erosion | Built into GDP multiplier |
-| **Total annual benefit Year 5: $7.5-12.5B/year** | — | **+ $1.5-2B** in sovereign credit rating improvement + SME credit market value |
+| **Illustrative Year 5 benefit range: $7.5-12.5B/year** | Requires independent macroeconomic modeling, source refresh, sensitivity analysis, and no sovereign-rating promise. | Scenario output only |
 
 ---
 
@@ -1829,7 +1831,7 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 
 **Baseline (traditional rollout):** Cumulative 2026-2030 GDP = $1,433B; Year 5 annual tax = ~$11B
 
-**With Cylinder Seal (accelerated rollout):** Cumulative 2026-2030 GDP = $1,540B; Year 5 annual tax = ~$20.5B
+**With Cylinder Seal (accelerated rollout scenario):** Cumulative 2026-2030 GDP = $1,540B; Year 5 annual tax = ~$20.5B
 
 **Difference:** +$107B cumulative GDP over 5 years (7.5% higher)
 
@@ -1842,9 +1844,9 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 
 ### Payback Analysis
 
-**Direct Government Benefit (Aggressive Hybrid Model):**
+**Direct Government Benefit (Aggressive Hybrid Scenario):**
 - **Investment:** $3-5M
-- **Year 1 benefit (pilot Q4 2026 + national scale Q1 2027 + hard restrictions):** $800M-1.5B
+- **Year 1 benefit hypothesis (pilot Q4 2026 + scale-up scenario Q1 2027 + hard restrictions):** $800M-1.5B
   - Fee savings from zero-fee Digital Dinar vs. 2-5% bank fees: ~$100-150M
   - Early tax gains from government salary visibility: ~$200-350M
   - **Import substitution pressure (hard restrictions lock $16-21B to domestic):** ~$400-650M in prevented import spending + new tax capture
@@ -2282,8 +2284,8 @@ cargo test --package cs-tests
 # Run dashboard integration tests
 cargo test --test integration_dashboard
 
-# Run dashboard unit tests
-cargo test --test integration_tests
+# Run dashboard fixture inventory checks
+cargo test --test fixture_inventory
 
 # Run specific test spec (e.g., merchant tiers)
 cargo test --test spec_06_merchant_tiers
@@ -2468,7 +2470,7 @@ User search, balance tracking, KYC tier management, credit score visibility, and
 - `IMPLEMENTATION_STATUS.md` — Detailed alignment verification
 - `DEVELOPMENT_GUIDE.md` — Developer quick-start guide
 - `COMPLETION_CHECKLIST.md` — Feature-by-feature breakdown
-- `TEST_RESULTS.md` — historical test cases snapshot (numbers may lag current workspace)
+- `SPECIFICATION_AND_FIXTURE_RESULTS.md` — current specification, fixture, and route-level validation boundaries
 - `setup-sqlite-dev.sh` — Legacy SQLite fixture initialization script
 - `verify-sqlite-setup.sh` — Legacy SQLite fixture verification script
 - `migrations/20260419000001_analytics.sql` — Analytics tables for industrial projects and production monitoring

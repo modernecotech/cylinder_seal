@@ -35,6 +35,12 @@ The objective is a post-automation social contract: if AI and automation reduce
 the labor share of income, citizens still participate in national capital
 returns.
 
+Capital income is only one side of that social contract. The companion
+[National Civic Work System](national-civic-work-system.md) converts spare labor
+capacity into paid, verified public value, training, and bridge-to-work records.
+Dividends should not be used to hide unemployment, and civic wages should not be
+funded by quietly raiding the dividend pool.
+
 ## Source Discipline
 
 | Public fact | Why it matters | Source |
@@ -54,6 +60,12 @@ Alternative local branding can use "People's Development Holding Company" or
 "Citizen Development Holding Company." The industrial holding-group analogy is
 useful, but the proposed institution must not reproduce opaque family control,
 related-party abuse, or protected conglomerate behavior.
+
+For the industrial operating model, use
+[Digitally Governed Industrial Champions](digitally-governed-industrial-champions.md)
+rather than the shorthand "chaebol." The intended lesson is coordinated scale,
+export discipline, and technology absorption, not family-controlled monopolies
+or permanent protection.
 
 ### Ownership
 
@@ -230,7 +242,7 @@ productive investment, ministry funding, and citizen capital income.
 
 | Risk | Mitigation |
 | --- | --- |
-| INDHC becomes a politicized monopoly. | Independent board, public audit, procurement transparency, competition rules, project-level performance dashboards. |
+| INDHC becomes a politicized monopoly. | Independent board, public audit, procurement transparency, competition rules, project-level performance dashboards, sectoral champion groups rather than one mega-conglomerate, and automatic loss of privileges after performance failure. |
 | Cash window becomes corruption laundering. | KYC, caps, EDD, holds, haircuts, sanctions screening, PEP restrictions, and law-enforcement referral. |
 | Ministries resist losing direct oil allocations. | Statutory transition, service contracts, performance budgets, public dashboards. |
 | Dividend becomes fiscally pro-cyclical. | Stabilization reserve and dividend formula based on audited distributable surplus, not raw oil price. |

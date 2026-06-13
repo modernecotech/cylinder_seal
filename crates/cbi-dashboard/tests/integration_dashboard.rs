@@ -1,5 +1,8 @@
-//! Integration tests for CBI Dashboard — shape assertions against the
-//! hard-coded schema, endpoint list, seed data, and business rules.
+//! Structural dashboard fixture checks.
+//!
+//! These are shape assertions against documented schema expectations, route
+//! inventory, seed data, and business rules. They are not live endpoint tests
+//! against PostgreSQL and Redis.
 //! The dashboard is PostgreSQL-only; historic SQLite test removed.
 
 #[cfg(test)]
@@ -35,8 +38,8 @@ mod tests {
     }
 
     #[test]
-    fn test_endpoint_routes_defined() {
-        // Verify all 28 endpoints exist
+    fn route_inventory_has_expected_shape() {
+        // Route inventory check only. This does not exercise live handlers.
         let endpoints = vec![
             // Overview (1)
             ("/api/overview", "GET"),
@@ -78,16 +81,16 @@ mod tests {
             ("/readiness", "GET"),
         ];
 
-        assert_eq!(endpoints.len(), 28, "Expected 28 total endpoints");
+        assert_eq!(endpoints.len(), 28, "Expected 28 route inventory entries");
 
-        // Verify endpoint distribution
+        // Verify route inventory distribution.
         let get_count = endpoints.iter().filter(|(_, m)| *m == "GET").count();
         let post_count = endpoints.iter().filter(|(_, m)| *m == "POST").count();
         let patch_count = endpoints.iter().filter(|(_, m)| *m == "PATCH").count();
 
-        assert_eq!(get_count, 19, "Expected 19 GET endpoints");
-        assert_eq!(post_count, 7, "Expected 7 POST endpoints");
-        assert_eq!(patch_count, 2, "Expected 2 PATCH endpoints");
+        assert_eq!(get_count, 19, "Expected 19 GET route entries");
+        assert_eq!(post_count, 7, "Expected 7 POST route entries");
+        assert_eq!(patch_count, 2, "Expected 2 PATCH route entries");
     }
 
     #[test]

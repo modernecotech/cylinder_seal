@@ -2,7 +2,7 @@
 
 This document ties the Cylinder Seal payment rail, policy primitives, INDHC,
 ministries, banks, producers, infrastructure projects, tourism, green capital,
-and citizen dividends into one economic model.
+citizen dividends, and verified civic work into one economic model.
 
 Status: planning architecture. It is not a validated macroeconomic model, not a
 budget law, not a CBDC launch plan, and not a production-readiness claim.
@@ -13,17 +13,20 @@ Cylinder Seal makes economic activity visible and programmable; INDHC converts
 oil income and project debt into productive Iraqi assets; private producers and
 state subsidiaries expand domestic supply; ministries are funded from explicit
 taxes, levies, and service contracts; citizens receive wages, public services,
-credit access, and equal Digital IQD dividends from audited surplus.
+credit access, verified civic-work income, and equal Digital IQD dividends from
+audited surplus.
 
 ## System Boundary
 
-The system has three layers:
+The system has six layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
 | Digital IQD transaction layer | Wallets, POS, offline transactions, settlement, policy primitives, AML, audit, credit features, dashboards. | `README.md`, `docs/technical-primitives.md`, `docs/system-and-financial-flow-diagrams.md` |
 | Public-finance and capital layer | Oil Income Lockbox, INDHC, gross-profit levy, ministry budgets, cash formalization, citizen share entitlements, dividends. | `docs/national-dividend-holding-company.md` |
 | Ten-year productive economy layer | Import substitution, strategic resilience manufacturing, defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, food substitution, tourism/services, green capital, open rail, raw-material processing, Iraqi-only permanent staffing. | `docs/indhc-10-year-plan.md` |
+| Industrial champion governance layer | Sectoral production groups receive conditional demand, credit, and payment privileges only while they meet local-content, price, quality, export, tax, debt, SME-inclusion, and audit gates. | `docs/digitally-governed-industrial-champions.md` |
+| Civic work and dignity layer | Productivity gains fund verified public-value work, training, care, environmental restoration, sport, culture, municipal repair, and disaster resilience. | `docs/national-civic-work-system.md` |
 | Ministry transition layer | Deprecates, merges, regulates, corporatizes, or sunsets ministry functions once service-continuity, legal, audit, and staff-transition gates pass. | `docs/ministry-transition-roadmap.md` |
 
 The layers should not be read separately. The payment layer provides the
@@ -36,6 +39,7 @@ profit to measure.
 | Actor | Role in the unified model |
 | --- | --- |
 | Citizens | Hold non-saleable beneficial INDHC shares, receive wages/transfers/dividends, spend through Digital IQD wallets, build transaction histories, inherit share entitlements. |
+| Civic workers | Earn Digital IQD civic wages and credits for verified public-value work, gain training certificates, and build employability records. |
 | Individual producers | Enter the formal economy through lightweight registration, Digital IQD sales, presumptive micro-tax, and transaction-based credit. |
 | Merchants and SMEs | Sell domestic goods/services, receive Digital IQD, build credit profiles, join tiered local-content incentives. |
 | Commercial banks | Provide working capital and project finance using transaction evidence, receivables, collateral, and risk scores. |
@@ -168,6 +172,24 @@ tourism, and culture, not only crude oil.
 Economic purpose: infrastructure is not a prestige expense; it is a cost base
 reduction engine for the whole economy.
 
+### 8. Civic Work And Productivity Transition Loop
+
+1. Industrial champions, Digital IQD formalization, automation, and ministry
+   transition raise productivity.
+2. Some low-value admin, informal middleman, logistics, and patronage roles
+   shrink.
+3. Treasury, municipalities, climate programs, and approved INDHC community
+   budgets fund verified civic work.
+4. Citizens earn Digital IQD civic wages and credits for environmental,
+   municipal, care, sport, culture, education, food-security, and disaster
+   resilience tasks.
+5. Task evidence creates civic reputation, training records, and income history.
+6. Banks, SMEs, INDHC subsidiaries, municipalities, schools, and NGOs can use
+   privacy-bounded records to offer apprenticeships, credit, or formal jobs.
+
+Economic purpose: productivity gains become socially legitimate because spare
+labor capacity is converted into paid public value, skills, and employability.
+
 ## Accounting Spine
 
 The model should be auditable with explicit accounts.
@@ -213,6 +235,7 @@ Citizen Digital Income
   = Wages
   + SME / IP business income
   + Public transfers
+  + Civic wage / civic credit
   + INDHC dividend
   + Credit disbursements
   - Taxes / fees / repayments
@@ -264,6 +287,8 @@ ten-year plan includes the detailed sector cashflow and sensitivity model.
 | Gross-profit levy | Funds ministries from productive surplus. |
 | Retained earnings allocation | Forces reinvestment, maintenance, debt reduction, training, and dividend stabilization before distribution. |
 | Strategic-sector controls | Keep defense, dual-use, water, food, and critical electronics programs legal, licensed, auditable, and protected from procurement abuse. |
+| Industrial champion gates | Make demand, credit, procurement preference, and Tier 1 privileges conditional on local content, price discipline, export progress, debt safety, and competition review. |
+| Civic work verification | Pays civic wages only after task evidence, verifier checks, audit rules, and appeal paths. |
 | Ministry deprecation gates | Prevent service loss by requiring legal authority, staff transition, audit, service metrics, and citizen appeals before ministry form changes. |
 | Public dashboards | Creates citizen, parliamentary, and audit feedback. |
 | Iraqi-only permanent staffing | Converts investment into national capability instead of permanent dependency. |
@@ -273,6 +298,7 @@ ten-year plan includes the detailed sector cashflow and sensitivity model.
 | Balance sheet | Assets | Liabilities / claims | Performance signal |
 | --- | --- | --- | --- |
 | Citizen | Wallet balance, non-saleable INDHC entitlement, transaction history, skills | Taxes, loan repayments, household obligations | Income stability, dividend receipt, access to services and credit. |
+| Civic worker | Civic wallet, work history, certificates, reputation, income record | Task obligations, safety rules, tax/benefit interactions | Verified hours, task quality, bridge-to-work progress. |
 | SME / individual producer | Inventory, receivables, equipment, transaction history | Supplier payables, working-capital loans, tax obligations | Sales growth, repayment history, local-content score. |
 | INDHC subsidiary | Plants, rail assets, hotels, grid assets, IP, cash | Project debt, supplier payables, levy obligations | ROIC, uptime, maintenance, local employment, dividend capacity. |
 | Treasury | Levy/tax revenue, service-fee revenue | Ministry budgets, public debt, statutory transfers | Non-oil revenue share, budget resilience, service outcomes. |
@@ -289,6 +315,8 @@ separate dashboard widgets.
 | `EconomicCycleProjection` | Oil receipts, INDHC allocations, project revenues, taxes, dividends, domestic spend | National feedback-loop view. |
 | `ProductionCapacityProjection` | Merchant tiers, local-content attestations, project outputs, inventory, procurement | Import substitution, food substitution, and domestic supply view. |
 | `StrategicResilienceProjection` | Defense-sector licenses, electronics/HVAC output, water/desalination equipment, irrigation systems, food-substitution capacity, end-use controls | Critical domestic capability and import-vulnerability view. |
+| `IndustrialChampionProjection` | Champion registry, conditional demand contracts, tier privileges, debt caps, export discipline, related-party exposure, SME inclusion | Anti-capture and sectoral champion performance view. |
+| `CivicWorkProjection` | Civic tasks, workers, verifiers, evidence bundles, payments, training, impact metrics, appeals | Productivity-transition, social cohesion, and verified public-value view. |
 | `CitizenIncomeProjection` | Wages, transfers, dividends, IP income, repayments, spending | Household welfare and inclusion view. |
 | `MinistryPerformanceProjection` | Budgets, service contracts, milestones, delivery evidence | Ministry feedback and productivity view. |
 | `CreditExpansionProjection` | Transaction histories, risk features, loan disbursements, repayments | SME finance and formalization view. |
@@ -306,11 +334,13 @@ The unified dashboard should answer ten questions:
 4. Which critical sectors remain import-vulnerable: defense supply, electronics,
    HVAC, water/desalination, irrigation, and food staples?
 5. Which ministries are improving economic productivity?
-6. Which citizens and producers are becoming more bankable?
+6. Which citizens, civic workers, and producers are becoming more bankable?
 7. Which green and rail assets are lowering system costs?
 8. How much non-oil foreign currency is being captured?
 9. Is the citizen dividend funded by real surplus?
-10. Are capex, debt service, retained earnings, and dividends consistent with the
+10. Is productivity displacement being absorbed into verified civic work,
+    training, and bridge-to-work pathways?
+11. Are capex, debt service, retained earnings, and dividends consistent with the
     ten-year cashflow model?
 
 ## Failure Modes The Model Must Surface
@@ -321,6 +351,8 @@ The unified dashboard should answer ten questions:
 | Import substitution becomes protectionism | Domestic prices exceed import parity without quality improvement or learning curve. |
 | Defense manufacturing becomes opaque patronage | Weak statutory authority, hidden procurement, poor end-use controls, or classified spending outside audit boundaries. |
 | Food/water substitution fails | Desalination, irrigation, cold-chain, or food projects lack unit-cost discipline, maintenance plans, or farmer/SME adoption. |
+| Industrial champions become protected monopolies | Tier privileges persist despite weak exports, high prices, related-party abuse, debt stress, or SME crowd-out. |
+| Civic work becomes fake jobs | Payments rise while verified outputs, training, audits, and bridge-to-work outcomes remain weak. |
 | Dividends become oil handouts | Dividend pool tracks oil receipts instead of audited surplus. |
 | Ministries resist feedback | Service contracts lack outputs, milestone evidence, or public reporting. |
 | Credit becomes political lending | Weak repayment, concentrated borrowers, override-heavy approvals. |
@@ -339,9 +371,13 @@ The model gives each existing Cylinder Seal component a place:
 - **Merchant tiers and spend constraints** steer demand toward domestic supply.
 - **INDHC** turns oil and debt into productive assets.
 - **The ten-year plan** defines where capital goes.
+- **Industrial champion gates** prevent the INDHC model from becoming a
+  protected monopoly system.
 - **Strategic resilience manufacturing** covers defense-controlled supply,
   electronics, HVAC, water/desalination, irrigation, and food substitution.
 - **Ministry service contracts** create state-performance feedback.
+- **Civic work** converts productivity displacement into paid public value,
+  training, care, climate resilience, sport, culture, and municipal repair.
 - **Tourism and exports** bring in non-oil foreign currency.
 - **Green and rail investments** lower the national cost base.
 - **Citizen dividends** distribute capital returns in a post-automation economy.
@@ -357,9 +393,11 @@ The model gives each existing Cylinder Seal component a place:
 5. Add `StrategicResilienceProjection` for defense-controlled supply,
    electronics, HVAC, water/desalination, irrigation, and food substitution.
 6. Add `MinistryPerformanceProjection` for service contracts and budget feedback.
-7. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
-8. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
-9. Gate all public claims behind source labels, model assumptions, and confidence
+7. Add `CivicWorkProjection` for verified tasks, payments, training, impact,
+   audits, and bridge-to-work outcomes.
+8. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
+9. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
+10. Gate all public claims behind source labels, model assumptions, and confidence
    levels from `docs/economic-assumptions.md`.
 
 ## Bottom Line
@@ -371,7 +409,7 @@ Oil and international capital
   -> productive Iraqi assets
   -> domestic supply, strategic resilience, jobs, services, green power, rail, tourism, exports
   -> taxable surplus and lower import leakage
-  -> ministry budgets, reinvestment, credit expansion, citizen dividends
+  -> ministry budgets, civic work, reinvestment, credit expansion, citizen dividends
   -> more visible demand and stronger domestic production
 ```
 

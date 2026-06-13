@@ -620,5 +620,5 @@ export DATABASE_URL="postgresql://postgres:${DB_PASSWORD:-change-me-dev-only}@lo
 - **README.md** — Project overview and economic narrative
 - **DEVELOPMENT_GUIDE.md** — Quick-start and local development
 - **IMPLEMENTATION_STATUS.md** — Technical implementation details
-- **TEST_RESULTS.md** — Test validation results
+- **SPECIFICATION_AND_FIXTURE_RESULTS.md** — Specification, fixture, and route-level validation boundaries
 - **FINAL_SUMMARY.md** — Complete summary of deliverables

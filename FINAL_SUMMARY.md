@@ -22,6 +22,7 @@ Current posture:
 - Unified economic model documentation connecting Digital IQD transactions, INDHC capital allocation, ministry funding, credit expansion, domestic production, strategic resilience manufacturing, tourism/exports, green/rail cost reduction, reinvestment, and citizen dividends.
 - Policy documentation for a proposed National Dividend Holding Company: oil-income lockbox, citizen non-saleable beneficial shares, ten-year industrial/infrastructure plan including defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, and imported-food substitution, gross-profit levy for ministry funding, and Digital IQD monthly dividend distribution.
 - Ministry transition roadmap for deprecating, merging, regulating, corporatizing, or sunsetting low-feedback ministry functions after legal, service-continuity, staff-transition, and audit gates.
+- National Civic Work System policy architecture for converting productivity displacement into verified Digital IQD civic wages, training records, care, environmental restoration, sport, culture, municipal repair, and disaster-resilience work.
 
 ## What Is Not Proven Yet
 
@@ -37,6 +38,7 @@ Current posture:
 - Calibration of the unified economic model with audited baselines, equations, sensitivity analysis, and independent review.
 - Independent legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation for the National Dividend Holding Company and ten-year investment plan.
 - Independent constitutional, administrative-law, labor, federalism, and service-continuity review for the ministry transition roadmap.
+- Independent labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, and fiscal review for the National Civic Work System.
 
 ## Development Stack
 
