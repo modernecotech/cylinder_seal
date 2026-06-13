@@ -142,9 +142,9 @@
   <text class="box-title" x="1194" y="696">Ministries and auditors</text>
   <text class="box-text" x="1194" y="718">Procurement, tax, justice, review</text>
 
-  <rect class="box external" x="1170" y="758" width="330" height="42"/>
-  <text class="box-title" x="1194" y="776">Civic institutions</text>
-  <text class="box-text" x="1194" y="794">Municipalities, schools, NGOs, clubs</text>
+  <rect class="box external" x="1170" y="746" width="330" height="46"/>
+  <text class="box-title" x="1194" y="765">Civic institutions</text>
+  <text class="box-text" x="1194" y="784">Municipalities, schools, NGOs, clubs</text>
 
   <rect class="zone store-zone" x="50" y="845" width="1500" height="150"/>
   <text class="zone-title" x="78" y="883">Data stores and evidence targets</text>
@@ -200,7 +200,7 @@
   <path class="arrow-soft" d="M1170 527 C1090 527 1035 484 995 484"/>
   <path class="arrow-soft" d="M1170 615 C1090 615 1035 484 995 484"/>
   <path class="arrow-soft" d="M1170 703 C1085 703 1040 688 995 688"/>
-  <path class="arrow-soft" d="M1170 779 C1085 779 1040 767 995 767"/>
+  <path class="arrow-soft" d="M1170 769 C1085 769 1040 767 995 767"/>
 
   <rect class="legend" x="56" y="1018" width="500" height="50"/>
   <rect class="box runtime" x="80" y="1033" width="24" height="18"/>
