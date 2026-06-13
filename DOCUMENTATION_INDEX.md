@@ -8,7 +8,11 @@
 - `docs/technical-primitives.md` - implementation evidence and gaps for offline payments, consensus, AML, privacy, and disaster recovery.
 - `docs/system-and-financial-flow-diagrams.md` - rendered SVG architecture diagrams, transaction lifecycles, and financial-flow combinations.
 - `docs/economic-assumptions.md` - source discipline and current public facts for Iraq-specific claims.
+- `docs/unified-economic-model.md` - integrated economic model linking Digital IQD, INDHC, ministries, banks, producers, strategic resilience manufacturing, infrastructure, tourism, credit, taxes, reinvestment, and citizen dividends.
 - `docs/policy-paper.md` - long-form policy thesis draft; illustrative and not a readiness statement.
+- `docs/national-dividend-holding-company.md` - proposed oil-income lockbox, citizen beneficial-share, ministry-funding, and Digital IQD dividend architecture.
+- `docs/indhc-10-year-plan.md` - ten-year INDHC planning envelope, timelines, cashflow model, and sector plan for import substitution, profitable subsidiaries, defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, imported-food substitution, tourism/services, green capital, open rail, raw-material processing, and Iraqi-only permanent staffing.
+- `docs/ministry-transition-roadmap.md` - staged roadmap for deprecating, merging, regulating, corporatizing, or sunsetting ministry functions once service continuity and audit gates are met.
 
 ## API And Implementation
 

@@ -19,6 +19,10 @@ be inspected in code review.
 
 ![Cylinder Seal software system architecture](diagrams/software-system-architecture.svg)
 
+### Unified Economic Model
+
+![Cylinder Seal unified economic model](diagrams/unified-economic-model.svg)
+
 ### Transaction Lifecycle
 
 ![Cylinder Seal transaction lifecycle](diagrams/transaction-lifecycle.svg)
@@ -31,6 +35,10 @@ be inspected in code review.
 
 ![Cylinder Seal transaction combination matrix](diagrams/transaction-combination-matrix.svg)
 
+### National Dividend Holding Company
+
+![National dividend holding company financial architecture](diagrams/national-dividend-holding-company.svg)
+
 ## Legend
 
 | Marker | Meaning |
@@ -40,6 +48,14 @@ be inspected in code review.
 | Control-plane flow | Operator, policy, audit, compliance, or emergency-control action. |
 | Value flow | Movement of Digital IQD or related value claim. |
 | Data flow | Derived analytics, audit trail, risk signal, or credit feature. |
+
+## Unified Economic Model
+
+The unified model is documented in
+[Unified Economic Model](unified-economic-model.md). It connects the software
+system, financial flows, INDHC, ministries, banks, producers, tourism, green
+capital, rail, taxes, reinvestment, and citizen dividends into one accounting
+and feedback structure.
 
 ## Software System Diagrams
 
@@ -702,6 +718,7 @@ Advantages:
 | Financial inclusion | C2C, C2M, C2IP, offline pending receipts, IP registration | Converts cash-like activity into documented income and payment history. |
 | SME credit | C2M, M2M, B2M, invoice escrow, recurring repayment | Creates cash-flow features and invoice evidence for thin-file firms. |
 | Public-transfer control | G2C, G2M, expiring transfers, spend constraints | Gives program administrators a visible issuance-to-spend trail. |
+| National dividend and ministry feedback | Oil-income lockbox, INDHC investment allocations, gross-profit levy, citizen dividend | Converts raw oil receipts into audited productive capital, tax-funded ministry budgets, and equal Digital IQD dividends. |
 | Domestic-production incentives | C2M, G2M, B2M, tier policy, earmarked spend | Rewards eligible local suppliers through validation and settlement side effects. |
 | Monetary visibility | All committed flows, aggregate analytics | Gives privacy-bounded velocity, sector, and geography signals. |
 | AML and supervisory control | All online and synced flows, risk queue, freeze/cap overlay | Produces evidence packs and role-gated intervention paths. |
@@ -735,3 +752,6 @@ remaining engineering gaps:
   not implemented rails.
 - Production privacy, legal authority, appeal, and emergency-power procedures
   must be specified before using real citizen or business data.
+- The national dividend holding-company model is a policy architecture proposal;
+  its legal authority, oil-revenue handling, share-entitlement rules, investment
+  governance, and dividend formula require independent review.

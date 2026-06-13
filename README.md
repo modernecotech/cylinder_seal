@@ -68,13 +68,20 @@ The public-facing technical evidence has been split out of the original long REA
 The Iraq-specific policy narrative is intentionally separate from the implementation README:
 
 - [Economic assumptions](docs/economic-assumptions.md) lists current public facts, source discipline, and claims that must remain illustrative until independently modeled.
+- [Unified economic model](docs/unified-economic-model.md) connects Digital IQD, INDHC, ministries, banks, producers, strategic resilience manufacturing, tourism, green capital, rail, taxes, reinvestment, and citizen dividends into one accounting and feedback structure.
 - [Policy paper draft](docs/policy-paper.md) preserves the full sovereign-economic thesis from the previous README. It is a working draft, not an externally validated forecast.
+- [National dividend holding company](docs/national-dividend-holding-company.md) describes a proposed oil-income-to-productive-capital architecture where citizens hold non-saleable beneficial shares and receive audited Digital IQD dividends from distributable surplus.
+- [INDHC ten-year plan](docs/indhc-10-year-plan.md) turns that architecture into a planning envelope and cashflow model for import substitution, profitable national businesses, defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, imported-food substitution, tourism and services, green capital, open rail, raw-material processing, Iraqi-only permanent staffing, and domestic reinvestment.
+- [Ministry transition roadmap](docs/ministry-transition-roadmap.md) lists candidate ministry functions to deprecate, merge, regulate, corporatize, or sunset as services move to audited operators, municipalities, regulators, INDHC, and Digital IQD service contracts.
+
+Within the policy architecture, the unified model is the front-door economic frame. Digital IQD is the auditable payment, identity, compliance, and dividend-distribution substrate; INDHC is the productive-capital engine; ministries are funded through explicit taxes, levies, and service contracts; citizens receive wages, services, credit access, and equal dividends from audited surplus.
 
 Current public facts that shape the framing:
 
 - Iraq's final 2024 census count was reported at 46.1 million people, not the older approximately 43 million baseline used in earlier drafts. Source: [AP, Feb. 24, 2025](https://apnews.com/article/iraq-census-final-count-45b7753ddc82c188c79faea0d5a8c90d).
 - Iraq's National Financial Inclusion Strategy 2025-2029 targets account ownership of 50% by 2030 and digital payment usage of 85%. Sources: [CBI NFIS PDF](https://cbi.iq/static/uploads/up/file-175032973296039.pdf), [Arab Monetary Fund](https://www.amf.org.ae/en/news/25-05-2025/iraq-launches-national-financial-inclusion-strategy-2025-2029).
 - On June 12, 2026, S&P affirmed Iraq at `B-/B`, removed the long-term rating from CreditWatch negative, and kept a negative outlook. Source: [S&P Global Ratings](https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3580473).
+- Public sources continue to describe Iraq as highly oil-revenue-dependent and fiscally exposed to rigid spending and weak non-oil revenues. Sources: [EIA Iraq analysis](https://www.eia.gov/international/analysis/country/irq), [EITI Iraq country page](https://eiti.org/countries/iraq), [IMF Iraq 2025 Article IV](https://www.imf.org/-/media/files/publications/cr/2025/english/1irqea2025001-source-pdf.pdf).
 
 ## Production Readiness Boundary
 

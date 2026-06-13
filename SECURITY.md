@@ -145,6 +145,55 @@ Production requirements:
 - Data retention schedules.
 - Privacy impact assessment before any real citizen or merchant data is used.
 
+## National Dividend And Cash Formalization Threat Boundary
+
+The proposed National Dividend Holding Company model adds higher-risk workflows
+than ordinary retail payments: oil-income receipts, citizen share entitlements,
+cash formalization, ministry funding, investment allocations, and dividend
+distribution. These workflows should be treated as public-finance critical
+infrastructure.
+
+Required controls before implementation:
+
+- Statutory authority for oil-income handling, cash demonetization, dividend
+  formulas, share entitlement, and inheritance rules.
+- Strict separation between citizen base shares and supplemental transition
+  entitlements created during any cash formalization window.
+- KYC, sanctions screening, politically exposed person screening, enhanced due
+  diligence, caps, holds, referrals, and appeal paths for cash conversion.
+- Four-eyes approval and immutable audit records for lockbox allocation,
+  stabilization-reserve release, gross-profit levy calculation, dividend-batch
+  creation, and post-facto correction.
+- Public aggregate transparency for oil receipts, allocations, ministry
+  transfers, investment performance, dividend pool size, and audit exceptions.
+- No anonymous conversion of cash into liquid or pledgeable assets.
+- No operator, ministry, political party, contractor, bank, or private entity
+  ability to acquire citizen base shares.
+
 ## Reporting Vulnerabilities
 
-This repository does not yet define a public vulnerability intake process. Before external deployment, add a private security contact, disclosure policy, severity rubric, and patch SLA.
+Do not disclose exploitable vulnerabilities through public issues, social media,
+or public pull requests.
+
+Until a dedicated security mailbox is provisioned, report privately to the
+project contact listed in `EXECUTIVE_SUMMARY.md`. Include:
+
+- Affected component, endpoint, route, crate, or document.
+- Reproduction steps or proof-of-concept details.
+- Potential impact, including whether funds, identity data, audit logs, or
+  privileged operator actions are affected.
+- Whether the issue has been shared with any third party.
+
+Expected handling:
+
+- Acknowledge receipt within 3 business days when a valid contact channel is
+  available.
+- Triage severity as critical, high, medium, or low.
+- Avoid requesting public disclosure until a mitigation or documented residual
+  risk decision exists.
+- Credit the reporter when appropriate and requested, subject to legal and
+  safety constraints.
+
+This process is a prototype disclosure policy. Before external deployment,
+replace it with a dedicated security contact, patch SLA, coordinated-disclosure
+timeline, and legal safe-harbor language.

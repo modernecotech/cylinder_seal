@@ -19,6 +19,9 @@ Current posture:
 - SQLite fixture scripts retained only for local schema/seed inspection; the dashboard runtime is PostgreSQL-only.
 - Redis-backed session storage, Argon2id password hash verification, and admin action audit recording for current sensitive handlers.
 - Specification tests covering crypto primitives, signing, nonce chains, Raft behavior, AML, credit scoring, wire formats, conflict resolution, programmability primitives, and tier policy behavior.
+- Unified economic model documentation connecting Digital IQD transactions, INDHC capital allocation, ministry funding, credit expansion, domestic production, strategic resilience manufacturing, tourism/exports, green/rail cost reduction, reinvestment, and citizen dividends.
+- Policy documentation for a proposed National Dividend Holding Company: oil-income lockbox, citizen non-saleable beneficial shares, ten-year industrial/infrastructure plan including defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, and imported-food substitution, gross-profit levy for ministry funding, and Digital IQD monthly dividend distribution.
+- Ministry transition roadmap for deprecating, merging, regulating, corporatizing, or sunsetting low-feedback ministry functions after legal, service-continuity, staff-transition, and audit gates.
 
 ## What Is Not Proven Yet
 
@@ -31,6 +34,9 @@ Current posture:
 - Real multi-peer Raft deployment and recovery testing.
 - Immutable audit-log storage.
 - Independent macroeconomic model validation.
+- Calibration of the unified economic model with audited baselines, equations, sensitivity analysis, and independent review.
+- Independent legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation for the National Dividend Holding Company and ten-year investment plan.
+- Independent constitutional, administrative-law, labor, federalism, and service-continuity review for the ministry transition roadmap.
 
 ## Development Stack
 
@@ -61,3 +67,4 @@ Avoid this language:
 4. Implement and test immutable audit logging.
 5. Complete the threat model in `SECURITY.md` with design decisions and residual risks.
 6. Validate policy/economic scenarios with cited sources and independent review.
+7. Convert the National Dividend Holding Company and ten-year investment plan into explicit legal assumptions, data models, and tests only after policy review.

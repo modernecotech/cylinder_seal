@@ -23,6 +23,8 @@ Four Iraqi economic pathologies that each have substantial empirical literature 
 
 The design attacks all four simultaneously via primitives on a single architecture. Each primitive is documented, implemented, and tested. Most EMDE CBDC pilots (eNaira, JAM-DEX) failed on at least one of these four and didn't have a single-architecture answer to the others.
 
+A fifth, newer policy module is now documented as part of a **unified economic model**: Digital IQD makes transactions visible and programmable; INDHC routes oil income through an audited lockbox into productive national capital; ministries are funded through explicit taxes, levies, and performance budgets; private producers and INDHC subsidiaries expand domestic supply; banks lend from transaction evidence; citizens receive wages, services, credit access, and equal Digital IQD dividends from audited surplus. A companion ten-year plan sets out import substitution, profitable subsidiaries, defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, imported-food substitution, tourism and services, green capital, open rail, raw-material processing, and Iraqi-only permanent staffing. It is a policy architecture proposal, not a validated legal or fiscal design.
+
 ## Design distinctives worth expert review
 
 - **Merchant tier system as programmable trade policy** (0–8% fee schedule tied to verified domestic-content percentage; hard restrictions on government transfers for categories where domestic capacity exists). Trade policy without tariffs.
@@ -31,6 +33,9 @@ The design attacks all four simultaneously via primitives on a single architectu
 - **Wire-format programmability primitives** — expiring transfers (stimulus velocity), earmarked spend (construction-loan tranches that cannot leak to imported materials), conditional-release escrow (government forward-purchase commitments assignable as bank collateral, staged construction loans with Ministry inspector counter-signature). All three enforced by the CBI super-peer at validation time, not by application code.
 - **Real estate as the integrative sector** — the only domain that activates all four pathologies at once. Residential construction formalizes construction labour, unlocks the mortgage market, drives domestic material demand through the tier system, and gives Iraqi households their first IQD-denominated long-duration asset. The 2.5–3M unit deficit (Shafaq News / Al-Bayan 2025) makes this the highest-leverage pilot sector.
 - **Diaspora as distribution channel, not as capital source** — the Diaspora Merchant Node / Tourism Aggregator design lets diaspora-operated businesses abroad sell Iraqi-origin goods and religious-tourism packages with foreign currency captured into the CBI industrial pool at point of sale. Grounded in Rauch & Trindade 2002 (+30–60% bilateral trade uplift in differentiated goods via diaspora networks).
+- **Unified economic model** — one accounting spine linking oil income, international capital, Digital IQD transactions, domestic production, ministry feedback, credit expansion, tourism/exports, green/rail cost reduction, reinvestment, and citizen dividends.
+- **National capital dividend loop** — a proposed oil-income-to-productive-capital model where citizens hold non-saleable beneficial shares, ministries are funded through taxable productive surplus rather than automatic oil allocation, and audited monthly dividends distribute post-automation capital returns to the population.
+- **Ten-year INDHC investment plan** — a planning envelope for import substitution, defense-controlled supply chains, electronics, HVAC, desalination, irrigation, food-staple substitution, raw-material post-processing, open rail metro networks, green technology financed partly by international capital, tourism/services expansion, and domestic reinvestment under an Iraqi-only permanent staffing rule.
 
 ## Implementation status (honest)
 
@@ -45,7 +50,8 @@ Independent expert review on any of:
 1. **Economic model defensibility** — are the multipliers (1.3–1.5× visibility, 1.5–2.0× financing, 1.2× tax) defensible against CBI / IMF scrutiny? Which Iraq-specific figures need better grounding?
 2. **CBI regulatory fit** — is the 3-of-5 Raft-on-CBI-branches governance model compatible with how CBI actually operates? What's missing from the Parliament / oversight-board layer?
 3. **Real-estate sector realism** — is the mortgage-primitive + construction-loan + title-registry path plausible given Iraqi Ministry of Justice registry state, and what sequencing would the 2025–2030 housing plan require?
-4. **Gaps we haven't seen** — cryptographic, economic, political-economy, or operational.
+4. **National dividend holding-company realism** — what legal, fiscal, oil-revenue, board-governance, anti-corruption, and ministry-budget transition rules would be required before this could be credible?
+5. **Gaps we haven't seen** — cryptographic, economic, political-economy, or operational.
 
 Not seeking: press coverage, cold outreach to CBI officials, or procurement conversations. This is a design artefact and is shared for review.
 

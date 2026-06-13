@@ -8,7 +8,7 @@ Before external circulation, update and source every macroeconomic figure. Known
 - S&P Global Ratings affirmed Iraq at `B-/B` on June 12, 2026, removed the long-term ratings from CreditWatch negative, and kept a negative outlook. Sections describing Iraq as still on CreditWatch negative need revision.
 - National-scale timelines, Year 5 benefit ranges, sovereign-rating pathways, and diaspora capital figures should be treated as illustrative model outputs until independently validated.
 
-See [economic assumptions](economic-assumptions.md) for the current source discipline.
+See [economic assumptions](economic-assumptions.md) for the current source discipline. See [unified economic model](unified-economic-model.md) for the integrated accounting and feedback structure. See [national dividend holding company](national-dividend-holding-company.md) for the newer oil-income-to-productive-capital policy architecture.
 
 # Digital Iraqi Dinar: Economic Quantification & Development Infrastructure
 
@@ -24,6 +24,7 @@ The **Digital Iraqi Dinar (Digital IQD)** scenario explores sovereign digital cu
 3. **Test programmable trade-policy mechanisms** — combine merchant tier fees with restricted public-transfer categories where domestic capacity exists
 4. **Improve monetary-policy visibility** — provide aggregate, privacy-bounded transaction signals for policy and risk analysis
 5. **Model potential economic benefits** — keep benefit ranges explicitly illustrative until independently validated
+6. **Explore a national capital-dividend loop** — route oil income through an audited productive-capital institution, fund ministries from taxable productive surplus, and distribute residual dividends through Digital IQD wallets
 
 **Core technical advantages:**
 - Offline-first P2P payments (NFC/BLE) — works without internet in rural/conflict zones
@@ -47,6 +48,8 @@ Cylinder Seal's design attacks four mutually-reinforcing Iraqi economic patholog
 **Real estate is the integrative sector.** Residential construction formalizes construction labour (1), unlocks the mortgage market via transaction-based scoring (2), drives material demand through the tier-system supply chain and directly displaces imports (3), and gives Iraqi households their first IQD-denominated long-duration asset (4). See [Part 3: Real Estate & Construction Sector](#real-estate--construction-sector) and [Part 6: §7 Real Estate as Integrative Growth Sector](#7-real-estate-as-the-integrative-growth-sector).
 
 **Diaspora as distribution channel, not as capital source.** The diaspora's highest-value contribution is their market access abroad — not their remittance capacity. Iraqi-origin retailers, wholesalers, and tour operators in the US, UK, EU, Gulf, and South Asia already sit on customer trust and shelf space that Iraqi producers cannot build from scratch. The Diaspora Merchant Node / Tourism Aggregator design (see [Part 6: §6](#6-diaspora-as-export-channel-marketers-and-tourism-aggregators)) makes that channel a first-class participant in the tier system, with foreign-currency earnings captured at CBI into the industrial pool at point of sale.
+
+**National dividend holding company as public-finance feedback loop.** A newer module proposes that oil income should enter an audited lockbox and productive national holding company rather than funding ministries directly. Citizens would hold non-saleable beneficial shares; ministries would be funded through explicit taxes, levies, service contracts, and performance budgets; residual distributable surplus would be paid monthly as Digital IQD dividends. This is a policy architecture requiring legal, fiscal, AML/CFT, and governance review before it can be treated as implementable.
 
 **Illustrative scenario, not a committed forecast:** $3-5M pilot hypothesis | 12-15 month pilot-to-scale hypothesis | Year 5 benefit range requires independent validation
 

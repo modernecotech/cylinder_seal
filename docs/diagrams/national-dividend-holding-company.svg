@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1220" viewBox="0 0 1800 1220" role="img" aria-labelledby="title desc">
+  <title id="title">National Dividend Holding Company Flow</title>
+  <desc id="desc">Oil income flows through a lockbox into a state development holding company, productive investment, treasury levy, reserves, and equal citizen dividends.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#344054"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font-family: Arial, sans-serif; font-size: 34px; font-weight: 700; fill: #101828; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 17px; font-weight: 400; fill: #475467; }
+      .zone { fill: #ffffff; stroke: #d0d5dd; stroke-width: 2; rx: 18; }
+      .zone-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; fill: #101828; }
+      .box { stroke-width: 1.7; rx: 12; }
+      .oil { fill: #fff7e6; stroke: #b26a00; }
+      .holding { fill: #eef6ff; stroke: #2e73b8; }
+      .productive { fill: #edf7f0; stroke: #2f7d45; }
+      .state { fill: #f3e8ff; stroke: #7e3fb2; }
+      .risk { fill: #fff0f0; stroke: #b23b3b; }
+      .citizen { fill: #e9f7ef; stroke: #2f7d45; }
+      .text-title { font-family: Arial, sans-serif; font-size: 15px; font-weight: 700; fill: #101828; }
+      .text { font-family: Arial, sans-serif; font-size: 12px; font-weight: 400; fill: #344054; }
+      .small { font-family: Arial, sans-serif; font-size: 11px; font-weight: 400; fill: #475467; }
+      .arrow { stroke: #344054; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .arrow-soft { stroke: #667085; stroke-width: 1.8; fill: none; marker-end: url(#arrow); stroke-dasharray: 7 5; }
+      .divider { stroke: #d0d5dd; stroke-width: 1.2; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1800" height="1220"/>
+  <text class="title" x="56" y="58">National Dividend Holding Company Architecture</text>
+  <text class="subtitle" x="56" y="88">Oil income is converted into citizen-owned productive capital, taxable profit, and equal Digital IQD dividends.</text>
+
+  <rect class="zone" x="50" y="130" width="1700" height="380"/>
+  <text class="zone-title" x="82" y="170">Oil income re-plumbing</text>
+
+  <rect class="box" fill="#fff7e6" stroke="#b26a00" x="92" y="230" width="230" height="86"/>
+  <text class="text-title" x="118" y="260">Oil export income</text>
+  <text class="text" x="118" y="282">SOMO/export receipts</text>
+  <text class="text" x="118" y="302">signed into ledger</text>
+
+  <rect class="box" fill="#fff7e6" stroke="#b26a00" x="384" y="230" width="250" height="86"/>
+  <text class="text-title" x="410" y="260">Oil Income Lockbox</text>
+  <text class="text" x="410" y="282">no direct ministry draw</text>
+  <text class="text" x="410" y="302">audited allocation rules</text>
+
+  <rect class="box" fill="#f3e8ff" stroke="#7e3fb2" x="696" y="205" width="250" height="136"/>
+  <text class="text-title" x="722" y="235">Stabilization reserve</text>
+  <text class="text" x="722" y="257">oil price smoothing</text>
+  <text class="text" x="722" y="277">debt and shock buffer</text>
+  <text class="small" x="722" y="307">Prevents dividend and budget</text>
+  <text class="small" x="722" y="325">from moving one-for-one with oil.</text>
+
+  <rect class="box" fill="#eef6ff" stroke="#2e73b8" x="1008" y="205" width="270" height="136"/>
+  <text class="text-title" x="1034" y="235">INDHC</text>
+  <text class="text" x="1034" y="257">state development holding</text>
+  <text class="text" x="1034" y="277">company</text>
+  <text class="small" x="1034" y="307">Citizens hold non-saleable</text>
+  <text class="small" x="1034" y="325">beneficial shares.</text>
+
+  <rect class="box" fill="#edf7f0" stroke="#2f7d45" x="1340" y="205" width="330" height="136"/>
+  <text class="text-title" x="1366" y="235">Productive subsidiaries</text>
+  <text class="text" x="1366" y="257">infrastructure, industry,</text>
+  <text class="text" x="1366" y="277">services, logistics, housing</text>
+  <text class="small" x="1366" y="307">Investments use project ledgers,</text>
+  <text class="small" x="1366" y="325">escrow, and spend constraints.</text>
+
+  <path class="arrow" d="M322 273 L384 273"/>
+  <path class="arrow" d="M634 273 L696 273"/>
+  <path class="arrow" d="M946 273 L1008 273"/>
+  <path class="arrow" d="M1278 273 L1340 273"/>
+
+  <rect class="zone" x="50" y="560" width="1700" height="290"/>
+  <text class="zone-title" x="82" y="600">Profit, ministry funding, and citizen dividend</text>
+
+  <rect class="box" fill="#edf7f0" stroke="#2f7d45" x="92" y="660" width="250" height="86"/>
+  <text class="text-title" x="118" y="690">Operating revenue</text>
+  <text class="text" x="118" y="712">project and subsidiary</text>
+  <text class="text" x="118" y="732">cash flow</text>
+
+  <rect class="box" fill="#f3e8ff" stroke="#7e3fb2" x="404" y="660" width="250" height="86"/>
+  <text class="text-title" x="430" y="690">Gross-profit levy</text>
+  <text class="text" x="430" y="712">tax base funds treasury</text>
+  <text class="text" x="430" y="732">and ministries</text>
+
+  <rect class="box" fill="#f3e8ff" stroke="#7e3fb2" x="716" y="660" width="250" height="86"/>
+  <text class="text-title" x="742" y="690">Ministry budgets</text>
+  <text class="text" x="742" y="712">service contracts and</text>
+  <text class="text" x="742" y="732">performance allocations</text>
+
+  <rect class="box" fill="#eef6ff" stroke="#2e73b8" x="1028" y="660" width="250" height="86"/>
+  <text class="text-title" x="1054" y="690">Retained earnings</text>
+  <text class="text" x="1054" y="712">post-levy surplus for</text>
+  <text class="text" x="1054" y="732">reinvestment and reserves</text>
+
+  <rect class="box" fill="#e9f7ef" stroke="#2f7d45" x="1340" y="640" width="330" height="126"/>
+  <text class="text-title" x="1366" y="670">Monthly citizen dividend</text>
+  <text class="text" x="1366" y="692">equal Digital IQD payment</text>
+  <text class="text" x="1366" y="712">to eligible wallets</text>
+  <text class="small" x="1366" y="742">Post-automation capital income</text>
+  <text class="small" x="1366" y="760">independent of wage employment.</text>
+
+  <path class="arrow" d="M342 703 L404 703"/>
+  <path class="arrow" d="M654 703 L716 703"/>
+  <path class="arrow-soft" d="M654 680 C790 615 900 615 1028 680"/>
+  <path class="arrow" d="M1278 703 L1340 703"/>
+  <path class="arrow-soft" d="M1505 640 C1505 535 1155 450 1143 341"/>
+
+  <rect class="zone" x="50" y="900" width="1700" height="220"/>
+  <text class="zone-title" x="82" y="940">One-year cash formalization window</text>
+
+  <rect class="box" fill="#fff0f0" stroke="#b23b3b" x="92" y="990" width="280" height="76"/>
+  <text class="text-title" x="118" y="1018">Physical cash deposit</text>
+  <text class="text" x="118" y="1040">12-month legal window only</text>
+
+  <rect class="box" fill="#fff0f0" stroke="#b23b3b" x="440" y="990" width="280" height="76"/>
+  <text class="text-title" x="466" y="1018">KYC and risk scoring</text>
+  <text class="text" x="466" y="1040">caps, EDD, holds, referral</text>
+
+  <rect class="box" fill="#e9f7ef" stroke="#2f7d45" x="788" y="990" width="280" height="76"/>
+  <text class="text-title" x="814" y="1018">Locked entitlement</text>
+  <text class="text" x="814" y="1040">supplemental share or balance</text>
+
+  <rect class="box" fill="#fff0f0" stroke="#b23b3b" x="1136" y="990" width="280" height="76"/>
+  <text class="text-title" x="1162" y="1018">Post-window rejection</text>
+  <text class="text" x="1162" y="1040">cash no longer convertible</text>
+
+  <rect class="box" fill="#f3e8ff" stroke="#7e3fb2" x="1484" y="990" width="220" height="76"/>
+  <text class="text-title" x="1510" y="1018">Audit evidence</text>
+  <text class="text" x="1510" y="1040">receipts and cases</text>
+
+  <path class="arrow" d="M372 1028 L440 1028"/>
+  <path class="arrow" d="M720 1028 L788 1028"/>
+  <path class="arrow" d="M1068 1028 L1136 1028"/>
+  <path class="arrow-soft" d="M720 1028 C965 1120 1270 1120 1484 1028"/>
+</svg>

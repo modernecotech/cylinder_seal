@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1260" viewBox="0 0 1800 1260" role="img" aria-labelledby="title desc">
+  <title id="title">Cylinder Seal Unified Economic Model</title>
+  <desc id="desc">A unified economic model connecting oil income, international capital, INDHC investment, Digital IQD transactions, domestic production, ministries, banks, citizens, and dividends.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#344054"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font-family: Arial, sans-serif; font-size: 34px; font-weight: 700; fill: #101828; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 17px; font-weight: 400; fill: #475467; }
+      .zone-title { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; fill: #101828; }
+      .text-title { font-family: Arial, sans-serif; font-size: 15px; font-weight: 700; fill: #101828; }
+      .text { font-family: Arial, sans-serif; font-size: 12px; font-weight: 400; fill: #344054; }
+      .small { font-family: Arial, sans-serif; font-size: 11px; font-weight: 400; fill: #475467; }
+      .zone { fill: #ffffff; stroke: #d0d5dd; stroke-width: 2; rx: 18; }
+      .box { stroke-width: 1.8; rx: 12; }
+      .arrow { stroke: #344054; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .arrow-soft { stroke: #667085; stroke-width: 1.8; fill: none; marker-end: url(#arrow); stroke-dasharray: 7 5; }
+      .arrow-green { stroke: #2f7d45; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
+      .arrow-purple { stroke: #7e3fb2; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
+      .divider { stroke: #d0d5dd; stroke-width: 1.2; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1800" height="1260"/>
+  <text class="title" x="56" y="58">Cylinder Seal Unified Economic Model</text>
+  <text class="subtitle" x="56" y="88">Digital IQD records the economy; INDHC invests oil and debt into productive assets; ministries, banks, citizens, and producers share one feedback loop.</text>
+
+  <rect class="zone" x="50" y="125" width="1700" height="220"/>
+  <text class="zone-title" x="82" y="165">Sources of capital and demand</text>
+
+  <rect class="box" fill="#fff7e6" stroke="#b26a00" x="92" y="205" width="250" height="92"/>
+  <text class="text-title" x="118" y="236">Oil receipts</text>
+  <text class="text" x="118" y="260">lockbox and stabilization</text>
+  <text class="text" x="118" y="280">reserve before allocation</text>
+
+  <rect class="box" fill="#eef6ff" stroke="#2e73b8" x="404" y="205" width="270" height="92"/>
+  <text class="text-title" x="430" y="236">International capital</text>
+  <text class="text" x="430" y="260">MDB loans, green sukuk,</text>
+  <text class="text" x="430" y="280">export credit, project debt</text>
+
+  <rect class="box" fill="#e9f7ef" stroke="#2f7d45" x="736" y="205" width="270" height="92"/>
+  <text class="text-title" x="762" y="236">Citizen demand</text>
+  <text class="text" x="762" y="260">wages, transfers, dividends,</text>
+  <text class="text" x="762" y="280">household and SME spending</text>
+
+  <rect class="box" fill="#f3e8ff" stroke="#7e3fb2" x="1068" y="205" width="270" height="92"/>
+  <text class="text-title" x="1094" y="236">Tourism and exports</text>
+  <text class="text" x="1094" y="260">foreign currency captured</text>
+  <text class="text" x="1094" y="280">through formal channels</text>
+
+  <rect class="box" fill="#fff0f0" stroke="#b23b3b" x="1400" y="205" width="270" height="92"/>
+  <text class="text-title" x="1426" y="236">Cash formalization</text>
+  <text class="text" x="1426" y="260">legacy cash conversion with</text>
+  <text class="text" x="1426" y="280">KYC, caps, holds, audit</text>
+
+  <rect class="zone" x="50" y="395" width="1700" height="250"/>
+  <text class="zone-title" x="82" y="435">Digital IQD evidence and control layer</text>
+
+  <rect class="box" fill="#eef6ff" stroke="#2e73b8" x="112" y="485" width="260" height="96"/>
+  <text class="text-title" x="138" y="516">Wallets and POS</text>
+  <text class="text" x="138" y="540">citizens, merchants,</text>
+  <text class="text" x="138" y="560">individual producers</text>
+
+  <rect class="box" fill="#eef6ff" stroke="#2e73b8" x="442" y="485" width="260" height="96"/>
+  <text class="text-title" x="468" y="516">Settlement ledger</text>
+  <text class="text" x="468" y="540">online/offline transactions,</text>
+  <text class="text" x="468" y="560">receipts, accounts, audit</text>
+
+  <rect class="box" fill="#f3e8ff" stroke="#7e3fb2" x="772" y="485" width="260" height="96"/>
+  <text class="text-title" x="798" y="516">Policy engine</text>
+  <text class="text" x="798" y="540">tiers, spend constraints,</text>
+  <text class="text" x="798" y="560">conditional release, AML</text>
+
+  <rect class="box" fill="#e9f7ef" stroke="#2f7d45" x="1102" y="485" width="260" height="96"/>
+  <text class="text-title" x="1128" y="516">Credit and analytics</text>
+  <text class="text" x="1128" y="540">cash-flow features, risk,</text>
+  <text class="text" x="1128" y="560">economic projections</text>
+
+  <rect class="box" fill="#fff7e6" stroke="#b26a00" x="1432" y="485" width="260" height="96"/>
+  <text class="text-title" x="1458" y="516">Public dashboards</text>
+  <text class="text" x="1458" y="540">oil, projects, ministries,</text>
+  <text class="text" x="1458" y="560">imports, dividends</text>
+
+  <path class="arrow" d="M372 533 L442 533"/>
+  <path class="arrow" d="M702 533 L772 533"/>
+  <path class="arrow" d="M1032 533 L1102 533"/>
+  <path class="arrow" d="M1362 533 L1432 533"/>
+
+  <rect class="zone" x="50" y="700" width="1700" height="285"/>
+  <text class="zone-title" x="82" y="740">Productive economy and state feedback</text>
+
+  <rect class="box" fill="#fff7e6" stroke="#b26a00" x="92" y="800" width="250" height="110"/>
+  <text class="text-title" x="118" y="830">INDHC</text>
+  <text class="text" x="118" y="854">oil equity plus project debt</text>
+  <text class="text" x="118" y="874">into profitable subsidiaries</text>
+  <text class="small" x="118" y="894">Iraqi-only permanent staff</text>
+
+  <rect class="box" fill="#e9f7ef" stroke="#2f7d45" x="404" y="800" width="270" height="110"/>
+  <text class="text-title" x="430" y="830">Domestic production</text>
+  <text class="text" x="430" y="854">materials, food, electronics,</text>
+  <text class="text" x="430" y="874">HVAC, water systems</text>
+  <text class="small" x="430" y="894">regulated defense supply</text>
+
+  <rect class="box" fill="#eef6ff" stroke="#2e73b8" x="736" y="800" width="270" height="110"/>
+  <text class="text-title" x="762" y="830">Banks and credit</text>
+  <text class="text" x="762" y="854">working capital from</text>
+  <text class="text" x="762" y="874">transaction evidence</text>
+  <text class="small" x="762" y="894">cash-flow lending</text>
+
+  <rect class="box" fill="#f3e8ff" stroke="#7e3fb2" x="1068" y="800" width="270" height="110"/>
+  <text class="text-title" x="1094" y="830">Ministries and Treasury</text>
+  <text class="text" x="1094" y="854">gross-profit levy, taxes,</text>
+  <text class="text" x="1094" y="874">service contracts</text>
+  <text class="small" x="1094" y="894">performance budgets</text>
+
+  <rect class="box" fill="#edf7f0" stroke="#2f7d45" x="1400" y="800" width="270" height="110"/>
+  <text class="text-title" x="1426" y="830">Green, rail, services</text>
+  <text class="text" x="1426" y="854">metro, power, tourism,</text>
+  <text class="text" x="1426" y="874">logistics, utilities</text>
+  <text class="small" x="1426" y="894">lower national cost base</text>
+
+  <path class="arrow-green" d="M342 855 L404 855"/>
+  <path class="arrow-green" d="M674 855 L736 855"/>
+  <path class="arrow-purple" d="M1006 855 L1068 855"/>
+  <path class="arrow-green" d="M1338 855 L1400 855"/>
+
+  <rect class="zone" x="50" y="1040" width="1700" height="155"/>
+  <text class="zone-title" x="82" y="1080">Outputs and feedback</text>
+
+  <text class="text-title" x="118" y="1130">Citizen outcomes</text>
+  <text class="text" x="118" y="1154">wages, dividends, credit access, services</text>
+
+  <text class="text-title" x="470" y="1130">State outcomes</text>
+  <text class="text" x="470" y="1154">tax base, ministry discipline, public dashboards</text>
+
+  <text class="text-title" x="822" y="1130">Production outcomes</text>
+  <text class="text" x="822" y="1154">domestic supply, strategic manufacturing, exports</text>
+
+  <text class="text-title" x="1174" y="1130">Macro outcomes</text>
+  <text class="text" x="1174" y="1154">lower import leakage, non-oil FX, lower cost base</text>
+
+  <text class="text-title" x="1490" y="1130">Governance outcomes</text>
+  <text class="text" x="1490" y="1154">audit trails, risk controls, policy learning</text>
+
+  <path class="arrow" d="M217 1040 C220 980 220 940 217 910"/>
+  <path class="arrow" d="M545 1040 C545 985 540 950 539 910"/>
+  <path class="arrow" d="M900 1040 C900 985 880 950 871 910"/>
+  <path class="arrow" d="M1215 1040 C1215 985 1207 950 1203 910"/>
+  <path class="arrow" d="M1535 1040 C1535 985 1535 950 1535 910"/>
+
+  <path class="arrow-soft" d="M217 800 C160 690 170 610 242 581"/>
+  <path class="arrow-soft" d="M1535 800 C1590 690 1600 610 1562 581"/>
+  <path class="arrow-soft" d="M871 800 C900 700 905 620 902 581"/>
+
+  <path class="arrow" d="M217 297 C215 380 215 430 242 485"/>
+  <path class="arrow" d="M539 297 C550 380 560 430 572 485"/>
+  <path class="arrow" d="M871 297 C860 380 870 430 902 485"/>
+  <path class="arrow" d="M1203 297 C1220 380 1230 430 1232 485"/>
+  <path class="arrow" d="M1535 297 C1540 380 1550 430 1562 485"/>
+</svg>
