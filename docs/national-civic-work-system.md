@@ -43,6 +43,26 @@ respected, and visible.
 This is a national participation economy, not old-style ministry payroll
 expansion and not punitive workfare.
 
+## Why Not Welfare Alone
+
+Plain cash transfers can reduce poverty, but they do not by themselves create
+purpose, skills, community repair, or a visible route from informal labor into
+formal economic records.
+
+The civic-work system is therefore designed to create several outputs at once:
+
+- income for people who would otherwise be excluded from productivity gains;
+- dignity through paid, visible, socially useful contribution;
+- training records and certifications that improve employability;
+- measurable community improvement in parks, schools, sport, care, heritage,
+  water, food security, and environmental restoration;
+- lower unrest risk by giving young people a respected participation ladder;
+- formal income and reliability histories for workers with thin financial files.
+
+The system should complement welfare, dividends, and ordinary employment. It
+should not replace legal social protection, and it should not trap people in
+permanent low-wage public tasks.
+
 ## Module Boundary
 
 Proposed software module:

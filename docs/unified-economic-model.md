@@ -189,6 +189,8 @@ reduction engine for the whole economy.
 
 Economic purpose: productivity gains become socially legitimate because spare
 labor capacity is converted into paid public value, skills, and employability.
+This is the model's participation-economy layer: it complements welfare and
+dividends without disguising unemployment as permanent fake jobs.
 
 ## Accounting Spine
 

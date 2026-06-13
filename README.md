@@ -78,6 +78,10 @@ The Iraq-specific policy narrative is intentionally separate from the implementa
 
 Within the policy architecture, the unified model is the front-door economic frame. Digital IQD is the auditable payment, identity, compliance, civic-work, and dividend-distribution substrate; INDHC is the productive-capital engine; ministries are funded through explicit taxes, levies, and service contracts; citizens receive wages, services, credit access, civic-work income, and equal dividends from audited surplus.
 
+The civic-work layer is framed as a national participation economy: not
+unemployment benefits, not fake jobs, and not old-style ministry payroll
+expansion, but verified public value paid through Digital IQD.
+
 The README intentionally does not present national-scale timelines, sovereign
 rating outcomes, diaspora capital figures, or Year 5 benefit ranges as project
 deliverables. Those figures belong only in scenario documents with explicit
