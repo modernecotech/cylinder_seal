@@ -23,27 +23,28 @@ infrastructure and is not an official Central Bank of Iraq project.
 8. Political-Economy Transition And Anti-Capture
 9. Federalism Governorate Equity And Local Compacts
 10. Environmental Social Water And Cultural Safeguards
-11. Fiscal Stress And Contingent Liability
-12. National Program Sequencing And Dependency Control
-13. Procurement Integrity And Market Discipline
-14. Benefit Realization And Claim Audit
-15. Iraq Integrated Growth Impact Model
-16. Iraq Comprehensive Benefits Model
-17. Iraq Quantified Affordability And Cashflow Model
-18. System And Financial Flow Diagrams
-19. Business Value Chain Charts
-20. Unified Economic Model
-21. National Dividend Holding Company
-22. INDHC Ten-Year Plan
-23. Import, Services, And Diaspora Expansion
-24. Facility Recycling And Capital Markets
-25. Digitally Governed Industrial Champions
-26. National Civic Work System
-27. Ministry Transition Roadmap
-28. Security Model
-29. Current Implementation Status
-30. Technical Primitives
-31. Legacy Policy Paper Boundary
+11. Macro Monetary Inflation And FX Stability
+12. Fiscal Stress And Contingent Liability
+13. National Program Sequencing And Dependency Control
+14. Procurement Integrity And Market Discipline
+15. Benefit Realization And Claim Audit
+16. Iraq Integrated Growth Impact Model
+17. Iraq Comprehensive Benefits Model
+18. Iraq Quantified Affordability And Cashflow Model
+19. System And Financial Flow Diagrams
+20. Business Value Chain Charts
+21. Unified Economic Model
+22. National Dividend Holding Company
+23. INDHC Ten-Year Plan
+24. Import, Services, And Diaspora Expansion
+25. Facility Recycling And Capital Markets
+26. Digitally Governed Industrial Champions
+27. National Civic Work System
+28. Ministry Transition Roadmap
+29. Security Model
+30. Current Implementation Status
+31. Technical Primitives
+32. Legacy Policy Paper Boundary
 
 # Diagram Atlas
 
@@ -135,8 +136,8 @@ The model has six practical rules:
 
 1. No cash claim without settled evidence.
 2. No benefit claim without source-tagged measurement.
-3. No capital allocation without legal, fiscal, debt, revenue, FX, maintenance,
-   audit, privacy, and anti-capture gates.
+3. No capital allocation without legal, fiscal, macro, debt, revenue, FX,
+   maintenance, audit, privacy, and anti-capture gates.
 4. No dividend from oil receipts, borrowing, asset revaluation, or estimated GDP
    effects.
 5. Existing Iraqi facilities are screened before greenfield capex.
@@ -155,6 +156,7 @@ The model has six practical rules:
 | Political economy | Models resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, and pause/rollback rules. | [Political-economy transition and anti-capture model](docs/political-economy-transition-and-anti-capture.md) |
 | Federalism equity | Controls governorate/regional authority, local compact readiness, needs-adjusted allocation fairness, local revenue/jobs/suppliers, grievance resolution, data publication, audit, appeals, and land/water/heritage disputes. | [Federalism, governorate equity, and local compacts](docs/federalism-governorate-equity-and-local-compacts.md) |
 | Environmental and social safeguards | Blocks or redesigns projects when water, pollution, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, or accessibility gates fail. | [Environmental, social, water, and cultural safeguards](docs/environmental-social-cultural-safeguards.md) |
+| Macro stability | Controls inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization capacity, credit growth, domestic absorption, import leakage, non-oil FX cover, distribution phasing, CBI independence, and FX transparency. | [Macro, monetary, inflation, and FX stability](docs/macro-monetary-fx-stability.md) |
 | Fiscal stress | Tests oil-equity caps, stressed DSCR, FX mismatch, maintenance gaps, guarantees, collection weakness, capex overruns, and dividend affordability under downside cases. | [Fiscal stress and contingent liability model](docs/fiscal-stress-and-contingent-liability-model.md) |
 | Program sequencing | Decides whether each domain is not ready, evidence-only, pilot, build, controlled scale, or hold/rollback based on dependencies and gates. | [National program sequencing and dependency control](docs/national-program-sequencing-and-dependency-control.md) |
 | Procurement integrity | Controls beneficial ownership, competition depth, price benchmarks, single-source justification, contract variations, milestone evidence, payment discipline, quality, and SME participation. | [Procurement integrity and market discipline](docs/procurement-integrity-and-market-discipline.md) |
@@ -305,6 +307,7 @@ forecasts.
 | Procurement integrity and market discipline | `crates/cs-analytics/src/procurement_integrity.rs` | `migrations/20260716000001_procurement_integrity.sql` |
 | Federalism, governorate equity, and local compacts | `crates/cs-analytics/src/federalism_equity.rs` | `migrations/20260717000001_federalism_equity_compact.sql` |
 | Environmental, social, water, and cultural safeguards | `crates/cs-analytics/src/environmental_social_safeguards.rs` | `migrations/20260718000001_environmental_social_safeguards.sql` |
+| Macro, monetary, inflation, and FX stability | `crates/cs-analytics/src/macro_stability.rs` | `migrations/20260719000001_macro_stability.sql` |
 
 ### Developer Appendix: Local Software Demo
 
@@ -434,6 +437,11 @@ dividends only after the portfolio produces audited surplus.
   water budgets, pollution controls, marshland/biodiversity plans, heritage
   clearance, resettlement, livelihood restoration, safety, maintenance,
   remediation, monitoring, audit, or accessibility gates fail.
+- **Macro-stability gates:** dividend growth, Digital IQD injections, civic
+  wages, project spending, and bank-credit expansion slow or stop when
+  inflation, food prices, FX premium, reserve cover, unsterilized liquidity,
+  import leakage, non-oil FX cover, CBI independence, or FX transparency gates
+  fail.
 - **Fiscal stress gates:** scale-up and dividends stop when stressed oil-equity
   capacity, DSCR, FX cover, maintenance reserves, contingent liabilities,
   collections, capex overruns, or dividend affordability fail.
@@ -471,8 +479,8 @@ dividends only after the portfolio produces audited surplus.
   benefits, production capacity, strategic resilience, tourism services,
   diaspora channels, facility recycling, political-economy transition
   readiness, federalism/governorate equity, environmental/social safeguards,
-  fiscal stress, program sequencing, benefit realization, and procurement
-  integrity.
+  macro stability, fiscal stress, program sequencing, benefit realization, and
+  procurement integrity.
 - A pilot-grade Digital IQD software appendix covering transaction models,
   signing primitives, policy modules, POS/mobile codecs, dashboard routes,
   PostgreSQL migrations, Redis sessions, and specification tests.
@@ -493,6 +501,9 @@ dividends only after the portfolio produces audited surplus.
 - Independent environmental, social, water, heritage, biodiversity, resettlement,
   livelihood, safety, remediation, monitoring, and accessibility validation for
   any project that claims to be bankable or scalable.
+- Independent CBI, Ministry of Finance, banking-sector, FX-market, and
+  macroeconomic validation before using Digital IQD issuance, dividends, civic
+  wages, or project spending as real liquidity-management tools.
 - Independent program-management review of sequencing, dependency ownership,
   operator readiness, milestone realism, pilot scope, citizen consultation, and
   rollback authority.
@@ -552,6 +563,10 @@ Current posture:
   marshland/biodiversity, heritage, resettlement, livelihood, consultation,
   grievance, safety, maintenance, remediation, monitoring, audit, waste, and
   accessibility gates.
+- **Macro-stability discipline:** modeled through inflation, food prices, FX
+  premium, reserve cover, unsterilized liquidity, sterilization, credit growth,
+  domestic absorption, import leakage, non-oil FX cover, CBI independence, and
+  FX transparency gates.
 - **Stress discipline:** modeled through oil-equity caps, stressed DSCR, FX
   mismatch, maintenance gaps, guarantees, availability payments, collections,
   capex overruns, and dividend-affordability gates.
@@ -610,6 +625,10 @@ Current posture:
   redesigns, or limits projects when externalized harm, missing clearances,
   unfunded maintenance/remediation, weak monitoring, or unresolved community
   risks would make the economics misleading.
+- Macro, monetary, inflation, and FX stability logic that can pause
+  distributions, tighten liquidity, or stop scale-up when the economy cannot
+  absorb Digital IQD injections, dividends, civic wages, project spending, or
+  bank-credit growth.
 - Fiscal stress and contingent-liability logic that can force defensive or
   stop-scale-up mode when shocks make dividends, guarantees, FX debt, or new
   capex unsafe.
@@ -658,6 +677,9 @@ Current posture:
   approvals, water budgets, heritage clearance, biodiversity and marshland
   review, resettlement/livelihood plans, safety systems, remediation estimates,
   monitoring evidence, and accessibility review.
+- Independent macro/monetary validation covering inflation, food prices, FX
+  premium, reserves, import cover, liquidity injection, credit growth, import
+  leakage, non-oil FX cover, CBI independence, and FX transparency.
 - Independent fiscal stress validation of oil-equity caps, project debt,
   contingent liabilities, guarantees, availability payments, FX exposure,
   collection efficiency, maintenance reserves, and dividend rules.
@@ -823,6 +845,7 @@ No strategic program without anti-capture controls.
 No transition scale-up without political-economy readiness.
 No national scale-up without governorate compact readiness.
 No project scale-up without environmental, social, water, and cultural safeguards.
+No liquidity injection or dividend growth without macro and FX stability.
 No scale-up under fiscal stress.
 No scale before predecessor dependencies pass.
 No award or privilege without procurement integrity.
@@ -944,6 +967,7 @@ forward no matter how attractive the narrative is.
 | Anti-capture | Related-party exposure, monopoly risk, PEP/sanctions risk, and procurement concentration are within limits. |
 | Local compact readiness | Governorate, municipal, regional, or disputed-authority compact exists where required; allocation variance is explained; local revenue, jobs, suppliers, benefits, grievances, audit, appeals, and land/water/heritage issues are controlled. |
 | Environmental and social safeguards | Water, pollution, climate, biodiversity, marshland, heritage, resettlement, livelihood, consultation, grievance, safety, maintenance, remediation, monitoring, audit, and accessibility gates pass. |
+| Macro and FX stability | Inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization capacity, credit growth, domestic absorption, import leakage, non-oil FX cover, distribution phasing, CBI independence, and FX transparency remain inside limits. |
 | Privacy and security | Data use, access controls, auditability, offline settlement, and operator powers meet the security model. |
 | Citizen fairness | Dividends, civic work, transfers, and appeals are rules-based and auditable. |
 | Political-economy readiness | Resistance, capture risk, coalition support, service continuity, staff transition, procurement transparency, competition control, federalism, and appeals support the proposed transition mode. |
@@ -1081,6 +1105,7 @@ kernel, not a complete national operating system.
 | `PoliticalEconomyProjection` | Capture risk, resistance pressure, coalition readiness, citizen legitimacy, transition readiness, and recommended transition mode. |
 | `FederalismEquityAssessment` | Governorate/regional compact status, needs-adjusted allocation gap, local revenue/jobs/suppliers/benefits, grievances, authority risk, decision, and required actions. |
 | `EnvironmentalSocialSafeguardAssessment` | Water risk, pollution risk, ecosystem/heritage risk, social risk, safeguard readiness, decision, and required actions. |
+| `MacroStabilityAssessment` | Unsterilized liquidity, inflation pressure, FX pressure, credit heat, absorption capacity, macro risk, recommended mode, and required actions. |
 | `FiscalStressProjection` | Stressed oil-equity capacity, fiscal-rule breach, DSCR, FX mismatch, maintenance gap, contingent liability, dividend gap, and recommended stress mode. |
 | `ProgramSequencingDecision` | Domain readiness, dependency completion, operating capacity, legitimacy, recommended phase, blocked dependencies, and next required actions. |
 | `ProcurementIntegrityAssessment` | Competition, integrity, value-for-money, delivery, market-development, overall risk, decision, and required actions for awards and privileges. |
@@ -1182,6 +1207,15 @@ Initial executable coverage:
   publication, independent audit, decision state, and required actions.
   `migrations/20260718000001_environmental_social_safeguards.sql` adds
   assessment and gate tables.
+- `crates/cs-analytics/src/macro_stability.rs` adds the first macro, monetary,
+  inflation, and FX stability layer: headline/core/food inflation, market FX
+  premium, reserves, import cover, FX demand, non-oil FX receipts, money and
+  credit growth, bank liquidity, domestic supply growth, import leakage,
+  Digital IQD injections, dividends, civic wages, project local spend,
+  sterilization, treasury buffers, distribution phasing, CBI independence,
+  policy coordination, FX transparency, recommended mode, and required actions.
+  `migrations/20260719000001_macro_stability.sql` adds assessment and gate
+  tables.
 - `crates/cs-analytics/src/fiscal_stress.rs` adds the first fiscal-stress and
   contingent-liability layer: stressed oil-equity capacity, deficit/debt/reserve
   pressure, stressed DSCR, FX mismatch, maintenance gaps, guarantee and
@@ -1232,6 +1266,7 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Political economy | Which reforms face capture, resistance, weak coalition support, service-continuity failure, staff-transition failure, or federalism risk? |
 | Federalism equity | Which governorates or regions have signed compacts, allocation gaps, weak local benefit capture, unresolved grievances, authority disputes, or appeal/audit gaps? |
 | Environmental and social safeguards | Which projects have water, pollution, marshland, biodiversity, heritage, resettlement, livelihood, safety, maintenance, remediation, monitoring, audit, or accessibility risks? |
+| Macro stability | Are inflation, food prices, FX premium, reserves, liquidity injections, credit growth, domestic absorption, import leakage, non-oil FX cover, CBI independence, and FX transparency safe enough for distribution or scale-up? |
 | Fiscal stress | Which projects or portfolios breach oil-equity limits, stressed DSCR, FX cover, maintenance reserves, contingent-liability caps, collection efficiency, or dividend affordability? |
 | Program sequencing | Which domains are not-ready, evidence-only, pilot, build, controlled-scale, or hold/rollback, and which dependencies block the next phase? |
 | Procurement integrity | Which awards, service contracts, concessions, champion privileges, or facility-reuse procurements are eligible, watch, restricted, suspended, or retender/cancel? |
@@ -1249,6 +1284,7 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Unpaid public invoices | Stop counting revenue as collectible; review ministry or municipal payment capacity. |
 | Local compact failure | Freeze scale-up, publish the affected compact issue, and move the program to evidence-only, compact-required, pilot-only, or renegotiation mode. |
 | Safeguard failure | Freeze capital release, remove project surplus from dividend logic, and require redesign, mitigation, or evidence-only status. |
+| Macro-stability breach | Pause dividend growth, slow Digital IQD injections, tighten credit, increase sterilization, phase FX demand, and publish macro dashboard. |
 | FX mismatch | Restrict new foreign-currency borrowing unless offset by FX revenue, hedge, or approved reserve. |
 | Benefit overclaim | Move claim to low-confidence public-benefit ledger and remove from policy headline. |
 | Civic-work evidence failure | Hold payment, trigger appeal or re-verification, and flag verifier reliability. |
@@ -1404,6 +1440,18 @@ INDHC, ministries, PPP operators, tourism platforms, and industrial champions
 should not be able to approve their own water, heritage, resettlement,
 pollution, safety, remediation, or monitoring conditions.
 
+### Macro, Monetary, Inflation, And FX Stability
+
+The working control document is
+[Macro, Monetary, Inflation, And FX Stability](macro-monetary-fx-stability.md).
+The executable planning primitive is `crates/cs-analytics/src/macro_stability.rs`,
+with persistence in `migrations/20260719000001_macro_stability.sql`.
+
+This model requires a clear CBI authority boundary. Digital IQD, dividends,
+project spending, civic wages, bank-credit expansion, and domestic securities
+should not become a back door for fiscal dominance, forced liquidity creation,
+or hidden exchange-rate pressure.
+
 ### Phased Legal Roadmap
 
 | Phase | Years | Legal work | Output |
@@ -1471,6 +1519,7 @@ The legal roadmap should produce a single public stop/go dashboard:
 | --- | --- |
 | Constitutional/federalism | Oil, revenue, governorate, regional, and citizen-rights issues have legal path and dispute forum. |
 | CBI/payment | Monetary status, settlement, wallet, AML/CFT, and privacy rules are approved for pilot scope. |
+| Macro/FX stability | Inflation, food prices, liquidity injection, reserve cover, FX premium, credit growth, CBI independence, policy coordination, and FX transparency gates pass. |
 | Fiscal/debt | Oil-equity cap, guarantees, project debt, and budget treatment are disclosed and approved. |
 | Fiscal stress | Oil-equity draw, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability remain inside limits. |
 | INDHC governance | Board, audit, procurement, related-party, competition, and dividend rules are enforceable. |
@@ -2213,7 +2262,151 @@ borrowing from Iraq's people, places, and future budgets without recording the
 liability.
 
 
-# Part 11: Fiscal Stress And Contingent Liability
+# Part 11: Macro Monetary Inflation And FX Stability
+
+## Macro, Monetary, Inflation, And FX Stability
+
+Status: macro-stability control model. This is not a central-bank rulebook,
+exchange-rate forecast, monetary-policy recommendation, debt-sustainability
+analysis, IMF program, or official Central Bank of Iraq position.
+
+The Cylinder Seal model can be fiscally solvent and still fail if it pushes too
+much local liquidity into an economy that cannot absorb it. Dividends, civic
+wages, project payrolls, bank credit, procurement payments, and Digital IQD
+settlement must be phased against inflation, food prices, exchange-rate
+pressure, reserve cover, domestic supply growth, import leakage, and central
+bank independence.
+
+### Core Rule
+
+```text
+No dividend growth, local-currency project surge, bank-credit expansion, or
+Digital IQD liquidity injection should scale unless inflation, FX, reserves,
+credit growth, domestic absorption, import leakage, and CBI governance gates
+pass.
+```
+
+Fiscal stress asks whether the public sector and holding company can afford the
+program. Macro stability asks whether the whole economy can absorb it without
+turning productive policy into inflation, import leakage, or exchange-rate
+pressure.
+
+### What This Layer Controls
+
+| Risk area | Control requirement |
+| --- | --- |
+| Headline and core inflation | Broad distributions and project spending slow when inflation rises above tolerance. |
+| Food inflation | Broad dividends do not grow into food-price pressure; food logistics and targeted support take priority. |
+| FX premium | Market exchange-rate pressure triggers FX source tagging, project phasing, and intervention transparency. |
+| Reserve cover | Foreign-currency commitments are phased when import cover is thin. |
+| Liquidity injection | Digital IQD issuance, dividends, civic wages, and local project spending are tested against nominal GDP. |
+| Sterilization capacity | Treasury deposit buffers and monetary instruments must offset large injections. |
+| Credit growth | Bank lending and broad money growth stay below overheating thresholds. |
+| Domestic absorption | Domestic supply growth and non-oil FX receipts must rise before demand is pushed too hard. |
+| Import leakage | Spending that leaks into imports is not treated as a domestic productivity loop. |
+| Non-oil FX cover | Tourism, exports, services, and diaspora channels must create real FX receipts before FX-sensitive expansion. |
+| Distribution phasing | Monthly and quarterly distribution calendars prevent political lump-sum shocks. |
+| Policy coordination | Fiscal authorities, INDHC, Treasury, and CBI need a rule-based coordination and veto path. |
+| CBI independence | The model cannot use Digital IQD to pressure the central bank into financing fiscal promises. |
+| FX transparency | Auction, intervention, allocation, and source-tagging rules need audit visibility. |
+
+### Operating Modes
+
+| Mode | Meaning | Required response |
+| --- | --- | --- |
+| Stable | Inflation, FX, reserves, credit, and liquidity gates are inside tolerance. | Proceed with routine monitoring. |
+| Watch | Risks are rising but not yet destabilizing. | Slow optional distributions and publish weekly/monthly macro dashboard. |
+| Tighten liquidity | Money, credit, or macro-risk scores are high. | Increase sterilization, tighten credit, slow project drawdowns, and protect reserves. |
+| Pause distributions | Inflation, FX premium, or liquidity injection breaches distribution tolerance. | Pause dividend growth and non-critical broad transfers. |
+| Stop scale-up | Severe inflation, food inflation, FX premium, reserve-cover weakness, or unsterilized injection appears. | Stop new scale-up until macro conditions recover. |
+
+### Why This Is Separate From Fiscal Stress
+
+Fiscal stress can say:
+
+```text
+The project can pay debt.
+The dividend is funded by audited surplus.
+The reserve and maintenance rules pass.
+```
+
+Macro stability can still say:
+
+```text
+Do not release this money yet.
+The economy cannot absorb the liquidity without inflation or FX leakage.
+Phase the spending, sterilize the injection, or wait for domestic supply and
+non-oil FX receipts to catch up.
+```
+
+Both gates are required. Fiscal solvency is not the same as price stability.
+
+### Use In The Unified Model
+
+This layer should run before:
+
+- monthly citizen dividend growth;
+- large Digital IQD liquidity injections;
+- civic wage expansion;
+- project payroll and procurement surges;
+- bank-credit expansion programs;
+- domestic bond or sukuk placement that might crowd out credit;
+- FX-sensitive imports for rail, energy, water, electronics, HVAC, or defense;
+- public announcements that imply guaranteed dividend growth.
+
+### Software And Data Surface
+
+The executable implementation is:
+
+- `crates/cs-analytics/src/macro_stability.rs`
+- `migrations/20260719000001_macro_stability.sql`
+
+Core objects:
+
+| Object | Purpose |
+| --- | --- |
+| `MacroStabilityInput` | Captures nominal GDP, inflation, food inflation, FX premium, reserves, import cover, FX demand, non-oil FX receipts, broad money, credit growth, bank liquidity, domestic supply, import leakage, Digital IQD injections, dividends, civic wages, project local spend, sterilization, treasury buffers, distribution phasing, CBI independence, policy coordination, and FX transparency. |
+| `MacroStabilityAssessment` | Scores unsterilized liquidity, inflation pressure, FX pressure, credit heat, absorption capacity, macro risk, recommended mode, and required actions. |
+| `MacroStabilityGateResult` | Records pass/warn/fail states for inflation, food inflation, FX premium, reserves, liquidity, sterilization, credit, domestic absorption, import leakage, non-oil FX cover, distribution phasing, policy coordination, CBI independence, and FX transparency. |
+
+### Dashboard Requirements
+
+The macro dashboard should show:
+
+- headline, core, and food inflation;
+- market FX premium;
+- reserves and import-cover months;
+- import bill, FX demand, and non-oil FX receipts;
+- broad money and private credit growth;
+- bank liquidity and loan/deposit ratio;
+- domestic supply growth and import leakage;
+- Digital IQD net injection, dividends, civic wages, and local project spend;
+- sterilization capacity and treasury deposit buffer;
+- unsterilized liquidity as a share of nominal GDP;
+- recommended mode and required actions.
+
+### Governance Boundary
+
+This layer should be conservative:
+
+```text
+If inflation is high, slow injections.
+If food inflation is high, protect supply before broad dividends.
+If the FX premium widens, phase FX demand and publish source tags.
+If import cover is weak, protect reserves.
+If unsterilized liquidity is large, sterilize or delay distribution.
+If CBI independence or policy coordination is missing, do not scale.
+```
+
+### Bottom Line
+
+The model should not turn oil reform into a demand shock. A citizen dividend is
+valuable only if its purchasing power survives. Digital IQD visibility helps the
+state see liquidity and prices earlier, but it does not repeal monetary
+constraints.
+
+
+# Part 12: Fiscal Stress And Contingent Liability
 
 ## Fiscal Stress And Contingent Liability Model
 
@@ -2370,7 +2563,7 @@ If dividends compete with solvency, dividends lose.
 ```
 
 
-# Part 12: National Program Sequencing And Dependency Control
+# Part 13: National Program Sequencing And Dependency Control
 
 ## National Program Sequencing And Dependency Control
 
@@ -2419,6 +2612,7 @@ where every component depends on every other component working immediately.
 | Audit capacity | Money movement, procurement, dividends, ministry service contracts. | Without audit, the model can recreate old opacity. |
 | Procurement capacity | INDHC projects, industrial champions, facility reuse, PPP/JV. | Without procurement discipline, capex becomes rent allocation. |
 | Political-economy readiness | Ministry transition, industrial privileges, lockbox scaling, citizen dividend rollout. | Without coalition, continuity, and appeals, reform can create backlash or capture. |
+| Macro stability pass | Digital IQD injections, dividend growth, civic wages, project drawdowns, credit expansion. | Without inflation, FX, reserve, credit, and liquidity discipline, a funded plan can still harm purchasing power. |
 | Fiscal stress pass | Scale-up, new debt, guarantees, availability payments, dividends. | Without stress discipline, hidden liabilities migrate back to Treasury. |
 | Service continuity | Ministry transition, public utilities, PDS/vouchers, health/education-adjacent services. | Citizens must not lose essential services while the model changes institutions. |
 | Cashflow evidence | Debt, dividends, domestic securities, project-company floats. | Invoices, benefits, and narratives are not cash. |
@@ -2437,7 +2631,7 @@ where every component depends on every other component working immediately.
 | Industrial champions | Pilot | Sector registry, scorecard, demand contracts, competition authority. | Export/FX path, price discipline, SME inclusion, no hidden bailout. |
 | Ministry transition | Evidence only | Service continuity pilot, staff transition fund, appeal desk. | 12-month continuity, parliamentary/audit report, citizen complaint metrics. |
 | Civic work | Pilot | Labor-law/privacy review, municipal authority, task verification. | Verified public value, bridge-to-work outcomes, grievance and disability access. |
-| Citizen dividend | Evidence only | Entitlement law, identity correction, cashflow waterfall, audit. | Audited distributable surplus after maintenance, debt, levy, reserves, and stress gates. |
+| Citizen dividend | Evidence only | Entitlement law, identity correction, cashflow waterfall, audit. | Audited distributable surplus after maintenance, debt, levy, reserves, macro-stability, and stress gates. |
 | Domestic capital markets | Evidence only | Securities approval, trustee/depository, disclosure, investor protection. | Audited project cashflow, no forced purchase, suitability and AML/CFT controls. |
 | Tourism services | Pilot | Safety, conservation, lodging/transport, guides, payment rails. | Carrying capacity, quality certification, local supplier benefit, collection evidence. |
 | Facility recycling | Evidence only | Asset registry, title, engineering, environmental, labor transition. | Revenue contract, DSCR, investor protection, finance-lane readiness. |
@@ -2506,7 +2700,7 @@ Rollback before denial.
 ```
 
 
-# Part 13: Procurement Integrity And Market Discipline
+# Part 14: Procurement Integrity And Market Discipline
 
 ## Procurement Integrity And Market Discipline
 
@@ -2672,7 +2866,7 @@ If champions crush suppliers, remove privilege.
 ```
 
 
-# Part 14: Benefit Realization And Claim Audit
+# Part 15: Benefit Realization And Claim Audit
 
 ## Benefit Realization And Claim Audit
 
@@ -2813,7 +3007,7 @@ If it underperforms, publish the variance.
 ```
 
 
-# Part 15: Iraq Integrated Growth Impact Model
+# Part 16: Iraq Integrated Growth Impact Model
 
 ## Iraq Integrated Growth Impact Model
 
@@ -3138,7 +3332,7 @@ citizen-facing accountability.
 ```
 
 
-# Part 16: Iraq Comprehensive Benefits Model
+# Part 17: Iraq Comprehensive Benefits Model
 
 ## Iraq Comprehensive Benefits Model
 
@@ -3610,7 +3804,7 @@ substrate for a post-oil, post-automation Iraqi development model:
 That is the unified economic, environmental, social, and cultural model.
 
 
-# Part 17: Iraq Quantified Affordability And Cashflow Model
+# Part 18: Iraq Quantified Affordability And Cashflow Model
 
 ## Iraq Quantified Affordability And Cashflow Model
 
@@ -4095,6 +4289,7 @@ New model primitives needed:
 | `RevenueStream` | Classifies revenue by sector, source, currency, contract type, counterparty, and recurrence. |
 | `RevenueContract` | Links sales, PPAs, availability payments, platform fees, land-value capture, or service charges to invoices and settlement. |
 | `FacilityRecyclingProjection` | Tests underutilized facility reuse before greenfield capex, including utilization gain, rehab economics, DSCR, FX cover, credit readiness, domestic market readiness, guarantee exposure, and finance lane. |
+| `MacroStabilityAssessment` | Tests inflation, food prices, FX premium, reserve cover, liquidity injection, sterilization capacity, credit growth, domestic absorption, import leakage, non-oil FX cover, CBI independence, and FX transparency before distribution growth or scale-up. |
 | `FiscalStressProjection` | Tests stressed oil-equity capacity, DSCR, FX mismatch, maintenance gaps, contingent liabilities, collection efficiency, capex overruns, and dividend affordability before scale-up. |
 | `OfftakeAgreement` | Stores buyer, volume, price formula, currency, tenor, and delivery evidence. |
 | `ImportSubstitutionSaving` | Records estimated FX and import-leakage savings separately from booked cash revenue. |
@@ -4134,7 +4329,7 @@ That is the point of quantifying the model: it converts a sovereign-economic
 vision into a financeable sequence with hard stop/go gates.
 
 
-# Part 18: System And Financial Flow Diagrams
+# Part 19: System And Financial Flow Diagrams
 
 ## System And Financial Flow Diagrams
 
@@ -4606,7 +4801,7 @@ remaining engineering gaps:
   governance, and dividend formula require independent review.
 
 
-# Part 19: Business Value Chain Charts
+# Part 20: Business Value Chain Charts
 
 ## Business Value Chain Charts
 
@@ -4723,7 +4918,7 @@ This chart pack also clarifies three repository boundaries:
   confuse GDP, avoided imports, or social outcomes with dividend capacity.
 
 
-# Part 20: Unified Economic Model
+# Part 21: Unified Economic Model
 
 ## Unified Economic Model
 
@@ -4749,7 +4944,7 @@ audited surplus.
 
 ### System Boundary
 
-The system has twenty-one layers:
+The system has twenty-two layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
@@ -4760,6 +4955,7 @@ The system has twenty-one layers:
 | Political-economy and anti-capture layer | Resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, and pause/rollback rules. | `docs/political-economy-transition-and-anti-capture.md` |
 | Federalism and governorate-equity layer | Local authority mapping, governorate/regional compacts, allocation fairness, local revenue/jobs/suppliers, grievance resolution, audit, appeals, and land/water/heritage disputes. | `docs/federalism-governorate-equity-and-local-compacts.md` |
 | Environmental, social, water, and cultural safeguard layer | Blocks or redesigns projects when water, pollution, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, or accessibility gates fail. | `docs/environmental-social-cultural-safeguards.md` |
+| Macro, monetary, inflation, and FX stability layer | Controls inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization, credit growth, domestic absorption, import leakage, non-oil FX, distribution phasing, CBI independence, and FX transparency. | `docs/macro-monetary-fx-stability.md` |
 | Fiscal stress and contingent-liability layer | Downside controls for oil-equity caps, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend suspension. | `docs/fiscal-stress-and-contingent-liability-model.md` |
 | Program sequencing layer | Domain-by-domain phase control for not-ready, evidence-only, pilot, build, controlled-scale, or hold/rollback based on legal, data, audit, procurement, delivery, political, fiscal, service, and cashflow dependencies. | `docs/national-program-sequencing-and-dependency-control.md` |
 | Procurement integrity and market-discipline layer | Controls ownership, competition, single-source justification, price benchmarks, open contracting data, contract variations, advances, milestone evidence, delivery, payment discipline, quality, and SME participation. | `docs/procurement-integrity-and-market-discipline.md` |
@@ -5151,6 +5347,7 @@ separate dashboard widgets.
 | `ProductionCapacityProjection` | Merchant tiers, local-content attestations, project outputs, inventory, procurement | Import substitution, food substitution, and domestic supply view. |
 | `FacilityRecyclingProjection` | Existing facility inventory, utilization, rehab capex, greenfield replacement cost, environmental liabilities, DSCR, FX cover, disclosure, investor protection | Brownfield reuse, international credit readiness, domestic capital-market readiness, and finance-lane view. |
 | `EnvironmentalSocialSafeguardAssessment` | Environmental assessment status, water budget, pollution risk, climate resilience, biodiversity/marshland, heritage, resettlement, livelihood, consultation, safety, maintenance, remediation, monitoring, audit, and accessibility evidence | Project safeguard stop/go, redesign, mitigation, evidence-only, pilot, monitoring, or eligibility view. |
+| `MacroStabilityAssessment` | Inflation, food inflation, FX premium, reserves, import cover, FX demand, non-oil FX receipts, money and credit growth, bank liquidity, domestic supply, import leakage, Digital IQD injections, dividends, civic wages, local project spend, sterilization, treasury buffers, and CBI-governance evidence | Macro mode, liquidity phasing, distribution safety, FX pressure, inflation pressure, and absorption-capacity view. |
 | `StrategicResilienceProjection` | Defense-sector licenses, electronics/HVAC output, water/desalination equipment, irrigation systems, food-substitution capacity, end-use controls | Critical domestic capability and import-vulnerability view. |
 | `TourismServiceClusterProjection` | Attractions, visitor counts, spend, formal payment capture, local procurement, safety, conservation, lodging, transport, guide capacity | Booked service revenue, non-oil FX capture, local supplier demand, and second-order benefit view. |
 | `DiasporaChannelProjection` | Diaspora region, channel, member conversion, product share, export orders, remittances, expertise, investment pipeline, marketing reach, compliance gates | Diaspora income, formalized remittance, export distribution, expertise, investment, marketing, and no-dividend benefit view. |
@@ -5348,7 +5545,7 @@ The point is not only to digitize money. The point is to make Iraq's economic
 feedback loops visible, governable, productive, and citizen-owned.
 
 
-# Part 21: National Dividend Holding Company
+# Part 22: National Dividend Holding Company
 
 ## National Dividend Holding Company Architecture
 
@@ -5643,7 +5840,7 @@ for the proposed investment program, capital stack, staffing model, sector
 priorities, reinvestment waterfall, and implementation primitives.
 
 
-# Part 22: INDHC Ten-Year Plan
+# Part 23: INDHC Ten-Year Plan
 
 ## INDHC Ten-Year Industrial And Infrastructure Plan
 
@@ -6516,7 +6713,7 @@ productive-capital machine:
 - remaining distributable surplus is paid as a Digital IQD citizen dividend.
 
 
-# Part 23: Import, Services, And Diaspora Expansion
+# Part 24: Import, Services, And Diaspora Expansion
 
 ## Import, Services, And Diaspora Expansion
 
@@ -6692,7 +6889,7 @@ dashboard a way to distinguish cash income, remittance formalization, export
 distribution, expertise value, marketing value, and investment pipeline risk.
 
 
-# Part 24: Facility Recycling And Capital Markets
+# Part 25: Facility Recycling And Capital Markets
 
 ## Facility Recycling And Capital Markets
 
@@ -6915,7 +7112,7 @@ ranked, financeable where justified, and impossible to dress up as value when it
 is actually a liability.
 
 
-# Part 25: Digitally Governed Industrial Champions
+# Part 26: Digitally Governed Industrial Champions
 
 ## Digitally Governed Industrial Champions
 
@@ -7414,7 +7611,7 @@ No competition review, no champion status renewal.
 ```
 
 
-# Part 26: National Civic Work System
+# Part 27: National Civic Work System
 
 ## National Civic Work System
 
@@ -7798,7 +7995,7 @@ productivity gains
 ```
 
 
-# Part 27: Ministry Transition Roadmap
+# Part 28: Ministry Transition Roadmap
 
 ## Ministry Transition And Deprecation Roadmap
 
@@ -8005,7 +8202,7 @@ The end-state is a smaller cabinet with stronger sovereign functions:
 - productive national capital through INDHC.
 
 
-# Part 28: Security Model
+# Part 29: Security Model
 
 ## Security Model And Threat Notes
 
@@ -8208,7 +8405,7 @@ replace it with a dedicated security contact, patch SLA, coordinated-disclosure
 timeline, and legal safe-harbor language.
 
 
-# Part 29: Current Implementation Status
+# Part 30: Current Implementation Status
 
 ## Implementation Status
 
@@ -8236,11 +8433,12 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - Political-Economy Transition and Anti-Capture model documented as a reform-readiness layer for capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, federalism, emergency powers, and citizen appeals.
 - Federalism, Governorate Equity, and Local Compacts documented as a scale-control layer for authority mapping, compact status, allocation fairness, local revenue, local employment, supplier participation, benefit capture, grievances, local audit, citizen appeals, and land/water/heritage disputes.
 - Environmental, Social, Water, and Cultural Safeguards documented as a project-control layer for environmental assessment, water budgets, pollution controls, climate resilience, biodiversity/marshlands, heritage, resettlement, livelihood restoration, consultation, grievance, safety, maintenance, remediation, monitoring, audit, waste/circularity, and disability access.
+- Macro, Monetary, Inflation, and FX Stability documented as a scale-control layer for inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization capacity, credit growth, domestic absorption, import leakage, non-oil FX cover, distribution phasing, policy coordination, CBI independence, and FX transparency.
 - Fiscal Stress and Contingent Liability model documented as a downside-control layer for stressed oil-equity capacity, DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability.
 - National Program Sequencing and Dependency Control documented as a phase-control layer for not-ready, evidence-only, pilot, build, controlled-scale, and hold/rollback decisions.
 - Benefit Realization and Claim Audit documented as an accountability layer for baseline, target, observed value, source confidence, attribution confidence, evidence quality, audit status, cash settlement, no-dividend flags, and corrective actions.
 - Procurement Integrity and Market Discipline documented as an award/privilege-control layer for beneficial ownership, competition, single-source justification, open data, independent evaluation, price benchmarks, contract changes, advances, milestone evidence, delivery, payment discipline, quality, and SME participation.
-- Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, federalism/governorate equity, environmental/social safeguards, fiscal stress, program sequencing, benefit realization, and procurement integrity. These are planning primitives, not calibrated national forecasts.
+- Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, federalism/governorate equity, environmental/social safeguards, macro stability, fiscal stress, program sequencing, benefit realization, and procurement integrity. These are planning primitives, not calibrated national forecasts.
 - Rendered SVG value-chain charts now cover sector business chains, capital and repayment lanes, and society/economy feedback loops.
 
 ### Important Gaps
@@ -8261,6 +8459,7 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - The political-economy engine is scenario scoring, not a real power map or legitimacy assessment. It needs independent Iraqi constitutional, federalism, anti-corruption, civil-service, labor, competition, citizen-rights, and security-sector review before it can guide any real transition.
 - The federalism equity engine is a compact-readiness screen, not a legal allocation formula or constitutional settlement. It needs official authority maps, governorate/KRG/municipal review where applicable, real population and needs data, grievance records, land/water/heritage status, and independent legal validation before it can guide any allocation or project scale-up.
 - The environmental/social safeguard engine is a planning screen, not an environmental permit, heritage clearance, water-rights decision, resettlement plan, safety certification, or MDB safeguard approval. It needs regulator review, field studies, community consultation, monitoring systems, liability estimates, and independent audit before any project is treated as safeguard-cleared.
+- The macro stability engine is a scenario control, not a monetary-policy framework or exchange-rate forecast. It needs CBI, Ministry of Finance, banking-sector, IMF/MDB-style, and independent macroeconomic validation before it can guide Digital IQD issuance, dividends, liquidity, bank credit, FX intervention, or reserve policy.
 - The fiscal stress engine is a planning control, not a sovereign debt-sustainability analysis. It needs Ministry of Finance, debt-office, CBI, IMF/MDB-style, auditor, and project-finance validation before any real capital allocation or dividend decision.
 - The program sequencer is a dependency-control model, not an official rollout plan. It needs real institutional owners, statutory milestones, operator readiness testing, citizen consultation, and independent PMO review before any public timeline is claimed.
 - The benefit-realization engine is a claim-audit model, not proof that benefits exist. It needs real baselines, audited source systems, attribution methods, evaluator independence, and publication governance before any outcome is treated as delivered.
@@ -8285,7 +8484,7 @@ cargo test --workspace
 Passing these checks should be described as prototype verification, not production certification.
 
 
-# Part 30: Technical Primitives
+# Part 31: Technical Primitives
 
 ## Technical Primitives And Readiness Notes
 

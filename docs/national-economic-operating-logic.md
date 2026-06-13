@@ -22,6 +22,7 @@ No strategic program without anti-capture controls.
 No transition scale-up without political-economy readiness.
 No national scale-up without governorate compact readiness.
 No project scale-up without environmental, social, water, and cultural safeguards.
+No liquidity injection or dividend growth without macro and FX stability.
 No scale-up under fiscal stress.
 No scale before predecessor dependencies pass.
 No award or privilege without procurement integrity.
@@ -143,6 +144,7 @@ forward no matter how attractive the narrative is.
 | Anti-capture | Related-party exposure, monopoly risk, PEP/sanctions risk, and procurement concentration are within limits. |
 | Local compact readiness | Governorate, municipal, regional, or disputed-authority compact exists where required; allocation variance is explained; local revenue, jobs, suppliers, benefits, grievances, audit, appeals, and land/water/heritage issues are controlled. |
 | Environmental and social safeguards | Water, pollution, climate, biodiversity, marshland, heritage, resettlement, livelihood, consultation, grievance, safety, maintenance, remediation, monitoring, audit, and accessibility gates pass. |
+| Macro and FX stability | Inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization capacity, credit growth, domestic absorption, import leakage, non-oil FX cover, distribution phasing, CBI independence, and FX transparency remain inside limits. |
 | Privacy and security | Data use, access controls, auditability, offline settlement, and operator powers meet the security model. |
 | Citizen fairness | Dividends, civic work, transfers, and appeals are rules-based and auditable. |
 | Political-economy readiness | Resistance, capture risk, coalition support, service continuity, staff transition, procurement transparency, competition control, federalism, and appeals support the proposed transition mode. |
@@ -280,6 +282,7 @@ kernel, not a complete national operating system.
 | `PoliticalEconomyProjection` | Capture risk, resistance pressure, coalition readiness, citizen legitimacy, transition readiness, and recommended transition mode. |
 | `FederalismEquityAssessment` | Governorate/regional compact status, needs-adjusted allocation gap, local revenue/jobs/suppliers/benefits, grievances, authority risk, decision, and required actions. |
 | `EnvironmentalSocialSafeguardAssessment` | Water risk, pollution risk, ecosystem/heritage risk, social risk, safeguard readiness, decision, and required actions. |
+| `MacroStabilityAssessment` | Unsterilized liquidity, inflation pressure, FX pressure, credit heat, absorption capacity, macro risk, recommended mode, and required actions. |
 | `FiscalStressProjection` | Stressed oil-equity capacity, fiscal-rule breach, DSCR, FX mismatch, maintenance gap, contingent liability, dividend gap, and recommended stress mode. |
 | `ProgramSequencingDecision` | Domain readiness, dependency completion, operating capacity, legitimacy, recommended phase, blocked dependencies, and next required actions. |
 | `ProcurementIntegrityAssessment` | Competition, integrity, value-for-money, delivery, market-development, overall risk, decision, and required actions for awards and privileges. |
@@ -381,6 +384,15 @@ Initial executable coverage:
   publication, independent audit, decision state, and required actions.
   `migrations/20260718000001_environmental_social_safeguards.sql` adds
   assessment and gate tables.
+- `crates/cs-analytics/src/macro_stability.rs` adds the first macro, monetary,
+  inflation, and FX stability layer: headline/core/food inflation, market FX
+  premium, reserves, import cover, FX demand, non-oil FX receipts, money and
+  credit growth, bank liquidity, domestic supply growth, import leakage,
+  Digital IQD injections, dividends, civic wages, project local spend,
+  sterilization, treasury buffers, distribution phasing, CBI independence,
+  policy coordination, FX transparency, recommended mode, and required actions.
+  `migrations/20260719000001_macro_stability.sql` adds assessment and gate
+  tables.
 - `crates/cs-analytics/src/fiscal_stress.rs` adds the first fiscal-stress and
   contingent-liability layer: stressed oil-equity capacity, deficit/debt/reserve
   pressure, stressed DSCR, FX mismatch, maintenance gaps, guarantee and
@@ -431,6 +443,7 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Political economy | Which reforms face capture, resistance, weak coalition support, service-continuity failure, staff-transition failure, or federalism risk? |
 | Federalism equity | Which governorates or regions have signed compacts, allocation gaps, weak local benefit capture, unresolved grievances, authority disputes, or appeal/audit gaps? |
 | Environmental and social safeguards | Which projects have water, pollution, marshland, biodiversity, heritage, resettlement, livelihood, safety, maintenance, remediation, monitoring, audit, or accessibility risks? |
+| Macro stability | Are inflation, food prices, FX premium, reserves, liquidity injections, credit growth, domestic absorption, import leakage, non-oil FX cover, CBI independence, and FX transparency safe enough for distribution or scale-up? |
 | Fiscal stress | Which projects or portfolios breach oil-equity limits, stressed DSCR, FX cover, maintenance reserves, contingent-liability caps, collection efficiency, or dividend affordability? |
 | Program sequencing | Which domains are not-ready, evidence-only, pilot, build, controlled-scale, or hold/rollback, and which dependencies block the next phase? |
 | Procurement integrity | Which awards, service contracts, concessions, champion privileges, or facility-reuse procurements are eligible, watch, restricted, suspended, or retender/cancel? |
@@ -448,6 +461,7 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Unpaid public invoices | Stop counting revenue as collectible; review ministry or municipal payment capacity. |
 | Local compact failure | Freeze scale-up, publish the affected compact issue, and move the program to evidence-only, compact-required, pilot-only, or renegotiation mode. |
 | Safeguard failure | Freeze capital release, remove project surplus from dividend logic, and require redesign, mitigation, or evidence-only status. |
+| Macro-stability breach | Pause dividend growth, slow Digital IQD injections, tighten credit, increase sterilization, phase FX demand, and publish macro dashboard. |
 | FX mismatch | Restrict new foreign-currency borrowing unless offset by FX revenue, hedge, or approved reserve. |
 | Benefit overclaim | Move claim to low-confidence public-benefit ledger and remove from policy headline. |
 | Civic-work evidence failure | Hold payment, trigger appeal or re-verification, and flag verifier reliability. |

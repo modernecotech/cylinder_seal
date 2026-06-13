@@ -22,7 +22,7 @@ audited surplus.
 
 ## System Boundary
 
-The system has twenty-one layers:
+The system has twenty-two layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
@@ -33,6 +33,7 @@ The system has twenty-one layers:
 | Political-economy and anti-capture layer | Resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, and pause/rollback rules. | `docs/political-economy-transition-and-anti-capture.md` |
 | Federalism and governorate-equity layer | Local authority mapping, governorate/regional compacts, allocation fairness, local revenue/jobs/suppliers, grievance resolution, audit, appeals, and land/water/heritage disputes. | `docs/federalism-governorate-equity-and-local-compacts.md` |
 | Environmental, social, water, and cultural safeguard layer | Blocks or redesigns projects when water, pollution, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, or accessibility gates fail. | `docs/environmental-social-cultural-safeguards.md` |
+| Macro, monetary, inflation, and FX stability layer | Controls inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization, credit growth, domestic absorption, import leakage, non-oil FX, distribution phasing, CBI independence, and FX transparency. | `docs/macro-monetary-fx-stability.md` |
 | Fiscal stress and contingent-liability layer | Downside controls for oil-equity caps, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend suspension. | `docs/fiscal-stress-and-contingent-liability-model.md` |
 | Program sequencing layer | Domain-by-domain phase control for not-ready, evidence-only, pilot, build, controlled-scale, or hold/rollback based on legal, data, audit, procurement, delivery, political, fiscal, service, and cashflow dependencies. | `docs/national-program-sequencing-and-dependency-control.md` |
 | Procurement integrity and market-discipline layer | Controls ownership, competition, single-source justification, price benchmarks, open contracting data, contract variations, advances, milestone evidence, delivery, payment discipline, quality, and SME participation. | `docs/procurement-integrity-and-market-discipline.md` |
@@ -424,6 +425,7 @@ separate dashboard widgets.
 | `ProductionCapacityProjection` | Merchant tiers, local-content attestations, project outputs, inventory, procurement | Import substitution, food substitution, and domestic supply view. |
 | `FacilityRecyclingProjection` | Existing facility inventory, utilization, rehab capex, greenfield replacement cost, environmental liabilities, DSCR, FX cover, disclosure, investor protection | Brownfield reuse, international credit readiness, domestic capital-market readiness, and finance-lane view. |
 | `EnvironmentalSocialSafeguardAssessment` | Environmental assessment status, water budget, pollution risk, climate resilience, biodiversity/marshland, heritage, resettlement, livelihood, consultation, safety, maintenance, remediation, monitoring, audit, and accessibility evidence | Project safeguard stop/go, redesign, mitigation, evidence-only, pilot, monitoring, or eligibility view. |
+| `MacroStabilityAssessment` | Inflation, food inflation, FX premium, reserves, import cover, FX demand, non-oil FX receipts, money and credit growth, bank liquidity, domestic supply, import leakage, Digital IQD injections, dividends, civic wages, local project spend, sterilization, treasury buffers, and CBI-governance evidence | Macro mode, liquidity phasing, distribution safety, FX pressure, inflation pressure, and absorption-capacity view. |
 | `StrategicResilienceProjection` | Defense-sector licenses, electronics/HVAC output, water/desalination equipment, irrigation systems, food-substitution capacity, end-use controls | Critical domestic capability and import-vulnerability view. |
 | `TourismServiceClusterProjection` | Attractions, visitor counts, spend, formal payment capture, local procurement, safety, conservation, lodging, transport, guide capacity | Booked service revenue, non-oil FX capture, local supplier demand, and second-order benefit view. |
 | `DiasporaChannelProjection` | Diaspora region, channel, member conversion, product share, export orders, remittances, expertise, investment pipeline, marketing reach, compliance gates | Diaspora income, formalized remittance, export distribution, expertise, investment, marketing, and no-dividend benefit view. |

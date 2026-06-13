@@ -14,6 +14,7 @@
 - `docs/political-economy-transition-and-anti-capture.md` - resistance, capture-risk, coalition, service-continuity, staff-transition, procurement-transparency, and pause/rollback logic.
 - `docs/federalism-governorate-equity-and-local-compacts.md` - governorate, municipal, regional, and disputed-authority compact gates for allocation fairness, local benefit capture, grievances, audit, appeals, and land/water/heritage disputes.
 - `docs/environmental-social-cultural-safeguards.md` - environmental, social, water, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, and accessibility gates.
+- `docs/macro-monetary-fx-stability.md` - macro, monetary, inflation, food-price, FX, reserve-cover, liquidity, credit, import-leakage, distribution-phasing, CBI-independence, and FX-transparency gates.
 - `docs/fiscal-stress-and-contingent-liability-model.md` - downside stress controls for oil-equity caps, DSCR, FX mismatch, maintenance gaps, guarantees, collection weakness, capex overruns, and dividend suspension.
 - `docs/national-program-sequencing-and-dependency-control.md` - sequencing controller that decides not-ready, evidence-only, pilot, build, controlled-scale, or hold/rollback phase for each domain.
 - `docs/procurement-integrity-and-market-discipline.md` - procurement and market-discipline gates for ownership, competition, price benchmarks, contract changes, payment discipline, quality, and SME participation.

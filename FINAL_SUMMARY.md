@@ -25,6 +25,10 @@ Current posture:
   marshland/biodiversity, heritage, resettlement, livelihood, consultation,
   grievance, safety, maintenance, remediation, monitoring, audit, waste, and
   accessibility gates.
+- **Macro-stability discipline:** modeled through inflation, food prices, FX
+  premium, reserve cover, unsterilized liquidity, sterilization, credit growth,
+  domestic absorption, import leakage, non-oil FX cover, CBI independence, and
+  FX transparency gates.
 - **Stress discipline:** modeled through oil-equity caps, stressed DSCR, FX
   mismatch, maintenance gaps, guarantees, availability payments, collections,
   capex overruns, and dividend-affordability gates.
@@ -83,6 +87,10 @@ Current posture:
   redesigns, or limits projects when externalized harm, missing clearances,
   unfunded maintenance/remediation, weak monitoring, or unresolved community
   risks would make the economics misleading.
+- Macro, monetary, inflation, and FX stability logic that can pause
+  distributions, tighten liquidity, or stop scale-up when the economy cannot
+  absorb Digital IQD injections, dividends, civic wages, project spending, or
+  bank-credit growth.
 - Fiscal stress and contingent-liability logic that can force defensive or
   stop-scale-up mode when shocks make dividends, guarantees, FX debt, or new
   capex unsafe.
@@ -131,6 +139,9 @@ Current posture:
   approvals, water budgets, heritage clearance, biodiversity and marshland
   review, resettlement/livelihood plans, safety systems, remediation estimates,
   monitoring evidence, and accessibility review.
+- Independent macro/monetary validation covering inflation, food prices, FX
+  premium, reserves, import cover, liquidity injection, credit growth, import
+  leakage, non-oil FX cover, CBI independence, and FX transparency.
 - Independent fiscal stress validation of oil-equity caps, project debt,
   contingent liabilities, guarantees, availability payments, FX exposure,
   collection efficiency, maintenance reserves, and dividend rules.

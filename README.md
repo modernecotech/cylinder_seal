@@ -40,8 +40,8 @@ The model has six practical rules:
 
 1. No cash claim without settled evidence.
 2. No benefit claim without source-tagged measurement.
-3. No capital allocation without legal, fiscal, debt, revenue, FX, maintenance,
-   audit, privacy, and anti-capture gates.
+3. No capital allocation without legal, fiscal, macro, debt, revenue, FX,
+   maintenance, audit, privacy, and anti-capture gates.
 4. No dividend from oil receipts, borrowing, asset revaluation, or estimated GDP
    effects.
 5. Existing Iraqi facilities are screened before greenfield capex.
@@ -60,6 +60,7 @@ The model has six practical rules:
 | Political economy | Models resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, and pause/rollback rules. | [Political-economy transition and anti-capture model](docs/political-economy-transition-and-anti-capture.md) |
 | Federalism equity | Controls governorate/regional authority, local compact readiness, needs-adjusted allocation fairness, local revenue/jobs/suppliers, grievance resolution, data publication, audit, appeals, and land/water/heritage disputes. | [Federalism, governorate equity, and local compacts](docs/federalism-governorate-equity-and-local-compacts.md) |
 | Environmental and social safeguards | Blocks or redesigns projects when water, pollution, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, or accessibility gates fail. | [Environmental, social, water, and cultural safeguards](docs/environmental-social-cultural-safeguards.md) |
+| Macro stability | Controls inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization capacity, credit growth, domestic absorption, import leakage, non-oil FX cover, distribution phasing, CBI independence, and FX transparency. | [Macro, monetary, inflation, and FX stability](docs/macro-monetary-fx-stability.md) |
 | Fiscal stress | Tests oil-equity caps, stressed DSCR, FX mismatch, maintenance gaps, guarantees, collection weakness, capex overruns, and dividend affordability under downside cases. | [Fiscal stress and contingent liability model](docs/fiscal-stress-and-contingent-liability-model.md) |
 | Program sequencing | Decides whether each domain is not ready, evidence-only, pilot, build, controlled scale, or hold/rollback based on dependencies and gates. | [National program sequencing and dependency control](docs/national-program-sequencing-and-dependency-control.md) |
 | Procurement integrity | Controls beneficial ownership, competition depth, price benchmarks, single-source justification, contract variations, milestone evidence, payment discipline, quality, and SME participation. | [Procurement integrity and market discipline](docs/procurement-integrity-and-market-discipline.md) |
@@ -210,6 +211,7 @@ forecasts.
 | Procurement integrity and market discipline | `crates/cs-analytics/src/procurement_integrity.rs` | `migrations/20260716000001_procurement_integrity.sql` |
 | Federalism, governorate equity, and local compacts | `crates/cs-analytics/src/federalism_equity.rs` | `migrations/20260717000001_federalism_equity_compact.sql` |
 | Environmental, social, water, and cultural safeguards | `crates/cs-analytics/src/environmental_social_safeguards.rs` | `migrations/20260718000001_environmental_social_safeguards.sql` |
+| Macro, monetary, inflation, and FX stability | `crates/cs-analytics/src/macro_stability.rs` | `migrations/20260719000001_macro_stability.sql` |
 
 ## Developer Appendix: Local Software Demo
 

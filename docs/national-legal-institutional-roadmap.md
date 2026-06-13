@@ -108,6 +108,18 @@ INDHC, ministries, PPP operators, tourism platforms, and industrial champions
 should not be able to approve their own water, heritage, resettlement,
 pollution, safety, remediation, or monitoring conditions.
 
+## Macro, Monetary, Inflation, And FX Stability
+
+The working control document is
+[Macro, Monetary, Inflation, And FX Stability](macro-monetary-fx-stability.md).
+The executable planning primitive is `crates/cs-analytics/src/macro_stability.rs`,
+with persistence in `migrations/20260719000001_macro_stability.sql`.
+
+This model requires a clear CBI authority boundary. Digital IQD, dividends,
+project spending, civic wages, bank-credit expansion, and domestic securities
+should not become a back door for fiscal dominance, forced liquidity creation,
+or hidden exchange-rate pressure.
+
 ## Phased Legal Roadmap
 
 | Phase | Years | Legal work | Output |
@@ -175,6 +187,7 @@ The legal roadmap should produce a single public stop/go dashboard:
 | --- | --- |
 | Constitutional/federalism | Oil, revenue, governorate, regional, and citizen-rights issues have legal path and dispute forum. |
 | CBI/payment | Monetary status, settlement, wallet, AML/CFT, and privacy rules are approved for pilot scope. |
+| Macro/FX stability | Inflation, food prices, liquidity injection, reserve cover, FX premium, credit growth, CBI independence, policy coordination, and FX transparency gates pass. |
 | Fiscal/debt | Oil-equity cap, guarantees, project debt, and budget treatment are disclosed and approved. |
 | Fiscal stress | Oil-equity draw, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability remain inside limits. |
 | INDHC governance | Board, audit, procurement, related-party, competition, and dividend rules are enforceable. |

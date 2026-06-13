@@ -45,6 +45,7 @@ where every component depends on every other component working immediately.
 | Audit capacity | Money movement, procurement, dividends, ministry service contracts. | Without audit, the model can recreate old opacity. |
 | Procurement capacity | INDHC projects, industrial champions, facility reuse, PPP/JV. | Without procurement discipline, capex becomes rent allocation. |
 | Political-economy readiness | Ministry transition, industrial privileges, lockbox scaling, citizen dividend rollout. | Without coalition, continuity, and appeals, reform can create backlash or capture. |
+| Macro stability pass | Digital IQD injections, dividend growth, civic wages, project drawdowns, credit expansion. | Without inflation, FX, reserve, credit, and liquidity discipline, a funded plan can still harm purchasing power. |
 | Fiscal stress pass | Scale-up, new debt, guarantees, availability payments, dividends. | Without stress discipline, hidden liabilities migrate back to Treasury. |
 | Service continuity | Ministry transition, public utilities, PDS/vouchers, health/education-adjacent services. | Citizens must not lose essential services while the model changes institutions. |
 | Cashflow evidence | Debt, dividends, domestic securities, project-company floats. | Invoices, benefits, and narratives are not cash. |
@@ -63,7 +64,7 @@ where every component depends on every other component working immediately.
 | Industrial champions | Pilot | Sector registry, scorecard, demand contracts, competition authority. | Export/FX path, price discipline, SME inclusion, no hidden bailout. |
 | Ministry transition | Evidence only | Service continuity pilot, staff transition fund, appeal desk. | 12-month continuity, parliamentary/audit report, citizen complaint metrics. |
 | Civic work | Pilot | Labor-law/privacy review, municipal authority, task verification. | Verified public value, bridge-to-work outcomes, grievance and disability access. |
-| Citizen dividend | Evidence only | Entitlement law, identity correction, cashflow waterfall, audit. | Audited distributable surplus after maintenance, debt, levy, reserves, and stress gates. |
+| Citizen dividend | Evidence only | Entitlement law, identity correction, cashflow waterfall, audit. | Audited distributable surplus after maintenance, debt, levy, reserves, macro-stability, and stress gates. |
 | Domestic capital markets | Evidence only | Securities approval, trustee/depository, disclosure, investor protection. | Audited project cashflow, no forced purchase, suitability and AML/CFT controls. |
 | Tourism services | Pilot | Safety, conservation, lodging/transport, guides, payment rails. | Carrying capacity, quality certification, local supplier benefit, collection evidence. |
 | Facility recycling | Evidence only | Asset registry, title, engineering, environmental, labor transition. | Revenue contract, DSCR, investor protection, finance-lane readiness. |

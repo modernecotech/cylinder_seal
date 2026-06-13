@@ -90,6 +90,11 @@ dividends only after the portfolio produces audited surplus.
   water budgets, pollution controls, marshland/biodiversity plans, heritage
   clearance, resettlement, livelihood restoration, safety, maintenance,
   remediation, monitoring, audit, or accessibility gates fail.
+- **Macro-stability gates:** dividend growth, Digital IQD injections, civic
+  wages, project spending, and bank-credit expansion slow or stop when
+  inflation, food prices, FX premium, reserve cover, unsterilized liquidity,
+  import leakage, non-oil FX cover, CBI independence, or FX transparency gates
+  fail.
 - **Fiscal stress gates:** scale-up and dividends stop when stressed oil-equity
   capacity, DSCR, FX cover, maintenance reserves, contingent liabilities,
   collections, capex overruns, or dividend affordability fail.
@@ -127,8 +132,8 @@ dividends only after the portfolio produces audited surplus.
   benefits, production capacity, strategic resilience, tourism services,
   diaspora channels, facility recycling, political-economy transition
   readiness, federalism/governorate equity, environmental/social safeguards,
-  fiscal stress, program sequencing, benefit realization, and procurement
-  integrity.
+  macro stability, fiscal stress, program sequencing, benefit realization, and
+  procurement integrity.
 - A pilot-grade Digital IQD software appendix covering transaction models,
   signing primitives, policy modules, POS/mobile codecs, dashboard routes,
   PostgreSQL migrations, Redis sessions, and specification tests.
@@ -149,6 +154,9 @@ dividends only after the portfolio produces audited surplus.
 - Independent environmental, social, water, heritage, biodiversity, resettlement,
   livelihood, safety, remediation, monitoring, and accessibility validation for
   any project that claims to be bankable or scalable.
+- Independent CBI, Ministry of Finance, banking-sector, FX-market, and
+  macroeconomic validation before using Digital IQD issuance, dividends, civic
+  wages, or project spending as real liquidity-management tools.
 - Independent program-management review of sequencing, dependency ownership,
   operator readiness, milestone realism, pilot scope, citizen consultation, and
   rollback authority.
