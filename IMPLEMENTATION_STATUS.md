@@ -120,7 +120,7 @@ Run one of:
 
 ```bash
 # Option 1: Set DATABASE_URL and let sqlx verify
-export DATABASE_URL="postgres://postgres:password@localhost/cylinder_seal"
+export DATABASE_URL="postgres://postgres:${DB_PASSWORD}@localhost/cylinder_seal"
 docker-compose up -d  # Start containers
 cargo build
 

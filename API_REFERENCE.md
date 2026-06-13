@@ -13,6 +13,8 @@ cargo run --package cbi-dashboard
 # Server runs on http://127.0.0.1:8081
 ```
 
+The seeded operators are for local demos only. The default local seed password is documented in `.env.example` as `DEMO_OPERATOR_PASSWORD`; replace the seed hashes before sharing or deploying any environment.
+
 ---
 
 ## Authentication
@@ -24,7 +26,7 @@ Request:
 ```json
 {
   "username": "supervisor",
-  "password": "test123"
+  "password": "<DEMO_OPERATOR_PASSWORD>"
 }
 ```
 
@@ -523,14 +525,16 @@ All endpoints return standard HTTP status codes:
 
 ---
 
-## Test Credentials
+## Local Demo Operators
 
-| Username | Password | Role |
-|----------|----------|------|
-| supervisor | test123 | Supervisor |
-| officer | test123 | Officer |
-| analyst | test123 | Analyst |
-| auditor | test123 | Auditor |
+These accounts are seeded only by `./setup-sqlite-dev.sh` for local development.
+
+| Username | Role |
+|----------|------|
+| supervisor | Supervisor |
+| officer | Officer |
+| analyst | Analyst |
+| auditor | Auditor |
 
 ---
 
@@ -540,7 +544,7 @@ All endpoints return standard HTTP status codes:
 # 1. Login
 TOKEN=$(curl -s -X POST http://localhost:8081/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"supervisor","password":"test123"}' \
+  -d "{\"username\":\"supervisor\",\"password\":\"${DEMO_OPERATOR_PASSWORD}\"}" \
   | jq -r '.token')
 
 # 2. View overview
@@ -621,4 +625,3 @@ export DATABASE_URL="sqlite:cylinder_seal.db"
 - **IMPLEMENTATION_STATUS.md** — Technical implementation details
 - **TEST_RESULTS.md** — Test validation results
 - **FINAL_SUMMARY.md** — Complete summary of deliverables
-

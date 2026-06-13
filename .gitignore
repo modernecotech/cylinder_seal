@@ -20,6 +20,15 @@ build/
 .env
 .env.local
 .env.*.local
+venv/
+.venv/
+
+# Local generated state
+cylinder_seal.db
+*.sqlite
+*.sqlite3
+dump.rdb
+*.rdb
 
 # IDE
 .vscode/

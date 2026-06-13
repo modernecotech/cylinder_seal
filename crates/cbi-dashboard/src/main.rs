@@ -175,13 +175,8 @@ mod handlers {
             let hashed_password: String = operator_row.get("hashed_password");
             let role: String = operator_row.get("role");
 
-            // Verify password (allow test123 for dev, verify argon2 for prod)
-            let password_valid = if hashed_password == "test123" {
-                req.password == "test123"
-            } else {
-                verify_password(&req.password, &hashed_password)
-                    .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
-            };
+            let password_valid = verify_password(&req.password, &hashed_password)
+                .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
             if !password_valid {
                 return Err(StatusCode::UNAUTHORIZED);

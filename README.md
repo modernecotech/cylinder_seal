@@ -1,0 +1,96 @@
+# Cylinder Seal
+
+Sovereign digital-payment and economic-visibility prototype for Iraq.
+
+Cylinder Seal explores how CBI-backed digital IQD payment rails could support financial inclusion, SME credit scoring, public-transfer controls, domestic-production incentives, and regulator-grade economic dashboards. It is a working Rust prototype and policy architecture, not production CBDC infrastructure and not an official Central Bank of Iraq project.
+
+![Cylinder Seal architecture](1776870497788.png)
+
+## What This Repo Contains
+
+The workspace is organized as a set of focused Rust crates:
+
+| Area | Crates and files |
+| --- | --- |
+| Core ledger models | `crates/cs-core`, `crates/cs-storage` |
+| Sync and consensus | `crates/cs-sync`, `crates/cs-consensus`, `proto/chain_sync.proto` |
+| Policy, AML, credit | `crates/cs-policy`, `crates/cs-credit`, `crates/cs-exchange`, `crates/cs-feeds` |
+| APIs and node runtime | `crates/cs-api`, `crates/cs-node` |
+| POS and mobile surfaces | `crates/cs-pos`, `crates/cs-mobile-core`, `android/`, `ios/` |
+| CBI-style dashboard | `crates/cbi-dashboard`, `crates/cs-analytics` |
+| Specification tests | `crates/cs-tests` |
+
+The thesis is narrow on purpose: use digital payment trails to make informal activity more bankable and visible, then let policy modules experiment with merchant tiers, transaction-based credit, AML workflows, and public-transfer constraints.
+
+## Current Status
+
+| Status | Scope |
+| --- | --- |
+| Implemented | Rust domain models, canonical signing primitives, transaction/wire-format primitives, KYC tier limits, POS/mobile codecs, CBI dashboard routes, SQLite demo setup, AML/risk/credit modules, and numbered specification tests. |
+| Partially implemented | Offline payment lifecycle, double-spend reconciliation, merchant-tier policy, transaction-based credit scoring, AML reporting, dashboard UI, and Raft-backed sync. These have code and tests, but need production integration and security hardening. |
+| Not production-ready | HSM or secure-element custody, national identity/KYC integration, audited offline double-spend prevention, real multi-peer Raft deployment, CBI/core-banking integration, privacy review, disaster recovery, formal threat model review, and externally validated economic impact model. |
+
+The codebase should be read as a pilot-grade prototype. It is suitable for technical review, policy exploration, and demo workflows. It should not be represented as ready for national-scale deployment.
+
+## Quick Start
+
+Install Rust, SQLite, and Redis/PostgreSQL if you want to run the dashboard stack.
+
+```bash
+# Create a local SQLite demo database.
+./setup-sqlite-dev.sh
+
+# Build the main dashboard package.
+cargo build --package cbi-dashboard
+
+# Run the dashboard.
+cargo run --package cbi-dashboard
+```
+
+The dashboard defaults to `http://127.0.0.1:8081` when run locally. Demo operators are seeded only for local development; see `.env.example` and `API_REFERENCE.md` before using them.
+
+For Docker/PostgreSQL development:
+
+```bash
+cp .env.example .env
+docker compose up -d
+```
+
+Change all demo secrets before sharing, deploying, or connecting real systems.
+
+## Technical Evidence
+
+The public-facing technical evidence has been split out of the original long README:
+
+- [Technical primitives](docs/technical-primitives.md) maps claims such as offline payments, double-spend checks, wire-format primitives, Raft, key handling, privacy, AML, and disaster recovery to code and remaining gaps.
+- [Implementation status](IMPLEMENTATION_STATUS.md) summarizes dashboard implementation state.
+- [Test results](TEST_RESULTS.md) and [cs-tests README](crates/cs-tests/README.md) describe specification and end-to-end tests.
+- [API reference](API_REFERENCE.md) documents the dashboard API.
+
+## Economic And Policy Framing
+
+The Iraq-specific policy narrative is intentionally separate from the implementation README:
+
+- [Economic assumptions](docs/economic-assumptions.md) lists current public facts, source discipline, and claims that must remain illustrative until independently modeled.
+- [Policy paper draft](docs/policy-paper.md) preserves the full sovereign-economic thesis from the previous README. It is a working draft, not an externally validated forecast.
+
+Current public facts that shape the framing:
+
+- Iraq's final 2024 census count was reported at 46.1 million people, not the older approximately 43 million baseline used in earlier drafts. Source: [AP, Feb. 24, 2025](https://apnews.com/article/iraq-census-final-count-45b7753ddc82c188c79faea0d5a8c90d).
+- Iraq's National Financial Inclusion Strategy 2025-2029 targets account ownership of 50% by 2030 and digital payment usage of 85%. Sources: [CBI NFIS PDF](https://cbi.iq/static/uploads/up/file-175032973296039.pdf), [Arab Monetary Fund](https://www.amf.org.ae/en/news/25-05-2025/iraq-launches-national-financial-inclusion-strategy-2025-2029).
+- On June 12, 2026, S&P affirmed Iraq at `B-/B`, removed the long-term rating from CreditWatch negative, and kept a negative outlook. Source: [S&P Global Ratings](https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3580473).
+
+## Production Readiness Boundary
+
+Before this could be evaluated as real payment infrastructure, the project would need at minimum:
+
+- A formal threat model for wallets, POS devices, offline settlement, super-peers, operator access, and emergency controls.
+- Hardware-backed key custody and recovery design.
+- Offline double-spend limits backed by secure monotonic counters or equivalent attestation.
+- Privacy architecture separating payment data, identity data, regulatory access, and aggregate economic analytics.
+- Real multi-node consensus deployment with operational runbooks and failover tests.
+- Independent security audit, compliance review, and economic model validation.
+
+## Repository Hygiene
+
+Local artifacts such as generated SQLite databases, Redis dumps, virtualenvs, and ad hoc logs are ignored. Recreate the local database with `./setup-sqlite-dev.sh` instead of committing generated state.

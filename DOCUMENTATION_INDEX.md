@@ -193,8 +193,8 @@
 ### **For CBI Staff (End Users)**
 1. **API_REFERENCE.md** — API usage examples
 2. **DEVELOPMENT_GUIDE.md** — How to access dashboard
-3. Test credentials provided in documentation
-4. **README.md** (Part 16) — Dashboard capabilities
+3. Local demo operator setup described in `.env.example`
+4. **README.md** — Dashboard capabilities and current status
 
 ---
 
@@ -210,10 +210,12 @@
 - **All endpoints:** API_REFERENCE.md (complete with examples)
 - **Authentication:** API_REFERENCE.md → Authentication
 - **Examples:** API_REFERENCE.md → Example Workflow
-- **Test data:** API_REFERENCE.md → Test Credentials
+- **Test data:** API_REFERENCE.md → Local Demo Operators
 
 ### Understanding the System
-- **Architecture:** README.md → Part 16
+- **Architecture:** README.md → What This Repo Contains
+- **Technical primitives:** docs/technical-primitives.md
+- **Economic assumptions:** docs/economic-assumptions.md
 - **Database schema:** TEST_RESULTS.md → Database Schema
 - **Implementation:** IMPLEMENTATION_STATUS.md → Completed Fixes
 - **Features:** FINAL_SUMMARY.md → Key Features Implemented
@@ -386,4 +388,3 @@
 **All documentation is current as of 2026-04-18**  
 **All code is production-ready (backend) or development-ready (frontend)**  
 **All 83 tests pass successfully**
-

@@ -1,6 +1,18 @@
+# Cylinder Seal Policy Paper Draft
+
+This document preserves the long-form sovereign-economic thesis that previously lived in the root README. It is a working policy paper, not the implementation status of the repository and not an externally validated forecast.
+
+Before external circulation, update and source every macroeconomic figure. Known corrections as of June 13, 2026:
+
+- Iraq's latest official census baseline is the final 2024 count of 46.1 million people, not the older approximately 43 million baseline used in parts of this draft.
+- S&P Global Ratings affirmed Iraq at `B-/B` on June 12, 2026, removed the long-term ratings from CreditWatch negative, and kept a negative outlook. Sections describing Iraq as still on CreditWatch negative need revision.
+- National-scale timelines, Year 5 benefit ranges, sovereign-rating pathways, and diaspora capital figures should be treated as illustrative model outputs until independently validated.
+
+See [economic assumptions](economic-assumptions.md) for the current source discipline.
+
 # Digital Iraqi Dinar: Economic Quantification & Development Infrastructure
 
-![CylinderSeal Architecture](1776870497788.png)
+![CylinderSeal Architecture](../1776870497788.png)
 
 ## Executive Summary
 
@@ -2293,10 +2305,10 @@ cargo build --package cbi-dashboard
 cargo run --package cbi-dashboard
 # Listens on http://127.0.0.1:8081
 
-# 5. Login with test credentials
+# 5. Login with the local demo operator password from .env.example
 curl -X POST http://localhost:8081/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"supervisor","password":"test123"}'
+  -d "{\"username\":\"supervisor\",\"password\":\"${DEMO_OPERATOR_PASSWORD}\"}"
 # Returns: { "token": "...", "username": "supervisor", "role": "supervisor" }
 
 # 6. Query API
@@ -2304,20 +2316,20 @@ curl http://localhost:8081/api/overview \
   -H "Authorization: Bearer [TOKEN_FROM_LOGIN]"
 ```
 
-### Test Operators
+### Local Demo Operators
 
-| Username | Role | Password | Privileges |
-|----------|------|----------|-----------|
-| supervisor | Supervisor | test123 | Full admin access |
-| officer | Officer | test123 | Create reports, issue directives |
-| analyst | Analyst | test123 | Detailed analytics views |
-| auditor | Auditor | test123 | Audit logs, read-only |
+| Username | Role | Credential source | Privileges |
+|----------|------|-------------------|-----------|
+| supervisor | Supervisor | `DEMO_OPERATOR_PASSWORD` in `.env.example` | Full admin access |
+| officer | Officer | `DEMO_OPERATOR_PASSWORD` in `.env.example` | Create reports, issue directives |
+| analyst | Analyst | `DEMO_OPERATOR_PASSWORD` in `.env.example` | Detailed analytics views |
+| auditor | Auditor | `DEMO_OPERATOR_PASSWORD` in `.env.example` | Audit logs, read-only |
 
 ### Production Deployment
 
 ```bash
 # Set production database
-export DATABASE_URL="postgresql://postgres:password@localhost:5432/cylinder_seal"
+export DATABASE_URL="postgresql://postgres:${DB_PASSWORD}@localhost:5432/cylinder_seal"
 export REDIS_URL="redis://localhost:6379"
 
 # Run migrations
@@ -2394,19 +2406,19 @@ target/release/cbi-dashboard
 ### Dashboard Screenshots
 
 **Login Page:**
-![CBI Dashboard Login](cbi_login_screen.png)
+![CBI Dashboard Login](../cbi_login_screen.png)
 
 **Economic Command Center (Overview):**
 Real-time KPI dashboard showing GDP estimates, active user counts, industrial project inventory, and pending compliance items.
-![CBI Dashboard Overview](cbi_dashboard_screen.png)
+![CBI Dashboard Overview](../cbi_dashboard_screen.png)
 
 **Industrial Projects Registry:**
 Complete project inventory with real-time metrics including sector classification, capacity utilization, employment counts, and status tracking for all industrial development projects.
-![CBI Projects Management](cbi_projects_screen.png)
+![CBI Projects Management](../cbi_projects_screen.png)
 
 **Account Management:**
 User search, balance tracking, KYC tier management, credit score visibility, and account status controls for all system users.
-![CBI Account Management](cbi_account_management.png)
+![CBI Account Management](../cbi_account_management.png)
 
 ### Implementation Status
 

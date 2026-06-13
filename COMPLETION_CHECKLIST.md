@@ -138,14 +138,14 @@ curl http://localhost:8081/health
 
 ---
 
-## Test Credentials
+## Local Demo Operators
 
 ### Operators
 ```
-Username: supervisor | Password: test123 | Role: Supervisor
-Username: officer    | Password: test123 | Role: Officer
-Username: analyst    | Password: test123 | Role: Analyst
-Username: auditor    | Password: test123 | Role: Auditor
+Username: supervisor | Password: DEMO_OPERATOR_PASSWORD from .env.example | Role: Supervisor
+Username: officer    | Password: DEMO_OPERATOR_PASSWORD from .env.example | Role: Officer
+Username: analyst    | Password: DEMO_OPERATOR_PASSWORD from .env.example | Role: Analyst
+Username: auditor    | Password: DEMO_OPERATOR_PASSWORD from .env.example | Role: Auditor
 ```
 
 ### Users

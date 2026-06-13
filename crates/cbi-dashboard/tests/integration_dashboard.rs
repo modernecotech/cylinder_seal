@@ -102,7 +102,7 @@ mod tests {
 
         assert_eq!(operators.len(), 4, "Expected 4 test operators");
 
-        // All should have password: test123
+        // Password hashes are seeded for local demo use only.
         for (username, role) in operators {
             assert!(!username.is_empty());
             assert!(!role.is_empty());

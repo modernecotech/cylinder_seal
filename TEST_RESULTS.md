@@ -31,12 +31,12 @@ All 20 required tables created successfully:
 ### Seed Data Validation
 
 #### Operators (4 total)
-| Username | Role | Password | Status |
-|----------|------|----------|--------|
-| supervisor | Supervisor | test123 | ✅ |
-| officer | Officer | test123 | ✅ |
-| analyst | Analyst | test123 | ✅ |
-| auditor | Auditor | test123 | ✅ |
+| Username | Role | Credential Source | Status |
+|----------|------|-------------------|--------|
+| supervisor | Supervisor | Local seed password from `.env.example` | ✅ |
+| officer | Officer | Local seed password from `.env.example` | ✅ |
+| analyst | Analyst | Local seed password from `.env.example` | ✅ |
+| auditor | Auditor | Local seed password from `.env.example` | ✅ |
 
 #### Users (6 total)
 | ID | Name | KYC Tier | Account Type | Balance | Score | Status |
@@ -230,7 +230,7 @@ All 20 required tables created successfully:
 
 ### Password Hashing ✅
 - Algorithm: Argon2id
-- Test password: `test123`
+- Local seed password: `DEMO_OPERATOR_PASSWORD` in `.env.example`
 - Hash format: `$argon2id$v=19$m=19456,t=2,p=1$...`
 
 ### Role Hierarchy ✅

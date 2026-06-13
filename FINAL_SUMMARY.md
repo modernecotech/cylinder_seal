@@ -55,7 +55,7 @@
 - Argon2id password hashing (resistant to GPU attacks)
 - Session tokens: 32-byte random hex, stored in Redis
 - Session TTL: 12 hours (configurable)
-- Test credentials: All operators have password `test123`
+- Local demo operators use the seed password documented as `DEMO_OPERATOR_PASSWORD` in `.env.example`
 
 ### 5. **Development Environment** ✅
 - SQLite database (cylinder_seal.db) - zero external dependencies
@@ -353,7 +353,7 @@ cargo run --package cbi-dashboard
 # Login
 curl -X POST http://localhost:8081/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"supervisor","password":"test123"}'
+  -d "{\"username\":\"supervisor\",\"password\":\"${DEMO_OPERATOR_PASSWORD}\"}"
 
 # Store token from response
 TOKEN="..."
@@ -493,4 +493,3 @@ The system is **ready for immediate use in development** (SQLite, zero setup) an
 **Code Ready**: Backend production-ready, frontend development-ready  
 **Documentation**: Comprehensive (5 guides + inline comments)  
 **Deployment**: Ready for both development and production
-

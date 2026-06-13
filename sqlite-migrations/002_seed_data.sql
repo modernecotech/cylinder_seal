@@ -1,7 +1,7 @@
 -- Seed data for CBI Dashboard testing
 
--- Test operators (password: "test123" hashed with argon2)
--- In production, use proper password hashing. For testing:
+-- Local demo operators. Hashes correspond to DEMO_OPERATOR_PASSWORD in .env.example.
+-- Do not deploy these seeded operators outside local development.
 INSERT OR IGNORE INTO admin_operators (operator_id, username, hashed_password, role) VALUES
 ('op-001', 'supervisor', '$argon2id$v=19$m=19456,t=2,p=1$6H5zKoHW/3r7xvxX0x3eNg$vj4cYyXlW8zDj5qvZqBZF1xYxoB8qU4F4vZqBPUL2Ec', 'supervisor'),
 ('op-002', 'officer', '$argon2id$v=19$m=19456,t=2,p=1$6H5zKoHW/3r7xvxX0x3eNg$vj4cYyXlW8zDj5qvZqBZF1xYxoB8qU4F4vZqBPUL2Ec', 'officer'),

@@ -13,6 +13,8 @@ This creates a `cylinder_seal.db` SQLite database with:
 - Test data for users, projects, compliance reports, and economic indicators
 - 4 test operator accounts (supervisor, officer, analyst, auditor)
 
+The seeded operators are for local demos only. The default local seed password is documented in `.env.example` as `DEMO_OPERATOR_PASSWORD`; replace seed hashes before sharing or deploying an environment.
+
 ### 2. Verify Setup
 
 ```bash
@@ -31,9 +33,8 @@ cargo run --package cbi-dashboard
 
 The dashboard will start on `http://127.0.0.1:8081`
 
-## Test Credentials
+## Local Demo Operators
 
-**Operators** (all with password `test123`):
 - `supervisor` - Full admin access
 - `officer` - Can issue reports and directives  
 - `analyst` - Read-only access with detailed views
@@ -106,7 +107,7 @@ The dashboard will start on `http://127.0.0.1:8081`
 ```bash
 curl -X POST http://localhost:8081/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"supervisor","password":"test123"}'
+  -d "{\"username\":\"supervisor\",\"password\":\"${DEMO_OPERATOR_PASSWORD}\"}"
 
 # Response:
 {
@@ -155,7 +156,7 @@ curl http://localhost:8081/api/overview \
 
 3. **Set connection**:
    ```bash
-   export DATABASE_URL="postgresql://postgres:password@localhost:5432/cylinder_seal"
+   export DATABASE_URL="postgresql://postgres:${DB_PASSWORD}@localhost:5432/cylinder_seal"
    export REDIS_URL="redis://localhost:6379"
    ```
 
