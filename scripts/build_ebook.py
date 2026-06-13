@@ -45,6 +45,8 @@ BOOK_PARTS = [
     BookPart("Project Pipeline And Investment Gates", ROOT / "docs" / "project-pipeline-and-investment-gates.md"),
     BookPart("Political-Economy Transition And Anti-Capture", ROOT / "docs" / "political-economy-transition-and-anti-capture.md"),
     BookPart("Fiscal Stress And Contingent Liability", ROOT / "docs" / "fiscal-stress-and-contingent-liability-model.md"),
+    BookPart("National Program Sequencing And Dependency Control", ROOT / "docs" / "national-program-sequencing-and-dependency-control.md"),
+    BookPart("Benefit Realization And Claim Audit", ROOT / "docs" / "benefit-realization-and-claim-audit.md"),
     BookPart("Iraq Integrated Growth Impact Model", ROOT / "docs" / "iraq-integrated-growth-impact-model.md"),
     BookPart("Iraq Comprehensive Benefits Model", ROOT / "docs" / "iraq-comprehensive-benefits-model.md"),
     BookPart("Iraq Quantified Affordability And Cashflow Model", ROOT / "docs" / "iraq-quantified-affordability-model.md"),

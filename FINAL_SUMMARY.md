@@ -21,6 +21,11 @@ Current posture:
 - **Stress discipline:** modeled through oil-equity caps, stressed DSCR, FX
   mismatch, maintenance gaps, guarantees, availability payments, collections,
   capex overruns, and dividend-affordability gates.
+- **Sequencing discipline:** modeled through not-ready, evidence-only, pilot,
+  build, controlled-scale, and hold/rollback phases for each domain.
+- **Outcome discipline:** modeled through benefit-realization reports that
+  classify claims as verified, track-only, in-progress, underperforming,
+  overstated, failed, or unsupported.
 - **Affordability:** USD 65B fiscal-safe and USD 115B constrained-base scenarios
   are the credible starting envelopes; USD 190B is a strategic upper envelope
   only after fiscal, debt, cashflow, governance, and delivery gates pass.
@@ -64,6 +69,11 @@ Current posture:
 - Fiscal stress and contingent-liability logic that can force defensive or
   stop-scale-up mode when shocks make dividends, guarantees, FX debt, or new
   capex unsafe.
+- Program sequencing logic that blocks domains from jumping to scale before
+  legal, baseline, audit, procurement, delivery, political, fiscal, service, and
+  cashflow dependencies pass.
+- Benefit-realization logic that keeps public benefits out of dividend
+  waterfalls and removes overstated or failed claims from front-door summaries.
 - Rust workspace with core models, storage, API, policy, AML, credit, consensus,
   sync, POS, mobile-core, analytics, and dashboard crates.
 - PostgreSQL-backed dashboard routes, Redis-backed session storage, Argon2id
@@ -98,6 +108,11 @@ Current posture:
 - Independent fiscal stress validation of oil-equity caps, project debt,
   contingent liabilities, guarantees, availability payments, FX exposure,
   collection efficiency, maintenance reserves, and dividend rules.
+- Independent sequencing validation that turns the model into a realistic
+  rollout with owners, pilot limits, milestones, public consultation, operator
+  readiness tests, and rollback authority.
+- Independent monitoring, evaluation, and audit validation for any claim that is
+  presented as delivered rather than modelled.
 
 ## Development Stack
 

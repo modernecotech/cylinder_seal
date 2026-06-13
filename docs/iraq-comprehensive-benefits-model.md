@@ -66,6 +66,13 @@ infrastructure capacity, environmental resilience, social capability, cultural
 tourism, and citizen-distribution entries remain non-distributable unless a
 separate settled-cash conversion is proven.
 
+Delivered benefits should then pass the separate
+[Benefit Realization And Claim Audit](benefit-realization-and-claim-audit.md)
+layer before they appear as verified outcomes. Scenario projections can remain
+in this document, but front-door claims require baseline, target, observed
+value, evidence quality, attribution confidence, audit status, cash settlement,
+and dividend-boundary checks.
+
 The long-horizon GDP path extends the ten-year
 [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md).
 

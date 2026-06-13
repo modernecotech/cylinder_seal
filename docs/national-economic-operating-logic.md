@@ -21,6 +21,8 @@ No ministry funding without visible public value.
 No strategic program without anti-capture controls.
 No transition scale-up without political-economy readiness.
 No scale-up under fiscal stress.
+No scale before predecessor dependencies pass.
+No delivered-outcome claim without benefit-realization audit.
 ```
 
 The purpose is to stop oil income from flowing directly into passive ministry
@@ -272,6 +274,8 @@ kernel, not a complete national operating system.
 | `DiasporaChannelProjection` | Formal remittances, Iraqi-product demand, export distribution, expertise, investment pipeline, marketing attribution, and compliance gates. |
 | `PoliticalEconomyProjection` | Capture risk, resistance pressure, coalition readiness, citizen legitimacy, transition readiness, and recommended transition mode. |
 | `FiscalStressProjection` | Stressed oil-equity capacity, fiscal-rule breach, DSCR, FX mismatch, maintenance gap, contingent liability, dividend gap, and recommended stress mode. |
+| `ProgramSequencingDecision` | Domain readiness, dependency completion, operating capacity, legitimacy, recommended phase, blocked dependencies, and next required actions. |
+| `BenefitRealizationReport` | Claim achievement, target variance, evidence score, realization score, cash eligibility, public-benefit-only value, disposition, and corrective actions. |
 
 Initial executable coverage:
 
@@ -359,6 +363,19 @@ Initial executable coverage:
   dividend affordability, and stable/watch/defensive/stop-scale-up mode
   selection. `migrations/20260713000001_fiscal_stress_projection.sql` adds
   projection and gate tables.
+- `crates/cs-analytics/src/program_sequencing.rs` adds the first program
+  sequencing layer: legal authority, baseline data, audit capacity, procurement
+  capacity, delivery capacity, operator readiness, staff transition, citizen
+  trust, service continuity, cashflow evidence, predecessor completion,
+  political mode, fiscal stress mode, recommended phase, blocked dependencies,
+  and next required actions. `migrations/20260714000001_program_sequencing.sql`
+  adds decision and gate tables.
+- `crates/cs-analytics/src/benefit_realization.rs` adds the first benefit
+  realization and claim-audit layer: baseline/target/observed values, source
+  confidence, attribution confidence, evidence quality, audit status, cash
+  settlement, dividend boundary, achievement, variance, disposition, and
+  corrective actions. `migrations/20260715000001_benefit_realization_claim_audit.sql`
+  adds report and gate tables.
 
 ## Management Dashboards
 
@@ -381,6 +398,8 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Citizen welfare | What changed in wages, transfers, civic income, dividends, prices, and credit access? |
 | Political economy | Which reforms face capture, resistance, weak coalition support, service-continuity failure, staff-transition failure, or federalism risk? |
 | Fiscal stress | Which projects or portfolios breach oil-equity limits, stressed DSCR, FX cover, maintenance reserves, contingent-liability caps, collection efficiency, or dividend affordability? |
+| Program sequencing | Which domains are not-ready, evidence-only, pilot, build, controlled-scale, or hold/rollback, and which dependencies block the next phase? |
+| Benefit realization | Which claimed benefits are verified, track-only, in-progress, underperforming, overstated, failed, or unsupported? |
 | Risk and capture | Where are procurement, related-party, concentration, AML, or security risks rising? |
 | Dividend sustainability | Is the dividend funded by recurring surplus after all senior claims? |
 

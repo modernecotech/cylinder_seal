@@ -84,6 +84,13 @@ dividends only after the portfolio produces audited surplus.
 - **Fiscal stress gates:** scale-up and dividends stop when stressed oil-equity
   capacity, DSCR, FX cover, maintenance reserves, contingent liabilities,
   collections, capex overruns, or dividend affordability fail.
+- **Program sequencing:** every domain is held at not-ready, evidence-only,
+  pilot, build, controlled-scale, or hold/rollback until legal, data, audit,
+  procurement, delivery, political, fiscal, service, and cashflow dependencies
+  pass.
+- **Benefit realization:** delivered-outcome claims require baseline, target,
+  observed value, evidence quality, source confidence, attribution confidence,
+  audit status, cash settlement, and dividend-boundary classification.
 - **Tourism, services, and diaspora:** Iraq's natural, religious, historical,
   cultural, medical, education, and business-service assets are treated as
   service-production inputs, with diaspora channels used for demand, expertise,
@@ -107,7 +114,7 @@ dividends only after the portfolio produces audited surplus.
   kernel, sovereign holding plan, economic cycle, growth impact, comprehensive
   benefits, production capacity, strategic resilience, tourism services,
   diaspora channels, facility recycling, political-economy transition
-  readiness, and fiscal stress.
+  readiness, fiscal stress, program sequencing, and benefit realization.
 - A pilot-grade Digital IQD software appendix covering transaction models,
   signing primitives, policy modules, POS/mobile codecs, dashboard routes,
   PostgreSQL migrations, Redis sessions, and specification tests.
@@ -122,6 +129,11 @@ dividends only after the portfolio produces audited surplus.
 - Independent debt-sustainability and contingent-liability review of guarantees,
   availability payments, FX mismatch, collection risk, and dividend
   affordability.
+- Independent program-management review of sequencing, dependency ownership,
+  operator readiness, milestone realism, pilot scope, citizen consultation, and
+  rollback authority.
+- Independent monitoring, evaluation, and audit review before any scenario
+  output becomes a delivered-outcome claim.
 - Independent political-economy validation, including real actor incentives,
   veto points, anti-capture enforcement capacity, federal/governorate authority,
   civil-service transition, and citizen legitimacy.

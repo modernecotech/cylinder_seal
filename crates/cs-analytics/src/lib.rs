@@ -3,6 +3,7 @@
 //! Provides sectoral GDP analysis, industrial project tracking, import substitution measurement,
 //! and credit portfolio analytics derived from the core transaction ledger and merchant tier data.
 
+pub mod benefit_realization;
 pub mod comprehensive_benefits;
 pub mod diaspora_channels;
 pub mod economic_cycle;
@@ -15,6 +16,7 @@ pub mod import_substitution;
 pub mod models;
 pub mod political_economy;
 pub mod production_capacity;
+pub mod program_sequencing;
 pub mod project_gdp;
 pub mod repositories;
 pub mod sector_analytics;
@@ -25,6 +27,7 @@ pub mod tourism_services;
 pub use error::{Error, Result};
 pub use models::*;
 
+pub use benefit_realization::BenefitRealizationEngine;
 pub use comprehensive_benefits::ComprehensiveBenefitsModel;
 pub use diaspora_channels::DiasporaChannelsEngine;
 pub use economic_cycle::EconomicCycleEngine;
@@ -35,6 +38,7 @@ pub use growth_impact::GrowthImpactModel;
 pub use import_substitution::ImportSubstitutionAnalyzer;
 pub use political_economy::PoliticalEconomyEngine;
 pub use production_capacity::ProductionCapacityEngine;
+pub use program_sequencing::ProgramSequencer;
 pub use project_gdp::ProjectGdpCalculator;
 pub use repositories::{AnalyticsRepository, SqlxAnalyticsRepository};
 pub use sector_analytics::SectorAnalytics;
