@@ -15,11 +15,11 @@ from weasyprint import HTML
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT_DIR = ROOT / "docs" / "ebook"
-ASSET_DIR = OUT_DIR / "assets"
-PDF_PATH = OUT_DIR / "cylinder-seal-ebook.pdf"
-HTML_PATH = OUT_DIR / "cylinder-seal-ebook.html"
-MD_PATH = OUT_DIR / "cylinder-seal-ebook.md"
+EBOOK_OUT_DIR = ROOT
+ASSET_DIR = ROOT / "docs" / "ebook" / "assets"
+PDF_PATH = EBOOK_OUT_DIR / "cylinder-seal-ebook.pdf"
+HTML_PATH = EBOOK_OUT_DIR / "cylinder-seal-ebook.html"
+MD_PATH = EBOOK_OUT_DIR / "cylinder-seal-ebook.md"
 RASTER_MAP: dict[Path, Path] = {}
 
 
@@ -41,6 +41,10 @@ BOOK_PARTS = [
     BookPart("Final Summary", ROOT / "FINAL_SUMMARY.md"),
     BookPart("Security Model", ROOT / "SECURITY.md"),
     BookPart("Economic Assumptions And Source Discipline", ROOT / "docs" / "economic-assumptions.md"),
+    BookPart("National Economic Operating Logic", ROOT / "docs" / "national-economic-operating-logic.md"),
+    BookPart("Iraq Integrated Growth Impact Model", ROOT / "docs" / "iraq-integrated-growth-impact-model.md"),
+    BookPart("Iraq Comprehensive Benefits Model", ROOT / "docs" / "iraq-comprehensive-benefits-model.md"),
+    BookPart("Iraq Quantified Affordability And Cashflow Model", ROOT / "docs" / "iraq-quantified-affordability-model.md"),
     BookPart("System And Financial Flow Diagrams", ROOT / "docs" / "system-and-financial-flow-diagrams.md"),
     BookPart("Unified Economic Model", ROOT / "docs" / "unified-economic-model.md"),
     BookPart("National Dividend Holding Company", ROOT / "docs" / "national-dividend-holding-company.md"),
@@ -387,7 +391,7 @@ def build_html(markdown_text: str) -> str:
 
 
 def main() -> None:
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    EBOOK_OUT_DIR.mkdir(parents=True, exist_ok=True)
     rasterize_diagrams()
     markdown_text = build_markdown()
     html_text = build_html(markdown_text)

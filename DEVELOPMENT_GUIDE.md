@@ -2,7 +2,10 @@
 
 ## Dashboard Runtime
 
-`cbi-dashboard` is currently PostgreSQL-only. The code constructs a `PgPool` and the dashboard crate enables SQLx's `postgres` feature. The historical SQLite scripts are retained as local schema/seed fixtures only; they are not a supported runtime path for the dashboard.
+`cbi-dashboard` is currently PostgreSQL-only. The code constructs a `PgPool` and
+the dashboard crate enables SQLx's `postgres` feature. Historical root SQLite
+dashboard fixtures have been removed so local development uses the same
+PostgreSQL/Redis shape as the main dashboard runtime.
 
 ## Quick Start
 
@@ -58,10 +61,6 @@ TOKEN=$(curl -s -X POST http://localhost:8081/auth/login \
 curl http://localhost:8081/api/overview \
   -H "Authorization: Bearer $TOKEN" | jq
 ```
-
-## SQLite Fixture Scripts
-
-`setup-sqlite-dev.sh`, `verify-sqlite-setup.sh`, and `sqlite-migrations/` are legacy/local fixtures for inspecting the demo schema and seed data. Do not set `DATABASE_URL=sqlite:cylinder_seal.db` for `cbi-dashboard`; it will not run through the current PostgreSQL pool.
 
 ## Testing
 

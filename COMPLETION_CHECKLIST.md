@@ -29,4 +29,6 @@
 
 ## Dashboard Database Decision
 
-`cbi-dashboard` is PostgreSQL-only today. SQLite files are retained as local fixtures, not as supported dashboard runtime infrastructure.
+`cbi-dashboard` is PostgreSQL-only today. Historical root SQLite dashboard
+fixtures have been removed; POS-local SQLite remains only for the device-side
+terminal store.

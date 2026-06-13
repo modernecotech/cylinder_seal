@@ -29,17 +29,17 @@ The CBI Dashboard is a dedicated web application for Iraqi Central Bank staff to
 - **Middleware** (`src/middleware.rs`) — session enforcement, cookie/bearer token validation, CSRF guard for unsafe cookie-only requests
 - **State management** (`src/state.rs`) — PostgreSQL pool plus Redis-backed/in-memory session stores and audit recorders
 - **Route scaffolding** (`src/routes/`) — module structure for all 8 operational domains
-- **Overview route** (`src/routes/overview.rs`) — sample KPI endpoint (stub data)
+- **Overview route** (`src/routes/overview.rs`) — PostgreSQL-backed KPI endpoint with conservative defaults when optional data is missing
 
-### 🟡 Scaffolded (Stubs Ready for Implementation)
+### 🟡 Partially Implemented (Handlers Need Live Data Completion)
 
-- **Industrial projects** (`src/routes/industrial.rs`) — CRUD for projects, GDP multiplier calculation
-- **Analytics** (`src/routes/analytics.rs`) — import substitution, sector breakdown, merchant tiers
-- **Compliance** (`src/routes/compliance.rs`) — SAR/CTR/STR management, enhanced monitoring, PEP/sanctions
-- **Monetary policy** (`src/routes/monetary.rs`) — policy rates, aggregates, velocity controls, FX rates
-- **Account management** (`src/routes/accounts.rs`) — user search, status, device binding, beneficial owners
-- **Risk & AML** (`src/routes/risk.rs`) — rule history, evaluation replay, user risk history, AML flags
-- **Audit & governance** (`src/routes/audit.rs`) — audit log viewer, emergency directives, rule governance, operator management
+- **Industrial projects** (`src/routes/industrial.rs`) — route shapes, role gates, and audit recording exist; live repository-backed list/detail work remains partial.
+- **Analytics** (`src/routes/analytics.rs`) — endpoints exist but currently return `501 Not Implemented` until repository-backed queries are wired.
+- **Compliance** (`src/routes/compliance.rs`) — report workflow route shapes, role gates, and audit recording exist; persistence is still skeletal.
+- **Monetary policy** (`src/routes/monetary.rs`) — route shapes exist with placeholder JSON until monetary repositories are wired.
+- **Account management** (`src/routes/accounts.rs`) — search/detail route shapes and freeze/unfreeze audit gates exist; live search/detail data is partial.
+- **Risk & AML** (`src/routes/risk.rs`) — route shapes exist with placeholder risk output until AML queue/history repositories are wired.
+- **Audit & governance** (`src/routes/audit.rs`) — directive creation is gated/audited; list views still need live repository-backed data.
 
 ## Next Steps for Implementation Team
 
@@ -124,14 +124,14 @@ crates/cbi-dashboard/
     ├── state.rs         — AppState with DB pool and session store
     └── routes/
         ├── mod.rs       — module exports
-        ├── overview.rs  — economic overview KPIs (IMPLEMENTED)
-        ├── industrial.rs   — project CRUD + GDP calculation (STUB)
-        ├── analytics.rs    — import substitution + sectors (STUB)
-        ├── compliance.rs   — SAR/CTR/STR + PEP + sanctions (STUB)
-        ├── monetary.rs     — policy rates, aggregates, FX (STUB)
-        ├── accounts.rs     — user search + account status (STUB)
-        ├── risk.rs         — AML rules, risk history (STUB)
-        └── audit.rs        — audit log, directives, governance (STUB)
+        ├── overview.rs  — economic overview KPIs
+        ├── industrial.rs   — project routes, role gates, audit hooks
+        ├── analytics.rs    — import substitution + sectors route placeholders
+        ├── compliance.rs   — report workflow routes and audit hooks
+        ├── monetary.rs     — policy rates, aggregates, FX route placeholders
+        ├── accounts.rs     — user search/status routes and freeze gates
+        ├── risk.rs         — AML queue and risk route placeholders
+        └── audit.rs        — audit log and directive routes
 ```
 
 ## Dependency Notes

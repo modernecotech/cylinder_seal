@@ -4,19 +4,21 @@
 //! and credit portfolio analytics derived from the core transaction ledger and merchant tier data.
 
 pub mod error;
-pub mod models;
 pub mod import_substitution;
-pub mod sector_analytics;
+pub mod models;
 pub mod project_gdp;
+pub mod comprehensive_benefits;
 pub mod repositories;
+pub mod sector_analytics;
 
 pub use error::{Error, Result};
 pub use models::*;
 
 pub use import_substitution::ImportSubstitutionAnalyzer;
-pub use sector_analytics::SectorAnalytics;
 pub use project_gdp::ProjectGdpCalculator;
+pub use comprehensive_benefits::ComprehensiveBenefitsModel;
 pub use repositories::{AnalyticsRepository, SqlxAnalyticsRepository};
+pub use sector_analytics::SectorAnalytics;
 
 #[cfg(test)]
 mod tests {

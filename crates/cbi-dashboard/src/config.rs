@@ -17,8 +17,8 @@ impl Config {
             .unwrap_or_else(|_| "127.0.0.1:8081".to_string())
             .parse::<SocketAddr>()?;
 
-        // The dashboard is PostgreSQL-only. Historical SQLite fixtures remain
-        // in sqlite-migrations/, but they are not a supported runtime path.
+        // The dashboard is PostgreSQL-only. POS-local SQLite remains separate
+        // as a terminal/device store and is not a dashboard runtime path.
         let database_url = std::env::var("DATABASE_URL").unwrap_or_else(|_| {
             let host = std::env::var("DB_HOST").unwrap_or_else(|_| "localhost".to_string());
             let port = std::env::var("DB_PORT").unwrap_or_else(|_| "5432".to_string());

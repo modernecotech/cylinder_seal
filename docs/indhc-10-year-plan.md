@@ -15,6 +15,19 @@ This plan sits inside the [Unified Economic Model](unified-economic-model.md).
 The ten-year investments are the productive-asset side of the model; Digital IQD
 is the evidence and distribution rail; ministry funding, credit, taxes,
 reinvestment, and dividends are the feedback mechanisms.
+The [National Economic Operating Logic](national-economic-operating-logic.md)
+defines how those flows are managed through ledgers, hard gates, portfolio
+modes, scoring, cash/benefit conversion, capital allocation, and escalation
+rules.
+The [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md)
+quantifies how the infrastructure, industrial, open-source rail, tourism,
+Digital IQD, green, food/water, and civic-work layers could raise non-oil growth
+over ten years.
+The [Iraq Quantified Affordability And Cashflow Model](iraq-quantified-affordability-model.md)
+uses IMF baseline data to distinguish a fiscal-safe starter case, a USD 115B
+constrained base case, and the USD 190B strategic upper envelope used below.
+Under the IMF baseline, the USD 190B envelope should not be treated as the
+default affordable case.
 See [National Civic Work System](national-civic-work-system.md) for the
 transition layer that turns productivity gains and displaced low-productivity
 labor into paid civic work, training, care, environmental restoration, sport,
@@ -32,6 +45,8 @@ demand, conditional credit, export discipline, competition gates, and debt caps.
 | Planning fact | Use in this plan | Source |
 | --- | --- | --- |
 | Iraq's National Development Plan 2024-2028 emphasizes infrastructure linked to agriculture, industry, and tourism. | The plan aligns investment sectors with Iraq's official development frame rather than creating a parallel agenda. | [National Development Plan 2024-2028 PDF](https://www.undp.org/sites/g/files/zskgke326/files/2024-12/national-development-plan-2024-2028.pdf) |
+| WTTC estimated Iraq's 2023 Travel & Tourism direct GDP contribution at IQD 4,881.8B, total GDP contribution at IQD 15,415.7B, direct jobs at 199,850, total jobs at 710,160, and visitor exports at IQD 3,434.0B. | Tourism is modeled with a direct cash layer and a separate second-order benefits layer. | [WTTC Iraq Economic Impact Report 2024](https://assets-global.website-files.com/6329bc97af73223b575983ac/6643856bc693733a9f435ca5_EIR2024-Iraq.pdf) |
+| WTTC forecast Iraq visitor exports of IQD 9,386.4B and 1.957M international tourist arrivals by 2034. | The tourism plan treats foreign visitor spending as a plausible non-oil FX growth channel, but not as guaranteed INDHC revenue. | [WTTC Iraq Economic Impact Report 2024](https://assets-global.website-files.com/6329bc97af73223b575983ac/6643856bc693733a9f435ca5_EIR2024-Iraq.pdf) |
 | Iraq remains heavily oil-revenue-dependent. | INDHC is designed to convert part of oil revenue into productive capital and ministry-funding feedback. | [EIA Iraq analysis](https://www.eia.gov/international/analysis/country/irq), [EITI Iraq](https://eiti.org/countries/iraq) |
 | Iraq's electricity ministry plan includes more than 12,000 MW of solar by 2030, plus wind and waste-to-energy ambitions. | Green technology investment and international green capital raising are core pillars. | [IRENA Energy Transition Assessment: Iraq 2025](https://www.irena.org/-/media/Files/IRENA/Agency/Publication/2025/Jul/IRENA_COU_Energy_transition_assessment_Iraq_2025.pdf) |
 | The Baghdad Metro RFI describes a 148 km, 64-station system with automated trains. | The open rail program starts with Baghdad, then standardizes city metro/light-metro delivery across Iraq. | [National Investment Commission Baghdad Metro RFI, Feb. 20, 2024](https://investpromo.gov.iq/wp-content/uploads/2024/03/3.-RFI-English-%D9%86%D8%A8%D8%B0%D8%A9-%D8%B9%D9%86-%D9%85%D8%AA%D8%B1%D9%88-%D8%A8%D8%BA%D8%AF%D8%A7%D8%AF-E-20.2.2024.pdf) |
@@ -69,7 +84,9 @@ INDHC exists to create a sovereign economic feedback loop:
 
 ## Capital Stack
 
-The ten-year base case uses a USD 190 billion planning envelope.
+The strategic upper envelope uses USD 190 billion. The constrained base case is
+USD 115 billion and is detailed in
+[Iraq Quantified Affordability And Cashflow Model](iraq-quantified-affordability-model.md).
 
 This is not a recommendation to borrow blindly. It is a stress-testable planning
 envelope showing how oil equity and debt could combine without turning INDHC into
@@ -138,6 +155,50 @@ Core rules:
   workforce training, and future investment.
 - Dividends begin only after audited surplus exists and a stabilization reserve
   is funded.
+
+## Revenue Generation Layer
+
+The cashflow model has to earn from a broad operating base, not just from oil
+capital appreciation or one flagship sector. The constrained-base version is
+broken out in
+[Iraq Quantified Affordability And Cashflow Model](iraq-quantified-affordability-model.md)
+and the machine-readable revenue-channel table is
+[docs/data/iraq-revenue-generation-model.csv](data/iraq-revenue-generation-model.csv).
+
+The revenue base should include:
+
+- Public procurement substitution where Iraqi suppliers can meet price,
+  quality, delivery, and audit requirements.
+- Domestic raw-material processing for construction materials, fertilizer
+  inputs, plastics, glass, pipes, packaging, and industrial components.
+- Electronics, HVAC, meters, pumps, controls, water equipment, spare parts, and
+  maintenance services.
+- Regulated defense sustainment and dual-use maintenance under statutory audit
+  and end-use controls.
+- Food processing, cold chain, storage, milling, feed, packaging, farmer
+  platforms, and water-efficient irrigation services.
+- Solar, storage, industrial power, PPAs, grid-efficiency service contracts,
+  public-building cooling efficiency, and waste-to-energy.
+- Rail fares, logistics, station retail, availability payments, and legally
+  recorded land-value capture.
+- Tourism, hospitality, pilgrim services, booking/payment platforms, healthcare,
+  education, professional services, software, and other tradable services.
+- Housing inputs, municipal service contracts, public-building maintenance, city
+  utilities, leakage reduction, and district services.
+- Digital IQD payment, compliance, registry, analytics, credit-enablement, SME
+  marketplace, and supplier-certification fees kept low enough to encourage
+  formalization.
+
+Revenue discipline:
+
+- Count cash only when there is a sale, lease, PPA, availability payment,
+  service contract, tariff, platform fee, export receipt, or legal revenue share.
+- Track avoided imports, fuel savings, water savings, and congestion reductions
+  separately from booked cash so benefits are not counted twice.
+- Treat tourism, exports, and foreign-customer services as priority channels for
+  non-oil foreign currency.
+- Require every revenue line to map to a Digital IQD contract, invoice,
+  settlement, meter record, receipt, audit proof, or source tag.
 
 ## Ten-Year Consolidated Cashflow
 
@@ -247,6 +308,20 @@ Food-substitution rules:
 | Build | 3-5 | USD 7B | Najaf-Karbala corridor, Baghdad/Kadhimiya routes, Babylon/Ur/marshland packages, hotel and SME finance. | Visitor spending and hotel/logistics revenue scale. |
 | Scale | 6-8 | USD 7B | Medical, education, business-process, logistics, and Arabic software services; foreign-currency settlement into Digital IQD. | Non-oil FX capture becomes measurable. |
 | Consolidate | 9-10 | USD 3B | Quality certification, international marketing, repeat visitor channels, service-export standards. | Higher margins from services and platforms. |
+
+Tourism revenue model:
+
+| Layer | Year-10 planning value | Counted as INDHC cashflow? | Notes |
+| --- | ---: | --- | --- |
+| Booked tourism and tradable-services revenue | USD 3.0B | Yes | Visitor logistics, cultural site services, hospitality JV shares, platform/FX services, and tradable service exports. |
+| Direct operating cash after maintenance | USD 0.75B | Yes | Flows into the same debt-service, levy, retained-earnings, and dividend waterfall as other sectors. |
+| Second-order benefit tracked outside INDHC revenue | USD 6.6B | No | SME merchant sales, food supply chains, transport utilization, city services, tax base, bankability, repeat visits, and investment option value. |
+
+See
+[docs/data/iraq-tourism-revenue-benefits-model.csv](data/iraq-tourism-revenue-benefits-model.csv)
+for the machine-readable breakdown. The second-order layer is deliberately kept
+outside the dividend forecast. It is a national benefit dashboard, not booked
+subsidiary cash.
 
 ## Cashflow Sensitivity Tests
 
@@ -402,6 +477,30 @@ Advantages:
 - Strong fit with Iraqi small businesses.
 - Foreign-currency capture without relying on oil.
 - Direct feedback into city services, transport, sanitation, and safety.
+- Second-order demand for food processing, cold chain, local retail,
+  hospitality training, rail utilization, municipal services, and SME credit.
+
+Tourism should be measured with two ledgers:
+
+| Ledger | What it records | Why separate it |
+| --- | --- | --- |
+| INDHC tourism ledger | Platform fees, JV shares, leases, service contracts, ticketing, FX services, directly operated assets, and tradable service invoices. | These are cashflows that can support debt service, levy, retained earnings, and dividends. |
+| National tourism benefit ledger | Wider visitor spending, merchant formalization, supply-chain purchases, induced wages, municipal service improvements, country brand, repeat visits, and investment leads. | These are real benefits, but they are not dividend cash until converted into settled revenue, taxes, fees, or leases. |
+
+Second-order benefits to track:
+
+- Local food demand for restaurants, pilgrims, hotels, events, and transport
+  hubs, linked back to Iraqi food processing and cold chain.
+- Retail, crafts, guide, cleaning, laundry, security, maintenance, and
+  translation jobs for SMEs and civic-work graduates.
+- Higher utilization of rail, buses, stations, airports, public toilets,
+  sanitation, waste, water, lighting, and safety services.
+- Foreign-currency receipts entering formal channels through booking, card,
+  banking, and Digital IQD merchant settlement.
+- Better credit histories for tourism SMEs through verified bookings, reviews,
+  receivables, and seasonal repayment records.
+- Repeat-visit and diaspora-investment signals that can support hotel, service,
+  and cultural-route PPPs.
 
 ## Pillar 4: Green Technology And International Capital
 
@@ -574,6 +673,9 @@ before any production implementation:
 | `StrategicSectorControl` | Legal authority, license, end-use controls, classification boundary, and audit scope for defense and dual-use manufacturing. |
 | `WaterFoodSecurityProject` | Desalination, irrigation, water-treatment, cold-chain, and food-substitution project records. |
 | `LoanFacility` | Lender, currency, rate, maturity, covenant, project linkage, debt-service schedule. |
+| `RevenueStream` | Sector, customer, contract type, currency, recurrence, collection status, and source evidence for each earning channel. |
+| `RevenueContract` | PPA, availability payment, procurement substitution, platform fee, lease, tariff, export receipt, service contract, or land-value capture claim. |
+| `ImportSubstitutionSaving` | Separates estimated FX/import savings from booked cash revenue. |
 | `GrossProfitLevy` | Treasury claim on audited productive surplus. |
 | `RetainedEarningsAllocation` | Reinvestment, maintenance, debt reduction, training, and dividend reserve. |
 | `DividendDistribution` | Monthly equal dividend batch to citizen wallets. |
@@ -585,6 +687,7 @@ Dashboard views:
 - Ten-year allocation map.
 - Sector profitability.
 - Debt exposure and currency risk.
+- Revenue by stream, currency, collection quality, and recurrence.
 - Iraqi employment and training transfer.
 - Import substitution scoreboard.
 - Strategic resilience manufacturing dashboard.
@@ -620,6 +723,7 @@ Do not treat this plan as deployable until these questions have written answers:
 | Import substitution | Share of selected public and private demand met by Iraqi production, by value chain. |
 | Strategic resilience | Domestic production share for regulated defense supply, electronics, HVAC, water/desalination, irrigation, and food-staple substitution. |
 | Profitability | Subsidiary return on invested capital, operating margin, and cash conversion. |
+| Revenue breadth | Share of revenue from recurring contracts, private customers, exports, foreign-currency services, and non-oil sectors. |
 | Debt safety | Debt-service coverage, FX exposure, maturity profile, covenant compliance. |
 | Employment | Iraqi permanent staff share, apprenticeship completion, technical leadership transfer. |
 | Green investment | MW commissioned, grid losses reduced, emissions intensity, verified use of proceeds. |

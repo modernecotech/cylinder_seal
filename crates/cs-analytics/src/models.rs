@@ -241,3 +241,69 @@ pub struct SectorCreditPortfolio {
     pub avg_credit_score: Option<Decimal>,
     pub default_rate_pct: Option<f64>,
 }
+
+/// Long-horizon scenario names used by the comprehensive Iraq benefit model.
+#[derive(Clone, Copy, Debug, Serialize, Deserialize, PartialEq, Eq, Hash)]
+pub enum BenefitScenario {
+    Baseline,
+    ConstrainedBase,
+    StrategicUpper,
+}
+
+impl BenefitScenario {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            BenefitScenario::Baseline => "baseline",
+            BenefitScenario::ConstrainedBase => "constrained_base",
+            BenefitScenario::StrategicUpper => "strategic_upper",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s {
+            "baseline" => Some(BenefitScenario::Baseline),
+            "constrained_base" => Some(BenefitScenario::ConstrainedBase),
+            "strategic_upper" => Some(BenefitScenario::StrategicUpper),
+            _ => None,
+        }
+    }
+}
+
+/// Low/high scenario range. A point estimate is represented with equal bounds.
+#[derive(Clone, Copy, Debug, Serialize, Deserialize, PartialEq)]
+pub struct BenefitRange<T> {
+    pub low: T,
+    pub high: T,
+}
+
+impl<T> BenefitRange<T> {
+    pub fn new(low: T, high: T) -> Self {
+        Self { low, high }
+    }
+}
+
+/// Economic, infrastructure, environmental, social, and cultural benefits for
+/// a long-horizon Iraq scenario.
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
+pub struct ComprehensiveBenefitProjection {
+    pub horizon_year: i32,
+    pub scenario: BenefitScenario,
+
+    pub non_oil_gdp_index_2026_100: f64,
+    pub non_oil_gdp_usd_b_2026_prices: f64,
+    pub additional_non_oil_gdp_vs_baseline_usd_b: f64,
+
+    pub booked_portfolio_revenue_usd_b: Option<f64>,
+    pub dividend_pool_usd_b: Option<BenefitRange<f64>>,
+
+    pub rail_corridor_km: Option<BenefitRange<u32>>,
+    pub clean_power_gw: Option<BenefitRange<f64>>,
+
+    pub tourism_booked_revenue_usd_b: Option<BenefitRange<f64>>,
+    pub tourism_second_order_benefit_usd_b: Option<BenefitRange<f64>>,
+
+    pub civic_work_capacity: Option<BenefitRange<u32>>,
+    pub avoided_environmental_loss_usd_b: Option<BenefitRange<f64>>,
+
+    pub notes: String,
+}

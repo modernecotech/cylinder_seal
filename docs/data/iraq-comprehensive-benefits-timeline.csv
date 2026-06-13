@@ -1,0 +1,10 @@
+horizon,scenario,non_oil_gdp_index_2026_100,non_oil_gdp_usd_b_2026_prices,additional_non_oil_gdp_vs_baseline_usd_b,booked_portfolio_revenue_usd_b,dividend_pool_low_usd_b,dividend_pool_high_usd_b,rail_corridor_km_low,rail_corridor_km_high,clean_power_gw_low,clean_power_gw_high,tourism_booked_revenue_low_usd_b,tourism_booked_revenue_high_usd_b,tourism_second_order_low_usd_b,tourism_second_order_high_usd_b,civic_work_capacity_low,civic_work_capacity_high,avoided_environmental_loss_low_usd_b,avoided_environmental_loss_high_usd_b,notes
+2036,baseline,137.0,248.3,0.0,,,,,,,,,,,,,,,,Baseline path from the ten-year growth model extended at 3.5 percent non-oil real growth.
+2036,constrained_base,158.5,287.3,39.0,23.0,1.65,1.65,250,400,5,8,3.0,3.0,6.6,6.6,200000,400000,1,3,Year-10 proof point from constrained-base affordability and growth models.
+2036,strategic_upper,175.0,317.1,68.8,43.0,2.0,4.0,600,900,12,18,7.0,7.0,14.0,18.0,350000,750000,2,5,Strategic upper case requires strong delivery and private crowd-in.
+2040,baseline,157.2,284.9,0.0,,,,,,,,,,,,,,,,Baseline path extended at 3.5 percent non-oil real growth.
+2040,constrained_base,196.4,356.0,71.0,42.0,4.0,7.0,500,800,10,15,6.0,8.0,12.0,18.0,400000,700000,3,6,Network effects from proven assets and wider Digital IQD formalization.
+2040,strategic_upper,229.3,415.6,130.7,80.0,8.0,12.0,1000,1500,20,30,12.0,16.0,25.0,35.0,700000,1400000,6,10,High crowd-in path with stronger export tourism and services channels.
+2050,baseline,221.8,401.9,0.0,,,,,,,,,,,,,,,,Long-run baseline path without the comprehensive portfolio effect.
+2050,constrained_base,305.0,552.8,150.9,86.0,12.0,20.0,1000,1600,20,30,14.0,20.0,30.0,45.0,700000,1200000,8,15,Mature constrained portfolio with maintenance and reinvestment burden.
+2050,strategic_upper,391.7,709.9,308.0,160.0,25.0,40.0,2200,3000,40,60,25.0,35.0,55.0,75.0,1500000,2500000,15,25,Mature strategic portfolio; stretch case rather than front-door forecast.

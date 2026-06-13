@@ -16,7 +16,8 @@ Current posture:
 - Rust workspace with core models, storage, API, policy, AML, credit, consensus, sync, POS, mobile-core, analytics, and dashboard crates.
 - CBI dashboard routes for overview, industrial projects, analytics, compliance, monetary policy, accounts, risk, audit, producers, and authentication.
 - PostgreSQL migrations for production-like development.
-- SQLite fixture scripts retained only for local schema/seed inspection; the dashboard runtime is PostgreSQL-only.
+- Historical root SQLite dashboard fixtures removed; the dashboard runtime is
+  PostgreSQL-only. POS-local SQLite remains for terminal storage.
 - Redis-backed session storage, Argon2id password hash verification, and admin action audit recording for current sensitive handlers.
 - Specification tests covering crypto primitives, signing, nonce chains, Raft behavior, AML, credit scoring, wire formats, conflict resolution, programmability primitives, and tier policy behavior.
 - Unified economic model documentation connecting Digital IQD transactions, INDHC capital allocation, ministry funding, credit expansion, domestic production, strategic resilience manufacturing, tourism/exports, green/rail cost reduction, reinvestment, and citizen dividends.

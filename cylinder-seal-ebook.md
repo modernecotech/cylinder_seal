@@ -18,15 +18,19 @@ infrastructure and is not an official Central Bank of Iraq project.
 3. Final Summary
 4. Security Model
 5. Economic Assumptions And Source Discipline
-6. System And Financial Flow Diagrams
-7. Unified Economic Model
-8. National Dividend Holding Company
-9. INDHC Ten-Year Plan
-10. Digitally Governed Industrial Champions
-11. National Civic Work System
-12. Ministry Transition Roadmap
-13. Technical Primitives
-14. Legacy Policy Paper Boundary
+6. National Economic Operating Logic
+7. Iraq Integrated Growth Impact Model
+8. Iraq Comprehensive Benefits Model
+9. Iraq Quantified Affordability And Cashflow Model
+10. System And Financial Flow Diagrams
+11. Unified Economic Model
+12. National Dividend Holding Company
+13. INDHC Ten-Year Plan
+14. Digitally Governed Industrial Champions
+15. National Civic Work System
+16. Ministry Transition Roadmap
+17. Technical Primitives
+18. Legacy Policy Paper Boundary
 
 # Diagram Atlas
 
@@ -96,7 +100,9 @@ The codebase should be read as a pilot-grade prototype. It is suitable for techn
 
 ### Quick Start
 
-Install Rust and Docker if you want to run the dashboard stack locally. The dashboard currently uses PostgreSQL and Redis; SQLite files in this repository are legacy/local fixture helpers, not a supported dashboard runtime.
+Install Rust and Docker if you want to run the dashboard stack locally. The
+dashboard currently uses PostgreSQL and Redis. POS-local SQLite remains only for
+the device-side terminal store, not for the dashboard runtime.
 
 ```bash
 ## Start PostgreSQL and Redis.
@@ -133,9 +139,13 @@ The Iraq-specific policy narrative is intentionally separate from the implementa
 
 - [Economic assumptions](docs/economic-assumptions.md) lists current public facts, source discipline, and claims that must remain illustrative until independently modeled.
 - [Unified economic model](docs/unified-economic-model.md) connects Digital IQD, INDHC, ministries, banks, producers, strategic resilience manufacturing, tourism, green capital, rail, taxes, civic work, reinvestment, and citizen dividends into one accounting and feedback structure.
-- [Policy paper draft](docs/policy-paper.md) preserves the full sovereign-economic thesis from the previous README. It is a working draft, not an externally validated forecast.
+- [National economic operating logic](docs/national-economic-operating-logic.md) defines the management spine: six ledgers, hard gates, portfolio scoring, cash/benefit separation, capital allocation, escalation rules, and dividend controls.
+- [Iraq integrated growth impact model](docs/iraq-integrated-growth-impact-model.md) quantifies how infrastructure, industrial production, open-source rail, green power, food/water systems, tourism, Digital IQD formalization, and civic work could raise non-oil growth over ten years.
+- [Iraq comprehensive benefits model](docs/iraq-comprehensive-benefits-model.md) extends the ten-year model to 2040 and 2050 across economic, infrastructure, environmental, social, and cultural outcomes.
+- [Policy paper boundary](docs/policy-paper.md) preserves only a deprecated boundary note for the earlier long-form narrative; current claims should use the newer source-disciplined documents.
 - [National dividend holding company](docs/national-dividend-holding-company.md) describes a proposed oil-income-to-productive-capital architecture where citizens hold non-saleable beneficial shares and receive audited Digital IQD dividends from distributable surplus.
 - [INDHC ten-year plan](docs/indhc-10-year-plan.md) turns that architecture into a planning envelope and cashflow model for import substitution, profitable national businesses, defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, imported-food substitution, tourism and services, green capital, open rail, raw-material processing, Iraqi-only permanent staffing, and domestic reinvestment.
+- [Iraq quantified affordability model](docs/iraq-quantified-affordability-model.md) uses IMF baseline data to size fiscal-safe, constrained-base, and strategic-upper financing envelopes, including oil-equity affordability, project loans, PPP/JV capital, recurring revenue channels, tourism second-order benefits, DSCR gates, and citizen-dividend cashflows.
 - [Digitally governed industrial champions](docs/digitally-governed-industrial-champions.md) reframes the Korean large-industrial-group analogy into sectoral Iraqi production groups with conditional demand, conditional credit, export discipline, debt caps, competition gates, and anti-capture controls.
 - [National civic work system](docs/national-civic-work-system.md) adds a dignity-preserving transition layer where citizens are paid in Digital IQD for verified environmental, care, sport, culture, education, municipal, food-security, and disaster-resilience work.
 - [Ministry transition roadmap](docs/ministry-transition-roadmap.md) lists candidate ministry functions to deprecate, merge, regulate, corporatize, or sunset as services move to audited operators, municipalities, regulators, INDHC, and Digital IQD service contracts.
@@ -252,7 +262,8 @@ Current posture:
 - Rust workspace with core models, storage, API, policy, AML, credit, consensus, sync, POS, mobile-core, analytics, and dashboard crates.
 - CBI dashboard routes for overview, industrial projects, analytics, compliance, monetary policy, accounts, risk, audit, producers, and authentication.
 - PostgreSQL migrations for production-like development.
-- SQLite fixture scripts retained only for local schema/seed inspection; the dashboard runtime is PostgreSQL-only.
+- Historical root SQLite dashboard fixtures removed; the dashboard runtime is
+  PostgreSQL-only. POS-local SQLite remains for terminal storage.
 - Redis-backed session storage, Argon2id password hash verification, and admin action audit recording for current sensitive handlers.
 - Specification tests covering crypto primitives, signing, nonce chains, Raft behavior, AML, credit scoring, wire formats, conflict resolution, programmability primitives, and tier policy behavior.
 - Unified economic model documentation connecting Digital IQD transactions, INDHC capital allocation, ministry funding, credit expansion, domestic production, strategic resilience manufacturing, tourism/exports, green/rail cost reduction, reinvestment, and citizen dividends.
@@ -548,11 +559,20 @@ Recommended language:
 
 Avoid language that implies certainty:
 
-- "12-15 months to national scale" should become "a 12-15 month pilot-to-scale hypothesis requiring regulatory approval, security audit, procurement, and banking integration."
-- "$7.5-12.5B annual benefit by Year 5" should become "illustrative Year 5 benefit range pending independent macroeconomic modeling."
-- "Unbanked population drops from 70% to 5%" should become "financial inclusion improvement scenario; baseline and target must be reconciled with NFIS definitions."
-- "Credit rating improves from B3 to Ba1" should become "potential sovereign-credit relevance; no rating outcome should be forecast as a project deliverable."
-- "Diaspora capital repatriation $80-150B/year" should become "diaspora merchant and tourism distribution channel hypothesis unless backed by flow data."
+- National-scale deployment timelines should become pilot-to-scale hypotheses
+  requiring regulatory approval, security audit, procurement, banking
+  integration, operational testing, and public authority.
+- Year-5 benefit ranges should become illustrative scenario outputs pending
+  independent macroeconomic modeling, project finance review, and sensitivity
+  testing.
+- Financial inclusion improvement claims should reconcile baseline and target
+  definitions with Iraq's NFIS and should not use informal older unbanked
+  percentages without source notes.
+- Sovereign-credit relevance may be discussed as an indirect fiscal-resilience
+  hypothesis, but no rating outcome should be forecast as a project
+  deliverable.
+- Diaspora capital claims should be framed as merchant, tourism, service-export,
+  and formal-payment-channel hypotheses unless backed by measured flow data.
 - "Cylinder Seal is a complete economic operating system" should become "unified economic model proposal requiring legal authority, audited data, calibrated equations, policy review, and independent macroeconomic validation."
 - "Cylinder Seal will abolish frivolous ministries" should become "ministry-transition scenario in which specific functions are deprecated, merged, regulated, corporatized, or sunset only after legal authority, service-continuity gates, staff-transition plans, and independent audits."
 - "Oil income should fund a citizen-owned state industrial holding company" should become "proposed national dividend holding-company architecture requiring constitutional, fiscal, oil-revenue, AML/CFT, competition, and governance review."
@@ -582,7 +602,1584 @@ Use this positioning until the economic model is independently validated:
 That claim is strong, defensible, and aligned with the code that exists today.
 
 
-# Part 6: System And Financial Flow Diagrams
+# Part 6: National Economic Operating Logic
+
+## National Economic Operating Logic
+
+This document defines the management logic that holds the Cylinder Seal,
+Digital IQD, INDHC, ministry-transition, industrial-champion, civic-work,
+tourism, green, rail, and dividend model together.
+
+Status: operating architecture. It is not a budget law, investment mandate,
+central-bank rulebook, sovereign-debt recommendation, or production system.
+
+### Core Principle
+
+The whole system should be managed as a national productive-capital operating
+system:
+
+```text
+No cash claim without settled evidence.
+No benefit claim without source-tagged measurement.
+No capital allocation without gates.
+No dividend without audited distributable surplus.
+No ministry funding without visible public value.
+No strategic program without anti-capture controls.
+```
+
+The purpose is to stop oil income from flowing directly into passive ministry
+budgets while also avoiding a new opaque conglomerate. Oil, loans, PPP capital,
+public procurement, tourism, civic work, and citizen dividends all become parts
+of one managed circuit.
+
+### One Operating Sentence
+
+Cylinder Seal records economic events; INDHC and private producers turn capital
+into productive assets; those assets generate cash, public benefits, resilience,
+and citizen income; the operating logic decides which claims are cash, which are
+benefits, which are risks, and which are eligible for reinvestment, ministry
+funding, or dividends.
+
+### The Six Ledgers
+
+Every activity belongs to at least one ledger. The ledgers are separate because
+mixing them is how overclaiming, double counting, and fiscal illusion begin.
+
+| Ledger | What it records | Can fund debt or dividends? | Main controls |
+| --- | --- | --- | --- |
+| Capital ledger | Oil equity, concessional loans, green sukuk, ECA finance, PPP/JV equity, retained earnings, grants, local bonds. | No, not directly. | Fiscal cap, debt approval, source-of-funds tags, use-of-proceeds registry. |
+| Productive asset ledger | Factories, rail assets, hotels, logistics hubs, power assets, water systems, platforms, intellectual property, service contracts. | No, not until they generate cash. | Asset registry, depreciation, maintenance reserve, ownership and custody records. |
+| Booked cash ledger | Settled sales, leases, PPAs, availability payments, platform fees, service contracts, fares, exports, JV distributions, taxes, levies. | Yes, after waterfall rules. | Invoice-to-settlement matching, collection efficiency, audit trail, currency matching. |
+| Public benefit ledger | Import substitution, avoided fuel cost, reduced grid losses, tourism second-order effects, jobs, SME bankability, city-service outcomes, resilience gains. | No, unless converted into booked cash. | Source tags, attribution method, confidence score, no-dividend flag. |
+| Citizen and state distribution ledger | Wages, civic-work income, public transfers, ministry service payments, gross-profit levy, retained earnings, dividend batches. | It is the distribution layer. | Eligibility, equity, appeals, audit publication, privacy limits. |
+| Risk, rights, and control ledger | AML/CFT flags, sanctions exposure, conflict of interest, related-party exposure, privacy tier, security status, project overruns, DSCR, FX mismatch. | No; it can veto. | Hard gates, escalation, suspension, independent audit, legal review. |
+
+Management rule:
+
+```text
+Capital and public benefits can justify action.
+Only booked cash can satisfy debt service, levies, retained earnings, and
+dividends.
+Risk can stop any flow.
+```
+
+### Canonical Economic Event
+
+Cylinder Seal should treat each policy-relevant transaction or measurement as a
+typed economic event.
+
+```text
+EconomicEvent
+  = actor
+  + counterparty
+  + amount
+  + currency
+  + sector
+  + governorate
+  + contract or mandate
+  + source of funds
+  + source of revenue or benefit
+  + evidence bundle
+  + privacy tier
+  + risk tags
+  + audit hash
+  + ledger impacts
+```
+
+Examples:
+
+| Event | Ledger impacts |
+| --- | --- |
+| Oil-equity allocation to INDHC | Capital ledger increases; risk ledger checks fiscal cap. |
+| Loan draw for a solar project | Capital ledger increases; risk ledger records currency, tenor, DSCR covenant. |
+| Payment to a factory after milestone inspection | Capital ledger use decreases; productive asset ledger increases; risk ledger records procurement status. |
+| Hotel JV distribution | Booked cash ledger increases; Treasury levy and retained earnings become possible. |
+| Tourist spending at an SME restaurant | Booked merchant cash for the SME; public benefit ledger records tourism multiplier; INDHC cash only if a platform fee or contract exists. |
+| Verified grid-loss reduction | Public benefit ledger increases; booked cash only if an approved savings contract settles. |
+| Civic-work payment | Citizen distribution ledger increases after task evidence; public benefit ledger records municipal output. |
+| Monthly citizen dividend | Distribution ledger increases only after debt service, levy, reserves, and retained earnings pass. |
+
+### Management Cycle
+
+The system should run on a formal operating calendar.
+
+| Cadence | Decision work | Output |
+| --- | --- | --- |
+| Daily | Settlement, AML alerts, payment failures, offline reconciliation, operator exceptions. | Exception queue and settlement health. |
+| Monthly | Close booked cash ledger, pay eligible service contracts, calculate levy, update debt service, test dividend gate. | Monthly operating statement and citizen-facing summary. |
+| Quarterly | Review project milestones, DSCR, collection efficiency, capex overruns, local content, ministry service results, second-order benefits. | Portfolio reallocation, project stop/go decisions, public dashboard update. |
+| Annual | Refresh macro assumptions, oil-equity cap, borrowing envelope, sector priorities, dividend formula, ministry transition schedule. | National economic operating plan and audited public report. |
+
+The monthly cycle protects solvency. The quarterly cycle protects performance.
+The annual cycle protects strategy.
+
+### Portfolio Modes
+
+The operating system should not use the same settings in every macro condition.
+
+| Mode | Trigger | Capital behavior | Dividend behavior | Ministry behavior |
+| --- | --- | --- | --- | --- |
+| Defensive | Oil stress, rising debt stress, reserve pressure, weak collections, DSCR breach. | Freeze new non-critical capex; protect maintenance, water, food, power, debt service. | Suspend growth; pay only if fully funded by audited surplus. | Protect essential services; delay deprecation. |
+| Build | Fiscal cap available, projects pass gates, collections improving. | Fund quick cashflow, import-substitution, water, power, food, and logistics projects. | Small or zero; prioritize proof. | Shift budgets into service contracts. |
+| Scale | DSCR strong, revenue broad, delivery credible, governance clean. | Expand proven sectors; add PPP/JV and green capital. | Increase only after reserves and reinvestment. | Corporatize or merge functions with proven alternatives. |
+| Dividend | Mature portfolio, high retained earnings, stable debt, strong maintenance coverage. | More renewal and reinvestment than new speculative capex. | Stable monthly payments from surplus. | Ministries funded mainly through explicit levy, taxes, and priced outputs. |
+
+### Hard Gates
+
+Hard gates run before scoring. If a project fails a hard gate, it does not move
+forward no matter how attractive the narrative is.
+
+| Gate | Pass condition |
+| --- | --- |
+| Legal authority | Statutory mandate, procurement authority, data authority, and dispute path exist. |
+| Fiscal affordability | Oil-equity draw and public exposure fit the affordability rules. |
+| Debt safety | Base DSCR, stress DSCR, tenor, grace period, and currency match are acceptable. |
+| Maintenance coverage | Lifecycle cost and renewal reserve are funded before dividends. |
+| Revenue proof | Cashflow source is identified: sale, PPA, lease, fare, service contract, platform fee, export receipt, or lawful levy. |
+| Benefit discipline | Second-order benefits are source-tagged and excluded from dividend cash. |
+| Local capability | Iraqi staffing, training transfer, supplier upgrading, and handover plan exist. |
+| Anti-capture | Related-party exposure, monopoly risk, PEP/sanctions risk, and procurement concentration are within limits. |
+| Privacy and security | Data use, access controls, auditability, offline settlement, and operator powers meet the security model. |
+| Citizen fairness | Dividends, civic work, transfers, and appeals are rules-based and auditable. |
+
+### Portfolio Scoring
+
+After hard gates, projects can be ranked with a transparent score. The weights
+below are planning defaults, not law.
+
+| Component | Weight | What it asks |
+| --- | ---: | --- |
+| Cash adequacy | 25% | Does the project generate collectible revenue after maintenance? |
+| Fiscal relief | 15% | Does it fund Treasury, reduce subsidy pressure, or replace inefficient spending? |
+| Import and FX effect | 15% | Does it reduce critical imports, earn foreign currency, or lower FX leakage? |
+| Strategic resilience | 15% | Does it strengthen food, water, power, defense-controlled supply, electronics, HVAC, logistics, or health resilience? |
+| Iraqi employment and capability | 10% | Does it create skilled Iraqi jobs and technical control? |
+| Public service benefit | 10% | Does it improve city services, transport, safety, sanitation, productivity, or inclusion? |
+| Citizen distribution potential | 10% | Does it raise future dividend capacity without starving maintenance or debt service? |
+
+Negative modifiers:
+
+- Capex overrun risk.
+- Foreign-currency mismatch.
+- Imported-input dependency.
+- Water or energy stress.
+- Monopoly or patronage risk.
+- Weak audit evidence.
+- High platform-fee burden on SMEs.
+
+### Cash And Benefit Conversion Rules
+
+Second-order benefits are useful for strategy, but they must cross a conversion
+line before they become fiscal or dividend capacity.
+
+| Benefit | Not cash when | Becomes booked cash when |
+| --- | --- | --- |
+| Import substitution | It is only an estimated avoided import. | A domestic sale, lease, service contract, or procurement settlement occurs. |
+| Tourism multiplier | Visitors spend money at private merchants. | INDHC receives platform fees, leases, JV shares, ticketing, service contracts, or taxes/levies are settled. |
+| Grid-loss reduction | Engineers estimate savings. | A verified savings contract, tariff adjustment, or budget transfer settles. |
+| Rail land value | Property values rise near stations. | Lease, development charge, tax increment, concession, or revenue share is collected. |
+| Civic work | A task is assigned. | Evidence is verified, appeals window passes, and payment is released. |
+| SME bankability | Transaction history improves. | A loan is issued and repaid, or tax/fee settlement occurs. |
+| Ministry performance | A ministry claims reform. | Service outputs are verified and tied to budget release or service payment. |
+
+This is the most important anti-overclaim rule in the model.
+
+### Waterfall Logic
+
+Every operating subsidiary follows the same basic waterfall.
+
+```text
+Gross operating receipts
+  - refunds, reversals, fraud losses
+  - operating costs
+  - maintenance and renewal reserve
+  - project debt service
+  - statutory risk reserve
+  - gross-profit levy / tax
+  - retained earnings allocation
+  - dividend stabilization reserve
+  = distributable surplus
+```
+
+The holding company may distribute only the consolidated surplus that remains
+after all subsidiary and holding-company gates pass.
+
+### Capital Allocation Logic
+
+Capital allocation should proceed in this order:
+
+1. Protect existing asset maintenance, safety, cybersecurity, and debt service.
+2. Fund projects that preserve water, food, power, and critical logistics.
+3. Fund projects with near-term booked cash and clear collection mechanisms.
+4. Fund import-substitution and strategic-resilience projects with credible unit
+   economics.
+5. Fund tourism, services, and export platforms that bring non-oil demand.
+6. Fund civic-work and workforce transitions that preserve social legitimacy.
+7. Fund dividends only from audited surplus after reserves and retained
+   earnings.
+
+This order prevents a politically attractive dividend from consuming the capital
+base that must produce future dividends.
+
+### Governance Roles
+
+| Body | Operating responsibility |
+| --- | --- |
+| Parliament | Passes legal mandate, debt limits, disclosure duties, dividend rules, emergency powers, and citizen rights. |
+| CBI / payment authority | Supervises Digital IQD issuance, settlement, wallet limits, privacy boundaries, and payment-system resilience. |
+| Treasury | Receives levy/tax revenue, funds ministries, reports fiscal exposure, and enforces debt limits. |
+| INDHC board | Allocates capital, approves subsidiaries, enforces waterfall rules, and publishes portfolio accounts. |
+| Portfolio risk committee | Can suspend disbursement, dividends, or borrowing when gates fail. |
+| Sector boards | Manage industrial, tourism, rail, green, water, food, and platform subsidiaries under published mandates. |
+| Ministries | Become policy owners, regulators, standard setters, or service buyers instead of automatic oil claimants. |
+| Municipalities | Contract city services, tourism services, transport integration, and local maintenance with measurable outputs. |
+| Banks | Lend against verified cashflows, receivables, and repayment history without political allocation. |
+| Auditors and anti-corruption bodies | Review procurement, related parties, project accounts, source tags, and public dashboards. |
+| Citizens | Receive equal dividends, see public dashboards, appeal entitlement errors, and benefit from services and jobs. |
+
+### Data Model Surface
+
+Cylinder Seal should eventually represent this logic with explicit objects:
+
+| Primitive | Purpose |
+| --- | --- |
+| `EconomicOperatingPeriod` | Monthly, quarterly, and annual ledger close period. |
+| `EconomicEvent` | Canonical event with amount, source, evidence, risk, and ledger impacts. |
+| `LedgerImpact` | Links events to capital, asset, booked cash, public benefit, distribution, or risk ledgers. |
+| `PortfolioMode` | Defensive, build, scale, or dividend mode with rule settings. |
+| `HardGateResult` | Legal, fiscal, debt, revenue, benefit, local capability, security, and fairness checks. |
+| `PortfolioScorecard` | Weighted project ranking after hard gates pass. |
+| `BenefitAttribution` | Source-tagged estimate for import savings, tourism second-order effects, civic output, or city-service gains. |
+| `CashBenefitConversion` | Records when a benefit becomes settled revenue, tax, fee, lease, or service payment. |
+| `WaterfallStatement` | Subsidiary and holding-company distribution statement. |
+| `CapitalAllocationDecision` | Board-approved movement of oil equity, loans, PPP capital, or retained earnings. |
+| `DividendGateDecision` | Monthly eligibility, reserve, DSCR, audit, and distribution decision. |
+| `PublicDashboardSnapshot` | Published aggregate view with confidence levels and privacy protection. |
+| `GrowthImpactProjection` | Baseline, constrained-base, and strategic-upper non-oil growth paths from [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md). |
+| `ComprehensiveBenefitProjection` | Long-horizon economic, infrastructure, environmental, social, and cultural benefit paths from [Iraq Comprehensive Benefits Model](iraq-comprehensive-benefits-model.md). |
+
+### Management Dashboards
+
+The operating dashboard should show the economy as a controlled portfolio:
+
+| Dashboard | Main question |
+| --- | --- |
+| Source and uses | Where did oil, loans, PPP capital, and retained earnings go? |
+| Booked cash | Which revenue streams actually settled? |
+| Collections | Which invoices, contracts, fares, PPAs, leases, or fees are unpaid? |
+| Debt safety | Which projects are close to DSCR, FX, or maturity stress? |
+| Public benefits | Which second-order effects are real, source-tagged, and not double counted? |
+| Growth impact | Are infrastructure, industry, open-source rail, tourism, Digital IQD, and civic work raising non-oil growth versus baseline? |
+| Comprehensive benefits | Are economic, environmental, social, cultural, and infrastructure benefits tracked separately from booked cash? |
+| Local capability | Which sectors are becoming Iraqi-operated and less import-dependent? |
+| Ministry productivity | Which public budgets now buy measured outputs? |
+| Citizen welfare | What changed in wages, transfers, civic income, dividends, prices, and credit access? |
+| Risk and capture | Where are procurement, related-party, concentration, AML, or security risks rising? |
+| Dividend sustainability | Is the dividend funded by recurring surplus after all senior claims? |
+
+### Escalation Rules
+
+| Condition | Automatic response |
+| --- | --- |
+| DSCR breach | Freeze new debt and dividends for the affected portfolio until recovery plan is approved. |
+| Maintenance reserve breach | Block distributions from the asset or subsidiary. |
+| Related-party or PEP concentration breach | Escalate to audit; suspend affected procurement privileges. |
+| Unpaid public invoices | Stop counting revenue as collectible; review ministry or municipal payment capacity. |
+| FX mismatch | Restrict new foreign-currency borrowing unless offset by FX revenue, hedge, or approved reserve. |
+| Benefit overclaim | Move claim to low-confidence public-benefit ledger and remove from policy headline. |
+| Civic-work evidence failure | Hold payment, trigger appeal or re-verification, and flag verifier reliability. |
+| Privacy or security breach | Suspend affected data product, access role, or operator privilege. |
+
+### Why This Encompasses The Whole Model
+
+This logic gives every major part of the Cylinder Seal architecture a controlled
+place:
+
+- Oil income is capital, not a ministry entitlement.
+- Loans are repayment claims, not free spending.
+- INDHC subsidiaries are productive assets, not payroll vehicles.
+- Tourism and second-order benefits are visible but not overcounted.
+- Ministries are service buyers, regulators, or policy owners.
+- Citizens are owners, workers, consumers, producers, and auditors.
+- Civic work is paid public value with evidence, not disguised unemployment.
+- Digital IQD is the evidence and settlement layer.
+- Dashboards are management tools, not publicity pages.
+
+### Bottom Line
+
+The coherent logic is a rules-based national portfolio:
+
+```text
+Measure every event.
+Classify it into the right ledger.
+Apply hard gates.
+Score the portfolio.
+Allocate capital.
+Collect revenue.
+Separate benefits from cash.
+Pay obligations before dividends.
+Publish evidence.
+Reallocate away from failure.
+```
+
+That is how the system can include oil, industry, ministries, tourism,
+second-order benefits, civic work, credit, and citizen dividends without
+collapsing into either a passive sovereign fund or another opaque state
+bureaucracy.
+
+
+# Part 7: Iraq Integrated Growth Impact Model
+
+## Iraq Integrated Growth Impact Model
+
+This document quantifies how the Cylinder Seal, INDHC, open-source rail,
+industrial, infrastructure, tourism, green, food/water, Digital IQD, and civic
+work model could affect Iraq's non-oil growth path over ten years.
+
+Status: scenario model. It is not an official forecast, budget law, investment
+prospectus, debt recommendation, or externally validated macroeconomic model.
+
+### Bottom Line
+
+The model can plausibly create high non-oil growth if it is governed as a
+disciplined productive-capital program rather than a spending program.
+
+Using IMF 2025 Article IV data, Iraq's baseline non-oil real GDP growth is
+projected at 2.5-3.0 percent for 2027-2030, with current non-oil potential
+around the 3-4 percent range. IMF staff also state that reforms in labor,
+business regulation, the financial sector, and governance could double non-oil
+potential growth in the medium term.
+
+This model therefore uses three paths:
+
+| Path | 2036 non-oil real growth | 2036 non-oil GDP index, 2026=100 | 2036 non-oil GDP, constant 2026 USD | Additional real non-oil GDP vs baseline |
+| --- | ---: | ---: | ---: | ---: |
+| Baseline | 3.5% | 137.0 | USD 248B | N/A |
+| Low-execution case | 4.3% | 143.2 | USD 260B | USD 11B |
+| Constrained-base execution | 6.2% | 158.6 | USD 287B | USD 39B |
+| Strategic-upper execution | 7.9% | 175.0 | USD 317B | USD 69B |
+
+The headline is deliberately non-oil. Total GDP can still be pulled around by
+oil production, OPEC+ constraints, oil prices, and export interruptions. The
+success test is whether Iraq's non-oil economy compounds faster and becomes less
+dependent on raw oil allocation.
+
+### Source Discipline
+
+| Data point | Use in the model | Source |
+| --- | --- | --- |
+| IMF projections for Iraq real GDP, non-oil real GDP, GDP in USD, non-oil GDP in IQD, investment, public capex, debt, reserves, and fiscal deficits for 2025-2030. | Baseline growth path and non-oil GDP starting point. | [IMF Iraq 2025 Article IV, Table 1](https://www.imf.org/-/media/files/publications/cr/2025/english/1irqea2025001-source-pdf.pdf) |
+| IMF statement that structural reforms in labor, business regulation, financial sector, and governance could double non-oil potential GDP growth in the medium term. | Upper-bound plausibility check for high non-oil growth. | [IMF Iraq 2025 Article IV, paragraph 43](https://www.imf.org/-/media/files/publications/cr/2025/english/1irqea2025001-source-pdf.pdf) |
+| IMF warning that fiscal risks require adjustment and non-essential spending limits, while crucial non-oil capital spending should be protected. | Keeps the growth scenario tied to affordability gates. | [IMF Iraq 2025 Article IV, paragraphs 39-40](https://www.imf.org/-/media/files/publications/cr/2025/english/1irqea2025001-source-pdf.pdf) |
+| World Bank description of Iraq's oil dependence, 2025 non-oil slowdown, water/electricity/liquidity constraints, and youth employment challenge. | Identifies the binding constraints that the program targets. | [World Bank Iraq country page](https://www.worldbank.org/ext/en/country/iraq) |
+| World Bank research finding that a public-investment increase of 1 percent of GDP can raise output by 1.1 percent after five years on average in EMDEs, with effects up to 1.6 percent under stronger efficiency and fiscal-space conditions, and can crowd in private investment and raise productivity. | Sanity check for infrastructure and public-investment transmission. | [World Bank, Revisiting Public Investment Multipliers](https://openknowledge.worldbank.org/server/api/core/bitstreams/bbb8be60-fdf8-4353-abb1-945f72b65448/content) |
+| Iraq National Development Plan 2024-2028 focus on infrastructure, public services, sustainability, and economic sectors including agriculture, industry, and tourism. | Confirms that the sector focus is aligned with Iraq's planning frame. | [UNDP Iraq National Development Plan 2024-2028](https://www.undp.org/iraq/publications/iraq-national-development-plan-2024-2028) |
+| WTTC Iraq tourism impact data separating direct and wider tourism contribution. | Tourism and second-order benefits discipline. | [WTTC Iraq Economic Impact Report 2024](https://assets-global.website-files.com/6329bc97af73223b575983ac/6643856bc693733a9f435ca5_EIR2024-Iraq.pdf) |
+
+These sources support the baseline and the direction of transmission. They do
+not validate the exact sector contributions below.
+
+### Method
+
+Machine-readable table:
+[docs/data/iraq-integrated-growth-impact-timeline.csv](data/iraq-integrated-growth-impact-timeline.csv).
+
+The model starts from IMF's 2026 non-oil GDP level of IQD 235.6T. Using a simple
+IQD 1,300 per USD conversion, this equals about USD 181B in 2026-price terms.
+
+The model then applies:
+
+```text
+Scenario non-oil growth
+  = baseline non-oil growth
+  + industrial/import-substitution contribution
+  + open-source rail/logistics contribution
+  + green power/grid contribution
+  + food/water/irrigation contribution
+  + tourism/services contribution
+  + Digital IQD formalization/credit contribution
+  + civic-work/workforce contribution
+```
+
+Additional real non-oil GDP is calculated as:
+
+```text
+(scenario non-oil GDP index - baseline non-oil GDP index)
+  * 2026 non-oil GDP in USD
+```
+
+This is a real-output index model, not a nominal revenue forecast. It does not
+count oil-price windfalls as growth success.
+
+### Growth Contribution Timeline
+
+Percentage points added to baseline non-oil real growth.
+
+| Year | Phase | Baseline non-oil growth | Constrained add-on | Constrained growth | Strategic add-on | Strategic growth | Constrained extra non-oil GDP | Strategic extra non-oil GDP |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 2027 | Foundation | 2.5% | 0.2pp | 2.7% | 0.4pp | 2.9% | USD 0.4B | USD 0.7B |
+| 2028 | Foundation | 2.5% | 0.4pp | 2.9% | 0.8pp | 3.3% | USD 1.1B | USD 2.2B |
+| 2029 | Build | 3.0% | 0.7pp | 3.7% | 1.3pp | 4.3% | USD 2.5B | USD 4.8B |
+| 2030 | Build | 3.0% | 1.1pp | 4.1% | 1.9pp | 4.9% | USD 4.7B | USD 8.7B |
+| 2031 | Build | 3.5% | 1.5pp | 5.0% | 2.5pp | 6.0% | USD 7.9B | USD 14.2B |
+| 2032 | Scale | 3.5% | 1.8pp | 5.3% | 3.0pp | 6.5% | USD 12.1B | USD 21.4B |
+| 2033 | Scale | 3.5% | 2.1pp | 5.6% | 3.5pp | 7.0% | USD 17.3B | USD 30.4B |
+| 2034 | Scale | 3.5% | 2.3pp | 5.8% | 3.8pp | 7.3% | USD 23.5B | USD 41.2B |
+| 2035 | Compound | 3.5% | 2.5pp | 6.0% | 4.2pp | 7.7% | USD 30.8B | USD 54.0B |
+| 2036 | Compound | 3.5% | 2.7pp | 6.2% | 4.4pp | 7.9% | USD 39.0B | USD 68.8B |
+
+Interpretation:
+
+- The first two years are mostly institutional and construction effects.
+- The growth acceleration becomes material only when assets operate, revenue is
+  collected, imports are replaced credibly, credit expands, and rail/power/water
+  constraints ease.
+- The strategic-upper path is plausible only if the operating logic prevents
+  corruption, debt stress, import leakage, and prestige construction.
+
+### Sector Contribution Logic
+
+By Year 10, the constrained-base case adds 2.65 percentage points to non-oil
+real growth. The strategic-upper case adds 4.37 percentage points.
+
+| Channel | Year-10 constrained add-on | Year-10 strategic add-on | Growth mechanism |
+| --- | ---: | ---: | --- |
+| Industrial production and import substitution | 0.60pp | 0.99pp | Higher domestic value added, supplier networks, maintenance services, raw-material processing, public procurement substitution, selective exports. |
+| Infrastructure, open-source rail, and logistics | 0.55pp | 0.91pp | Lower transport costs, higher labor-market access, denser cities, better visitor corridors, cheaper freight, domestic rail supply chains. |
+| Green power, grid, and HVAC efficiency | 0.45pp | 0.74pp | Fewer outages, lower fuel and import pressure, reliable industrial power, efficient cooling, lower production risk. |
+| Food, water, desalination, irrigation, and cold chain | 0.35pp | 0.58pp | Less spoilage, higher farm and processor productivity, better water security, import substitution in staples and food services. |
+| Tourism and tradable services | 0.30pp | 0.50pp | Visitor spending, hospitality, cultural routes, healthcare/education/business services, diaspora demand, non-oil FX. |
+| Digital IQD formalization, SME credit, and tax visibility | 0.25pp | 0.41pp | More bankable merchants, better receivables finance, lower leakage, faster settlement, wider tax base without crushing microbusinesses. |
+| Civic work, workforce, and public-value maintenance | 0.15pp | 0.25pp | Paid maintenance, environmental work, municipal repair, training records, bridge-to-work pathways, social legitimacy during productivity transition. |
+| **Total** | **2.65pp** | **4.37pp** | Non-oil growth acceleration by Year 10. |
+
+These are contribution estimates. The system must publish them as model
+assumptions with confidence levels, not as independently proven outcomes.
+
+### Phase Logic
+
+#### 2027-2028: Foundation
+
+Growth impact is small because the system is mostly building institutions and
+project pipelines.
+
+Primary work:
+
+- Oil Income Lockbox and INDHC legal design.
+- Economic operating logic, ledgers, and hard gates.
+- Project registry, procurement baselines, and source tags.
+- Quick rehabilitation of productive assets.
+- Digital IQD merchant, procurement, and civic-work evidence rails.
+- Open-source rail reference architecture and city-corridor selection.
+- Tourism payment rails and city-service baselines.
+
+Expected result: non-oil growth rises only modestly above baseline, but the
+state creates the measurement and governance system required for later growth.
+
+#### 2029-2031: Build
+
+Growth becomes visible as early assets operate.
+
+Primary work:
+
+- Industrial processing belts, construction inputs, HVAC/electronics assembly,
+  water equipment, and defense-controlled sustainment.
+- First open-source rail corridors, logistics hubs, and station-area services.
+- Cold chain, food processing, irrigation equipment, and farmer/processor
+  credit.
+- Green power, grid efficiency, and industrial power zones.
+- Tourism corridors, hotel/JV finance, guide registry, and visitor platforms.
+- Civic work shifts toward maintenance, municipal repair, climate resilience,
+  sanitation, parks, sport, culture, and training.
+
+Expected result: constrained-base non-oil growth reaches about 5.0 percent by
+2031; the strategic-upper case reaches about 6.0 percent if capital delivery and
+private crowd-in are strong.
+
+#### 2032-2034: Scale
+
+This is where the model should start looking like high growth rather than
+project spending.
+
+Primary work:
+
+- Supplier networks deepen around industrial champions.
+- Rail and logistics reduce the delivered cost of goods and labor movement.
+- Power reliability improves industrial utilization.
+- Food/water systems reduce losses and import pressure.
+- Tourism second-order benefits appear in merchant revenues, food supply chains,
+  city services, foreign-currency capture, and SME credit histories.
+- Digital IQD evidence lets banks expand credit against actual receivables.
+
+Expected result: constrained-base non-oil growth reaches 5.3-5.8 percent;
+strategic-upper growth reaches 6.5-7.3 percent.
+
+#### 2035-2036: Compound
+
+The system either compounds or exposes failure.
+
+If the operating logic works:
+
+- Infrastructure lowers the cost base.
+- Industrial suppliers localize components.
+- Tourism and tradable services become repeatable FX channels.
+- Civic work becomes a bridge into skills and municipal productivity.
+- Ministries receive more funding from visible productive surplus.
+- Dividends grow only from audited surplus.
+
+Expected result: constrained-base non-oil growth reaches about 6.2 percent by
+2036; strategic-upper growth reaches about 7.9 percent. In 2026-dollar terms,
+that is about USD 39B and USD 69B of additional real non-oil GDP respectively
+versus baseline.
+
+### Open-Source Rail As A Growth Platform
+
+Open-source rail is not only a transport project. It is a productivity platform.
+
+Growth channels:
+
+- Faster worker access to jobs and training.
+- Lower logistics cost for food, materials, tourism, and industrial parks.
+- More predictable urban travel for women, students, service workers, and SMEs.
+- Station-area retail, leases, advertising, and land-value capture.
+- Domestic fabrication of components, depots, maintenance systems, signaling
+  interfaces, software, and station equipment.
+- Better visitor corridors for Najaf-Karbala, Baghdad/Kadhimiya, Babylon/Ur,
+  marshland routes, Basra, Mosul, and other city systems.
+
+The "open-source" principle matters because it reduces vendor lock-in, allows
+Iraqi maintenance capability to grow, and makes metro/light-rail delivery a
+repeatable national program rather than a one-off prestige procurement.
+
+### Civic Work As Growth Infrastructure
+
+Civic work is normally discussed as social policy. In this model it is also
+economic infrastructure.
+
+Growth channels:
+
+- Keeps people attached to paid, verified activity during automation and
+  ministry transition.
+- Produces visible public value: street repair, drainage, parks, tree cover,
+  sports facilities, tourism sanitation, cultural events, care work, disaster
+  readiness, and environmental restoration.
+- Creates work histories, training records, and municipal output data.
+- Improves the physical environment for tourism, retail, transport, and local
+  services.
+- Reduces resistance to productivity reforms by giving citizens a participation
+  pathway that is not old-style ministry payroll.
+
+Civic work should be counted as growth only when it creates verified outputs or
+improves employability, service quality, tourism readiness, public health, or
+municipal productivity.
+
+### What Makes Growth High
+
+The high-growth path does not come from one magic sector. It comes from loops
+reinforcing each other:
+
+```text
+Industrial capacity lowers imports.
+Rail and logistics lower delivered costs.
+Green power raises utilization.
+Water and food systems lower losses.
+Tourism brings outside demand.
+Digital IQD makes cashflow bankable.
+Civic work improves public space and employability.
+Ministry feedback improves services.
+Profits fund reinvestment and dividends.
+Citizen and SME spending recycles demand domestically.
+```
+
+That combination is why the strategic-upper path can approach 8 percent non-oil
+growth in later years. Without governance and execution, the same spending can
+become debt, imports, and unfinished assets.
+
+### Failure Cases
+
+| Failure | Growth consequence |
+| --- | --- |
+| Governance failure | Capex leaks into imports, patronage, and overruns; low-execution path becomes more likely. |
+| Debt stress | Projects freeze, dividends stop, and fiscal consolidation crowds out productive investment. |
+| Rail lock-in | Open-source rail becomes vendor-dependent prestige construction; logistics gains shrink. |
+| Industrial protectionism | Domestic prices rise without productivity; import substitution becomes a tax on citizens. |
+| Power and water bottlenecks persist | Factories and food systems underutilize capacity. |
+| Tourism is not formalized | Visitor spend remains informal; second-order benefits do not become tax, credit, or investment. |
+| Civic work becomes fake jobs | Public value disappears and the model reverts to payroll politics. |
+| Digital IQD loses trust | Formalization, credit, dashboard visibility, and tax-base expansion stall. |
+
+### Dashboard Metrics
+
+| Metric | Purpose |
+| --- | --- |
+| `NonOilRealGrowthScenario` | Shows baseline, constrained-base, strategic-upper, and actual non-oil growth. |
+| `SectorGrowthContribution` | Publishes assumed and observed contribution by sector. |
+| `NonOilGDPIndex` | Tracks real non-oil compounding with 2026 as base year. |
+| `AdditionalNonOilGDPVsBaseline` | Shows real GDP level gain versus baseline. |
+| `PrivateInvestmentCrowdIn` | Tests whether public and INDHC investment attract private capital. |
+| `OpenRailCostReduction` | Measures travel time, logistics cost, ridership, and station-area revenue. |
+| `IndustrialCapacityUtilization` | Shows whether factories are operating, not just built. |
+| `PowerReliabilityForIndustry` | Tracks outages, industrial power availability, and production impact. |
+| `WaterFoodProductivityGain` | Tracks water efficiency, spoilage, yields, processing utilization, and food-import substitution. |
+| `TourismSecondOrderBenefit` | Tracks merchant spend, city services, supply chains, FX capture, and repeat visits without counting it as INDHC cash. |
+| `CivicWorkPublicValueIndex` | Tracks verified civic outputs, training, employability, and municipal productivity. |
+| `GrowthClaimConfidence` | Labels every growth claim as observed, modeled, estimated, or aspirational. |
+
+### Bottom Line
+
+The integrated program can justify a high-growth ambition, but only if the
+growth claim is made in the right way:
+
+```text
+Baseline Iraq: low-to-moderate non-oil growth under fiscal and infrastructure constraints.
+Constrained-base Cylinder Seal / INDHC execution: non-oil growth can rise toward 6% by Year 10.
+Strategic-upper execution with strong governance and crowd-in: non-oil growth can approach 8% by Year 10.
+```
+
+The best headline is not "guaranteed GDP boom." It is:
+
+```text
+The model creates a testable path for Iraq to move from oil-financed spending
+to high non-oil growth, if capital is governed through hard gates, booked cash,
+public-benefit ledgers, reinvestment discipline, open infrastructure, and
+citizen-facing accountability.
+```
+
+
+# Part 8: Iraq Comprehensive Benefits Model
+
+## Iraq Comprehensive Benefits Model
+
+This document reworks the Cylinder Seal, Digital IQD, INDHC, open-source rail,
+green power, food/water, tourism, civic-work, and ministry-transition proposal
+into one long-horizon national model for Iraq.
+
+Status: scenario model. It is not an official forecast, budget law,
+investment prospectus, production CBDC design, sovereign-debt recommendation,
+or externally validated macroeconomic model.
+
+### Purpose
+
+Cylinder Seal should not be presented as only a payment application or only an
+industrial-policy idea. The coherent model is broader:
+
+```text
+Digital IQD evidence
+  -> bankable households, merchants, producers, and public contracts
+  -> capital allocation through INDHC, banks, PPPs, MDBs, and green finance
+  -> infrastructure, industry, water, food, rail, tourism, culture, and civic work
+  -> booked revenue, avoided losses, public services, skills, resilience, and trust
+  -> taxes, levies, reinvestment, debt service, civic wages, and citizen dividends
+```
+
+The model is "comprehensive" only if it separates five kinds of value:
+
+| Value type | What it means | Can pay dividends? |
+| --- | --- | --- |
+| Booked cash | Settled sales, leases, fares, PPAs, service contracts, platform fees, taxes, levies, JV distributions, and exports. | Yes, after debt service, maintenance, reserves, tax/levy, and retained earnings. |
+| Real output | Additional non-oil GDP from higher productivity, domestic production, formalization, tourism, and services. | No, not directly. It increases the taxable and investable base. |
+| Avoided losses | Reduced water, power, climate, congestion, import, spoilage, and corruption losses. | No, unless a verified savings contract, tariff, fee, or budget transfer converts it into cash. |
+| Social capability | Paid work, civic work, training records, youth inclusion, women's mobility, better services, and household bankability. | No, except through wages, transfers, dividends, or future income. |
+| Cultural capital | Heritage protection, pilgrimage, archaeology, museums, crafts, languages, festivals, and city identity. | No, except through tourism revenue, local merchant revenue, leases, grants, and service contracts. |
+
+This separation is the anti-overclaim rule. The national model can measure all
+five, but only booked cash funds debt service and dividends.
+
+### Source Discipline
+
+| Baseline | Use in this model | Source |
+| --- | --- | --- |
+| Iraq's 2026 non-oil GDP starting point and medium-term non-oil growth path. | Base year and baseline path for non-oil real GDP. | [IMF Iraq 2025 Article IV](https://www.imf.org/-/media/files/publications/cr/2025/english/1irqea2025001-source-pdf.pdf) and [IMF press release](https://www.imf.org/en/news/articles/2025/07/08/pr-25243-iraq-imf-executive-board-concludes-2025-article-iv-consultation) |
+| IMF statement that stronger labor, business, financial-sector, and governance reforms could double non-oil potential growth in the medium term. | Plausibility boundary for the strategic-upper growth path. | [IMF Iraq 2025 Article IV](https://www.imf.org/-/media/files/publications/cr/2025/english/1irqea2025001-source-pdf.pdf) |
+| Iraq's oil dependence, fiscal exposure, and constrained non-oil activity. | Explains why the model targets non-oil compounding rather than oil-price windfalls. | [World Bank Iraq country page](https://www.worldbank.org/ext/en/country/iraq), [EIA Iraq analysis](https://www.eia.gov/international/analysis/country/irq) |
+| Water scarcity and climate risk. | Environmental resilience and avoided-loss logic. | [World Bank Iraq CCDR](https://www.worldbank.org/en/country/iraq/publication/iraq-country-climate-and-development-report), [World Bank Iraq water-scarcity press release](https://www.worldbank.org/en/news/press-release/2021/11/24/iraq-rising-fiscal-risks-water-scarcity-and-climate-change-threaten-gradual-recovery-from-pandemic) |
+| Public water-scarcity warning that a 20% water-supply fall and lower crop yields could reduce real GDP by up to 4%, or USD 6.6B. | Anchors the avoided environmental loss range; the model does not treat avoided loss as dividend cash. | [World Bank, Nov. 24, 2021](https://www.worldbank.org/en/news/press-release/2021/11/24/iraq-rising-fiscal-risks-water-scarcity-and-climate-change-threaten-gradual-recovery-from-pandemic) |
+| Iraq energy transition plan including 12,000 MW solar by 2030. | Green power and grid-capacity pathway. | [IRENA Energy Transition Assessment: Iraq, 2025](https://www.irena.org/-/media/Files/IRENA/Agency/Publication/2025/Jul/IRENA_COU_Energy_transition_assessment_Iraq_2025.pdf) |
+| Iraq has 6 UNESCO World Heritage properties and 15 tentative-list properties. | Cultural-tourism asset base and heritage-protection layer. | [UNESCO Iraq World Heritage page](https://whc.unesco.org/en/statesparties/iq) |
+| Children and young people in Iraq face medium-high climate risk, and Iraq ranks among the world's water-stressed countries. | Social and civic-work resilience layer. | [UNICEF / UN Iraq water scarcity statement](https://iraq.un.org/en/156319-unicef-calls-urgent-action-address-water-scarcity-and-its-impact-children-and-young-people%E2%80%99s) |
+| Tourism has direct and wider GDP/employment effects. | Tourism booked-revenue and second-order benefit discipline. | [WTTC Iraq Economic Impact Report 2024](https://assets-global.website-files.com/6329bc97af73223b575983ac/6643856bc693733a9f435ca5_EIR2024-Iraq.pdf) |
+
+The sources support the baseline problem and the direction of transmission.
+They do not validate the scenario ranges below.
+
+### Long-Horizon Scenarios
+
+Machine-readable table:
+[docs/data/iraq-comprehensive-benefits-timeline.csv](data/iraq-comprehensive-benefits-timeline.csv).
+
+The long-horizon GDP path extends the ten-year
+[Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md).
+
+Assumptions:
+
+| Scenario | 2027-2036 | 2037-2040 | 2041-2050 |
+| --- | --- | --- | --- |
+| Baseline | IMF-aligned weak reform path, reaching 3.5% non-oil real growth after 2030. | 3.5% non-oil real growth. | 3.5% non-oil real growth. |
+| Constrained-base execution | Matches the ten-year constrained-base path. | 5.5% non-oil real growth as proven assets compound. | 4.5% non-oil real growth as the portfolio matures. |
+| Strategic-upper execution | Matches the ten-year strategic-upper path. | 7.0% non-oil real growth with strong governance and private crowd-in. | 5.5% non-oil real growth after the high-build phase. |
+
+Starting point: the ten-year model uses IMF's 2026 non-oil GDP level of IQD
+235.6T, converted at IQD 1,300 per USD, or about USD 181B in constant 2026 USD.
+
+### Long-Term Benefits Snapshot
+
+All figures are scenario outputs, not forecasts. GDP figures are constant 2026
+USD. Revenue and dividend figures are annual run-rate ranges unless noted.
+
+| Horizon | Scenario | Non-oil GDP index, 2026=100 | Non-oil GDP | Additional non-oil GDP vs baseline | Booked portfolio revenue | Dividend pool | Infrastructure and service capacity |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+| 2036 | Baseline | 137.0 | USD 248B | N/A | N/A | N/A | Existing reform path, weak compounding. |
+| 2036 | Constrained-base | 158.5 | USD 287B | USD 39B | USD 23B | USD 1.65B | Early proof of rail/logistics, food/water, green power, industrial parks, tourism, and Digital IQD revenue. |
+| 2036 | Strategic-upper | 175.0 | USD 317B | USD 69B | USD 43B | USD 2-4B | Stronger project delivery, higher local content, more private crowd-in, larger export/tourism channels. |
+| 2040 | Baseline | 157.2 | USD 285B | N/A | N/A | N/A | Slow non-oil expansion; oil and fiscal constraints still dominate. |
+| 2040 | Constrained-base | 196.4 | USD 356B | USD 71B | USD 42B | USD 4-7B | Network effects from rail, power, industrial supply chains, bankable SMEs, and tourism corridors. |
+| 2040 | Strategic-upper | 229.3 | USD 416B | USD 131B | USD 80B | USD 8-12B | Iraq becomes a regional platform for selected goods, services, logistics, pilgrimage, heritage tourism, and green projects. |
+| 2050 | Baseline | 221.8 | USD 402B | N/A | N/A | N/A | Non-oil economy grows, but slowly and with continued structural fragility. |
+| 2050 | Constrained-base | 305.0 | USD 553B | USD 151B | USD 86B | USD 12-20B | Mature domestic productive portfolio with continued maintenance and reinvestment burden. |
+| 2050 | Strategic-upper | 391.7 | USD 710B | USD 308B | USD 160B | USD 25-40B | Highly diversified non-oil economy if governance, water, power, skills, anti-capture, and fiscal discipline hold. |
+
+Interpretation:
+
+- The most important number is not the dividend. It is the non-oil GDP base,
+  because it determines long-term jobs, taxes, bankability, services, and
+  fiscal resilience.
+- Dividends are deliberately subordinate to maintenance, debt service, retained
+  earnings, and reserves.
+- The strategic-upper path is not a target to announce. It is a stretch case
+  used for project selection, stress testing, and governance design.
+
+### Integrated Domain Model
+
+#### 1. Economic Production
+
+Objective: turn oil income into domestic productive assets before it becomes
+ministry spending or household consumption.
+
+Main mechanisms:
+
+- Oil Income Lockbox and INDHC investment gate.
+- Import substitution in food, building materials, HVAC, electronics,
+  water/desalination, irrigation, rail components, defense-controlled
+  sustainment, and raw-material processing.
+- Digital IQD transaction evidence for sales, receivables, taxes, procurement,
+  and credit.
+- Project debt only where cashflow is measurable and DSCR gates pass.
+- PPP/JV capital for tourism, logistics, hotels, industrial parks, and
+  station-area development.
+- Export discipline after domestic capability is proven.
+
+Long-term benefit:
+
+| Metric | Constrained-base by 2050 | Strategic-upper by 2050 |
+| --- | ---: | ---: |
+| Additional real non-oil GDP vs baseline | USD 151B | USD 308B |
+| Annual booked portfolio revenue | USD 86B | USD 160B |
+| Annual dividend pool after gates | USD 12-20B | USD 25-40B |
+| Main risk | Mediocre delivery, weak private crowd-in, import leakage. | Overexpansion, debt stress, monopoly capture, political interference. |
+
+#### 2. Infrastructure And Urban Productivity
+
+Objective: lower the national cost base through power, rail, logistics, water,
+housing inputs, and digital public infrastructure.
+
+Main mechanisms:
+
+- Open-source rail standards for metro, light metro, tram, depots, fare systems,
+  maintenance tooling, signaling interfaces, and station services.
+- Repeatable city corridors rather than one-off prestige projects.
+- Logistics hubs connecting food processing, raw materials, ports, tourism,
+  industrial parks, and urban distribution.
+- Grid, solar, storage, industrial power zones, efficient cooling, and
+  waste-to-energy where bankable.
+- Housing inputs and urban services that reduce construction and maintenance
+  costs.
+
+Scenario capacity ranges:
+
+| Horizon | Scenario | Open rail / urban transit corridor-km | Clean or reliable added power capacity | Main benefit |
+| --- | --- | ---: | ---: | --- |
+| 2036 | Constrained-base | 250-400 km | 5-8 GW | First repeatable city corridors, logistics links, and industrial power zones. |
+| 2036 | Strategic-upper | 600-900 km | 12-18 GW | Multiple city systems and stronger alignment with Iraq's solar target. |
+| 2040 | Constrained-base | 500-800 km | 10-15 GW | Network utilization begins to lower freight, commute, and service costs. |
+| 2040 | Strategic-upper | 1,000-1,500 km | 20-30 GW | Rail and power become national productivity platforms. |
+| 2050 | Constrained-base | 1,000-1,600 km | 20-30 GW | Mature transport/power backbone in major cities and industrial corridors. |
+| 2050 | Strategic-upper | 2,200-3,000 km | 40-60 GW | Iraq has a large repeatable urban mobility and clean-power industrial base. |
+
+These are planning capacity ranges, not committed projects. They should be
+approved corridor by corridor after ridership, land, energy, debt, procurement,
+and maintenance gates pass.
+
+#### 3. Environmental Resilience
+
+Objective: make water, heat, agriculture, marshes, sanitation, and energy
+resilience part of the national production model rather than a separate aid
+agenda.
+
+Main mechanisms:
+
+- Water-efficiency equipment, irrigation manufacturing, canal and drainage
+  repair, metering, leak reduction, wastewater reuse, and desalination where
+  economically appropriate.
+- Climate-smart schools, clinics, public buildings, cooling, shaded streets,
+  parks, tree cover, and civic-work maintenance.
+- Marshland and river-basin restoration projects where they protect livelihoods,
+  tourism, biodiversity, and flood/drought resilience.
+- Food processing, cold chain, storage, and domestic input production to reduce
+  spoilage and climate-related import dependence.
+- Digital IQD civic-work payments for verified environmental tasks.
+
+Avoided-loss ranges:
+
+| Horizon | Constrained-base avoided annual loss | Strategic-upper avoided annual loss | Ledger treatment |
+| --- | ---: | ---: | --- |
+| 2036 | USD 1-3B | USD 2-5B | Public benefit ledger unless savings contracts settle. |
+| 2040 | USD 3-6B | USD 6-10B | Public benefit ledger and selected booked savings contracts. |
+| 2050 | USD 8-15B | USD 15-25B | Public benefit ledger, with some cash conversion through water, energy, sanitation, and insurance-like service contracts. |
+
+The ranges are anchored by the World Bank warning that a 20% fall in water
+supply and lower crop yields could reduce Iraq real GDP by up to 4%, or USD
+6.6B in the cited report period. Longer-horizon values are scenario extensions,
+not source-validated losses.
+
+#### 4. Social Capability And Inclusion
+
+Objective: make productivity politically and socially legitimate by giving
+citizens visible shares, usable wallets, credit histories, services, civic-work
+pathways, and skills.
+
+Main mechanisms:
+
+- Non-saleable citizen beneficial shares in INDHC.
+- Equal Digital IQD dividend batches only from audited surplus.
+- Civic-work wages for verified municipal, environmental, care, culture, sport,
+  education, food-security, and disaster-readiness tasks.
+- Wallet, POS, and invoice histories that make merchants, individual producers,
+  households, and civic workers bankable.
+- Youth and women mobility through safe transit, digital payments, training,
+  and local service work.
+- Ministry transition only after service-continuity and staff-transition gates.
+
+Scenario civic-work capacity:
+
+| Horizon | Constrained-base annual job-equivalent capacity | Strategic-upper annual job-equivalent capacity | Main use |
+| --- | ---: | ---: | --- |
+| 2036 | 200,000-400,000 | 350,000-750,000 | Municipal repair, environmental work, care, culture, sport, tourism readiness, and training. |
+| 2040 | 400,000-700,000 | 700,000-1,400,000 | Larger city-service, water, climate, heritage, and maintenance programs. |
+| 2050 | 700,000-1,200,000 | 1,500,000-2,500,000 | Mature participation economy tied to skills, service quality, and resilience. |
+
+These are annual job-equivalent capacities, not promised permanent government
+jobs. They may be part-time, seasonal, task-based, municipal, cooperative, NGO,
+or private-contract work, and they must be paid only after evidence is verified.
+
+#### 5. Culture, Heritage, Tourism, And Identity
+
+Objective: treat culture as an economic and social asset without reducing it to
+ticket sales.
+
+Main mechanisms:
+
+- UNESCO sites, tentative-list sites, museums, pilgrimage corridors, marshland
+  heritage, archaeology, craft markets, cultural festivals, Iraqi food systems,
+  local languages, and historic city centers.
+- Digital ticketing, guide credentials, site-service contracts, visitor
+  transport, sanitation, safety, payments, and merchant settlement.
+- Heritage maintenance funded through a mix of grants, site revenue, municipal
+  contracts, tourism levies, philanthropy, and INDHC-adjacent services.
+- City cultural calendars linked to hotels, rail, food, crafts, media, sport,
+  and education.
+
+Tourism and culture revenue model:
+
+| Horizon | Scenario | Booked tourism/culture revenue | Second-order benefit | Ledger treatment |
+| --- | --- | ---: | ---: | --- |
+| 2036 | Constrained-base | USD 3B | USD 6.6B | Booked cash for direct channels; second-order benefit for wider merchant and city effects. |
+| 2036 | Strategic-upper | USD 7B | USD 14-18B | Requires strong safety, service quality, heritage protection, hotel capacity, and formal payments. |
+| 2040 | Constrained-base | USD 6-8B | USD 12-18B | Tourism becomes a larger formal FX and SME-credit channel. |
+| 2040 | Strategic-upper | USD 12-16B | USD 25-35B | Iraq becomes a regional cultural, pilgrimage, heritage, and service-tourism platform. |
+| 2050 | Constrained-base | USD 14-20B | USD 30-45B | Mature route network, stronger domestic supply chains, better city services. |
+| 2050 | Strategic-upper | USD 25-35B | USD 55-75B | High-service cultural economy with broad domestic supply chains and repeat visitation. |
+
+Culture should be scored by more than revenue:
+
+- Protected heritage assets.
+- Jobs for guides, craftspeople, conservators, artists, drivers, food
+  producers, hotel staff, event staff, translators, and city workers.
+- Repeat visitor confidence.
+- Local pride and social cohesion.
+- Youth training and cultural education.
+- Safer, cleaner, better maintained public spaces for residents.
+
+### The Coherent Operating Logic
+
+The full system should be managed by the
+[National Economic Operating Logic](national-economic-operating-logic.md), with
+one additional comprehensive-benefits scorecard.
+
+#### National Portfolio Scorecard
+
+Every major project should receive six scores after hard gates pass:
+
+| Score | Question | Example evidence |
+| --- | --- | --- |
+| Cash score | Can it collect revenue after maintenance and debt service? | Contracts, invoices, PPA, fare plan, lease, platform fees, export receipts. |
+| Productivity score | Does it raise non-oil output or lower costs? | Delivered-cost studies, utilization, logistics time, outage reduction, domestic value added. |
+| Resilience score | Does it reduce water, food, power, climate, import, or security exposure? | Water saved, storage added, local components, emergency readiness, stress tests. |
+| Social score | Does it create skills, inclusion, mobility, civic value, or service quality? | Verified work records, training completion, service outputs, gender/youth access, grievance data. |
+| Cultural score | Does it protect heritage or create cultural/tourism value? | Conservation plan, visitor services, local merchant records, craft income, route quality. |
+| Governance score | Can it resist capture and be audited? | Procurement data, related-party checks, public dashboard, independent audit, complaints process. |
+
+Capital should flow first to projects with acceptable cash and governance, then
+to projects that also score highly on productivity, resilience, social value,
+and culture.
+
+#### National Benefit Equation
+
+The model's annual public report should not reduce national progress to GDP.
+It should publish a balanced national benefit statement:
+
+```text
+National Benefit Statement
+  = booked cash generated
+  + additional real non-oil output
+  + source-tagged avoided losses
+  + verified public-service outputs
+  + civic-work and skills outcomes
+  + cultural and heritage outcomes
+  - debt-service burden
+  - maintenance backlog
+  - environmental damage
+  - import leakage
+  - governance and capture losses
+```
+
+Only the first term is immediately distributable cash. The rest explains why
+the system is worth doing.
+
+### Timeline
+
+#### 2027-2030: Foundation And Proof
+
+Primary work:
+
+- Remove stale repo claims and keep the prototype boundary visible.
+- Pilot Digital IQD evidence flows for merchants, public transfers, procurement,
+  civic work, tourism, and INDHC contracts.
+- Create Oil Income Lockbox and INDHC legal design.
+- Publish the six ledgers, hard gates, portfolio scorecard, and citizen rights.
+- Fund only fiscal-safe or constrained-base projects with clear evidence.
+- Begin quick-return water, power, food, rail-design, tourism-service, and
+  dashboard projects.
+
+Expected benefit:
+
+- Modest GDP acceleration.
+- Better measurement.
+- First bankable merchant/producer histories.
+- Reduced overclaim risk.
+- Visible public discipline.
+
+#### 2031-2036: Build And Compound
+
+Primary work:
+
+- Scale industrial champions only after local-content, price, quality, export,
+  SME, and audit gates pass.
+- Bring first rail/logistics corridors and industrial power zones into service.
+- Expand tourism corridors and formal visitor payment channels.
+- Convert ministry work into service contracts where continuity is proven.
+- Launch meaningful but still small dividends from audited surplus.
+- Use civic work for municipal repair, climate resilience, culture, sport,
+  care, and training.
+
+Expected benefit:
+
+- Constrained-base additional real non-oil GDP of about USD 39B by 2036.
+- Strategic-upper additional real non-oil GDP of about USD 69B by 2036.
+- Direct booked portfolio revenue between USD 23B and USD 43B per year by the
+  Year-10 horizon, depending on execution.
+
+#### 2037-2040: Network Effects
+
+Primary work:
+
+- Link city rail, logistics, food systems, water systems, industrial parks,
+  power zones, tourism routes, and ports into larger production networks.
+- Use Digital IQD data to expand receivables finance and SME credit.
+- Increase private crowd-in only where project accounts are clean.
+- Retire ministry functions only where regulated operators and municipalities
+  perform better.
+- Scale cultural and tourism services while protecting heritage.
+
+Expected benefit:
+
+- Constrained-base non-oil GDP reaches about USD 356B by 2040.
+- Strategic-upper non-oil GDP reaches about USD 416B by 2040.
+- Additional real non-oil output vs baseline is about USD 71B to USD 131B.
+
+#### 2041-2050: Mature Diversified Economy
+
+Primary work:
+
+- Maintain and renew assets before building prestige expansions.
+- Keep dividend growth below the portfolio's ability to maintain, reinvest, and
+  service debt.
+- Turn Iraq into a regional platform in selected sectors: pilgrimage and
+  heritage tourism, food processing, water systems, construction inputs,
+  HVAC/cooling, logistics, green power services, rail maintenance, and
+  regulated defense sustainment.
+- Preserve cultural landscapes and urban heritage as national capital.
+- Use civic work as a permanent participation and resilience layer, not as fake
+  employment.
+
+Expected benefit:
+
+- Constrained-base additional real non-oil GDP of about USD 151B by 2050.
+- Strategic-upper additional real non-oil GDP of about USD 308B by 2050.
+- Annual booked portfolio revenue could range from USD 86B to USD 160B if the
+  operating portfolio matures and remains governed.
+- Avoided environmental losses, social capability, and cultural value become
+  major national benefits even where they are not dividend cash.
+
+### Implementation Surface For Cylinder Seal
+
+The current repository already has pieces of the payment, policy, dashboard,
+analytics, credit, exchange, and civic/industrial framing. To make the
+comprehensive model software-native, future code should introduce explicit
+domain primitives:
+
+| Primitive | Purpose |
+| --- | --- |
+| `ComprehensiveBenefitProjection` | Links scenario, horizon, GDP, revenue, dividend, infrastructure, environmental, social, and cultural metrics. |
+| `NationalBenefitStatement` | Annual balanced statement separating booked cash, output, avoided loss, social value, cultural value, and risk. |
+| `EnvironmentalResilienceProject` | Tracks water, irrigation, sanitation, cooling, climate, marshland, and public-health resilience outcomes. |
+| `CulturalEconomyAsset` | Tracks heritage sites, routes, events, museums, crafts, visitor services, and preservation obligations. |
+| `InfrastructureCapacityAsset` | Tracks rail corridor-km, grid capacity, water assets, logistics hubs, utilization, maintenance, and renewal reserve. |
+| `CivicCapabilityRecord` | Tracks verified civic work, training, certification, task quality, appeals, and transition-to-work outcomes. |
+| `BenefitLedgerImpact` | Connects each economic event to cash, output, avoided loss, social capability, cultural capital, and risk. |
+| `MinistryFunctionContract` | Converts ministry activity into priced outputs, service-level evidence, audits, and transition gates. |
+| `ScenarioAssumptionSet` | Stores baseline, constrained-base, strategic-upper, and stress assumptions with source tags. |
+
+These primitives should not be added as narrative-only labels. They should map
+to database records, APIs, dashboards, tests, and public exports if the project
+continues toward a true national operating model prototype.
+
+### Failure Modes
+
+The model fails if any of the following become normal:
+
+- Oil equity becomes another off-budget spending channel.
+- INDHC becomes an opaque monopoly without competition gates.
+- Ministries are renamed but not made accountable.
+- Debt is raised for projects without cashflow.
+- Public benefits are counted as dividend cash.
+- Imported turnkey projects replace Iraqi capability.
+- Rail, power, water, or tourism assets are built without maintenance funding.
+- Civic work becomes fake payroll.
+- Cultural assets are commercialized without conservation.
+- Digital IQD becomes surveillance rather than privacy-bounded public evidence.
+
+The model is only credible if the operating logic can stop attractive projects
+when they fail legal, fiscal, debt, maintenance, revenue, anti-capture,
+privacy, or citizen-fairness gates.
+
+### Bottom Line
+
+Cylinder Seal's coherent national role is to become the evidence and settlement
+substrate for a post-oil, post-automation Iraqi development model:
+
+- Oil income is converted into productive assets before distribution.
+- Ministries are funded through explicit taxes, levies, and service contracts.
+- Citizens hold non-saleable beneficial shares and receive only audited surplus
+  dividends.
+- Domestic industry, tourism, rail, water, food, green power, and cultural
+  services create non-oil cashflows.
+- Environmental resilience, civic work, skills, and heritage are measured as
+  national value, not hidden in rhetoric.
+- Long-term success is judged by non-oil GDP compounding, infrastructure
+  reliability, water and climate resilience, household capability, cultural
+  renewal, public trust, and audited distributable surplus.
+
+That is the unified economic, environmental, social, and cultural model.
+
+
+# Part 9: Iraq Quantified Affordability And Cashflow Model
+
+## Iraq Quantified Affordability And Cashflow Model
+
+This document adds a quantified affordability layer to the INDHC, citizen
+dividend, industrial-champion, and civic-work architecture.
+
+Status: scenario model. It is not a budget law, financing offer, investment
+prospectus, sovereign-debt recommendation, or externally validated forecast.
+
+The purpose is to make the plan falsifiable: reviewers can change oil prices,
+GDP, capex, project delays, debt cost, margins, dividend policy, and loan terms
+and immediately see whether the model remains affordable.
+
+This model should be managed through the
+[National Economic Operating Logic](national-economic-operating-logic.md), which
+separates capital, productive assets, booked cash, public benefits, citizen/state
+distributions, and risk controls before any dividend or scaling decision.
+
+### Bottom Line
+
+The existing USD 190B INDHC planning envelope should be treated as a strategic
+upper envelope, not the default affordable case.
+
+Using the IMF 2025 Article IV baseline for Iraq, the defensible starting point
+is:
+
+| Case | Ten-year capex | Oil-equity draw | Loans / debt | PPP / JV equity | Retained earnings | Affordability reading |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Fiscal-safe starter | USD 65B | USD 38B | USD 18B | USD 7B | USD 2B | Most credible if deficits remain large and debt keeps rising. |
+| Constrained base | USD 115B | USD 65.8B | USD 33.8B | USD 15.4B | Later-stage retained cash | Credible if oil-equity draw is mostly reclassified from existing public capex and loans are project-level. |
+| Strategic upper | USD 190B | USD 120B | USD 70B | Optional | Later-stage retained cash | Not affordable under the IMF baseline unless fiscal reform, oil revenues, private capital, and delivery capacity improve materially. |
+
+Policy conclusion:
+
+```text
+Do not start with USD 190B.
+Start with a USD 65-115B gated program.
+Scale toward USD 190B only after audited cashflow, debt safety, and fiscal
+space are proven.
+```
+
+### Source Discipline
+
+| Data point | Use in the model | Source |
+| --- | --- | --- |
+| Iraq GDP, non-oil GDP, oil production, oil exports, oil prices, fiscal revenue, spending, debt, reserves, and capital expenditure projections for 2025-2030. | Main macro-fiscal baseline and affordability constraint. | [IMF Iraq 2025 Article IV, Tables 1-4](https://www.imf.org/-/media/files/publications/cr/2025/english/1irqea2025001-source-pdf.pdf) |
+| IMF assessment that Iraq's fiscal expansion increased vulnerabilities, financing constraints worsened in 2024-2025, and stabilizing debt requires consolidation of 1-1.5 percent of non-oil GDP per year. | Prevents the model from treating oil revenue as free surplus while deficits and debt rise. | [IMF Iraq 2025 Article IV press release](https://www.imf.org/en/news/articles/2025/07/08/pr-25243-iraq-imf-executive-board-concludes-2025-article-iv-consultation) |
+| Final 2024 census count of 46.1 million people. | Per-citizen dividend math. | [AP report on Iraq final census count](https://apnews.com/article/iraq-census-final-count-45b7753ddc82c188c79faea0d5a8c90d) |
+| Iraq oil dependence and energy-sector context. | Confirms why oil-equity recycling and energy-linked investments matter. | [EIA Iraq country analysis](https://www.eia.gov/international/analysis/country/irq) |
+| WTTC Iraq Travel & Tourism economic-impact data: 2023 direct GDP contribution, total GDP contribution, direct and total jobs, domestic spending, visitor exports, and 2034 forecasts. | Tourism baseline, visitor-export discipline, and second-order benefit framing. | [WTTC Iraq Economic Impact Report 2024](https://assets-global.website-files.com/6329bc97af73223b575983ac/6643856bc693733a9f435ca5_EIR2024-Iraq.pdf) |
+| World Bank/UN Tourism historical international tourism receipts and arrivals. | Shows why tourism data should be treated as source-tagged and cautiously reconciled across datasets. | [World Bank tourism data for Iraq](https://data.worldbank.org/indicator/ST.INT.RCPT.CD?locations=IQ) |
+| Existing sector sources for rail, green power, tourism, raw-material processing, food/water, and import substitution. | Sector selection remains inherited from the INDHC ten-year plan. | [INDHC ten-year plan](indhc-10-year-plan.md) |
+
+These sources support the baseline and source discipline. They do not validate
+the capital allocation, project margins, debt terms, dividend amounts, or legal
+design below.
+
+### IMF Baseline Constraint
+
+The IMF baseline is restrictive. Iraq is projected to run large fiscal deficits,
+with public debt and reserve pressure increasing through 2030.
+
+USD conversion for IQD fiscal rows uses approximately IQD 1,300 per USD, so
+IQD 1.3 trillion equals USD 1 billion.
+
+| Year | GDP | Oil revenue | Fiscal deficit | Government capex | 35% capex oil-equity ceiling | Debt / GDP | Gross reserves |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 2027 | USD 287.0B | USD 90.3B | USD 23.8B | USD 14.2B | USD 5.0B | 66.9% | USD 69.7B |
+| 2028 | USD 304.6B | USD 96.5B | USD 23.8B | USD 15.8B | USD 5.5B | 71.1% | USD 63.4B |
+| 2029 | USD 324.4B | USD 102.8B | USD 24.3B | USD 17.6B | USD 6.2B | 74.5% | USD 57.8B |
+| 2030 | USD 345.0B | USD 108.6B | USD 25.2B | USD 19.2B | USD 6.7B | 77.6% | USD 54.0B |
+
+Implication:
+
+- A new oil-equity allocation cannot be presented as free money.
+- While deficits remain near 7-8 percent of GDP, the safest interpretation is
+  that INDHC oil equity must come from reclassified, disciplined, already
+  budgeted capital expenditure or from fiscal savings, not from extra spending.
+- If oil-equity allocation exceeds 35 percent of projected public capex while
+  deficits remain large, the model should be marked fiscally aggressive.
+- If sovereign debt is rising and reserves are falling, project debt must be
+  self-liquidating and should not quietly become sovereign bailout debt.
+
+### Affordability Rules
+
+#### Fiscal Rule
+
+While debt is rising and the fiscal balance is negative:
+
+```text
+Annual Oil Equity Draw
+  <= min(8% of government oil revenue, 35% of projected government capital expenditure)
+```
+
+After debt/GDP stabilizes, reserves stop falling, and fiscal adjustment is
+legally implemented:
+
+```text
+Annual Oil Equity Draw
+  may rise toward 10-12% of oil revenue
+  only if it does not reduce protected maintenance, social protection, or debt service.
+```
+
+#### Debt Rule
+
+Project borrowing is allowed only if:
+
+```text
+Project DSCR >= 1.30 in base case
+Project DSCR >= 1.10 in oil-price / delay stress
+Holding-company DSCR >= 1.50 before dividends grow
+Foreign-currency debt service <= foreign-currency revenue + approved FX reserve buffer
+```
+
+#### Dividend Rule
+
+Citizen dividends begin only after:
+
+```text
+Operating cash after maintenance
+  - Debt service
+  - Gross-profit levy / tax
+  - Required retained earnings
+  - Dividend stabilization reserve
+  > 0
+```
+
+No borrowing funds dividends. No oil receipt funds dividends directly. No
+dividend is paid when maintenance reserves, debt service, or audit requirements
+are underfunded.
+
+### Constrained Base Capital Stack
+
+The constrained base case is USD 115B over ten years.
+
+| Source | Amount | Share | Uses | Guardrail |
+| --- | ---: | ---: | --- | --- |
+| Oil-equity allocation | USD 65.8B | 57% | First-loss capital, early works, strategic domestic capability, workforce, project equity | Mostly reclassified from public capex while IMF baseline deficits persist. |
+| Project loans and debt | USD 33.8B | 29% | Revenue-generating green, water, rail, manufacturing, logistics, tourism, and industrial assets | No hidden ministry bailout; DSCR covenant required. |
+| PPP / JV equity | USD 15.4B | 13% | Tourism, logistics, industrial parks, selected manufacturing, station-area development | Public asset control and anti-capture rules required. |
+| Retained earnings | Later-stage | N/A | Maintenance, reinvestment, debt reduction, dividend reserve | Builds only after audited operating cash exists. |
+| **Total** | **USD 115.0B** | **100%** | Constrained base plan | Strategic upper case remains USD 190B only after gates are met. |
+
+### Additional Capital Sources
+
+| Source | Base-case amount | Suitable projects | Indicative terms | Conditions |
+| --- | ---: | --- | --- | --- |
+| MDB / concessional loans | USD 8-14B | Water, irrigation, grid, climate adaptation, governance systems, public transport | 20-30 year maturity, 5-7 year grace, concessional or semi-concessional pricing | Procurement, safeguards, transparency, debt sustainability. |
+| Green sukuk / green bonds | USD 8-12B | Solar, storage, grid loss reduction, efficient HVAC, waste-to-energy, water efficiency | 10-20 year tenor, use-of-proceeds verification | External verification, green registry, no deficit financing. |
+| Export credit agency finance | USD 8-11B | Rail systems, desalination equipment, HVAC/electronics tooling, grid equipment, industrial machinery | 10-15 year tenor, linked supplier packages | Technology transfer, open interfaces, Iraqi training, local content milestones. |
+| Project finance / PPP debt | USD 5-8B | Industrial parks, logistics, station retail, tourism assets, ports, cold chain | Non-recourse or limited-recourse where possible | User fees, offtake, availability payments, DSCR covenant. |
+| PPP / JV equity | USD 10-16B | Hotels, logistics, food processing, manufacturing, industrial zones | Equity, revenue share, minority concessions | No asset stripping, no related-party capture, public audit. |
+| Domestic IQD sukuk / infrastructure bonds | USD 0-5B equivalent at first | Mature assets with stable IQD cashflows | Local-currency tenor only after market testing | No forced bank purchases; CBI monetary-policy compatibility. |
+| Diaspora industrial bond | USD 1-3B pilot only | Iraqi-origin export platforms, tourism, selected industrial parks | Optional retail/institutional channel | Do not rely on diaspora capital as the main source; diaspora market access is more important. |
+
+### Constrained Base Cashflow
+
+Machine-readable table: [docs/data/iraq-affordability-model.csv](data/iraq-affordability-model.csv).
+
+USD billions unless stated otherwise.
+
+| Year | New capex | Oil equity | Loans | PPP/JV equity | Operating revenue | Operating cash after maintenance | Debt service | Gross-profit levy | Retained earnings | Dividend pool | Holding DSCR | Dividend per citizen / month |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 2027 | 6.5 | 5.0 | 1.0 | 0.5 | 0.2 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | N/A | USD 0.00 |
+| 2028 | 9.5 | 5.5 | 2.8 | 1.2 | 0.6 | 0.05 | 0.05 | 0.0 | 0.0 | 0.0 | 1.00 | USD 0.00 |
+| 2029 | 12.0 | 6.2 | 4.2 | 1.6 | 1.4 | 0.2 | 0.15 | 0.05 | 0.0 | 0.0 | 1.33 | USD 0.00 |
+| 2030 | 13.5 | 6.7 | 4.8 | 2.0 | 3.0 | 0.6 | 0.35 | 0.1 | 0.1 | 0.0 | 1.71 | USD 0.00 |
+| 2031 | 12.0 | 6.8 | 3.8 | 1.4 | 5.0 | 1.2 | 0.65 | 0.2 | 0.3 | 0.0 | 1.85 | USD 0.00 |
+| 2032 | 12.0 | 6.8 | 3.8 | 1.4 | 7.5 | 2.0 | 1.0 | 0.45 | 0.45 | 0.1 | 2.00 | USD 0.18 |
+| 2033 | 12.5 | 7.0 | 3.8 | 1.7 | 10.5 | 3.0 | 1.35 | 0.75 | 0.65 | 0.25 | 2.22 | USD 0.45 |
+| 2034 | 12.5 | 7.2 | 3.5 | 1.8 | 14.0 | 4.3 | 1.65 | 1.1 | 0.95 | 0.6 | 2.61 | USD 1.08 |
+| 2035 | 12.5 | 7.4 | 3.2 | 1.9 | 18.0 | 5.8 | 1.85 | 1.55 | 1.35 | 1.05 | 3.14 | USD 1.90 |
+| 2036 | 12.0 | 7.2 | 2.9 | 1.9 | 23.0 | 7.6 | 2.05 | 2.15 | 1.75 | 1.65 | 3.71 | USD 2.98 |
+| **Total** | **115.0** | **65.8** | **33.8** | **15.4** | **83.2** | **24.75** | **9.10** | **6.35** | **5.55** | **3.65** | N/A | N/A |
+
+Interpretation:
+
+- Dividends are deliberately small in the first decade. That is a feature, not a
+  failure: the model prioritizes maintenance, debt service, reinvestment, and
+  proof of profitability before citizen distributions.
+- Year-10 dividend pool of USD 1.65B equals roughly USD 35.8 per person per
+  year, or USD 3.0 per month, using the 46.1M population baseline.
+- The dividend becomes meaningful only if the operating portfolio compounds
+  beyond Year 10 or the program scales after the affordability gates are met.
+- The Treasury benefit appears earlier through the gross-profit levy and
+  through import-substitution and service-delivery effects, but those wider
+  macro effects are not counted as free cash in this table.
+
+### Base Case Sector Allocation
+
+USD billions.
+
+| Sector | Capex | Oil equity | Loans/debt | PPP/JV | Year-10 revenue | Year-10 operating cash | Main cashflow source |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| Strategic manufacturing, electronics, HVAC, defense-controlled sustainment, raw-material processing | 37.0 | 22.0 | 9.0 | 6.0 | 7.8 | 2.0 | Public procurement, domestic inputs, maintenance, selective exports. |
+| Open rail, metro, logistics | 19.0 | 10.0 | 7.0 | 2.0 | 2.0 | 0.35 | Fares, availability payments, logistics, station services, land-value capture. |
+| Green power, grid, waste-to-energy, HVAC efficiency | 18.0 | 10.0 | 8.0 | 0.0 | 3.3 | 1.2 | PPAs, industrial power, grid services, avoided fuel cost. |
+| Tourism and tradable services | 12.0 | 4.0 | 1.6 | 6.4 | 3.0 | 0.75 | Hotels, visitor logistics, booking platforms, services exports. |
+| Agriculture, food substitution, water/desalination, irrigation, cold chain | 16.0 | 9.5 | 5.5 | 1.0 | 4.5 | 1.0 | Food processing, cold chain, irrigation equipment, water services. |
+| Housing inputs and urban services | 5.0 | 3.0 | 2.0 | 0.0 | 1.2 | 0.25 | Materials, utilities, maintenance, municipal service contracts. |
+| Digital public infrastructure and SME platforms | 4.0 | 3.3 | 0.7 | 0.0 | 1.2 | 0.45 | Payment services, compliance, analytics, credit enablement. |
+| Workforce, R&D, standards, INDHC Academy | 4.0 | 4.0 | 0.0 | 0.0 | 0.0 | -0.7 | Capability investment; return appears through other sectors. |
+| **Total** | **115.0** | **65.8** | **33.8** | **15.4** | **23.0** | **5.3** | Sector cash before group-level consolidation. |
+
+The sector table differs slightly from the annual cashflow table because the
+annual table includes holding-company consolidation, group-level financing,
+reserves, and ramp timing.
+
+### Revenue Generation Architecture
+
+Machine-readable table:
+[docs/data/iraq-revenue-generation-model.csv](data/iraq-revenue-generation-model.csv).
+
+The economic circle is incomplete if INDHC only spends oil money, borrows, and
+hopes that dividends appear later. It must build recurring revenue channels
+that can be measured through Digital IQD, audited against contracts, and traced
+into Treasury levy, retained earnings, debt service, and citizen dividends.
+
+Closed-loop revenue logic:
+
+```text
+Oil equity + loans + PPP/JV capital
+  -> productive Iraqi assets and platforms
+  -> recurring operating revenue
+  -> operating cash after maintenance
+  -> project debt service
+  -> gross-profit levy for Treasury and ministries
+  -> retained earnings for reinvestment and resilience
+  -> equal citizen dividends from audited surplus
+  -> citizen and SME spending through Digital IQD
+  -> merchant revenue, tax base, credit history, and new production demand
+```
+
+Year-10 constrained-base revenue bridge, USD billions:
+
+| Revenue family | Year-10 revenue | Direct operating cash | Main channels | Why it completes the circle |
+| --- | ---: | ---: | --- | --- |
+| Strategic manufacturing and import substitution | 7.8 | 2.0 | Public procurement substitution; raw-material processing; electronics, HVAC, appliances, meters, pumps, controls; regulated defense sustainment. | Converts state demand and Iraqi inputs into Iraqi company revenue instead of import leakage. |
+| Green power, grid, and efficiency | 3.3 | 1.2 | PPAs, industrial power, grid efficiency service charges, waste-to-energy, public-building cooling efficiency. | Creates bankable energy cashflow and lowers the cost base of industry. |
+| Food, water, irrigation, and cold chain | 4.5 | 1.0 | Food processing, storage, cold chain, irrigation equipment, water treatment, desalination, feed, packaging, farmer platforms. | Turns food and water security into recurring industrial and service revenue. |
+| Tourism and tradable services | 3.0 | 0.75 | Pilgrim logistics, hotels, hospitality JVs, booking/payment platforms, healthcare, education, professional and software services. | Adds non-oil customer demand and foreign-currency channels. |
+| Open rail, metro, and logistics | 2.0 | 0.35 | Fares, availability payments, freight/logistics, station retail, land-value capture. | Lowers system costs while capturing part of the value created by transit. |
+| Housing inputs and urban services | 1.2 | 0.25 | Construction inputs, municipal service contracts, utility maintenance, leakage reduction, public-building services. | Converts city maintenance and housing demand into priced outputs. |
+| Digital public infrastructure and SME platforms | 1.2 | 0.45 | Payment/compliance fees, credit enablement, registry APIs, procurement analytics, SME marketplace services. | Makes the operating system itself financially sustainable without heavy user fees. |
+| **Revenue-channel subtotal** | **23.0** | **6.0** | Multiple channels | Matches the constrained-base Year-10 revenue target. |
+| Workforce, R&D, and standards cost center | 0.0 | -0.7 | Training, certification, standards, Iraqi supplier upgrading. | Not a profit center; it protects domestic capability and quality. |
+| **Sector cash after capability cost** | **23.0** | **5.3** | Matches sector allocation table | Feeds the holding-company cashflow and dividend gate. |
+
+The direct operating cash column is before the holding-company waterfall. The
+annual cashflow table applies consolidation, reserves, debt service, levy,
+retained earnings, and dividend policy afterward.
+
+### Tourism Revenue And Second-Order Benefits
+
+Machine-readable table:
+[docs/data/iraq-tourism-revenue-benefits-model.csv](data/iraq-tourism-revenue-benefits-model.csv).
+
+Tourism deserves a separate treatment because it creates two different kinds of
+value:
+
+1. Booked INDHC/project revenue that can enter the cashflow waterfall.
+2. Second-order national benefits that improve GDP, jobs, foreign exchange,
+   merchant formalization, SME credit, and municipal services, but should not be
+   counted as INDHC cash or dividend capacity until cash is actually collected.
+
+WTTC's 2024 Iraq report is useful because it separates direct, indirect, and
+induced tourism effects. In 2023, it estimated Iraq's direct Travel & Tourism
+GDP contribution at IQD 4,881.8B, or about USD 3.6B, while total contribution
+including wider effects was IQD 15,415.7B, or about USD 11.4B. It also reported
+direct tourism employment of 199,850 jobs and total tourism-supported
+employment of 710,160 jobs in 2023. WTTC forecast 2034 international arrivals
+of 1.957M and visitor exports of IQD 9,386.4B, or about USD 6.9B.
+
+The constrained-base model therefore treats tourism as high-upside but still
+cash-disciplined:
+
+| Tourism layer | Year-10 amount | Counted in INDHC cashflow? | Meaning |
+| --- | ---: | --- | --- |
+| Booked tourism and tradable-services revenue | USD 3.0B | Yes | Visitor logistics, cultural/site services, hospitality JV revenue share, platform/FX fees, and tradable service exports. |
+| Direct tourism operating cash | USD 0.75B | Yes | Cash after operating costs and maintenance before group-level debt, levy, retained earnings, and dividends. |
+| Tracked second-order benefit | USD 6.6B | No | SME merchant sales, food supply chains, rail utilization, municipal services, tax base, credit histories, repeat-visit effects, and investment option value. |
+| Wider national tourism market | Not booked as INDHC revenue | No | Captured in dashboards as national policy upside, not as subsidiary cash. |
+
+The Year-10 booked tourism revenue remains inside the USD 23.0B constrained-base
+revenue target. The USD 6.6B second-order benefit is an additional monitored
+policy effect, not an extra dividend source. Booked revenue plus tracked
+second-order benefit implies a roughly 3.2x total/direct relationship, similar
+in order of magnitude to WTTC's 2023 Iraq direct-versus-total tourism
+contribution ratio, but it remains an illustrative dashboard estimate rather
+than an externally validated forecast.
+
+#### Tourism Revenue Streams
+
+| Stream | Year-10 booked revenue | Year-10 direct cash | Second-order benefit | Why it matters |
+| --- | ---: | ---: | ---: | --- |
+| Pilgrim logistics and visitor services | USD 1.0B | USD 0.22B | USD 1.10B | Formalizes high-volume religious visitor flows through transport, sanitation, guides, bundles, and merchant settlement. |
+| Cultural site services | USD 0.4B | USD 0.13B | USD 0.45B | Turns heritage, museums, events, guides, crafts, and local routes into measurable local revenue. |
+| Hospitality JV revenue share | USD 0.9B | USD 0.20B | USD 1.00B | Lets private/JV capital carry demand risk while hotels, serviced apartments, food, laundry, maintenance, and training create local supply chains. |
+| Tourism platform and FX services | USD 0.3B | USD 0.10B | USD 0.55B | Captures foreign-currency source tags, booking fees, merchant payouts, AML visibility, and visitor analytics. |
+| Tradable services exports | USD 0.4B | USD 0.10B | USD 0.80B | Links tourism and diaspora demand to healthcare, education, repair, design, professional, software, and business services. |
+| Food and retail supply chains | N/A | N/A | USD 0.95B | Visitor demand supports agriculture, food processing, packaging, cold chain, restaurants, and SME credit records. |
+| Transport and rail utilization | N/A | N/A | USD 0.55B | Higher corridor utilization lowers per-user cost of rail, buses, and stations. |
+| Urban services and municipal revenue | N/A | N/A | USD 0.35B | Visitor pressure creates a priced reason to maintain waste, lighting, water, public toilets, cleaning, and safety services. |
+| Tax, credit, and formalization | N/A | N/A | USD 0.45B | Merchant wallet turnover creates tax records and bankable receivables. |
+| Brand, repeat visits, and investment option | N/A | N/A | USD 0.40B | Better visitor experience raises repeat bookings, diaspora confidence, event pipelines, and hotel/service investment. |
+
+#### Tourism Guardrails
+
+- Do not count pilgrimage volume as revenue by itself. Count paid services,
+  leases, platform fees, merchant settlement, hotel receipts, transport fares,
+  and lawful taxes or levies.
+- Do not count volunteer hospitality as commercial revenue unless a paid service
+  is actually provided.
+- Do not count all national visitor spending as INDHC revenue. INDHC should
+  capture only its platform fees, service contracts, JV shares, leases, or
+  directly operated assets.
+- Separate foreign visitor spending, domestic tourism spending, and diaspora
+  spending because they have different FX and policy effects.
+- Use tourism to finance city services only through transparent service
+  contracts, local fees, leases, or municipal revenue shares.
+
+#### Revenue By Actor
+
+| Actor | Revenue or value captured | Digital IQD evidence |
+| --- | --- | --- |
+| INDHC subsidiaries | Product sales, service contracts, leases, PPAs, platform fees, logistics, tourism revenue, maintenance contracts. | Contract IDs, invoices, meter data, wallet settlement, receivables, audit hashes. |
+| Treasury and ministries | Gross-profit levy, taxes, lawful fees, performance-priced service outcomes. | Levy filings, tax settlement, service-contract milestones, budget dashboards. |
+| Citizens | Wages, civic-work income, dividends, cheaper or more reliable local goods and services. | Payroll batches, civic task proofs, dividend batches, wallet spend history. |
+| SMEs and producers | Supplier orders, merchant sales, receivables, local-content premiums, working-capital eligibility. | Merchant tier, sales history, procurement orders, repayment records. |
+| Banks and lenders | Loan interest, fees, lower credit losses from verified cashflow. | Loan facility, consented risk features, repayment records, DSCR snapshots. |
+| Municipalities | Station-area value capture, city-service revenues, availability contracts, utility savings. | Lease receipts, development charges, service KPIs, verified savings. |
+
+#### Anti-Double-Counting Rules
+
+The model should separate cash revenue from economic savings:
+
+- An avoided import is not counted as INDHC cash unless a domestic product is
+  actually sold, leased, serviced, or contracted.
+- Grid-loss and fuel savings are counted as cash only when captured through a
+  PPA, availability payment, verified savings contract, tariff, or approved
+  budget transfer.
+- Land-value capture is counted only when a lease, development charge, tax
+  increment, or revenue-share receipt is legally recorded.
+- Public procurement substitution is counted at delivered contract value, while
+  the wider foreign-exchange benefit is shown separately.
+- Citizen dividends are never booked as revenue; they are a distribution after
+  all senior claims.
+
+#### Revenue Dashboard Metrics
+
+| Metric | Purpose |
+| --- | --- |
+| `RecurringRevenueByStream` | Shows whether revenue is broad-based or dependent on one sector. |
+| `RevenueByCurrency` | Separates IQD revenue, USD-linked revenue, and true foreign-currency earnings. |
+| `RevenueCollectionEfficiency` | Compares invoiced revenue with settled cash. |
+| `VerifiedImportSubstitutionValue` | Tracks domestic sales replacing imports without treating savings as automatic cash. |
+| `PublicProcurementDomesticShare` | Measures whether public spending is building Iraqi production capacity. |
+| `PPAAndAvailabilityPaymentCoverage` | Shows whether infrastructure revenue is contract-backed and performing. |
+| `LandValueCaptureReceipts` | Tracks transit and urban value capture actually received. |
+| `PlatformFeeBurden` | Prevents Digital IQD and registry fees from becoming a tax on formalization. |
+
+### Project-Level Loan Tests
+
+Each loan-funded project needs its own repayment source.
+
+| Project class | Revenue source | Loan suitability | Required DSCR | Notes |
+| --- | --- | --- | ---: | --- |
+| Solar/storage/grid | PPA, industrial power sales, avoided fuel costs | High for concessional/green debt | 1.30 | Strong candidate if offtaker risk is solved. |
+| Desalination/water reuse | Water tariffs, industrial water contracts, availability payment | Medium/high | 1.25-1.35 | Requires subsidy design for poor households. |
+| Irrigation equipment | Farmer leases, public water-efficiency program, processor contracts | Medium | 1.20-1.30 | Better via blended finance and guarantees. |
+| Metro/light rail | Fares, availability payment, land-value capture, station retail | Medium | 1.20-1.30 | Full farebox recovery is unlikely; cap sovereign exposure. |
+| Cold chain and food processing | Storage fees, food sales, processor margins | High | 1.30 | Good for project finance if anchor contracts exist. |
+| Tourism assets | Hotel/visitor revenue, platform fees, leases | High for PPP equity, moderate for debt | 1.35 | Private capital should carry more demand risk. |
+| Electronics/HVAC assembly | Sales, procurement contracts, warranties, maintenance | Medium/high | 1.30 | ECA finance only with technology transfer. |
+| Defense-controlled sustainment | Regulated procurement and maintenance contracts | Medium | 1.40 | Sensitive sector; requires strict audit and legal controls. |
+| Workforce/R&D/standards | No direct cashflow | Not suitable for debt | N/A | Fund with oil equity or grants only. |
+
+### Stress Tests
+
+| Stress | Shock | Result | Required action |
+| --- | --- | --- | --- |
+| Oil stress | Oil-equity capacity falls 25% for two years. | Ten-year capex falls from USD 115B to roughly USD 95B unless PPP/debt replaces equity. | Freeze new rail expansions, protect maintenance, water, food, power, and debt service. |
+| Delivery delay | Operating revenue lags by two years. | Dividend pool remains zero until at least Year 8; debt draw must slow. | Use milestone-based disbursement and cancel non-performing projects. |
+| Interest shock | Average debt cost rises 300 bps. | Year-10 debt service can rise by USD 0.7-1.0B. | Prefer concessional debt, local-currency revenue matching, and refinancing gates. |
+| FX shock | USD debt service rises while domestic IQD revenue dominates. | Foreign-currency mismatch appears. | Borrow in USD only for projects with USD revenue, FX savings, or approved hedge. |
+| Weak governance | Procurement capture inflates capex by 20%. | USD 115B buys only USD 92B of assets. | Suspend sector privileges, rotate auditors, publish project-level cost benchmarks. |
+| Demand shortfall | Manufacturing/tourism revenue is 30% below plan. | Holding-company DSCR can fall below dividend gate. | Dividends suspended; capex redirected to bankable water, power, food, and maintenance assets. |
+
+### What Becomes Affordable First
+
+Priority 1: projects that save foreign exchange, reduce critical imports, or
+create immediate cashflow.
+
+| Rank | Project family | Why first |
+| ---: | --- | --- |
+| 1 | Grid loss reduction, metering, industrial power, solar/storage batches | Cashflow through avoided fuel/import costs and industrial power reliability. |
+| 2 | Cold chain, storage, milling, food processing, irrigation equipment | Reduces spoilage/import pressure and creates SME cashflow. |
+| 3 | Construction materials, pipes, glass, rebar, cement efficiency | Supports housing, rail, water, and public works using domestic inputs. |
+| 4 | HVAC assembly and efficient public cooling | Directly targets a visible import category and reduces electricity stress. |
+| 5 | Water treatment/desalination equipment and services | Strategic necessity; bankability depends on tariff/availability design. |
+| 6 | Tourism services, hotels, visitor logistics, booking rails | Can bring non-oil foreign-customer revenue with private/JV capital. |
+| 7 | Metro/light rail first corridors | High public value but requires disciplined phasing and availability-payment limits. |
+| 8 | Electronics and defense-controlled sustainment | Important for sovereignty, but needs strict governance and technology transfer. |
+
+### Dashboard Metrics To Add
+
+Cylinder Seal should track affordability directly:
+
+| Metric | Purpose |
+| --- | --- |
+| `OilEquityDrawPercentOfOilRevenue` | Shows whether oil capital allocation is breaching the fiscal rule. |
+| `OilEquityDrawPercentOfPublicCapex` | Prevents hidden extra spending while deficits persist. |
+| `ProjectDebtDrawByCurrency` | Shows FX mismatch before it becomes a crisis. |
+| `ProjectDSCR` | Blocks borrowing for projects without repayment capacity. |
+| `HoldingCompanyDSCR` | Gates dividends and new borrowing. |
+| `DividendPerCitizen` | Keeps dividend promises tied to audited surplus. |
+| `GrossProfitLevyPaid` | Shows ministry-funding contribution from productive surplus. |
+| `MaintenanceReserveCoverage` | Prevents asset stripping through premature dividends. |
+| `CapexCostOverrunPercent` | Catches procurement failure early. |
+| `ImportedInputShare` | Measures whether import substitution is real or cosmetic. |
+| `RecurringRevenueByStream` | Shows whether the portfolio is earning from many channels, not one fragile line item. |
+| `RevenueCollectionEfficiency` | Flags unpaid invoices and weak collection before they damage DSCR. |
+| `RevenueByCurrency` | Shows whether USD debt is backed by USD revenue or only by IQD cashflow. |
+| `VerifiedImportSubstitutionValue` | Separates actual domestic sales from claimed macro savings. |
+
+### Build Implications
+
+New model primitives needed:
+
+| Primitive | Purpose |
+| --- | --- |
+| `MacroFiscalBaseline` | Stores GDP, oil revenue, capex, deficit, debt, reserves, and source metadata. |
+| `AffordabilityRule` | Encodes oil-equity, debt, DSCR, dividend, and reserve gates. |
+| `CapitalSource` | Tracks oil equity, MDB debt, green sukuk, ECA finance, PPP/JV equity, local bonds, grants. |
+| `LoanFacility` | Stores lender, currency, rate, maturity, grace period, repayment profile, covenants. |
+| `ProjectCashflow` | Stores capex, revenue, opex, maintenance, debt service, taxes, retained earnings, dividends. |
+| `RevenueStream` | Classifies revenue by sector, source, currency, contract type, counterparty, and recurrence. |
+| `RevenueContract` | Links sales, PPAs, availability payments, platform fees, land-value capture, or service charges to invoices and settlement. |
+| `OfftakeAgreement` | Stores buyer, volume, price formula, currency, tenor, and delivery evidence. |
+| `ImportSubstitutionSaving` | Records estimated FX and import-leakage savings separately from booked cash revenue. |
+| `LandValueCaptureReceipt` | Records station-area leases, development charges, revenue shares, and municipal splits. |
+| `PlatformFeeSchedule` | Caps payment, registry, analytics, and credit-enablement fees so formalization remains attractive. |
+| `StressScenario` | Applies oil, delay, interest, FX, governance, and demand shocks. |
+| `DividendAffordabilitySnapshot` | Calculates per-citizen monthly dividend after all senior claims. |
+
+### Integration With Existing Documents
+
+- [INDHC ten-year plan](indhc-10-year-plan.md) remains the sector strategy and
+  upper-envelope plan.
+- This document is the affordability layer that decides what can be financed
+  first under Iraq's fiscal baseline.
+- [National dividend holding company](national-dividend-holding-company.md)
+  supplies the legal and public-finance architecture.
+- [Unified economic model](unified-economic-model.md) supplies the system-wide
+  feedback loop.
+- [National civic work system](national-civic-work-system.md) protects social
+  legitimacy while productivity and formalization change the labor market.
+
+### Practical Decision Rule
+
+```text
+If the project cannot show:
+  - repayment source,
+  - DSCR,
+  - FX match,
+  - maintenance reserve,
+  - domestic capability gain,
+  - procurement transparency,
+  - and audited public dashboard metrics,
+then it cannot receive debt and cannot be counted in the dividend forecast.
+```
+
+That is the point of quantifying the model: it converts a sovereign-economic
+vision into a financeable sequence with hard stop/go gates.
+
+
+# Part 10: System And Financial Flow Diagrams
 
 ## System And Financial Flow Diagrams
 
@@ -1040,7 +2637,7 @@ remaining engineering gaps:
   governance, and dividend formula require independent review.
 
 
-# Part 7: Unified Economic Model
+# Part 11: Unified Economic Model
 
 ## Unified Economic Model
 
@@ -1062,21 +2659,26 @@ audited surplus.
 
 ### System Boundary
 
-The system has six layers:
+The system has ten layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
 | Digital IQD transaction layer | Wallets, POS, offline transactions, settlement, policy primitives, AML, audit, credit features, dashboards. | `README.md`, `docs/technical-primitives.md`, `docs/system-and-financial-flow-diagrams.md` |
+| Economic operating layer | Six ledgers, canonical economic events, hard gates, portfolio modes, scorecards, cash/benefit conversion, waterfalls, capital allocation, dashboards, and escalation rules. | `docs/national-economic-operating-logic.md` |
 | Public-finance and capital layer | Oil Income Lockbox, INDHC, gross-profit levy, ministry budgets, cash formalization, citizen share entitlements, dividends. | `docs/national-dividend-holding-company.md` |
 | Ten-year productive economy layer | Import substitution, strategic resilience manufacturing, defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, food substitution, tourism/services, green capital, open rail, raw-material processing, Iraqi-only permanent staffing. | `docs/indhc-10-year-plan.md` |
+| Growth-impact layer | Quantified baseline, constrained-base, and strategic-upper non-oil growth paths from infrastructure, industry, open-source rail, green power, food/water systems, tourism, Digital IQD formalization, and civic work. | `docs/iraq-integrated-growth-impact-model.md` |
+| Comprehensive benefits layer | 2036, 2040, and 2050 scenario ranges for economic output, infrastructure capacity, environmental avoided losses, civic-work capacity, tourism/culture, and dividends. | `docs/iraq-comprehensive-benefits-model.md` |
+| Affordability and cashflow layer | IMF-baseline capital envelopes, oil-equity affordability, project-loan sources, PPP/JV capital, recurring revenue channels, debt-service coverage, stress tests, and dividend math. | `docs/iraq-quantified-affordability-model.md` |
 | Industrial champion governance layer | Sectoral production groups receive conditional demand, credit, and payment privileges only while they meet local-content, price, quality, export, tax, debt, SME-inclusion, and audit gates. | `docs/digitally-governed-industrial-champions.md` |
 | Civic work and dignity layer | Productivity gains fund verified public-value work, training, care, environmental restoration, sport, culture, municipal repair, and disaster resilience. | `docs/national-civic-work-system.md` |
 | Ministry transition layer | Deprecates, merges, regulates, corporatizes, or sunsets ministry functions once service-continuity, legal, audit, and staff-transition gates pass. | `docs/ministry-transition-roadmap.md` |
 
 The layers should not be read separately. The payment layer provides the
-evidence and controls; the public-finance layer changes the fiscal incentives;
-the productive economy layer gives the system real goods, services, jobs, and
-profit to measure.
+evidence and controls; the economic operating layer decides how events are
+classified, gated, scored, and escalated; the public-finance layer changes the
+fiscal incentives; the productive economy layer gives the system real goods,
+services, jobs, and profit to measure.
 
 ### Core Actors
 
@@ -1160,6 +2762,26 @@ not a hidden subsidy or opaque procurement channel.
 Economic purpose: citizens benefit through wages, ownership income, services,
 credit access, and better local supply.
 
+#### 3A. Revenue Generation Loop
+
+1. INDHC and private partners build assets that sell real goods and services:
+   industrial inputs, food processing, water equipment, power, rail, logistics,
+   tourism, urban services, digital-platform services, maintenance, and exports.
+2. Digital IQD records contract identity, merchant identity, local-content
+   evidence, delivery proof, invoices, settlement, taxes, and levy claims.
+3. Cash revenue is separated from estimated macro savings such as avoided
+   imports, grid-loss reduction, or congestion relief.
+4. Collected revenue funds maintenance, debt service, Treasury levy, retained
+   earnings, and dividends.
+5. Citizen wages and dividends become merchant revenue, SME credit history, and
+   new domestic demand.
+6. Banks lend against verified receivables, offtake contracts, wallet sales, and
+   repayment histories.
+
+Economic purpose: the model closes the circle by making revenue broad,
+measurable, recurring, and linked to domestic production instead of treating oil
+capital as the only source of money.
+
 #### 4. Ministry Feedback Loop
 
 1. Ministries receive budgets from Treasury revenue, gross-profit levy, and
@@ -1203,6 +2825,30 @@ Economic purpose: visibility becomes bankability, not just surveillance.
 Economic purpose: Iraq earns foreign currency by selling Iraqi goods, services,
 tourism, and culture, not only crude oil.
 
+Tourism has a direct cash layer and a second-order benefit layer:
+
+```text
+Booked Tourism Cashflow
+  = Platform fees
+  + Hospitality JV revenue share
+  + Visitor logistics and site-service contracts
+  + Ticketing and guide/service fees
+  + FX/payment service fees
+  + Tradable service export invoices
+
+Tourism Second-Order Benefit
+  = Wider visitor merchant spending
+  + Food, retail, laundry, maintenance, guide, and transport supply chains
+  + Rail/bus/station utilization
+  + Municipal service demand and revenue
+  + Foreign-currency formalization
+  + Tax base, credit histories, and repeat-visit investment signals
+```
+
+Only the first identity enters INDHC distributable surplus. The second identity
+is tracked as national economic benefit and becomes fiscal cash only when it is
+settled as taxes, fees, leases, service payments, or merchant revenue.
+
 #### 7. Green And Rail Cost-Reduction Loop
 
 1. International green capital and oil equity finance solar, storage, grid,
@@ -1240,6 +2886,23 @@ dividends without disguising unemployment as permanent fake jobs.
 
 The model should be auditable with explicit accounts.
 
+The detailed management logic is defined in
+[National Economic Operating Logic](national-economic-operating-logic.md). The
+short version is:
+
+```text
+Measure every event.
+Classify it into the right ledger.
+Apply hard gates.
+Score the portfolio.
+Allocate capital.
+Collect revenue.
+Separate benefits from cash.
+Pay obligations before dividends.
+Publish evidence.
+Reallocate away from failure.
+```
+
 #### Public-Finance Identity
 
 ```text
@@ -1273,6 +2936,26 @@ INDHC Distributable Surplus
 ```
 
 Policy meaning: dividends come from audited surplus, not raw oil.
+
+#### Recurring Revenue Identity
+
+```text
+Recurring Operating Revenue
+  = Domestic industrial sales
+  + Public procurement substitution contracts
+  + Raw-material processing revenue
+  + Food processing, cold-chain, water, and irrigation revenue
+  + Power PPAs, grid services, and verified efficiency service charges
+  + Rail fares, availability payments, logistics, and land-value capture
+  + Tourism, hospitality, and tradable services revenue
+  + Housing inputs, urban services, and municipal service contracts
+  + Digital platform, compliance, registry, and credit-enablement fees
+  + Selective exports and foreign-currency service receipts
+```
+
+Policy meaning: revenue must come from many channels. Import substitution and
+efficiency savings are useful, but they are booked as cash only when a product,
+service, contract, lease, tariff, PPA, or revenue share is actually settled.
 
 #### Citizen Income Identity
 
@@ -1332,6 +3015,7 @@ ten-year plan includes the detailed sector cashflow and sensitivity model.
 | Oil Income Lockbox | Stops raw oil receipts from bypassing capital, reserve, levy, and dividend rules. |
 | Gross-profit levy | Funds ministries from productive surplus. |
 | Retained earnings allocation | Forces reinvestment, maintenance, debt reduction, training, and dividend stabilization before distribution. |
+| Revenue-stream registry | Separates industrial sales, PPAs, availability payments, leases, service contracts, exports, platform fees, and savings contracts. |
 | Strategic-sector controls | Keep defense, dual-use, water, food, and critical electronics programs legal, licensed, auditable, and protected from procurement abuse. |
 | Industrial champion gates | Make demand, credit, procurement preference, and Tier 1 privileges conditional on local content, price discipline, export progress, debt safety, and competition review. |
 | Civic work verification | Pays civic wages only after task evidence, verifier checks, audit rules, and appeal paths. |
@@ -1358,36 +3042,47 @@ separate dashboard widgets.
 
 | Projection | Inputs | Outputs |
 | --- | --- | --- |
+| `EconomicOperatingPeriod` | Ledger close calendar, macro mode, portfolio mode, source snapshots, gate settings | Monthly, quarterly, and annual operating cycle view. |
+| `EconomicEventProjection` | Payment events, project events, benefit events, risk events, audit hashes, source tags | Canonical event and ledger-impact view. |
 | `EconomicCycleProjection` | Oil receipts, INDHC allocations, project revenues, taxes, dividends, domestic spend | National feedback-loop view. |
+| `GrowthImpactProjection` | Baseline non-oil growth, sector add-ons, real non-oil GDP index, additional GDP vs baseline, confidence labels | Macro growth-impact and timeline view. |
+| `ComprehensiveBenefitProjection` | GDP, booked revenue, dividend range, rail capacity, clean power, tourism, civic-work capacity, avoided environmental loss, social value, cultural value, confidence labels | Long-horizon economic, infrastructure, environmental, social, and cultural benefits view. |
 | `ProductionCapacityProjection` | Merchant tiers, local-content attestations, project outputs, inventory, procurement | Import substitution, food substitution, and domestic supply view. |
 | `StrategicResilienceProjection` | Defense-sector licenses, electronics/HVAC output, water/desalination equipment, irrigation systems, food-substitution capacity, end-use controls | Critical domestic capability and import-vulnerability view. |
+| `AffordabilityProjection` | IMF baseline, oil-equity draw, project loans, PPP capital, DSCR, stress cases, dividend math | Financeability and stop/go gate view. |
+| `RevenueGenerationProjection` | Revenue streams, contracts, invoices, collection, currency, offtake, savings contracts, platform fees, land-value capture | Broad recurring revenue, collection quality, and closed-loop cash view. |
 | `IndustrialChampionProjection` | Champion registry, conditional demand contracts, tier privileges, debt caps, export discipline, related-party exposure, SME inclusion | Anti-capture and sectoral champion performance view. |
 | `CivicWorkProjection` | Civic tasks, workers, verifiers, evidence bundles, payments, training, impact metrics, appeals | Productivity-transition, social cohesion, and verified public-value view. |
 | `CitizenIncomeProjection` | Wages, transfers, dividends, IP income, repayments, spending | Household welfare and inclusion view. |
 | `MinistryPerformanceProjection` | Budgets, service contracts, milestones, delivery evidence | Ministry feedback and productivity view. |
 | `CreditExpansionProjection` | Transaction histories, risk features, loan disbursements, repayments | SME finance and formalization view. |
 | `ForeignCurrencyProjection` | Tourism, diaspora merchant sales, exports, imports, FX conversion | Non-oil FX and leakage view. |
+| `TourismSecondOrderProjection` | Visitor spend, merchant formalization, supply-chain purchases, city-service demand, rail utilization, repeat visits, FX capture | Tourism multiplier and local-benefit view without counting it as INDHC cash. |
 | `GreenRailCostProjection` | Rail ridership, logistics costs, grid losses, energy costs, emissions | Infrastructure cost-base view. |
 | `DividendSustainabilityProjection` | Surplus, reserves, debt service, citizen eligibility, exception queue | Monthly dividend reliability view. |
 
 ### Dashboard Design
 
-The unified dashboard should answer ten questions:
+The unified dashboard should answer twelve questions:
 
 1. Where did oil income go?
 2. Which investments are producing cash, jobs, and domestic supply?
 3. Which imports are being replaced credibly and at what cost?
-4. Which critical sectors remain import-vulnerable: defense supply, electronics,
+4. Which revenue streams are recurring, collected, contract-backed, and broad
+   enough to fund debt service, levy, reinvestment, and dividends?
+5. Which critical sectors remain import-vulnerable: defense supply, electronics,
    HVAC, water/desalination, irrigation, and food staples?
-5. Which ministries are improving economic productivity?
-6. Which citizens, civic workers, and producers are becoming more bankable?
-7. Which green and rail assets are lowering system costs?
-8. How much non-oil foreign currency is being captured?
-9. Is the citizen dividend funded by real surplus?
-10. Is productivity displacement being absorbed into verified civic work,
+6. Which ministries are improving economic productivity?
+7. Which citizens, civic workers, and producers are becoming more bankable?
+8. Which green and rail assets are lowering system costs?
+9. How much non-oil foreign currency is being captured?
+10. Is the citizen dividend funded by real surplus?
+11. Is productivity displacement being absorbed into verified civic work,
     training, and bridge-to-work pathways?
-11. Are capex, debt service, retained earnings, and dividends consistent with the
+12. Are capex, debt service, retained earnings, and dividends consistent with the
     ten-year cashflow model?
+13. Are long-horizon environmental, social, cultural, and infrastructure
+    benefits source-tagged separately from booked cash?
 
 ### Failure Modes The Model Must Surface
 
@@ -1397,6 +3092,7 @@ The unified dashboard should answer ten questions:
 | Import substitution becomes protectionism | Domestic prices exceed import parity without quality improvement or learning curve. |
 | Defense manufacturing becomes opaque patronage | Weak statutory authority, hidden procurement, poor end-use controls, or classified spending outside audit boundaries. |
 | Food/water substitution fails | Desalination, irrigation, cold-chain, or food projects lack unit-cost discipline, maintenance plans, or farmer/SME adoption. |
+| Revenue circle does not close | Revenue is mostly one-off construction spend, unpaid public invoices, unverified savings, or circular subsidy rather than settled customer cash. |
 | Industrial champions become protected monopolies | Tier privileges persist despite weak exports, high prices, related-party abuse, debt stress, or SME crowd-out. |
 | Civic work becomes fake jobs | Payments rise while verified outputs, training, audits, and bridge-to-work outcomes remain weak. |
 | Dividends become oil handouts | Dividend pool tracks oil receipts instead of audited surplus. |
@@ -1430,20 +3126,29 @@ The model gives each existing Cylinder Seal component a place:
 
 ### Build Sequence
 
-1. Define the unified ledger projection tables and event taxonomy.
-2. Add `InvestmentPlan`, `CapitalStack`, `ProjectMilestone`,
+1. Define the unified ledger projection tables and event taxonomy from
+   [National Economic Operating Logic](national-economic-operating-logic.md).
+2. Add `EconomicOperatingPeriod`, `EconomicEvent`, `LedgerImpact`,
+   `HardGateResult`, `PortfolioScorecard`, `BenefitAttribution`,
+   `CashBenefitConversion`, `WaterfallStatement`,
+   `CapitalAllocationDecision`, and `DividendGateDecision`.
+3. Add `InvestmentPlan`, `CapitalStack`, `ProjectMilestone`,
    `GrossProfitLevy`, `RetainedEarningsAllocation`, and
    `DividendDistribution` models.
-3. Add `EconomicCycleProjection` and `CitizenIncomeProjection` dashboard views.
-4. Add `ProductionCapacityProjection` for import substitution and local content.
-5. Add `StrategicResilienceProjection` for defense-controlled supply,
+4. Add `EconomicCycleProjection` and `CitizenIncomeProjection` dashboard views.
+5. Add `GrowthImpactProjection` and `SectorGrowthContribution` using
+   [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md).
+6. Add `ComprehensiveBenefitProjection` using
+   [Iraq Comprehensive Benefits Model](iraq-comprehensive-benefits-model.md).
+7. Add `ProductionCapacityProjection` for import substitution and local content.
+8. Add `StrategicResilienceProjection` for defense-controlled supply,
    electronics, HVAC, water/desalination, irrigation, and food substitution.
-6. Add `MinistryPerformanceProjection` for service contracts and budget feedback.
-7. Add `CivicWorkProjection` for verified tasks, payments, training, impact,
+9. Add `MinistryPerformanceProjection` for service contracts and budget feedback.
+10. Add `CivicWorkProjection` for verified tasks, payments, training, impact,
    audits, and bridge-to-work outcomes.
-8. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
-9. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
-10. Gate all public claims behind source labels, model assumptions, and confidence
+11. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
+12. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
+13. Gate all public claims behind source labels, model assumptions, and confidence
    levels from `docs/economic-assumptions.md`.
 
 ### Bottom Line
@@ -1463,7 +3168,7 @@ The point is not only to digitize money. The point is to make Iraq's economic
 feedback loops visible, governable, productive, and citizen-owned.
 
 
-# Part 8: National Dividend Holding Company
+# Part 12: National Dividend Holding Company
 
 ## National Dividend Holding Company Architecture
 
@@ -1732,7 +3437,7 @@ for the proposed investment program, capital stack, staffing model, sector
 priorities, reinvestment waterfall, and implementation primitives.
 
 
-# Part 9: INDHC Ten-Year Plan
+# Part 13: INDHC Ten-Year Plan
 
 ## INDHC Ten-Year Industrial And Infrastructure Plan
 
@@ -1751,6 +3456,19 @@ This plan sits inside the [Unified Economic Model](unified-economic-model.md).
 The ten-year investments are the productive-asset side of the model; Digital IQD
 is the evidence and distribution rail; ministry funding, credit, taxes,
 reinvestment, and dividends are the feedback mechanisms.
+The [National Economic Operating Logic](national-economic-operating-logic.md)
+defines how those flows are managed through ledgers, hard gates, portfolio
+modes, scoring, cash/benefit conversion, capital allocation, and escalation
+rules.
+The [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md)
+quantifies how the infrastructure, industrial, open-source rail, tourism,
+Digital IQD, green, food/water, and civic-work layers could raise non-oil growth
+over ten years.
+The [Iraq Quantified Affordability And Cashflow Model](iraq-quantified-affordability-model.md)
+uses IMF baseline data to distinguish a fiscal-safe starter case, a USD 115B
+constrained base case, and the USD 190B strategic upper envelope used below.
+Under the IMF baseline, the USD 190B envelope should not be treated as the
+default affordable case.
 See [National Civic Work System](national-civic-work-system.md) for the
 transition layer that turns productivity gains and displaced low-productivity
 labor into paid civic work, training, care, environmental restoration, sport,
@@ -1768,6 +3486,8 @@ demand, conditional credit, export discipline, competition gates, and debt caps.
 | Planning fact | Use in this plan | Source |
 | --- | --- | --- |
 | Iraq's National Development Plan 2024-2028 emphasizes infrastructure linked to agriculture, industry, and tourism. | The plan aligns investment sectors with Iraq's official development frame rather than creating a parallel agenda. | [National Development Plan 2024-2028 PDF](https://www.undp.org/sites/g/files/zskgke326/files/2024-12/national-development-plan-2024-2028.pdf) |
+| WTTC estimated Iraq's 2023 Travel & Tourism direct GDP contribution at IQD 4,881.8B, total GDP contribution at IQD 15,415.7B, direct jobs at 199,850, total jobs at 710,160, and visitor exports at IQD 3,434.0B. | Tourism is modeled with a direct cash layer and a separate second-order benefits layer. | [WTTC Iraq Economic Impact Report 2024](https://assets-global.website-files.com/6329bc97af73223b575983ac/6643856bc693733a9f435ca5_EIR2024-Iraq.pdf) |
+| WTTC forecast Iraq visitor exports of IQD 9,386.4B and 1.957M international tourist arrivals by 2034. | The tourism plan treats foreign visitor spending as a plausible non-oil FX growth channel, but not as guaranteed INDHC revenue. | [WTTC Iraq Economic Impact Report 2024](https://assets-global.website-files.com/6329bc97af73223b575983ac/6643856bc693733a9f435ca5_EIR2024-Iraq.pdf) |
 | Iraq remains heavily oil-revenue-dependent. | INDHC is designed to convert part of oil revenue into productive capital and ministry-funding feedback. | [EIA Iraq analysis](https://www.eia.gov/international/analysis/country/irq), [EITI Iraq](https://eiti.org/countries/iraq) |
 | Iraq's electricity ministry plan includes more than 12,000 MW of solar by 2030, plus wind and waste-to-energy ambitions. | Green technology investment and international green capital raising are core pillars. | [IRENA Energy Transition Assessment: Iraq 2025](https://www.irena.org/-/media/Files/IRENA/Agency/Publication/2025/Jul/IRENA_COU_Energy_transition_assessment_Iraq_2025.pdf) |
 | The Baghdad Metro RFI describes a 148 km, 64-station system with automated trains. | The open rail program starts with Baghdad, then standardizes city metro/light-metro delivery across Iraq. | [National Investment Commission Baghdad Metro RFI, Feb. 20, 2024](https://investpromo.gov.iq/wp-content/uploads/2024/03/3.-RFI-English-%D9%86%D8%A8%D8%B0%D8%A9-%D8%B9%D9%86-%D9%85%D8%AA%D8%B1%D9%88-%D8%A8%D8%BA%D8%AF%D8%A7%D8%AF-E-20.2.2024.pdf) |
@@ -1805,7 +3525,9 @@ INDHC exists to create a sovereign economic feedback loop:
 
 ### Capital Stack
 
-The ten-year base case uses a USD 190 billion planning envelope.
+The strategic upper envelope uses USD 190 billion. The constrained base case is
+USD 115 billion and is detailed in
+[Iraq Quantified Affordability And Cashflow Model](iraq-quantified-affordability-model.md).
 
 This is not a recommendation to borrow blindly. It is a stress-testable planning
 envelope showing how oil equity and debt could combine without turning INDHC into
@@ -1874,6 +3596,50 @@ Core rules:
   workforce training, and future investment.
 - Dividends begin only after audited surplus exists and a stabilization reserve
   is funded.
+
+### Revenue Generation Layer
+
+The cashflow model has to earn from a broad operating base, not just from oil
+capital appreciation or one flagship sector. The constrained-base version is
+broken out in
+[Iraq Quantified Affordability And Cashflow Model](iraq-quantified-affordability-model.md)
+and the machine-readable revenue-channel table is
+[docs/data/iraq-revenue-generation-model.csv](data/iraq-revenue-generation-model.csv).
+
+The revenue base should include:
+
+- Public procurement substitution where Iraqi suppliers can meet price,
+  quality, delivery, and audit requirements.
+- Domestic raw-material processing for construction materials, fertilizer
+  inputs, plastics, glass, pipes, packaging, and industrial components.
+- Electronics, HVAC, meters, pumps, controls, water equipment, spare parts, and
+  maintenance services.
+- Regulated defense sustainment and dual-use maintenance under statutory audit
+  and end-use controls.
+- Food processing, cold chain, storage, milling, feed, packaging, farmer
+  platforms, and water-efficient irrigation services.
+- Solar, storage, industrial power, PPAs, grid-efficiency service contracts,
+  public-building cooling efficiency, and waste-to-energy.
+- Rail fares, logistics, station retail, availability payments, and legally
+  recorded land-value capture.
+- Tourism, hospitality, pilgrim services, booking/payment platforms, healthcare,
+  education, professional services, software, and other tradable services.
+- Housing inputs, municipal service contracts, public-building maintenance, city
+  utilities, leakage reduction, and district services.
+- Digital IQD payment, compliance, registry, analytics, credit-enablement, SME
+  marketplace, and supplier-certification fees kept low enough to encourage
+  formalization.
+
+Revenue discipline:
+
+- Count cash only when there is a sale, lease, PPA, availability payment,
+  service contract, tariff, platform fee, export receipt, or legal revenue share.
+- Track avoided imports, fuel savings, water savings, and congestion reductions
+  separately from booked cash so benefits are not counted twice.
+- Treat tourism, exports, and foreign-customer services as priority channels for
+  non-oil foreign currency.
+- Require every revenue line to map to a Digital IQD contract, invoice,
+  settlement, meter record, receipt, audit proof, or source tag.
 
 ### Ten-Year Consolidated Cashflow
 
@@ -1983,6 +3749,20 @@ Food-substitution rules:
 | Build | 3-5 | USD 7B | Najaf-Karbala corridor, Baghdad/Kadhimiya routes, Babylon/Ur/marshland packages, hotel and SME finance. | Visitor spending and hotel/logistics revenue scale. |
 | Scale | 6-8 | USD 7B | Medical, education, business-process, logistics, and Arabic software services; foreign-currency settlement into Digital IQD. | Non-oil FX capture becomes measurable. |
 | Consolidate | 9-10 | USD 3B | Quality certification, international marketing, repeat visitor channels, service-export standards. | Higher margins from services and platforms. |
+
+Tourism revenue model:
+
+| Layer | Year-10 planning value | Counted as INDHC cashflow? | Notes |
+| --- | ---: | --- | --- |
+| Booked tourism and tradable-services revenue | USD 3.0B | Yes | Visitor logistics, cultural site services, hospitality JV shares, platform/FX services, and tradable service exports. |
+| Direct operating cash after maintenance | USD 0.75B | Yes | Flows into the same debt-service, levy, retained-earnings, and dividend waterfall as other sectors. |
+| Second-order benefit tracked outside INDHC revenue | USD 6.6B | No | SME merchant sales, food supply chains, transport utilization, city services, tax base, bankability, repeat visits, and investment option value. |
+
+See
+[docs/data/iraq-tourism-revenue-benefits-model.csv](data/iraq-tourism-revenue-benefits-model.csv)
+for the machine-readable breakdown. The second-order layer is deliberately kept
+outside the dividend forecast. It is a national benefit dashboard, not booked
+subsidiary cash.
 
 ### Cashflow Sensitivity Tests
 
@@ -2138,6 +3918,30 @@ Advantages:
 - Strong fit with Iraqi small businesses.
 - Foreign-currency capture without relying on oil.
 - Direct feedback into city services, transport, sanitation, and safety.
+- Second-order demand for food processing, cold chain, local retail,
+  hospitality training, rail utilization, municipal services, and SME credit.
+
+Tourism should be measured with two ledgers:
+
+| Ledger | What it records | Why separate it |
+| --- | --- | --- |
+| INDHC tourism ledger | Platform fees, JV shares, leases, service contracts, ticketing, FX services, directly operated assets, and tradable service invoices. | These are cashflows that can support debt service, levy, retained earnings, and dividends. |
+| National tourism benefit ledger | Wider visitor spending, merchant formalization, supply-chain purchases, induced wages, municipal service improvements, country brand, repeat visits, and investment leads. | These are real benefits, but they are not dividend cash until converted into settled revenue, taxes, fees, or leases. |
+
+Second-order benefits to track:
+
+- Local food demand for restaurants, pilgrims, hotels, events, and transport
+  hubs, linked back to Iraqi food processing and cold chain.
+- Retail, crafts, guide, cleaning, laundry, security, maintenance, and
+  translation jobs for SMEs and civic-work graduates.
+- Higher utilization of rail, buses, stations, airports, public toilets,
+  sanitation, waste, water, lighting, and safety services.
+- Foreign-currency receipts entering formal channels through booking, card,
+  banking, and Digital IQD merchant settlement.
+- Better credit histories for tourism SMEs through verified bookings, reviews,
+  receivables, and seasonal repayment records.
+- Repeat-visit and diaspora-investment signals that can support hotel, service,
+  and cultural-route PPPs.
 
 ### Pillar 4: Green Technology And International Capital
 
@@ -2310,6 +4114,9 @@ before any production implementation:
 | `StrategicSectorControl` | Legal authority, license, end-use controls, classification boundary, and audit scope for defense and dual-use manufacturing. |
 | `WaterFoodSecurityProject` | Desalination, irrigation, water-treatment, cold-chain, and food-substitution project records. |
 | `LoanFacility` | Lender, currency, rate, maturity, covenant, project linkage, debt-service schedule. |
+| `RevenueStream` | Sector, customer, contract type, currency, recurrence, collection status, and source evidence for each earning channel. |
+| `RevenueContract` | PPA, availability payment, procurement substitution, platform fee, lease, tariff, export receipt, service contract, or land-value capture claim. |
+| `ImportSubstitutionSaving` | Separates estimated FX/import savings from booked cash revenue. |
 | `GrossProfitLevy` | Treasury claim on audited productive surplus. |
 | `RetainedEarningsAllocation` | Reinvestment, maintenance, debt reduction, training, and dividend reserve. |
 | `DividendDistribution` | Monthly equal dividend batch to citizen wallets. |
@@ -2321,6 +4128,7 @@ Dashboard views:
 - Ten-year allocation map.
 - Sector profitability.
 - Debt exposure and currency risk.
+- Revenue by stream, currency, collection quality, and recurrence.
 - Iraqi employment and training transfer.
 - Import substitution scoreboard.
 - Strategic resilience manufacturing dashboard.
@@ -2356,6 +4164,7 @@ Do not treat this plan as deployable until these questions have written answers:
 | Import substitution | Share of selected public and private demand met by Iraqi production, by value chain. |
 | Strategic resilience | Domestic production share for regulated defense supply, electronics, HVAC, water/desalination, irrigation, and food-staple substitution. |
 | Profitability | Subsidiary return on invested capital, operating margin, and cash conversion. |
+| Revenue breadth | Share of revenue from recurring contracts, private customers, exports, foreign-currency services, and non-oil sectors. |
 | Debt safety | Debt-service coverage, FX exposure, maturity profile, covenant compliance. |
 | Employment | Iraqi permanent staff share, apprenticeship completion, technical leadership transfer. |
 | Green investment | MW commissioned, grid losses reduced, emissions intensity, verified use of proceeds. |
@@ -2379,7 +4188,7 @@ productive-capital machine:
 - remaining distributable surplus is paid as a Digital IQD citizen dividend.
 
 
-# Part 10: Digitally Governed Industrial Champions
+# Part 14: Digitally Governed Industrial Champions
 
 ## Digitally Governed Industrial Champions
 
@@ -2840,7 +4649,7 @@ No competition review, no champion status renewal.
 ```
 
 
-# Part 11: National Civic Work System
+# Part 15: National Civic Work System
 
 ## National Civic Work System
 
@@ -3224,7 +5033,7 @@ productivity gains
 ```
 
 
-# Part 12: Ministry Transition Roadmap
+# Part 16: Ministry Transition Roadmap
 
 ## Ministry Transition And Deprecation Roadmap
 
@@ -3423,7 +5232,7 @@ The end-state is a smaller cabinet with stronger sovereign functions:
 
 
 
-# Part 13: Technical Primitives
+# Part 17: Technical Primitives
 
 ## Technical Primitives And Readiness Notes
 

@@ -18,21 +18,26 @@ audited surplus.
 
 ## System Boundary
 
-The system has six layers:
+The system has ten layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
 | Digital IQD transaction layer | Wallets, POS, offline transactions, settlement, policy primitives, AML, audit, credit features, dashboards. | `README.md`, `docs/technical-primitives.md`, `docs/system-and-financial-flow-diagrams.md` |
+| Economic operating layer | Six ledgers, canonical economic events, hard gates, portfolio modes, scorecards, cash/benefit conversion, waterfalls, capital allocation, dashboards, and escalation rules. | `docs/national-economic-operating-logic.md` |
 | Public-finance and capital layer | Oil Income Lockbox, INDHC, gross-profit levy, ministry budgets, cash formalization, citizen share entitlements, dividends. | `docs/national-dividend-holding-company.md` |
 | Ten-year productive economy layer | Import substitution, strategic resilience manufacturing, defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, food substitution, tourism/services, green capital, open rail, raw-material processing, Iraqi-only permanent staffing. | `docs/indhc-10-year-plan.md` |
+| Growth-impact layer | Quantified baseline, constrained-base, and strategic-upper non-oil growth paths from infrastructure, industry, open-source rail, green power, food/water systems, tourism, Digital IQD formalization, and civic work. | `docs/iraq-integrated-growth-impact-model.md` |
+| Comprehensive benefits layer | 2036, 2040, and 2050 scenario ranges for economic output, infrastructure capacity, environmental avoided losses, civic-work capacity, tourism/culture, and dividends. | `docs/iraq-comprehensive-benefits-model.md` |
+| Affordability and cashflow layer | IMF-baseline capital envelopes, oil-equity affordability, project-loan sources, PPP/JV capital, recurring revenue channels, debt-service coverage, stress tests, and dividend math. | `docs/iraq-quantified-affordability-model.md` |
 | Industrial champion governance layer | Sectoral production groups receive conditional demand, credit, and payment privileges only while they meet local-content, price, quality, export, tax, debt, SME-inclusion, and audit gates. | `docs/digitally-governed-industrial-champions.md` |
 | Civic work and dignity layer | Productivity gains fund verified public-value work, training, care, environmental restoration, sport, culture, municipal repair, and disaster resilience. | `docs/national-civic-work-system.md` |
 | Ministry transition layer | Deprecates, merges, regulates, corporatizes, or sunsets ministry functions once service-continuity, legal, audit, and staff-transition gates pass. | `docs/ministry-transition-roadmap.md` |
 
 The layers should not be read separately. The payment layer provides the
-evidence and controls; the public-finance layer changes the fiscal incentives;
-the productive economy layer gives the system real goods, services, jobs, and
-profit to measure.
+evidence and controls; the economic operating layer decides how events are
+classified, gated, scored, and escalated; the public-finance layer changes the
+fiscal incentives; the productive economy layer gives the system real goods,
+services, jobs, and profit to measure.
 
 ## Core Actors
 
@@ -116,6 +121,26 @@ not a hidden subsidy or opaque procurement channel.
 Economic purpose: citizens benefit through wages, ownership income, services,
 credit access, and better local supply.
 
+### 3A. Revenue Generation Loop
+
+1. INDHC and private partners build assets that sell real goods and services:
+   industrial inputs, food processing, water equipment, power, rail, logistics,
+   tourism, urban services, digital-platform services, maintenance, and exports.
+2. Digital IQD records contract identity, merchant identity, local-content
+   evidence, delivery proof, invoices, settlement, taxes, and levy claims.
+3. Cash revenue is separated from estimated macro savings such as avoided
+   imports, grid-loss reduction, or congestion relief.
+4. Collected revenue funds maintenance, debt service, Treasury levy, retained
+   earnings, and dividends.
+5. Citizen wages and dividends become merchant revenue, SME credit history, and
+   new domestic demand.
+6. Banks lend against verified receivables, offtake contracts, wallet sales, and
+   repayment histories.
+
+Economic purpose: the model closes the circle by making revenue broad,
+measurable, recurring, and linked to domestic production instead of treating oil
+capital as the only source of money.
+
 ### 4. Ministry Feedback Loop
 
 1. Ministries receive budgets from Treasury revenue, gross-profit levy, and
@@ -159,6 +184,30 @@ Economic purpose: visibility becomes bankability, not just surveillance.
 Economic purpose: Iraq earns foreign currency by selling Iraqi goods, services,
 tourism, and culture, not only crude oil.
 
+Tourism has a direct cash layer and a second-order benefit layer:
+
+```text
+Booked Tourism Cashflow
+  = Platform fees
+  + Hospitality JV revenue share
+  + Visitor logistics and site-service contracts
+  + Ticketing and guide/service fees
+  + FX/payment service fees
+  + Tradable service export invoices
+
+Tourism Second-Order Benefit
+  = Wider visitor merchant spending
+  + Food, retail, laundry, maintenance, guide, and transport supply chains
+  + Rail/bus/station utilization
+  + Municipal service demand and revenue
+  + Foreign-currency formalization
+  + Tax base, credit histories, and repeat-visit investment signals
+```
+
+Only the first identity enters INDHC distributable surplus. The second identity
+is tracked as national economic benefit and becomes fiscal cash only when it is
+settled as taxes, fees, leases, service payments, or merchant revenue.
+
 ### 7. Green And Rail Cost-Reduction Loop
 
 1. International green capital and oil equity finance solar, storage, grid,
@@ -196,6 +245,23 @@ dividends without disguising unemployment as permanent fake jobs.
 
 The model should be auditable with explicit accounts.
 
+The detailed management logic is defined in
+[National Economic Operating Logic](national-economic-operating-logic.md). The
+short version is:
+
+```text
+Measure every event.
+Classify it into the right ledger.
+Apply hard gates.
+Score the portfolio.
+Allocate capital.
+Collect revenue.
+Separate benefits from cash.
+Pay obligations before dividends.
+Publish evidence.
+Reallocate away from failure.
+```
+
 ### Public-Finance Identity
 
 ```text
@@ -229,6 +295,26 @@ INDHC Distributable Surplus
 ```
 
 Policy meaning: dividends come from audited surplus, not raw oil.
+
+### Recurring Revenue Identity
+
+```text
+Recurring Operating Revenue
+  = Domestic industrial sales
+  + Public procurement substitution contracts
+  + Raw-material processing revenue
+  + Food processing, cold-chain, water, and irrigation revenue
+  + Power PPAs, grid services, and verified efficiency service charges
+  + Rail fares, availability payments, logistics, and land-value capture
+  + Tourism, hospitality, and tradable services revenue
+  + Housing inputs, urban services, and municipal service contracts
+  + Digital platform, compliance, registry, and credit-enablement fees
+  + Selective exports and foreign-currency service receipts
+```
+
+Policy meaning: revenue must come from many channels. Import substitution and
+efficiency savings are useful, but they are booked as cash only when a product,
+service, contract, lease, tariff, PPA, or revenue share is actually settled.
 
 ### Citizen Income Identity
 
@@ -288,6 +374,7 @@ ten-year plan includes the detailed sector cashflow and sensitivity model.
 | Oil Income Lockbox | Stops raw oil receipts from bypassing capital, reserve, levy, and dividend rules. |
 | Gross-profit levy | Funds ministries from productive surplus. |
 | Retained earnings allocation | Forces reinvestment, maintenance, debt reduction, training, and dividend stabilization before distribution. |
+| Revenue-stream registry | Separates industrial sales, PPAs, availability payments, leases, service contracts, exports, platform fees, and savings contracts. |
 | Strategic-sector controls | Keep defense, dual-use, water, food, and critical electronics programs legal, licensed, auditable, and protected from procurement abuse. |
 | Industrial champion gates | Make demand, credit, procurement preference, and Tier 1 privileges conditional on local content, price discipline, export progress, debt safety, and competition review. |
 | Civic work verification | Pays civic wages only after task evidence, verifier checks, audit rules, and appeal paths. |
@@ -314,36 +401,47 @@ separate dashboard widgets.
 
 | Projection | Inputs | Outputs |
 | --- | --- | --- |
+| `EconomicOperatingPeriod` | Ledger close calendar, macro mode, portfolio mode, source snapshots, gate settings | Monthly, quarterly, and annual operating cycle view. |
+| `EconomicEventProjection` | Payment events, project events, benefit events, risk events, audit hashes, source tags | Canonical event and ledger-impact view. |
 | `EconomicCycleProjection` | Oil receipts, INDHC allocations, project revenues, taxes, dividends, domestic spend | National feedback-loop view. |
+| `GrowthImpactProjection` | Baseline non-oil growth, sector add-ons, real non-oil GDP index, additional GDP vs baseline, confidence labels | Macro growth-impact and timeline view. |
+| `ComprehensiveBenefitProjection` | GDP, booked revenue, dividend range, rail capacity, clean power, tourism, civic-work capacity, avoided environmental loss, social value, cultural value, confidence labels | Long-horizon economic, infrastructure, environmental, social, and cultural benefits view. |
 | `ProductionCapacityProjection` | Merchant tiers, local-content attestations, project outputs, inventory, procurement | Import substitution, food substitution, and domestic supply view. |
 | `StrategicResilienceProjection` | Defense-sector licenses, electronics/HVAC output, water/desalination equipment, irrigation systems, food-substitution capacity, end-use controls | Critical domestic capability and import-vulnerability view. |
+| `AffordabilityProjection` | IMF baseline, oil-equity draw, project loans, PPP capital, DSCR, stress cases, dividend math | Financeability and stop/go gate view. |
+| `RevenueGenerationProjection` | Revenue streams, contracts, invoices, collection, currency, offtake, savings contracts, platform fees, land-value capture | Broad recurring revenue, collection quality, and closed-loop cash view. |
 | `IndustrialChampionProjection` | Champion registry, conditional demand contracts, tier privileges, debt caps, export discipline, related-party exposure, SME inclusion | Anti-capture and sectoral champion performance view. |
 | `CivicWorkProjection` | Civic tasks, workers, verifiers, evidence bundles, payments, training, impact metrics, appeals | Productivity-transition, social cohesion, and verified public-value view. |
 | `CitizenIncomeProjection` | Wages, transfers, dividends, IP income, repayments, spending | Household welfare and inclusion view. |
 | `MinistryPerformanceProjection` | Budgets, service contracts, milestones, delivery evidence | Ministry feedback and productivity view. |
 | `CreditExpansionProjection` | Transaction histories, risk features, loan disbursements, repayments | SME finance and formalization view. |
 | `ForeignCurrencyProjection` | Tourism, diaspora merchant sales, exports, imports, FX conversion | Non-oil FX and leakage view. |
+| `TourismSecondOrderProjection` | Visitor spend, merchant formalization, supply-chain purchases, city-service demand, rail utilization, repeat visits, FX capture | Tourism multiplier and local-benefit view without counting it as INDHC cash. |
 | `GreenRailCostProjection` | Rail ridership, logistics costs, grid losses, energy costs, emissions | Infrastructure cost-base view. |
 | `DividendSustainabilityProjection` | Surplus, reserves, debt service, citizen eligibility, exception queue | Monthly dividend reliability view. |
 
 ## Dashboard Design
 
-The unified dashboard should answer ten questions:
+The unified dashboard should answer twelve questions:
 
 1. Where did oil income go?
 2. Which investments are producing cash, jobs, and domestic supply?
 3. Which imports are being replaced credibly and at what cost?
-4. Which critical sectors remain import-vulnerable: defense supply, electronics,
+4. Which revenue streams are recurring, collected, contract-backed, and broad
+   enough to fund debt service, levy, reinvestment, and dividends?
+5. Which critical sectors remain import-vulnerable: defense supply, electronics,
    HVAC, water/desalination, irrigation, and food staples?
-5. Which ministries are improving economic productivity?
-6. Which citizens, civic workers, and producers are becoming more bankable?
-7. Which green and rail assets are lowering system costs?
-8. How much non-oil foreign currency is being captured?
-9. Is the citizen dividend funded by real surplus?
-10. Is productivity displacement being absorbed into verified civic work,
+6. Which ministries are improving economic productivity?
+7. Which citizens, civic workers, and producers are becoming more bankable?
+8. Which green and rail assets are lowering system costs?
+9. How much non-oil foreign currency is being captured?
+10. Is the citizen dividend funded by real surplus?
+11. Is productivity displacement being absorbed into verified civic work,
     training, and bridge-to-work pathways?
-11. Are capex, debt service, retained earnings, and dividends consistent with the
+12. Are capex, debt service, retained earnings, and dividends consistent with the
     ten-year cashflow model?
+13. Are long-horizon environmental, social, cultural, and infrastructure
+    benefits source-tagged separately from booked cash?
 
 ## Failure Modes The Model Must Surface
 
@@ -353,6 +451,7 @@ The unified dashboard should answer ten questions:
 | Import substitution becomes protectionism | Domestic prices exceed import parity without quality improvement or learning curve. |
 | Defense manufacturing becomes opaque patronage | Weak statutory authority, hidden procurement, poor end-use controls, or classified spending outside audit boundaries. |
 | Food/water substitution fails | Desalination, irrigation, cold-chain, or food projects lack unit-cost discipline, maintenance plans, or farmer/SME adoption. |
+| Revenue circle does not close | Revenue is mostly one-off construction spend, unpaid public invoices, unverified savings, or circular subsidy rather than settled customer cash. |
 | Industrial champions become protected monopolies | Tier privileges persist despite weak exports, high prices, related-party abuse, debt stress, or SME crowd-out. |
 | Civic work becomes fake jobs | Payments rise while verified outputs, training, audits, and bridge-to-work outcomes remain weak. |
 | Dividends become oil handouts | Dividend pool tracks oil receipts instead of audited surplus. |
@@ -386,20 +485,29 @@ The model gives each existing Cylinder Seal component a place:
 
 ## Build Sequence
 
-1. Define the unified ledger projection tables and event taxonomy.
-2. Add `InvestmentPlan`, `CapitalStack`, `ProjectMilestone`,
+1. Define the unified ledger projection tables and event taxonomy from
+   [National Economic Operating Logic](national-economic-operating-logic.md).
+2. Add `EconomicOperatingPeriod`, `EconomicEvent`, `LedgerImpact`,
+   `HardGateResult`, `PortfolioScorecard`, `BenefitAttribution`,
+   `CashBenefitConversion`, `WaterfallStatement`,
+   `CapitalAllocationDecision`, and `DividendGateDecision`.
+3. Add `InvestmentPlan`, `CapitalStack`, `ProjectMilestone`,
    `GrossProfitLevy`, `RetainedEarningsAllocation`, and
    `DividendDistribution` models.
-3. Add `EconomicCycleProjection` and `CitizenIncomeProjection` dashboard views.
-4. Add `ProductionCapacityProjection` for import substitution and local content.
-5. Add `StrategicResilienceProjection` for defense-controlled supply,
+4. Add `EconomicCycleProjection` and `CitizenIncomeProjection` dashboard views.
+5. Add `GrowthImpactProjection` and `SectorGrowthContribution` using
+   [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md).
+6. Add `ComprehensiveBenefitProjection` using
+   [Iraq Comprehensive Benefits Model](iraq-comprehensive-benefits-model.md).
+7. Add `ProductionCapacityProjection` for import substitution and local content.
+8. Add `StrategicResilienceProjection` for defense-controlled supply,
    electronics, HVAC, water/desalination, irrigation, and food substitution.
-6. Add `MinistryPerformanceProjection` for service contracts and budget feedback.
-7. Add `CivicWorkProjection` for verified tasks, payments, training, impact,
+9. Add `MinistryPerformanceProjection` for service contracts and budget feedback.
+10. Add `CivicWorkProjection` for verified tasks, payments, training, impact,
    audits, and bridge-to-work outcomes.
-8. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
-9. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
-10. Gate all public claims behind source labels, model assumptions, and confidence
+11. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
+12. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
+13. Gate all public claims behind source labels, model assumptions, and confidence
    levels from `docs/economic-assumptions.md`.
 
 ## Bottom Line

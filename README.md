@@ -34,7 +34,9 @@ The codebase should be read as a pilot-grade prototype. It is suitable for techn
 
 ## Quick Start
 
-Install Rust and Docker if you want to run the dashboard stack locally. The dashboard currently uses PostgreSQL and Redis; SQLite files in this repository are legacy/local fixture helpers, not a supported dashboard runtime.
+Install Rust and Docker if you want to run the dashboard stack locally. The
+dashboard currently uses PostgreSQL and Redis. POS-local SQLite remains only for
+the device-side terminal store, not for the dashboard runtime.
 
 ```bash
 # Start PostgreSQL and Redis.
@@ -71,9 +73,13 @@ The Iraq-specific policy narrative is intentionally separate from the implementa
 
 - [Economic assumptions](docs/economic-assumptions.md) lists current public facts, source discipline, and claims that must remain illustrative until independently modeled.
 - [Unified economic model](docs/unified-economic-model.md) connects Digital IQD, INDHC, ministries, banks, producers, strategic resilience manufacturing, tourism, green capital, rail, taxes, civic work, reinvestment, and citizen dividends into one accounting and feedback structure.
-- [Policy paper draft](docs/policy-paper.md) preserves the full sovereign-economic thesis from the previous README. It is a working draft, not an externally validated forecast.
+- [National economic operating logic](docs/national-economic-operating-logic.md) defines the management spine: six ledgers, hard gates, portfolio scoring, cash/benefit separation, capital allocation, escalation rules, and dividend controls.
+- [Iraq integrated growth impact model](docs/iraq-integrated-growth-impact-model.md) quantifies how infrastructure, industrial production, open-source rail, green power, food/water systems, tourism, Digital IQD formalization, and civic work could raise non-oil growth over ten years.
+- [Iraq comprehensive benefits model](docs/iraq-comprehensive-benefits-model.md) extends the ten-year model to 2040 and 2050 across economic, infrastructure, environmental, social, and cultural outcomes.
+- [Policy paper boundary](docs/policy-paper.md) preserves only a deprecated boundary note for the earlier long-form narrative; current claims should use the newer source-disciplined documents.
 - [National dividend holding company](docs/national-dividend-holding-company.md) describes a proposed oil-income-to-productive-capital architecture where citizens hold non-saleable beneficial shares and receive audited Digital IQD dividends from distributable surplus.
 - [INDHC ten-year plan](docs/indhc-10-year-plan.md) turns that architecture into a planning envelope and cashflow model for import substitution, profitable national businesses, defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, imported-food substitution, tourism and services, green capital, open rail, raw-material processing, Iraqi-only permanent staffing, and domestic reinvestment.
+- [Iraq quantified affordability model](docs/iraq-quantified-affordability-model.md) uses IMF baseline data to size fiscal-safe, constrained-base, and strategic-upper financing envelopes, including oil-equity affordability, project loans, PPP/JV capital, recurring revenue channels, tourism second-order benefits, DSCR gates, and citizen-dividend cashflows.
 - [Digitally governed industrial champions](docs/digitally-governed-industrial-champions.md) reframes the Korean large-industrial-group analogy into sectoral Iraqi production groups with conditional demand, conditional credit, export discipline, debt caps, competition gates, and anti-capture controls.
 - [National civic work system](docs/national-civic-work-system.md) adds a dignity-preserving transition layer where citizens are paid in Digital IQD for verified environmental, care, sport, culture, education, municipal, food-security, and disaster-resilience work.
 - [Ministry transition roadmap](docs/ministry-transition-roadmap.md) lists candidate ministry functions to deprecate, merge, regulate, corporatize, or sunset as services move to audited operators, municipalities, regulators, INDHC, and Digital IQD service contracts.

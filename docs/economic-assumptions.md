@@ -33,11 +33,20 @@ Recommended language:
 
 Avoid language that implies certainty:
 
-- "12-15 months to national scale" should become "a 12-15 month pilot-to-scale hypothesis requiring regulatory approval, security audit, procurement, and banking integration."
-- "$7.5-12.5B annual benefit by Year 5" should become "illustrative Year 5 benefit range pending independent macroeconomic modeling."
-- "Unbanked population drops from 70% to 5%" should become "financial inclusion improvement scenario; baseline and target must be reconciled with NFIS definitions."
-- "Credit rating improves from B3 to Ba1" should become "potential sovereign-credit relevance; no rating outcome should be forecast as a project deliverable."
-- "Diaspora capital repatriation $80-150B/year" should become "diaspora merchant and tourism distribution channel hypothesis unless backed by flow data."
+- National-scale deployment timelines should become pilot-to-scale hypotheses
+  requiring regulatory approval, security audit, procurement, banking
+  integration, operational testing, and public authority.
+- Year-5 benefit ranges should become illustrative scenario outputs pending
+  independent macroeconomic modeling, project finance review, and sensitivity
+  testing.
+- Financial inclusion improvement claims should reconcile baseline and target
+  definitions with Iraq's NFIS and should not use informal older unbanked
+  percentages without source notes.
+- Sovereign-credit relevance may be discussed as an indirect fiscal-resilience
+  hypothesis, but no rating outcome should be forecast as a project
+  deliverable.
+- Diaspora capital claims should be framed as merchant, tourism, service-export,
+  and formal-payment-channel hypotheses unless backed by measured flow data.
 - "Cylinder Seal is a complete economic operating system" should become "unified economic model proposal requiring legal authority, audited data, calibrated equations, policy review, and independent macroeconomic validation."
 - "Cylinder Seal will abolish frivolous ministries" should become "ministry-transition scenario in which specific functions are deprecated, merged, regulated, corporatized, or sunset only after legal authority, service-continuity gates, staff-transition plans, and independent audits."
 - "Oil income should fund a citizen-owned state industrial holding company" should become "proposed national dividend holding-company architecture requiring constitutional, fiscal, oil-revenue, AML/CFT, competition, and governance review."
