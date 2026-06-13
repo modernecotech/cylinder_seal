@@ -1,11 +1,13 @@
 #!/bin/bash
-# Initialize SQLite database for CBI Dashboard development
+# Initialize a legacy SQLite fixture database for schema/seed inspection.
+# The cbi-dashboard runtime is PostgreSQL-only.
 
 set -e
 
 DB_FILE="cylinder_seal.db"
 
-echo "Setting up SQLite development database..."
+echo "Setting up SQLite fixture database..."
+echo "Note: cbi-dashboard does not run against SQLite; use PostgreSQL for the dashboard."
 
 # Remove existing database if it exists
 if [ -f "$DB_FILE" ]; then
@@ -21,12 +23,9 @@ sqlite3 "$DB_FILE" < sqlite-migrations/001_init.sql
 echo "Loading test data..."
 sqlite3 "$DB_FILE" < sqlite-migrations/002_seed_data.sql
 
-echo "✅ SQLite database initialized: $DB_FILE"
+echo "SQLite fixture initialized: $DB_FILE"
 echo ""
-echo "To use with cbi-dashboard, set:"
-echo "  export DATABASE_URL=\"sqlite:cylinder_seal.db\""
-echo ""
-echo "Or it will use this by default in development."
+echo "Do not set cbi-dashboard DATABASE_URL to this file; it uses PostgreSQL."
 echo ""
 echo "Local demo operators (password: DEMO_OPERATOR_PASSWORD from .env.example):"
 echo "  - supervisor (role: supervisor)"

@@ -25,10 +25,13 @@ venv/
 
 # Local generated state
 cylinder_seal.db
+*.db
 *.sqlite
 *.sqlite3
 dump.rdb
 *.rdb
+.sqlx/
+.cache/
 
 # IDE
 .vscode/

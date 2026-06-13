@@ -17,13 +17,20 @@ impl Config {
             .unwrap_or_else(|_| "127.0.0.1:8081".to_string())
             .parse::<SocketAddr>()?;
 
-        // Default to SQLite for development (runs without external DB)
-        // For production, set DATABASE_URL to: postgresql://user:pass@host/cylinder_seal
-        let database_url = std::env::var("DATABASE_URL")
-            .unwrap_or_else(|_| "sqlite:cylinder_seal.db".to_string());
+        // The dashboard is PostgreSQL-only. Historical SQLite fixtures remain
+        // in sqlite-migrations/, but they are not a supported runtime path.
+        let database_url = std::env::var("DATABASE_URL").unwrap_or_else(|_| {
+            let host = std::env::var("DB_HOST").unwrap_or_else(|_| "localhost".to_string());
+            let port = std::env::var("DB_PORT").unwrap_or_else(|_| "5432".to_string());
+            let name = std::env::var("DB_NAME").unwrap_or_else(|_| "cylinder_seal".to_string());
+            let user = std::env::var("DB_USER").unwrap_or_else(|_| "postgres".to_string());
+            let password =
+                std::env::var("DB_PASSWORD").unwrap_or_else(|_| "change-me-dev-only".to_string());
+            format!("postgresql://{user}:{password}@{host}:{port}/{name}")
+        });
 
-        let redis_url = std::env::var("REDIS_URL")
-            .unwrap_or_else(|_| "redis://localhost:6379".to_string());
+        let redis_url =
+            std::env::var("REDIS_URL").unwrap_or_else(|_| "redis://localhost:6379".to_string());
 
         let db_max_connections = std::env::var("DB_MAX_CONNECTIONS")
             .ok()

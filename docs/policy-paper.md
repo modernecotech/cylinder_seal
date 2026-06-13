@@ -48,7 +48,7 @@ Cylinder Seal's design attacks four mutually-reinforcing Iraqi economic patholog
 
 **Diaspora as distribution channel, not as capital source.** The diaspora's highest-value contribution is their market access abroad — not their remittance capacity. Iraqi-origin retailers, wholesalers, and tour operators in the US, UK, EU, Gulf, and South Asia already sit on customer trust and shelf space that Iraqi producers cannot build from scratch. The Diaspora Merchant Node / Tourism Aggregator design (see [Part 6: §6](#6-diaspora-as-export-channel-marketers-and-tourism-aggregators)) makes that channel a first-class participant in the tier system, with foreign-currency earnings captured at CBI into the industrial pool at point of sale.
 
-**Investment:** $3-5M | **Timeline:** 12-15 months to national scale | **Payback:** Months 3-6 after pilot | **Year 5 benefit:** $7.5-12.5B/year
+**Illustrative scenario, not a committed forecast:** $3-5M pilot hypothesis | 12-15 month pilot-to-scale hypothesis | Year 5 benefit range requires independent validation
 
 ---
 
@@ -83,7 +83,7 @@ With Strait of Hormuz now open, Iraq has a **critical window to build sustainabl
 - Digital Dinar adoption low (15-30% of population) due to limited formal payment infrastructure
 - Citizens and businesses operate primarily in cash, creating invisible transaction trails
 - CBI reserves management requires visibility into economic activity (currently opaque)
-- S&P CreditWatch Negative pending evidence of non-oil diversification and economic formalization
+- S&P affirmed Iraq at `B-/B` on June 12, 2026, removed the long-term rating from CreditWatch Negative, and kept a negative outlook; any sovereign-credit claims in this draft require refreshed sourcing and independent validation.
 
 **Cylinder Seal's Strategic Role:**
 With Strait now open and regional stability improving, next 2-3 years are critical for formalizing the non-oil economy. Hard restrictions on government spending ($106-113B) + aggressive SME credit scaling must:
@@ -110,13 +110,13 @@ With Strait now open and regional stability improving, next 2-3 years are critic
 - **Capacity scaling:** With working capital access, manufacturing expands from 35% → 85% utilization within 3 years; employment grows from 8M → 13M jobs
 
 ### For Iraq's Sovereign Credit Rating:
-- **From B3 (Highly Speculative) → Ba1 (Speculative) by Year 5:**
+- **Illustrative sovereign-credit relevance scenario, not a forecast:**
   - **Visibility driver:** $106B government spending now formally documented and taxable (not informal/invisible)
   - **Tax revenue jump:** $10B → $20.5B non-oil tax revenue over 5 years
   - **Export diversification:** Non-oil exports grow from $1B → $8.5B; oil dependence falls from 85% → 65% of revenues
-  - **Formal employment:** Unbanked population drops from 70% → 5%; labor force becomes creditworthy and stable
-  - **External capital access:** Investment-grade credit rating (Ba3 boundary at Year 3) allows foreign borrowing at 4-6% vs. current 10-12% — saves Iraq $100-200M annually in debt service
-  - **Regional hub status:** Diaspora capital repatriation ($80-150B/year by 2029), enabled by Cylinder Seal's transparency and credit infrastructure
+  - **Formal employment:** financial-inclusion improvement scenario; baseline and target must be reconciled with NFIS definitions
+  - **External capital access:** sovereign-borrowing-cost relevance is a hypothesis, not a rating forecast or project deliverable
+  - **Regional hub status:** diaspora merchant and tourism distribution channel hypothesis, pending independent flow data
 
 ---
 
@@ -1237,7 +1237,7 @@ Iraq's SME sector (textiles, food, light manufacturing, hospitality, constructio
 | 2028 | $328 | **11.6%** | $198B (60%) | $130B (40%) | $5.5B | $22B | B1 |
 | 2029 | $365 | **11.3%** | $185B (51%) | $180B (49%) | $7.0B | $35B | Ba3 |
 | 2030 | $405 | **10.9%** | $175B (43%) | $230B (57%) | $8.2B | $45B | Ba2 |
-| 2031 | $450 | **11.1%** | $170B (38%) | $280B (62%) | $9.0B | $55B+ | Ba1 |
+| 2031 | $450 | **11.1%** | $170B (38%) | $280B (62%) | $9.0B | $55B+ | Illustrative only |
 
 **GDP Composition Notes:**
 - Oil contribution declining from 83% (2025) → 38% (2031) as non-oil economy scales
@@ -1815,7 +1815,7 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 | **Tax collection improvement** | Government salary/pension visibility + SME transaction trails raise compliance from 60% → 92% | $1-2B |
 | **Trade balance strengthening** | $25B government spending shift from imports to Tier 1-2 local goods + 25K SMEs accessing credit for export growth | $3-5B |
 | **Monetary stability value** | Faster policy transmission (adjustable velocity limits in real-time), reduced inflation overshoot, improved macroeconomic forecasting | $1.5-2.5B |
-| **Sovereign credit rating improvement** | Upgrade from B3 → Ba1 (investment grade boundary) enables 2-4% cheaper foreign borrowing | $0.1-0.2B (annual debt service savings) |
+| **Sovereign credit rating relevance** | Scenario only; no rating outcome should be forecast as a project deliverable | Illustrative only |
 | **SME credit market maturation** | $50B formal credit market (vs. $0 in baseline) supporting 25K+ companies = $500M+ in avoided informal lending losses and increased economic efficiency | Built into GDP multiplier |
 | **Citizen purchasing power preservation** | $18B annual government spending recaptured from import leak maintains local circulation, preventing wage erosion | Built into GDP multiplier |
 | **Total annual benefit Year 5: $7.5-12.5B/year** | — | **+ $1.5-2B** in sovereign credit rating improvement + SME credit market value |
@@ -1863,7 +1863,7 @@ The Rust backend (consensus, sync, REST, AML, credit, exchange, policy, storage,
 - 300K-500K new formal jobs created
 - 3-5M citizens access credit for the first time
 - 25K SMEs formalize and scale
-- Sovereign credit rating rises 4 notches (B3 → Ba1) = 2-4% reduction in foreign borrowing costs forever
+- Sovereign credit relevance remains a hypothesis requiring independent macroeconomic and rating-agency validation
 - Trade balance improves by $3.8B cumulatively, reducing currency vulnerability
 
 ---
@@ -2047,10 +2047,10 @@ The **CBI Management Dashboard** is a comprehensive web interface enabling Centr
 
 **Stack:**
 - **Backend:** Rust (Axum) with Tokio async runtime
-- **Database:** PostgreSQL (production), SQLite (development)
+- **Database:** PostgreSQL for the current dashboard runtime; SQLite files are retained only as local fixtures
 - **Sessions:** Redis with Argon2id password hashing
 - **Frontend:** Askama templates + Tailwind CSS + Chart.js
-- **Testing:** SQLite with 20-table schema + 80+ seed records
+- **Testing:** Specification tests plus local fixture data; real PostgreSQL/Redis endpoint tests remain required
 
 **Deployment:**
 - Single binary: `cbi-dashboard` (separate from `cs-node` ledger)
@@ -2292,11 +2292,11 @@ cargo test --package cs-tests -- --nocapture
 ### Quick Start (Development)
 
 ```bash
-# 1. Initialize SQLite database
-./setup-sqlite-dev.sh
+# 1. Start PostgreSQL and Redis
+docker compose up -d
 
-# 2. Verify setup
-./verify-sqlite-setup.sh
+# 2. Set the dashboard database URL
+export DATABASE_URL="postgresql://postgres:${DB_PASSWORD:-change-me-dev-only}@localhost:5432/cylinder_seal"
 
 # 3. Build dashboard
 cargo build --package cbi-dashboard
@@ -2427,11 +2427,11 @@ User search, balance tracking, KYC tier management, credit score visibility, and
 - ✅ Database schema (20 tables, 10 indices)
 - ✅ Authentication (Argon2id + Redis sessions)
 - ✅ All route handlers (overview, industrial, analytics, compliance, monetary, accounts, risk, audit)
-- ✅ PostgreSQL support (production-ready)
+- ✅ PostgreSQL-backed prototype runtime
 - ✅ Seed data (80+ records for testing)
 - ✅ Web GUI (6 pages, live database integration)
 - ✅ HTML page rendering with dynamic DB queries
-- ✅ Test coverage (400+ passing across the workspace — 165 integration specs + 4 E2E + 25 cbi-dashboard + ~216 per-crate lib tests)
+- ⚠ Test coverage exists, but dashboard route integration coverage is not yet production-grade
 - ⚠️ Form validation (POST endpoints accept JSON, no schema validation)
 - ⚠️ Role-based access control (context set, not enforced)
 - ⚠️ Visualizations (Chart.js CDN referenced, needs data binding)
@@ -2466,8 +2466,8 @@ User search, balance tracking, KYC tier management, credit score visibility, and
 - `DEVELOPMENT_GUIDE.md` — Developer quick-start guide
 - `COMPLETION_CHECKLIST.md` — Feature-by-feature breakdown
 - `TEST_RESULTS.md` — historical test cases snapshot (numbers may lag current workspace)
-- `setup-sqlite-dev.sh` — Database initialization script
-- `verify-sqlite-setup.sh` — Setup verification script
+- `setup-sqlite-dev.sh` — Legacy SQLite fixture initialization script
+- `verify-sqlite-setup.sh` — Legacy SQLite fixture verification script
 - `migrations/20260419000001_analytics.sql` — Analytics tables for industrial projects and production monitoring
 
 ---

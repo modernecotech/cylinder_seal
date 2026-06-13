@@ -26,7 +26,7 @@ The thesis is narrow on purpose: use digital payment trails to make informal act
 
 | Status | Scope |
 | --- | --- |
-| Implemented | Rust domain models, canonical signing primitives, transaction/wire-format primitives, KYC tier limits, POS/mobile codecs, CBI dashboard routes, SQLite demo setup, AML/risk/credit modules, and numbered specification tests. |
+| Implemented | Rust domain models, canonical signing primitives, transaction/wire-format primitives, KYC tier limits, POS/mobile codecs, PostgreSQL-backed CBI dashboard routes, AML/risk/credit modules, and numbered specification tests. |
 | Partially implemented | Offline payment lifecycle, double-spend reconciliation, merchant-tier policy, transaction-based credit scoring, AML reporting, dashboard UI, and Raft-backed sync. These have code and tests, but need production integration and security hardening. |
 | Not production-ready | HSM or secure-element custody, national identity/KYC integration, audited offline double-spend prevention, real multi-peer Raft deployment, CBI/core-banking integration, privacy review, disaster recovery, formal threat model review, and externally validated economic impact model. |
 
@@ -34,27 +34,22 @@ The codebase should be read as a pilot-grade prototype. It is suitable for techn
 
 ## Quick Start
 
-Install Rust, SQLite, and Redis/PostgreSQL if you want to run the dashboard stack.
+Install Rust and Docker if you want to run the dashboard stack locally. The dashboard currently uses PostgreSQL and Redis; SQLite files in this repository are legacy/local fixture helpers, not a supported dashboard runtime.
 
 ```bash
-# Create a local SQLite demo database.
-./setup-sqlite-dev.sh
+# Start PostgreSQL and Redis.
+cp .env.example .env
+docker compose up -d
 
 # Build the main dashboard package.
 cargo build --package cbi-dashboard
 
 # Run the dashboard.
+export DATABASE_URL="postgresql://postgres:${DB_PASSWORD:-change-me-dev-only}@localhost:5432/cylinder_seal"
 cargo run --package cbi-dashboard
 ```
 
 The dashboard defaults to `http://127.0.0.1:8081` when run locally. Demo operators are seeded only for local development; see `.env.example` and `API_REFERENCE.md` before using them.
-
-For Docker/PostgreSQL development:
-
-```bash
-cp .env.example .env
-docker compose up -d
-```
 
 Change all demo secrets before sharing, deploying, or connecting real systems.
 
@@ -93,4 +88,4 @@ Before this could be evaluated as real payment infrastructure, the project would
 
 ## Repository Hygiene
 
-Local artifacts such as generated SQLite databases, Redis dumps, virtualenvs, and ad hoc logs are ignored. Recreate the local database with `./setup-sqlite-dev.sh` instead of committing generated state.
+Local artifacts such as generated databases, Redis dumps, virtualenvs, and ad hoc logs are ignored. Do not commit generated database state.

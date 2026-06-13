@@ -3,10 +3,12 @@
 ## Quick Start
 
 ```bash
-# Start database
-./setup-sqlite-dev.sh
+# Start PostgreSQL and Redis
+cp .env.example .env
+docker compose up -d
 
 # Build & run
+export DATABASE_URL="postgresql://postgres:${DB_PASSWORD:-change-me-dev-only}@localhost:5432/cylinder_seal"
 cargo build --package cbi-dashboard
 cargo run --package cbi-dashboard
 
@@ -527,7 +529,7 @@ All endpoints return standard HTTP status codes:
 
 ## Local Demo Operators
 
-These accounts are seeded only by `./setup-sqlite-dev.sh` for local development.
+These accounts are local-development examples only. They require development seed data and must not be reused in staging or production.
 
 | Username | Role |
 |----------|------|
@@ -592,7 +594,7 @@ Currently **unlimited** (no rate limiting implemented). For production, implemen
 
 ## Response Times
 
-Expected latencies (SQLite):
+Expected latencies (local PostgreSQL):
 - GET endpoints: 10-50ms
 - POST endpoints: 20-100ms
 - Complex aggregations: 50-200ms
@@ -601,19 +603,14 @@ Expected latencies (SQLite):
 
 ## Database Connection
 
-Connection string (development):
-```
-sqlite:cylinder_seal.db
-```
-
-Connection string (production):
+Connection string:
 ```
 postgresql://user:pass@host:5432/database
 ```
 
 Set via environment variable:
 ```bash
-export DATABASE_URL="sqlite:cylinder_seal.db"
+export DATABASE_URL="postgresql://postgres:${DB_PASSWORD:-change-me-dev-only}@localhost:5432/cylinder_seal"
 ```
 
 ---
