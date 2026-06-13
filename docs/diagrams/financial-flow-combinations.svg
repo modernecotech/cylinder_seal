@@ -28,7 +28,7 @@
 
   <rect class="bg" width="1800" height="1300"/>
   <text class="title" x="56" y="58">Financial Flow Combination Map</text>
-  <text class="subtitle" x="56" y="88">Every modeled transaction combines an actor pair, channel, settlement mode, primitive, and oversight path.</text>
+  <text class="subtitle" x="56" y="88">Every modeled transaction combines an actor pair, channel, settlement mode, primitive, and oversight path, including civic-work wage flows.</text>
 
   <rect class="zone" x="52" y="130" width="330" height="800"/>
   <text class="zone-title" x="84" y="170">Sources of value</text>
@@ -60,6 +60,10 @@
   <rect class="box actor" x="92" y="765" width="245" height="62"/>
   <text class="title-text" x="116" y="791">CBI - Monetary account</text>
   <text class="text" x="116" y="813">liquidity and policy funding</text>
+
+  <rect class="box actor" x="92" y="855" width="245" height="62"/>
+  <text class="title-text" x="116" y="881">CI / CW - Civic work</text>
+  <text class="text" x="116" y="903">institution, verifier, worker wallet</text>
 
   <rect class="zone" x="450" y="130" width="870" height="800"/>
   <text class="zone-title" x="482" y="170">Digital IQD validation rail</text>
@@ -98,6 +102,10 @@
   <text class="text" x="532" y="750">limits, primitive checks, tier policy, AML, conflict resolution, Raft finality, ledger persistence</text>
   <text class="tiny" x="532" y="772">The same validation path keeps ordinary payments and policy-program payments on one architecture.</text>
 
+  <rect class="box primitive" x="504" y="830" width="760" height="62"/>
+  <text class="title-text" x="532" y="856">Verified civic wage and civic credit release</text>
+  <text class="text" x="532" y="878">task evidence, verifier decision, appeal state, worker payment, impact metric</text>
+
   <rect class="zone" x="1388" y="130" width="360" height="800"/>
   <text class="zone-title" x="1420" y="170">Destinations</text>
 
@@ -129,6 +137,10 @@
   <text class="title-text" x="1454" y="791">Credit / analytics</text>
   <text class="text" x="1454" y="813">cash-flow and sector signals</text>
 
+  <rect class="box out" x="1430" y="855" width="270" height="62"/>
+  <text class="title-text" x="1454" y="881">Civic worker / impact</text>
+  <text class="text" x="1454" y="903">wage, credit, certificate, output</text>
+
   <path class="arrow" d="M337 256 C410 256 430 252 504 252"/>
   <path class="arrow" d="M337 346 C410 346 430 374 504 374"/>
   <path class="arrow" d="M337 436 C410 436 430 374 504 374"/>
@@ -136,6 +148,7 @@
   <path class="arrow" d="M337 616 C410 616 430 606 504 606"/>
   <path class="arrow" d="M337 706 C410 706 430 374 504 374"/>
   <path class="arrow" d="M337 796 C410 796 430 748 504 748"/>
+  <path class="arrow" d="M337 886 C410 886 430 861 504 861"/>
 
   <path class="arrow" d="M1264 252 C1340 252 1360 256 1430 256"/>
   <path class="arrow" d="M1264 374 C1340 374 1360 346 1430 346"/>
@@ -144,6 +157,7 @@
   <path class="arrow" d="M1264 606 C1340 606 1360 616 1430 616"/>
   <path class="arrow-soft" d="M884 796 C1100 910 1300 700 1430 706"/>
   <path class="arrow-soft" d="M884 796 C1120 965 1300 790 1430 796"/>
+  <path class="arrow" d="M1264 861 C1340 861 1360 886 1430 886"/>
 
   <rect class="zone" x="52" y="980" width="1696" height="210"/>
   <text class="zone-title" x="84" y="1020">Oversight paths produced by settlement</text>
@@ -162,4 +176,7 @@
   <rect class="box side" x="1252" y="1060" width="250" height="72"/>
   <text class="title-text" x="1276" y="1088">Supervisor control</text>
   <text class="text" x="1276" y="1110">freeze, cap, directive, recourse</text>
+  <rect class="box side" x="1532" y="1060" width="170" height="72"/>
+  <text class="title-text" x="1550" y="1088">Civic verification</text>
+  <text class="text" x="1550" y="1110">task evidence and appeals</text>
 </svg>

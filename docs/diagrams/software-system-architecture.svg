@@ -25,6 +25,7 @@
       .box { stroke-width: 1.5; rx: 10; }
       .user { fill: #ffffff; stroke: #2e73b8; }
       .runtime { fill: #ffffff; stroke: #2f7d45; }
+      .partial { fill: #fff8e1; stroke: #b26a00; }
       .store { fill: #ffffff; stroke: #b26a00; }
       .external { fill: #ffffff; stroke: #71717a; stroke-dasharray: 6 5; }
       .arrow { stroke: #344054; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
@@ -60,6 +61,10 @@
   <rect class="box user" x="84" y="638" width="260" height="76"/>
   <text class="box-title" x="108" y="666">CBI operator browser</text>
   <text class="box-text" x="108" y="690">Dashboard and control plane</text>
+
+  <rect class="box user" x="84" y="738" width="260" height="46"/>
+  <text class="box-title" x="108" y="758">Civic Work Wallet</text>
+  <text class="box-text" x="108" y="778">Worker and verifier surfaces</text>
 
   <rect class="zone runtime-zone" x="430" y="130" width="650" height="670"/>
   <text class="zone-title" x="458" y="168">Prototype runtime</text>
@@ -105,6 +110,10 @@
   <text class="box-title" x="759" y="680">cs-analytics</text>
   <text class="box-text" x="759" y="702">Aggregate policy projections</text>
 
+  <rect class="box partial" x="735" y="746" width="260" height="42"/>
+  <text class="box-title" x="759" y="766">cs-civic-work</text>
+  <text class="box-text" x="759" y="784">Proposed task/evidence/wage module</text>
+
   <rect class="zone external-zone" x="1130" y="130" width="420" height="670"/>
   <text class="zone-title" x="1160" y="168">External production integrations</text>
   <text class="zone-note" x="1160" y="192">Required before real deployment</text>
@@ -132,6 +141,10 @@
   <rect class="box external" x="1170" y="670" width="330" height="66"/>
   <text class="box-title" x="1194" y="696">Ministries and auditors</text>
   <text class="box-text" x="1194" y="718">Procurement, tax, justice, review</text>
+
+  <rect class="box external" x="1170" y="758" width="330" height="42"/>
+  <text class="box-title" x="1194" y="776">Civic institutions</text>
+  <text class="box-text" x="1194" y="794">Municipalities, schools, NGOs, clubs</text>
 
   <rect class="zone store-zone" x="50" y="845" width="1500" height="150"/>
   <text class="zone-title" x="78" y="883">Data stores and evidence targets</text>
@@ -161,6 +174,7 @@
   <path class="arrow" d="M344 472 C405 472 420 368 470 368"/>
   <path class="arrow" d="M344 574 C520 574 600 266 735 266"/>
   <path class="arrow" d="M344 676 C405 676 420 688 470 688"/>
+  <path class="arrow" d="M344 761 C520 761 620 767 735 767"/>
 
   <path class="arrow" d="M680 266 L735 266"/>
   <path class="arrow" d="M680 368 L735 368"/>
@@ -172,6 +186,7 @@
   <path class="arrow" d="M680 586 C710 586 705 586 735 586"/>
   <path class="arrow" d="M575 622 L575 652"/>
   <path class="arrow" d="M865 622 L865 652"/>
+  <path class="arrow" d="M865 746 C865 735 865 735 865 724"/>
 
   <path class="arrow" d="M865 724 C865 805 550 850 227 910"/>
   <path class="arrow" d="M575 724 C575 805 545 850 547 910"/>
@@ -185,10 +200,13 @@
   <path class="arrow-soft" d="M1170 527 C1090 527 1035 484 995 484"/>
   <path class="arrow-soft" d="M1170 615 C1090 615 1035 484 995 484"/>
   <path class="arrow-soft" d="M1170 703 C1085 703 1040 688 995 688"/>
+  <path class="arrow-soft" d="M1170 779 C1085 779 1040 767 995 767"/>
 
   <rect class="legend" x="56" y="1018" width="500" height="50"/>
   <rect class="box runtime" x="80" y="1033" width="24" height="18"/>
   <text class="small" x="114" y="1047">Prototype module or development store</text>
   <rect class="box external" x="330" y="1033" width="24" height="18"/>
   <text class="small" x="364" y="1047">Production integration requirement</text>
+  <rect class="box partial" x="80" y="1056" width="24" height="18"/>
+  <text class="small" x="114" y="1070">Policy/design module, not implemented</text>
 </svg>

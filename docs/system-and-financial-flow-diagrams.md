@@ -39,6 +39,10 @@ be inspected in code review.
 
 ![National dividend holding company financial architecture](diagrams/national-dividend-holding-company.svg)
 
+### National Civic Work System
+
+![National civic work verification and payment architecture](diagrams/national-civic-work-system.svg)
+
 ## Legend
 
 | Marker | Meaning |
@@ -67,7 +71,9 @@ flowchart LR
         Citizen["Citizen wallet<br/>Android / iOS / Flutter"]
         Merchant["Merchant POS<br/>NFC / BLE / QR"]
         IP["Individual producer wallet<br/>informal-worker track"]
+        CivicWorker["Civic Work Wallet<br/>worker task and payment surface"]
         BankUser["Bank / lender portal<br/>future integration"]
+        CivicVerifier["Verifier portal<br/>school, club, NGO, municipality"]
     end
 
     subgraph Runtime["Cylinder Seal prototype runtime"]
@@ -78,6 +84,7 @@ flowchart LR
         Consensus["cs-consensus<br/>Raft concepts and finality boundary"]
         Policy["cs-policy<br/>tiers, AML, primitives, reports"]
         Credit["cs-credit<br/>transaction-based score features"]
+        CivicWork["cs-civic-work<br/>proposed task, evidence, wage module"]
         Storage["cs-storage<br/>ledger persistence"]
         Dashboard["cbi-dashboard<br/>operator UI and APIs"]
         Analytics["cs-analytics<br/>aggregate policy views"]
@@ -96,14 +103,22 @@ flowchart LR
         HSM["HSM / secure element<br/>key custody and attestation"]
         Feeds["Sanctions, FX, market feeds"]
         Ministries["Ministries and auditors<br/>procurement, tax, justice"]
+        CivicInstitutions["Municipalities, schools, NGOs,<br/>clubs, universities, agencies"]
     end
 
     Citizen --> MobileCore
     IP --> MobileCore
+    CivicWorker --> MobileCore
     Merchant --> POS
     POS --> MobileCore
     MobileCore --> API
     POS --> API
+    CivicVerifier --> CivicWork
+    CivicWorker --> CivicWork
+    CivicWork --> API
+    CivicWork --> Policy
+    CivicWork --> Credit
+    CivicWork --> Dashboard
     API --> Sync
     Sync --> Policy
     Sync --> Credit
@@ -125,12 +140,14 @@ flowchart LR
     HSM -. super-peer key custody .-> Consensus
     Feeds -. risk data .-> Policy
     Ministries -. program rules and audits .-> Dashboard
+    CivicInstitutions -. task posting and verification .-> CivicWork
 
     classDef prototype fill:#e9f7ef,stroke:#2f7d32,color:#111;
     classDef partial fill:#fff8e1,stroke:#b26a00,color:#111;
     classDef external fill:#f4f4f4,stroke:#777,stroke-dasharray: 5 5,color:#111;
     class MobileCore,POS,API,Sync,Consensus,Policy,Credit,Storage,Dashboard,Analytics,Postgres,Redis,LocalStores prototype;
-    class CBI,Banks,KYC,HSM,Feeds,Ministries external;
+    class CivicWork partial;
+    class CBI,Banks,KYC,HSM,Feeds,Ministries,CivicInstitutions external;
 ```
 
 Use case: gives CBI, banks, MDB reviewers, and implementers a single map of the
@@ -338,11 +355,11 @@ Every transaction flow is assembled from these dimensions:
 
 | Dimension | Allowed values in the design surface |
 | --- | --- |
-| Actor pair | C2C, C2M, C2IP, M2C, M2M, IP2M, G2P, G2B, C2G, M2G, B2C, C2B, B2M, M2B, D2M, CBI2B, B2CBI |
-| Channel | Online API, QR, NFC, BLE, bank batch, government batch, future correspondent-bank bridge |
-| Settlement mode | Immediate online finality, pending offline receipt, batch settlement, conditional release |
-| Primitive | Standard transfer, expiring transfer, spend constraint, conditional release escrow, recurring debit, refund/compensating transfer |
-| Oversight path | None beyond normal validation, tier policy, AML/risk report, tax/fee withholding, credit feature extraction, supervisor/emergency control |
+| Actor pair | C2C, C2M, C2IP, M2C, M2M, IP2M, G2P, G2B, C2G, M2G, B2C, C2B, B2M, M2B, D2M, CBI2B, B2CBI, G2CW, CI2CW, CW2M, CW2IP, CW2G, G2CI |
+| Channel | Online API, QR, NFC, BLE, bank batch, government batch, civic-work task workflow, future correspondent-bank bridge |
+| Settlement mode | Immediate online finality, pending offline receipt, batch settlement, conditional release, verified civic wage release |
+| Primitive | Standard transfer, expiring transfer, spend constraint, conditional release escrow, recurring debit, refund/compensating transfer, civic wage, civic credit bonus |
+| Oversight path | None beyond normal validation, tier policy, AML/risk report, tax/fee withholding, credit feature extraction, civic-work verification, supervisor/emergency control |
 
 Actor shorthand:
 
@@ -355,6 +372,8 @@ Actor shorthand:
 | B | Bank, lender, or industrial-finance account |
 | D | Diaspora buyer, tourist, pilgrim, or foreign customer |
 | CBI | Central-bank or super-peer operating account |
+| CW | Civic worker wallet |
+| CI | Civic institution: municipality, school, NGO, sports club, university, environmental agency, or verifier |
 
 ### 7. Financial Flow Combination Map
 
@@ -368,6 +387,8 @@ flowchart LR
         B["Bank / lender"]
         D["Diaspora / tourist"]
         CBI["CBI / liquidity account"]
+        CI["Civic institution / verifier"]
+        CW["Civic worker"]
     end
 
     subgraph Rails["Digital IQD rails"]
@@ -378,6 +399,7 @@ flowchart LR
         Escrow["Conditional release escrow"]
         Recurring["Recurring debit"]
         Refund["Refund / compensation"]
+        Civic["Verified civic wage / credit"]
     end
 
     subgraph Destinations["Destinations and side effects"]
@@ -386,7 +408,10 @@ flowchart LR
         IP2["Individual producer"]
         G2["Government / tax"]
         B2["Bank / lender"]
+        CW2["Civic worker"]
+        CI2["Civic institution budget"]
         Audit["Audit and AML evidence"]
+        CivicImpact["Civic impact metrics"]
         Credit2["Credit features"]
         Analytics2["Aggregate analytics"]
     end
@@ -404,6 +429,10 @@ flowchart LR
     B --> Escrow
     D --> Standard
     CBI --> Standard
+    G --> Civic
+    CI --> Civic
+    CW --> Standard
+    CW --> Earmarked
 
     Standard --> C2
     Standard --> M2
@@ -418,6 +447,10 @@ flowchart LR
     Recurring --> B2
     Refund --> C2
     Refund --> M2
+    Civic --> CW2
+    Civic --> Credit2
+    Civic --> CivicImpact
+    Escrow --> CI2
 
     Standard --> Audit
     Offline --> Audit
@@ -426,8 +459,10 @@ flowchart LR
     Escrow --> Audit
     Standard --> Credit2
     Offline --> Credit2
+    Civic --> Audit
     Standard --> Analytics2
     Earmarked --> Analytics2
+    CivicImpact --> Analytics2
 ```
 
 Use case: shows that the system is not a single payment path. It is a small set
@@ -459,6 +494,10 @@ validation, audit, and projection paths.
 | 16 | CBI2B | Bank batch | Liquidity allocation, policy instruction | Liquidity provision or program funding to banks | Clean separation between policy funding and retail disbursement | CBI/core-banking integration required |
 | 17 | B2CBI | Bank batch | Settlement, reserve movement, report | Bank settlement and supervisory reporting | Supports monetary oversight and reconciliation | Production settlement rails required |
 | 18 | Any valid payer to any valid payee | Online only for action; offline receipt may later sync | Freeze, cap, reject, report, reverse by compensating transfer | Emergency directive, AML hold, fraud response | Provides supervisory control without mutating history | Requires strict emergency powers, audit, and due process |
+| 19 | G2CI | Government batch, civic-work workflow | Conditional release, spend constraint | Treasury, municipality, climate, or INDHC community-benefit budget funds approved civic tasks | Keeps civic-work budgets explicit and separate from citizen dividend funds | Appropriation law, municipal authority, and anti-corruption controls required |
+| 20 | CI2CW or G2CW | Civic-work task workflow, online wallet | Civic wage, civic credit bonus, conditional release | Verified care, sport, environmental, municipal, culture, education, food-security, or resilience task | Turns spare labor capacity into paid public value, training records, and income history | `cs-civic-work` is design-only; evidence rules, labor law, privacy, safety, and appeal process required |
+| 21 | CW2M or CW2IP | Online, QR, NFC, BLE where allowed | Standard transfer, spend constraint for civic credits | Civic worker spends wage or category-limited credit at merchants, transport, training, childcare, local goods, or housing-deposit programs | Converts civic income into local demand while preserving transparent program limits | Spend-limited credits need legal basis and appealable merchant/category rules |
+| 22 | CW2G or CW2B | Online, recurring | Standard transfer, recurring debit | Fees, training co-payments, savings, loan repayment, or bank account linkage from verified civic income | Creates formal financial history for thin-file workers | Consent, debt-service caps, and privacy-bounded credit use required |
 
 ## Validity Rules For Combinations
 
@@ -467,6 +506,8 @@ validation, audit, and projection paths.
 | Offline is limited to low-value C2C, C2M, C2IP, and selected IP2M flows. | NFC, BLE, QR pending receipts | High-value, bank, government, procurement, and cross-border flows need online finality. |
 | Conditional-release escrow can be initiated online and represented in the ledger; release should be online. | G2M, B2C, B2M, M2M | Release depends on third-party evidence, inspector approval, title event, or invoice state. |
 | Spend constraints may be carried offline only when recipient eligibility and cap data are locally verifiable. | C2M, C2IP, G2C, G2M, B2C | Final validation still occurs at sync, so offline recipients carry settlement risk. |
+| Civic wage release requires verified task evidence and an explicit budget source. | G2CI, CI2CW, G2CW | Civic work must not become hidden dividend leakage, ghost payroll, or patronage spending. |
+| Civic credit spending follows the same spend-constraint rules as other earmarked value. | CW2M, CW2IP | Credits can support training, transport, childcare, local goods, sport, or housing deposits only where rules are lawful and appealable. |
 | Expiring transfers can be spent before expiry; expired value must revert or be blocked by validator policy. | G2C stimulus, voucher-like flows | Prevents stale stimulus balances and supports velocity policy experiments. |
 | Refunds and reversals are new compensating entries, not ledger deletion. | C2M, M2C, D2M, M2M | Preserves auditability and avoids tampering with committed entries. |
 | Tax, fee, and tier effects are side effects of settlement, not separate UI promises. | C2M, C2IP, M2G, IP2M | Keeps enforcement at validation and projection layers. |
@@ -711,6 +752,53 @@ Advantages:
 - Supports case review rather than silent automated punishment.
 - Allows emergency controls while preserving a committed evidence trail.
 
+### 16. Civic Work Task Verification And Wage Flow
+
+```mermaid
+sequenceDiagram
+    participant Budget as Treasury, municipality, climate, or INDHC community budget
+    participant Institution as Civic institution or verifier
+    actor Worker as Civic worker
+    participant Civic as cs-civic-work design module
+    participant Policy as Policy, privacy, and fraud checks
+    participant Ledger as Digital IQD ledger
+    participant Dash as Civic impact dashboard
+    participant Credit as Training and credit features
+
+    Budget->>Institution: Allocate approved task budget
+    Institution->>Civic: Post task with category, wage, verifier, safety rules
+    Civic->>Policy: Check budget, task taxonomy, caps, verifier eligibility
+    Worker->>Civic: Accept task through Civic Work Wallet
+    Worker->>Institution: Complete work
+    Institution->>Civic: Submit sign-off, output count, photo, GPS, sensor, or peer evidence
+    Civic->>Policy: Verify evidence tier, privacy boundary, fraud signals
+    alt rejected or disputed
+        Policy-->>Civic: Hold, reject, audit, or appeal
+        Civic->>Dash: Aggregate rejection, dispute, and audit metrics
+    else verified
+        Policy->>Ledger: Release civic wage or civic credit bonus
+        Ledger->>Worker: Digital IQD payment or spend-limited credit
+        Civic->>Credit: Update training, reliability, and income-history record
+        Civic->>Dash: Aggregate verified hours, outputs, payments, and impact
+    end
+```
+
+Use case: tree care, canal maintenance, sport coaching, school tutoring,
+elderly visits, disability support, heritage work, heatwave response, or food
+and water resilience tasks.
+
+Advantages:
+
+- Makes civic work a measurable output system rather than a payroll label.
+- Keeps the budget source, evidence bundle, wage release, audit trail, and
+  public-impact metric tied together.
+- Gives unemployed and underemployed workers Digital IQD income history,
+  training records, and privacy-bounded employability signals.
+
+Boundary: the module is not implemented. Real deployment requires labor-law,
+child-protection, care-work, privacy, municipal-authority, anti-corruption,
+budget, verifier, safety, and appeal rules.
+
 ## Flow Advantages By Policy Objective
 
 | Objective | Best-fit flows | Why they help |
@@ -719,6 +807,7 @@ Advantages:
 | SME credit | C2M, M2M, B2M, invoice escrow, recurring repayment | Creates cash-flow features and invoice evidence for thin-file firms. |
 | Public-transfer control | G2C, G2M, expiring transfers, spend constraints | Gives program administrators a visible issuance-to-spend trail. |
 | National dividend and ministry feedback | Oil-income lockbox, INDHC investment allocations, gross-profit levy, citizen dividend | Converts raw oil receipts into audited productive capital, tax-funded ministry budgets, and equal Digital IQD dividends. |
+| Productivity transition and civic work | G2CI, CI2CW, G2CW, CW2M, verified civic wage and credit release | Converts spare labor capacity into paid public value, training records, civic reputation, and local demand. |
 | Domestic-production incentives | C2M, G2M, B2M, tier policy, earmarked spend | Rewards eligible local suppliers through validation and settlement side effects. |
 | Monetary visibility | All committed flows, aggregate analytics | Gives privacy-bounded velocity, sector, and geography signals. |
 | AML and supervisory control | All online and synced flows, risk queue, freeze/cap overlay | Produces evidence packs and role-gated intervention paths. |
@@ -735,6 +824,7 @@ Advantages:
 | Merchant tiers and hard restrictions | `crates/cs-policy`, `crates/cs-tests/tests/spec_23_tier_policy.rs` |
 | AML and reporting | `crates/cs-policy/src/aml.rs`, `crates/cs-policy/src/reporting.rs`, `crates/cbi-dashboard/src/routes/compliance.rs`, `crates/cbi-dashboard/src/routes/risk.rs` |
 | Credit features | `crates/cs-credit`, `crates/cs-policy/src/risk_scoring.rs` |
+| Civic-work architecture | `docs/national-civic-work-system.md` only; proposed `cs-civic-work` models are not implemented |
 | Consensus boundary | `crates/cs-consensus`, `crates/cs-sync/src/sync_service.rs`, `crates/cs-sync/src/state_machine.rs` |
 | Dashboard sessions and roles | `crates/cbi-dashboard/src/auth.rs`, `crates/cbi-dashboard/src/middleware.rs`, `crates/cbi-dashboard/src/main.rs` |
 
@@ -750,6 +840,9 @@ remaining engineering gaps:
   route credibility.
 - Cross-border, FX, diaspora, and correspondent-bank flows are scenario designs,
   not implemented rails.
+- Civic-work task posting, evidence verification, civic wage release, civic
+  credits, and impact metrics are policy/design artifacts only; no
+  `cs-civic-work` crate, schemas, routes, or tests exist yet.
 - Production privacy, legal authority, appeal, and emergency-power procedures
   must be specified before using real citizen or business data.
 - The national dividend holding-company model is a policy architecture proposal;

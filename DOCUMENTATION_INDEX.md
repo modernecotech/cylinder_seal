@@ -26,7 +26,11 @@
 
 ## Runtime Note
 
-`cbi-dashboard` is PostgreSQL-only today. `sqlite-migrations/`, `setup-sqlite-dev.sh`, and `verify-sqlite-setup.sh` are local fixture helpers and should not be cited as a supported dashboard runtime.
+`cbi-dashboard` is PostgreSQL-only today. `docker-compose.yml` reads
+`DB_PASSWORD` from `.env` and uses `change-me-dev-only` only as a local demo
+fallback. `sqlite-migrations/`, `setup-sqlite-dev.sh`, and
+`verify-sqlite-setup.sh` are local fixture helpers and should not be cited as a
+supported dashboard runtime.
 
 ## Repository Hygiene
 

@@ -5,10 +5,18 @@ This document preserves the long-form sovereign-economic thesis that previously 
 Before external circulation, update and source every macroeconomic figure. Known corrections as of June 13, 2026:
 
 - Iraq's latest official census baseline is the final 2024 count of 46.1 million people, not the older approximately 43 million baseline used in parts of this draft.
-- S&P Global Ratings affirmed Iraq at `B-/B` on June 12, 2026, removed the long-term ratings from CreditWatch negative, and kept a negative outlook. Sections describing Iraq as still on CreditWatch negative need revision.
+- S&P Global Ratings affirmed Iraq at `B-/B` on June 12, 2026, removed the long-term ratings from CreditWatch negative, and kept a negative outlook. Do not describe Iraq as currently on CreditWatch negative after that date.
 - National-scale timelines, Year 5 benefit ranges, sovereign-rating pathways, and diaspora capital figures should be treated as illustrative model outputs until independently validated.
 
-See [economic assumptions](economic-assumptions.md) for the current source discipline. See [unified economic model](unified-economic-model.md) for the integrated accounting and feedback structure. See [national dividend holding company](national-dividend-holding-company.md) for the newer oil-income-to-productive-capital policy architecture.
+Reader classification:
+
+- Treat this file as a legacy scenario workbook and narrative archive.
+- Do not quote its dollar ranges, adoption rates, sovereign-rating paths,
+  timelines, employment figures, or GDP paths as validated project claims.
+- For the front-door project position, use the README, implementation status,
+  economic assumptions, unified economic model, and security model instead.
+
+See [economic assumptions](economic-assumptions.md) for the current source discipline. See [unified economic model](unified-economic-model.md) for the integrated accounting and feedback structure. See [national dividend holding company](national-dividend-holding-company.md) for the newer oil-income-to-productive-capital policy architecture. See [national civic work system](national-civic-work-system.md) for the newer productivity-transition and participation-economy layer.
 
 # Digital Iraqi Dinar: Economic Quantification & Development Infrastructure
 
@@ -30,7 +38,7 @@ The **Digital Iraqi Dinar (Digital IQD)** scenario explores sovereign digital cu
 - Offline-first P2P payments (NFC/BLE) — works without internet in rural/conflict zones
 - 3-of-5 Raft consensus — tolerates 2 CBI regional branch outages simultaneously
 - Low/zero retail fees in the prototype scenario — financial-inclusion baselines and target populations require NFIS-aligned sourcing
-- Credit scoring from transaction history (no collateral needed) — enables SME working capital and 7-10x export growth
+- Credit scoring from transaction history (no collateral needed) — models SME working-capital access and possible export-growth scenarios
 - Programmable merchant tiers — automatically incentivizes local production over imports
 - **Programmability primitives** — expiring transfers, earmarked spend, and conditional-release escrow enforced at the wire-format / validation layer, not in application code
 
@@ -55,15 +63,18 @@ Cylinder Seal's design attacks four mutually-reinforcing Iraqi economic patholog
 
 ---
 
-## 2026 STRATEGIC OPPORTUNITY: NON-OIL ECONOMIC DEVELOPMENT
+## 2026 Strategic Opportunity Scenario: Non-Oil Economic Development
 
-With Strait of Hormuz now open, Iraq has a **critical window to build sustainable non-oil economy** while regional stability improves. Structural economic barriers remain unchanged:
+This legacy scenario assumes a regional window in which Iraq can focus on
+building a sustainable non-oil economy. Refresh the geopolitical premise before
+external circulation. Structural economic barriers remain the useful part of the
+analysis:
 
 **Oil Sector Context (Post-2024 Regional Stabilization):**
 - Basra Oil Company: Operating at reduced capacity (~900K barrels/day baseline) due to field maintenance and security protocols
 - Regional production: Volatile due to ongoing security considerations in some fields
 - Oil revenues: No longer the growth driver — economic future depends on non-oil sectors
-- **Strategic implication**: With Strait open, focus shifts to formalizing and scaling non-oil industrial base
+- **Strategic implication in this scenario**: if regional conditions permit, policy focus shifts to formalizing and scaling the non-oil industrial base
 
 **Structural Barriers to Non-Oil Growth (Persist Regardless of Geopolitics):**
 
@@ -89,7 +100,9 @@ With Strait of Hormuz now open, Iraq has a **critical window to build sustainabl
 - S&P affirmed Iraq at `B-/B` on June 12, 2026, removed the long-term rating from CreditWatch Negative, and kept a negative outlook; any sovereign-credit claims in this draft require refreshed sourcing and independent validation.
 
 **Cylinder Seal's Strategic Role:**
-With Strait now open and regional stability improving, next 2-3 years are critical for formalizing the non-oil economy. Hard restrictions on government spending ($106-113B) + aggressive SME credit scaling must:
+Under this scenario, the next 2-3 years are treated as a critical window for
+formalizing the non-oil economy. The government-spending and SME-credit figures
+below are modeling assumptions, not validated implementation targets:
 1. **Formalize and scale non-oil sectors** (textile, food, pharma, steel, tourism, services) to visible GDP
 2. **Create documented demand anchor** through government spending redirection to domestic goods
 3. **Build currency confidence** through transaction visibility and Digital Dinar as formal payment rail
@@ -108,7 +121,7 @@ With Strait now open and regional stability improving, next 2-3 years are critic
 ### For 25K+ SMEs (Textiles, Food Processing, Light Manufacturing, Hospitality):
 - **Credit access without collateral:** 6 months of documented sales = $50-500K credit line at 10-12% (vs. 10-20% informal lending)
 - **Supply chain formalization:** Visible supplier payments create creditworthiness for entire production chains; suppliers can also access credit
-- **Demand guarantee:** Government spending ($106B) shifts toward Tier 1-2 (local) merchants; SMEs gain predictable, large-scale customer base
+- **Demand-anchor hypothesis:** A modeled share of government spending shifts toward Tier 1-2 local merchants; SMEs gain a more predictable customer base if procurement law, capacity, appeals, and supply verification are solved
 - **Export capability:** Formal credit + visible supply chains enable regional export (Egypt, Jordan, Gulf Cooperation Council markets), growing non-oil exports from $1B → $8.5B by Year 5
 - **Capacity scaling:** With working capital access, manufacturing expands from 35% → 85% utilization within 3 years; employment grows from 8M → 13M jobs
 
@@ -240,7 +253,7 @@ Iraq's industrial portfolio encompasses **1,200+ active projects** (900 large-sc
 - **Import-to-domestic ratio: 14:1**
 - Industrial employment: 50K-100K formal jobs (insufficient for 500K annual job-seekers)
 
-**Industrial Output Growth Trajectory (with Cylinder Seal):**
+**Industrial Output Growth Trajectory (Aggressive Scenario, Not Forecast):**
 
 | Year | Domestic Output (IQD) | Output (USD Equiv.) | Driver | Import Bill |
 |------|----------------------|-------------------|--------|------------|
@@ -253,9 +266,9 @@ Iraq's industrial portfolio encompasses **1,200+ active projects** (900 large-sc
 
 **Growth rate:** 2027-2028 = 67% YoY (Phase 2 hard restrictions + industrial capacity coming online); 2028-2029 = 52% YoY (multiplier effects); 2029-2031 = 15-20% YoY (normalizing to sustainable rate)
 
-**Root Cause:** Four systemic barriers (financing, competitive imbalance, raw material dependency, legislative weakness) lock this $150B portfolio at 7% utilization. Cylinder Seal's merchant tier system + SME credit access removes all four barriers simultaneously.
+**Root Cause:** Four systemic barriers (financing, competitive imbalance, raw material dependency, legislative weakness) may lock this portfolio below potential utilization. Cylinder Seal's merchant tier system and SME credit concepts are modeled as partial interventions; they do not by themselves remove legal, capacity, procurement, energy, logistics, and governance barriers.
 
-**When fully operational and formalized through digital transaction visibility + controlled incentivization, this portfolio is anticipated to generate:**
+**If fully operational and independently validated, the scenario workbook tests whether this portfolio could generate:**
 - **15-20M total jobs** across 1,200 industrial projects (direct employment + 1.5-2× multiplier from supply chains, transport, services)
   - Direct employment in projects: ~7-10M
   - Supply chain & indirect: ~5-7M
@@ -264,7 +277,7 @@ Iraq's industrial portfolio encompasses **1,200+ active projects** (900 large-sc
 - **$2-4B/year in captured tax revenue** (from visibility and compliance improvement)
 - **$3-5B/year trade balance improvement** (shift from 100T → 40-60T IQD imports; 40-50T IQD in new non-oil exports)
 - **14:1 import-to-domestic ratio flips to 2:1** (sustainable manufacturing equilibrium)
-- **400K-500K NET NEW jobs created by Cylinder Seal** (incremental above baseline; difference between hard restrictions scenario vs. baseline scenario)
+- **400K-500K net new jobs as a scenario output** (incremental above baseline; difference between hard restrictions scenario and baseline scenario, requiring labor-market validation)
 
 Current bottlenecks preventing rapid GDP contribution:
 - **Financing constraint:** Traditional banks require collateral; transaction-based credit scoring doesn't exist
@@ -277,13 +290,13 @@ Current bottlenecks preventing rapid GDP contribution:
 **Why Iraq's 1,200 industrial projects stay at 7 trillion IQD output (vs. 100 trillion IQD imports):**
 
 **Four Systemic Barriers (per Iraqi News, April 2026):**
-1. **Financing Complex** — Bureaucratic hurdles and bank conservatism mean real financial support rarely reaches the private sector. Most funding stays tied to underperforming state-owned enterprises. *Cylinder Seal solves: Transaction-based credit scoring enables direct SME lending without collateral.*
+1. **Financing Complex** — Bureaucratic hurdles and bank conservatism mean real financial support rarely reaches the private sector. Most funding stays tied to underperforming state-owned enterprises. *Cylinder Seal hypothesis: transaction-based credit scoring could support SME lending without relying only on fixed collateral.*
 
-2. **Competitive Imbalance** — Foreign goods benefit from subsidies in home countries + lower operational costs. Imported goods are 20-40% cheaper than locally-made alternatives. *Cylinder Seal solves: Merchant tier fees (0% for Tier 1 local, 8% for imports) create aggressive price parity without tariffs.*
+2. **Competitive Imbalance** — Foreign goods benefit from subsidies in home countries + lower operational costs. Imported goods are 20-40% cheaper than locally-made alternatives. *Cylinder Seal hypothesis: merchant tier fees and procurement rules could test price-parity incentives without relying only on tariffs.*
 
-3. **Raw Material Dependency** — 1,000+ Iraqi factories rely on imported raw materials, inflating production costs and tying fate to global supply chains. *Cylinder Seal solves: Visible supply chains + credit access enable investment in domestic raw material production.*
+3. **Raw Material Dependency** — 1,000+ Iraqi factories rely on imported raw materials, inflating production costs and tying fate to global supply chains. *Cylinder Seal hypothesis: visible supply chains and credit access could support investment in domestic raw-material production.*
 
-4. **Legislative & Marketing Weakness** — No professional distribution networks; high energy bills; Industrial Investment Law stalled in Parliament. *Cylinder Seal solves: Real-time transaction data shows demand; formal payment infrastructure creates distribution networks.*
+4. **Legislative & Marketing Weakness** — No professional distribution networks; high energy bills; Industrial Investment Law stalled in Parliament. *Cylinder Seal hypothesis: aggregate transaction data could reveal demand and help formal distribution networks form.*
 
 **Plus: Government Spending Leakage** — Government salaries ($66-73B), pensions ($40B), and social security ($8-10B) flow to workers who can't access local goods without formal channels. Purchasing power leaks to imports instead of fueling domestic production.
 
@@ -302,7 +315,7 @@ Iraq's government spending: **5-7M employees ($66-73B), 2-3M retirees ($40B), so
 | **Competitive Imbalance** | Imports 20-40% cheaper due to foreign subsidies | Merchant tier fees (0-4%) create 24-44% pricing swing favoring local goods |
 | **Raw Material Dependency** | High import costs worsen local competitiveness | Visible supply chains + credit access enable domestic raw material investment; reduces imported content |
 | **Legislative Weakness** | No distribution networks; Industrial Investment Law stalled | Real-time transaction visibility reveals demand; formal payment infrastructure creates networks; CBI can adjust tier fees without legislative delay |
-| **Government Spending Leakage** | $30B annual government spending flows to imports | Tier incentives direct ~$25B to local producers; multiplier effects create SME demand |
+| **Government Spending Leakage** | Scenario assumes large import leakage from public wages/transfers | Tier incentives could redirect a modeled share to local producers if supply capacity, procurement law, appeals, and enforcement are credible |
 
 ---
 
@@ -572,7 +585,7 @@ Government spending shifts from 18% local (Tier 1) to 40% local by Year 5 = **+$
 - **Guaranteed hard-locked impact:** $27-38B government spending forced to domestic producers by Q4 2028 (vs. current $30B import leakage)
 - **Incentivized impact:** Additional $10-15B shift via fee differentials on discretionary goods
 - **Total 2026-2028 shift:** $37-53B out of $106B government spending moving to domestic production (35-50%)
-- **Employment impact:** Manufacturing, food processing, textiles scale from 35-40% → 85% capacity by 2028, creating 400K-500K jobs (vs. 300K with incentives alone)
+- **Employment sensitivity:** Manufacturing, food processing, and textiles could scale from 35-40% to 85% capacity by 2028 in the aggressive case, producing a modeled 400K-500K job effect that requires labor-market validation
 - **SME credit access:** $37-53B increase in documented merchant sales generates $12-18B in bankable working capital, enabling 5,000-8,000 SMEs to access credit for the first time
 - **Multiplier effect:** Workers in local production spend 85% of wages locally, creating $30-40B in secondary demand; this feeds retail, food services, transportation, construction
 - **4-year GDP impact:** With 1.5-2× multiplier (wages → local consumption → more demand), this generates **$50-70B GDP impact by 2030** (vs. $37-50B with pure incentives)
@@ -1088,12 +1101,12 @@ UBI spending unlocks measurable improvements in social outcomes:
 
 **Moral Hazard (Work Disincentive):**
 - **Risk:** Unconditional UBI reduces labor force participation
-- **Solution:** UBI framed as "baseline" + "job growth creates better outcomes":
+- **Legacy mitigation hypothesis:** UBI framed as "baseline" + "job growth creates better outcomes":
   - Formal employment pays 2-3× UBI per month ($400-900/month wages vs. $200-300 UBI)
-  - Job creation accelerates due to guaranteed demand; wages rise as labor shortage emerges
+  - Job creation could accelerate if demand, capacity, and supply-chain execution are independently validated
   - Quality of life improvements (housing, healthcare, education) require job income to exceed UBI baseline
-- **Mechanism:** Empirical data from pilot phases (Q4 2026 - Q2 2027) will show employment trends
-- **Outcome:** Pilot projections: <5% work disincentive; +15-20% job creation (effect larger than reduction)
+- **Mechanism:** A real pilot would need to measure employment trends before any national claim is made
+- **Outcome:** Pilot projections are illustrative and require labor-market validation
 
 **Currency Rejection (Digital Dinar Resistance):**
 - **Risk:** Citizens prefer cash if UBI locked to Tier 1-2 digital transactions
@@ -1101,7 +1114,12 @@ UBI spending unlocks measurable improvements in social outcomes:
 - **Mechanism:** UBI ONLY works via Digital Dinar at Tier 1-2; cash spending loses fee advantage → implicit incentive to use Digital Dinar
 - **Outcome:** Digital Dinar adoption accelerates from 45% (2026) → 85%+ (2027) of eligible population
 
-#### Implementation Roadmap
+#### Legacy Implementation Roadmap Sensitivity Case
+
+This roadmap is retained as an old UBI/hard-restriction sensitivity case. The
+newer front-door architecture uses the national dividend holding company and
+national civic work system as the social-contract layers; this roadmap should
+not be read as an approved national rollout plan.
 
 **Phase 1: Pilot (Q4 2026 - Q1 2027)**
 - **Scope:** 2-3 governorates (likely high unemployment: Diyala, Qadisiyyah, or southern provinces)
@@ -1149,7 +1167,9 @@ UBI spending unlocks measurable improvements in social outcomes:
 - Production capacity grows faster than UBI (443% capacity growth vs. 120% UBI growth 2026-2028)
 - This creates room for UBI increases without triggering inflation circuit breaker
 - Employment growth accelerates as capacity utilization forces hiring
-- By Q4 2028, the system has created structural demand for 1,200 industrial projects; growth shifts from UBI-driven expansion to export-driven scaling
+- By Q4 2028, the sensitivity case assumes structural demand for industrial
+  projects; this assumption requires capacity, procurement, legal, and market
+  validation.
 
 ---
 
@@ -1207,11 +1227,15 @@ Iraq's SME sector (textiles, food, light manufacturing, hospitality, constructio
 
 **Mechanism:** Each $1 of government salary/pension spending (via Tier 1-2 merchants) generates $0.15-0.25 in new SME working capital, which in turn creates $2-3 in additional formal business activity. The multiplier compounds as SME supply chains become visible.
 
-**Sovereign Credit Rating Impact:**
-- **Year 1:** Visibility of $106B government spending + $50B in industrial projects → Moody's upgrades from B3 → B2
-- **Year 2:** $15B in SME formal credit + 6% GDP growth → Upgrade to B1
-- **Year 3:** $30B SME credit + non-oil exports $6B + $17.5B tax revenue → Upgrade to Ba3 (investment-grade boundary)
-- **Year 5:** Stable $50B SME credit market + 8.5% non-oil exports + $20.5B tax revenue + $390B GDP → Ba2 (investment grade; foreign borrowing costs drop 2-4%)
+**Sovereign Credit Rating Relevance Scenario, Not A Forecast:**
+
+The older version of this paper mapped a possible rating ladder from B3 toward
+Ba-level outcomes. That ladder is no longer presented as a forecast. A digital
+payments and industrial-formalization program could become relevant to sovereign
+credit only if independent analysts verify durable fiscal revenue, non-oil
+exports, lower import leakage, credible governance, debt sustainability, and
+political execution. No rating action should be described as a Cylinder Seal
+deliverable.
 
 ---
 
@@ -1230,16 +1254,19 @@ Iraq's SME sector (textiles, food, light manufacturing, hospitality, constructio
 
 ---
 
-### With Cylinder Seal (Accelerated Rollout)
+### With Cylinder Seal (Accelerated Rollout Sensitivity Case)
 
-| Year | GDP (USD B) | Growth % | Oil Contribution | Non-Oil Output | Non-Oil Exports | SME Credit | Rating |
+This table is retained only as a legacy sensitivity case. The `Rating relevance`
+column is not a forecast and does not represent expected agency action.
+
+| Year | GDP (USD B) | Growth % | Oil Contribution | Non-Oil Output | Non-Oil Exports | SME Credit | Rating relevance |
 |------|------------|----------|------------------|-----------------|-----------------|-----------|--------|
-| 2025 | $265.5 | 0.5% | $220B (83%) | $45.5B (17%) | $1.0B | $0 | B3 |
-| 2026 | $269 | 1.4% | $210B (78%) | $59B (22%) | $1.1B | $2B | B3 |
-| 2027 | $294 | **9.3%** | $205B (70%) | $89B (30%) | $3.5B | $12B | B2 |
-| 2028 | $328 | **11.6%** | $198B (60%) | $130B (40%) | $5.5B | $22B | B1 |
-| 2029 | $365 | **11.3%** | $185B (51%) | $180B (49%) | $7.0B | $35B | Ba3 |
-| 2030 | $405 | **10.9%** | $175B (43%) | $230B (57%) | $8.2B | $45B | Ba2 |
+| 2025 | $265.5 | 0.5% | $220B (83%) | $45.5B (17%) | $1.0B | $0 | Legacy baseline only |
+| 2026 | $269 | 1.4% | $210B (78%) | $59B (22%) | $1.1B | $2B | Legacy baseline only |
+| 2027 | $294 | **9.3%** | $205B (70%) | $89B (30%) | $3.5B | $12B | Scenario only |
+| 2028 | $328 | **11.6%** | $198B (60%) | $130B (40%) | $5.5B | $22B | Scenario only |
+| 2029 | $365 | **11.3%** | $185B (51%) | $180B (49%) | $7.0B | $35B | Scenario only |
+| 2030 | $405 | **10.9%** | $175B (43%) | $230B (57%) | $8.2B | $45B | Scenario only |
 | 2031 | $450 | **11.1%** | $170B (38%) | $280B (62%) | $9.0B | $55B+ | Illustrative only |
 
 **GDP Composition Notes:**
@@ -1413,7 +1440,9 @@ Government transfers — salaries, pensions, social security, UBI — total $106
 **Hard Restrictions (Restricted Categories — food, textiles, household goods; expanding quarterly):**
 - Government transfers are **locked to Tier 1–2 merchants only**
 - Tier 3–4 merchants are **blocked** from accepting government-origin funds in these categories
-- By Q4 2028, ~$27–38B of government spending is hard-restricted to domestic producers
+- In the aggressive scenario, a modeled share of government spending is
+  hard-restricted to domestic producers by Q4 2028; the figure requires
+  procurement, capacity, appeals, and legal validation.
 
 **Merchant Tier Fees (Discretionary Spending — luxury, electronics, specialized goods):**
 - **Tier 1 (100% Iraqi)**: 0% fee — lowest cost
@@ -1421,11 +1450,13 @@ Government transfers — salaries, pensions, social security, UBI — total $106
 - **Tier 3 (1-49% Iraqi)**: 3% fee — mixed goods, moderate disadvantage
 - **Tier 4 (0% imports)**: 8% fee — imports 8-12% more expensive than pure-import price
 
-**Market Effect (policy-driven, programmable):**
-- Hard restrictions guarantee demand for essential domestic categories as capacity comes online
+**Market Effect (policy-driven, programmable, scenario only):**
+- Hard restrictions are modeled as a demand anchor for essential domestic categories as capacity comes online
 - Fee differentials steer discretionary spending toward local Tier 1–2 merchants
 - CBI adjusts tier fees and restricted-category lists in real-time via the same dashboard that monitors production capacity
-- Imports in the $106-113B government-transfer flow decline 26–50% by Year 3 (depending on quarterly expansion pace)
+- Import effects in the government-transfer flow are illustrative and depend on
+  quarterly expansion pace, domestic capacity, enforcement, appeals, and
+  substitution behavior.
 
 **Year 1 impact:** $21-31B annual shift to domestic producers ($16-21B hard-locked on food/textiles/household + $5-10B via fee differentials on discretionary)
 **Year 2 impact:** Cumulative $27-38B hard-locked as cement/pharma/steel milestones trigger new restrictions; supply chains form
@@ -1528,13 +1559,13 @@ Some diaspora participants will prefer a pure financial-return product. A narrow
 | Platform Capability | Economic Value Unlocked | Year 5 Contribution |
 |---------------------|-------------------------|---------------------|
 | Zero-fee P2P transfers | 2-5% of transaction value retained by households/merchants (vs. 2-5% bank fees) | $3-6B recovered consumer surplus annually |
-| Offline NFC/BLE payments | Reach 21M unbanked Iraqis in rural/low-connectivity areas; enable transaction documentation in conflict zones | +45pp financial inclusion → $15-25B new formal-economy spending |
-| Per-user journal + BLAKE2b ledger hash (auditable transaction history) | Credit scoring without collateral → SME working capital unlocked → capacity utilization rises | Non-oil exports $1B → $8-10B; 100-150K new manufacturing jobs; $5-7B GDP |
-| CBI real-time visibility via super-peer replication | Monetary policy transmission in hours; enforceable velocity controls; inflation visible within hours | $1.5-2.5B monetary stability value |
-| 3-of-5 Raft consensus on CBI super-peers | Deterministic finality; geopolitically neutral settlement; tolerates 2 regional branch outages | $250-500B annual regional hub volume → $250M-$1.5B fee revenue |
-| Programmable merchant tiers (fee/cap per Iraqi-content %) | Trade policy without tariffs; automatic import substitution; $106B gov spending shifts to local goods | $13-22B demand redirected × 1.5-2× multiplier = $19-44B GDP impact |
-| i64 micro-OWC integer amounts + Ed25519 signing | Auditable, tamper-proof tax base; VAT/income tax enforcement on all transactions | $1-2B improved tax compliance |
-| Displacement of physical cash by Digital Dinar | CBI seigniorage on $20-35B of cash in circulation | $2-3B seigniorage revenue annually |
+| Offline NFC/BLE payments | Could reach rural/low-connectivity users and document activity now handled as cash | Financial-inclusion and formal-spend effects are scenario assumptions requiring NFIS-aligned baselines |
+| Per-user journal + BLAKE2b ledger hash (auditable transaction history) | Credit scoring without collateral could expand SME working capital | Export, jobs, and GDP effects are illustrative model outputs |
+| CBI real-time visibility via super-peer replication | Could improve aggregate policy visibility and response time | Monetary-stability value is illustrative only |
+| 3-of-5 Raft consensus on CBI super-peers | Deterministic finality; tolerates regional branch outages in prototype assumptions | Regional-hub fee volume is not validated |
+| Programmable merchant tiers (fee/cap per Iraqi-content %) | Tests trade-policy incentives without relying only on tariffs | Demand-redirection and multiplier effects require independent modeling |
+| i64 micro-OWC integer amounts + Ed25519 signing | Creates auditable payment records and receipt evidence | Tax-compliance gains are illustrative only |
+| Displacement of physical cash by Digital Dinar | Could reduce physical-cash handling and increase monetary visibility | Seigniorage impact requires CBI balance-sheet modeling |
 
 ---
 
@@ -1833,18 +1864,20 @@ integration, and independent validation.**
 
 **With Cylinder Seal (accelerated rollout scenario):** Cumulative 2026-2030 GDP = $1,540B; Year 5 annual tax = ~$20.5B
 
-**Difference:** +$107B cumulative GDP over 5 years (7.5% higher)
+**Illustrative model difference:** +$107B cumulative GDP over 5 years (7.5%
+higher). This is not validated and should not be used as a project claim.
 
-**GDP per capita improvement by 2031:**
-- Baseline: $302B / ~43M = $7,023/capita
-- Cylinder Seal: $390B / ~43M = $9,070/capita
-- **+$2,047 per capita (+29% higher living standard)**
+**GDP per capita sensitivity case by 2031:**
+- Baseline: $302B / legacy population baseline = illustrative only
+- Cylinder Seal: $390B / legacy population baseline = illustrative only
+- Any per-capita comparison must be recalculated against the final 2024 census
+  baseline and refreshed GDP assumptions.
 
 ---
 
 ### Payback Analysis
 
-**Direct Government Benefit (Aggressive Hybrid Scenario):**
+**Direct Government Benefit (Aggressive Hybrid Scenario, Not Validated):**
 - **Investment:** $3-5M
 - **Year 1 benefit hypothesis (pilot Q4 2026 + scale-up scenario Q1 2027 + hard restrictions):** $800M-1.5B
   - Fee savings from zero-fee Digital Dinar vs. 2-5% bank fees: ~$100-150M
@@ -1852,7 +1885,9 @@ integration, and independent validation.**
   - **Import substitution pressure (hard restrictions lock $16-21B to domestic):** ~$400-650M in prevented import spending + new tax capture
   - Reduced cash-handling costs (CBI, commercial banks): ~$50-100M
   - SME credit market creation (avoided informal lending losses): ~$50-100M
-- **Payback:** **Months 2-4 after hard restrictions launch** (Year 1 benefit is 160-500× the investment)
+- **Payback sensitivity:** the older workbook implied months 2-4 after hard
+  restrictions launch. Treat that as an aggressive sensitivity result requiring
+  independent fiscal, procurement, capacity, and implementation validation.
 
 **Multiplicative Citizen & SME Benefit (Hidden in GDP but Real):**
 - **5-7M government employees** preserve $25-35B annually in formal salary spending (reduced import spending leak via organized digital channels)
@@ -2484,33 +2519,33 @@ MIT
 ---
 
 **Last Updated:** 2026-04-19  
-**Status:** STRATEGIC NON-OIL DIVERSIFICATION specification with 2-3 year window (Strait now open). Grounded in structural 2026 data:
+**Status:** Legacy strategic scenario workbook. This section preserves the older
+non-oil diversification thesis for internal modeling only; refresh all source
+data, geopolitical assumptions, population baselines, fiscal assumptions, and
+implementation gates before external circulation.
+
+The older scenario was grounded in the following structural assumptions, each
+requiring source refresh:
 - **Financing bottleneck:** Rafidain distributing $8K/SME; $50-100B unmet working capital demand
 - **Raw material dependency:** Imported inputs inflate local production 20-40% above import prices
 - **Demand uncertainty:** Food production at 30-35% capacity despite 70-80% targets (risk aversion)
 - **Productive capacity exists:** Cement 676K t/mo, 230 industrial licenses issued (Feb), container terminal +28% growth
 - **Structural currency issue:** Gold imports surging; CBI dollar restrictions; IQD credibility damaged
 
-**Solution: Aggressive hybrid hard-restriction policy** — government transfers ($106-113B/year) locked to domestic goods in quarterly phases as industrial capacity scales. Pairs with aggressive fee differentials (0-8%) on discretionary spending. Uses Strait-open window to:
-1. **Unlock SME credit:** Cylinder Seal enables $50K-500K per SME (vs. current $8K)
-2. **Guarantee demand:** Hard restrictions create stable $27-38B/year domestic outlet
-3. **Restore currency:** Digital Dinar backed by visible production → capital repatriation from diaspora
-4. **Build export base:** With demand secured domestically, manufacturers can finance export capacity simultaneously (textile, food, pharma, steel to Egypt/Jordan/Gulf)
+**Older scenario solution hypothesis:** aggressive hybrid hard-restriction
+policy, merchant tier incentives, SME credit, and Digital IQD visibility. These
+remain modeling hypotheses, not adopted policy and not implemented national
+infrastructure.
 
-**By Q4 2028 (2-year execution):** 
-- B3 → B1 sovereign rating (investment grade, lower borrowing costs)
-- $27-38B government spending locked to domestic (36% of total)
-- 14:1 import-to-domestic ratio → 2:1 (structural shift)
-- 18K SMEs accessing formal credit (vs. 500 today)
-- Oil dependency 85% → 40% of government revenues
-- Trade balance flips positive; diaspora capital returning
+**Older Q4 2028 and 2031 outputs:** the previous draft listed rating,
+government-spending, import-ratio, SME-credit, oil-dependency, trade-balance,
+domestic-output, jobs, and annual-benefit outcomes. Treat all of those as legacy
+sensitivity outputs only. No sovereign-rating movement, national-scale adoption,
+oil-dependency reduction, export multiple, job number, or annual benefit should
+be presented as a project deliverable.
 
-**By 2031 (Full Execution):** 
-- 7T IQD → 50-60T IQD domestic output (8.5× growth)
-- 28K+ SMEs in formal credit system
-- Non-oil exports 9× baseline (reaching regional supply chains)
-- 400K-500K new jobs created
-- $15-25B/year annual economic benefit
-- Trade surplus $3-5B/year sustained
-
-**CBI Dashboard:** Fully implemented with 28 API endpoints, 20-table database, 6-page web GUI, 25 passing tests. Enables real-time monitoring of all 1,200 industrial projects, SME credit scaling, government spending by tier/sector, and non-oil export progress.
+**CBI Dashboard implementation note:** the dashboard has meaningful prototype
+routes, fixtures, and tests, but it is not a real-time national monitoring
+system for all industrial projects or public spending. See
+`IMPLEMENTATION_STATUS.md` and `SPECIFICATION_AND_FIXTURE_RESULTS.md` for the
+current implementation boundary.

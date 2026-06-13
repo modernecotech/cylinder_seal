@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1260" viewBox="0 0 1800 1260" role="img" aria-labelledby="title desc">
+  <title id="title">National Civic Work System</title>
+  <desc id="desc">Architecture diagram for civic task posting, verification, Digital IQD wage release, impact metrics, and governance controls.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#344054"/>
+    </marker>
+    <marker id="arrow-soft" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#667085"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 34px Arial, sans-serif; fill: #101828; }
+      .subtitle { font: 400 17px Arial, sans-serif; fill: #475467; }
+      .zone { stroke-width: 2; rx: 18; }
+      .zone-title { font: 700 20px Arial, sans-serif; fill: #101828; }
+      .zone-note { font: 400 13px Arial, sans-serif; fill: #667085; }
+      .box { stroke-width: 1.5; rx: 12; }
+      .budget-zone { fill: #eef6ff; stroke: #2e73b8; }
+      .institution-zone { fill: #fff7e6; stroke: #b26a00; }
+      .module-zone { fill: #edf7f0; stroke: #2f7d45; }
+      .ledger-zone { fill: #f3e8ff; stroke: #7e3fb2; }
+      .control-zone { fill: #fff0f0; stroke: #b23b3b; }
+      .outcome-zone { fill: #f4f4f5; stroke: #71717a; }
+      .budget { fill: #ffffff; stroke: #2e73b8; }
+      .institution { fill: #ffffff; stroke: #b26a00; }
+      .module { fill: #ffffff; stroke: #2f7d45; }
+      .ledger { fill: #ffffff; stroke: #7e3fb2; }
+      .control { fill: #ffffff; stroke: #b23b3b; }
+      .outcome { fill: #ffffff; stroke: #71717a; }
+      .box-title { font: 700 14px Arial, sans-serif; fill: #101828; }
+      .box-text { font: 400 12px Arial, sans-serif; fill: #344054; }
+      .small { font: 400 11px Arial, sans-serif; fill: #475467; }
+      .arrow { stroke: #344054; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .arrow-soft { stroke: #667085; stroke-width: 1.8; fill: none; marker-end: url(#arrow-soft); stroke-dasharray: 7 5; }
+      .number { font: 700 13px Arial, sans-serif; fill: #ffffff; }
+      .badge { fill: #344054; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1800" height="1260"/>
+  <text class="title" x="56" y="58">National Civic Work System</text>
+  <text class="subtitle" x="56" y="88">Proposed cs-civic-work flow: explicit budgets, verified public-value tasks, Digital IQD civic wages, audit, and impact metrics.</text>
+
+  <rect class="zone budget-zone" x="52" y="130" width="335" height="760"/>
+  <text class="zone-title" x="84" y="170">Budget sources</text>
+  <text class="zone-note" x="84" y="194">No hidden draw from citizen dividends</text>
+
+  <rect class="box budget" x="88" y="235" width="260" height="66"/>
+  <text class="box-title" x="112" y="261">Treasury allocation</text>
+  <text class="box-text" x="112" y="283">social-transition wage envelope</text>
+
+  <rect class="box budget" x="88" y="330" width="260" height="66"/>
+  <text class="box-title" x="112" y="356">Municipal budgets</text>
+  <text class="box-text" x="112" y="378">parks, streets, waste, lighting</text>
+
+  <rect class="box budget" x="88" y="425" width="260" height="66"/>
+  <text class="box-title" x="112" y="451">Climate and MDB funding</text>
+  <text class="box-text" x="112" y="473">water, heat, food, restoration</text>
+
+  <rect class="box budget" x="88" y="520" width="260" height="66"/>
+  <text class="box-title" x="112" y="546">INDHC community budgets</text>
+  <text class="box-text" x="112" y="568">local mitigation and training</text>
+
+  <rect class="box budget" x="88" y="615" width="260" height="66"/>
+  <text class="box-title" x="112" y="641">NGO or school co-funding</text>
+  <text class="box-text" x="112" y="663">care, tutoring, sport, heritage</text>
+
+  <rect class="zone institution-zone" x="450" y="130" width="360" height="760"/>
+  <text class="zone-title" x="482" y="170">Civic institutions</text>
+  <text class="zone-note" x="482" y="194">Task owners and verifiers</text>
+
+  <rect class="box institution" x="492" y="235" width="270" height="66"/>
+  <text class="box-title" x="516" y="261">Municipalities</text>
+  <text class="box-text" x="516" y="283">cleanup, lighting, public assets</text>
+
+  <rect class="box institution" x="492" y="330" width="270" height="66"/>
+  <text class="box-title" x="516" y="356">Schools and universities</text>
+  <text class="box-text" x="516" y="378">tutoring, STEM, audit sampling</text>
+
+  <rect class="box institution" x="492" y="425" width="270" height="66"/>
+  <text class="box-title" x="516" y="451">Sports clubs and NGOs</text>
+  <text class="box-text" x="516" y="473">coaching, care, disability support</text>
+
+  <rect class="box institution" x="492" y="520" width="270" height="66"/>
+  <text class="box-title" x="516" y="546">Environmental agencies</text>
+  <text class="box-text" x="516" y="568">canals, trees, marshes, recycling</text>
+
+  <rect class="box institution" x="492" y="615" width="270" height="66"/>
+  <text class="box-title" x="516" y="641">Verifier registry</text>
+  <text class="box-text" x="516" y="663">eligibility, rotation, conflicts</text>
+
+  <rect class="zone module-zone" x="875" y="130" width="430" height="760"/>
+  <text class="zone-title" x="908" y="170">cs-civic-work design module</text>
+  <text class="zone-note" x="908" y="194">Policy/design only; not implemented</text>
+
+  <rect class="box module" x="920" y="225" width="340" height="58"/>
+  <text class="box-title" x="946" y="250">1. Task posting</text>
+  <text class="box-text" x="946" y="270">category, wage, location, safety, budget</text>
+
+  <rect class="box module" x="920" y="310" width="340" height="58"/>
+  <text class="box-title" x="946" y="335">2. Worker acceptance</text>
+  <text class="box-text" x="946" y="355">Civic Work Wallet and eligibility caps</text>
+
+  <rect class="box module" x="920" y="395" width="340" height="58"/>
+  <text class="box-title" x="946" y="420">3. Evidence bundle</text>
+  <text class="box-text" x="946" y="440">sign-off, output count, GPS, photo, sensor</text>
+
+  <rect class="box module" x="920" y="480" width="340" height="58"/>
+  <text class="box-title" x="946" y="505">4. Verification decision</text>
+  <text class="box-text" x="946" y="525">approve, reject, hold, audit, appeal</text>
+
+  <rect class="box module" x="920" y="565" width="340" height="58"/>
+  <text class="box-title" x="946" y="590">5. Wage and credit calculation</text>
+  <text class="box-text" x="946" y="610">civic wage, bonus, progression wage</text>
+
+  <rect class="box module" x="920" y="650" width="340" height="58"/>
+  <text class="box-title" x="946" y="675">6. Reputation and certificates</text>
+  <text class="box-text" x="946" y="695">training, reliability, bridge-to-work record</text>
+
+  <rect class="box module" x="920" y="735" width="340" height="58"/>
+  <text class="box-title" x="946" y="760">7. Impact dashboard feed</text>
+  <text class="box-text" x="946" y="780">hours, outputs, disputes, payments, audits</text>
+
+  <rect class="zone ledger-zone" x="1370" y="130" width="375" height="360"/>
+  <text class="zone-title" x="1402" y="170">Digital IQD settlement</text>
+  <text class="zone-note" x="1402" y="194">Value release after verification</text>
+
+  <rect class="box ledger" x="1412" y="235" width="285" height="66"/>
+  <text class="box-title" x="1436" y="261">Civic wage</text>
+  <text class="box-text" x="1436" y="283">direct Digital IQD payment</text>
+
+  <rect class="box ledger" x="1412" y="330" width="285" height="66"/>
+  <text class="box-title" x="1436" y="356">Civic credit bonus</text>
+  <text class="box-text" x="1436" y="378">transport, training, childcare, local goods</text>
+
+  <rect class="zone outcome-zone" x="1370" y="530" width="375" height="360"/>
+  <text class="zone-title" x="1402" y="570">Worker and public outcomes</text>
+  <text class="zone-note" x="1402" y="594">Participation economy outputs</text>
+
+  <rect class="box outcome" x="1412" y="635" width="285" height="66"/>
+  <text class="box-title" x="1436" y="661">Worker income history</text>
+  <text class="box-text" x="1436" y="683">thin-file financial record</text>
+
+  <rect class="box outcome" x="1412" y="730" width="285" height="66"/>
+  <text class="box-title" x="1436" y="756">Public-value metrics</text>
+  <text class="box-text" x="1436" y="778">trees, visits, teams, repairs, training</text>
+
+  <rect class="zone control-zone" x="52" y="950" width="1693" height="220"/>
+  <text class="zone-title" x="84" y="990">Governance and safety controls</text>
+  <text class="zone-note" x="84" y="1014">Controls required before any real deployment</text>
+
+  <rect class="box control" x="92" y="1050" width="240" height="72"/>
+  <text class="box-title" x="116" y="1078">No ghost workers</text>
+  <text class="box-text" x="116" y="1100">wallet attendance, duplicate checks</text>
+
+  <rect class="box control" x="370" y="1050" width="240" height="72"/>
+  <text class="box-title" x="394" y="1078">Privacy boundaries</text>
+  <text class="box-text" x="394" y="1100">aggregate dashboards, minimal GPS</text>
+
+  <rect class="box control" x="648" y="1050" width="240" height="72"/>
+  <text class="box-title" x="672" y="1078">Appeals and grievances</text>
+  <text class="box-text" x="672" y="1100">worker disputes, verifier abuse</text>
+
+  <rect class="box control" x="926" y="1050" width="240" height="72"/>
+  <text class="box-title" x="950" y="1078">Anti-nepotism</text>
+  <text class="box-text" x="950" y="1100">appointment caps, verifier rotation</text>
+
+  <rect class="box control" x="1204" y="1050" width="240" height="72"/>
+  <text class="box-title" x="1228" y="1078">Safety and inclusion</text>
+  <text class="box-text" x="1228" y="1100">care, child, disability, field rules</text>
+
+  <rect class="box control" x="1482" y="1050" width="220" height="72"/>
+  <text class="box-title" x="1506" y="1078">Independent audit</text>
+  <text class="box-text" x="1506" y="1100">civil society, universities, state audit</text>
+
+  <path class="arrow" d="M348 268 C405 268 425 268 492 268"/>
+  <path class="arrow" d="M348 363 C405 363 425 268 492 268"/>
+  <path class="arrow" d="M348 458 C405 458 425 553 492 553"/>
+  <path class="arrow" d="M348 553 C405 553 425 553 492 553"/>
+  <path class="arrow" d="M348 648 C405 648 425 458 492 458"/>
+
+  <path class="arrow" d="M762 648 C815 648 840 254 920 254"/>
+  <path class="arrow" d="M1090 283 L1090 310"/>
+  <path class="arrow" d="M1090 368 L1090 395"/>
+  <path class="arrow" d="M1090 453 L1090 480"/>
+  <path class="arrow" d="M1090 538 L1090 565"/>
+  <path class="arrow" d="M1090 623 L1090 650"/>
+  <path class="arrow" d="M1090 708 L1090 735"/>
+
+  <path class="arrow" d="M1260 594 C1325 594 1340 268 1412 268"/>
+  <path class="arrow" d="M1260 594 C1325 594 1340 363 1412 363"/>
+  <path class="arrow" d="M1260 679 C1325 679 1340 668 1412 668"/>
+  <path class="arrow" d="M1260 764 C1325 764 1340 763 1412 763"/>
+
+  <path class="arrow-soft" d="M1090 793 C1090 920 212 930 212 1050"/>
+  <path class="arrow-soft" d="M1090 793 C1090 920 490 930 490 1050"/>
+  <path class="arrow-soft" d="M1090 793 C1090 920 768 930 768 1050"/>
+  <path class="arrow-soft" d="M1090 793 C1090 920 1046 930 1046 1050"/>
+  <path class="arrow-soft" d="M1090 793 C1090 920 1324 930 1324 1050"/>
+  <path class="arrow-soft" d="M1090 793 C1090 920 1592 930 1592 1050"/>
+
+  <rect class="badge" x="105" y="760" width="34" height="34" rx="17"/>
+  <text class="number" x="116" y="782">!</text>
+  <text class="small" x="152" y="774">Policy rule: citizen dividend funds are not civic-work payroll funds.</text>
+  <text class="small" x="152" y="794">Civic wages require explicit budget authority, verified evidence, and appealable decisions.</text>
+</svg>

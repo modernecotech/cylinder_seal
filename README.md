@@ -51,7 +51,9 @@ cargo run --package cbi-dashboard
 
 The dashboard defaults to `http://127.0.0.1:8081` when run locally. Demo operators are seeded only for local development; see `.env.example` and `API_REFERENCE.md` before using them.
 
-Change all demo secrets before sharing, deploying, or connecting real systems.
+`docker-compose.yml` reads `DB_PASSWORD` from `.env` and falls back to
+`change-me-dev-only` for local demos. Change all demo secrets before sharing,
+deploying, or connecting real systems.
 
 ## Technical Evidence
 
