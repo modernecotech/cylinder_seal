@@ -43,6 +43,20 @@ be inspected in code review.
 
 ![National civic work verification and payment architecture](diagrams/national-civic-work-system.svg)
 
+## Related Business Charts
+
+The software and financial-flow diagrams above show the payment and governance
+architecture. The business side is mapped separately in
+[Business Value Chain Charts](business-value-chain-charts.md), including:
+
+- sector value chains for all current industrial, service, green, rail, tourism,
+  digital, formal-market, and controlled-sustainment sectors;
+- capital and repayment lanes for oil equity, MDB loans, ECA finance, green
+  sukuk, PPP/JV equity, domestic bonds/sukuk/equity, local banks, and diaspora
+  channels;
+- the broader society/economy feedback loop linking wages, public services,
+  credit histories, civic work, and dividends.
+
 ## Legend
 
 | Marker | Meaning |

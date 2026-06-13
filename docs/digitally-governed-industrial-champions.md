@@ -17,6 +17,8 @@ permanent protection.
 | --- | --- | --- |
 | Korea's large business groups played a major role in development and exports, but concentration of economic power created governance and competition risks. | Iraq should borrow coordination and scale discipline, not family-controlled monopoly structures. | [OECD, Reforming the large business groups to promote productivity and inclusion in Korea](https://www.oecd.org/en/publications/reforming-the-large-business-groups-to-promote-productivity-and-inclusion-in-korea_9e9052b5-en.html) |
 | Korea's export support system included export targets, credit allocation for export purposes, technology acquisition, and strong marketing institutions. | Iraqi support should be conditional on measured export progress, technology transfer, and independently monitored performance. | [World Bank, Korea: A Case of Government-Led Development](https://documents1.worldbank.org/curated/en/441571468753249695/pdf/multi0page.pdf) |
+| Iraq's public investment listings include many industrial rehabilitation and development candidates. | Champion groups should screen existing facilities before requesting greenfield capex or permanent protection. | [National Investment Commission industrial opportunities](https://investpromo.gov.iq/sectors/industry-and-manufacturing-sector/industry-and-manufacturing-sector-opportunities/) |
+| Iraq has securities-market supervision and depository rules that can support listed instruments only when disclosure and investor protection are credible. | Domestic bonds, sukuk, or minority equity for champions must be later-stage discipline, not forced financing. | [Iraqi Securities Commission](https://www.isc.gov.iq/en), [Iraqi Depository Center rules](https://csd.gov.iq/en/rules-and-instructions/) |
 
 These sources support the analogy. They do not validate the Iraqi institutional
 design, capital envelope, or legality of any demand restriction.
@@ -100,6 +102,8 @@ boards, accounts, debt limits, and performance gates.
 | Iraq Tourism And Heritage Group | Hotels, tours, visitor logistics, diaspora tourism, cultural retail. | Foreign-currency capture, bookings, guide payments, service quality, local SME spend. |
 | Diyala Electronics And Cooling | Switchgear, meters, control cabinets, appliance components, efficient HVAC systems. | Warranty claims, local component share, energy-efficiency performance, maintenance revenue. |
 | Nineveh Water And Irrigation Systems | Pumps, valves, pipes, filters, drip irrigation, meters, mobile treatment units. | Water-loss reduction, farmer adoption, service uptime, equipment lifecycle cost. |
+| Baghdad Mobility And Machinery | Fleet refurbishment, bus assembly, vehicle parts, industrial spares, repair/rebuild centers. | Fleet uptime, warranty claims, local spares, import-parity cost, technician certification. |
+| Sumer Packaging Furniture And Formal Markets | Food packaging, paper/board, school/hospital furniture, prefab fit-out, rubber goods, supervised precious-metals retail services. | Packaging supply, public fit-out delivery, recycling, safety standards, AML/source-of-funds checks for precious metals. |
 
 These names are placeholders. The governance rule matters more than the brand:
 each group must be replaceable, audited, and exposed to competition.
@@ -132,6 +136,8 @@ Each champion starts with anchor demand, then must graduate toward competition.
 | Iraq Tourism And Heritage Group | Build guide registry, hotel school, safety/sanitation baselines, booking/payment rails, and diaspora packages. | Scale Najaf-Karbala, Baghdad/Kadhimiya, Babylon/Ur, marshland, medical, education, and business travel services. | Foreign-currency capture, repeat visitors, quality certification, and SME tourism marketplaces. | Commercial revenue must stay separate from heritage protection and safety oversight. |
 | Diyala Electronics And Cooling | Begin switchgear, meters, control cabinets, HVAC assembly, repair centers, and energy-efficiency standards. | Localize components, maintenance parts, warranty systems, smart meters, efficient public-building cooling. | Regional components, certified maintenance exports, and Iraqi engineering design capability. | Warranty failure, energy inefficiency, or closed vendor lock-in removes preference. |
 | Nineveh Water And Irrigation Systems | Map pumps, valves, pipes, filters, drip irrigation, mobile treatment, leakage, and farmer demand. | Scale water-treatment assembly, irrigation kits, metering, soil/water sensors, and service contracts. | Regional arid-market equipment and maintenance services after certification. | Privileges stop if water-loss or crop-risk metrics do not improve. |
+| Baghdad Mobility And Machinery | Map fleet imports, bus demand, municipal vehicles, farm equipment, industrial spares, repair skills, and imported machinery downtime. | Build repair/rebuild centers, parts warehouses, battery/filter/tire channels, bus assembly, diagnostics, and machine-tool rooms. | Compete in fleet uptime, maintenance exports, spares, light assembly, and public-transport supply. | Privileges stop if warranty, safety, or import-parity tests fail. |
+| Sumer Packaging Furniture And Formal Markets | Map food packaging, paper/board, school/hospital furniture, prefab public buildings, rubber goods, and precious-metals retail leakage. | Scale cartons, labels, secure forms, furniture, modular fit-out, rubber seals/hoses, tire retreading, and AML-supervised precious-metals services. | Compete in packaging, fit-out, recycling, tourism/hotel supply, and trusted formal retail. | Precious-metals channels fail closed on AML/source-of-funds or consumer-protection breaches. |
 
 ## Conditional Demand Contracts
 
@@ -182,11 +188,13 @@ off without destabilizing the budget.
 | Instrument | Use | Guardrail |
 | --- | --- | --- |
 | Oil-equity capital | First-loss capital for strategic assets and early rehabilitation. | No automatic replenishment after losses. |
+| Facility-recycling capital | Legal cleanup, engineering audits, environmental remediation, worker transition, and restart capex for underutilized Iraqi assets. | Must pass brownfield-versus-greenfield economics, title, environmental, DSCR, FX, maintenance, and disclosure gates before external finance. |
 | Working-capital guarantee | Lets banks lend against receivables and public offtake contracts. | Guarantee falls as repayment history improves. |
 | Conditional offtake | Public buyer commits to volume if price, quality, and delivery conditions are met. | No delivery evidence, no payment. |
 | Supplier finance | SME suppliers borrow against verified purchase orders or receivables. | Supplier exposure cap per champion. |
 | Export credit | Supports certified exporters with repeat buyers and FX receipts. | Export credit stops if returns, defects, or nonpayment rise. |
 | Technology-transfer finance | Pays for machinery, certification, training, and commissioning. | Foreign vendor must train Iraqi operators and disclose handover plan. |
+| Domestic bond, sukuk, or minority-equity issuance | Later-stage funding for audited, ring-fenced subsidiaries or project companies. | No forced purchases, no hidden state guarantee, and no issue before regulator, trustee/custody, disclosure, and investor-protection readiness. |
 | Restructuring facility | Temporary turnaround finance for viable distressed lines. | Requires management change and published turnaround metrics. |
 
 Debt rules:
@@ -261,6 +269,10 @@ Examples:
   education, and business travel.
 - Electronics/HVAC/water: regional components and maintenance services after
   quality certification.
+- Mobility/machinery: maintenance, spares, and repair exports only after safety,
+  warranty, and technician-certification evidence exists.
+- Packaging/furniture/rubber: export only after domestic food, public-service,
+  tourism, and industrial demand is reliably served at import-parity quality.
 
 Cylinder Seal should show export discipline through foreign-currency receipts,
 repeat buyers, certification status, return rates, and gross margins.

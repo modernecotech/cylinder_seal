@@ -193,9 +193,12 @@ infrastructure and is not an official Central Bank of Iraq project.</p>
 <li>Iraq Comprehensive Benefits Model</li>
 <li>Iraq Quantified Affordability And Cashflow Model</li>
 <li>System And Financial Flow Diagrams</li>
+<li>Business Value Chain Charts</li>
 <li>Unified Economic Model</li>
 <li>National Dividend Holding Company</li>
 <li>INDHC Ten-Year Plan</li>
+<li>Import, Services, And Diaspora Expansion</li>
+<li>Facility Recycling And Capital Markets</li>
 <li>Digitally Governed Industrial Champions</li>
 <li>National Civic Work System</li>
 <li>Ministry Transition Roadmap</li>
@@ -217,13 +220,245 @@ infrastructure and is not an official Central Bank of Iraq project.</p>
 <p><img alt="National Dividend Holding Company" src="docs/ebook/assets/national-dividend-holding-company.png"></p>
 <h2 id="national-civic-work-system">National Civic Work System</h2>
 <p><img alt="National Civic Work System" src="docs/ebook/assets/national-civic-work-system.png"></p>
+<h2 id="business-value-chain-overview">Business Value Chain Overview</h2>
+<p><img alt="Business Value Chain Overview" src="docs/ebook/assets/business-value-chain-overview.png"></p>
+<h2 id="sector-value-chain-matrix">Sector Value Chain Matrix</h2>
+<p><img alt="Sector Value Chain Matrix" src="docs/ebook/assets/sector-value-chain-matrix.png"></p>
+<h2 id="capital-and-repayment-lanes">Capital And Repayment Lanes</h2>
+<p><img alt="Capital And Repayment Lanes" src="docs/ebook/assets/capital-and-repayment-lanes.png"></p>
+<h2 id="society-and-economy-feedback-loop">Society And Economy Feedback Loop</h2>
+<p><img alt="Society And Economy Feedback Loop" src="docs/ebook/assets/society-economy-feedback-loop.png"></p>
 </section><h1 id="part-1-project-overview">Part 1: Project Overview</h1>
 <h2 id="cylinder-seal_1">Cylinder Seal</h2>
-<p>Sovereign digital-payment and economic-visibility prototype for Iraq.</p>
-<p>Cylinder Seal explores how CBI-backed digital IQD payment rails could support financial inclusion, SME credit scoring, public-transfer controls, domestic-production incentives, and regulator-grade economic dashboards. It is a working Rust prototype and policy architecture, not production CBDC infrastructure and not an official Central Bank of Iraq project.</p>
-<p><img alt="Cylinder Seal architecture" src="1776870497788.png"></p>
-<h3 id="what-this-repo-contains">What This Repo Contains</h3>
-<p>The workspace is organized as a set of focused Rust crates:</p>
+<p>Economic, environmental, social, and cultural operating model for Iraq.</p>
+<p>Cylinder Seal is primarily a national economic-system proposal: a way to
+convert oil income, project finance, existing Iraqi facilities, Iraqi labor,
+domestic production, tourism, civic works, culture, and environmental repair
+into auditable cashflows and public benefits.</p>
+<p>The main subject is the economy. Oil income becomes productive capital; domestic
+industry, services, tourism, infrastructure, finance, and civic work create
+measured value; ministries are funded through explicit taxes, levies, and
+service contracts; citizens benefit through wages, services, credit access,
+civic-work income, and equal dividends from audited surplus.</p>
+<p>The Cylinder Seal software sits behind that model as an evidence, settlement,
+and analytics layer. It is included to test how contracts, payments, invoices,
+local-content evidence, public transfers, tax flows, credit features, and
+dashboards could be measured. The code is a pilot-grade prototype, not the main
+claim of the repository. It is not production CBDC infrastructure, not an
+official Central Bank of Iraq project, and not an externally validated
+macroeconomic forecast.</p>
+<p><img alt="Cylinder Seal business value chain" src="docs/ebook/assets/business-value-chain-overview.png"></p>
+<h3 id="economic-model">Economic Model</h3>
+<p>The front-door subject is the national economic cycle:</p>
+<pre><code class="language-text">Oil income and project finance
+  -&gt; productive Iraqi assets
+  -&gt; domestic goods, services, infrastructure, tourism, exports, and civic work
+  -&gt; booked cash plus source-tagged public benefits
+  -&gt; maintenance, debt service, Treasury levy, retained earnings
+  -&gt; citizen dividends only from audited distributable surplus
+</code></pre>
+<p>The model has six practical rules:</p>
+<ol>
+<li>No cash claim without settled evidence.</li>
+<li>No benefit claim without source-tagged measurement.</li>
+<li>No capital allocation without legal, fiscal, debt, revenue, FX, maintenance,
+   audit, privacy, and anti-capture gates.</li>
+<li>No dividend from oil receipts, borrowing, asset revaluation, or estimated GDP
+   effects.</li>
+<li>Existing Iraqi facilities are screened before greenfield capex.</li>
+<li>Digital IQD evidence exists to make the economy bankable and governable, not
+   to overstate readiness.</li>
+</ol>
+<h3 id="system-map">System Map</h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Purpose</th>
+<th>Main document</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unified model</td>
+<td>Connects Digital IQD, INDHC, ministries, banks, producers, tourism, green capital, rail, taxes, reinvestment, civic work, and dividends into one accounting structure.</td>
+<td><a href="docs/unified-economic-model.md">Unified economic model</a></td>
+</tr>
+<tr>
+<td>Business value chains</td>
+<td>Shows sector value chains, funding lanes, repayment paths, and society/economy feedback loops.</td>
+<td><a href="docs/business-value-chain-charts.md">Business value chain charts</a></td>
+</tr>
+<tr>
+<td>Operating logic</td>
+<td>Defines ledgers, hard gates, scorecards, waterfalls, cash/benefit conversion, capital allocation, dashboards, and escalation rules.</td>
+<td><a href="docs/national-economic-operating-logic.md">National economic operating logic</a></td>
+</tr>
+<tr>
+<td>Public-finance architecture</td>
+<td>Proposes an oil-income lockbox, citizen beneficial shares, ministry-funding feedback, cash formalization controls, and Digital IQD dividends.</td>
+<td><a href="docs/national-dividend-holding-company.md">National dividend holding company</a></td>
+</tr>
+<tr>
+<td>Ten-year productive plan</td>
+<td>Maps import substitution, profitable subsidiaries, strategic resilience, electronics, HVAC, water, irrigation, food, tourism, green capital, rail, raw-material processing, and Iraqi-only staffing.</td>
+<td><a href="docs/indhc-10-year-plan.md">INDHC ten-year plan</a></td>
+</tr>
+<tr>
+<td>Affordability and cashflow</td>
+<td>Uses IMF-baseline constraints to distinguish fiscal-safe, constrained-base, and strategic-upper envelopes.</td>
+<td><a href="docs/iraq-quantified-affordability-model.md">Iraq quantified affordability model</a></td>
+</tr>
+<tr>
+<td>Growth and benefits</td>
+<td>Quantifies scenario paths for non-oil growth, infrastructure, environmental, social, cultural, and dividend benefits.</td>
+<td><a href="docs/iraq-integrated-growth-impact-model.md">Growth model</a>, <a href="docs/iraq-comprehensive-benefits-model.md">benefits model</a></td>
+</tr>
+<tr>
+<td>Facility recycling</td>
+<td>Screens underutilized Iraqi assets before greenfield builds and maps international credit, PPP, domestic bond/sukuk/equity, local-bank, and diaspora finance lanes.</td>
+<td><a href="docs/facility-recycling-and-capital-markets.md">Facility recycling and capital markets</a></td>
+</tr>
+<tr>
+<td>Import, services, diaspora</td>
+<td>Adds missing import screens, attraction-based service production, and diaspora income, expertise, capital, marketing, and distribution channels.</td>
+<td><a href="docs/import-services-diaspora-expansion.md">Import, services, and diaspora expansion</a></td>
+</tr>
+<tr>
+<td>Industrial champions</td>
+<td>Reframes the industrial-group idea as sectoral Iraqi production champions with conditional demand, credit, export discipline, competition gates, and anti-capture controls.</td>
+<td><a href="docs/digitally-governed-industrial-champions.md">Digitally governed industrial champions</a></td>
+</tr>
+<tr>
+<td>Civic work</td>
+<td>Defines verified public-value work, training, care, environmental restoration, sport, culture, municipal repair, and disaster resilience.</td>
+<td><a href="docs/national-civic-work-system.md">National civic work system</a></td>
+</tr>
+<tr>
+<td>Ministry transition</td>
+<td>Lists candidate functions to deprecate, merge, regulate, corporatize, or sunset after legal, service-continuity, staff, and audit gates pass.</td>
+<td><a href="docs/ministry-transition-roadmap.md">Ministry transition roadmap</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="business-charts">Business Charts</h3>
+<p>The strategy is visualized as business chains rather than only policy prose:</p>
+<table>
+<thead>
+<tr>
+<th>Chart</th>
+<th>What it demonstrates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="docs/diagrams/business-value-chain-overview.svg">Business value chain overview</a></td>
+<td>How capital, Digital IQD evidence, facility reuse, sectors, markets, cash waterfalls, public benefits, and risk gates connect.</td>
+</tr>
+<tr>
+<td><a href="docs/diagrams/sector-value-chain-matrix.svg">Sector value chain matrix</a></td>
+<td>Asset base, operations, customers, revenue, public benefit, and evidence controls for every current sector.</td>
+</tr>
+<tr>
+<td><a href="docs/diagrams/capital-and-repayment-lanes.svg">Capital and repayment lanes</a></td>
+<td>Which sources of capital fit which sectors and how repayment or return works.</td>
+</tr>
+<tr>
+<td><a href="docs/diagrams/society-economy-feedback-loop.svg">Society and economy feedback loop</a></td>
+<td>How citizens benefit through wages, local goods, civic work, public services, credit histories, and dividends from audited surplus.</td>
+</tr>
+<tr>
+<td><a href="docs/system-and-financial-flow-diagrams.md">System and financial flow diagrams</a></td>
+<td>End-to-end financial-flow combinations, with software architecture treated as an implementation appendix.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="current-status">Current Status</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Economic-system front door</td>
+<td>Unified economic architecture, business value-chain charts, source discipline, affordability framing, ministry transition, civic work, facility recycling, industrial champions, tourism, diaspora channels, domestic capital markets, and long-horizon benefit scenarios.</td>
+</tr>
+<tr>
+<td>Governance and cashflow model</td>
+<td>Oil-income lockbox, capital allocation gates, treasury levy, debt-service waterfalls, retained earnings, audited dividend constraints, ministry feedback mechanisms, and citizen benefit channels.</td>
+</tr>
+<tr>
+<td>Sector production model</td>
+<td>Import substitution, profitable domestic subsidiaries, defence manufacturing, electronics, HVAC, water desalination, irrigation, food substitution, raw-material post-processing, Open Source Rail, green technology, tourism, services, and cultural production.</td>
+</tr>
+<tr>
+<td>Evidence software appendix</td>
+<td>Rust analytics modules, SQL tables, payment-rail primitives, dashboard routes, and tests exist only to demonstrate how the economic model could be measured and audited.</td>
+</tr>
+<tr>
+<td>Not production-ready</td>
+<td>Real CBDC issuance, national identity/KYC integration, HSM or secure-element custody, audited offline double-spend prevention, live multi-peer deployment, CBI/core-banking integration, privacy review, disaster recovery, and independent economic validation.</td>
+</tr>
+</tbody>
+</table>
+<p>The repo is suitable first for policy review, economic-model critique, and
+scenario debate. The software appendix can support demo workflows and technical
+review, but it should not be represented as ready for national-scale deployment
+or as a validated investment program.</p>
+<h3 id="source-discipline">Source Discipline</h3>
+<p>The front README intentionally does not present national-scale deployment
+timelines, sovereign-rating upgrade paths, diaspora capital figures, or Year 5
+benefit ranges as project deliverables. Scenario figures belong only in the
+source-disciplined documents with explicit caveats and independent-validation
+requirements.</p>
+<p>Current public facts that shape the framing:</p>
+<ul>
+<li>Iraq's final 2024 census count was reported at 46.1 million people, not the
+  older approximately 43 million baseline used in earlier drafts. Source:
+  <a href="https://apnews.com/article/iraq-census-final-count-45b7753ddc82c188c79faea0d5a8c90d">AP, Feb. 24, 2025</a>.</li>
+<li>Iraq's National Financial Inclusion Strategy 2025-2029 targets account
+  ownership of 50% by 2030 and digital payment usage of 85%. Sources:
+  <a href="https://cbi.iq/static/uploads/up/file-175032973296039.pdf">CBI NFIS PDF</a>,
+  <a href="https://www.amf.org.ae/en/news/25-05-2025/iraq-launches-national-financial-inclusion-strategy-2025-2029">Arab Monetary Fund</a>.</li>
+<li>On June 12, 2026, S&amp;P affirmed Iraq at <code>B-/B</code>, removed the long-term rating
+  from CreditWatch negative, and kept a negative outlook. Source:
+  <a href="https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3580473">S&amp;P Global Ratings</a>.</li>
+<li>Public sources continue to describe Iraq as highly oil-revenue-dependent and
+  fiscally exposed to rigid spending and weak non-oil revenues. Sources:
+  <a href="https://www.eia.gov/international/analysis/country/irq">EIA Iraq analysis</a>,
+  <a href="https://eiti.org/countries/iraq">EITI Iraq country page</a>,
+  <a href="https://www.imf.org/-/media/files/publications/cr/2025/english/1irqea2025001-source-pdf.pdf">IMF Iraq 2025 Article IV</a>.</li>
+</ul>
+<p>See <a href="docs/economic-assumptions.md">Economic assumptions</a> for source discipline
+and current public facts.</p>
+<h3 id="production-readiness-boundary">Production Readiness Boundary</h3>
+<p>Before this could be evaluated as real payment or economic infrastructure, the
+project would need at minimum:</p>
+<ul>
+<li>legal authority for Digital IQD, INDHC, citizen entitlements, oil-income
+  allocation, borrowing, securities issuance, privacy, and dispute resolution;</li>
+<li>a formal threat model for wallets, POS devices, offline settlement,
+  super-peers, operator access, and emergency controls;</li>
+<li>hardware-backed key custody and recovery design;</li>
+<li>offline double-spend limits backed by secure monotonic counters or equivalent
+  attestation;</li>
+<li>privacy architecture separating payment data, identity data, regulatory
+  access, and aggregate economic analytics;</li>
+<li>real multi-node consensus deployment with operational runbooks and failover
+  tests;</li>
+<li>project-level feasibility studies, debt-capacity analysis, procurement
+  sequencing, and independent macroeconomic review;</li>
+<li>independent security audit, compliance review, and economic model validation.</li>
+</ul>
+<h3 id="software-appendix">Software Appendix</h3>
+<p>This is intentionally a back-of-README section. The software is not the main
+policy claim; it is an evidence rail for testing whether the economic model can
+be measured, audited, settled, and challenged without relying on narrative
+claims alone.</p>
+<p>The workspace is organized as focused Rust crates:</p>
 <table>
 <thead>
 <tr>
@@ -253,7 +488,7 @@ infrastructure and is not an official Central Bank of Iraq project.</p>
 <td><code>crates/cs-pos</code>, <code>crates/cs-mobile-core</code>, <code>android/</code>, <code>ios/</code></td>
 </tr>
 <tr>
-<td>CBI-style dashboard</td>
+<td>CBI-style dashboard and analytics</td>
 <td><code>crates/cbi-dashboard</code>, <code>crates/cs-analytics</code></td>
 </tr>
 <tr>
@@ -262,32 +497,85 @@ infrastructure and is not an official Central Bank of Iraq project.</p>
 </tr>
 </tbody>
 </table>
-<p>The thesis is narrow on purpose: use digital payment trails to make informal activity more bankable and visible, then let policy modules experiment with merchant tiers, transaction-based credit, AML workflows, and public-transfer constraints.</p>
-<h3 id="current-status">Current Status</h3>
+<p>Technical review entry points:</p>
+<ul>
+<li><a href="docs/technical-primitives.md">Technical primitives</a> maps offline payments,
+  double-spend checks, wire-format primitives, Raft, key handling, privacy, AML,
+  and disaster recovery to code and remaining gaps.</li>
+<li><a href="IMPLEMENTATION_STATUS.md">Implementation status</a> summarizes current prototype
+  scope and important gaps.</li>
+<li><a href="SPECIFICATION_AND_FIXTURE_RESULTS.md">Specification and fixture results</a> and
+  <a href="crates/cs-tests/README.md">cs-tests README</a> describe test evidence and missing
+  live PostgreSQL/Redis coverage.</li>
+<li><a href="API_REFERENCE.md">API reference</a> documents dashboard endpoints.</li>
+<li><a href="SECURITY.md">Security model</a> lists threat areas and production requirements.</li>
+</ul>
+<h3 id="software-appendix-scenario-analytics">Software Appendix: Scenario Analytics</h3>
+<p>The <code>cs-analytics</code> crate carries executable planning primitives for parts of
+the economic model. These are scenario engines, not calibrated national
+forecasts.</p>
 <table>
 <thead>
 <tr>
-<th>Status</th>
-<th>Scope</th>
+<th>Model</th>
+<th>Code</th>
+<th>Migration</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Implemented</td>
-<td>Rust domain models, canonical signing primitives, transaction/wire-format primitives, KYC tier limits, POS/mobile codecs, PostgreSQL-backed CBI dashboard routes, AML/risk/credit modules, and numbered specification tests.</td>
+<td>Economic operating kernel</td>
+<td><code>crates/cs-analytics/src/economic_operating.rs</code></td>
+<td><code>migrations/20260702000001_economic_operating_kernel.sql</code></td>
 </tr>
 <tr>
-<td>Partially implemented</td>
-<td>Offline payment lifecycle, double-spend reconciliation, merchant-tier policy, transaction-based credit scoring, AML reporting, dashboard UI, and Raft-backed sync. These have code and tests, but need production integration and security hardening.</td>
+<td>Sovereign holding capital plan</td>
+<td><code>crates/cs-analytics/src/sovereign_holding.rs</code></td>
+<td><code>migrations/20260703000001_sovereign_holding_capital_plan.sql</code></td>
 </tr>
 <tr>
-<td>Not production-ready</td>
-<td>HSM or secure-element custody, national identity/KYC integration, audited offline double-spend prevention, real multi-peer Raft deployment, CBI/core-banking integration, privacy review, disaster recovery, formal threat model review, and externally validated economic impact model.</td>
+<td>Economic cycle and citizen income</td>
+<td><code>crates/cs-analytics/src/economic_cycle.rs</code></td>
+<td><code>migrations/20260704000001_economic_cycle_projection.sql</code></td>
+</tr>
+<tr>
+<td>Integrated growth impact</td>
+<td><code>crates/cs-analytics/src/growth_impact.rs</code></td>
+<td><code>migrations/20260705000001_growth_impact_projection.sql</code></td>
+</tr>
+<tr>
+<td>Comprehensive benefits</td>
+<td><code>crates/cs-analytics/src/comprehensive_benefits.rs</code></td>
+<td><code>migrations/20260706000001_comprehensive_benefits_projection.sql</code></td>
+</tr>
+<tr>
+<td>Production capacity and import substitution</td>
+<td><code>crates/cs-analytics/src/production_capacity.rs</code></td>
+<td><code>migrations/20260707000001_production_capacity_projection.sql</code></td>
+</tr>
+<tr>
+<td>Strategic resilience</td>
+<td><code>crates/cs-analytics/src/strategic_resilience.rs</code></td>
+<td><code>migrations/20260708000001_strategic_resilience_projection.sql</code></td>
+</tr>
+<tr>
+<td>Tourism and tradable services</td>
+<td><code>crates/cs-analytics/src/tourism_services.rs</code></td>
+<td><code>migrations/20260709000001_tourism_services_projection.sql</code></td>
+</tr>
+<tr>
+<td>Diaspora channels</td>
+<td><code>crates/cs-analytics/src/diaspora_channels.rs</code></td>
+<td><code>migrations/20260710000001_diaspora_channels_projection.sql</code></td>
+</tr>
+<tr>
+<td>Facility recycling and capital markets</td>
+<td><code>crates/cs-analytics/src/facility_recycling.rs</code></td>
+<td><code>migrations/20260711000001_facility_recycling_projection.sql</code></td>
 </tr>
 </tbody>
 </table>
-<p>The codebase should be read as a pilot-grade prototype. It is suitable for technical review, policy exploration, and demo workflows. It should not be represented as ready for national-scale deployment.</p>
-<h3 id="quick-start">Quick Start</h3>
+<h3 id="developer-appendix-local-software-demo">Developer Appendix: Local Software Demo</h3>
 <p>Install Rust and Docker if you want to run the dashboard stack locally. The
 dashboard currently uses PostgreSQL and Redis. POS-local SQLite remains only for
 the device-side terminal store, not for the dashboard runtime.</p>
@@ -302,62 +590,16 @@ cargo build --package cbi-dashboard
 export DATABASE_URL=&quot;postgresql://postgres:${DB_PASSWORD:-change-me-dev-only}@localhost:5432/cylinder_seal&quot;
 cargo run --package cbi-dashboard
 </code></pre>
-<p>The dashboard defaults to <code>http://127.0.0.1:8081</code> when run locally. Demo operators are seeded only for local development; see <code>.env.example</code> and <code>API_REFERENCE.md</code> before using them.</p>
+<p>The dashboard defaults to <code>http://127.0.0.1:8081</code> when run locally. Demo
+operators are seeded only for local development; see <code>.env.example</code> and
+<a href="API_REFERENCE.md">API_REFERENCE.md</a> before using them.</p>
 <p><code>docker-compose.yml</code> reads <code>DB_PASSWORD</code> from <code>.env</code> and falls back to
 <code>change-me-dev-only</code> for local demos. Change all demo secrets before sharing,
 deploying, or connecting real systems.</p>
-<h3 id="technical-evidence">Technical Evidence</h3>
-<p>The public-facing technical evidence has been split out of the original long README:</p>
-<ul>
-<li><a href="docs/technical-primitives.md">Technical primitives</a> maps claims such as offline payments, double-spend checks, wire-format primitives, Raft, key handling, privacy, AML, and disaster recovery to code and remaining gaps.</li>
-<li><a href="docs/system-and-financial-flow-diagrams.md">System and financial flow diagrams</a> provides rendered SVG architecture diagrams, transaction lifecycles, and valid financial-flow combinations.</li>
-<li><a href="IMPLEMENTATION_STATUS.md">Implementation status</a> summarizes dashboard implementation state.</li>
-<li><a href="SPECIFICATION_AND_FIXTURE_RESULTS.md">Specification and fixture results</a> and <a href="crates/cs-tests/README.md">cs-tests README</a> describe current test evidence and the missing live PostgreSQL/Redis coverage.</li>
-<li><a href="API_REFERENCE.md">API reference</a> documents the dashboard API.</li>
-</ul>
-<h3 id="economic-and-policy-framing">Economic And Policy Framing</h3>
-<p>The Iraq-specific policy narrative is intentionally separate from the implementation README:</p>
-<ul>
-<li><a href="docs/economic-assumptions.md">Economic assumptions</a> lists current public facts, source discipline, and claims that must remain illustrative until independently modeled.</li>
-<li><a href="docs/unified-economic-model.md">Unified economic model</a> connects Digital IQD, INDHC, ministries, banks, producers, strategic resilience manufacturing, tourism, green capital, rail, taxes, civic work, reinvestment, and citizen dividends into one accounting and feedback structure.</li>
-<li><a href="docs/national-economic-operating-logic.md">National economic operating logic</a> defines the management spine: six ledgers, hard gates, portfolio scoring, cash/benefit separation, capital allocation, escalation rules, and dividend controls.</li>
-<li><a href="docs/iraq-integrated-growth-impact-model.md">Iraq integrated growth impact model</a> quantifies how infrastructure, industrial production, open-source rail, green power, food/water systems, tourism, Digital IQD formalization, and civic work could raise non-oil growth over ten years.</li>
-<li><a href="docs/iraq-comprehensive-benefits-model.md">Iraq comprehensive benefits model</a> extends the ten-year model to 2040 and 2050 across economic, infrastructure, environmental, social, and cultural outcomes.</li>
-<li><a href="docs/policy-paper.md">Policy paper boundary</a> preserves only a deprecated boundary note for the earlier long-form narrative; current claims should use the newer source-disciplined documents.</li>
-<li><a href="docs/national-dividend-holding-company.md">National dividend holding company</a> describes a proposed oil-income-to-productive-capital architecture where citizens hold non-saleable beneficial shares and receive audited Digital IQD dividends from distributable surplus.</li>
-<li><a href="docs/indhc-10-year-plan.md">INDHC ten-year plan</a> turns that architecture into a planning envelope and cashflow model for import substitution, profitable national businesses, defense-controlled supply chains, electronics, HVAC, water/desalination, irrigation, imported-food substitution, tourism and services, green capital, open rail, raw-material processing, Iraqi-only permanent staffing, and domestic reinvestment.</li>
-<li><a href="docs/iraq-quantified-affordability-model.md">Iraq quantified affordability model</a> uses IMF baseline data to size fiscal-safe, constrained-base, and strategic-upper financing envelopes, including oil-equity affordability, project loans, PPP/JV capital, recurring revenue channels, tourism second-order benefits, DSCR gates, and citizen-dividend cashflows.</li>
-<li><a href="docs/digitally-governed-industrial-champions.md">Digitally governed industrial champions</a> reframes the Korean large-industrial-group analogy into sectoral Iraqi production groups with conditional demand, conditional credit, export discipline, debt caps, competition gates, and anti-capture controls.</li>
-<li><a href="docs/national-civic-work-system.md">National civic work system</a> adds a dignity-preserving transition layer where citizens are paid in Digital IQD for verified environmental, care, sport, culture, education, municipal, food-security, and disaster-resilience work.</li>
-<li><a href="docs/ministry-transition-roadmap.md">Ministry transition roadmap</a> lists candidate ministry functions to deprecate, merge, regulate, corporatize, or sunset as services move to audited operators, municipalities, regulators, INDHC, and Digital IQD service contracts.</li>
-</ul>
-<p>Within the policy architecture, the unified model is the front-door economic frame. Digital IQD is the auditable payment, identity, compliance, civic-work, and dividend-distribution substrate; INDHC is the productive-capital engine; ministries are funded through explicit taxes, levies, and service contracts; citizens receive wages, services, credit access, civic-work income, and equal dividends from audited surplus.</p>
-<p>The civic-work layer is framed as a national participation economy: not
-unemployment benefits, not fake jobs, and not old-style ministry payroll
-expansion, but verified public value paid through Digital IQD.</p>
-<p>The README intentionally does not present national-scale timelines, sovereign
-rating outcomes, diaspora capital figures, or Year 5 benefit ranges as project
-deliverables. Those figures belong only in scenario documents with explicit
-caveats, source notes, and independent-validation requirements.</p>
-<p>Current public facts that shape the framing:</p>
-<ul>
-<li>Iraq's final 2024 census count was reported at 46.1 million people, not the older approximately 43 million baseline used in earlier drafts. Source: <a href="https://apnews.com/article/iraq-census-final-count-45b7753ddc82c188c79faea0d5a8c90d">AP, Feb. 24, 2025</a>.</li>
-<li>Iraq's National Financial Inclusion Strategy 2025-2029 targets account ownership of 50% by 2030 and digital payment usage of 85%. Sources: <a href="https://cbi.iq/static/uploads/up/file-175032973296039.pdf">CBI NFIS PDF</a>, <a href="https://www.amf.org.ae/en/news/25-05-2025/iraq-launches-national-financial-inclusion-strategy-2025-2029">Arab Monetary Fund</a>.</li>
-<li>On June 12, 2026, S&amp;P affirmed Iraq at <code>B-/B</code>, removed the long-term rating from CreditWatch negative, and kept a negative outlook. Source: <a href="https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3580473">S&amp;P Global Ratings</a>.</li>
-<li>Public sources continue to describe Iraq as highly oil-revenue-dependent and fiscally exposed to rigid spending and weak non-oil revenues. Sources: <a href="https://www.eia.gov/international/analysis/country/irq">EIA Iraq analysis</a>, <a href="https://eiti.org/countries/iraq">EITI Iraq country page</a>, <a href="https://www.imf.org/-/media/files/publications/cr/2025/english/1irqea2025001-source-pdf.pdf">IMF Iraq 2025 Article IV</a>.</li>
-</ul>
-<h3 id="production-readiness-boundary">Production Readiness Boundary</h3>
-<p>Before this could be evaluated as real payment infrastructure, the project would need at minimum:</p>
-<ul>
-<li>A formal threat model for wallets, POS devices, offline settlement, super-peers, operator access, and emergency controls.</li>
-<li>Hardware-backed key custody and recovery design.</li>
-<li>Offline double-spend limits backed by secure monotonic counters or equivalent attestation.</li>
-<li>Privacy architecture separating payment data, identity data, regulatory access, and aggregate economic analytics.</li>
-<li>Real multi-node consensus deployment with operational runbooks and failover tests.</li>
-<li>Independent security audit, compliance review, and economic model validation.</li>
-</ul>
 <h3 id="repository-hygiene">Repository Hygiene</h3>
-<p>Local artifacts such as generated databases, Redis dumps, virtualenvs, and ad hoc logs are ignored. Do not commit generated database state.</p>
+<p>Local artifacts such as generated databases, Redis dumps, virtualenvs, local
+env files, ad hoc logs, and build outputs are ignored. Do not commit generated
+database state.</p>
 <h1 id="part-2-current-implementation-status">Part 2: Current Implementation Status</h1>
 <h2 id="implementation-status">Implementation Status</h2>
 <h3 id="honest-status">Honest Status</h3>
@@ -377,6 +619,8 @@ caveats, source notes, and independent-validation requirements.</p>
 <li>National Dividend Holding Company policy architecture documented as a proposal, including oil-income lockbox, citizen share entitlements, cash formalization controls, ten-year investment plan, ministry funding, and monthly dividend flows.</li>
 <li>Ministry transition roadmap documented as a governance scenario for moving selected ministry functions into regulators, service contracts, municipalities, INDHC subsidiaries, or sunset agencies.</li>
 <li>National Civic Work System documented as a policy scenario for verified civic wages, civic credits, training records, public-value tasks, and productivity-transition support.</li>
+<li>Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, and facility recycling. These are planning primitives, not calibrated national forecasts.</li>
+<li>Rendered SVG value-chain charts now cover sector business chains, capital and repayment lanes, and society/economy feedback loops.</li>
 </ul>
 <h3 id="important-gaps">Important Gaps</h3>
 <ul>
@@ -385,12 +629,12 @@ caveats, source notes, and independent-validation requirements.</p>
 <li>Role enforcement must continue to be applied as future sensitive handlers are implemented.</li>
 <li>Browser security hardening has a basic cookie/CSRF foundation but still needs full browser automation and deployment review.</li>
 <li>Admin audit logging is not yet a complete immutable retention system or regulator evidence-pack workflow.</li>
-<li>The unified economic model is not implemented as calibrated projection code; it remains a documented architecture that needs data models, equations, sensitivity tests, and independent macroeconomic review.</li>
+<li>The unified economic model has scenario engines and persistence tables for several layers, but it is still not calibrated, independently validated, or suitable for real budget, debt, investment, or dividend decisions.</li>
 <li>The ministry transition roadmap is not implemented and would require legislation, civil-service transition, federal/governorate coordination, service-continuity testing, and independent audit before any real-world use.</li>
 <li>SQLite is not a supported dashboard runtime despite the presence of historical fixture scripts.</li>
 <li>Offline double-spend handling is not yet backed by audited secure hardware/attestation.</li>
 <li>HSM custody, national identity/KYC integration, CBI/core-banking integration, DR, and privacy review remain future work.</li>
-<li>The National Dividend Holding Company proposal and ten-year investment plan are not implemented in code and need legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation before data models or routes are treated as deployable.</li>
+<li>The National Dividend Holding Company proposal and ten-year investment plan are only partially represented in scenario code and need legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation before data models or routes are treated as deployable.</li>
 <li>The National Civic Work System is not implemented in code and needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, and fiscal validation before any <code>cs-civic-work</code> module is treated as deployable.</li>
 </ul>
 <h3 id="running-the-dashboard">Running The Dashboard</h3>
@@ -575,7 +819,7 @@ cargo run --package cbi-dashboard
 <p>Current state:</p>
 <ul>
 <li>Role concepts exist: auditor, analyst, officer, supervisor.</li>
-<li>Current sensitive route stubs enforce officer or supervisor roles and have route-level tests.</li>
+<li>Current sensitive routes enforce officer or supervisor roles and have route-level tests.</li>
 </ul>
 <p>Production requirements:</p>
 <ul>
@@ -761,7 +1005,7 @@ timeline, and legal safe-harbor language.</p>
 <li>"The holding company will invest $190B over ten years" should become "base-case planning envelope requiring oil-revenue stress testing, debt-capacity analysis, procurement sequencing, and independent project finance review."</li>
 <li>"INDHC will make Iraq self-sufficient in defense, electronics, HVAC, water, irrigation, and food" should become "strategic resilience manufacturing objective requiring delivered-cost tests, quality certification, legal controls, supplier development, and security/procurement review."</li>
 <li>"INDHC will generate $43B in Year 10 revenue" should become "illustrative Year 10 consolidated revenue run-rate in the base-case cashflow model, requiring audited baseline demand, project-level feasibility studies, utilization assumptions, and downside sensitivity tests."</li>
-<li>"Iraq should create a state chaebol" should become "digitally governed sectoral industrial champions with conditional demand, conditional credit, export discipline, competition gates, debt caps, and anti-capture governance."</li>
+<li>The state-conglomerate shorthand should become "digitally governed sectoral industrial champions with conditional demand, conditional credit, export discipline, competition gates, debt caps, and anti-capture governance."</li>
 <li>"Automation and industrial champions will solve employment" should become "productivity gains may displace low-productivity work and require a verified civic-work, training, and bridge-to-employment system."</li>
 </ul>
 <h3 id="data-gaps-to-close">Data Gaps To Close</h3>
@@ -1025,6 +1269,10 @@ forward no matter how attractive the narrative is.</p>
 <td>Oil-equity draw and public exposure fit the affordability rules.</td>
 </tr>
 <tr>
+<td>Facility reuse</td>
+<td>Existing Iraqi facilities have been screened before greenfield capex, or reuse failed title, engineering, environmental, revenue, DSCR, FX, maintenance, or investor-protection gates.</td>
+</tr>
+<tr>
 <td>Debt safety</td>
 <td>Base DSCR, stress DSCR, tenor, grace period, and currency match are acceptable.</td>
 </tr>
@@ -1187,6 +1435,8 @@ after all subsidiary and holding-company gates pass.</p>
 <ol>
 <li>Protect existing asset maintenance, safety, cybersecurity, and debt service.</li>
 <li>Fund projects that preserve water, food, power, and critical logistics.</li>
+<li>Rehabilitate existing facilities when reuse beats greenfield and bankability
+   gates pass.</li>
 <li>Fund projects with near-term booked cash and clear collection mechanisms.</li>
 <li>Fund import-substitution and strategic-resilience projects with credible unit
    economics.</li>
@@ -1253,7 +1503,10 @@ base that must produce future dividends.</p>
 </tbody>
 </table>
 <h3 id="data-model-surface">Data Model Surface</h3>
-<p>Cylinder Seal should eventually represent this logic with explicit objects:</p>
+<p>Cylinder Seal has now started representing this logic with explicit objects in
+<code>crates/cs-analytics/src/economic_operating.rs</code> and persistence tables in
+<code>migrations/20260702000001_economic_operating_kernel.sql</code>. This is an initial
+kernel, not a complete national operating system.</p>
 <table>
 <thead>
 <tr>
@@ -1318,8 +1571,101 @@ base that must produce future dividends.</p>
 <td><code>ComprehensiveBenefitProjection</code></td>
 <td>Long-horizon economic, infrastructure, environmental, social, and cultural benefit paths from <a href="iraq-comprehensive-benefits-model.md">Iraq Comprehensive Benefits Model</a>.</td>
 </tr>
+<tr>
+<td><code>ProductionCapacityProjection</code></td>
+<td>Domestic output, local content, quality, cost discipline, booked sales, verified import substitution, FX savings, and procurement-dependence gates.</td>
+</tr>
+<tr>
+<td><code>FacilityRecyclingProjection</code></td>
+<td>Underutilized facility reuse, greenfield-avoidance economics, DSCR, FX cover, international credit readiness, domestic capital-market readiness, and finance-lane gates.</td>
+</tr>
+<tr>
+<td><code>StrategicResilienceProjection</code></td>
+<td>Controlled-sector resilience, import-vulnerability reduction, critical spares, supplier diversification, end-use controls, and audit boundaries.</td>
+</tr>
+<tr>
+<td><code>TourismServiceClusterProjection</code></td>
+<td>Attraction-based service revenue, non-oil FX capture, local supplier demand, second-order benefit, visitor safety, conservation, and capacity gates.</td>
+</tr>
+<tr>
+<td><code>DiasporaChannelProjection</code></td>
+<td>Formal remittances, Iraqi-product demand, export distribution, expertise, investment pipeline, marketing attribution, and compliance gates.</td>
+</tr>
 </tbody>
 </table>
+<p>Initial executable coverage:</p>
+<ul>
+<li><code>LedgerKind</code> and <code>LedgerImpact</code> enforce that public benefits do not become
+  distributable cash.</li>
+<li><code>EconomicOperatingKernel::evaluate_hard_gates</code> checks the first legal,
+  fiscal, debt, maintenance, revenue, benefit, local-capability, anti-capture,
+  privacy/security, and citizen-fairness gates.</li>
+<li><code>EconomicOperatingKernel::compute_waterfall</code> pays senior claims before
+  distributable surplus.</li>
+<li><code>EconomicOperatingKernel::decide_dividend</code> blocks dividends unless the
+  waterfall is solvent, holding-company DSCR passes, and audit is complete.</li>
+<li>The new migration creates operating-period, assumption-set, event, impact,
+  hard-gate, waterfall, capital-allocation, and dividend-gate tables.</li>
+<li><code>crates/cs-analytics/src/sovereign_holding.rs</code> adds the first capital-plan
+  layer: capital stacks, milestones, revenue streams, gross-profit levies,
+  retained-earnings allocation, dividend distribution math, and holding-company
+  governance gates. <code>migrations/20260703000001_sovereign_holding_capital_plan.sql</code>
+  adds the corresponding persistence surface.</li>
+<li><code>crates/cs-analytics/src/economic_cycle.rs</code> adds the first economic-cycle
+  projection layer: capital formation, oil dependence, booked revenue, treasury
+  revenue, citizen income, domestic recirculation, import leakage, non-oil FX,
+  dividend revenue cover, cycle-quality warnings, and citizen-income math.
+  <code>migrations/20260704000001_economic_cycle_projection.sql</code> adds the
+  corresponding projection and gate tables.</li>
+<li><code>crates/cs-analytics/src/growth_impact.rs</code> adds the first integrated
+  non-oil growth-impact layer: baseline, constrained-base, and strategic-upper
+  real-growth paths, sector contribution rows, additional GDP ranges, phase
+  filtering, and claim-confidence controls. <code>migrations/20260705000001_growth_impact_projection.sql</code>
+  adds projection, sector-contribution, and claim-audit tables.</li>
+<li><code>crates/cs-analytics/src/comprehensive_benefits.rs</code> now produces
+  comprehensive benefit-ledger statements for 2036, 2040, and 2050. It
+  separates booked cash from real output, infrastructure capacity,
+  environmental resilience, social capability, cultural tourism, and citizen
+  distributions. <code>migrations/20260706000001_comprehensive_benefits_projection.sql</code>
+  adds projection, benefit-ledger, and claim-audit tables.</li>
+<li><code>crates/cs-analytics/src/production_capacity.rs</code> adds the first production
+  capacity and import-substitution layer: utilization, local content, quality
+  certification, delivered-cost discipline, booked domestic sales, verified
+  import-substitution value, modelled FX savings, public-procurement
+  dependence, and anti-protectionism gates. <code>migrations/20260707000001_production_capacity_projection.sql</code>
+  adds projection, local-content, import-substitution-ledger, and gate tables.</li>
+<li><code>crates/cs-analytics/src/facility_recycling.rs</code> adds the first facility
+  recycling and capital-market finance layer: existing facility utilization,
+  rehabilitation capex, greenfield replacement cost, environmental liabilities,
+  revenue-contract cover, DSCR, FX cover, maintenance reserves, international
+  credit readiness, domestic capital-market readiness, recommended finance
+  lane, and gates for legal title, asset registry, engineering/environmental
+  audit, labor transition, disclosure, investor protection, hidden guarantees,
+  and controlled-sector review. <code>migrations/20260711000001_facility_recycling_projection.sql</code>
+  adds projection, financing-instrument, and gate tables.</li>
+<li><code>crates/cs-analytics/src/strategic_resilience.rs</code> adds the first
+  controlled-sector resilience layer: import dependency, domestic capacity,
+  local content, critical spares, civilian spillover, supplier diversification,
+  control readiness, and scaling gates for regulated defense sustainment,
+  electronics, HVAC, water/desalination, irrigation, food, rail components,
+  grid equipment, and medical supplies. <code>migrations/20260708000001_strategic_resilience_projection.sql</code>
+  adds projection and gate tables.</li>
+<li><code>crates/cs-analytics/src/tourism_services.rs</code> adds the first
+  attraction-based services layer: visitor spend potential, booked service
+  revenue, non-oil FX capture, local supplier demand, second-order benefit,
+  direct jobs, capacity utilization, readiness scoring, leakage, and gates for
+  safety, heritage/environment protection, service quality, formal payments,
+  local procurement, capacity, guides, lodging/transport, and maintenance.
+  <code>migrations/20260709000001_tourism_services_projection.sql</code> adds projection,
+  revenue-ledger, and gate tables.</li>
+<li><code>crates/cs-analytics/src/diaspora_channels.rs</code> adds the first diaspora
+  channel layer: booked income, formalized remittances, export distribution,
+  expertise value, investment pipeline, marketing attribution, distribution
+  readiness, and compliance gates for KYC/AML, sanctions, product quality,
+  consumer protection, data privacy, distribution coverage, conversion evidence,
+  and investment suitability. <code>migrations/20260710000001_diaspora_channels_projection.sql</code>
+  adds projection, ledger, and gate tables.</li>
+</ul>
 <h3 id="management-dashboards">Management Dashboards</h3>
 <p>The operating dashboard should show the economy as a controlled portfolio:</p>
 <table>
@@ -1361,6 +1707,18 @@ base that must produce future dividends.</p>
 <tr>
 <td>Local capability</td>
 <td>Which sectors are becoming Iraqi-operated and less import-dependent?</td>
+</tr>
+<tr>
+<td>Facility recycling</td>
+<td>Which existing assets can be rehabilitated before greenfield capex, and which can attract international credit, domestic bonds/sukuk, listed equity, PPP, or blended finance?</td>
+</tr>
+<tr>
+<td>Attraction services</td>
+<td>Which natural, cultural, religious, medical, education, and business-service clusters are capturing formal revenue without exceeding safety or conservation gates?</td>
+</tr>
+<tr>
+<td>Diaspora channels</td>
+<td>Which diaspora markets are producing settled income, export orders, expertise, investment leads, marketing conversion, or formalized remittances?</td>
 </tr>
 <tr>
 <td>Ministry productivity</td>
@@ -1515,7 +1873,7 @@ potential growth in the medium term.</p>
 oil production, OPEC+ constraints, oil prices, and export interruptions. The
 success test is whether Iraq's non-oil economy compounds faster and becomes less
 dependent on raw oil allocation.</p>
-<h3 id="source-discipline">Source Discipline</h3>
+<h3 id="source-discipline_1">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -1567,6 +1925,12 @@ not validate the exact sector contributions below.</p>
 <h3 id="method">Method</h3>
 <p>Machine-readable table:
 <a href="data/iraq-integrated-growth-impact-timeline.csv">docs/data/iraq-integrated-growth-impact-timeline.csv</a>.</p>
+<p>Initial executable coverage now exists in <code>crates/cs-analytics/src/growth_impact.rs</code>,
+with persistence tables in
+<code>migrations/20260705000001_growth_impact_projection.sql</code>. The code mirrors the
+CSV as scenario projections, sector contribution rows, additional non-oil GDP
+ranges, phase filters, and claim-confidence controls. It does not convert the
+scenario into an official forecast.</p>
 <p>The model starts from IMF's 2026 non-oil GDP level of IQD 235.6T. Using a simple
 IQD 1,300 per USD conversion, this equals about USD 181B in 2026-price terms.</p>
 <p>The model then applies:</p>
@@ -2076,7 +2440,7 @@ industrial-policy idea. The coherent model is broader:</p>
 </table>
 <p>This separation is the anti-overclaim rule. The national model can measure all
 five, but only booked cash funds debt service and dividends.</p>
-<h3 id="source-discipline_1">Source Discipline</h3>
+<h3 id="source-discipline_2">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -2138,6 +2502,14 @@ They do not validate the scenario ranges below.</p>
 <h3 id="long-horizon-scenarios">Long-Horizon Scenarios</h3>
 <p>Machine-readable table:
 <a href="data/iraq-comprehensive-benefits-timeline.csv">docs/data/iraq-comprehensive-benefits-timeline.csv</a>.</p>
+<p>Initial executable coverage now exists in
+<code>crates/cs-analytics/src/comprehensive_benefits.rs</code>, with persistence tables in
+<code>migrations/20260706000001_comprehensive_benefits_projection.sql</code>. The code
+turns each projection into benefit-ledger entries and claim-audit records. Only
+<code>booked_cash</code> entries are eligible for the cash waterfall; real output,
+infrastructure capacity, environmental resilience, social capability, cultural
+tourism, and citizen-distribution entries remain non-distributable unless a
+separate settled-cash conversion is proven.</p>
 <p>The long-horizon GDP path extends the ten-year
 <a href="iraq-integrated-growth-impact-model.md">Iraq Integrated Growth Impact Model</a>.</p>
 <p>Assumptions:</p>
@@ -2900,7 +3272,7 @@ Start with a USD 65-115B gated program.
 Scale toward USD 190B only after audited cashflow, debt safety, and fiscal
 space are proven.
 </code></pre>
-<h3 id="source-discipline_2">Source Discipline</h3>
+<h3 id="source-discipline_3">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -2939,6 +3311,21 @@ space are proven.
 <td>World Bank/UN Tourism historical international tourism receipts and arrivals.</td>
 <td>Shows why tourism data should be treated as source-tagged and cautiously reconciled across datasets.</td>
 <td><a href="https://data.worldbank.org/indicator/ST.INT.RCPT.CD?locations=IQ">World Bank tourism data for Iraq</a></td>
+</tr>
+<tr>
+<td>Iraq's National Investment Commission lists multiple rehabilitation and development opportunities across paper, cement, food, oils, dairy, fertilizers, plastics, batteries, cooling systems, controls, glass, tires, tractors, transformers, rubber, and medical supplies.</td>
+<td>Supports a brownfield-first screen before greenfield capex is counted as affordable.</td>
+<td><a href="https://investpromo.gov.iq/sectors/industry-and-manufacturing-sector/industry-and-manufacturing-sector-opportunities/">National Investment Commission industrial opportunities</a></td>
+</tr>
+<tr>
+<td>IFC's 2025 Iraq announcement refers to more than USD 2.5B invested and mobilized since 2005 and up to USD 1B in new planned investment, with manufacturing, food, infrastructure, sustainable finance, capital-market support, and airport PPP work.</td>
+<td>International credit is modeled as project-linked, disclosure-backed capital rather than general budget finance.</td>
+<td><a href="https://www.ifc.org/en/pressroom/2025/ifc-marks-20-years-of-partnerships-for-impact-in-iraq-announces-1bn-in-new-investm">IFC Iraq partnership announcement, 2025</a></td>
+</tr>
+<tr>
+<td>Iraq has domestic securities and depository infrastructure, including Iraqi Securities Commission supervision and Iraqi Depository Center rules for trading, government bonds, foreign investors, and AML/CFT.</td>
+<td>Domestic bonds, sukuk, and listed minority equity are modeled as later-stage routes for audited, ring-fenced assets.</td>
+<td><a href="https://www.isc.gov.iq/en">Iraqi Securities Commission</a>, <a href="https://csd.gov.iq/en/rules-and-instructions/">Iraqi Depository Center rules</a></td>
 </tr>
 <tr>
 <td>Existing sector sources for rail, green power, tourism, raw-material processing, food/water, and import substitution.</td>
@@ -3070,21 +3457,21 @@ are underfunded.</p>
 <td>Oil-equity allocation</td>
 <td style="text-align: right;">USD 65.8B</td>
 <td style="text-align: right;">57%</td>
-<td>First-loss capital, early works, strategic domestic capability, workforce, project equity</td>
-<td>Mostly reclassified from public capex while IMF baseline deficits persist.</td>
+<td>First-loss capital, early works, strategic domestic capability, workforce, project equity, facility title/audit/environmental cleanup</td>
+<td>Mostly reclassified from public capex while IMF baseline deficits persist; no dividends from asset revaluation.</td>
 </tr>
 <tr>
 <td>Project loans and debt</td>
 <td style="text-align: right;">USD 33.8B</td>
 <td style="text-align: right;">29%</td>
-<td>Revenue-generating green, water, rail, manufacturing, logistics, tourism, and industrial assets</td>
+<td>Revenue-generating green, water, rail, manufacturing, logistics, tourism, industrial assets, and rehabilitated facilities with signed contracts</td>
 <td>No hidden ministry bailout; DSCR covenant required.</td>
 </tr>
 <tr>
 <td>PPP / JV equity</td>
 <td style="text-align: right;">USD 15.4B</td>
 <td style="text-align: right;">13%</td>
-<td>Tourism, logistics, industrial parks, selected manufacturing, station-area development</td>
+<td>Tourism, logistics, industrial parks, selected manufacturing, station-area development, facility concessions</td>
 <td>Public asset control and anti-capture rules required.</td>
 </tr>
 <tr>
@@ -3118,49 +3505,56 @@ are underfunded.</p>
 <tr>
 <td>MDB / concessional loans</td>
 <td style="text-align: right;">USD 8-14B</td>
-<td>Water, irrigation, grid, climate adaptation, governance systems, public transport</td>
+<td>Water, irrigation, grid, climate adaptation, governance systems, public transport, and brownfield rehab with public-good benefits</td>
 <td>20-30 year maturity, 5-7 year grace, concessional or semi-concessional pricing</td>
-<td>Procurement, safeguards, transparency, debt sustainability.</td>
+<td>Procurement, safeguards, transparency, debt sustainability, environmental liability disclosure.</td>
 </tr>
 <tr>
 <td>Green sukuk / green bonds</td>
 <td style="text-align: right;">USD 8-12B</td>
-<td>Solar, storage, grid loss reduction, efficient HVAC, waste-to-energy, water efficiency</td>
+<td>Solar, storage, grid loss reduction, efficient HVAC, waste-to-energy, water efficiency, green rehab of existing facilities</td>
 <td>10-20 year tenor, use-of-proceeds verification</td>
 <td>External verification, green registry, no deficit financing.</td>
 </tr>
 <tr>
 <td>Export credit agency finance</td>
 <td style="text-align: right;">USD 8-11B</td>
-<td>Rail systems, desalination equipment, HVAC/electronics tooling, grid equipment, industrial machinery</td>
+<td>Rail systems, desalination equipment, HVAC/electronics tooling, grid equipment, industrial machinery, rehab equipment</td>
 <td>10-15 year tenor, linked supplier packages</td>
 <td>Technology transfer, open interfaces, Iraqi training, local content milestones.</td>
 </tr>
 <tr>
 <td>Project finance / PPP debt</td>
 <td style="text-align: right;">USD 5-8B</td>
-<td>Industrial parks, logistics, station retail, tourism assets, ports, cold chain</td>
+<td>Industrial parks, logistics, station retail, tourism assets, ports, cold chain, concessioned facility reuse</td>
 <td>Non-recourse or limited-recourse where possible</td>
 <td>User fees, offtake, availability payments, DSCR covenant.</td>
 </tr>
 <tr>
 <td>PPP / JV equity</td>
 <td style="text-align: right;">USD 10-16B</td>
-<td>Hotels, logistics, food processing, manufacturing, industrial zones</td>
+<td>Hotels, logistics, food processing, manufacturing, industrial zones, private operation of rehabilitated assets</td>
 <td>Equity, revenue share, minority concessions</td>
 <td>No asset stripping, no related-party capture, public audit.</td>
 </tr>
 <tr>
 <td>Domestic IQD sukuk / infrastructure bonds</td>
 <td style="text-align: right;">USD 0-5B equivalent at first</td>
-<td>Mature assets with stable IQD cashflows</td>
+<td>Mature assets with stable IQD cashflows and audited ring-fenced project accounts</td>
 <td>Local-currency tenor only after market testing</td>
-<td>No forced bank purchases; CBI monetary-policy compatibility.</td>
+<td>No forced bank purchases; CBI monetary-policy compatibility; trustee/depository/disclosure readiness.</td>
+</tr>
+<tr>
+<td>Listed minority equity / project-company float</td>
+<td style="text-align: right;">Pilot only</td>
+<td>Profitable subsidiaries or project companies with audited cashflow</td>
+<td>Non-controlling shares only</td>
+<td>Citizen ownership rules remain protected; no sale of sovereign/citizen core shares.</td>
 </tr>
 <tr>
 <td>Diaspora industrial bond</td>
 <td style="text-align: right;">USD 1-3B pilot only</td>
-<td>Iraqi-origin export platforms, tourism, selected industrial parks</td>
+<td>Iraqi-origin export platforms, tourism, selected industrial parks, facility-recycling pools with verified assets</td>
 <td>Optional retail/institutional channel</td>
 <td>Do not rely on diaspora capital as the main source; diaspora market access is more important.</td>
 </tr>
@@ -4028,6 +4422,11 @@ create immediate cashflow.</p>
 </tr>
 </tbody>
 </table>
+<p>Before any rank receives greenfield capex, the facility-recycling screen should
+test whether an existing Iraqi asset can deliver the same capacity with a lower
+capex ratio, faster utilization gain, and lower import leakage. A greenfield
+project outranks a brownfield project only when reuse fails title, engineering,
+environmental, revenue, DSCR, FX, maintenance, or investor-protection gates.</p>
 <h3 id="dashboard-metrics-to-add">Dashboard Metrics To Add</h3>
 <p>Cylinder Seal should track affordability directly:</p>
 <table>
@@ -4094,6 +4493,26 @@ create immediate cashflow.</p>
 <td><code>VerifiedImportSubstitutionValue</code></td>
 <td>Separates actual domestic sales from claimed macro savings.</td>
 </tr>
+<tr>
+<td><code>NetReuseAdvantageUsd</code></td>
+<td>Shows greenfield cost avoided after rehabilitation capex and liabilities.</td>
+</tr>
+<tr>
+<td><code>ReuseCapexRatioPercent</code></td>
+<td>Blocks facility reuse when rehabilitation is too close to greenfield cost.</td>
+</tr>
+<tr>
+<td><code>InternationalCreditReadinessScore</code></td>
+<td>Measures whether MDB, IFC, ECA, or project lenders can evaluate the asset.</td>
+</tr>
+<tr>
+<td><code>DomesticCapitalMarketReadinessScore</code></td>
+<td>Measures whether domestic bond, sukuk, or minority-equity issuance is ready.</td>
+</tr>
+<tr>
+<td><code>GovernmentGuaranteeRequestedUsd</code></td>
+<td>Exposes hidden fiscal risk before it becomes an off-budget bailout.</td>
+</tr>
 </tbody>
 </table>
 <h3 id="build-implications">Build Implications</h3>
@@ -4133,6 +4552,10 @@ create immediate cashflow.</p>
 <tr>
 <td><code>RevenueContract</code></td>
 <td>Links sales, PPAs, availability payments, platform fees, land-value capture, or service charges to invoices and settlement.</td>
+</tr>
+<tr>
+<td><code>FacilityRecyclingProjection</code></td>
+<td>Tests underutilized facility reuse before greenfield capex, including utilization gain, rehab economics, DSCR, FX cover, credit readiness, domestic market readiness, guarantee exposure, and finance lane.</td>
 </tr>
 <tr>
 <td><code>OfftakeAgreement</code></td>
@@ -4213,6 +4636,19 @@ be inspected in code review.</p>
 <p><img alt="National dividend holding company financial architecture" src="docs/ebook/assets/national-dividend-holding-company.png"></p>
 <h4 id="national-civic-work-system_1">National Civic Work System</h4>
 <p><img alt="National civic work verification and payment architecture" src="docs/ebook/assets/national-civic-work-system.png"></p>
+<h3 id="related-business-charts">Related Business Charts</h3>
+<p>The software and financial-flow diagrams above show the payment and governance
+architecture. The business side is mapped separately in
+<a href="business-value-chain-charts.md">Business Value Chain Charts</a>, including:</p>
+<ul>
+<li>sector value chains for all current industrial, service, green, rail, tourism,
+  digital, formal-market, and controlled-sustainment sectors;</li>
+<li>capital and repayment lanes for oil equity, MDB loans, ECA finance, green
+  sukuk, PPP/JV equity, domestic bonds/sukuk/equity, local banks, and diaspora
+  channels;</li>
+<li>the broader society/economy feedback loop linking wages, public services,
+  credit histories, civic work, and dividends.</li>
+</ul>
 <h3 id="legend">Legend</h3>
 <table>
 <thead>
@@ -4909,13 +5345,157 @@ remaining engineering gaps:</p>
   its legal authority, oil-revenue handling, share-entitlement rules, investment
   governance, and dividend formula require independent review.</li>
 </ul>
-<h1 id="part-11-unified-economic-model">Part 11: Unified Economic Model</h1>
+<h1 id="part-11-business-value-chain-charts">Part 11: Business Value Chain Charts</h1>
+<h2 id="business-value-chain-charts">Business Value Chain Charts</h2>
+<p>Status: visual planning aid. These charts explain the business logic of the
+Cylinder Seal economic model. They are not forecasts, investment offers,
+budgets, procurement packages, or claims that any sector is already financeable.</p>
+<p>The purpose is to make the model legible as a set of value chains rather than a
+collection of policy essays. Every sector has to answer the same practical
+questions:</p>
+<ul>
+<li>What assets and inputs does it use?</li>
+<li>What does it produce or operate?</li>
+<li>Who pays?</li>
+<li>What is booked cash, and what is only a wider public benefit?</li>
+<li>Which Digital IQD evidence and governance gates prevent overclaiming?</li>
+</ul>
+<h3 id="rendered-chart-atlas">Rendered Chart Atlas</h3>
+<h4 id="business-value-chain-overview_1">Business Value Chain Overview</h4>
+<p><img alt="Business value chain overview" src="docs/ebook/assets/business-value-chain-overview.png"></p>
+<p>This chart shows the end-to-end circuit: capital sources, Digital IQD evidence,
+facility recycling, sector production, markets, cash waterfall, public benefits,
+and risk gates.</p>
+<h4 id="sector-value-chain-matrix_1">Sector Value Chain Matrix</h4>
+<p><img alt="Sector value chain matrix" src="docs/ebook/assets/sector-value-chain-matrix.png"></p>
+<p>This chart maps all current sectors across asset base, operations, customers,
+revenue, public benefit, and evidence controls. It is the broadest business
+chart in the repo.</p>
+<h4 id="capital-and-repayment-lanes_1">Capital And Repayment Lanes</h4>
+<p><img alt="Capital and repayment lanes" src="docs/ebook/assets/capital-and-repayment-lanes.png"></p>
+<p>This chart explains which sources of capital fit which sectors, how repayment
+works, and which guardrails block hidden bailouts or forced domestic-market
+funding.</p>
+<h4 id="society-and-economy-feedback-loop_1">Society And Economy Feedback Loop</h4>
+<p><img alt="Society and economy feedback loop" src="docs/ebook/assets/society-economy-feedback-loop.png"></p>
+<p>This chart connects the business model to society: citizens benefit through
+wages, domestic goods, civic-work income, public services, credit histories, and
+dividends from audited surplus.</p>
+<h3 id="reading-rules">Reading Rules</h3>
+<p>The charts follow the same accounting discipline as the unified economic model:</p>
+<pre><code class="language-text">Booked cash
+  = sales
+  + leases
+  + PPAs
+  + fares
+  + platform fees
+  + service contracts
+  + export receipts
+  + taxes and levies actually settled
+
+Public benefit
+  = avoided imports
+  + avoided fuel cost
+  + lower congestion
+  + water security
+  + food resilience
+  + jobs and skills
+  + tourism second-order effects
+  + SME bankability
+  + cultural and social value
+</code></pre>
+<p>Only booked cash can satisfy debt service, maintenance, taxes, retained
+earnings, and dividends. Public benefits can justify strategy and investment
+priority, but they cannot be counted as distributable cash until they become
+settled revenue, fees, taxes, leases, service payments, or other auditable cash
+flows.</p>
+<h3 id="sector-coverage">Sector Coverage</h3>
+<p>The sector matrix covers:</p>
+<table>
+<thead>
+<tr>
+<th>Sector</th>
+<th>Primary business question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Materials, cement, glass, steel</td>
+<td>Can domestic heavy materials beat landed cost and support housing, rail, water, and public works?</td>
+</tr>
+<tr>
+<td>Petrochemicals, fertilizers, plastics</td>
+<td>Can Iraq process gas, sulfur, phosphate, and polymers into useful domestic and export inputs?</td>
+</tr>
+<tr>
+<td>Food, cold chain, agro-processing</td>
+<td>Can food imports and spoilage be reduced without pretending water-intensive self-sufficiency is always rational?</td>
+</tr>
+<tr>
+<td>Water, desalination, irrigation</td>
+<td>Can water security become a bankable equipment and service industry?</td>
+</tr>
+<tr>
+<td>Electronics, HVAC, controls</td>
+<td>Can assembly, repair, warranty, and energy efficiency replace import leakage and support every other sector?</td>
+</tr>
+<tr>
+<td>Mobility, machinery, tires, spares</td>
+<td>Can fleet uptime and repair capacity reduce imported parts dependency and downtime?</td>
+</tr>
+<tr>
+<td>Pharma and medical supplies</td>
+<td>Can certified medical production reduce health-sector stockout risk?</td>
+</tr>
+<tr>
+<td>Packaging, paper, furniture, rubber</td>
+<td>Can local packaging and public-fitout demand create labor-intensive supplier networks?</td>
+</tr>
+<tr>
+<td>Green power, grid, efficiency</td>
+<td>Can metered savings and PPAs lower the cost base of the economy?</td>
+</tr>
+<tr>
+<td>Rail, metro, logistics</td>
+<td>Can mobility and logistics produce fares, leases, availability payments, and lower system costs?</td>
+</tr>
+<tr>
+<td>Tourism, hospitality, heritage</td>
+<td>Can Iraq turn natural, religious, and cultural assets into formal service exports while protecting heritage?</td>
+</tr>
+<tr>
+<td>Digital, telecom, SME platforms</td>
+<td>Can payment evidence turn informal activity into bankable, taxable, privacy-bounded economic records?</td>
+</tr>
+<tr>
+<td>Precious-metals formalization</td>
+<td>Can high-value household savings and retail activity move into AML-supervised formal channels?</td>
+</tr>
+<tr>
+<td>Strategic controlled sustainment</td>
+<td>Can sensitive resilience supply chains become audited domestic capability without exposing unsafe details?</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cleanup-notes">Cleanup Notes</h3>
+<p>This chart pack also clarifies three repository boundaries:</p>
+<ul>
+<li>It replaces vague "industrial transformation" language with sector-specific
+  business chains.</li>
+<li>It keeps facility recycling visible as a first gate before greenfield capex.</li>
+<li>It separates cashflow charts from public-benefit charts so readers do not
+  confuse GDP, avoided imports, or social outcomes with dividend capacity.</li>
+</ul>
+<h1 id="part-12-unified-economic-model">Part 12: Unified Economic Model</h1>
 <h2 id="unified-economic-model_3">Unified Economic Model</h2>
 <p>This document ties the Cylinder Seal payment rail, policy primitives, INDHC,
 ministries, banks, producers, infrastructure projects, tourism, green capital,
 citizen dividends, and verified civic work into one economic model.</p>
 <p>Status: planning architecture. It is not a validated macroeconomic model, not a
 budget law, not a CBDC launch plan, and not a production-readiness claim.</p>
+<p>For the reviewer-facing business charts that map sector value chains, capital
+lanes, repayment paths, and society/economy feedback loops, see
+<a href="business-value-chain-charts.md">Business Value Chain Charts</a>.</p>
 <h3 id="one-sentence-model">One Sentence Model</h3>
 <p>Cylinder Seal makes economic activity visible and programmable; INDHC converts
 oil income and project debt into productive Iraqi assets; private producers and
@@ -4924,7 +5504,7 @@ taxes, levies, and service contracts; citizens receive wages, public services,
 credit access, verified civic-work income, and equal Digital IQD dividends from
 audited surplus.</p>
 <h3 id="system-boundary">System Boundary</h3>
-<p>The system has ten layers:</p>
+<p>The system has twelve layers:</p>
 <table>
 <thead>
 <tr>
@@ -4968,6 +5548,16 @@ audited surplus.</p>
 <td>Affordability and cashflow layer</td>
 <td>IMF-baseline capital envelopes, oil-equity affordability, project-loan sources, PPP/JV capital, recurring revenue channels, debt-service coverage, stress tests, and dividend math.</td>
 <td><code>docs/iraq-quantified-affordability-model.md</code></td>
+</tr>
+<tr>
+<td>Facility recycling and capital-markets layer</td>
+<td>Underutilized facility inventory, brownfield-versus-greenfield economics, international credit readiness, domestic bond/sukuk/equity readiness, PPP paths, and investor-protection gates.</td>
+<td><code>docs/facility-recycling-and-capital-markets.md</code></td>
+</tr>
+<tr>
+<td>Import, services, and diaspora expansion layer</td>
+<td>Missing import screens, attraction-based service production, and diaspora income, expertise, capital, marketing, and distribution channels.</td>
+<td><code>docs/import-services-diaspora-expansion.md</code></td>
 </tr>
 <tr>
 <td>Industrial champion governance layer</td>
@@ -5038,7 +5628,7 @@ services, jobs, and profit to measure.</p>
 </tr>
 <tr>
 <td>Tourism and diaspora channels</td>
-<td>Bring foreign currency and external demand into formal Iraqi goods and services.</td>
+<td>Bring foreign currency, external demand, expertise, marketing, and distribution access into formal Iraqi goods and services.</td>
 </tr>
 <tr>
 <td>International lenders and investors</td>
@@ -5480,9 +6070,24 @@ separate dashboard widgets.</p>
 <td>Import substitution, food substitution, and domestic supply view.</td>
 </tr>
 <tr>
+<td><code>FacilityRecyclingProjection</code></td>
+<td>Existing facility inventory, utilization, rehab capex, greenfield replacement cost, environmental liabilities, DSCR, FX cover, disclosure, investor protection</td>
+<td>Brownfield reuse, international credit readiness, domestic capital-market readiness, and finance-lane view.</td>
+</tr>
+<tr>
 <td><code>StrategicResilienceProjection</code></td>
 <td>Defense-sector licenses, electronics/HVAC output, water/desalination equipment, irrigation systems, food-substitution capacity, end-use controls</td>
 <td>Critical domestic capability and import-vulnerability view.</td>
+</tr>
+<tr>
+<td><code>TourismServiceClusterProjection</code></td>
+<td>Attractions, visitor counts, spend, formal payment capture, local procurement, safety, conservation, lodging, transport, guide capacity</td>
+<td>Booked service revenue, non-oil FX capture, local supplier demand, and second-order benefit view.</td>
+</tr>
+<tr>
+<td><code>DiasporaChannelProjection</code></td>
+<td>Diaspora region, channel, member conversion, product share, export orders, remittances, expertise, investment pipeline, marketing reach, compliance gates</td>
+<td>Diaspora income, formalized remittance, export distribution, expertise, investment, marketing, and no-dividend benefit view.</td>
 </tr>
 <tr>
 <td><code>AffordabilityProjection</code></td>
@@ -5542,19 +6147,26 @@ separate dashboard widgets.</p>
 </tbody>
 </table>
 <h3 id="dashboard-design">Dashboard Design</h3>
-<p>The unified dashboard should answer twelve questions:</p>
+<p>The unified dashboard should answer sixteen questions:</p>
 <ol>
 <li>Where did oil income go?</li>
 <li>Which investments are producing cash, jobs, and domestic supply?</li>
 <li>Which imports are being replaced credibly and at what cost?</li>
 <li>Which revenue streams are recurring, collected, contract-backed, and broad
    enough to fund debt service, levy, reinvestment, and dividends?</li>
+<li>Which existing Iraqi facilities can be recycled before greenfield capex is
+   approved, and which finance lane can fund them without hidden bailouts?</li>
 <li>Which critical sectors remain import-vulnerable: defense supply, electronics,
    HVAC, water/desalination, irrigation, and food staples?</li>
 <li>Which ministries are improving economic productivity?</li>
 <li>Which citizens, civic workers, and producers are becoming more bankable?</li>
 <li>Which green and rail assets are lowering system costs?</li>
 <li>How much non-oil foreign currency is being captured?</li>
+<li>Which attraction-based services are earning booked revenue without
+    exceeding safety, conservation, or carrying-capacity gates?</li>
+<li>Which diaspora channels are producing settled income, export orders,
+    expertise, investment leads, marketing conversion, or formalized
+    remittances?</li>
 <li>Is the citizen dividend funded by real surplus?</li>
 <li>Is productivity displacement being absorbed into verified civic work,
     training, and bridge-to-work pathways?</li>
@@ -5664,8 +6276,17 @@ separate dashboard widgets.</p>
 <li>Add <code>ComprehensiveBenefitProjection</code> using
    <a href="iraq-comprehensive-benefits-model.md">Iraq Comprehensive Benefits Model</a>.</li>
 <li>Add <code>ProductionCapacityProjection</code> for import substitution and local content.</li>
+<li>Add <code>FacilityRecyclingProjection</code> for underutilized facility screening,
+   brownfield-versus-greenfield economics, international credit readiness,
+   domestic bond/sukuk/equity readiness, and investor-protection gates.</li>
 <li>Add <code>StrategicResilienceProjection</code> for defense-controlled supply,
    electronics, HVAC, water/desalination, irrigation, and food substitution.</li>
+<li>Add <code>TourismServiceClusterProjection</code> for attraction-based services, formal
+   payment capture, visitor capacity, conservation, local procurement, and
+   second-order benefit separation.</li>
+<li>Add <code>DiasporaChannelProjection</code> for remittance formalization, Iraqi-product
+   demand, export distribution, expertise, investment pipeline, marketing, and
+   compliance gates.</li>
 <li>Add <code>MinistryPerformanceProjection</code> for service contracts and budget feedback.</li>
 <li>Add <code>CivicWorkProjection</code> for verified tasks, payments, training, impact,
    audits, and bridge-to-work outcomes.</li>
@@ -5674,6 +6295,65 @@ separate dashboard widgets.</p>
 <li>Gate all public claims behind source labels, model assumptions, and confidence
    levels from <code>docs/economic-assumptions.md</code>.</li>
 </ol>
+<p>Initial implementation status:</p>
+<ul>
+<li>Step 2 has begun in <code>crates/cs-analytics/src/economic_operating.rs</code> and
+  <code>migrations/20260702000001_economic_operating_kernel.sql</code>.</li>
+<li>Step 3 has begun in <code>crates/cs-analytics/src/sovereign_holding.rs</code> and
+  <code>migrations/20260703000001_sovereign_holding_capital_plan.sql</code>.</li>
+<li>The step-3 implementation also adds first-pass holding-company governance
+  gates for ownership separation, board independence, audit transparency,
+  citizen share protection, competitive neutrality, related-party exposure,
+  procurement integrity, political instruction controls, and citizen appeals.</li>
+<li>Step 4 has begun in <code>crates/cs-analytics/src/economic_cycle.rs</code> and
+  <code>migrations/20260704000001_economic_cycle_projection.sql</code>. It tracks the
+  economic loop from oil-equity allocation and external capital to booked
+  portfolio revenue, treasury revenue, citizen income, domestic recirculation,
+  import leakage, non-oil FX capture, dividend cover, and household income.</li>
+<li>Step 5 has begun in <code>crates/cs-analytics/src/growth_impact.rs</code> and
+  <code>migrations/20260705000001_growth_impact_projection.sql</code>. It mirrors the
+  integrated growth timeline as auditable scenario projections, sector
+  contribution rows, and claim-audit labels so high-growth statements remain
+  source-tagged and caveated.</li>
+<li>Step 6 has begun in <code>crates/cs-analytics/src/comprehensive_benefits.rs</code> and
+  <code>migrations/20260706000001_comprehensive_benefits_projection.sql</code>. It turns
+  the 2036/2040/2050 comprehensive model into benefit-ledger entries and
+  claim-audit records, separating booked cash from real output, infrastructure,
+  environmental resilience, social capability, cultural tourism, and citizen
+  distribution metrics.</li>
+<li>Step 7 has begun in <code>crates/cs-analytics/src/production_capacity.rs</code> and
+  <code>migrations/20260707000001_production_capacity_projection.sql</code>. It tracks
+  effective output, utilization, local content, quality certification,
+  delivered-cost discipline, booked domestic sales, verified import
+  substitution, local-content-adjusted FX savings, public procurement
+  dependence, and production-capacity gates.</li>
+<li>Step 8 has begun in <code>crates/cs-analytics/src/facility_recycling.rs</code> and
+  <code>migrations/20260711000001_facility_recycling_projection.sql</code>. It screens
+  underutilized facilities by utilization gain, rehabilitation capex,
+  greenfield replacement cost, environmental liabilities, DSCR, FX cover,
+  revenue-contract cover, maintenance reserves, government-guarantee exposure,
+  international credit readiness, domestic capital-market readiness, and
+  recommended finance lane.</li>
+<li>Step 9 has begun in <code>crates/cs-analytics/src/strategic_resilience.rs</code> and
+  <code>migrations/20260708000001_strategic_resilience_projection.sql</code>. It tracks
+  critical domestic capability for regulated defense sustainment, electronics,
+  HVAC, water/desalination equipment, irrigation equipment, food staples, rail
+  components, grid equipment, and medical supplies while enforcing license,
+  end-use, export-control, audit-boundary, supplier-diversification, and
+  responsible-supply-chain gates.</li>
+<li>Step 10 has begun in <code>crates/cs-analytics/src/tourism_services.rs</code> and
+  <code>migrations/20260709000001_tourism_services_projection.sql</code>. It quantifies
+  services built around pilgrimage, heritage, marshlands, mountains, rivers,
+  urban culture, medical, education, and business travel assets while enforcing
+  safety, conservation, capacity, formal-payment, local-procurement, guide,
+  lodging/transport, and maintenance-reserve gates.</li>
+<li>Step 11 has begun in <code>crates/cs-analytics/src/diaspora_channels.rs</code> and
+  <code>migrations/20260710000001_diaspora_channels_projection.sql</code>. It separates
+  diaspora booked income, formalized remittances, export distribution revenue,
+  expertise value, investment pipeline, and marketing attribution while
+  enforcing KYC/AML, sanctions, quality, consumer-protection, privacy,
+  distribution, conversion, and investment-suitability gates.</li>
+</ul>
 <h3 id="bottom-line_5">Bottom Line</h3>
 <p>Cylinder Seal should be read as one economic operating system:</p>
 <pre><code class="language-text">Oil and international capital
@@ -5685,7 +6365,7 @@ separate dashboard widgets.</p>
 </code></pre>
 <p>The point is not only to digitize money. The point is to make Iraq's economic
 feedback loops visible, governable, productive, and citizen-owned.</p>
-<h1 id="part-12-national-dividend-holding-company">Part 12: National Dividend Holding Company</h1>
+<h1 id="part-13-national-dividend-holding-company">Part 13: National Dividend Holding Company</h1>
 <h2 id="national-dividend-holding-company-architecture">National Dividend Holding Company Architecture</h2>
 <p>This document adds a policy architecture to Cylinder Seal: Iraq's oil income is
 not treated as a direct ministry-funding stream. It is treated as national
@@ -5721,7 +6401,7 @@ returns.</p>
 capacity into paid, verified public value, training, and bridge-to-work records.
 Dividends should not be used to hide unemployment, and civic wages should not be
 funded by quietly raiding the dividend pool.</p>
-<h3 id="source-discipline_3">Source Discipline</h3>
+<h3 id="source-discipline_4">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -6151,7 +6831,7 @@ productive investment, ministry funding, and citizen capital income.</p>
 <p>See <a href="indhc-10-year-plan.md">INDHC ten-year industrial and infrastructure plan</a>
 for the proposed investment program, capital stack, staffing model, sector
 priorities, reinvestment waterfall, and implementation primitives.</p>
-<h1 id="part-13-indhc-ten-year-plan">Part 13: INDHC Ten-Year Plan</h1>
+<h1 id="part-14-indhc-ten-year-plan">Part 14: INDHC Ten-Year Plan</h1>
 <h2 id="indhc-ten-year-industrial-and-infrastructure-plan">INDHC Ten-Year Industrial And Infrastructure Plan</h2>
 <p>This document translates the National Dividend Holding Company architecture into
 a ten-year investment plan. It is a planning scenario, not a budget law, a
@@ -6188,8 +6868,11 @@ for the staged plan to move duplicative ministry functions into regulators,
 service contracts, municipalities, INDHC subsidiaries, or sunset agencies.
 See <a href="digitally-governed-industrial-champions.md">Digitally Governed Industrial Champions</a>
 for the anti-capture model governing sectoral champion groups, conditional
-demand, conditional credit, export discipline, competition gates, and debt caps.</p>
-<h3 id="source-discipline_4">Source Discipline</h3>
+demand, conditional credit, export discipline, competition gates, and debt caps.
+See <a href="facility-recycling-and-capital-markets.md">Facility Recycling And Capital Markets</a>
+for the brownfield-first registry, rehabilitation screening, international
+credit routes, and domestic bond/sukuk/equity financing logic.</p>
+<h3 id="source-discipline_5">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -6245,6 +6928,21 @@ demand, conditional credit, export discipline, competition gates, and debt caps.
 <td><a href="https://oec.world/en/profile/country/irq">OEC Iraq profile</a></td>
 </tr>
 <tr>
+<td>Iraq's National Investment Commission lists rehabilitation or development opportunities in paper, cement, food, vegetable oils, dairy, fertilizers, plastics, batteries, cooling systems, controls, glass, tires, tractors, transformers, rubber, and medical supplies.</td>
+<td>Existing Iraqi facilities should be screened for reuse before greenfield spending is approved.</td>
+<td><a href="https://investpromo.gov.iq/sectors/industry-and-manufacturing-sector/industry-and-manufacturing-sector-opportunities/">National Investment Commission industrial opportunities</a></td>
+</tr>
+<tr>
+<td>IFC announced in 2025 that it had invested and mobilized more than USD 2.5B in Iraq since 2005 and announced up to USD 1B in new investment, including manufacturing, food, infrastructure, sustainable finance, capital-market support, and airport PPP work.</td>
+<td>International credit should focus on bankable, disclosed, revenue-backed projects rather than general fiscal support.</td>
+<td><a href="https://www.ifc.org/en/pressroom/2025/ifc-marks-20-years-of-partnerships-for-impact-in-iraq-announces-1bn-in-new-investm">IFC Iraq partnership announcement, 2025</a></td>
+</tr>
+<tr>
+<td>Iraq has a securities regulator and market infrastructure, including Iraqi Securities Commission supervision and Iraqi Depository Center rules for securities, government bonds, foreign investor trading, and AML/CFT.</td>
+<td>Domestic bonds, sukuk, and listed minority equity can be a later funding lane after audited disclosure, investor protection, and trustee/market rules are ready.</td>
+<td><a href="https://www.isc.gov.iq/en">Iraqi Securities Commission</a>, <a href="https://csd.gov.iq/en/rules-and-instructions/">Iraqi Depository Center rules</a></td>
+</tr>
+<tr>
 <td>FAO GIEWS reports Iraq's wheat import requirements are still material even when domestic harvests are strong.</td>
 <td>Food substitution should focus on storage, milling, feed, irrigation, productivity, and staples rather than pretending imports disappear immediately.</td>
 <td><a href="https://www.fao.org/giews/countrybrief/country/IRQ/pdf_archive/IRQ_Archive.pdf">FAO GIEWS Iraq country brief archive</a></td>
@@ -6280,6 +6978,9 @@ envelope, dividend formula, debt capacity, or legal design.</p>
 <li>Build profitable Iraqi companies that meet internal needs first.</li>
 <li>Substitute imports where Iraq has a defensible cost, logistics, security,
    raw-material, water, food, or demand advantage.</li>
+<li>Screen and recycle underutilized Iraqi facilities before greenfield projects
+   unless reuse fails legal, technical, environmental, economic, or financing
+   gates.</li>
 <li>Process Iraqi raw materials domestically before they are consumed or exported.</li>
 <li>Build strategic domestic manufacturing in defense-controlled supply chains,
    electronics, HVAC, water/desalination, irrigation, and food staples.</li>
@@ -6312,13 +7013,13 @@ a payroll vehicle.</p>
 <tr>
 <td>Oil-income equity capital</td>
 <td style="text-align: right;">USD 120B</td>
-<td>First-loss equity, domestic capital projects, strategic assets, training, early works</td>
-<td>Set by statute as a capped share of oil receipts after stabilization allocation.</td>
+<td>First-loss equity, domestic capital projects, strategic assets, training, early works, legal cleanup and engineering audits for facility recycling</td>
+<td>Set by statute as a capped share of oil receipts after stabilization allocation; no dividend from asset revaluation.</td>
 </tr>
 <tr>
 <td>Concessional and MDB loans</td>
 <td style="text-align: right;">USD 22B</td>
-<td>Water, grid, climate adaptation, public transport, skills, governance systems</td>
+<td>Water, grid, climate adaptation, public transport, skills, governance systems, and rehabilitation packages with public-good value</td>
 <td>Only for projects with public-good value and transparent repayment source.</td>
 </tr>
 <tr>
@@ -6330,20 +7031,20 @@ a payroll vehicle.</p>
 <tr>
 <td>Export-credit and supplier finance</td>
 <td style="text-align: right;">USD 18B</td>
-<td>Rail equipment, factories, grid equipment, industrial machinery</td>
+<td>Rail equipment, factories, grid equipment, industrial machinery, rehab machinery, and certified production lines</td>
 <td>Requires technology transfer, Iraqi staff training, and open-interface procurement.</td>
 </tr>
 <tr>
 <td>Project finance / PPP debt</td>
 <td style="text-align: right;">USD 10B</td>
-<td>Revenue assets with user fees, offtake contracts, industrial parks, ports, tourism</td>
+<td>Revenue assets with user fees, offtake contracts, industrial parks, ports, tourism, and private-operation concessions for rehabilitated facilities</td>
 <td>No hidden ministry bailout; project debt service coverage ratio above 1.30.</td>
 </tr>
 <tr>
 <td>Local IQD infrastructure bonds</td>
 <td style="text-align: right;">USD 0-10B equivalent</td>
-<td>Optional domestic savings instrument after market validation</td>
-<td>No forced bank purchases; CBI monetary-policy compatibility required.</td>
+<td>Optional domestic savings instrument after market validation; later-stage funding for audited, ring-fenced local-currency assets</td>
+<td>No forced bank purchases; CBI monetary-policy compatibility required; trustee, disclosure, and investor-protection rules must be in force.</td>
 </tr>
 </tbody>
 </table>
@@ -6442,13 +7143,13 @@ oil receipts, debt capacity, governance, and project delivery improve.</p>
 <td>1</td>
 <td style="text-align: right;">USD 8B</td>
 <td style="text-align: right;">USD 2B</td>
-<td>Pass enabling law, create Oil Income Lockbox, appoint board, open public project registry, launch Iraqi-only permanent staffing rule, define defense-industrial legal controls, begin feasibility studies, start quick-rehab projects in cement, food processing, grid loss reduction, and tourism services.</td>
+<td>Pass enabling law, create Oil Income Lockbox, appoint board, open public project and facility-reuse registries, launch Iraqi-only permanent staffing rule, define defense-industrial legal controls, begin feasibility studies, start quick-rehab projects in cement, food processing, grid loss reduction, and tourism services.</td>
 </tr>
 <tr>
 <td>2</td>
 <td style="text-align: right;">USD 10B</td>
 <td style="text-align: right;">USD 4B</td>
-<td>Create first subsidiaries, launch INDHC Academy, start cash formalization systems, issue first green sukuk pilot, complete open rail reference architecture, begin Baghdad metro co-investment, and design electronics/HVAC/water-equipment procurement localization.</td>
+<td>Create first subsidiaries, launch INDHC Academy, start cash formalization systems, issue first green sukuk pilot, complete open rail reference architecture, package first facility-recycling candidates for IFC/MDB/ECA/local-bank and domestic sukuk feasibility, begin Baghdad metro co-investment, and design electronics/HVAC/water-equipment procurement localization.</td>
 </tr>
 <tr>
 <td>3</td>
@@ -6535,6 +7236,9 @@ and the machine-readable revenue-channel table is
   inputs, plastics, glass, pipes, packaging, and industrial components.</li>
 <li>Electronics, HVAC, meters, pumps, controls, water equipment, spare parts, and
   maintenance services.</li>
+<li>Vehicles and auto parts, industrial machinery spares, telecom equipment,
+  refined-fuel/LPG logistics, rubber/tires, furniture/prefab, paper/board, and
+  formal precious-metals services where cost, compliance, and safety gates pass.</li>
 <li>Regulated defense sustainment and dual-use maintenance under statutory audit
   and end-use controls.</li>
 <li>Food processing, cold chain, storage, milling, feed, packaging, farmer
@@ -7137,6 +7841,111 @@ subsidiary cash.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="pillar-0-facility-recycling-before-greenfield-build">Pillar 0: Facility Recycling Before Greenfield Build</h3>
+<p>INDHC should treat underutilized Iraqi facilities as a national asset class.
+Before approving a new plant, depot, hotel school, processing line, logistics
+hub, or industrial park, the system should ask whether an existing facility can
+be rehabilitated faster, cheaper, cleaner, and with less import leakage.</p>
+<p>This is not a blanket instruction to keep obsolete assets alive. A facility is
+recycled only when legal title, asset registration, engineering audit,
+environmental liability, labor transition, revenue proof, DSCR, FX matching,
+maintenance reserve, disclosure, investor protection, and government-guarantee
+limits pass. If those gates fail, the project is restructured, held for public
+rehabilitation, concessioned, or rejected.</p>
+<h4 id="brownfield-facility-map">Brownfield Facility Map</h4>
+<table>
+<thead>
+<tr>
+<th>Sector</th>
+<th>Existing-facility search</th>
+<th>Preferred finance lane</th>
+<th>Main advantage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Materials, cement, glass, brick, steel, pipes</td>
+<td>Cement, paper, glass, tire, rubber, transformer, and construction-material facilities.</td>
+<td>Oil-equity cleanup, local-bank syndicate, domestic project sukuk after audited sales.</td>
+<td>Faster infrastructure supply and lower greenfield capex.</td>
+</tr>
+<tr>
+<td>Food, cold chain, agro-processing</td>
+<td>Sugar, vegetable oils, dairy, grain storage, dates, packaging, feed, poultry, tomato processing.</td>
+<td>Blended MDB/IFC/PPP finance, local working-capital banks, diaspora distribution channels.</td>
+<td>Reduces food import leakage and spoilage while creating rural demand.</td>
+</tr>
+<tr>
+<td>Petrochemicals, fertilizers, plastics</td>
+<td>Fertilizer, plastics, sulfur/phosphate, pipes, packaging film, industrial chemicals.</td>
+<td>ECA finance, project debt, strategic equity, export-linked offtake.</td>
+<td>Processes Iraqi raw materials before domestic use or export.</td>
+</tr>
+<tr>
+<td>Electronics, HVAC, electrical controls</td>
+<td>Cooling systems, batteries, control cabinets, transformers, meters, telecom cabinets, repair depots.</td>
+<td>ECA and supplier finance with technology transfer; domestic bonds after cashflow is proven.</td>
+<td>Substitutes visible imports and supports rail, grid, water, hotels, and industry.</td>
+</tr>
+<tr>
+<td>Water, desalination, irrigation</td>
+<td>Pump, pipe, filter, valve, meter, treatment, and irrigation-equipment workshops.</td>
+<td>MDB/concessional loans, green sukuk, availability-payment contracts.</td>
+<td>Turns water security into bankable industrial production.</td>
+</tr>
+<tr>
+<td>Rail, logistics, tourism, civic assets</td>
+<td>Depots, warehouses, stations, municipal buildings, hotels, heritage-adjacent facilities.</td>
+<td>PPP/concession, land leases, station retail, domestic project sukuk.</td>
+<td>Reuses land and buildings while improving services and visitor capacity.</td>
+</tr>
+<tr>
+<td>Strategic controlled sustainment</td>
+<td>Vehicle, medical, protective-equipment, secure-maintenance, and logistics depots.</td>
+<td>Oil equity and controlled procurement only until statutory review and audit pass.</td>
+<td>Builds resilience without exposing sensitive technical details.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="finance-lane-decision">Finance-Lane Decision</h4>
+<table>
+<thead>
+<tr>
+<th>Gate result</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Title, registry, engineering, or environmental gate fails</td>
+<td>No external finance; use limited oil-equity cleanup only if public value justifies it.</td>
+</tr>
+<tr>
+<td>Reuse advantage is negative after liabilities</td>
+<td>Prefer greenfield or cancel the project.</td>
+</tr>
+<tr>
+<td>Revenue contracts cover at least half of expected revenue and DSCR is above 1.30</td>
+<td>Eligible for international credit, ECA, IFC-style private finance, or project debt.</td>
+</tr>
+<tr>
+<td>Local-currency cashflow is stable and disclosure is ready</td>
+<td>Eligible for domestic infrastructure bond, project sukuk, or listed minority equity.</td>
+</tr>
+<tr>
+<td>Private operator can improve utilization without asset stripping</td>
+<td>Eligible for PPP or concession with audited service and employment obligations.</td>
+</tr>
+<tr>
+<td>Project is socially valuable but not yet bankable</td>
+<td>Use public rehabilitation first; do not book dividends or debt capacity from it.</td>
+</tr>
+</tbody>
+</table>
+<p>The key principle is that recycled assets can receive oil-equity support for
+cleanup, audits, workforce transition, and first-loss capital, but they cannot
+receive hidden guarantees, automatic debt rollovers, or dividend credit from
+asset revaluation. Cash dividends start only from collected operating surplus.</p>
 <h3 id="pillar-1-import-substitution-and-raw-material-post-processing">Pillar 1: Import Substitution And Raw-Material Post-Processing</h3>
 <p>INDHC should not attempt to make everything. It should target imports where Iraq
 has durable advantages: local demand, heavy transport costs, raw materials, gas
@@ -7190,10 +7999,34 @@ and regional markets.</p>
 <td>Domestic security supply first; exports only under explicit law and license.</td>
 </tr>
 <tr>
+<td>Vehicles and auto parts</td>
+<td>Public fleets, logistics, public transport, agriculture, private maintenance</td>
+<td>Fleet refurbishment, tires, filters, batteries, bus assembly, body repair, parts warehouses, diagnostics</td>
+<td>Domestic first; regional maintenance services only after certification.</td>
+</tr>
+<tr>
+<td>Industrial machinery and spares</td>
+<td>Factory uptime, rail, water, agriculture, construction, oilfield services</td>
+<td>Tool rooms, rebuild centers, motors, pumps, valves, bearings, fabrication, calibration, spares</td>
+<td>Regional repair and spares market where quality and delivery are proven.</td>
+</tr>
+<tr>
+<td>Refined fuel, LPG, and energy logistics</td>
+<td>Fuel reliability, cooking gas, transport, industrial feedstock</td>
+<td>Storage, metering, blending, refinery maintenance, LPG cylinder safety, distribution controls</td>
+<td>Mostly domestic resilience; petrochemical links where viable.</td>
+</tr>
+<tr>
 <td>Electronics and electrical equipment</td>
 <td>Rail, grid, buildings, SMEs, public services</td>
 <td>Switchgear, meters, control cabinets, cables, circuit boards, sensors, appliance components</td>
 <td>Regional components after certification and scale.</td>
+</tr>
+<tr>
+<td>Telecom and broadcast equipment</td>
+<td>Connectivity, public services, business services, tourism, education</td>
+<td>Towers, cabinets, fiber accessories, routers/CPE assembly, repair, public connectivity kits</td>
+<td>Regional installation/maintenance services after cyber review.</td>
 </tr>
 <tr>
 <td>HVAC and cooling systems</td>
@@ -7236,6 +8069,36 @@ and regional markets.</p>
 <td>Public procurement, tourism, retail</td>
 <td>Cotton/wool blending, uniforms, PPE, hotel linens</td>
 <td>Domestic procurement and niche export.</td>
+</tr>
+<tr>
+<td>Apparel and footwear</td>
+<td>Public procurement, school needs, workwear, tourism retail</td>
+<td>Uniforms, shoes, PPE, hotel linens, cultural retail, SME sewing networks</td>
+<td>Diaspora and niche cultural export channels.</td>
+</tr>
+<tr>
+<td>Furniture and prefabricated buildings</td>
+<td>Schools, hospitals, hotels, offices, housing, civic works</td>
+<td>School/hospital furniture, office systems, hotel fit-out, modular public buildings</td>
+<td>Domestic public works first; regional fit-out only if cost-competitive.</td>
+</tr>
+<tr>
+<td>Paper, board, and secure printed goods</td>
+<td>Food packaging, e-commerce, public forms, retail, schools</td>
+<td>Cartons, labels, sanitary paper, secure forms, recycling-linked board</td>
+<td>Domestic packaging and public administration demand.</td>
+</tr>
+<tr>
+<td>Rubber products and tires</td>
+<td>Fleets, logistics, agriculture, machinery, water systems</td>
+<td>Retreading, fleet tires, seals, hoses, gaskets, recycling</td>
+<td>Domestic replacement market before export.</td>
+</tr>
+<tr>
+<td>Jewellery, gold, and precious metals formalization</td>
+<td>Household savings, retail trade, anti-leakage controls</td>
+<td>Assay, hallmarking, refinery services, e-receipts, AML-supervised markets</td>
+<td>Formalization and trusted retail, not subsidized gold speculation.</td>
 </tr>
 </tbody>
 </table>
@@ -7655,12 +8518,24 @@ before any production implementation:</p>
 <td>Confirms permanent staff are Iraqi citizens and tracks training transfer.</td>
 </tr>
 <tr>
+<td><code>FacilityRecyclingProjection</code></td>
+<td>Existing facility inventory, utilization gain, rehab capex, greenfield replacement cost, liabilities, DSCR, FX cover, credit readiness, domestic capital-market readiness, and finance-lane gates.</td>
+</tr>
+<tr>
 <td><code>StrategicSectorControl</code></td>
 <td>Legal authority, license, end-use controls, classification boundary, and audit scope for defense and dual-use manufacturing.</td>
 </tr>
 <tr>
 <td><code>WaterFoodSecurityProject</code></td>
 <td>Desalination, irrigation, water-treatment, cold-chain, and food-substitution project records.</td>
+</tr>
+<tr>
+<td><code>TourismServiceClusterProjection</code></td>
+<td>Attraction-based service production, booked tourism/service revenue, non-oil FX capture, local supplier demand, safety, conservation, carrying-capacity, and maintenance gates.</td>
+</tr>
+<tr>
+<td><code>DiasporaChannelProjection</code></td>
+<td>Diaspora remittances, Iraqi-product demand, export distribution, expertise, investment pipeline, marketing attribution, and compliance gates.</td>
 </tr>
 <tr>
 <td><code>LoanFacility</code></td>
@@ -7696,6 +8571,47 @@ before any production implementation:</p>
 </tr>
 </tbody>
 </table>
+<p>Initial executable coverage now exists in
+<code>crates/cs-analytics/src/sovereign_holding.rs</code>, with persistence tables in
+<code>migrations/20260703000001_sovereign_holding_capital_plan.sql</code>. This covers
+capital-stack use rules, milestone payment release checks, revenue-stream
+bankability, gross-profit levy calculation, retained-earnings allocation,
+equal dividend distribution math, and first-pass holding-company governance
+gates.</p>
+<p>Production-capacity coverage has begun in
+<code>crates/cs-analytics/src/production_capacity.rs</code>, with persistence tables in
+<code>migrations/20260707000001_production_capacity_projection.sql</code>. This now
+includes the major import-gap screens for vehicles/auto parts, industrial
+machinery, refined fuel/LPG, jewellery and precious-metals formalization,
+medical devices, telecom equipment, fertilizers/chemicals, plastics/packaging,
+furniture/prefab, paper/board, rubber/tires, and apparel/footwear.</p>
+<p>Facility-recycling coverage has begun in
+<code>crates/cs-analytics/src/facility_recycling.rs</code>, with persistence tables in
+<code>migrations/20260711000001_facility_recycling_projection.sql</code>. It screens
+underutilized facilities across materials, food, petrochemicals, electronics,
+HVAC, water, irrigation, tourism, rail/logistics, digital infrastructure,
+precious-metals formalization, and controlled sustainment before greenfield
+capex is approved.</p>
+<p>Strategic resilience coverage has also begun in
+<code>crates/cs-analytics/src/strategic_resilience.rs</code>, with persistence tables in
+<code>migrations/20260708000001_strategic_resilience_projection.sql</code>. This keeps
+regulated defense sustainment and dual-use sectors behind legal authority,
+license, end-use, export-control, due-diligence, audit-boundary, cybersecurity,
+quality, supplier-diversification, and civilian-spillover gates.</p>
+<p>Tourism-services coverage has begun in
+<code>crates/cs-analytics/src/tourism_services.rs</code>, with persistence tables in
+<code>migrations/20260709000001_tourism_services_projection.sql</code>. It turns natural,
+religious, cultural, medical, education, and business-service attractions into
+booked-revenue, non-oil-FX, local-procurement, and second-order-benefit
+projections with safety, conservation, capacity, guide, lodging/transport, and
+maintenance gates.</p>
+<p>Diaspora-channel coverage has begun in
+<code>crates/cs-analytics/src/diaspora_channels.rs</code>, with persistence tables in
+<code>migrations/20260710000001_diaspora_channels_projection.sql</code>. It treats the
+diaspora as a source of formal remittances, Iraqi-product demand, export
+distribution, expertise, investment pipeline, marketing conversion, and tourism
+referrals while keeping AML, sanctions, privacy, consumer-protection, quality,
+distribution, conversion, and investor-suitability gates explicit.</p>
 <p>Dashboard views:</p>
 <ul>
 <li>Oil Income Lockbox.</li>
@@ -7703,6 +8619,11 @@ before any production implementation:</p>
 <li>Sector profitability.</li>
 <li>Debt exposure and currency risk.</li>
 <li>Revenue by stream, currency, collection quality, and recurrence.</li>
+<li>Facility recycling, greenfield avoidance, international credit readiness, and
+  domestic bond/sukuk/equity readiness.</li>
+<li>Major import-gap coverage and delivered-cost comparison.</li>
+<li>Attraction-based services, non-oil FX capture, and conservation gates.</li>
+<li>Diaspora channels by income, expertise, capital, marketing, and distribution.</li>
 <li>Iraqi employment and training transfer.</li>
 <li>Import substitution scoreboard.</li>
 <li>Strategic resilience manufacturing dashboard.</li>
@@ -7801,7 +8722,897 @@ productive-capital machine:</p>
 <li>profits are reinvested into domestic capacity;</li>
 <li>remaining distributable surplus is paid as a Digital IQD citizen dividend.</li>
 </ul>
-<h1 id="part-14-digitally-governed-industrial-champions">Part 14: Digitally Governed Industrial Champions</h1>
+<h1 id="part-15-import-services-and-diaspora-expansion">Part 15: Import, Services, And Diaspora Expansion</h1>
+<h2 id="import-services-and-diaspora-expansion">Import, Services, And Diaspora Expansion</h2>
+<p>Status: strategy and implementation-extension note. This is not a forecast, a
+trade policy order, a tourism concession, a migration policy, or an investment
+solicitation. It defines what Cylinder Seal should measure before Iraq treats
+import substitution, attraction-based services, or diaspora channels as real
+economic operating levers.</p>
+<h3 id="source-discipline_6">Source Discipline</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>How it is used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://oec.world/en/profile/country/irq">OEC Iraq profile</a> and <a href="https://wits.worldbank.org/">World Bank WITS/Comtrade</a></td>
+<td>Screens large import categories such as vehicles, refined petroleum, broadcasting/telecom equipment, air conditioners, medicaments, rice, jewellery/gold, machinery, and other finished goods.</td>
+</tr>
+<tr>
+<td><a href="https://www.lloydsbanktrade.com/en/market-potential/iraq/trade-profile">International Trade Portal Iraq trade profile</a></td>
+<td>Cross-checks Iraq's broad merchandise and services trade structure, including goods imports, services imports, oil-export dependence, and primary import categories.</td>
+</tr>
+<tr>
+<td><a href="https://www.trade.gov/country-commercial-guides/iraq-market-overview">Trade.gov Iraq market overview</a></td>
+<td>Supports the reform rationale: Iraq needs private-sector productivity, banking reform, and less oil-price dependence.</td>
+</tr>
+<tr>
+<td><a href="https://whc.unesco.org/en/list/1481/">UNESCO Ahwar of Southern Iraq page</a> and <a href="https://iraq.un.org/en/116172-water-conservation-and-human-rights-are-inseparable-iraq%E2%80%99s-marshlands-call-action-world">UN Iraq marshlands note</a></td>
+<td>Grounds the attraction-based services model in real natural, cultural, and ecological assets while requiring conservation gates.</td>
+</tr>
+<tr>
+<td><a href="https://www.worldbank.org/en/topic/migration/brief/remittances-knomad">World Bank remittances work</a> and <a href="https://data.worldbank.org/indicator/BX.TRF.PWKR.CD.DT?locations=IQ">World Bank remittance data</a></td>
+<td>Frames diaspora money as a formalization, consumer-protection, AML, and payment-cost problem, not merely a capital slogan.</td>
+</tr>
+</tbody>
+</table>
+<p>The data sources justify screening sectors. They do not prove project
+profitability. Cylinder Seal should still require delivered-cost comparisons,
+quality evidence, demand contracts, compliance checks, and source-tagged cash
+settlement before any claim enters the dividend waterfall.</p>
+<p>Related layer: <a href="facility-recycling-and-capital-markets.md">Facility Recycling And Capital Markets</a>
+adds the brownfield-first screen. For every import, service, tourism, diaspora,
+or export-distribution opportunity below, Cylinder Seal should first test
+whether an underutilized Iraqi facility, depot, workshop, hotel, warehouse, or
+market infrastructure asset can be rehabilitated and financed before greenfield
+capex is approved.</p>
+<h3 id="import-areas-that-were-under-specified">Import Areas That Were Under-Specified</h3>
+<p>The existing plan already covered food, water, irrigation, pharma, electronics,
+HVAC, construction materials, petrochemicals, fertilizers, textiles, raw
+materials, and regulated defense sustainment. The remaining large import areas
+that needed explicit treatment were:</p>
+<table>
+<thead>
+<tr>
+<th>Import area</th>
+<th>What to domesticate first</th>
+<th>Why this is the right first move</th>
+<th>Main gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vehicles and auto parts</td>
+<td>Maintenance depots, tires, batteries, filters, body repair, fleet refurbishment, municipal buses, light assembly.</td>
+<td>Full passenger-car manufacturing is too capital-intensive at first, but Iraq has immediate fleet, logistics, public transport, and maintenance demand.</td>
+<td>Delivered cost, warranty performance, parts availability, safety certification.</td>
+</tr>
+<tr>
+<td>Industrial machinery</td>
+<td>Repair, rebuild, spare parts, pumps, motors, valves, control cabinets, fabrication, tool rooms.</td>
+<td>Machinery localization should begin with uptime and maintenance rather than pretending Iraq can replace every imported machine immediately.</td>
+<td>Local technician certification, spares inventory, downtime reduction.</td>
+</tr>
+<tr>
+<td>Refined fuel and LPG</td>
+<td>Storage, blending, distribution metering, refinery maintenance, LPG cylinder safety, petrochemical integration.</td>
+<td>This is not ordinary import substitution; it is energy-system reliability, leakage control, and downstream value capture.</td>
+<td>Safety, metering, environmental compliance, transparent pricing.</td>
+</tr>
+<tr>
+<td>Telecom and broadcast equipment</td>
+<td>Towers, cabinets, fiber accessories, routers/CPE assembly, repair centers, public-service connectivity kits.</td>
+<td>Iraq can capture installation, maintenance, assembly, and network-service value before advanced chip production.</td>
+<td>Cybersecurity review, vendor openness, standards compliance.</td>
+</tr>
+<tr>
+<td>Jewellery, gold, and precious metals</td>
+<td>Assay, hallmarking, refinery services, e-receipts, formal retail settlement, AML-supervised gold markets.</td>
+<td>The goal is formalization and leakage control, not subsidized gold manufacturing.</td>
+<td>AML/CFT, beneficial ownership, source-of-funds, consumer protection.</td>
+</tr>
+<tr>
+<td>Plastics and packaging</td>
+<td>Food packaging, irrigation pipe, construction films, containers, industrial packaging, recycling.</td>
+<td>Domestic food, agriculture, water, and construction plans all need packaging and plastic inputs.</td>
+<td>Environmental compliance, quality standards, feedstock discipline.</td>
+</tr>
+<tr>
+<td>Furniture and prefabricated buildings</td>
+<td>School furniture, hospital furniture, modular public buildings, hotel fit-out, office systems.</td>
+<td>Public works, tourism, schools, hospitals, and housing create repeatable anchor demand.</td>
+<td>Fire/safety standards, local wood/metal inputs, procurement competition.</td>
+</tr>
+<tr>
+<td>Paper and paperboard</td>
+<td>Packaging board, labels, cartons, public forms, sanitary paper, recycling.</td>
+<td>Domestic food processing and e-commerce need reliable packaging; public administration needs secure forms.</td>
+<td>Recycling rate, cost parity, quality certification.</td>
+</tr>
+<tr>
+<td>Rubber and tires</td>
+<td>Retreading, tire recycling, fleet tires, seals, hoses, industrial rubber parts.</td>
+<td>Public fleets, logistics, rail, agriculture, and machinery need repeat maintenance inputs.</td>
+<td>Safety, warranty, environmental handling.</td>
+</tr>
+<tr>
+<td>Apparel and footwear</td>
+<td>Uniforms, workwear, shoes, PPE, hotel linens, school textiles, cultural retail.</td>
+<td>Public procurement and tourism hospitality create quick local labor absorption.</td>
+<td>Quality, labor standards, SME participation.</td>
+</tr>
+<tr>
+<td>Medical devices and technical apparatus</td>
+<td>Hospital consumables, diagnostic accessories, repair/calibration, oxygen systems, sterilization equipment.</td>
+<td>Health resilience improves before high-complexity device manufacturing is attempted.</td>
+<td>Certification, traceability, safety, calibration evidence.</td>
+</tr>
+</tbody>
+</table>
+<p>Implementation already began in code through
+<code>ProductionSector::major_import_gap_sectors()</code> in
+<code>crates/cs-analytics/src/production_capacity.rs</code> and the updated production
+capacity migration. Each sector must still pass anti-protectionism gates:
+quality certification, import-parity discipline, local-content evidence,
+maintenance funding, and public-procurement dependence limits.</p>
+<h3 id="domesticating-services-from-iraqs-attractions">Domesticating Services From Iraq's Attractions</h3>
+<p>Iraq's natural and cultural assets should be treated as production inputs for
+services, not only as heritage slogans. The service model covers:</p>
+<table>
+<thead>
+<tr>
+<th>Attraction/service cluster</th>
+<th>Domestic services to produce</th>
+<th>Advantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pilgrimage shrines and religious corridors</td>
+<td>Lodging, transport, sanitation, crowd services, multilingual guides, booking, insurance, food, retail, medical support.</td>
+<td>High recurring demand, strong diaspora links, formal FX capture.</td>
+</tr>
+<tr>
+<td>Archaeology and heritage sites</td>
+<td>Ticketing, conservation work, certified guides, museums, site transport, crafts, events, education packages.</td>
+<td>Converts heritage into jobs while funding protection.</td>
+</tr>
+<tr>
+<td>Marshlands and wetlands</td>
+<td>Boat tours, eco-lodging, local food, reed crafts, guide cooperatives, conservation services, biodiversity education.</td>
+<td>Creates income only if water and ecosystem protection are funded.</td>
+</tr>
+<tr>
+<td>Mountains and eco-tourism</td>
+<td>Trails, guesthouses, outdoor guides, safety services, equipment rental, local food, seasonal festivals.</td>
+<td>Diversifies tourism beyond pilgrimage and distributes income regionally.</td>
+</tr>
+<tr>
+<td>Rivers and waterfronts</td>
+<td>River transport, promenades, restaurants, events, safety, cleaning, water sports where feasible.</td>
+<td>Links urban services with hospitality and municipal revenue.</td>
+</tr>
+<tr>
+<td>Desert and caravan routes</td>
+<td>Heritage routes, stargazing, cultural camps, logistics, safety, conservation.</td>
+<td>Lower capex than urban megaprojects, but requires strict safety and environmental controls.</td>
+</tr>
+<tr>
+<td>Urban culture and food</td>
+<td>Food districts, markets, festivals, creative retail, film/media services, city tours.</td>
+<td>Turns domestic SMEs into visitor-facing export firms.</td>
+</tr>
+<tr>
+<td>Wellness, medical, education, and business services</td>
+<td>Clinics, rehab, conferences, language/culture programs, university programs, professional services.</td>
+<td>Higher-value tradable services tied to diaspora and regional demand.</td>
+</tr>
+</tbody>
+</table>
+<p>Cylinder Seal should quantify each cluster with the following identities:</p>
+<pre><code class="language-text">Visitor spend potential
+  = annual visitors * average spend per visitor
+
+Booked service revenue
+  = visitor spend potential * formal payment capture rate
+
+Non-oil FX capture
+  = booked service revenue * foreign visitor share
+
+Local supplier demand
+  = booked service revenue * local procurement rate
+
+Second-order benefit
+  = local supplier demand * attraction-specific multiplier
+</code></pre>
+<p>Only booked service revenue and collected fees can enter INDHC cashflow. Local
+supplier demand, brand effects, repeat visits, merchant bankability, and
+conservation value are public-benefit ledger entries until they settle as
+taxes, leases, platform fees, service contracts, or merchant revenue.</p>
+<p>Operational rollout:</p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Years</th>
+<th>Work</th>
+<th>Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseline</td>
+<td>1</td>
+<td>Visitor counts, carrying capacity, safety, sanitation, lodging, transport, guide registry, merchant acceptance.</td>
+<td>Verified sites, guide count, hotel beds, transport seats, Digital IQD acceptance.</td>
+</tr>
+<tr>
+<td>Service pilots</td>
+<td>1-2</td>
+<td>Launch booking/payment rails, certified guide marketplace, sanitation contracts, local food/craft merchant onboarding.</td>
+<td>Formal payment capture, visitor rating, local procurement share, complaint resolution.</td>
+</tr>
+<tr>
+<td>Corridor build</td>
+<td>3-5</td>
+<td>Najaf-Karbala, Baghdad/Kadhimiya, Babylon/Ur, marshlands, mountain/eco routes, medical/education packages.</td>
+<td>Booked revenue, non-oil FX, jobs, conservation score, repeat bookings.</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>6-8</td>
+<td>Integrated rail/bus links, events, diaspora packages, healthcare/education/business services, exportable booking tools.</td>
+<td>FX capture, service exports, municipal revenue, SME credit records.</td>
+</tr>
+<tr>
+<td>Mature</td>
+<td>9-10</td>
+<td>International distribution, quality marks, conservation endowment, visitor-data audit, renewal reserve.</td>
+<td>Maintenance funding, carrying-capacity compliance, repeat visits, private reinvestment.</td>
+</tr>
+</tbody>
+</table>
+<p>The new <code>TourismServicesEngine</code> models this directly and blocks scaling when
+visitor safety, conservation, carrying capacity, maintenance funding, lodging,
+transport, formal payments, or guide certification are weak.</p>
+<h3 id="diaspora-as-income-expertise-capital-marketing-and-distribution">Diaspora As Income, Expertise, Capital, Marketing, And Distribution</h3>
+<p>The diaspora should not be treated only as remittance money. The coherent role
+is a five-channel operating model:</p>
+<table>
+<thead>
+<tr>
+<th>Channel</th>
+<th>What Cylinder Seal measures</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Formal remittances</td>
+<td>Formal capture rate, payment cost, recipient wallet settlement, AML status.</td>
+<td>Lowers leakage and creates household financial histories.</td>
+</tr>
+<tr>
+<td>Iraqi goods and e-commerce</td>
+<td>Diaspora orders, platform fees, export receipts, return rates, quality marks.</td>
+<td>Turns diaspora demand into a distribution bridge for Iraqi food, crafts, textiles, cultural goods, and services.</td>
+</tr>
+<tr>
+<td>Export distribution</td>
+<td>Registered distributors, repeat buyers, certifications, logistics, foreign-currency settlement.</td>
+<td>Diaspora businesses can open shelves and service channels abroad faster than state marketing offices.</td>
+</tr>
+<tr>
+<td>Expertise</td>
+<td>Verified mentor hours, technical reviews, curriculum work, board/adviser roles, value of donated/procured expertise.</td>
+<td>Captures know-how without pretending donated hours are dividend cash.</td>
+</tr>
+<tr>
+<td>Capital</td>
+<td>Diaspora bonds, project syndicates, co-investment leads, close probability, investor suitability.</td>
+<td>Provides optional capital, but only after suitability, disclosure, and AML gates.</td>
+</tr>
+<tr>
+<td>Tourism referrals</td>
+<td>Packages sold, referral conversion, repeat visits, cultural/religious events, medical/education referrals.</td>
+<td>Converts identity and family ties into measurable service exports.</td>
+</tr>
+<tr>
+<td>Brand marketing</td>
+<td>Reach, conversion, order value, campaign cost, return rates.</td>
+<td>Makes diaspora a marketing network for Iraqi products and services.</td>
+</tr>
+</tbody>
+</table>
+<p>The measurement identities are:</p>
+<pre><code class="language-text">Addressable member spend
+  = verified diaspora members * conversion rate * average annual spend
+
+Iraqi goods/services demand
+  = addressable member spend * Iraqi product share
+
+Booked income
+  = platform revenue + platform-fee share of demand + export order value
+
+Formalized remittance
+  = remittance value * formal remittance capture rate
+
+Expertise value
+  = verified expertise hours * benchmark hour value
+
+Investment pipeline
+  = commitments * close probability
+
+Marketing-attributed revenue
+  = marketing reach * referral conversion rate * average order value
+</code></pre>
+<p>Booked income, formalized remittances, and export receipts can be cash ledger
+items after settlement. Expertise value, marketing attribution, and unclosed
+investment pipeline remain no-dividend public-benefit or pipeline entries until
+they become paid invoices, closed investments, taxes, fees, or verified export
+receipts.</p>
+<p>Diaspora governance gates:</p>
+<ul>
+<li>KYC/AML and sanctions screening for remittances, investments, and marketplace
+  sellers.</li>
+<li>Consumer protection, refunds, dispute resolution, and product authenticity.</li>
+<li>Export quality certification and traceability for Iraqi-origin goods.</li>
+<li>Data privacy review before using diaspora identity, family, or payment data.</li>
+<li>Investor suitability, risk disclosure, and use-of-proceeds registry for any
+  diaspora bond, syndicate, or project vehicle.</li>
+<li>Distribution partner coverage before foreign-market revenue claims scale.</li>
+</ul>
+<p>The new <code>DiasporaChannelsEngine</code> represents this model in code and gives the
+dashboard a way to distinguish cash income, remittance formalization, export
+distribution, expertise value, marketing value, and investment pipeline risk.</p>
+<h1 id="part-16-facility-recycling-and-capital-markets">Part 16: Facility Recycling And Capital Markets</h1>
+<h2 id="facility-recycling-and-capital-markets">Facility Recycling And Capital Markets</h2>
+<p>Status: strategy and implementation-extension note. This is not an investment
+offering, securities prospectus, credit recommendation, privatization order, or
+claim that any named facility is currently financeable. It defines how Cylinder
+Seal should screen existing underutilized assets before approving greenfield
+projects, and how rehabilitation can attract international credit or domestic
+stock and bond market funding only after bankability and disclosure gates pass.</p>
+<h3 id="core-rule">Core Rule</h3>
+<p>For every sector, the first capital-allocation question should be:</p>
+<pre><code class="language-text">Can an existing Iraqi facility, depot, workshop, warehouse, hotel, industrial
+site, public utility asset, or state-company plant be rehabilitated faster,
+cheaper, cleaner, and with less import leakage than a greenfield project?
+</code></pre>
+<p>If yes, the facility enters a recycling pipeline. If no, the greenfield project
+must explain why reuse failed.</p>
+<p>Facility recycling should never become a way to hide bad assets. A brownfield
+project should proceed only when legal title, asset registry, engineering audit,
+environmental liabilities, labor transition, revenue contracts, maintenance
+reserve, DSCR, FX match, disclosure, and investor-protection gates pass.</p>
+<h3 id="source-discipline_7">Source Discipline</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>How it is used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://investpromo.gov.iq/sectors/industry-and-manufacturing-sector/industry-and-manufacturing-sector-opportunities/">Iraq National Investment Commission industrial opportunities</a></td>
+<td>Shows that Iraq already lists many rehabilitation and development candidates across cables, aluminum, paper, cement, pipes, fertilizer, sugar, medical bandages, vegetable oils, dairy, plastics, cooling systems, batteries, controls, glass, tires, tractors, transformers, and rubber.</td>
+</tr>
+<tr>
+<td><a href="https://www.ifc.org/en/pressroom/2025/ifc-marks-20-years-of-partnerships-for-impact-in-iraq-announces-1bn-in-new-investm">IFC Iraq 2025 partnership announcement</a></td>
+<td>Confirms IFC has invested and mobilized capital in Iraq, supported manufacturing, infrastructure, food security, sustainable finance, and PPP advisory, and works with the Central Bank, Iraq Stock Exchange, local banks, and finance institutions.</td>
+</tr>
+<tr>
+<td><a href="https://www.isc.gov.iq/en">Iraqi Securities Commission</a></td>
+<td>Confirms the capital-market regulator and its supervisory/listing role.</td>
+</tr>
+<tr>
+<td><a href="https://csd.gov.iq/en/rules-and-instructions/">Iraqi Depository Center rules and instructions</a></td>
+<td>Shows the legal/institutional surface for ISX law, securities trading, government-bond listing/deposit/trading, non-Iraqi trading, disclosure, custody, and AML/CFT controls.</td>
+</tr>
+<tr>
+<td><a href="https://www.worldbank.org/en/news/press-release/2026/06/05/new-us-900-million-world-bank-financing-to-improve-iraq-s-road-connectivity-and-support-job-creation">World Bank Iraq transport financing, June 5, 2026</a></td>
+<td>Demonstrates the rehabilitation logic for infrastructure and how public programs can prepare later private-capital mobilization.</td>
+</tr>
+<tr>
+<td><a href="https://openknowledge.worldbank.org/entities/publication/18be4434-83f4-5b60-8787-4d4658ba8bf0">World Bank Capital Markets Development primer</a></td>
+<td>Supports the idea that a small number of well-governed issuers can use equity and bond markets for real asset, sales, and employment growth.</td>
+</tr>
+<tr>
+<td><a href="https://openknowledge.worldbank.org/entities/publication/5b5bc52e-861b-5ae9-9f4b-9860fd5a8d45">World Bank Iraq Financial Sector Review</a></td>
+<td>Provides the caution: Iraq's financial system and non-bank markets are still underdeveloped and need stronger credit information, collateral, enforcement, accounting, and auditing foundations.</td>
+</tr>
+</tbody>
+</table>
+<p>These sources justify a facility-recycling and capital-market screening model.
+They do not prove that any specific facility should receive debt, bonds, equity,
+or guarantees.</p>
+<h3 id="sector-facility-recycling-map">Sector Facility Recycling Map</h3>
+<p>Iraq should build a national reusable-asset registry before approving major new
+plants. The registry should include state-company assets, ministry assets,
+municipal assets, private distressed assets, industrial-zone land, depots,
+warehouses, hotels, workshops, substations, warehouses, and logistics nodes.</p>
+<table>
+<thead>
+<tr>
+<th>Sector</th>
+<th>Facility types to screen first</th>
+<th>Candidate examples from public opportunity lists or asset classes</th>
+<th>Reuse advantage</th>
+<th>Main financing route</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Materials, cement, glass, ceramics</td>
+<td>Cement plants, glass/ceramic plants, gypsum plants, pipe shops, steel/fabrication workshops.</td>
+<td>Basrah cement, spiral tube, glass/ceramic, medical bottles, Najaf cement, gypsum, ductile pipe.</td>
+<td>Heavy assets, permits, land, utilities, and local raw materials may already exist.</td>
+<td>Oil-equity cleanup plus ECA/vendor finance, local bank syndicate, or domestic project sukuk after offtake contracts.</td>
+</tr>
+<tr>
+<td>Petrochemicals, fertilizers, plastics</td>
+<td>Petrochemical plants, fertilizer plants, sulfur/acid plants, plastic pipe factories.</td>
+<td>Abu Al-Khaseeb fertilizer, petrochemical factories, sulfuric acid, Baghdad/Maisan plastics, phosphate and nitrogen fertilizer.</td>
+<td>Gas/feedstock, industrial land, and large import-substitution demand.</td>
+<td>ECA, MDB climate/industrial programs where eligible, project debt, strategic JV, or green/transition sukuk only with safeguards.</td>
+</tr>
+<tr>
+<td>Food, cold chain, agro-processing</td>
+<td>Vegetable-oil plants, dairy, sugar, grain storage, canning, cold-chain warehouses.</td>
+<td>Vegetable-oil factories, Mosul/Maisan sugar, Abu-Ghraib dairy/baby milk, storage/canning oils.</td>
+<td>Fast food-security impact, SME/farmer links, lower capex than new networks.</td>
+<td>Local banks, concessional food-security lines, PPP logistics, domestic sukuk backed by storage or processing fees.</td>
+</tr>
+<tr>
+<td>Pharma and medical supplies</td>
+<td>Drug plants, bandage factories, sterile packaging, bottles, hospital-supply workshops.</td>
+<td>Drug factories, medical bandage factory, medical bottles.</td>
+<td>Health procurement demand and stockout reduction can provide anchor contracts.</td>
+<td>Public procurement-backed loans, ECA for equipment, minority equity after certification and audited accounts.</td>
+</tr>
+<tr>
+<td>Electronics, HVAC, controls</td>
+<td>Cooling systems, electric industries, transformers, optic cable, batteries, control devices, meters.</td>
+<td>Electric industries and cooling systems, Ur cables/aluminum, Zawra controls, battery factory, transformers/optic cable/electric gage.</td>
+<td>Existing workshops can become repair, assembly, warranty, and component-localization bases.</td>
+<td>ECA/supplier finance, IFC/private loan if operator is credible, domestic bond only after warranty cashflow.</td>
+</tr>
+<tr>
+<td>Water and irrigation</td>
+<td>Water-treatment equipment, pumps, pipes, valves, meters, plastic/ductile pipes, agricultural machinery.</td>
+<td>Water-treatment equipment, plastic pipe, ductile pipe, tractors/agricultural factory.</td>
+<td>Direct link to water scarcity, food security, and public-service contracts.</td>
+<td>MDB/concessional debt, blended finance, green sukuk, irrigation leasing SPVs.</td>
+</tr>
+<tr>
+<td>Mobility, machinery, tires, rubber</td>
+<td>Mechanical workshops, fleet depots, tire/rubber factories, tractors, repair/rebuild centers.</td>
+<td>Mechanical operations, Tahadi mechanical/station installation, tire production, rubber factory, tractors/agricultural production.</td>
+<td>Public fleets, buses, agriculture, logistics, and industrial uptime all need domestic maintenance.</td>
+<td>Local bank syndicate, domestic project sukuk, ECA for tools, PPP fleet maintenance concessions.</td>
+</tr>
+<tr>
+<td>Packaging, paper, furniture, prefab</td>
+<td>Paper plants, cartons, packaging, plastics, public-furniture workshops, prefab fit-out.</td>
+<td>Basrah paper, Maisan paper, plastics, furniture/prefab candidates from public works demand.</td>
+<td>Food processing, e-commerce, tourism, schools, hospitals, and public administration create anchor demand.</td>
+<td>Domestic bonds/sukuk with procurement contracts, local equity float once audited.</td>
+</tr>
+<tr>
+<td>Tourism, hospitality, heritage services</td>
+<td>State hotels, heritage buildings, stations, waterfronts, rest houses, visitor centers, public markets.</td>
+<td>Asset registry required by site; not every heritage asset is commercially reusable.</td>
+<td>Converts existing buildings and locations into service revenue while preserving heritage.</td>
+<td>PPP/concession, leases, diaspora co-investment, listed hospitality vehicle only after conservation gates.</td>
+</tr>
+<tr>
+<td>Green power, grid, efficiency</td>
+<td>Substations, public buildings, industrial rooftops, landfill/waste sites, district cooling assets.</td>
+<td>Grid-loss and public-building-efficiency assets should be inventoried by ministry and municipality.</td>
+<td>Existing grid/building assets can generate savings contracts faster than new assets.</td>
+<td>MDB, green sukuk, ESCO contracts, availability payments, verified savings contracts.</td>
+</tr>
+<tr>
+<td>Rail, logistics, depots</td>
+<td>Rail yards, bus depots, warehouses, dry ports, freight terminals, station land.</td>
+<td>Existing depots and logistics nodes should be mapped to open rail and metro plans.</td>
+<td>Land and right-of-way are often the scarce asset.</td>
+<td>MDB/public transport debt, PPP station concessions, land-value capture bonds.</td>
+</tr>
+<tr>
+<td>Digital and telecom facilities</td>
+<td>Exchanges, data rooms, towers, fiber landing points, public IT facilities.</td>
+<td>Requires telecom/public-service asset registry.</td>
+<td>Repairs, cloud rooms, local hosting, public connectivity, and tourism/education services.</td>
+<td>Private operator concession, domestic bond after service contracts, ECA for equipment.</td>
+</tr>
+<tr>
+<td>Precious-metals formalization</td>
+<td>Assay offices, secure markets, hallmarking labs, compliant retail settlement facilities.</td>
+<td>Existing markets and public laboratories should be mapped before new facilities.</td>
+<td>This is AML/formalization infrastructure, not ordinary industrial substitution.</td>
+<td>Fee-backed domestic funding, compliance grants, private market operator under strict AML controls.</td>
+</tr>
+<tr>
+<td>Strategic controlled sustainment</td>
+<td>Defense/logistics depots, secure repair workshops, uniform/textile lines, field medical supply facilities.</td>
+<td>Public data should show budgets and audits, not sensitive specifications.</td>
+<td>Domestic resilience and emergency readiness.</td>
+<td>Oil equity and controlled procurement first; no public securities until classification and end-use controls are lawful.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recycling-pipeline">Recycling Pipeline</h3>
+<p>Every candidate facility should pass through five stages:</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Purpose</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Inventory</td>
+<td>Identify asset, owner, land, equipment, utilities, workers, liabilities, contracts, and current utilization.</td>
+<td>National facility registry record.</td>
+</tr>
+<tr>
+<td>2. Audit</td>
+<td>Confirm title, asset condition, environmental liabilities, safety, power/water access, labor obligations, and restart capex.</td>
+<td>Engineering, legal, environmental, and labor audit pack.</td>
+</tr>
+<tr>
+<td>3. Business case</td>
+<td>Compare rehabilitation with greenfield replacement, import parity, revenue contracts, maintenance reserve, DSCR, FX match, and procurement dependence.</td>
+<td>Reuse projection and stop/go recommendation.</td>
+</tr>
+<tr>
+<td>4. Finance structuring</td>
+<td>Select oil-equity cleanup, MDB/IFC/ECA credit, PPP, domestic sukuk/bond, listed minority equity, local bank syndicate, or blended finance.</td>
+<td>Capital stack and covenant plan.</td>
+</tr>
+<tr>
+<td>5. Market discipline</td>
+<td>Publish audited results, use-of-proceeds, covenants, repayment, utilization, local content, jobs, and maintenance data.</td>
+<td>Dashboard, investor report, and capital-allocation update.</td>
+</tr>
+</tbody>
+</table>
+<p>The new executable surface is <code>FacilityRecyclingProjection</code> in
+<code>crates/cs-analytics/src/facility_recycling.rs</code>, with persistence tables in
+<code>migrations/20260711000001_facility_recycling_projection.sql</code>.</p>
+<h3 id="international-credit-routes">International Credit Routes</h3>
+<p>International credit should not fund vague industrial ambition. It should fund
+ring-fenced projects with real repayment sources.</p>
+<table>
+<thead>
+<tr>
+<th>Route</th>
+<th>Best fit</th>
+<th>Required proof</th>
+<th>Cylinder Seal evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MDB / concessional loan</td>
+<td>Water, irrigation, roads, rail, grid, climate adaptation, public transport, governance systems.</td>
+<td>Public-good value, safeguards, procurement discipline, fiscal affordability, repayment path.</td>
+<td>Source-of-funds tag, use-of-proceeds registry, milestone evidence, DSCR, public-benefit ledger.</td>
+</tr>
+<tr>
+<td>IFC/private loan or mobilized capital</td>
+<td>Manufacturing, food security, logistics, airports, private operator concessions, sustainable finance.</td>
+<td>Credible operator, audited accounts, commercial cashflow, sponsor equity, environmental/social safeguards.</td>
+<td>Revenue contracts, operator score, audited financials, ESG/safeguard gates, settlement records.</td>
+</tr>
+<tr>
+<td>Export credit agency / supplier finance</td>
+<td>Rail systems, HVAC/electronics equipment, machinery, grid, water/desalination, factory tooling.</td>
+<td>Technology transfer, open interfaces where feasible, local training, warranty, spare-parts plan.</td>
+<td>Contract evidence, local-content attestations, warranty claims, training records, vendor lock-in score.</td>
+</tr>
+<tr>
+<td>Green bond / green sukuk</td>
+<td>Solar, storage, grid loss reduction, efficient HVAC, water efficiency, waste-to-energy, public-building retrofits.</td>
+<td>Eligible green taxonomy, external verification, allocation and impact reporting.</td>
+<td>Green asset registry, meter data, savings contracts, emissions/cost reduction evidence.</td>
+</tr>
+<tr>
+<td>PPP or concession</td>
+<td>Airports, hotels, logistics, depots, station retail, industrial parks, visitor services.</td>
+<td>Risk allocation, private capex, performance KPIs, termination rules, tariff/fee discipline.</td>
+<td>Concession contract, payment waterfall, service KPIs, user-fee receipts, dispute logs.</td>
+</tr>
+</tbody>
+</table>
+<p>International-credit gates:</p>
+<ul>
+<li>Legal title and asset registry verified.</li>
+<li>Engineering and environmental audits complete.</li>
+<li>Procurement and beneficial ownership clean.</li>
+<li>Revenue contract cover is sufficient.</li>
+<li>DSCR passes under base and stress cases.</li>
+<li>Foreign-currency debt service is covered by FX revenue, FX savings, or approved hedge.</li>
+<li>No hidden sovereign guarantee beyond the approved exposure cap.</li>
+<li>Safeguards, local labor, and grievance mechanisms are funded.</li>
+</ul>
+<h3 id="domestic-stock-and-bond-market-route">Domestic Stock And Bond Market Route</h3>
+<p>Domestic markets can help only if they are used as discipline, not as forced
+funding. Iraq should avoid compelling banks, pension funds, or citizens to buy
+weak paper from unreformed state companies.</p>
+<p>Market-funded rehabilitation should use special-purpose vehicles or
+corporatized subsidiaries with:</p>
+<ul>
+<li>clear title or concession rights;</li>
+<li>audited opening balance sheet;</li>
+<li>ring-fenced revenue contracts;</li>
+<li>maintenance reserve;</li>
+<li>independent board and related-party controls;</li>
+<li>trustee or sukuk agent for bondholders;</li>
+<li>regulated disclosure through the Securities Commission and ISX/CSD channels;</li>
+<li>use-of-proceeds reporting;</li>
+<li>minority-investor and bondholder protections;</li>
+<li>Digital IQD settlement evidence for revenues, taxes, and operating costs.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Domestic instrument</th>
+<th>Best use</th>
+<th>Do not use for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domestic infrastructure bond</td>
+<td>Mature IQD revenue assets with service contracts, availability payments, or leases.</td>
+<td>Early-stage turnaround with unresolved liabilities.</td>
+</tr>
+<tr>
+<td>Domestic project sukuk</td>
+<td>Asset-backed or usufruct-backed rehabilitation with identifiable cashflows and trustee oversight.</td>
+<td>Loss cover or ministry payroll.</td>
+</tr>
+<tr>
+<td>Listed minority equity</td>
+<td>Subsidiaries with audited profits, clean governance, and growth capex needs.</td>
+<td>Politically protected monopolies or distressed unrestructured SOEs.</td>
+</tr>
+<tr>
+<td>Diaspora industrial bond</td>
+<td>Export, tourism, food, and cultural-product channels with transparent retail/institutional terms.</td>
+<td>Unsuitable retail risk, opaque projects, or patriotic marketing without repayment evidence.</td>
+</tr>
+<tr>
+<td>Local bank syndicate</td>
+<td>Working capital and medium-term rehab where receivables and collateral are enforceable.</td>
+<td>FX-heavy projects with IQD-only cashflow.</td>
+</tr>
+</tbody>
+</table>
+<p>Domestic-market gates:</p>
+<ul>
+<li>audited financials and disclosure pack ready;</li>
+<li>regulator approval ready;</li>
+<li>trustee/custodian/depository arrangements ready;</li>
+<li>investor protection and dispute rules published;</li>
+<li>DSCR is strong enough for debt, or risk disclosure is clear for equity;</li>
+<li>no implicit state bailout claim;</li>
+<li>trading, reporting, and settlement data feed public dashboards.</li>
+</ul>
+<h3 id="finance-lane-decision-logic">Finance Lane Decision Logic</h3>
+<p>Cylinder Seal should recommend the financing lane with this hierarchy:</p>
+<ol>
+<li><strong>Not financeable</strong> if title, engineering audit, environmental audit, or
+   reuse economics fail.</li>
+<li><strong>Public rehabilitation first</strong> if the asset is useful but not yet bankable.</li>
+<li><strong>International credit</strong> if safeguards, contracts, DSCR, FX match, and a
+   credible operator or lender pass.</li>
+<li><strong>Domestic bond or sukuk</strong> if audited disclosure, trustee/custody, DSCR,
+   maintenance reserve, regulator readiness, and investor protection pass.</li>
+<li><strong>Listed minority equity</strong> if cashflow is promising but debt service is too
+   thin and the governance pack is ready.</li>
+<li><strong>PPP or concession</strong> if a private operator can carry demand and operating
+   risk.</li>
+<li><strong>Blended finance</strong> if public-good value is high but commercial cashflow needs
+   credit enhancement.</li>
+</ol>
+<p>Asset revaluation and greenfield-cost avoidance are never dividend cash. They
+belong in the public-benefit/productive-asset ledger until real cash is
+collected.</p>
+<h3 id="sector-specific-finance-bias">Sector-Specific Finance Bias</h3>
+<table>
+<thead>
+<tr>
+<th>Sector</th>
+<th>Preferred first finance</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cement, glass, pipes, steel</td>
+<td>Domestic project sukuk, ECA, local bank syndicate</td>
+<td>Domestic construction/public-works contracts can support IQD revenue.</td>
+</tr>
+<tr>
+<td>Fertilizers, petrochemicals, plastics</td>
+<td>ECA, strategic JV, project debt, transition/green instruments where eligible</td>
+<td>Large capex and feedstock risk need technical partners and strict environmental controls.</td>
+</tr>
+<tr>
+<td>Food, cold chain, agro-processing</td>
+<td>Local banks, concessional food-security lines, PPP logistics</td>
+<td>Shorter cash cycles and clear domestic demand.</td>
+</tr>
+<tr>
+<td>Pharma/medical supplies</td>
+<td>Procurement-backed credit, ECA, minority equity after certification</td>
+<td>Health demand is strong but quality risk must dominate.</td>
+</tr>
+<tr>
+<td>Electronics/HVAC/controls</td>
+<td>ECA, supplier finance, IFC/private credit</td>
+<td>Technology transfer, warranty, and component localization matter.</td>
+</tr>
+<tr>
+<td>Water/irrigation</td>
+<td>MDB, blended finance, green sukuk, service contracts</td>
+<td>Public-good value is high but tariff design can be sensitive.</td>
+</tr>
+<tr>
+<td>Mobility/machinery/tires/rubber</td>
+<td>Local bank syndicate, fleet concessions, domestic sukuk</td>
+<td>Revenue can be tied to fleet uptime and maintenance contracts.</td>
+</tr>
+<tr>
+<td>Packaging/paper/furniture</td>
+<td>Domestic bonds/sukuk, local bank syndicate</td>
+<td>Food, public services, tourism, and e-commerce create repeat local demand.</td>
+</tr>
+<tr>
+<td>Tourism/hospitality/heritage</td>
+<td>PPP/concession, diaspora co-investment, hospitality equity</td>
+<td>Private capital should carry demand risk; conservation gates stay public.</td>
+</tr>
+<tr>
+<td>Green/grid/efficiency</td>
+<td>MDB, green sukuk, ESCO contracts</td>
+<td>Savings and meter data can create bankable cashflows.</td>
+</tr>
+<tr>
+<td>Rail/logistics/depots</td>
+<td>MDB, availability payments, station concessions, land-value capture bonds</td>
+<td>Public value is large, but farebox risk should be contained.</td>
+</tr>
+<tr>
+<td>Digital/telecom</td>
+<td>Private operator concession, ECA, domestic bond after service contracts</td>
+<td>Revenue can be contract-backed if public and private users are signed.</td>
+</tr>
+<tr>
+<td>Precious-metals formalization</td>
+<td>Fee-backed private concession under AML controls</td>
+<td>This is compliance infrastructure, not a subsidy target.</td>
+</tr>
+<tr>
+<td>Strategic controlled sustainment</td>
+<td>Oil equity and controlled procurement</td>
+<td>Public securities are inappropriate until legal, classification, and end-use rules are mature.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dashboard-metrics_1">Dashboard Metrics</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FacilityCurrentUtilizationPct</code></td>
+<td>Shows how much dormant capacity exists.</td>
+</tr>
+<tr>
+<td><code>FacilityTargetUtilizationPct</code></td>
+<td>Sets restart ambition.</td>
+</tr>
+<tr>
+<td><code>RehabilitationCapexUsd</code></td>
+<td>Measures restart cost.</td>
+</tr>
+<tr>
+<td><code>GreenfieldReplacementCostUsd</code></td>
+<td>Compares rebuild versus reuse.</td>
+</tr>
+<tr>
+<td><code>NetReuseAdvantageUsd</code></td>
+<td>Captures savings after environmental liabilities.</td>
+</tr>
+<tr>
+<td><code>RevenueContractCoverPct</code></td>
+<td>Prevents debt on speculative revenue.</td>
+</tr>
+<tr>
+<td><code>ProjectedDSCR</code></td>
+<td>Gates all debt routes.</td>
+</tr>
+<tr>
+<td><code>FxDebtServiceCover</code></td>
+<td>Blocks USD debt against IQD-only cashflow.</td>
+</tr>
+<tr>
+<td><code>InternationalCreditReadinessScore</code></td>
+<td>Scores MDB/IFC/ECA readiness.</td>
+</tr>
+<tr>
+<td><code>DomesticCapitalMarketReadinessScore</code></td>
+<td>Scores bond, sukuk, and equity readiness.</td>
+</tr>
+<tr>
+<td><code>GovernmentGuaranteeRequestedUsd</code></td>
+<td>Surfaces hidden fiscal exposure.</td>
+</tr>
+<tr>
+<td><code>NoDividendFlagForAssetRevaluation</code></td>
+<td>Prevents asset revaluation from becoming distributable cash.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="practical-first-year-workplan">Practical First-Year Workplan</h3>
+<table>
+<thead>
+<tr>
+<th>Month</th>
+<th>Work</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-2</td>
+<td>Create a national facility registry schema and map state-company, ministry, municipal, and distressed private assets by sector.</td>
+</tr>
+<tr>
+<td>2-4</td>
+<td>Select 25 high-potential rehabilitation candidates across food, water, materials, HVAC/electronics, packaging, machinery, tourism, and logistics.</td>
+</tr>
+<tr>
+<td>3-6</td>
+<td>Complete legal title, engineering, environmental, labor, and utility audits.</td>
+</tr>
+<tr>
+<td>5-7</td>
+<td>Build brownfield-versus-greenfield business cases and reject weak reuse candidates.</td>
+</tr>
+<tr>
+<td>6-8</td>
+<td>Package the first five bankable assets for IFC/MDB/ECA/PPP discussions and the first three IQD cashflow assets for domestic sukuk/bond feasibility.</td>
+</tr>
+<tr>
+<td>8-10</td>
+<td>Publish audited use-of-proceeds templates, covenant templates, investor-protection rules, and dashboard fields.</td>
+</tr>
+<tr>
+<td>10-12</td>
+<td>Launch only the pilots that pass gates; send the rest to public rehabilitation, restructuring, sale, closure, or greenfield review.</td>
+</tr>
+</tbody>
+</table>
+<p>The strategic point is simple: Iraq may already own part of the productive
+capital base it needs. Cylinder Seal should make that latent asset base visible,
+ranked, financeable where justified, and impossible to dress up as value when it
+is actually a liability.</p>
+<h1 id="part-17-digitally-governed-industrial-champions">Part 17: Digitally Governed Industrial Champions</h1>
 <h2 id="digitally-governed-industrial-champions">Digitally Governed Industrial Champions</h2>
 <p>This document refines the INDHC industrial-conglomerate idea. The model should
 not be described as copying Korean chaebols. It should be described as building
@@ -7812,7 +9623,7 @@ audit quality through Cylinder Seal data.</p>
 <p>Status: policy-design scenario. It is not a competition-law opinion, investment
 recommendation, procurement plan, or claim that any champion group should receive
 permanent protection.</p>
-<h3 id="source-discipline_5">Source Discipline</h3>
+<h3 id="source-discipline_8">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -7831,6 +9642,16 @@ permanent protection.</p>
 <td>Korea's export support system included export targets, credit allocation for export purposes, technology acquisition, and strong marketing institutions.</td>
 <td>Iraqi support should be conditional on measured export progress, technology transfer, and independently monitored performance.</td>
 <td><a href="https://documents1.worldbank.org/curated/en/441571468753249695/pdf/multi0page.pdf">World Bank, Korea: A Case of Government-Led Development</a></td>
+</tr>
+<tr>
+<td>Iraq's public investment listings include many industrial rehabilitation and development candidates.</td>
+<td>Champion groups should screen existing facilities before requesting greenfield capex or permanent protection.</td>
+<td><a href="https://investpromo.gov.iq/sectors/industry-and-manufacturing-sector/industry-and-manufacturing-sector-opportunities/">National Investment Commission industrial opportunities</a></td>
+</tr>
+<tr>
+<td>Iraq has securities-market supervision and depository rules that can support listed instruments only when disclosure and investor protection are credible.</td>
+<td>Domestic bonds, sukuk, or minority equity for champions must be later-stage discipline, not forced financing.</td>
+<td><a href="https://www.isc.gov.iq/en">Iraqi Securities Commission</a>, <a href="https://csd.gov.iq/en/rules-and-instructions/">Iraqi Depository Center rules</a></td>
 </tr>
 </tbody>
 </table>
@@ -7942,6 +9763,16 @@ boards, accounts, debt limits, and performance gates.</p>
 <td>Nineveh Water And Irrigation Systems</td>
 <td>Pumps, valves, pipes, filters, drip irrigation, meters, mobile treatment units.</td>
 <td>Water-loss reduction, farmer adoption, service uptime, equipment lifecycle cost.</td>
+</tr>
+<tr>
+<td>Baghdad Mobility And Machinery</td>
+<td>Fleet refurbishment, bus assembly, vehicle parts, industrial spares, repair/rebuild centers.</td>
+<td>Fleet uptime, warranty claims, local spares, import-parity cost, technician certification.</td>
+</tr>
+<tr>
+<td>Sumer Packaging Furniture And Formal Markets</td>
+<td>Food packaging, paper/board, school/hospital furniture, prefab fit-out, rubber goods, supervised precious-metals retail services.</td>
+<td>Packaging supply, public fit-out delivery, recycling, safety standards, AML/source-of-funds checks for precious metals.</td>
 </tr>
 </tbody>
 </table>
@@ -8074,6 +9905,20 @@ the date of this document.</p>
 <td>Regional arid-market equipment and maintenance services after certification.</td>
 <td>Privileges stop if water-loss or crop-risk metrics do not improve.</td>
 </tr>
+<tr>
+<td>Baghdad Mobility And Machinery</td>
+<td>Map fleet imports, bus demand, municipal vehicles, farm equipment, industrial spares, repair skills, and imported machinery downtime.</td>
+<td>Build repair/rebuild centers, parts warehouses, battery/filter/tire channels, bus assembly, diagnostics, and machine-tool rooms.</td>
+<td>Compete in fleet uptime, maintenance exports, spares, light assembly, and public-transport supply.</td>
+<td>Privileges stop if warranty, safety, or import-parity tests fail.</td>
+</tr>
+<tr>
+<td>Sumer Packaging Furniture And Formal Markets</td>
+<td>Map food packaging, paper/board, school/hospital furniture, prefab public buildings, rubber goods, and precious-metals retail leakage.</td>
+<td>Scale cartons, labels, secure forms, furniture, modular fit-out, rubber seals/hoses, tire retreading, and AML-supervised precious-metals services.</td>
+<td>Compete in packaging, fit-out, recycling, tourism/hotel supply, and trusted formal retail.</td>
+<td>Precious-metals channels fail closed on AML/source-of-funds or consumer-protection breaches.</td>
+</tr>
 </tbody>
 </table>
 <h3 id="conditional-demand-contracts">Conditional Demand Contracts</h3>
@@ -8193,6 +10038,11 @@ off without destabilizing the budget.</p>
 <td>No automatic replenishment after losses.</td>
 </tr>
 <tr>
+<td>Facility-recycling capital</td>
+<td>Legal cleanup, engineering audits, environmental remediation, worker transition, and restart capex for underutilized Iraqi assets.</td>
+<td>Must pass brownfield-versus-greenfield economics, title, environmental, DSCR, FX, maintenance, and disclosure gates before external finance.</td>
+</tr>
+<tr>
 <td>Working-capital guarantee</td>
 <td>Lets banks lend against receivables and public offtake contracts.</td>
 <td>Guarantee falls as repayment history improves.</td>
@@ -8216,6 +10066,11 @@ off without destabilizing the budget.</p>
 <td>Technology-transfer finance</td>
 <td>Pays for machinery, certification, training, and commissioning.</td>
 <td>Foreign vendor must train Iraqi operators and disclose handover plan.</td>
+</tr>
+<tr>
+<td>Domestic bond, sukuk, or minority-equity issuance</td>
+<td>Later-stage funding for audited, ring-fenced subsidiaries or project companies.</td>
+<td>No forced purchases, no hidden state guarantee, and no issue before regulator, trustee/custody, disclosure, and investor-protection readiness.</td>
 </tr>
 <tr>
 <td>Restructuring facility</td>
@@ -8387,6 +10242,10 @@ infrastructure.</p>
   education, and business travel.</li>
 <li>Electronics/HVAC/water: regional components and maintenance services after
   quality certification.</li>
+<li>Mobility/machinery: maintenance, spares, and repair exports only after safety,
+  warranty, and technician-certification evidence exists.</li>
+<li>Packaging/furniture/rubber: export only after domestic food, public-service,
+  tourism, and industrial demand is reliably served at import-parity quality.</li>
 </ul>
 <p>Cylinder Seal should show export discipline through foreign-currency receipts,
 repeat buyers, certification status, return rates, and gross margins.</p>
@@ -8766,7 +10625,7 @@ No export or cost discipline, no protection.
 No audit, no public demand contract.
 No competition review, no champion status renewal.
 </code></pre>
-<h1 id="part-15-national-civic-work-system">Part 15: National Civic Work System</h1>
+<h1 id="part-18-national-civic-work-system">Part 18: National Civic Work System</h1>
 <h2 id="national-civic-work-system_2">National Civic Work System</h2>
 <p>As Iraq formalizes, automates, and industrializes through Digital IQD, INDHC,
 and digitally governed industrial champions, some low-productivity work will
@@ -8778,7 +10637,7 @@ education, municipal, food-security, and disaster-resilience work.</p>
 budget appropriation, or implemented software module.</p>
 <p>The objective is not to hide unemployment. The objective is to convert spare
 labor capacity into public value.</p>
-<h3 id="source-discipline_6">Source Discipline</h3>
+<h3 id="source-discipline_9">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -9156,7 +11015,7 @@ privacy-bounded. The system should not normalize surveillance for low-risk work.
 <li>independent audit by civil society, universities, and the supreme audit
   authority or equivalent.</li>
 </ul>
-<h3 id="dashboard-metrics_1">Dashboard Metrics</h3>
+<h3 id="dashboard-metrics_2">Dashboard Metrics</h3>
 <table>
 <thead>
 <tr>
@@ -9527,7 +11386,7 @@ lost low-value work into income, dignity, skill, and visible contribution.</p>
   -&gt; income history, skills, public value, and social cohesion
   -&gt; better private-sector and INDHC employability
 </code></pre>
-<h1 id="part-16-ministry-transition-roadmap">Part 16: Ministry Transition Roadmap</h1>
+<h1 id="part-19-ministry-transition-roadmap">Part 19: Ministry Transition Roadmap</h1>
 <h2 id="ministry-transition-and-deprecation-roadmap">Ministry Transition And Deprecation Roadmap</h2>
 <p>This document describes how the unified Cylinder Seal / INDHC model could
 eventually deprecate ministry structures that become duplicative, low-feedback,
@@ -9537,7 +11396,7 @@ municipal service contracts, and public dashboards are operating.</p>
 constitutional plan, and not a claim that any current ministry can be abolished
 without parliamentary action, staff transition, service-continuity guarantees,
 and public audit.</p>
-<h3 id="source-discipline_7">Source Discipline</h3>
+<h3 id="source-discipline_10">Source Discipline</h3>
 <table>
 <thead>
 <tr>
@@ -10060,7 +11919,7 @@ contracts, INDHC subsidiaries, and public dashboards.</p>
 <li>audited service contracts;</li>
 <li>productive national capital through INDHC.</li>
 </ul>
-<h1 id="part-17-technical-primitives">Part 17: Technical Primitives</h1>
+<h1 id="part-20-technical-primitives">Part 20: Technical Primitives</h1>
 <h2 id="technical-primitives-and-readiness-notes">Technical Primitives And Readiness Notes</h2>
 <p>This document maps the main technical claims to code that exists today and to the production gaps that still need to be closed. It is intentionally conservative: if something has a prototype implementation but lacks deployment hardening, it is marked as partial.</p>
 <p>For visual maps of the software architecture, transaction lifecycle, and financial-flow combinations, see <a href="system-and-financial-flow-diagrams.md">System And Financial Flow Diagrams</a>.</p>

@@ -19,6 +19,8 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - National Dividend Holding Company policy architecture documented as a proposal, including oil-income lockbox, citizen share entitlements, cash formalization controls, ten-year investment plan, ministry funding, and monthly dividend flows.
 - Ministry transition roadmap documented as a governance scenario for moving selected ministry functions into regulators, service contracts, municipalities, INDHC subsidiaries, or sunset agencies.
 - National Civic Work System documented as a policy scenario for verified civic wages, civic credits, training records, public-value tasks, and productivity-transition support.
+- Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, and facility recycling. These are planning primitives, not calibrated national forecasts.
+- Rendered SVG value-chain charts now cover sector business chains, capital and repayment lanes, and society/economy feedback loops.
 
 ## Important Gaps
 
@@ -27,12 +29,12 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - Role enforcement must continue to be applied as future sensitive handlers are implemented.
 - Browser security hardening has a basic cookie/CSRF foundation but still needs full browser automation and deployment review.
 - Admin audit logging is not yet a complete immutable retention system or regulator evidence-pack workflow.
-- The unified economic model is not implemented as calibrated projection code; it remains a documented architecture that needs data models, equations, sensitivity tests, and independent macroeconomic review.
+- The unified economic model has scenario engines and persistence tables for several layers, but it is still not calibrated, independently validated, or suitable for real budget, debt, investment, or dividend decisions.
 - The ministry transition roadmap is not implemented and would require legislation, civil-service transition, federal/governorate coordination, service-continuity testing, and independent audit before any real-world use.
 - SQLite is not a supported dashboard runtime despite the presence of historical fixture scripts.
 - Offline double-spend handling is not yet backed by audited secure hardware/attestation.
 - HSM custody, national identity/KYC integration, CBI/core-banking integration, DR, and privacy review remain future work.
-- The National Dividend Holding Company proposal and ten-year investment plan are not implemented in code and need legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation before data models or routes are treated as deployable.
+- The National Dividend Holding Company proposal and ten-year investment plan are only partially represented in scenario code and need legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation before data models or routes are treated as deployable.
 - The National Civic Work System is not implemented in code and needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, and fiscal validation before any `cs-civic-work` module is treated as deployable.
 
 ## Running The Dashboard

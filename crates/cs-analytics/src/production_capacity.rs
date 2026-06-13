@@ -14,14 +14,26 @@ pub enum ProductionSector {
     FoodStaples,
     FoodProcessingColdChain,
     ConstructionMaterials,
+    VehiclesAutoParts,
+    IndustrialMachinery,
+    RefinedFuelLpg,
+    JewelleryPreciousMetals,
     Pharmaceuticals,
+    MedicalDevices,
     Textiles,
+    ApparelFootwear,
     Electronics,
+    TelecomBroadcastEquipment,
     Hvac,
     WaterDesalination,
     IrrigationEquipment,
     RailComponents,
     Petrochemicals,
+    FertilizersChemicals,
+    PlasticsPackaging,
+    FurniturePrefab,
+    PaperBoard,
+    RubberTires,
     GeneralManufacturing,
 }
 
@@ -31,16 +43,45 @@ impl ProductionSector {
             ProductionSector::FoodStaples => "food_staples",
             ProductionSector::FoodProcessingColdChain => "food_processing_cold_chain",
             ProductionSector::ConstructionMaterials => "construction_materials",
+            ProductionSector::VehiclesAutoParts => "vehicles_auto_parts",
+            ProductionSector::IndustrialMachinery => "industrial_machinery",
+            ProductionSector::RefinedFuelLpg => "refined_fuel_lpg",
+            ProductionSector::JewelleryPreciousMetals => "jewellery_precious_metals",
             ProductionSector::Pharmaceuticals => "pharmaceuticals",
+            ProductionSector::MedicalDevices => "medical_devices",
             ProductionSector::Textiles => "textiles",
+            ProductionSector::ApparelFootwear => "apparel_footwear",
             ProductionSector::Electronics => "electronics",
+            ProductionSector::TelecomBroadcastEquipment => "telecom_broadcast_equipment",
             ProductionSector::Hvac => "hvac",
             ProductionSector::WaterDesalination => "water_desalination",
             ProductionSector::IrrigationEquipment => "irrigation_equipment",
             ProductionSector::RailComponents => "rail_components",
             ProductionSector::Petrochemicals => "petrochemicals",
+            ProductionSector::FertilizersChemicals => "fertilizers_chemicals",
+            ProductionSector::PlasticsPackaging => "plastics_packaging",
+            ProductionSector::FurniturePrefab => "furniture_prefab",
+            ProductionSector::PaperBoard => "paper_board",
+            ProductionSector::RubberTires => "rubber_tires",
             ProductionSector::GeneralManufacturing => "general_manufacturing",
         }
+    }
+
+    pub fn major_import_gap_sectors() -> &'static [ProductionSector] {
+        &[
+            ProductionSector::VehiclesAutoParts,
+            ProductionSector::IndustrialMachinery,
+            ProductionSector::RefinedFuelLpg,
+            ProductionSector::JewelleryPreciousMetals,
+            ProductionSector::MedicalDevices,
+            ProductionSector::TelecomBroadcastEquipment,
+            ProductionSector::FertilizersChemicals,
+            ProductionSector::PlasticsPackaging,
+            ProductionSector::FurniturePrefab,
+            ProductionSector::PaperBoard,
+            ProductionSector::RubberTires,
+            ProductionSector::ApparelFootwear,
+        ]
     }
 }
 
@@ -458,5 +499,17 @@ mod tests {
             gate.gate == ProductionGateKind::PublicProcurementDependence
                 && gate.status == GateStatus::Fail
         }));
+    }
+
+    #[test]
+    fn major_import_gap_sectors_include_vehicle_machinery_fuel_and_packaging() {
+        let sectors = ProductionSector::major_import_gap_sectors();
+
+        assert!(sectors.contains(&ProductionSector::VehiclesAutoParts));
+        assert!(sectors.contains(&ProductionSector::IndustrialMachinery));
+        assert!(sectors.contains(&ProductionSector::RefinedFuelLpg));
+        assert!(sectors.contains(&ProductionSector::PlasticsPackaging));
+        assert!(sectors.contains(&ProductionSector::MedicalDevices));
+        assert_eq!(ProductionSector::RubberTires.as_str(), "rubber_tires");
     }
 }

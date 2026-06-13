@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2100" height="1280" viewBox="0 0 2100 1280" role="img" aria-labelledby="title desc">
+  <title id="title">Capital And Repayment Lanes</title>
+  <desc id="desc">Chart showing capital sources, suitable sector uses, repayment mechanisms, and guardrails for Cylinder Seal economic projects.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#344054"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 36px Arial, sans-serif; fill: #101828; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #475467; }
+      .coltitle { font: 700 19px Arial, sans-serif; fill: #101828; }
+      .label { font: 700 15px Arial, sans-serif; fill: #101828; }
+      .text { font: 400 12.5px Arial, sans-serif; fill: #344054; }
+      .tiny { font: 400 11px Arial, sans-serif; fill: #475467; }
+      .box { stroke-width: 1.7; }
+      .source { fill: #fff7e6; stroke: #b26a00; }
+      .sector { fill: #e9f7ef; stroke: #2f7d45; }
+      .repay { fill: #eef6ff; stroke: #2e73b8; }
+      .gate { fill: #fff0f0; stroke: #b23b3b; }
+      .arrow { stroke: #344054; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .arrow-soft { stroke: #667085; stroke-width: 1.6; fill: none; stroke-dasharray: 8 6; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect class="bg" width="2100" height="1280"/>
+  <text class="title" x="58" y="62">Capital And Repayment Lanes</text>
+  <text class="subtitle" x="58" y="94">Financing is not generic. Each capital source is matched to sectors, repayment sources, and hard stop/go gates.</text>
+
+  <text class="coltitle" x="90" y="155">Capital Source</text>
+  <text class="coltitle" x="585" y="155">Best Sector Use</text>
+  <text class="coltitle" x="1085" y="155">Repayment Or Return</text>
+  <text class="coltitle" x="1580" y="155">Guardrail</text>
+
+  <g>
+    <rect class="box source" x="70" y="190" width="360" height="98" rx="12"/>
+    <text class="label" x="98" y="222">Oil-Equity Allocation</text>
+    <text class="text" x="98" y="247">First-loss capital from lockbox</text>
+    <text class="text" x="98" y="269">after stabilization reserve</text>
+    <rect class="box sector" x="555" y="190" width="360" height="98" rx="12"/>
+    <text class="label" x="583" y="222">Strategic early works</text>
+    <text class="text" x="583" y="247">Facility cleanup, public-good assets,</text>
+    <text class="text" x="583" y="269">workforce and domestic capability</text>
+    <rect class="box repay" x="1050" y="190" width="360" height="98" rx="12"/>
+    <text class="label" x="1078" y="222">Equity return later</text>
+    <text class="text" x="1078" y="247">Operating surplus, not asset</text>
+    <text class="text" x="1078" y="269">revaluation or debt proceeds</text>
+    <rect class="box gate" x="1545" y="190" width="420" height="98" rx="12"/>
+    <text class="label" x="1573" y="222">Fiscal cap</text>
+    <text class="text" x="1573" y="247">No direct dividend, no ministry payroll,</text>
+    <text class="text" x="1573" y="269">no automatic bailout after loss</text>
+  </g>
+
+  <g>
+    <rect class="box source" x="70" y="330" width="360" height="98" rx="12"/>
+    <text class="label" x="98" y="362">MDB / Concessional Loans</text>
+    <text class="text" x="98" y="387">Long-tenor public-good finance</text>
+    <text class="text" x="98" y="409">with safeguards</text>
+    <rect class="box sector" x="555" y="330" width="360" height="98" rx="12"/>
+    <text class="label" x="583" y="362">Water, roads, rail, grid</text>
+    <text class="text" x="583" y="387">Climate adaptation, governance,</text>
+    <text class="text" x="583" y="409">rehab with public benefits</text>
+    <rect class="box repay" x="1050" y="330" width="360" height="98" rx="12"/>
+    <text class="label" x="1078" y="362">Availability and fiscal path</text>
+    <text class="text" x="1078" y="387">Tariffs, savings contracts,</text>
+    <text class="text" x="1078" y="409">budgeted repayment source</text>
+    <rect class="box gate" x="1545" y="330" width="420" height="98" rx="12"/>
+    <text class="label" x="1573" y="362">Safeguards and debt sustainability</text>
+    <text class="text" x="1573" y="387">Procurement, E&amp;S, maintenance,</text>
+    <text class="text" x="1573" y="409">transparent use of proceeds</text>
+  </g>
+
+  <g>
+    <rect class="box source" x="70" y="470" width="360" height="98" rx="12"/>
+    <text class="label" x="98" y="502">Export Credit / Supplier Finance</text>
+    <text class="text" x="98" y="527">Machinery and equipment packages</text>
+    <text class="text" x="98" y="549">with vendor warranties</text>
+    <rect class="box sector" x="555" y="470" width="360" height="98" rx="12"/>
+    <text class="label" x="583" y="502">Rail, HVAC, electronics, water</text>
+    <text class="text" x="583" y="527">Factory tooling, grid equipment,</text>
+    <text class="text" x="583" y="549">industrial machinery</text>
+    <rect class="box repay" x="1050" y="470" width="360" height="98" rx="12"/>
+    <text class="label" x="1078" y="502">Sales and service margin</text>
+    <text class="text" x="1078" y="527">Warranty revenue, offtake,</text>
+    <text class="text" x="1078" y="549">spare-parts cashflow</text>
+    <rect class="box gate" x="1545" y="470" width="420" height="98" rx="12"/>
+    <text class="label" x="1573" y="502">Technology transfer</text>
+    <text class="text" x="1573" y="527">Iraqi training, open interfaces where</text>
+    <text class="text" x="1573" y="549">possible, lock-in score</text>
+  </g>
+
+  <g>
+    <rect class="box source" x="70" y="610" width="360" height="98" rx="12"/>
+    <text class="label" x="98" y="642">Green Bond / Green Sukuk</text>
+    <text class="text" x="98" y="667">Use-of-proceeds capital</text>
+    <text class="text" x="98" y="689">with external verification</text>
+    <rect class="box sector" x="555" y="610" width="360" height="98" rx="12"/>
+    <text class="label" x="583" y="642">Solar, storage, grid, efficiency</text>
+    <text class="text" x="583" y="667">Water efficiency, waste-to-energy,</text>
+    <text class="text" x="583" y="689">green facility rehab</text>
+    <rect class="box repay" x="1050" y="610" width="360" height="98" rx="12"/>
+    <text class="label" x="1078" y="642">PPAs and verified savings</text>
+    <text class="text" x="1078" y="667">Industrial power, ESCO fees,</text>
+    <text class="text" x="1078" y="689">metered reductions</text>
+    <rect class="box gate" x="1545" y="610" width="420" height="98" rx="12"/>
+    <text class="label" x="1573" y="642">Green integrity</text>
+    <text class="text" x="1573" y="667">No deficit finance, public allocation</text>
+    <text class="text" x="1573" y="689">and impact reporting</text>
+  </g>
+
+  <g>
+    <rect class="box source" x="70" y="750" width="360" height="98" rx="12"/>
+    <text class="label" x="98" y="782">PPP / JV Equity</text>
+    <text class="text" x="98" y="807">Private capital with risk sharing</text>
+    <text class="text" x="98" y="829">and performance contracts</text>
+    <rect class="box sector" x="555" y="750" width="360" height="98" rx="12"/>
+    <text class="label" x="583" y="782">Tourism, logistics, industrial parks</text>
+    <text class="text" x="583" y="807">Station retail, hotels, airports,</text>
+    <text class="text" x="583" y="829">facility concessions</text>
+    <rect class="box repay" x="1050" y="750" width="360" height="98" rx="12"/>
+    <text class="label" x="1078" y="782">User fees and revenue share</text>
+    <text class="text" x="1078" y="807">Leases, JV distributions,</text>
+    <text class="text" x="1078" y="829">availability payments</text>
+    <rect class="box gate" x="1545" y="750" width="420" height="98" rx="12"/>
+    <text class="label" x="1573" y="782">No asset stripping</text>
+    <text class="text" x="1573" y="807">Termination rules, public audit,</text>
+    <text class="text" x="1573" y="829">private demand risk where feasible</text>
+  </g>
+
+  <g>
+    <rect class="box source" x="70" y="890" width="360" height="98" rx="12"/>
+    <text class="label" x="98" y="922">Domestic Bond / Sukuk / Equity</text>
+    <text class="text" x="98" y="947">Local-currency capital market</text>
+    <text class="text" x="98" y="969">for mature ring-fenced assets</text>
+    <rect class="box sector" x="555" y="890" width="360" height="98" rx="12"/>
+    <text class="label" x="583" y="922">Audited IQD cashflow assets</text>
+    <text class="text" x="583" y="947">Materials, packaging, storage,</text>
+    <text class="text" x="583" y="969">municipal services, platforms</text>
+    <rect class="box repay" x="1050" y="890" width="360" height="98" rx="12"/>
+    <text class="label" x="1078" y="922">Coupons, distributions, dividends</text>
+    <text class="text" x="1078" y="947">From settled project accounts</text>
+    <text class="text" x="1078" y="969">and audited operating cash</text>
+    <rect class="box gate" x="1545" y="890" width="420" height="98" rx="12"/>
+    <text class="label" x="1573" y="922">Investor protection</text>
+    <text class="text" x="1573" y="947">No forced purchases, trustee/custody,</text>
+    <text class="text" x="1573" y="969">disclosure and regulator readiness</text>
+  </g>
+
+  <g>
+    <rect class="box source" x="70" y="1030" width="360" height="98" rx="12"/>
+    <text class="label" x="98" y="1062">Diaspora / Local Bank Channels</text>
+    <text class="text" x="98" y="1087">Optional capital and distribution</text>
+    <text class="text" x="98" y="1109">not the main funding source</text>
+    <rect class="box sector" x="555" y="1030" width="360" height="98" rx="12"/>
+    <text class="label" x="583" y="1062">Exports, tourism, SMEs, food</text>
+    <text class="text" x="583" y="1087">Diaspora product channels,</text>
+    <text class="text" x="583" y="1109">receivables and working capital</text>
+    <rect class="box repay" x="1050" y="1030" width="360" height="98" rx="12"/>
+    <text class="label" x="1078" y="1062">Export and receivable cash</text>
+    <text class="text" x="1078" y="1087">Formal remittance capture,</text>
+    <text class="text" x="1078" y="1109">orders, bookings, repayments</text>
+    <rect class="box gate" x="1545" y="1030" width="420" height="98" rx="12"/>
+    <text class="label" x="1573" y="1062">AML and suitability</text>
+    <text class="text" x="1573" y="1087">Consumer protection, sanctions,</text>
+    <text class="text" x="1573" y="1109">refunds, disclosure, privacy</text>
+  </g>
+
+  <path class="arrow" d="M430 239 L555 239"/>
+  <path class="arrow" d="M915 239 L1050 239"/>
+  <path class="arrow" d="M1410 239 L1545 239"/>
+  <path class="arrow-soft" d="M250 1128 C250 1190 1760 1190 1760 1128"/>
+  <text class="tiny" x="620" y="1198">Feedback rule: repayment performance, defaults, FX mismatch, and maintenance gaps flow back into the next capital allocation cycle.</text>
+</svg>

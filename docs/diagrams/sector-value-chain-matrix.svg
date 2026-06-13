@@ -1,0 +1,252 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1780" viewBox="0 0 2400 1780" role="img" aria-labelledby="title desc">
+  <title id="title">Sector Value Chain Matrix</title>
+  <desc id="desc">Matrix chart showing value chains across all Cylinder Seal economic sectors, from asset base and inputs through operations, customers, revenue, public benefits, and evidence controls.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 38px Arial, sans-serif; fill: #101828; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #475467; }
+      .head { fill: #344054; }
+      .headtext { font: 700 16px Arial, sans-serif; fill: #ffffff; }
+      .sector { font: 700 15px Arial, sans-serif; fill: #101828; }
+      .cell { font: 400 13px Arial, sans-serif; fill: #344054; }
+      .small { font: 400 12px Arial, sans-serif; fill: #475467; }
+      .rowA { fill: #ffffff; }
+      .rowB { fill: #f2f6fb; }
+      .grid { stroke: #d0d5dd; stroke-width: 1.2; }
+      .accent { fill: #e9f7ef; stroke: #2f7d45; stroke-width: 1.4; }
+      .note { fill: #fff7e6; stroke: #b26a00; stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="2400" height="1780"/>
+  <text class="title" x="58" y="62">Sector Value Chain Matrix</text>
+  <text class="subtitle" x="58" y="94">Each sector is modeled as a business chain: asset base, production activity, customers, revenue capture, public benefits, and Cylinder Seal evidence.</text>
+
+  <rect class="head" x="58" y="140" width="350" height="70" rx="10"/>
+  <rect class="head" x="408" y="140" width="380" height="70"/>
+  <rect class="head" x="788" y="140" width="390" height="70"/>
+  <rect class="head" x="1178" y="140" width="360" height="70"/>
+  <rect class="head" x="1538" y="140" width="390" height="70"/>
+  <rect class="head" x="1928" y="140" width="414" height="70" rx="10"/>
+  <text class="headtext" x="86" y="184">Sector</text>
+  <text class="headtext" x="436" y="184">Asset Base And Inputs</text>
+  <text class="headtext" x="816" y="184">Operations</text>
+  <text class="headtext" x="1206" y="184">Customers And Revenue</text>
+  <text class="headtext" x="1566" y="184">Public Benefit</text>
+  <text class="headtext" x="1956" y="184">Cylinder Seal Evidence</text>
+
+  <g>
+    <rect class="rowA grid" x="58" y="210" width="2284" height="100"/>
+    <text class="sector" x="86" y="245">Materials, Cement, Glass, Steel</text>
+    <text class="cell" x="436" y="240">Limestone, gypsum, scrap, glass plants, cement kilns</text>
+    <text class="cell" x="436" y="262">Rehab idle plants before greenfield where cheaper</text>
+    <text class="cell" x="816" y="240">Cement, rebar, precast, glass, pipes, insulation</text>
+    <text class="cell" x="816" y="262">Kiln efficiency and quality certification</text>
+    <text class="cell" x="1206" y="240">Housing, rail, water, schools, hospitals, public works</text>
+    <text class="cell" x="1206" y="262">Contract sales, domestic sukuk, local bank finance</text>
+    <text class="cell" x="1566" y="240">Lower import leakage and faster reconstruction supply</text>
+    <text class="cell" x="1566" y="262">Cheaper logistics for heavy materials</text>
+    <text class="cell" x="1956" y="240">Unit cost, local content, energy intensity, receipts</text>
+    <text class="cell" x="1956" y="262">Import-parity and maintenance-reserve gates</text>
+  </g>
+
+  <g>
+    <rect class="rowB grid" x="58" y="310" width="2284" height="100"/>
+    <text class="sector" x="86" y="345">Petrochemicals, Fertilizers, Plastics</text>
+    <text class="cell" x="436" y="340">Gas feedstock, sulfur, phosphate, petrochemical sites</text>
+    <text class="cell" x="436" y="362">ECA/JV machinery and environmental controls</text>
+    <text class="cell" x="816" y="340">Ammonia, urea, pipes, packaging film, containers</text>
+    <text class="cell" x="816" y="362">Downstream processing before raw export</text>
+    <text class="cell" x="1206" y="340">Agriculture, water systems, food, construction, exports</text>
+    <text class="cell" x="1206" y="362">Offtake contracts, project debt, export receipts</text>
+    <text class="cell" x="1566" y="340">Food security, raw-material upgrading, FX earnings</text>
+    <text class="cell" x="1566" y="362">Reduced dependency on imported industrial inputs</text>
+    <text class="cell" x="1956" y="340">Feedstock tags, emissions, offtake, DSCR, FX cover</text>
+    <text class="cell" x="1956" y="362">Environmental and related-party gates</text>
+  </g>
+
+  <g>
+    <rect class="rowA grid" x="58" y="410" width="2284" height="100"/>
+    <text class="sector" x="86" y="445">Food, Cold Chain, Agro-Processing</text>
+    <text class="cell" x="436" y="440">Farms, dates, grain, dairy, sugar, oil, cold stores</text>
+    <text class="cell" x="436" y="462">Water-efficient input assumptions required</text>
+    <text class="cell" x="816" y="440">Storage, milling, feed, dairy, poultry, packaging</text>
+    <text class="cell" x="816" y="462">Cold chain and processor finance</text>
+    <text class="cell" x="1206" y="440">Households, restaurants, pilgrims, hotels, retailers</text>
+    <text class="cell" x="1206" y="462">Food sales, storage fees, working-capital lending</text>
+    <text class="cell" x="1566" y="440">Less spoilage, rural incomes, food resilience</text>
+    <text class="cell" x="1566" y="462">Stable supply for tourism and civic services</text>
+    <text class="cell" x="1956" y="440">Farmer payments, batch traceability, water use</text>
+    <text class="cell" x="1956" y="462">Booked cash separated from avoided imports</text>
+  </g>
+
+  <g>
+    <rect class="rowB grid" x="58" y="510" width="2284" height="100"/>
+    <text class="sector" x="86" y="545">Water, Desalination, Irrigation</text>
+    <text class="cell" x="436" y="540">Pumps, pipes, valves, filters, meters, treatment assets</text>
+    <text class="cell" x="436" y="562">MDB, green sukuk, availability-payment candidates</text>
+    <text class="cell" x="816" y="540">Modular treatment, drip systems, leak reduction</text>
+    <text class="cell" x="816" y="562">Equipment leasing and maintenance networks</text>
+    <text class="cell" x="1206" y="540">Farmers, municipalities, industry, utilities</text>
+    <text class="cell" x="1206" y="562">Service contracts, leases, verified savings</text>
+    <text class="cell" x="1566" y="540">Water security, crop-risk reduction, climate resilience</text>
+    <text class="cell" x="1566" y="562">Lower public-health and import risk</text>
+    <text class="cell" x="1956" y="540">Meter data, uptime, water-loss baselines, tariffs</text>
+    <text class="cell" x="1956" y="562">Poor-household subsidy design flagged separately</text>
+  </g>
+
+  <g>
+    <rect class="rowA grid" x="58" y="610" width="2284" height="100"/>
+    <text class="sector" x="86" y="645">Electronics, HVAC, Controls</text>
+    <text class="cell" x="436" y="640">Cooling-system shops, transformers, meters, batteries</text>
+    <text class="cell" x="436" y="662">Supplier finance with technology transfer</text>
+    <text class="cell" x="816" y="640">Assembly, repair, warranty, controls, smart meters</text>
+    <text class="cell" x="816" y="662">Component localization after service proof</text>
+    <text class="cell" x="1206" y="640">Homes, hospitals, hotels, rail, grid, water systems</text>
+    <text class="cell" x="1206" y="662">Sales, warranties, maintenance contracts</text>
+    <text class="cell" x="1566" y="640">Energy efficiency, import substitution, skilled jobs</text>
+    <text class="cell" x="1566" y="662">Better reliability for other sectors</text>
+    <text class="cell" x="1956" y="640">Warranty claims, efficiency ratings, vendor lock-in</text>
+    <text class="cell" x="1956" y="662">Cyber and standards review for connected devices</text>
+  </g>
+
+  <g>
+    <rect class="rowB grid" x="58" y="710" width="2284" height="100"/>
+    <text class="sector" x="86" y="745">Mobility, Machinery, Tires, Spares</text>
+    <text class="cell" x="436" y="740">Fleet depots, repair shops, tire/rubber factories</text>
+    <text class="cell" x="436" y="762">Tool rooms, diagnostics, mechanical workshops</text>
+    <text class="cell" x="816" y="740">Fleet refurbishment, bus assembly, spares, rebuilds</text>
+    <text class="cell" x="816" y="762">Maintenance uptime as core product</text>
+    <text class="cell" x="1206" y="740">Public fleets, logistics, farmers, rail, industry</text>
+    <text class="cell" x="1206" y="762">Service contracts, fleet concessions, local banks</text>
+    <text class="cell" x="1566" y="740">Less downtime, safer fleets, lower imported spares</text>
+    <text class="cell" x="1566" y="762">Supports rail, food, civic, and tourism logistics</text>
+    <text class="cell" x="1956" y="740">Fleet uptime, safety records, warranty, parts origin</text>
+    <text class="cell" x="1956" y="762">Import-parity and technician-certification gates</text>
+  </g>
+
+  <g>
+    <rect class="rowA grid" x="58" y="810" width="2284" height="100"/>
+    <text class="sector" x="86" y="845">Pharma And Medical Supplies</text>
+    <text class="cell" x="436" y="840">Drug plants, sterile packaging, bandage facilities</text>
+    <text class="cell" x="436" y="862">Health procurement can anchor certified lines</text>
+    <text class="cell" x="816" y="840">Generics packaging, IV fluids, disposables, bottles</text>
+    <text class="cell" x="816" y="862">Batch traceability and quality labs</text>
+    <text class="cell" x="1206" y="840">Hospitals, clinics, emergency services, pharmacies</text>
+    <text class="cell" x="1206" y="862">Procurement-backed loans and certified sales</text>
+    <text class="cell" x="1566" y="840">Health resilience and stockout reduction</text>
+    <text class="cell" x="1566" y="862">Lower exposure to import disruptions</text>
+    <text class="cell" x="1956" y="840">Certification, batch records, recalls, audit proofs</text>
+    <text class="cell" x="1956" y="862">Safety failure suspends demand privileges</text>
+  </g>
+
+  <g>
+    <rect class="rowB grid" x="58" y="910" width="2284" height="100"/>
+    <text class="sector" x="86" y="945">Packaging, Paper, Furniture, Rubber</text>
+    <text class="cell" x="436" y="940">Paper plants, cartons, public furniture, rubber goods</text>
+    <text class="cell" x="436" y="962">Recycling and public-fitout demand</text>
+    <text class="cell" x="816" y="940">Cartons, labels, secure forms, furniture, seals, hoses</text>
+    <text class="cell" x="816" y="962">Hotel, school, hospital, and food packaging supply</text>
+    <text class="cell" x="1206" y="940">Food firms, e-commerce, ministries, hotels, schools</text>
+    <text class="cell" x="1206" y="962">Procurement contracts, domestic sukuk, bank lines</text>
+    <text class="cell" x="1566" y="940">Supports food processing, tourism, public services</text>
+    <text class="cell" x="1566" y="962">Creates labor-intensive SME supplier networks</text>
+    <text class="cell" x="1956" y="940">Recycling rate, quality, delivery, SME share</text>
+    <text class="cell" x="1956" y="962">Public contract and defect dashboards</text>
+  </g>
+
+  <g>
+    <rect class="rowA grid" x="58" y="1010" width="2284" height="100"/>
+    <text class="sector" x="86" y="1045">Green Power, Grid, Efficiency</text>
+    <text class="cell" x="436" y="1040">Solar sites, substations, rooftops, public buildings</text>
+    <text class="cell" x="436" y="1062">Green sukuk and MDB-ready project registers</text>
+    <text class="cell" x="816" y="1040">Solar, storage, smart meters, waste-to-energy, ESCOs</text>
+    <text class="cell" x="816" y="1062">Grid loss and efficient cooling contracts</text>
+    <text class="cell" x="1206" y="1040">Utilities, industrial parks, public buildings, cities</text>
+    <text class="cell" x="1206" y="1062">PPAs, savings contracts, availability payments</text>
+    <text class="cell" x="1566" y="1040">Lower fuel burn, better power, climate resilience</text>
+    <text class="cell" x="1566" y="1062">Cheaper inputs for industry and services</text>
+    <text class="cell" x="1956" y="1040">Meter data, use-of-proceeds, emissions claims</text>
+    <text class="cell" x="1956" y="1062">External verification before green claims</text>
+  </g>
+
+  <g>
+    <rect class="rowB grid" x="58" y="1110" width="2284" height="100"/>
+    <text class="sector" x="86" y="1145">Rail, Metro, Logistics</text>
+    <text class="cell" x="436" y="1140">Right-of-way, depots, station land, warehouses</text>
+    <text class="cell" x="436" y="1162">Open standards and land-value capture law</text>
+    <text class="cell" x="816" y="1140">Metro/light rail, fare APIs, depots, freight nodes</text>
+    <text class="cell" x="816" y="1162">Domestic fabrication and O&amp;M training</text>
+    <text class="cell" x="1206" y="1140">Passengers, tourists, freight, stations, municipalities</text>
+    <text class="cell" x="1206" y="1162">Fares, availability payments, station leases</text>
+    <text class="cell" x="1566" y="1140">Lower congestion, safer access, regional integration</text>
+    <text class="cell" x="1566" y="1162">Anchor demand for materials and electronics</text>
+    <text class="cell" x="1956" y="1140">Ridership, fare settlement, asset registry, uptime</text>
+    <text class="cell" x="1956" y="1162">Farebox risk kept separate from public value</text>
+  </g>
+
+  <g>
+    <rect class="rowA grid" x="58" y="1210" width="2284" height="100"/>
+    <text class="sector" x="86" y="1245">Tourism, Hospitality, Heritage</text>
+    <text class="cell" x="436" y="1240">Shrines, heritage, marshlands, mountains, hotels</text>
+    <text class="cell" x="436" y="1262">Conservation and carrying-capacity gates</text>
+    <text class="cell" x="816" y="1240">Booking, guides, hotels, transport, sanitation, events</text>
+    <text class="cell" x="816" y="1262">Visitor service bundles and quality marks</text>
+    <text class="cell" x="1206" y="1240">Pilgrims, diaspora, regional visitors, service exporters</text>
+    <text class="cell" x="1206" y="1262">Platform fees, leases, JV shares, FX services</text>
+    <text class="cell" x="1566" y="1240">Jobs, city services, food demand, country brand</text>
+    <text class="cell" x="1566" y="1262">Second-order benefits tracked separately</text>
+    <text class="cell" x="1956" y="1240">Bookings, guide registry, reviews, formal FX</text>
+    <text class="cell" x="1956" y="1262">Safety, conservation, lodging, transport gates</text>
+  </g>
+
+  <g>
+    <rect class="rowB grid" x="58" y="1310" width="2284" height="100"/>
+    <text class="sector" x="86" y="1345">Digital, Telecom, SME Platforms</text>
+    <text class="cell" x="436" y="1340">Wallet rails, exchanges, data rooms, telecom cabinets</text>
+    <text class="cell" x="436" y="1362">National ID, bank, and privacy integrations required</text>
+    <text class="cell" x="816" y="1340">Payments, registries, merchant tiers, APIs, analytics</text>
+    <text class="cell" x="816" y="1362">Credit features and compliance automation</text>
+    <text class="cell" x="1206" y="1340">Citizens, SMEs, banks, ministries, platforms</text>
+    <text class="cell" x="1206" y="1362">Low fees, registry APIs, credit enablement</text>
+    <text class="cell" x="1566" y="1340">Formalization, bankability, lower leakage</text>
+    <text class="cell" x="1566" y="1362">Better policy visibility without over-surveillance</text>
+    <text class="cell" x="1956" y="1340">Consent, privacy tiers, audit logs, AML triggers</text>
+    <text class="cell" x="1956" y="1362">Platform fee burden monitored</text>
+  </g>
+
+  <g>
+    <rect class="rowA grid" x="58" y="1410" width="2284" height="100"/>
+    <text class="sector" x="86" y="1445">Precious-Metals Formalization</text>
+    <text class="cell" x="436" y="1440">Assay offices, hallmarking labs, secure markets</text>
+    <text class="cell" x="436" y="1462">Existing markets mapped before new facilities</text>
+    <text class="cell" x="816" y="1440">Assay, hallmarking, receipts, AML-supervised settlement</text>
+    <text class="cell" x="816" y="1462">Trusted retail and source-of-funds controls</text>
+    <text class="cell" x="1206" y="1440">Households, jewelers, banks, formal markets</text>
+    <text class="cell" x="1206" y="1462">Fees, compliant retail settlement, private operators</text>
+    <text class="cell" x="1566" y="1440">Reduces leakage, fraud, and opaque cash storage</text>
+    <text class="cell" x="1566" y="1462">Not treated as subsidized gold speculation</text>
+    <text class="cell" x="1956" y="1440">KYC, AML/CFT, beneficial ownership, e-receipts</text>
+    <text class="cell" x="1956" y="1462">Consumer-protection gates</text>
+  </g>
+
+  <g>
+    <rect class="rowB grid" x="58" y="1510" width="2284" height="100"/>
+    <text class="sector" x="86" y="1545">Strategic Controlled Sustainment</text>
+    <text class="cell" x="436" y="1540">Secure depots, medical kits, vehicle sustainment assets</text>
+    <text class="cell" x="436" y="1562">Legal authority and classification boundaries first</text>
+    <text class="cell" x="816" y="1540">Uniforms, protective gear, field medical, maintenance</text>
+    <text class="cell" x="816" y="1562">Sensitive specs stay out of public dashboards</text>
+    <text class="cell" x="1206" y="1540">Security agencies, emergency services, logistics</text>
+    <text class="cell" x="1206" y="1562">Controlled procurement and audited service contracts</text>
+    <text class="cell" x="1566" y="1540">Emergency resilience and reduced import vulnerability</text>
+    <text class="cell" x="1566" y="1562">Civilian spillovers only when safe and legal</text>
+    <text class="cell" x="1956" y="1540">Licenses, end-use controls, audit boundary, cyber</text>
+    <text class="cell" x="1956" y="1562">No public securities before lawful review</text>
+  </g>
+
+  <rect class="note" x="58" y="1645" width="2284" height="82" rx="14"/>
+  <text class="sector" x="86" y="1680">Reading rule</text>
+  <text class="small" x="210" y="1680">Booked sales, fees, leases, PPAs, fares, platform fees, export receipts, and taxes can enter the cash waterfall. Avoided imports, jobs, resilience, tourism multipliers, and city-service gains remain public-benefit ledger items until converted into settled cash.</text>
+</svg>

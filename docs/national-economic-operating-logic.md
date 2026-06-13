@@ -127,6 +127,7 @@ forward no matter how attractive the narrative is.
 | --- | --- |
 | Legal authority | Statutory mandate, procurement authority, data authority, and dispute path exist. |
 | Fiscal affordability | Oil-equity draw and public exposure fit the affordability rules. |
+| Facility reuse | Existing Iraqi facilities have been screened before greenfield capex, or reuse failed title, engineering, environmental, revenue, DSCR, FX, maintenance, or investor-protection gates. |
 | Debt safety | Base DSCR, stress DSCR, tenor, grace period, and currency match are acceptable. |
 | Maintenance coverage | Lifecycle cost and renewal reserve are funded before dividends. |
 | Revenue proof | Cashflow source is identified: sale, PPA, lease, fare, service contract, platform fee, export receipt, or lawful levy. |
@@ -204,12 +205,14 @@ Capital allocation should proceed in this order:
 
 1. Protect existing asset maintenance, safety, cybersecurity, and debt service.
 2. Fund projects that preserve water, food, power, and critical logistics.
-3. Fund projects with near-term booked cash and clear collection mechanisms.
-4. Fund import-substitution and strategic-resilience projects with credible unit
+3. Rehabilitate existing facilities when reuse beats greenfield and bankability
+   gates pass.
+4. Fund projects with near-term booked cash and clear collection mechanisms.
+5. Fund import-substitution and strategic-resilience projects with credible unit
    economics.
-5. Fund tourism, services, and export platforms that bring non-oil demand.
-6. Fund civic-work and workforce transitions that preserve social legitimacy.
-7. Fund dividends only from audited surplus after reserves and retained
+6. Fund tourism, services, and export platforms that bring non-oil demand.
+7. Fund civic-work and workforce transitions that preserve social legitimacy.
+8. Fund dividends only from audited surplus after reserves and retained
    earnings.
 
 This order prevents a politically attractive dividend from consuming the capital
@@ -254,6 +257,11 @@ kernel, not a complete national operating system.
 | `PublicDashboardSnapshot` | Published aggregate view with confidence levels and privacy protection. |
 | `GrowthImpactProjection` | Baseline, constrained-base, and strategic-upper non-oil growth paths from [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md). |
 | `ComprehensiveBenefitProjection` | Long-horizon economic, infrastructure, environmental, social, and cultural benefit paths from [Iraq Comprehensive Benefits Model](iraq-comprehensive-benefits-model.md). |
+| `ProductionCapacityProjection` | Domestic output, local content, quality, cost discipline, booked sales, verified import substitution, FX savings, and procurement-dependence gates. |
+| `FacilityRecyclingProjection` | Underutilized facility reuse, greenfield-avoidance economics, DSCR, FX cover, international credit readiness, domestic capital-market readiness, and finance-lane gates. |
+| `StrategicResilienceProjection` | Controlled-sector resilience, import-vulnerability reduction, critical spares, supplier diversification, end-use controls, and audit boundaries. |
+| `TourismServiceClusterProjection` | Attraction-based service revenue, non-oil FX capture, local supplier demand, second-order benefit, visitor safety, conservation, and capacity gates. |
+| `DiasporaChannelProjection` | Formal remittances, Iraqi-product demand, export distribution, expertise, investment pipeline, marketing attribution, and compliance gates. |
 
 Initial executable coverage:
 
@@ -296,6 +304,37 @@ Initial executable coverage:
   import-substitution value, modelled FX savings, public-procurement
   dependence, and anti-protectionism gates. `migrations/20260707000001_production_capacity_projection.sql`
   adds projection, local-content, import-substitution-ledger, and gate tables.
+- `crates/cs-analytics/src/facility_recycling.rs` adds the first facility
+  recycling and capital-market finance layer: existing facility utilization,
+  rehabilitation capex, greenfield replacement cost, environmental liabilities,
+  revenue-contract cover, DSCR, FX cover, maintenance reserves, international
+  credit readiness, domestic capital-market readiness, recommended finance
+  lane, and gates for legal title, asset registry, engineering/environmental
+  audit, labor transition, disclosure, investor protection, hidden guarantees,
+  and controlled-sector review. `migrations/20260711000001_facility_recycling_projection.sql`
+  adds projection, financing-instrument, and gate tables.
+- `crates/cs-analytics/src/strategic_resilience.rs` adds the first
+  controlled-sector resilience layer: import dependency, domestic capacity,
+  local content, critical spares, civilian spillover, supplier diversification,
+  control readiness, and scaling gates for regulated defense sustainment,
+  electronics, HVAC, water/desalination, irrigation, food, rail components,
+  grid equipment, and medical supplies. `migrations/20260708000001_strategic_resilience_projection.sql`
+  adds projection and gate tables.
+- `crates/cs-analytics/src/tourism_services.rs` adds the first
+  attraction-based services layer: visitor spend potential, booked service
+  revenue, non-oil FX capture, local supplier demand, second-order benefit,
+  direct jobs, capacity utilization, readiness scoring, leakage, and gates for
+  safety, heritage/environment protection, service quality, formal payments,
+  local procurement, capacity, guides, lodging/transport, and maintenance.
+  `migrations/20260709000001_tourism_services_projection.sql` adds projection,
+  revenue-ledger, and gate tables.
+- `crates/cs-analytics/src/diaspora_channels.rs` adds the first diaspora
+  channel layer: booked income, formalized remittances, export distribution,
+  expertise value, investment pipeline, marketing attribution, distribution
+  readiness, and compliance gates for KYC/AML, sanctions, product quality,
+  consumer protection, data privacy, distribution coverage, conversion evidence,
+  and investment suitability. `migrations/20260710000001_diaspora_channels_projection.sql`
+  adds projection, ledger, and gate tables.
 
 ## Management Dashboards
 
@@ -311,6 +350,9 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Growth impact | Are infrastructure, industry, open-source rail, tourism, Digital IQD, and civic work raising non-oil growth versus baseline? |
 | Comprehensive benefits | Are economic, environmental, social, cultural, and infrastructure benefits tracked separately from booked cash? |
 | Local capability | Which sectors are becoming Iraqi-operated and less import-dependent? |
+| Facility recycling | Which existing assets can be rehabilitated before greenfield capex, and which can attract international credit, domestic bonds/sukuk, listed equity, PPP, or blended finance? |
+| Attraction services | Which natural, cultural, religious, medical, education, and business-service clusters are capturing formal revenue without exceeding safety or conservation gates? |
+| Diaspora channels | Which diaspora markets are producing settled income, export orders, expertise, investment leads, marketing conversion, or formalized remittances? |
 | Ministry productivity | Which public budgets now buy measured outputs? |
 | Citizen welfare | What changed in wages, transfers, civic income, dividends, prices, and credit access? |
 | Risk and capture | Where are procurement, related-party, concentration, AML, or security risks rising? |

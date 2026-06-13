@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1320" viewBox="0 0 1900 1320" role="img" aria-labelledby="title desc">
+  <title id="title">Society And Economy Feedback Loop</title>
+  <desc id="desc">Chart showing how Cylinder Seal connects productive assets, wages, citizen dividends, taxes, ministries, banks, civic work, tourism, diaspora demand, and public benefits.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#344054"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 36px Arial, sans-serif; fill: #101828; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #475467; }
+      .box { stroke-width: 1.8; }
+      .core { fill: #eef6ff; stroke: #2e73b8; }
+      .prod { fill: #e9f7ef; stroke: #2f7d45; }
+      .state { fill: #fff7e6; stroke: #b26a00; }
+      .society { fill: #f3e8ff; stroke: #7e3fb2; }
+      .risk { fill: #fff0f0; stroke: #b23b3b; }
+      .label { font: 700 17px Arial, sans-serif; fill: #101828; }
+      .text { font: 400 13px Arial, sans-serif; fill: #344054; }
+      .small { font: 400 11.5px Arial, sans-serif; fill: #475467; }
+      .arrow { stroke: #344054; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
+      .arrow-soft { stroke: #667085; stroke-width: 1.8; fill: none; stroke-dasharray: 8 6; marker-end: url(#arrow); }
+      .cash { stroke: #2f7d45; stroke-width: 2.6; fill: none; marker-end: url(#arrow); }
+      .benefit { stroke: #7e3fb2; stroke-width: 2.2; fill: none; stroke-dasharray: 9 6; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1900" height="1320"/>
+  <text class="title" x="58" y="62">Society And Economy Feedback Loop</text>
+  <text class="subtitle" x="58" y="94">The broader value chain is not only industrial cashflow: it also moves citizens from passive oil dependency into wages, ownership income, services, credit histories, and civic participation.</text>
+
+  <rect class="box core" x="760" y="130" width="380" height="155" rx="18"/>
+  <text class="label" x="800" y="168">Digital IQD Operating Layer</text>
+  <text class="text" x="800" y="198">Wallets, POS, settlement, invoices</text>
+  <text class="text" x="800" y="222">KYC, AML, privacy tiers, audit logs</text>
+  <text class="text" x="800" y="246">Credit features and policy dashboards</text>
+
+  <rect class="box state" x="115" y="205" width="330" height="145" rx="16"/>
+  <text class="label" x="150" y="242">Oil Income Lockbox</text>
+  <text class="text" x="150" y="272">Stabilization reserve first</text>
+  <text class="text" x="150" y="296">Capped oil-equity allocation</text>
+  <text class="text" x="150" y="320">No automatic ministry funding tap</text>
+
+  <rect class="box prod" x="115" y="520" width="330" height="165" rx="16"/>
+  <text class="label" x="150" y="557">INDHC And Producers</text>
+  <text class="text" x="150" y="587">Facility reuse and greenfield projects</text>
+  <text class="text" x="150" y="611">Sectoral industrial champions</text>
+  <text class="text" x="150" y="635">SME and individual producer networks</text>
+  <text class="text" x="150" y="659">Iraqi-only permanent staffing</text>
+
+  <rect class="box prod" x="600" y="520" width="330" height="165" rx="16"/>
+  <text class="label" x="635" y="557">Goods And Services</text>
+  <text class="text" x="635" y="587">Food, water, materials, HVAC</text>
+  <text class="text" x="635" y="611">Green power, rail, tourism</text>
+  <text class="text" x="635" y="635">Digital platforms and formal markets</text>
+  <text class="text" x="635" y="659">Strategic controlled sustainment</text>
+
+  <rect class="box society" x="1085" y="500" width="330" height="185" rx="16"/>
+  <text class="label" x="1120" y="537">Citizens And Households</text>
+  <text class="text" x="1120" y="567">Wages and SME income</text>
+  <text class="text" x="1120" y="591">Civic-work income</text>
+  <text class="text" x="1120" y="615">Public transfers and dividends</text>
+  <text class="text" x="1120" y="639">Better local services and goods</text>
+  <text class="text" x="1120" y="663">Credit histories through spending</text>
+
+  <rect class="box state" x="1455" y="245" width="330" height="165" rx="16"/>
+  <text class="label" x="1490" y="282">Treasury And Ministries</text>
+  <text class="text" x="1490" y="312">Gross-profit levy and taxes</text>
+  <text class="text" x="1490" y="336">Performance-priced service contracts</text>
+  <text class="text" x="1490" y="360">Regulators, standards, inspections</text>
+  <text class="text" x="1490" y="384">No budget without visible value</text>
+
+  <rect class="box core" x="1455" y="585" width="330" height="165" rx="16"/>
+  <text class="label" x="1490" y="622">Banks And Investors</text>
+  <text class="text" x="1490" y="652">Receivable finance and project debt</text>
+  <text class="text" x="1490" y="676">Domestic bonds, sukuk, equity</text>
+  <text class="text" x="1490" y="700">MDB, ECA, PPP, diaspora channels</text>
+  <text class="text" x="1490" y="724">DSCR and FX matching</text>
+
+  <rect class="box society" x="1085" y="835" width="330" height="165" rx="16"/>
+  <text class="label" x="1120" y="872">Civic Work And Care</text>
+  <text class="text" x="1120" y="902">Municipal repair, sport, culture</text>
+  <text class="text" x="1120" y="926">Environmental restoration</text>
+  <text class="text" x="1120" y="950">Training and bridge-to-work records</text>
+  <text class="text" x="1120" y="974">Voluntary dignity-of-work model</text>
+
+  <rect class="box prod" x="600" y="835" width="330" height="165" rx="16"/>
+  <text class="label" x="635" y="872">Tourism, Exports, Diaspora</text>
+  <text class="text" x="635" y="902">Foreign-customer demand</text>
+  <text class="text" x="635" y="926">Marketing and distribution channels</text>
+  <text class="text" x="635" y="950">Expertise and optional capital</text>
+  <text class="text" x="635" y="974">Non-oil FX capture</text>
+
+  <rect class="box risk" x="115" y="835" width="330" height="165" rx="16"/>
+  <text class="label" x="150" y="872">Risk And Governance</text>
+  <text class="text" x="150" y="902">Legal authority and debt caps</text>
+  <text class="text" x="150" y="926">Audit, privacy, AML, sanctions</text>
+  <text class="text" x="150" y="950">Anti-capture and competition gates</text>
+  <text class="text" x="150" y="974">Maintenance before dividends</text>
+
+  <path class="cash" d="M445 278 C560 200 650 190 760 205"/>
+  <path class="cash" d="M950 285 L445 560"/>
+  <path class="cash" d="M445 604 L600 604"/>
+  <path class="cash" d="M930 604 L1085 604"/>
+  <path class="cash" d="M1415 592 C1500 560 1545 475 1580 410"/>
+  <path class="cash" d="M1455 328 L1140 210"/>
+  <path class="cash" d="M1415 625 L1455 665"/>
+  <path class="cash" d="M1455 676 L1415 635"/>
+  <path class="cash" d="M1085 910 L930 910"/>
+  <path class="cash" d="M600 910 C520 835 470 745 445 650"/>
+
+  <path class="benefit" d="M600 660 C520 760 455 830 445 910"/>
+  <path class="benefit" d="M930 900 L1085 910"/>
+  <path class="benefit" d="M1250 685 L1250 835"/>
+  <path class="benefit" d="M1620 410 L1620 585"/>
+  <path class="benefit" d="M1250 500 C1190 380 1110 290 1040 250"/>
+
+  <path class="arrow-soft" d="M280 835 C450 760 585 695 760 250"/>
+  <path class="arrow-soft" d="M445 918 L600 918"/>
+  <path class="arrow-soft" d="M1415 930 C1570 915 1660 810 1620 750"/>
+
+  <text class="small" x="58" y="1158">Solid green arrows are booked cash, repayment, or distributable flows. Dashed purple arrows are public-benefit and capability effects that must be source-tagged before they influence policy. Grey dashed arrows are governance vetoes and audit feedback.</text>
+  <text class="small" x="58" y="1190">The social claim is therefore concrete: citizens benefit through wages, local goods, civic-work income, better services, credit access, and dividends only after maintenance, debt service, taxes, reserves, and audit gates pass.</text>
+</svg>

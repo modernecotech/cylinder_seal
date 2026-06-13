@@ -46,9 +46,12 @@ BOOK_PARTS = [
     BookPart("Iraq Comprehensive Benefits Model", ROOT / "docs" / "iraq-comprehensive-benefits-model.md"),
     BookPart("Iraq Quantified Affordability And Cashflow Model", ROOT / "docs" / "iraq-quantified-affordability-model.md"),
     BookPart("System And Financial Flow Diagrams", ROOT / "docs" / "system-and-financial-flow-diagrams.md"),
+    BookPart("Business Value Chain Charts", ROOT / "docs" / "business-value-chain-charts.md"),
     BookPart("Unified Economic Model", ROOT / "docs" / "unified-economic-model.md"),
     BookPart("National Dividend Holding Company", ROOT / "docs" / "national-dividend-holding-company.md"),
     BookPart("INDHC Ten-Year Plan", ROOT / "docs" / "indhc-10-year-plan.md"),
+    BookPart("Import, Services, And Diaspora Expansion", ROOT / "docs" / "import-services-diaspora-expansion.md"),
+    BookPart("Facility Recycling And Capital Markets", ROOT / "docs" / "facility-recycling-and-capital-markets.md"),
     BookPart("Digitally Governed Industrial Champions", ROOT / "docs" / "digitally-governed-industrial-champions.md"),
     BookPart("National Civic Work System", ROOT / "docs" / "national-civic-work-system.md"),
     BookPart("Ministry Transition Roadmap", ROOT / "docs" / "ministry-transition-roadmap.md"),
@@ -64,6 +67,10 @@ DIAGRAMS = [
     ("Transaction Combination Matrix", ROOT / "docs" / "diagrams" / "transaction-combination-matrix.svg"),
     ("National Dividend Holding Company", ROOT / "docs" / "diagrams" / "national-dividend-holding-company.svg"),
     ("National Civic Work System", ROOT / "docs" / "diagrams" / "national-civic-work-system.svg"),
+    ("Business Value Chain Overview", ROOT / "docs" / "diagrams" / "business-value-chain-overview.svg"),
+    ("Sector Value Chain Matrix", ROOT / "docs" / "diagrams" / "sector-value-chain-matrix.svg"),
+    ("Capital And Repayment Lanes", ROOT / "docs" / "diagrams" / "capital-and-repayment-lanes.svg"),
+    ("Society And Economy Feedback Loop", ROOT / "docs" / "diagrams" / "society-economy-feedback-loop.svg"),
 ]
 
 

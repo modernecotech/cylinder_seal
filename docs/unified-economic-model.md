@@ -7,6 +7,10 @@ citizen dividends, and verified civic work into one economic model.
 Status: planning architecture. It is not a validated macroeconomic model, not a
 budget law, not a CBDC launch plan, and not a production-readiness claim.
 
+For the reviewer-facing business charts that map sector value chains, capital
+lanes, repayment paths, and society/economy feedback loops, see
+[Business Value Chain Charts](business-value-chain-charts.md).
+
 ## One Sentence Model
 
 Cylinder Seal makes economic activity visible and programmable; INDHC converts
@@ -18,7 +22,7 @@ audited surplus.
 
 ## System Boundary
 
-The system has ten layers:
+The system has twelve layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
@@ -29,6 +33,8 @@ The system has ten layers:
 | Growth-impact layer | Quantified baseline, constrained-base, and strategic-upper non-oil growth paths from infrastructure, industry, open-source rail, green power, food/water systems, tourism, Digital IQD formalization, and civic work. | `docs/iraq-integrated-growth-impact-model.md` |
 | Comprehensive benefits layer | 2036, 2040, and 2050 scenario ranges for economic output, infrastructure capacity, environmental avoided losses, civic-work capacity, tourism/culture, and dividends. | `docs/iraq-comprehensive-benefits-model.md` |
 | Affordability and cashflow layer | IMF-baseline capital envelopes, oil-equity affordability, project-loan sources, PPP/JV capital, recurring revenue channels, debt-service coverage, stress tests, and dividend math. | `docs/iraq-quantified-affordability-model.md` |
+| Facility recycling and capital-markets layer | Underutilized facility inventory, brownfield-versus-greenfield economics, international credit readiness, domestic bond/sukuk/equity readiness, PPP paths, and investor-protection gates. | `docs/facility-recycling-and-capital-markets.md` |
+| Import, services, and diaspora expansion layer | Missing import screens, attraction-based service production, and diaspora income, expertise, capital, marketing, and distribution channels. | `docs/import-services-diaspora-expansion.md` |
 | Industrial champion governance layer | Sectoral production groups receive conditional demand, credit, and payment privileges only while they meet local-content, price, quality, export, tax, debt, SME-inclusion, and audit gates. | `docs/digitally-governed-industrial-champions.md` |
 | Civic work and dignity layer | Productivity gains fund verified public-value work, training, care, environmental restoration, sport, culture, municipal repair, and disaster resilience. | `docs/national-civic-work-system.md` |
 | Ministry transition layer | Deprecates, merges, regulates, corporatizes, or sunsets ministry functions once service-continuity, legal, audit, and staff-transition gates pass. | `docs/ministry-transition-roadmap.md` |
@@ -52,7 +58,7 @@ services, jobs, and profit to measure.
 | INDHC | Receives oil-equity allocations, raises project debt, invests in productive subsidiaries, pays taxes/levies, reinvests retained earnings, distributes dividends. |
 | Ministries | Stop being direct claimants on raw oil income; receive budgets through taxes, levies, and performance-priced service contracts. |
 | Treasury | Receives gross-profit levy, taxes, and other explicit revenue; funds ministries through visible appropriations. |
-| Tourism and diaspora channels | Bring foreign currency and external demand into formal Iraqi goods and services. |
+| Tourism and diaspora channels | Bring foreign currency, external demand, expertise, marketing, and distribution access into formal Iraqi goods and services. |
 | International lenders and investors | Fund bankable green, rail, industrial, and service projects under public use-of-proceeds and debt-safety rules. |
 | Auditors, parliament, and public dashboards | Provide legitimacy, aggregate transparency, anti-corruption evidence, and feedback discipline. |
 
@@ -407,7 +413,10 @@ separate dashboard widgets.
 | `GrowthImpactProjection` | Baseline non-oil growth, sector add-ons, real non-oil GDP index, additional GDP vs baseline, confidence labels | Macro growth-impact and timeline view. |
 | `ComprehensiveBenefitProjection` | GDP, booked revenue, dividend range, rail capacity, clean power, tourism, civic-work capacity, avoided environmental loss, social value, cultural value, confidence labels | Long-horizon economic, infrastructure, environmental, social, and cultural benefits view. |
 | `ProductionCapacityProjection` | Merchant tiers, local-content attestations, project outputs, inventory, procurement | Import substitution, food substitution, and domestic supply view. |
+| `FacilityRecyclingProjection` | Existing facility inventory, utilization, rehab capex, greenfield replacement cost, environmental liabilities, DSCR, FX cover, disclosure, investor protection | Brownfield reuse, international credit readiness, domestic capital-market readiness, and finance-lane view. |
 | `StrategicResilienceProjection` | Defense-sector licenses, electronics/HVAC output, water/desalination equipment, irrigation systems, food-substitution capacity, end-use controls | Critical domestic capability and import-vulnerability view. |
+| `TourismServiceClusterProjection` | Attractions, visitor counts, spend, formal payment capture, local procurement, safety, conservation, lodging, transport, guide capacity | Booked service revenue, non-oil FX capture, local supplier demand, and second-order benefit view. |
+| `DiasporaChannelProjection` | Diaspora region, channel, member conversion, product share, export orders, remittances, expertise, investment pipeline, marketing reach, compliance gates | Diaspora income, formalized remittance, export distribution, expertise, investment, marketing, and no-dividend benefit view. |
 | `AffordabilityProjection` | IMF baseline, oil-equity draw, project loans, PPP capital, DSCR, stress cases, dividend math | Financeability and stop/go gate view. |
 | `RevenueGenerationProjection` | Revenue streams, contracts, invoices, collection, currency, offtake, savings contracts, platform fees, land-value capture | Broad recurring revenue, collection quality, and closed-loop cash view. |
 | `IndustrialChampionProjection` | Champion registry, conditional demand contracts, tier privileges, debt caps, export discipline, related-party exposure, SME inclusion | Anti-capture and sectoral champion performance view. |
@@ -422,25 +431,32 @@ separate dashboard widgets.
 
 ## Dashboard Design
 
-The unified dashboard should answer twelve questions:
+The unified dashboard should answer sixteen questions:
 
 1. Where did oil income go?
 2. Which investments are producing cash, jobs, and domestic supply?
 3. Which imports are being replaced credibly and at what cost?
 4. Which revenue streams are recurring, collected, contract-backed, and broad
    enough to fund debt service, levy, reinvestment, and dividends?
-5. Which critical sectors remain import-vulnerable: defense supply, electronics,
+5. Which existing Iraqi facilities can be recycled before greenfield capex is
+   approved, and which finance lane can fund them without hidden bailouts?
+6. Which critical sectors remain import-vulnerable: defense supply, electronics,
    HVAC, water/desalination, irrigation, and food staples?
-6. Which ministries are improving economic productivity?
-7. Which citizens, civic workers, and producers are becoming more bankable?
-8. Which green and rail assets are lowering system costs?
-9. How much non-oil foreign currency is being captured?
-10. Is the citizen dividend funded by real surplus?
-11. Is productivity displacement being absorbed into verified civic work,
+7. Which ministries are improving economic productivity?
+8. Which citizens, civic workers, and producers are becoming more bankable?
+9. Which green and rail assets are lowering system costs?
+10. How much non-oil foreign currency is being captured?
+11. Which attraction-based services are earning booked revenue without
+    exceeding safety, conservation, or carrying-capacity gates?
+12. Which diaspora channels are producing settled income, export orders,
+    expertise, investment leads, marketing conversion, or formalized
+    remittances?
+13. Is the citizen dividend funded by real surplus?
+14. Is productivity displacement being absorbed into verified civic work,
     training, and bridge-to-work pathways?
-12. Are capex, debt service, retained earnings, and dividends consistent with the
+15. Are capex, debt service, retained earnings, and dividends consistent with the
     ten-year cashflow model?
-13. Are long-horizon environmental, social, cultural, and infrastructure
+16. Are long-horizon environmental, social, cultural, and infrastructure
     benefits source-tagged separately from booked cash?
 
 ## Failure Modes The Model Must Surface
@@ -500,14 +516,23 @@ The model gives each existing Cylinder Seal component a place:
 6. Add `ComprehensiveBenefitProjection` using
    [Iraq Comprehensive Benefits Model](iraq-comprehensive-benefits-model.md).
 7. Add `ProductionCapacityProjection` for import substitution and local content.
-8. Add `StrategicResilienceProjection` for defense-controlled supply,
+8. Add `FacilityRecyclingProjection` for underutilized facility screening,
+   brownfield-versus-greenfield economics, international credit readiness,
+   domestic bond/sukuk/equity readiness, and investor-protection gates.
+9. Add `StrategicResilienceProjection` for defense-controlled supply,
    electronics, HVAC, water/desalination, irrigation, and food substitution.
-9. Add `MinistryPerformanceProjection` for service contracts and budget feedback.
-10. Add `CivicWorkProjection` for verified tasks, payments, training, impact,
+10. Add `TourismServiceClusterProjection` for attraction-based services, formal
+   payment capture, visitor capacity, conservation, local procurement, and
+   second-order benefit separation.
+11. Add `DiasporaChannelProjection` for remittance formalization, Iraqi-product
+   demand, export distribution, expertise, investment pipeline, marketing, and
+   compliance gates.
+12. Add `MinistryPerformanceProjection` for service contracts and budget feedback.
+13. Add `CivicWorkProjection` for verified tasks, payments, training, impact,
    audits, and bridge-to-work outcomes.
-11. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
-12. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
-13. Gate all public claims behind source labels, model assumptions, and confidence
+14. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
+15. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
+16. Gate all public claims behind source labels, model assumptions, and confidence
    levels from `docs/economic-assumptions.md`.
 
 Initial implementation status:
@@ -542,6 +567,32 @@ Initial implementation status:
   delivered-cost discipline, booked domestic sales, verified import
   substitution, local-content-adjusted FX savings, public procurement
   dependence, and production-capacity gates.
+- Step 8 has begun in `crates/cs-analytics/src/facility_recycling.rs` and
+  `migrations/20260711000001_facility_recycling_projection.sql`. It screens
+  underutilized facilities by utilization gain, rehabilitation capex,
+  greenfield replacement cost, environmental liabilities, DSCR, FX cover,
+  revenue-contract cover, maintenance reserves, government-guarantee exposure,
+  international credit readiness, domestic capital-market readiness, and
+  recommended finance lane.
+- Step 9 has begun in `crates/cs-analytics/src/strategic_resilience.rs` and
+  `migrations/20260708000001_strategic_resilience_projection.sql`. It tracks
+  critical domestic capability for regulated defense sustainment, electronics,
+  HVAC, water/desalination equipment, irrigation equipment, food staples, rail
+  components, grid equipment, and medical supplies while enforcing license,
+  end-use, export-control, audit-boundary, supplier-diversification, and
+  responsible-supply-chain gates.
+- Step 10 has begun in `crates/cs-analytics/src/tourism_services.rs` and
+  `migrations/20260709000001_tourism_services_projection.sql`. It quantifies
+  services built around pilgrimage, heritage, marshlands, mountains, rivers,
+  urban culture, medical, education, and business travel assets while enforcing
+  safety, conservation, capacity, formal-payment, local-procurement, guide,
+  lodging/transport, and maintenance-reserve gates.
+- Step 11 has begun in `crates/cs-analytics/src/diaspora_channels.rs` and
+  `migrations/20260710000001_diaspora_channels_projection.sql`. It separates
+  diaspora booked income, formalized remittances, export distribution revenue,
+  expertise value, investment pipeline, and marketing attribution while
+  enforcing KYC/AML, sanctions, quality, consumer-protection, privacy,
+  distribution, conversion, and investment-suitability gates.
 
 ## Bottom Line
 

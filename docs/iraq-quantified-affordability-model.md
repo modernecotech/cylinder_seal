@@ -48,6 +48,9 @@ space are proven.
 | Iraq oil dependence and energy-sector context. | Confirms why oil-equity recycling and energy-linked investments matter. | [EIA Iraq country analysis](https://www.eia.gov/international/analysis/country/irq) |
 | WTTC Iraq Travel & Tourism economic-impact data: 2023 direct GDP contribution, total GDP contribution, direct and total jobs, domestic spending, visitor exports, and 2034 forecasts. | Tourism baseline, visitor-export discipline, and second-order benefit framing. | [WTTC Iraq Economic Impact Report 2024](https://assets-global.website-files.com/6329bc97af73223b575983ac/6643856bc693733a9f435ca5_EIR2024-Iraq.pdf) |
 | World Bank/UN Tourism historical international tourism receipts and arrivals. | Shows why tourism data should be treated as source-tagged and cautiously reconciled across datasets. | [World Bank tourism data for Iraq](https://data.worldbank.org/indicator/ST.INT.RCPT.CD?locations=IQ) |
+| Iraq's National Investment Commission lists multiple rehabilitation and development opportunities across paper, cement, food, oils, dairy, fertilizers, plastics, batteries, cooling systems, controls, glass, tires, tractors, transformers, rubber, and medical supplies. | Supports a brownfield-first screen before greenfield capex is counted as affordable. | [National Investment Commission industrial opportunities](https://investpromo.gov.iq/sectors/industry-and-manufacturing-sector/industry-and-manufacturing-sector-opportunities/) |
+| IFC's 2025 Iraq announcement refers to more than USD 2.5B invested and mobilized since 2005 and up to USD 1B in new planned investment, with manufacturing, food, infrastructure, sustainable finance, capital-market support, and airport PPP work. | International credit is modeled as project-linked, disclosure-backed capital rather than general budget finance. | [IFC Iraq partnership announcement, 2025](https://www.ifc.org/en/pressroom/2025/ifc-marks-20-years-of-partnerships-for-impact-in-iraq-announces-1bn-in-new-investm) |
+| Iraq has domestic securities and depository infrastructure, including Iraqi Securities Commission supervision and Iraqi Depository Center rules for trading, government bonds, foreign investors, and AML/CFT. | Domestic bonds, sukuk, and listed minority equity are modeled as later-stage routes for audited, ring-fenced assets. | [Iraqi Securities Commission](https://www.isc.gov.iq/en), [Iraqi Depository Center rules](https://csd.gov.iq/en/rules-and-instructions/) |
 | Existing sector sources for rail, green power, tourism, raw-material processing, food/water, and import substitution. | Sector selection remains inherited from the INDHC ten-year plan. | [INDHC ten-year plan](indhc-10-year-plan.md) |
 
 These sources support the baseline and source discipline. They do not validate
@@ -134,9 +137,9 @@ The constrained base case is USD 115B over ten years.
 
 | Source | Amount | Share | Uses | Guardrail |
 | --- | ---: | ---: | --- | --- |
-| Oil-equity allocation | USD 65.8B | 57% | First-loss capital, early works, strategic domestic capability, workforce, project equity | Mostly reclassified from public capex while IMF baseline deficits persist. |
-| Project loans and debt | USD 33.8B | 29% | Revenue-generating green, water, rail, manufacturing, logistics, tourism, and industrial assets | No hidden ministry bailout; DSCR covenant required. |
-| PPP / JV equity | USD 15.4B | 13% | Tourism, logistics, industrial parks, selected manufacturing, station-area development | Public asset control and anti-capture rules required. |
+| Oil-equity allocation | USD 65.8B | 57% | First-loss capital, early works, strategic domestic capability, workforce, project equity, facility title/audit/environmental cleanup | Mostly reclassified from public capex while IMF baseline deficits persist; no dividends from asset revaluation. |
+| Project loans and debt | USD 33.8B | 29% | Revenue-generating green, water, rail, manufacturing, logistics, tourism, industrial assets, and rehabilitated facilities with signed contracts | No hidden ministry bailout; DSCR covenant required. |
+| PPP / JV equity | USD 15.4B | 13% | Tourism, logistics, industrial parks, selected manufacturing, station-area development, facility concessions | Public asset control and anti-capture rules required. |
 | Retained earnings | Later-stage | N/A | Maintenance, reinvestment, debt reduction, dividend reserve | Builds only after audited operating cash exists. |
 | **Total** | **USD 115.0B** | **100%** | Constrained base plan | Strategic upper case remains USD 190B only after gates are met. |
 
@@ -144,13 +147,14 @@ The constrained base case is USD 115B over ten years.
 
 | Source | Base-case amount | Suitable projects | Indicative terms | Conditions |
 | --- | ---: | --- | --- | --- |
-| MDB / concessional loans | USD 8-14B | Water, irrigation, grid, climate adaptation, governance systems, public transport | 20-30 year maturity, 5-7 year grace, concessional or semi-concessional pricing | Procurement, safeguards, transparency, debt sustainability. |
-| Green sukuk / green bonds | USD 8-12B | Solar, storage, grid loss reduction, efficient HVAC, waste-to-energy, water efficiency | 10-20 year tenor, use-of-proceeds verification | External verification, green registry, no deficit financing. |
-| Export credit agency finance | USD 8-11B | Rail systems, desalination equipment, HVAC/electronics tooling, grid equipment, industrial machinery | 10-15 year tenor, linked supplier packages | Technology transfer, open interfaces, Iraqi training, local content milestones. |
-| Project finance / PPP debt | USD 5-8B | Industrial parks, logistics, station retail, tourism assets, ports, cold chain | Non-recourse or limited-recourse where possible | User fees, offtake, availability payments, DSCR covenant. |
-| PPP / JV equity | USD 10-16B | Hotels, logistics, food processing, manufacturing, industrial zones | Equity, revenue share, minority concessions | No asset stripping, no related-party capture, public audit. |
-| Domestic IQD sukuk / infrastructure bonds | USD 0-5B equivalent at first | Mature assets with stable IQD cashflows | Local-currency tenor only after market testing | No forced bank purchases; CBI monetary-policy compatibility. |
-| Diaspora industrial bond | USD 1-3B pilot only | Iraqi-origin export platforms, tourism, selected industrial parks | Optional retail/institutional channel | Do not rely on diaspora capital as the main source; diaspora market access is more important. |
+| MDB / concessional loans | USD 8-14B | Water, irrigation, grid, climate adaptation, governance systems, public transport, and brownfield rehab with public-good benefits | 20-30 year maturity, 5-7 year grace, concessional or semi-concessional pricing | Procurement, safeguards, transparency, debt sustainability, environmental liability disclosure. |
+| Green sukuk / green bonds | USD 8-12B | Solar, storage, grid loss reduction, efficient HVAC, waste-to-energy, water efficiency, green rehab of existing facilities | 10-20 year tenor, use-of-proceeds verification | External verification, green registry, no deficit financing. |
+| Export credit agency finance | USD 8-11B | Rail systems, desalination equipment, HVAC/electronics tooling, grid equipment, industrial machinery, rehab equipment | 10-15 year tenor, linked supplier packages | Technology transfer, open interfaces, Iraqi training, local content milestones. |
+| Project finance / PPP debt | USD 5-8B | Industrial parks, logistics, station retail, tourism assets, ports, cold chain, concessioned facility reuse | Non-recourse or limited-recourse where possible | User fees, offtake, availability payments, DSCR covenant. |
+| PPP / JV equity | USD 10-16B | Hotels, logistics, food processing, manufacturing, industrial zones, private operation of rehabilitated assets | Equity, revenue share, minority concessions | No asset stripping, no related-party capture, public audit. |
+| Domestic IQD sukuk / infrastructure bonds | USD 0-5B equivalent at first | Mature assets with stable IQD cashflows and audited ring-fenced project accounts | Local-currency tenor only after market testing | No forced bank purchases; CBI monetary-policy compatibility; trustee/depository/disclosure readiness. |
+| Listed minority equity / project-company float | Pilot only | Profitable subsidiaries or project companies with audited cashflow | Non-controlling shares only | Citizen ownership rules remain protected; no sale of sovereign/citizen core shares. |
+| Diaspora industrial bond | USD 1-3B pilot only | Iraqi-origin export platforms, tourism, selected industrial parks, facility-recycling pools with verified assets | Optional retail/institutional channel | Do not rely on diaspora capital as the main source; diaspora market access is more important. |
 
 ## Constrained Base Cashflow
 
@@ -401,6 +405,12 @@ create immediate cashflow.
 | 7 | Metro/light rail first corridors | High public value but requires disciplined phasing and availability-payment limits. |
 | 8 | Electronics and defense-controlled sustainment | Important for sovereignty, but needs strict governance and technology transfer. |
 
+Before any rank receives greenfield capex, the facility-recycling screen should
+test whether an existing Iraqi asset can deliver the same capacity with a lower
+capex ratio, faster utilization gain, and lower import leakage. A greenfield
+project outranks a brownfield project only when reuse fails title, engineering,
+environmental, revenue, DSCR, FX, maintenance, or investor-protection gates.
+
 ## Dashboard Metrics To Add
 
 Cylinder Seal should track affordability directly:
@@ -421,6 +431,11 @@ Cylinder Seal should track affordability directly:
 | `RevenueCollectionEfficiency` | Flags unpaid invoices and weak collection before they damage DSCR. |
 | `RevenueByCurrency` | Shows whether USD debt is backed by USD revenue or only by IQD cashflow. |
 | `VerifiedImportSubstitutionValue` | Separates actual domestic sales from claimed macro savings. |
+| `NetReuseAdvantageUsd` | Shows greenfield cost avoided after rehabilitation capex and liabilities. |
+| `ReuseCapexRatioPercent` | Blocks facility reuse when rehabilitation is too close to greenfield cost. |
+| `InternationalCreditReadinessScore` | Measures whether MDB, IFC, ECA, or project lenders can evaluate the asset. |
+| `DomesticCapitalMarketReadinessScore` | Measures whether domestic bond, sukuk, or minority-equity issuance is ready. |
+| `GovernmentGuaranteeRequestedUsd` | Exposes hidden fiscal risk before it becomes an off-budget bailout. |
 
 ## Build Implications
 
@@ -435,6 +450,7 @@ New model primitives needed:
 | `ProjectCashflow` | Stores capex, revenue, opex, maintenance, debt service, taxes, retained earnings, dividends. |
 | `RevenueStream` | Classifies revenue by sector, source, currency, contract type, counterparty, and recurrence. |
 | `RevenueContract` | Links sales, PPAs, availability payments, platform fees, land-value capture, or service charges to invoices and settlement. |
+| `FacilityRecyclingProjection` | Tests underutilized facility reuse before greenfield capex, including utilization gain, rehab economics, DSCR, FX cover, credit readiness, domestic market readiness, guarantee exposure, and finance lane. |
 | `OfftakeAgreement` | Stores buyer, volume, price formula, currency, tenor, and delivery evidence. |
 | `ImportSubstitutionSaving` | Records estimated FX and import-leakage savings separately from booked cash revenue. |
 | `LandValueCaptureReceipt` | Records station-area leases, development charges, revenue shares, and municipal splits. |

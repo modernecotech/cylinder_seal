@@ -4,31 +4,39 @@
 //! and credit portfolio analytics derived from the core transaction ledger and merchant tier data.
 
 pub mod comprehensive_benefits;
+pub mod diaspora_channels;
 pub mod economic_cycle;
 pub mod economic_operating;
 pub mod error;
+pub mod facility_recycling;
 pub mod growth_impact;
 pub mod import_substitution;
 pub mod models;
-pub mod project_gdp;
 pub mod production_capacity;
+pub mod project_gdp;
 pub mod repositories;
 pub mod sector_analytics;
 pub mod sovereign_holding;
+pub mod strategic_resilience;
+pub mod tourism_services;
 
 pub use error::{Error, Result};
 pub use models::*;
 
 pub use comprehensive_benefits::ComprehensiveBenefitsModel;
+pub use diaspora_channels::DiasporaChannelsEngine;
 pub use economic_cycle::EconomicCycleEngine;
 pub use economic_operating::EconomicOperatingKernel;
+pub use facility_recycling::FacilityRecyclingEngine;
 pub use growth_impact::GrowthImpactModel;
 pub use import_substitution::ImportSubstitutionAnalyzer;
-pub use project_gdp::ProjectGdpCalculator;
 pub use production_capacity::ProductionCapacityEngine;
+pub use project_gdp::ProjectGdpCalculator;
 pub use repositories::{AnalyticsRepository, SqlxAnalyticsRepository};
 pub use sector_analytics::SectorAnalytics;
 pub use sovereign_holding::SovereignHoldingPlanner;
+pub use strategic_resilience::StrategicResilienceEngine;
+pub use tourism_services::TourismServicesEngine;
 
 #[cfg(test)]
 mod tests {
