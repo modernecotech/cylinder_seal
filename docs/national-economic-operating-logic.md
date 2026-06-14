@@ -2,7 +2,8 @@
 
 This document defines the management logic that holds the Cylinder Seal,
 Digital IQD, INDHC, ministry-transition, industrial-champion, civic-work,
-tourism, green, rail, and dividend model together.
+tourism, domestic data/cloud/AI sovereignty, green, rail, and dividend model
+together.
 
 Status: operating architecture. It is not a budget law, investment mandate,
 central-bank rulebook, sovereign-debt recommendation, or production system.
@@ -29,6 +30,7 @@ No award or privilege without procurement integrity.
 No delivered-outcome claim without benefit-realization audit.
 No citizen batch without entitlement, privacy, and appeal readiness.
 No cash conversion without window authority, KYC, caps, AML review, receipt, audit, and post-window rejection.
+No critical sovereign digital service without an open-source domestic operating path.
 ```
 
 The purpose is to stop oil income from flowing directly into passive ministry
@@ -142,6 +144,7 @@ forward no matter how attractive the narrative is.
 | Maintenance coverage | Lifecycle cost and renewal reserve are funded before dividends. |
 | Revenue proof | Cashflow source is identified: sale, PPA, lease, fare, service contract, platform fee, export receipt, or lawful levy. |
 | Benefit discipline | Second-order benefits are source-tagged and excluded from dividend cash. |
+| Digital sovereignty | Critical cloud, identity, audit, social, collaboration, public-data, and AI services have a domestic open-source operating path, local source mirrors, data-residency rules, privacy controls, and exit plans from proprietary foreign dependencies. |
 | Local capability | Iraqi staffing, training transfer, supplier upgrading, and handover plan exist. |
 | Anti-capture | Related-party exposure, monopoly risk, PEP/sanctions risk, and procurement concentration are within limits. |
 | Cash formalization | The cash window is legally open, supervised, identity-verified, capped, source-of-funds scored, EDD-ready, quarantinable, receipted, audited, appealable, publicly reported, and backed by post-window rejection authority. |
@@ -494,6 +497,7 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Ministry transition | Which functions are retained-sovereign, blocked, visibility-only, pilot-only, controlled-transfer, or sunset-eligible after legal, continuity, staff, payroll, audit, appeal, local-compact, operator-readiness, and capture-risk gates? |
 | Citizen welfare | What changed in wages, transfers, civic income, dividends, prices, and credit access? |
 | Civic work | Which programs can release verified wage hours, and which are blocked, evidence-only, remediation-required, pilot-only, or held for evidence, dignity, safety, privacy, fraud, payment, or bridge-to-work failures? |
+| Data/cloud/AI sovereignty | Which public, regulated, and strategic workloads have migrated to domestic open-source infrastructure, and which still rely on proprietary foreign cloud, social, collaboration, or AI APIs? |
 | Citizen rights | Which registry snapshots, dividend batches, identity exceptions, payment errors, privacy controls, appeals, suspensions, accessibility channels, dashboards, or rights audits block citizen rollout? |
 | Cash formalization | Which cash deposits are accepted, partially accepted, held for EDD, referred, rejected, expired, capped, quarantined, tax-settled, appealed, or missing audit evidence? |
 | Political economy | Which reforms face capture, resistance, weak coalition support, service-continuity failure, staff-transition failure, or federalism risk? |

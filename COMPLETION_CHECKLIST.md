@@ -12,15 +12,16 @@
 - [x] Economic assumptions and source discipline documented.
 - [x] Security/threat-model requirements documented in `SECURITY.md`.
 - [x] Route-level dashboard tests for session middleware, CSRF checks, logout invalidation, and current role gates.
-- [x] Initial opt-in live PostgreSQL/Redis integration test for login, sessions, role gates, audit recording, protected actions, logout, and post-logout denial.
+- [x] Expanded opt-in live PostgreSQL/Redis integration test for login, sessions, protected pages/APIs, role gates, audit recording, project/report/directive/account actions, logout, and post-logout denial.
 - [x] Basic HttpOnly cookie support for dashboard page sessions alongside bearer-token API calls.
 - [x] Admin action audit recorder wired for current sensitive dashboard handlers.
-- [x] Initial `cs-civic-work` domain crate with lifecycle, evidence, verification, risk-hold, and payment-eligibility tests.
+- [x] Initial `cs-civic-work` domain crate with lifecycle, operational case workflow, evidence, grievance, verification, risk-hold, audit-export, and payment-eligibility tests.
 - [x] Minimum viable pilot stop/go engine for Samawah / Al-Muthanna scope, OpenSourceRail reference confirmation, rail enabling works, explicit exclusions, evidence gates, privacy, safety, capture risk, and pause/stop conditions.
+- [x] Domestic data-centre, open-source cloud, social media, and AI sovereignty chapter with cost bands, power demand, financing, revenue lanes, safeguards, and growth benefits.
 
 ## Still Required Before Production Claims
 
-- [ ] Broader live PostgreSQL/Redis integration tests for the full dashboard endpoint set and realistic fixtures.
+- [ ] Realistic fixture-backed live PostgreSQL/Redis integration tests for the full dashboard endpoint set.
 - [ ] Role-based authorization checks for every future sensitive route as handlers become real.
 - [ ] Full browser-session security review, including automated browser tests and deployment cookie flags.
 - [ ] HSM or secure-element custody design for privileged keys.
@@ -29,6 +30,7 @@
 - [ ] Disaster-recovery runbooks and restore drills.
 - [ ] Privacy impact assessment and data-minimization rules.
 - [ ] Independent economic model validation.
+- [ ] Independent data-centre site, power, water, cyber, privacy, AI safety, open-source supply-chain, and business-case validation.
 
 ## Dashboard Database Decision
 

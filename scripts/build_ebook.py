@@ -44,6 +44,7 @@ BOOK_PARTS = [
     BookPart("Final Summary", ROOT / "FINAL_SUMMARY.md"),
     BookPart("Economic Assumptions And Source Discipline", ROOT / "docs" / "economic-assumptions.md"),
     BookPart("National Economic Operating Logic", ROOT / "docs" / "national-economic-operating-logic.md"),
+    BookPart("National Data Centre, Cloud, Social Media, And AI Sovereignty System", ROOT / "docs" / "national-data-centre-cloud-ai-sovereignty.md"),
     BookPart("National Legal And Institutional Roadmap", ROOT / "docs" / "national-legal-institutional-roadmap.md"),
     BookPart("Project Pipeline And Investment Gates", ROOT / "docs" / "project-pipeline-and-investment-gates.md"),
     BookPart("Political-Economy Transition And Anti-Capture", ROOT / "docs" / "political-economy-transition-and-anti-capture.md"),

@@ -20,7 +20,8 @@ The main subject is the economy. Oil income becomes productive capital; domestic
 industry, services, tourism, infrastructure, finance, and civic work create
 measured value; ministries are funded through explicit taxes, levies, and
 service contracts; citizens benefit through wages, services, credit access,
-civic-work income, and equal dividends from audited surplus.
+civic-work income, domestic digital services, and equal dividends from audited
+surplus.
 
 The Cylinder Seal software sits behind that model as an evidence, settlement,
 and analytics layer. It is included to test how contracts, payments, invoices,
@@ -74,6 +75,7 @@ The model has six practical rules:
 | Unified model | Connects Digital IQD, INDHC, ministries, banks, producers, tourism, green capital, rail, taxes, reinvestment, civic work, and dividends into one accounting structure. | [Unified economic model](docs/unified-economic-model.md) |
 | Business value chains | Shows sector value chains, funding lanes, repayment paths, and society/economy feedback loops. | [Business value chain charts](docs/business-value-chain-charts.md) |
 | Operating logic | Defines ledgers, hard gates, scorecards, waterfalls, cash/benefit conversion, capital allocation, dashboards, and escalation rules. | [National economic operating logic](docs/national-economic-operating-logic.md) |
+| Data and AI sovereignty | Plans domestic data centres, open-source cloud, public-interest social media, and AI infrastructure that can operate without proprietary foreign cloud or AI dependencies. | [National data centre, cloud, social media, and AI sovereignty system](docs/national-data-centre-cloud-ai-sovereignty.md) |
 | Legal roadmap | Maps the authority path for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals. | [National legal and institutional roadmap](docs/national-legal-institutional-roadmap.md) |
 | Project pipeline | Converts sector ambition into project families with capex, revenue source, DSCR, FX exposure, facility reuse, environmental, legal, and evidence gates. | [Project pipeline and investment gates](docs/project-pipeline-and-investment-gates.md) |
 | Political economy | Models resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, and pause/rollback rules. | [Political-economy transition and anti-capture model](docs/political-economy-transition-and-anti-capture.md) |
@@ -112,9 +114,9 @@ The strategy is visualized as business chains rather than only policy prose:
 
 | Status | Scope |
 | --- | --- |
-| Economic-system front door | Unified economic architecture, business value-chain charts, source discipline, legal/institutional roadmap, political-economy controls, project pipeline, affordability framing, ministry transition, civic work, facility recycling, industrial champions, tourism, diaspora channels, domestic capital markets, and long-horizon benefit scenarios. |
+| Economic-system front door | Unified economic architecture, business value-chain charts, source discipline, legal/institutional roadmap, political-economy controls, project pipeline, affordability framing, ministry transition, civic work, facility recycling, industrial champions, tourism, diaspora channels, domestic data/cloud/AI sovereignty, domestic capital markets, and long-horizon benefit scenarios. |
 | Governance and cashflow model | Oil-income lockbox, capital allocation gates, treasury levy, debt-service waterfalls, retained earnings, audited dividend constraints, ministry feedback mechanisms, and citizen benefit channels. |
-| Sector production model | Import substitution, profitable domestic subsidiaries, defence manufacturing, electronics, HVAC, water desalination, irrigation, food substitution, raw-material post-processing, Open Source Rail, green technology, tourism, services, and cultural production, reduced to project families before capital allocation. |
+| Sector production model | Import substitution, profitable domestic subsidiaries, defence manufacturing, electronics, HVAC, water desalination, irrigation, food substitution, raw-material post-processing, Open Source Rail, green technology, tourism, services, domestic data-centre/cloud/AI platforms, and cultural production, reduced to project families before capital allocation. |
 | Evidence software appendix | Rust analytics modules, SQL tables, payment-rail primitives, dashboard routes, and tests exist only to demonstrate how the economic model could be measured and audited. |
 | Not production-ready | Real CBDC issuance, national identity/KYC integration, HSM or secure-element custody, audited offline double-spend prevention, live multi-peer deployment, CBI/core-banking integration, privacy review, disaster recovery, and independent economic validation. |
 

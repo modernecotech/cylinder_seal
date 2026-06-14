@@ -1,8 +1,9 @@
 # Iraq Comprehensive Benefits Model
 
 This document reworks the Cylinder Seal, Digital IQD, INDHC, open-source rail,
-green power, food/water, tourism, civic-work, and ministry-transition proposal
-into one long-horizon national model for Iraq.
+green power, food/water, tourism, domestic data/cloud/AI infrastructure,
+civic-work, and ministry-transition proposal into one long-horizon national
+model for Iraq.
 
 Status: scenario model. It is not an official forecast, budget law,
 investment prospectus, production CBDC design, sovereign-debt recommendation,
@@ -17,7 +18,8 @@ industrial-policy idea. The coherent model is broader:
 Digital IQD evidence
   -> bankable households, merchants, producers, and public contracts
   -> capital allocation through INDHC, banks, PPPs, MDBs, and green finance
-  -> infrastructure, industry, water, food, rail, tourism, culture, and civic work
+  -> infrastructure, industry, water, food, rail, tourism, culture, domestic
+     data/cloud/AI services, and civic work
   -> booked revenue, avoided losses, public services, skills, resilience, and trust
   -> taxes, levies, reinvestment, debt service, civic wages, and citizen dividends
 ```
@@ -31,6 +33,7 @@ The model is "comprehensive" only if it separates five kinds of value:
 | Avoided losses | Reduced water, power, climate, congestion, import, spoilage, and corruption losses. | No, unless a verified savings contract, tariff, fee, or budget transfer converts it into cash. |
 | Social capability | Paid work, civic work, training records, youth inclusion, women's mobility, better services, and household bankability. | No, except through wages, transfers, dividends, or future income. |
 | Cultural capital | Heritage protection, pilgrimage, archaeology, museums, crafts, languages, festivals, and city identity. | No, except through tourism revenue, local merchant revenue, leases, grants, and service contracts. |
+| Digital sovereignty | Domestic cloud, AI, social media, collaboration, cybersecurity, public data, and software capability. | No, except through settled subscriptions, service contracts, hosting revenue, AI fees, exports, taxes, and levies. |
 
 This separation is the anti-overclaim rule. The national model can measure all
 five, but only booked cash funds debt service and dividends.

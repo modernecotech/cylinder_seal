@@ -74,6 +74,148 @@ async fn live_postgres_redis_auth_sessions_audit_and_role_gates(
         .await?;
     assert_eq!(response.status(), StatusCode::OK);
 
+    assert_live_get_endpoints(
+        &harness,
+        &supervisor_token,
+        &[
+            ("/overview", StatusCode::OK),
+            ("/projects", StatusCode::OK),
+            ("/analytics", StatusCode::OK),
+            ("/compliance", StatusCode::OK),
+            ("/accounts", StatusCode::OK),
+            ("/api/overview", StatusCode::OK),
+            ("/api/projects", StatusCode::OK),
+            (
+                "/api/analytics/import-substitution",
+                StatusCode::NOT_IMPLEMENTED,
+            ),
+            ("/api/analytics/sectors", StatusCode::NOT_IMPLEMENTED),
+            ("/api/compliance/reports", StatusCode::OK),
+            ("/api/compliance/dashboard", StatusCode::OK),
+            ("/api/monetary/snapshots", StatusCode::OK),
+            ("/api/monetary/policy-rates", StatusCode::OK),
+            ("/api/monetary/velocity-limits", StatusCode::OK),
+            ("/api/monetary/exchange-rates", StatusCode::OK),
+            ("/api/accounts/search", StatusCode::OK),
+            ("/api/risk/aml-queue", StatusCode::OK),
+            (
+                "/api/risk/user/550e8400-e29b-41d4-a716-446655440000/assessment",
+                StatusCode::OK,
+            ),
+            ("/api/audit/logs", StatusCode::OK),
+            ("/api/audit/directives", StatusCode::OK),
+            ("/api/producers", StatusCode::OK),
+            ("/api/docs", StatusCode::OK),
+            ("/api/ip", StatusCode::OK),
+            ("/api/ip/by-category", StatusCode::OK),
+            ("/api/restricted", StatusCode::OK),
+        ],
+    )
+    .await?;
+
+    let response = harness
+        .router
+        .clone()
+        .oneshot(json_request(
+            "POST",
+            "/api/projects",
+            json!({
+                "name": "Samawah live integration project",
+                "sector": "Municipal services",
+                "governorate": "Al-Muthanna",
+                "estimated_capex_usd": 250000.0,
+                "expected_revenue_usd_annual": 50000.0,
+                "employment_count": 40
+            }),
+            Some(&supervisor_token),
+        )?)
+        .await?;
+    assert_eq!(response.status(), StatusCode::OK);
+    let project_id = json_body(response).await?;
+    let project_id = project_id
+        .as_str()
+        .expect("project creation returns UUID string")
+        .to_string();
+    assert_audit_result(
+        &harness.db_pool,
+        &harness.supervisor_username,
+        "project.create",
+        "ok",
+    )
+    .await?;
+
+    let response = harness
+        .router
+        .clone()
+        .oneshot(json_request(
+            "PATCH",
+            &format!("/api/projects/{project_id}"),
+            json!({
+                "capacity_pct_utilized": 35,
+                "employment_count": 42,
+                "status": "pilot",
+                "notes": "live integration update path"
+            }),
+            Some(&supervisor_token),
+        )?)
+        .await?;
+    assert_eq!(response.status(), StatusCode::NOT_IMPLEMENTED);
+    assert_audit_result(
+        &harness.db_pool,
+        &harness.supervisor_username,
+        "project.update",
+        "ok",
+    )
+    .await?;
+
+    let response = harness
+        .router
+        .clone()
+        .oneshot(json_request(
+            "POST",
+            "/api/compliance/reports",
+            json!({
+                "report_type": "SAR",
+                "subject_user_id": "550e8400-e29b-41d4-a716-446655440000",
+                "narrative": "live integration compliance report"
+            }),
+            Some(&supervisor_token),
+        )?)
+        .await?;
+    assert_eq!(response.status(), StatusCode::OK);
+    let report = json_body(response).await?;
+    let report_id = report
+        .get("report_id")
+        .and_then(Value::as_str)
+        .expect("report creation returns report_id")
+        .to_string();
+    assert_audit_result(
+        &harness.db_pool,
+        &harness.supervisor_username,
+        "report.create",
+        "ok",
+    )
+    .await?;
+
+    let response = harness
+        .router
+        .clone()
+        .oneshot(json_request(
+            "PATCH",
+            &format!("/api/compliance/reports/{report_id}/status"),
+            json!({ "status": "UnderReview" }),
+            Some(&supervisor_token),
+        )?)
+        .await?;
+    assert_eq!(response.status(), StatusCode::OK);
+    assert_audit_result(
+        &harness.db_pool,
+        &harness.supervisor_username,
+        "report.status.update",
+        "ok",
+    )
+    .await?;
+
     let response = harness
         .router
         .clone()
@@ -148,6 +290,24 @@ async fn live_postgres_redis_auth_sessions_audit_and_role_gates(
         &harness.db_pool,
         &harness.supervisor_username,
         "account.freeze",
+        "ok",
+    )
+    .await?;
+
+    let response = harness
+        .router
+        .clone()
+        .oneshot(bearer_request(
+            "POST",
+            &format!("/api/accounts/{account_id}/unfreeze"),
+            &supervisor_token,
+        )?)
+        .await?;
+    assert_eq!(response.status(), StatusCode::OK);
+    assert_audit_result(
+        &harness.db_pool,
+        &harness.supervisor_username,
+        "account.unfreeze",
         "ok",
     )
     .await?;
@@ -301,6 +461,26 @@ async fn assert_audit_result(
     let stored_result: String = row.get("result");
     assert_eq!(stored_action, action);
     assert_eq!(stored_result, result);
+    Ok(())
+}
+
+async fn assert_live_get_endpoints(
+    harness: &LiveHarness,
+    token: &str,
+    endpoints: &[(&str, StatusCode)],
+) -> Result<(), Box<dyn std::error::Error>> {
+    for (uri, expected) in endpoints {
+        let response = harness
+            .router
+            .clone()
+            .oneshot(bearer_request("GET", uri, token)?)
+            .await?;
+        assert_eq!(
+            response.status(),
+            *expected,
+            "unexpected live status for {uri}"
+        );
+    }
     Ok(())
 }
 

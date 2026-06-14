@@ -1,8 +1,9 @@
 # Unified Economic Model
 
 This document ties the Cylinder Seal payment rail, policy primitives, INDHC,
-ministries, banks, producers, infrastructure projects, tourism, green capital,
-citizen dividends, and verified civic work into one economic model.
+ministries, banks, producers, infrastructure projects, domestic data/cloud/AI
+sovereignty, tourism, green capital, citizen dividends, and verified civic work
+into one economic model.
 
 Status: planning architecture. It is not a validated macroeconomic model, not a
 budget law, not a CBDC launch plan, and not a production-readiness claim.
@@ -15,19 +16,21 @@ lanes, repayment paths, and society/economy feedback loops, see
 
 Cylinder Seal makes economic activity visible and programmable; INDHC converts
 oil income and project debt into productive Iraqi assets; private producers and
-state subsidiaries expand domestic supply; ministries are funded from explicit
-taxes, levies, and service contracts; citizens receive wages, public services,
-credit access, verified civic-work income, and equal Digital IQD dividends from
-audited surplus.
+state subsidiaries expand domestic supply; domestic data/cloud/AI infrastructure
+keeps critical digital services auditable and locally operable; ministries are
+funded from explicit taxes, levies, and service contracts; citizens receive
+wages, public services, credit access, verified civic-work income, and equal
+Digital IQD dividends from audited surplus.
 
 ## System Boundary
 
-The system has twenty-four layers:
+The system has twenty-five layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
 | Digital IQD transaction layer | Wallets, POS, offline transactions, settlement, policy primitives, AML, audit, credit features, dashboards. | `README.md`, `docs/technical-primitives.md`, `docs/system-and-financial-flow-diagrams.md` |
 | Economic operating layer | Six ledgers, canonical economic events, hard gates, portfolio modes, scorecards, cash/benefit conversion, waterfalls, capital allocation, dashboards, and escalation rules. | `docs/national-economic-operating-logic.md` |
+| Data centre, cloud, social media, and AI sovereignty layer | Domestic open-source data-centre, cloud, collaboration, social, AI inference, public data, and cyber infrastructure that supports Cylinder Seal, ministries, universities, banks, producers, citizens, and diaspora channels without proprietary foreign platform dependency. | `docs/national-data-centre-cloud-ai-sovereignty.md` |
 | Legal and institutional layer | Authority path for oil lockbox, INDHC, citizen shares, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals. | `docs/national-legal-institutional-roadmap.md` |
 | Project pipeline layer | Project-family gates for capex, opex, revenue source, DSCR, FX exposure, facility reuse, environmental/cultural safeguards, legal authority, and evidence bundles. | `docs/project-pipeline-and-investment-gates.md` |
 | Political-economy and anti-capture layer | Resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, and pause/rollback rules. | `docs/political-economy-transition-and-anti-capture.md` |
@@ -139,7 +142,31 @@ not a hidden subsidy or opaque procurement channel.
 Economic purpose: citizens benefit through wages, ownership income, services,
 credit access, and better local supply.
 
-### 3A. Revenue Generation Loop
+### 3A. Digital Sovereignty Loop
+
+1. INDHC, telecoms, banks, universities, and private Iraqi cloud firms invest in
+   domestic data centres, open-source cloud services, public-interest social
+   media, collaboration tools, and AI infrastructure.
+2. Government, banks, hospitals, schools, universities, producers, tourism
+   platforms, media firms, and municipalities migrate eligible workloads from
+   foreign proprietary platforms to domestic open-source services.
+3. Domestic cloud, AI inference, cybersecurity, backup, creator, education,
+   social, and data services earn booked cash through subscriptions, service
+   contracts, regulated hosting, and regional exports.
+4. The same infrastructure hosts Cylinder Seal audit logs, civic-work evidence,
+   procurement records, public dashboards, local-content evidence, and
+   benefit-realization datasets.
+5. Iraqi engineers, data-centre technicians, cybersecurity analysts, AI
+   specialists, content creators, and digital-service firms become a high-skill
+   services workforce.
+6. Open-source mirrors, local model serving, domestic social protocols, and
+   public data catalogues reduce dependence on foreign proprietary cloud,
+   social-media, advertising, and AI API systems.
+
+Economic purpose: compute becomes productive national infrastructure, not a
+foreign subscription drain or a state surveillance monopoly.
+
+### 3B. Revenue Generation Loop
 
 1. INDHC and private partners build assets that sell real goods and services:
    industrial inputs, food processing, water equipment, power, rail, logistics,

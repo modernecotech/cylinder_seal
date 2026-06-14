@@ -56,6 +56,10 @@ Current posture:
 - **Affordability:** USD 65B fiscal-safe and USD 115B constrained-base scenarios
   are the credible starting envelopes; USD 190B is a strategic upper envelope
   only after fiscal, debt, cashflow, governance, and delivery gates pass.
+- **Data/cloud/AI sovereignty:** domestic open-source data centres, cloud,
+  social media, collaboration, public-data, and AI services are documented as a
+  productive infrastructure layer, with explicit power, water, privacy,
+  procurement, and business-case gates.
 - **Software appendix:** Rust crates, dashboard routes, migrations, and tests
   demonstrate how evidence, settlement, analytics, and policy controls might be
   measured. They are not production infrastructure.
@@ -73,8 +77,9 @@ Current posture:
 - Quantified affordability and cashflow models separating fiscal-safe,
   constrained-base, and strategic-upper capital envelopes.
 - Growth and long-horizon benefit scenario models for infrastructure, industry,
-  Open Source Rail, green power, food/water systems, tourism, Digital IQD
-  formalization, civic work, environmental repair, and cultural production.
+  Open Source Rail, green power, food/water systems, tourism, domestic
+  data/cloud/AI infrastructure, Digital IQD formalization, civic work,
+  environmental repair, and cultural production.
 - Policy documentation for a proposed National Dividend Holding Company:
   oil-income lockbox, citizen non-saleable beneficial shares, ten-year
   industrial/infrastructure plan, gross-profit levy for Treasury and ministries,
@@ -91,6 +96,10 @@ Current posture:
   assets before greenfield capex and attracting international credit, PPP/JV
   capital, local bank finance, domestic sukuk/bonds/equity, and diaspora
   co-investment only through audited project vehicles.
+- Data-centre, open-source cloud, social media, and AI sovereignty planning for
+  domestic compute, public-interest digital services, AI inference, open-source
+  software mirrors, data residency, financing, revenue generation, and social
+  safeguards.
 - Political-economy transition and anti-capture logic that can force a reform
   into visibility-only, pilot, pause, rollback, or redesign even when the
   financial case is attractive.

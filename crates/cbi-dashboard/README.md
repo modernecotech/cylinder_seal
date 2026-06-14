@@ -152,7 +152,7 @@ No new dependencies on payment processing, cryptography, or consensus — those 
 See `cs-tests/` for spec test patterns. For cbi-dashboard:
 
 - `tests/route_integration.rs` exercises the real Axum router with in-memory stores for session enforcement, CSRF checks, logout invalidation, current role gates, and admin action audit recording.
-- `tests/live_postgres_redis.rs` is opt-in with `CBI_DASHBOARD_LIVE_TESTS=1` and exercises PostgreSQL-backed login/audit plus Redis-backed session lifecycle.
+- `tests/live_postgres_redis.rs` is opt-in with `CBI_DASHBOARD_LIVE_TESTS=1` and exercises PostgreSQL-backed login/audit, Redis-backed session lifecycle, protected page/API smoke paths, and selected audited dashboard actions.
 - Future handler work should add realistic payload tests and audit-log assertions.
 
 ## Security Considerations
@@ -168,4 +168,4 @@ See `cs-tests/` for spec test patterns. For cbi-dashboard:
 ---
 
 **Last reviewed:** 2026-06-14
-**Status:** Prototype scaffold with route-level security tests and one opt-in live PostgreSQL/Redis auth/session/audit path. Awaiting full handler implementation and broader live endpoint coverage.
+**Status:** Prototype scaffold with route-level security tests and broader opt-in live PostgreSQL/Redis auth/session/audit smoke coverage. Awaiting full handler implementation and realistic fixture-backed endpoint tests.

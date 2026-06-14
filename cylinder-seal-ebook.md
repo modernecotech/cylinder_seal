@@ -292,7 +292,8 @@ The main subject is the economy. Oil income becomes productive capital; domestic
 industry, services, tourism, infrastructure, finance, and civic work create
 measured value; ministries are funded through explicit taxes, levies, and
 service contracts; citizens benefit through wages, services, credit access,
-civic-work income, and equal dividends from audited surplus.
+civic-work income, domestic digital services, and equal dividends from audited
+surplus.
 
 The Cylinder Seal software sits behind that model as an evidence, settlement,
 and analytics layer. It is included to test how contracts, payments, invoices,
@@ -346,6 +347,7 @@ The model has six practical rules:
 | Unified model | Connects Digital IQD, INDHC, ministries, banks, producers, tourism, green capital, rail, taxes, reinvestment, civic work, and dividends into one accounting structure. | [Unified economic model](docs/unified-economic-model.md) |
 | Business value chains | Shows sector value chains, funding lanes, repayment paths, and society/economy feedback loops. | [Business value chain charts](docs/business-value-chain-charts.md) |
 | Operating logic | Defines ledgers, hard gates, scorecards, waterfalls, cash/benefit conversion, capital allocation, dashboards, and escalation rules. | [National economic operating logic](docs/national-economic-operating-logic.md) |
+| Data and AI sovereignty | Plans domestic data centres, open-source cloud, public-interest social media, and AI infrastructure that can operate without proprietary foreign cloud or AI dependencies. | [National data centre, cloud, social media, and AI sovereignty system](docs/national-data-centre-cloud-ai-sovereignty.md) |
 | Legal roadmap | Maps the authority path for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals. | [National legal and institutional roadmap](docs/national-legal-institutional-roadmap.md) |
 | Project pipeline | Converts sector ambition into project families with capex, revenue source, DSCR, FX exposure, facility reuse, environmental, legal, and evidence gates. | [Project pipeline and investment gates](docs/project-pipeline-and-investment-gates.md) |
 | Political economy | Models resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, and pause/rollback rules. | [Political-economy transition and anti-capture model](docs/political-economy-transition-and-anti-capture.md) |
@@ -384,9 +386,9 @@ The strategy is visualized as business chains rather than only policy prose:
 
 | Status | Scope |
 | --- | --- |
-| Economic-system front door | Unified economic architecture, business value-chain charts, source discipline, legal/institutional roadmap, political-economy controls, project pipeline, affordability framing, ministry transition, civic work, facility recycling, industrial champions, tourism, diaspora channels, domestic capital markets, and long-horizon benefit scenarios. |
+| Economic-system front door | Unified economic architecture, business value-chain charts, source discipline, legal/institutional roadmap, political-economy controls, project pipeline, affordability framing, ministry transition, civic work, facility recycling, industrial champions, tourism, diaspora channels, domestic data/cloud/AI sovereignty, domestic capital markets, and long-horizon benefit scenarios. |
 | Governance and cashflow model | Oil-income lockbox, capital allocation gates, treasury levy, debt-service waterfalls, retained earnings, audited dividend constraints, ministry feedback mechanisms, and citizen benefit channels. |
-| Sector production model | Import substitution, profitable domestic subsidiaries, defence manufacturing, electronics, HVAC, water desalination, irrigation, food substitution, raw-material post-processing, Open Source Rail, green technology, tourism, services, and cultural production, reduced to project families before capital allocation. |
+| Sector production model | Import substitution, profitable domestic subsidiaries, defence manufacturing, electronics, HVAC, water desalination, irrigation, food substitution, raw-material post-processing, Open Source Rail, green technology, tourism, services, domestic data-centre/cloud/AI platforms, and cultural production, reduced to project families before capital allocation. |
 | Evidence software appendix | Rust analytics modules, SQL tables, payment-rail primitives, dashboard routes, and tests exist only to demonstrate how the economic model could be measured and audited. |
 | Not production-ready | Real CBDC issuance, national identity/KYC integration, HSM or secure-element custody, audited offline double-spend prevention, live multi-peer deployment, CBI/core-banking integration, privacy review, disaster recovery, and independent economic validation. |
 
@@ -601,9 +603,44 @@ Pilot cell:
 | Explicit exclusions | No CBDC issuance, no oil lockbox, no citizen dividends, no ministry restructuring, no national macro claim. |
 
 Baghdad/Nahrawan municipal corridors and Najaf visitor corridors remain useful
-alternate templates if legal authority, local compact, and operating readiness
-are stronger there. The pilot structure can also move to another governorate or
-municipality after legal and political review.
+non-primary alternate templates if legal authority, local compact, and
+operating readiness are stronger there. The default recommendation remains
+Samawah / Al-Muthanna unless legal authority, local compact, or field readiness
+make another municipality demonstrably safer.
+
+### Pilot Governance Table
+
+The pilot should not begin until these operating roles are named in writing.
+One institution can hold more than one role only if conflict-of-interest rules
+and independent audit coverage remain intact.
+
+| Role | Required owner | Core responsibility | Evidence produced |
+| --- | --- | --- | --- |
+| Pilot sponsor | Named national or governorate sponsor with legal pilot authority | Authorizes the bounded pilot, budget ceiling, explicit exclusions, and stop conditions. | Signed pilot authority, budget note, exclusions register, rollback trigger list. |
+| Municipality | Samawah / Al-Muthanna municipal operating team | Defines task areas, confirms local service need, supplies supervisors, and protects public access. | Local compact, task map, supervisor roster, service-output baseline. |
+| Verifier | Independent verifier or municipal verifier under auditor sampling | Checks worker output, supplier delivery, geotagged evidence, safety, and duplicate-risk flags. | Verification decisions, rejected-claim log, sample-audit file. |
+| Payment sandbox owner | CBI-approved bank, PSP, or controlled settlement operator | Holds pilot funds, releases only verified wage/vendor instructions, and reports exceptions. | Settlement ledger, payment exception report, reversal/rollback log. |
+| Procurement reviewer | Procurement unit with beneficial-ownership and price-benchmark support | Reviews one supplier category, vendor eligibility, award basis, delivery evidence, and invoice timing. | Vendor file, price benchmark, award memo, delivery acceptance, payment-timing report. |
+| Grievance body | Local grievance committee with escalation route | Receives worker, supplier, resident, privacy, safety, and exclusion complaints. | Grievance register, resolution clock, appeal outcomes, unresolved-risk list. |
+| Public dashboard publisher | Dashboard operator approved by sponsor and municipality | Publishes aggregate task, payment, procurement, grievance, and audit indicators without personal data. | Public aggregate dashboard, privacy threshold checks, publication log. |
+| Independent evaluator | University, audit firm, civil-society evaluator, or MDB-style reviewer | Tests whether evidence supports pilot claims and whether scale gates are met. | 90-day, 180-day, and 12-month evaluation memos with stop/go recommendation. |
+
+### First Pilot Dataset
+
+The first dataset should be narrow enough to inspect manually. It should cover
+one civic-work package, one supplier category, one payment lane, and one public
+dashboard view before any larger rail or municipal claim is made.
+
+| Dataset | Minimum fields | Purpose |
+| --- | --- | --- |
+| Pilot authority register | authority reference, sponsor, municipality, budget ceiling, start/end dates, exclusions, stop triggers | Proves the pilot is legally bounded and not a national rollout. |
+| Task registry | task ID, location, category, safety class, evidence rules, supervisor, status, planned worker slots | Connects public work to a visible place and defined output. |
+| Worker enrollment file | worker ID, eligibility basis, consent marker, assignment, payout account/wallet, appeal channel | Prevents ghost-worker claims and supports wage/payment review. |
+| Evidence bundle | photo/document URI, geotag bucket, timestamp, supervisor note, verifier decision, rejected reason if any | Proves work was submitted and reviewed before payment. |
+| Wage instruction file | assignment ID, hours, rate, gross amount, withholding if any, payment status, exception reason | Connects verified work to controlled settlement. |
+| Supplier file | vendor ID, beneficial-owner screen, local-content marker, price benchmark, delivery acceptance, invoice status | Keeps the procurement package auditable and locally legible. |
+| Grievance register | complainant class, issue type, opened date, responsible body, resolution, appeal status | Tests whether workers, vendors, and residents can contest outcomes. |
+| Public dashboard extract | aggregate tasks, paid wages, supplier payments, exceptions, grievances, audit hashes, privacy threshold status | Lets observers see outputs without exposing personal data. |
 
 ### One Payment Flow
 
@@ -655,16 +692,33 @@ Task families:
 
 Lifecycle:
 
-1. `Draft` - task proposed with location, purpose, safety class, payment rate,
+1. `PendingApproval` - task proposed with location, purpose, safety class, payment rate,
    evidence requirements, and sponsor.
 2. `Approved` - legal authority, budget, safeguards, and supervisor capacity are
    confirmed.
-3. `Assigned` - eligible workers accept or are matched to tasks without
-   coercive workfare.
-4. `EvidenceSubmitted` - worker or team submits required proof.
-5. `Verified` - supervisor and sampling checks accept output.
-6. `Paid` - payment released.
-7. `Appealed` or `Rejected` - disputed or failed work enters review.
+3. `OpenForEnrollment` - eligible workers can accept or be matched to tasks
+   without coercive workfare.
+4. `InProgress` - enrolled worker or team performs the assigned task.
+5. `EvidenceSubmitted` - worker or team submits required proof.
+6. `Verified` - supervisor and sampling checks accept output.
+7. `PaymentReleased` - wage instruction is created only after verification.
+8. `Suspended`, `Rejected`, or grievance record - disputed, unsafe, or failed
+   work enters review and can be exported for audit.
+
+Operational workflow:
+
+1. Task creation records jurisdiction, category, title, worker slots, rate,
+   evidence rules, and safety class.
+2. Governance approval attaches the local authority and supervisor.
+3. Enrollment creates a worker assignment under the approved task.
+4. Evidence submission attaches photo/document URI, geotag bucket, supervisor
+   marker, and timestamp.
+5. Verification approves, rejects, or suspends the assignment.
+6. Wage instruction is generated only if authority, supervisor, evidence,
+   geotag, hours, duplicate-risk, safety, and verification checks pass.
+7. Grievances can be opened and resolved against the assignment.
+8. Audit export returns the task, assignment, payment instruction, grievance
+   register, and ordered lifecycle events.
 
 Controls:
 
@@ -767,6 +821,7 @@ Executable screen:
 Code surface:
 
 - `crates/cs-analytics/src/minimum_viable_pilot.rs`
+- `crates/cs-civic-work/src/lib.rs`
 - `migrations/20260724000001_minimum_viable_pilot.sql`
 
 ### 180-Day Pilot
@@ -878,8 +933,8 @@ Iraq project, and not a validated investment program.
 Cylinder Seal is an economic, environmental, social, and cultural operating
 model for Iraq. Its purpose is to turn oil income, project finance, domestic
 facilities, Iraqi labor, tourism, culture, services, industrial production,
-green infrastructure, and civic work into auditable cashflows and public
-benefits.
+green infrastructure, domestic data/cloud/AI infrastructure, and civic work
+into auditable cashflows and public benefits.
 
 The Digital IQD software prototype sits behind the economic model. It is an
 evidence rail for testing how contracts, payments, invoices, tax flows,
@@ -902,13 +957,16 @@ The model is designed around eight linked Iraqi economic problems:
 5. Tourism, culture, heritage, medical services, education services, and
    diaspora distribution channels are not yet treated as coordinated export and
    foreign-currency industries.
-6. Productivity gains from automation, digitization, and industrial champions
+6. Critical cloud, social media, collaboration, public data, and AI services
+   remain vulnerable to foreign proprietary platform dependency unless Iraq
+   builds domestic open-source operating capacity.
+7. Productivity gains from automation, digitization, and industrial champions
    could displace low-productivity work unless a civic-work and training layer
    converts spare labor capacity into public value.
-7. Public-benefit claims can become fiscal illusion unless cash revenue,
+8. Public-benefit claims can become fiscal illusion unless cash revenue,
    avoided losses, second-order benefits, and distributable surplus are kept in
    separate ledgers.
-8. Reform designs that look rational on a spreadsheet can fail if they ignore
+9. Reform designs that look rational on a spreadsheet can fail if they ignore
    political capture, ministry resistance, staff transition, federal/governorate
    authority, public-service continuity, and citizen appeal rights.
 
@@ -943,6 +1001,10 @@ dividends only after the portfolio produces audited surplus.
 - **Industrial champions:** sectoral Iraqi production groups with conditional
   demand, conditional credit, export discipline, competition gates, debt caps,
   local-content evidence, and anti-capture controls.
+- **Data, cloud, social media, and AI sovereignty:** domestic data centres,
+  open-source cloud, public-interest social protocols, collaboration tools, and
+  AI infrastructure reduce dependency on foreign proprietary platforms while
+  creating a high-skill services sector.
 - **Constrained-base capital plan:** a USD 115B ten-year scenario is the
   default planning case under the IMF-baseline affordability discipline. USD
   190B is treated only as a strategic upper envelope after fiscal, debt, cashflow,
@@ -1131,6 +1193,10 @@ Current posture:
 - **Affordability:** USD 65B fiscal-safe and USD 115B constrained-base scenarios
   are the credible starting envelopes; USD 190B is a strategic upper envelope
   only after fiscal, debt, cashflow, governance, and delivery gates pass.
+- **Data/cloud/AI sovereignty:** domestic open-source data centres, cloud,
+  social media, collaboration, public-data, and AI services are documented as a
+  productive infrastructure layer, with explicit power, water, privacy,
+  procurement, and business-case gates.
 - **Software appendix:** Rust crates, dashboard routes, migrations, and tests
   demonstrate how evidence, settlement, analytics, and policy controls might be
   measured. They are not production infrastructure.
@@ -1148,8 +1214,9 @@ Current posture:
 - Quantified affordability and cashflow models separating fiscal-safe,
   constrained-base, and strategic-upper capital envelopes.
 - Growth and long-horizon benefit scenario models for infrastructure, industry,
-  Open Source Rail, green power, food/water systems, tourism, Digital IQD
-  formalization, civic work, environmental repair, and cultural production.
+  Open Source Rail, green power, food/water systems, tourism, domestic
+  data/cloud/AI infrastructure, Digital IQD formalization, civic work,
+  environmental repair, and cultural production.
 - Policy documentation for a proposed National Dividend Holding Company:
   oil-income lockbox, citizen non-saleable beneficial shares, ten-year
   industrial/infrastructure plan, gross-profit levy for Treasury and ministries,
@@ -1166,6 +1233,10 @@ Current posture:
   assets before greenfield capex and attracting international credit, PPP/JV
   capital, local bank finance, domestic sukuk/bonds/equity, and diaspora
   co-investment only through audited project vehicles.
+- Data-centre, open-source cloud, social media, and AI sovereignty planning for
+  domestic compute, public-interest digital services, AI inference, open-source
+  software mirrors, data residency, financing, revenue generation, and social
+  safeguards.
 - Political-economy transition and anti-capture logic that can force a reform
   into visibility-only, pilot, pause, rollback, or redesign even when the
   financial case is attractive.
@@ -1398,7 +1469,8 @@ prototype boundary around the software.
 
 This document defines the management logic that holds the Cylinder Seal,
 Digital IQD, INDHC, ministry-transition, industrial-champion, civic-work,
-tourism, green, rail, and dividend model together.
+tourism, domestic data/cloud/AI sovereignty, green, rail, and dividend model
+together.
 
 Status: operating architecture. It is not a budget law, investment mandate,
 central-bank rulebook, sovereign-debt recommendation, or production system.
@@ -1425,6 +1497,7 @@ No award or privilege without procurement integrity.
 No delivered-outcome claim without benefit-realization audit.
 No citizen batch without entitlement, privacy, and appeal readiness.
 No cash conversion without window authority, KYC, caps, AML review, receipt, audit, and post-window rejection.
+No critical sovereign digital service without an open-source domestic operating path.
 ```
 
 The purpose is to stop oil income from flowing directly into passive ministry
@@ -1538,6 +1611,7 @@ forward no matter how attractive the narrative is.
 | Maintenance coverage | Lifecycle cost and renewal reserve are funded before dividends. |
 | Revenue proof | Cashflow source is identified: sale, PPA, lease, fare, service contract, platform fee, export receipt, or lawful levy. |
 | Benefit discipline | Second-order benefits are source-tagged and excluded from dividend cash. |
+| Digital sovereignty | Critical cloud, identity, audit, social, collaboration, public-data, and AI services have a domestic open-source operating path, local source mirrors, data-residency rules, privacy controls, and exit plans from proprietary foreign dependencies. |
 | Local capability | Iraqi staffing, training transfer, supplier upgrading, and handover plan exist. |
 | Anti-capture | Related-party exposure, monopoly risk, PEP/sanctions risk, and procurement concentration are within limits. |
 | Cash formalization | The cash window is legally open, supervised, identity-verified, capped, source-of-funds scored, EDD-ready, quarantinable, receipted, audited, appealable, publicly reported, and backed by post-window rejection authority. |
@@ -1890,6 +1964,7 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Ministry transition | Which functions are retained-sovereign, blocked, visibility-only, pilot-only, controlled-transfer, or sunset-eligible after legal, continuity, staff, payroll, audit, appeal, local-compact, operator-readiness, and capture-risk gates? |
 | Citizen welfare | What changed in wages, transfers, civic income, dividends, prices, and credit access? |
 | Civic work | Which programs can release verified wage hours, and which are blocked, evidence-only, remediation-required, pilot-only, or held for evidence, dignity, safety, privacy, fraud, payment, or bridge-to-work failures? |
+| Data/cloud/AI sovereignty | Which public, regulated, and strategic workloads have migrated to domestic open-source infrastructure, and which still rely on proprietary foreign cloud, social, collaboration, or AI APIs? |
 | Citizen rights | Which registry snapshots, dividend batches, identity exceptions, payment errors, privacy controls, appeals, suspensions, accessibility channels, dashboards, or rights audits block citizen rollout? |
 | Cash formalization | Which cash deposits are accepted, partially accepted, held for EDD, referred, rejected, expired, capped, quarantined, tax-settled, appealed, or missing audit evidence? |
 | Political economy | Which reforms face capture, resistance, weak coalition support, service-continuity failure, staff-transition failure, or federalism risk? |
@@ -1959,7 +2034,471 @@ collapsing into either a passive sovereign fund or another opaque state
 bureaucracy.
 
 
-# Part 7: National Legal And Institutional Roadmap
+# Part 7: National Data Centre, Cloud, Social Media, And AI Sovereignty System
+
+## National Data Centre, Cloud, Social Media, And AI Sovereignty System
+
+### Purpose
+
+Iraq should treat domestic compute as national infrastructure, alongside power,
+water, rail, ports, banking, and industrial capacity. Cylinder Seal depends on
+trusted digital infrastructure for payments, audit logs, procurement evidence,
+public dashboards, citizen services, industrial planning, and AI-assisted
+administration. Those functions should not depend permanently on foreign
+proprietary cloud, social media, advertising, identity, or AI API systems.
+
+The goal is not digital isolation. The goal is operational independence:
+
+- Iraqi public institutions, banks, universities, producers, media, and citizens
+  can run essential workloads inside Iraq.
+- The core software stack is exclusively open source, locally mirrored,
+  reproducibly deployed, and auditable.
+- Public-interest social media, messaging, education, cultural archives, and AI
+  services can continue operating even if foreign platforms change prices,
+  terms, sanctions exposure, moderation rules, API access, or availability.
+- Private Iraqi cloud companies, telecom operators, banks, universities, and
+  startups can build on top of a domestic infrastructure base instead of
+  renting the national digital future from foreign platforms.
+
+This chapter is a scenario plan, not a procurement decision. It uses public
+digital, macro, power, and data-centre references as anchors, then applies
+explicit scenario assumptions for Iraq-specific costs and revenues.
+
+### Current Demand Signal
+
+Iraq already has the demand profile for a domestic digital infrastructure
+strategy. DataReportal estimated 38.0 million internet users in Iraq at the
+start of 2025, equal to 81.7% penetration, and 34.3 million social media user
+identities, equal to 73.8% of the population. The World Bank reported Iraq's
+2024 GDP at about $279.64 billion. This means the user base exists before the
+infrastructure strategy is built; the missing piece is domestic ownership,
+service quality, developer capacity, and institutional trust.
+
+Power is the binding constraint. IEA country data highlights Iraq's large oil
+and gas resources and strong solar PV potential, while also showing that power
+system planning remains central to Iraq's development path. A data-centre plan
+must therefore be paired with dedicated power, waste-heat, water, and grid
+resilience design from the first phase.
+
+Industry cost anchors are volatile. Uptime Institute has reported that data
+centre costs rose after the pre-COVID period, when some projects were reported
+around $6-8 million per MW in favorable cases, while 2025 industry commentary
+often places Tier III construction around $7-9 million per MW before local
+contingency, power, land, security, and IT hardware. For Iraq, this plan uses
+conservative scenario bands rather than a single point estimate.
+
+### Strategic Boundary
+
+The system should be independent of US proprietary systems, not disconnected
+from the global open-source commons.
+
+Required boundary:
+
+- no dependency on AWS, Azure, Google Cloud, Oracle Cloud, Meta, X, TikTok,
+  OpenAI, Anthropic, Palantir, Snowflake, Datadog, Splunk, Microsoft 365, Google
+  Workspace, or similar proprietary platforms for essential sovereign services;
+- no closed-source identity provider, audit-log core, payment evidence store,
+  public dashboard stack, state messaging stack, or AI inference dependency;
+- all critical software can be built from source, mirrored inside Iraq, scanned,
+  deployed offline, and maintained by Iraqi teams;
+- all citizen-facing services include export, portability, appeal, and privacy
+  controls;
+- all state access to private data requires law, audit, and independent
+  oversight.
+
+Practical limitation:
+
+- servers, storage devices, network switches, accelerators, firmware, optical
+  gear, and power equipment will still contain imported components for years;
+- GPU and accelerator supply chains are not fully open and not fully domestic;
+- therefore the first sovereignty target is software, data, operations, and
+  procurement optionality, while a later industrial programme develops assembly,
+  repair, firmware review, open hardware pilots, and regional component
+  partnerships.
+
+### Open-Source Reference Stack
+
+The reference stack should be boring, inspectable, and replaceable:
+
+| Layer | Open-source reference stack | Use |
+| --- | --- | --- |
+| Operating base | Debian GNU/Linux or comparable fully open Linux distribution, hardened kernel profiles, reproducible package mirrors | Host base, package control, offline rebuilds. |
+| Infrastructure cloud | OpenStack for IaaS, bare-metal provisioning, virtual networks, block/object integration | Government, bank, telecom, university, and enterprise cloud. |
+| Container platform | Kubernetes, Cilium, Argo CD or Flux, Helm, Open Policy Agent | Cloud-native services and repeatable deployment. |
+| Storage | Ceph object/block/file storage, PostgreSQL, Apache Kafka or Redpanda-compatible open stack where license permits, Valkey-compatible cache | Evidence stores, object storage, logs, queues, analytics. |
+| Identity and access | Keycloak, OpenLDAP-compatible directories, hardware-backed MFA, local PKI | Role control, citizen/worker/operator auth boundaries. |
+| Observability | Prometheus, Grafana, Loki-compatible logs, OpenTelemetry, OpenSearch | Audit, monitoring, search, incident response. |
+| Social and messaging | ActivityPub/Mastodon-compatible microblogging, Matrix messaging, PeerTube-style video, Mobilizon-style events | Domestic public-interest social services without platform lock-in. |
+| Collaboration | Nextcloud-compatible files, Collabora/LibreOffice Online, Jitsi-compatible video, Zulip or Mattermost-compatible team chat | Government, schools, universities, SMEs, civic organizations. |
+| AI infrastructure | PyTorch, Hugging Face Transformers, vLLM, llama.cpp, Ollama-compatible local serving, open-weight Arabic/Kurdish-capable models where licenses allow | Inference, retrieval, translation, summarization, coding, document review, education. |
+| Data governance | Apache Iceberg-compatible lakehouse, CKAN-compatible open data catalogues, privacy-preserving analytics, signed audit exports | Public data, procurement evidence, economic dashboards, research. |
+
+Open source does not automatically mean sovereign. The stack must be paired
+with Iraqi maintainers, local mirrors, security review, incident response,
+procurement discipline, and training.
+
+### Physical Architecture
+
+The national design should be distributed from the start.
+
+| Component | Recommended role |
+| --- | --- |
+| Central sovereign cloud region | Main government, banking, education, audit, and AI services. Candidate locations should be selected by power quality, fiber, security, flood/heat risk, land title, and operator availability, not politics. |
+| Southern energy/data region | Basra or nearby energy corridor for power-linked compute, port/logistics, oil and gas services, industrial data, and disaster recovery from the central region. |
+| Northern continuity region | Mosul or Erbil-area candidate subject to federal/KRG compact, power/fiber resilience, and legal authority. Provides continuity and national geographic redundancy. |
+| Samawah / Al-Muthanna edge node | Pilot edge node aligned with OpenSourceRail enabling works, municipal evidence, local dashboards, and training. It should not host national secrets. |
+| University and hospital edge nodes | Smaller edge nodes for education, health records, research computing, language datasets, and telemedicine. |
+| Telecom edge cache | Local caching, content delivery, emergency communications, and latency reduction in partnership with Iraqi telecom operators. |
+
+Each region should have:
+
+- dual fiber routes and exchange-point connectivity;
+- dedicated power with grid connection, gas or solar-plus-storage backup, and
+  strict generator emissions controls;
+- water-aware cooling, including dry or hybrid cooling where feasible;
+- physical security and transparent access logs;
+- independent audit of uptime, outages, power use, water use, and incident
+  response.
+
+### Energy And Water Model
+
+Data centres are electricity infrastructure. A 100 MW IT load at PUE 1.45 uses:
+
+`100 MW x 1.45 x 8,760 hours = 1,270,200 MWh/year`, or about `1.27 TWh/year`.
+
+Scenario energy demand:
+
+| IT load | PUE assumption | Annual facility electricity | Planning implication |
+| ---: | ---: | ---: | --- |
+| 10 MW | 1.45-1.60 | 127-140 GWh/year | Pilot can be supplied with dedicated grid contract plus backup power. |
+| 50 MW | 1.45-1.55 | 635-679 GWh/year | Requires power-development coordination, not only a building permit. |
+| 150 MW | 1.40-1.50 | 1.84-1.97 TWh/year | Needs dedicated generation, transmission, and heat/water strategy. |
+| 300 MW | 1.35-1.45 | 3.55-3.81 TWh/year | Becomes a national power-sector project. |
+
+Rules:
+
+- no large AI training campus without dedicated generation and grid impact
+  review;
+- use captured gas, solar, storage, and high-efficiency cooling where feasible;
+- require water budget and cooling design before site approval;
+- publish PUE, water-use effectiveness, outages, and carbon intensity by site;
+- prioritize inference, retrieval, and small-model fine-tuning before
+  large-scale frontier-model training.
+
+### Ten-Year Build Plan
+
+#### Phase 0: 0-6 Months - Authority, Design, And Procurement Discipline
+
+Deliverables:
+
+- national open-infrastructure charter;
+- data classification and public-sector cloud migration policy;
+- open-source software bill of materials for every critical layer;
+- Iraqi mirror of source packages, container images, model weights, and
+  documentation;
+- site-screening process for power, fiber, heat, water, flood, security, and
+  land-title risk;
+- procurement rule: no sovereign dependency on a proprietary foreign cloud,
+  identity, audit, social, or AI API service;
+- training pipeline with universities and diaspora engineers.
+
+Estimated cost: `$15-30 million`.
+
+#### Phase 1: 6-24 Months - Pilot Sovereign Cloud And Samawah Edge
+
+Target:
+
+- 8-12 MW IT load across two small regions and one Samawah edge node;
+- first government workloads: Cylinder Seal evidence, pilot dashboards,
+  procurement records, public aggregate dashboards, civic-work audit exports,
+  document management, and training systems;
+- first social layer: public-interest ActivityPub and Matrix services for
+  municipalities, universities, cultural institutions, and civic-work pilot
+  communications;
+- first AI layer: Arabic/Kurdish document search, translation assistance,
+  procurement review support, legal-document summarization, coding support for
+  Iraqi developers, and school/university tutoring pilots.
+
+Estimated capex:
+
+| Cost item | Scenario range |
+| --- | ---: |
+| Data-centre shell, MEP, security, cooling, fit-out | $80-140 million |
+| General compute, storage, network, backup | $35-70 million |
+| AI inference/fine-tuning hardware | $25-80 million |
+| Power resilience, solar/storage/generator integration | $25-55 million |
+| Software integration, cyber, training, source mirrors | $15-30 million |
+| Contingency | $20-45 million |
+| Total | **$200-420 million** |
+
+Year-2 revenue target: `$30-80 million/year`.
+
+#### Phase 2: Years 2-5 - National Cloud Utility
+
+Target:
+
+- 40-60 MW IT load across three Iraqi regions;
+- migrate non-secret government workloads, education platforms, public
+  procurement, municipal dashboards, selected health and university systems,
+  bank disaster-recovery workloads, telecom edge services, and SME cloud;
+- create Iraqi cloud marketplace for hosting, managed databases, cybersecurity,
+  backup, analytics, AI inference, and software-as-a-service providers;
+- require every ministry and state company to publish a migration/retirement
+  plan for foreign SaaS where domestic open-source alternatives meet service
+  requirements.
+
+Estimated cumulative capex by Year 5: `$0.9-1.6 billion`.
+
+Annual revenue target by Year 5:
+
+| Revenue lane | Year-5 range |
+| --- | ---: |
+| Government cloud and collaboration subscriptions | $140-260 million |
+| Banking, telecom, insurance, and regulated hosting | $120-260 million |
+| SME cloud, backup, cybersecurity, and managed databases | $50-120 million |
+| AI inference, translation, search, and document services | $50-180 million |
+| Domestic social/media subscriptions, ads, creator services, and public-service contracts | $20-80 million |
+| Disaster recovery, CDN/cache, and university/HPC services | $40-90 million |
+| Total | **$420-990 million/year** |
+
+#### Phase 3: Years 5-10 - Sovereign AI And Regional Digital Services
+
+Target:
+
+- 150-300 MW IT load if power and demand gates pass;
+- national Arabic/Kurdish AI services for education, legal aid, health triage
+  support, agriculture extension, procurement review, anti-corruption red flags,
+  industrial maintenance, tourism translation, heritage archives, and local
+  software engineering;
+- regional export of Iraqi cloud services to nearby markets where latency,
+  price, Arabic language, legal neutrality, or Iraqi diaspora channels create a
+  niche;
+- content creator, social commerce, e-learning, cultural media, and tourism
+  platforms with domestic payments and tax evidence.
+
+Estimated cumulative capex by Year 10: `$4.0-8.5 billion`.
+
+Annual revenue target by Year 10:
+
+| Revenue lane | Year-10 range |
+| --- | ---: |
+| Government cloud and digital public infrastructure | $350-650 million |
+| Regulated private cloud and disaster recovery | $450-950 million |
+| AI inference, fine-tuning, domain models, and data services | $300-900 million |
+| Domestic social/media, creator economy, education, and collaboration | $100-350 million |
+| Regional hosting, CDN, cybersecurity, and managed services | $200-650 million |
+| Research, university, health, tourism, and industrial data services | $100-250 million |
+| Total | **$1.5-3.75 billion/year** |
+
+#### Phase 4: Years 10-15 - Optional Export-Scale Digital Industry
+
+This phase should happen only if Phase 3 has proven power discipline, revenue,
+operator competence, and social trust.
+
+Target:
+
+- 300-500 MW IT load;
+- regional AI/cloud export business;
+- Iraqi hardware assembly, repair, optical module, rack integration, battery,
+  cooling, and data-centre construction supply chains;
+- open hardware pilots where feasible, including RISC-V education and embedded
+  systems rather than unrealistic near-term frontier GPU independence.
+
+Estimated cumulative capex by Year 15: `$8-14 billion`.
+
+Annual revenue target by Year 15: `$3-6 billion/year`, with the higher end
+requiring export competitiveness, not only domestic public contracts.
+
+### Financing Model
+
+Funding should blend oil-equity allocation, loans, domestic capital markets,
+and anchor-customer contracts.
+
+| Source | Use | Controls |
+| --- | --- | --- |
+| INDHC retained earnings / oil-equity allocation | Phase 0-1 equity and public-interest services | Capped allocation; no dividends from capex; audited capital account. |
+| MDB/development finance digital loans | Education, health, public procurement, open data, cyber resilience, energy efficiency | Safeguards, procurement transparency, data-rights review. |
+| Green / transition loans | Solar, storage, captured-gas efficiency, cooling upgrades, waste-heat reuse | Energy and water KPIs. |
+| Domestic bond or sukuk | Data-centre facilities with contracted government/bank/telecom demand | DSCR gate; no hidden guarantee; published tariff model. |
+| Bank and telecom precommitments | Regulated hosting, disaster recovery, edge cache, network exchange | Multi-year offtake, service-level agreements, exit rights. |
+| Diaspora technology bond | Training, AI datasets, creator platforms, university compute | Transparent reporting; no speculative dividend claim. |
+| Private Iraqi cloud providers | SaaS, managed services, cybersecurity, content, education apps | Open marketplace and competition rules. |
+
+The state should not create a monopoly cloud bureaucracy. It should create a
+wholesale sovereign infrastructure utility with open APIs, regulated pricing,
+private-sector resale, and anti-capture controls.
+
+### Operating Cashflow Logic
+
+The business should be judged like infrastructure plus software, not like a
+subsidized IT department.
+
+Illustrative annual operating profile:
+
+| Phase | Annual revenue | Annual opex excluding depreciation | EBITDA range | Comment |
+| --- | ---: | ---: | ---: | --- |
+| Year 2 pilot | $30-80m | $45-95m | -$65m to $20m | Expected to be near break-even or loss-making while workloads migrate. |
+| Year 5 utility | $420-990m | $260-650m | $100-340m | Requires committed public, bank, telecom, and SME workloads. |
+| Year 10 AI/cloud | $1.5-3.75b | $950m-2.4b | $400m-1.35b | Requires AI monetization, regional hosting, and strong power discipline. |
+| Year 15 export scale | $3-6b | $1.9-3.8b | $800m-2.2b | Only if Iraq becomes a credible regional provider. |
+
+Operating assumptions:
+
+- electricity at `$0.05-0.09/kWh` equivalent, depending on dedicated generation,
+  grid cost, and fuel accounting;
+- non-energy opex at 8-14% of cumulative active capex for staff, maintenance,
+  security, bandwidth, replacement, audits, and software support;
+- accelerator refresh every 3-5 years;
+- storage refresh every 4-6 years;
+- no cash dividend from this sector until maintenance, power, refresh capex,
+  debt service, cyber reserve, and service obligations are funded.
+
+### Economic Benefits
+
+#### Direct Benefits
+
+- Domestic cloud revenue substitutes for foreign cloud, SaaS, backup,
+  cybersecurity, data analytics, AI API, content hosting, and collaboration
+  services.
+- Iraqi engineers, operators, cybersecurity analysts, data-centre technicians,
+  AI specialists, language-data teams, designers, creator-platform operators,
+  and support firms become a new services workforce.
+- Banks, telecoms, universities, hospitals, producers, media firms, and
+  municipalities gain lower-latency domestic infrastructure.
+- Cylinder Seal audit logs, civic-work evidence, procurement records, and
+  dashboards gain a domestic operating base.
+
+#### Second-Order Benefits
+
+- faster government services and lower paper-processing cost;
+- better procurement transparency and fraud detection;
+- local AI for Arabic, Iraqi Arabic, Kurdish, Turkmen, Syriac, and heritage
+  material;
+- domestic creator economy and tourism marketing channels;
+- reduced vulnerability to foreign platform censorship, shutdowns, price
+  shocks, API closure, or legal pressure;
+- university research capacity and software startup formation;
+- stronger cyber incident response and data-residency discipline;
+- local digital tax base from cloud, ads, subscriptions, creator income, and
+  platform commerce.
+
+#### Growth Contribution
+
+Scenario contribution to non-oil GDP growth:
+
+| Horizon | Conservative case | Base case | Strategic case |
+| --- | ---: | ---: | ---: |
+| Year 2 | 0.05-0.10 percentage points | 0.10-0.20 pp | 0.20-0.30 pp |
+| Year 5 | 0.15-0.30 pp | 0.30-0.60 pp | 0.60-0.90 pp |
+| Year 10 | 0.30-0.60 pp | 0.60-1.20 pp | 1.20-1.80 pp |
+
+The strategic case is not a forecast. It requires public-sector migration,
+private-sector trust, reliable power, Iraqi staffing, open-source competence,
+regional exports, and strong privacy/civil-rights governance.
+
+### Social Media And Public Digital Sphere
+
+Iraq should not try to clone foreign social media as a state propaganda system.
+That would destroy trust. The better model is a public-interest protocol layer:
+
+- ActivityPub-compatible public accounts for ministries, municipalities,
+  universities, cultural institutions, public broadcasters, sports clubs,
+  tourism boards, and verified local businesses;
+- Matrix-compatible secure messaging for public-sector teams, universities,
+  emergency coordination, and civic-work pilot operators;
+- PeerTube-style video for lectures, cultural archives, tourism promotion,
+  ministry hearings, procurement explainers, and local media;
+- creator payments through domestic regulated payment rails;
+- portability and export tools so citizens are not trapped;
+- clear moderation law, appeal rights, transparency reports, and court-order
+  rules.
+
+Social benefits:
+
+- Iraqi cultural production is discoverable and monetizable;
+- tourism campaigns can be distributed through domestic and diaspora channels;
+- local businesses can advertise without relying entirely on foreign platforms;
+- schools and universities get domestic education media;
+- public institutions have resilient channels during crises.
+
+Red line:
+
+- the domestic social layer must not become mandatory for private speech, a
+  surveillance dragnet, or a tool for shutting off the open internet.
+
+### AI Infrastructure
+
+The first AI target should be useful public and commercial tools, not a vanity
+frontier model.
+
+Priority use cases:
+
+- Arabic/Kurdish translation and summarization for public services;
+- procurement-document risk flags and price-benchmark support;
+- legal aid search and administrative appeal assistance;
+- school tutoring and teacher support;
+- health triage support with strict clinical limits;
+- agriculture extension and irrigation advice;
+- industrial maintenance manuals and technician training;
+- tourism translation, itinerary support, and cultural-site explanation;
+- coding assistant for Iraqi open-source developers;
+- archive restoration, OCR, speech-to-text, and cultural heritage indexing.
+
+AI governance requirements:
+
+- no secret training on citizen private data;
+- no biometric mass-surveillance model as a default public-service feature;
+- model cards, data lineage, bias testing, and red-team reports;
+- Arabic/Kurdish language evaluation benchmarks;
+- human appeal and review for rights-impacting decisions;
+- export controls and cyber controls for sensitive models.
+
+### Integration With Cylinder Seal
+
+This system becomes the compute and data layer for:
+
+- civic-work task evidence and audit exports;
+- procurement integrity and beneficial-ownership screening;
+- project pipeline, capex, DSCR, and benefit-realization dashboards;
+- citizen rights, grievance, and appeals logs;
+- local-content evidence and producer registries;
+- social/tourism/diaspora channels for Iraqi services and products;
+- AI-assisted analysis of spending, fraud, maintenance, and public benefits.
+
+The data-centre system should be treated as a productive sector inside the
+INDHC/economic model. It earns revenue, pays taxes, employs Iraqis, trains
+engineers, supports other sectors, and distributes cash only from audited
+surplus after power, maintenance, refresh capex, debt service, and cyber reserve
+requirements are met.
+
+### Stop Conditions
+
+The programme should pause or redesign if any of these occur:
+
+- power demand is approved without dedicated supply and grid-impact review;
+- personal data is centralized without privacy law, minimization, access logs,
+  and appeal rights;
+- proprietary cloud dependency is reintroduced into a critical sovereign layer;
+- one state-controlled platform becomes mandatory for private speech;
+- procurement awards create a protected monopoly without open APIs and private
+  resale rights;
+- AI systems are used for rights-impacting decisions without human review and
+  appeal;
+- water use threatens local communities or agriculture;
+- data-centre debt is guaranteed off-book or paid from unfunded public-service
+  obligations;
+- skilled Iraqi staffing is replaced by permanent foreign operator dependence.
+
+### Source Anchors
+
+- DataReportal, [Digital 2025: Iraq](https://datareportal.com/reports/digital-2025-iraq), for internet and social media user estimates.
+- World Bank, [Iraq Open Data](https://data.worldbank.org/country/iraq), for 2024 GDP context.
+- IEA, [Iraq country profile](https://www.iea.org/countries/iraq), for energy-resource and power-system context.
+- Uptime Institute, [data-centre cost commentary](https://journal.uptimeinstitute.com/data-center-costs-set-to-rise-and-rise/) and [2025 survey](https://uptimeinstitute.com/resources/research-and-reports/uptime-institute-global-data-center-survey-results-2025), for cost and PUE context.
+- OpenStack, [open-source cloud infrastructure](https://www.openstack.org/), Kubernetes, [container orchestration](https://kubernetes.io/), Ceph, [open-source distributed storage](https://ceph.io/en/), OpenSearch, [open-source search and analytics](https://opensearch.org/), Mastodon, [free and open-source decentralized social media](https://joinmastodon.org/), Hugging Face Transformers, [open model tooling](https://huggingface.co/docs/transformers/en/index), and vLLM, [open-source LLM inference](https://docs.vllm.ai/), for reference stack viability.
+
+
+# Part 8: National Legal And Institutional Roadmap
 
 ## National Legal And Institutional Roadmap
 
@@ -2174,7 +2713,7 @@ If any gate is red, the model remains a planning architecture and may not be
 presented as deployable public infrastructure.
 
 
-# Part 8: Project Pipeline And Investment Gates
+# Part 9: Project Pipeline And Investment Gates
 
 ## Project Pipeline And Investment Gates
 
@@ -2384,7 +2923,7 @@ committing to scale.
 This makes the model credible: capital follows evidence, not enthusiasm.
 
 
-# Part 9: Political-Economy Transition And Anti-Capture
+# Part 10: Political-Economy Transition And Anti-Capture
 
 ## Political-Economy Transition And Anti-Capture Model
 
@@ -2582,7 +3121,7 @@ If dividends compete with maintenance or debt service, dividends lose.
 ```
 
 
-# Part 10: Citizen Entitlement Privacy And Appeals
+# Part 11: Citizen Entitlement Privacy And Appeals
 
 ## Citizen Entitlement, Privacy, And Appeals
 
@@ -2719,7 +3258,7 @@ their entitlement, the model loses legitimacy at the exact point where it is
 supposed to become most universal.
 
 
-# Part 11: Cash Formalization And Demonetization Window
+# Part 12: Cash Formalization And Demonetization Window
 
 ## Cash Formalization And Demonetization Window
 
@@ -2866,7 +3405,7 @@ into formal channels while making corruption, coercion, sanctions evasion, and
 post-window arbitrage harder to hide.
 
 
-# Part 12: Federalism Governorate Equity And Local Compacts
+# Part 13: Federalism Governorate Equity And Local Compacts
 
 ## Federalism, Governorate Equity, And Local Compacts
 
@@ -3040,7 +3579,7 @@ counterparties with measurable rights, rather than treating them as passive
 locations where capital happens to land.
 
 
-# Part 13: Environmental Social Water And Cultural Safeguards
+# Part 14: Environmental Social Water And Cultural Safeguards
 
 ## Environmental, Social, Water, And Cultural Safeguards
 
@@ -3188,7 +3727,7 @@ borrowing from Iraq's people, places, and future budgets without recording the
 liability.
 
 
-# Part 14: Macro Monetary Inflation And FX Stability
+# Part 15: Macro Monetary Inflation And FX Stability
 
 ## Macro, Monetary, Inflation, And FX Stability
 
@@ -3332,7 +3871,7 @@ state see liquidity and prices earlier, but it does not repeal monetary
 constraints.
 
 
-# Part 15: Fiscal Stress And Contingent Liability
+# Part 16: Fiscal Stress And Contingent Liability
 
 ## Fiscal Stress And Contingent Liability Model
 
@@ -3489,7 +4028,7 @@ If dividends compete with solvency, dividends lose.
 ```
 
 
-# Part 16: National Program Sequencing And Dependency Control
+# Part 17: National Program Sequencing And Dependency Control
 
 ## National Program Sequencing And Dependency Control
 
@@ -3638,7 +4177,7 @@ Rollback before denial.
 ```
 
 
-# Part 17: Procurement Integrity And Market Discipline
+# Part 18: Procurement Integrity And Market Discipline
 
 ## Procurement Integrity And Market Discipline
 
@@ -3804,7 +4343,7 @@ If champions crush suppliers, remove privilege.
 ```
 
 
-# Part 18: Benefit Realization And Claim Audit
+# Part 19: Benefit Realization And Claim Audit
 
 ## Benefit Realization And Claim Audit
 
@@ -3945,13 +4484,14 @@ If it underperforms, publish the variance.
 ```
 
 
-# Part 19: Iraq Integrated Growth Impact Model
+# Part 20: Iraq Integrated Growth Impact Model
 
 ## Iraq Integrated Growth Impact Model
 
 This document quantifies how the Cylinder Seal, INDHC, open-source rail,
-industrial, infrastructure, tourism, green, food/water, Digital IQD, and civic
-work model could affect Iraq's non-oil growth path over ten years.
+industrial, infrastructure, tourism, green, food/water, domestic data/cloud/AI,
+Digital IQD, and civic work model could affect Iraq's non-oil growth path over
+ten years.
 
 Status: scenario model. It is not an official forecast, budget law, investment
 prospectus, debt recommendation, or externally validated macroeconomic model.
@@ -4021,6 +4561,7 @@ Scenario non-oil growth
   + green power/grid contribution
   + food/water/irrigation contribution
   + tourism/services contribution
+  + domestic data/cloud/AI contribution
   + Digital IQD formalization/credit contribution
   + civic-work/workforce contribution
 ```
@@ -4076,6 +4617,14 @@ real growth. The strategic-upper case adds 4.37 percentage points.
 | Digital IQD formalization, SME credit, and tax visibility | 0.25pp | 0.41pp | More bankable merchants, better receivables finance, lower leakage, faster settlement, wider tax base without crushing microbusinesses. |
 | Civic work, workforce, and public-value maintenance | 0.15pp | 0.25pp | Paid maintenance, environmental work, municipal repair, training records, bridge-to-work pathways, social legitimacy during productivity transition. |
 | **Total** | **2.65pp** | **4.37pp** | Non-oil growth acceleration by Year 10. |
+
+The current executable table groups domestic data-centre, cloud, social media,
+and AI effects inside the tourism/services and Digital IQD formalization
+channels. The separate
+[National Data Centre, Cloud, Social Media, And AI Sovereignty System](national-data-centre-cloud-ai-sovereignty.md)
+chapter breaks out that layer for the next calibration pass. Until the CSV and
+analytics module are recalibrated, the headline growth totals above should not
+be increased merely because the data/cloud/AI sector has been documented.
 
 These are contribution estimates. The system must publish them as model
 assumptions with confidence levels, not as independently proven outcomes.
@@ -4270,13 +4819,14 @@ citizen-facing accountability.
 ```
 
 
-# Part 20: Iraq Comprehensive Benefits Model
+# Part 21: Iraq Comprehensive Benefits Model
 
 ## Iraq Comprehensive Benefits Model
 
 This document reworks the Cylinder Seal, Digital IQD, INDHC, open-source rail,
-green power, food/water, tourism, civic-work, and ministry-transition proposal
-into one long-horizon national model for Iraq.
+green power, food/water, tourism, domestic data/cloud/AI infrastructure,
+civic-work, and ministry-transition proposal into one long-horizon national
+model for Iraq.
 
 Status: scenario model. It is not an official forecast, budget law,
 investment prospectus, production CBDC design, sovereign-debt recommendation,
@@ -4291,7 +4841,8 @@ industrial-policy idea. The coherent model is broader:
 Digital IQD evidence
   -> bankable households, merchants, producers, and public contracts
   -> capital allocation through INDHC, banks, PPPs, MDBs, and green finance
-  -> infrastructure, industry, water, food, rail, tourism, culture, and civic work
+  -> infrastructure, industry, water, food, rail, tourism, culture, domestic
+     data/cloud/AI services, and civic work
   -> booked revenue, avoided losses, public services, skills, resilience, and trust
   -> taxes, levies, reinvestment, debt service, civic wages, and citizen dividends
 ```
@@ -4305,6 +4856,7 @@ The model is "comprehensive" only if it separates five kinds of value:
 | Avoided losses | Reduced water, power, climate, congestion, import, spoilage, and corruption losses. | No, unless a verified savings contract, tariff, fee, or budget transfer converts it into cash. |
 | Social capability | Paid work, civic work, training records, youth inclusion, women's mobility, better services, and household bankability. | No, except through wages, transfers, dividends, or future income. |
 | Cultural capital | Heritage protection, pilgrimage, archaeology, museums, crafts, languages, festivals, and city identity. | No, except through tourism revenue, local merchant revenue, leases, grants, and service contracts. |
+| Digital sovereignty | Domestic cloud, AI, social media, collaboration, cybersecurity, public data, and software capability. | No, except through settled subscriptions, service contracts, hosting revenue, AI fees, exports, taxes, and levies. |
 
 This separation is the anti-overclaim rule. The national model can measure all
 five, but only booked cash funds debt service and dividends.
@@ -4742,7 +5294,7 @@ substrate for a post-oil, post-automation Iraqi development model:
 That is the unified economic, environmental, social, and cultural model.
 
 
-# Part 21: Iraq Quantified Affordability And Cashflow Model
+# Part 22: Iraq Quantified Affordability And Cashflow Model
 
 ## Iraq Quantified Affordability And Cashflow Model
 
@@ -5267,7 +5819,7 @@ That is the point of quantifying the model: it converts a sovereign-economic
 vision into a financeable sequence with hard stop/go gates.
 
 
-# Part 22: System And Financial Flow Diagrams
+# Part 23: System And Financial Flow Diagrams
 
 ## System And Financial Flow Diagrams
 
@@ -5747,7 +6299,7 @@ remaining engineering gaps:
   governance, and dividend formula require independent review.
 
 
-# Part 23: Business Value Chain Charts
+# Part 24: Business Value Chain Charts
 
 ## Business Value Chain Charts
 
@@ -5864,13 +6416,14 @@ This chart pack also clarifies three repository boundaries:
   confuse GDP, avoided imports, or social outcomes with dividend capacity.
 
 
-# Part 24: Unified Economic Model
+# Part 25: Unified Economic Model
 
 ## Unified Economic Model
 
 This document ties the Cylinder Seal payment rail, policy primitives, INDHC,
-ministries, banks, producers, infrastructure projects, tourism, green capital,
-citizen dividends, and verified civic work into one economic model.
+ministries, banks, producers, infrastructure projects, domestic data/cloud/AI
+sovereignty, tourism, green capital, citizen dividends, and verified civic work
+into one economic model.
 
 Status: planning architecture. It is not a validated macroeconomic model, not a
 budget law, not a CBDC launch plan, and not a production-readiness claim.
@@ -5883,19 +6436,21 @@ lanes, repayment paths, and society/economy feedback loops, see
 
 Cylinder Seal makes economic activity visible and programmable; INDHC converts
 oil income and project debt into productive Iraqi assets; private producers and
-state subsidiaries expand domestic supply; ministries are funded from explicit
-taxes, levies, and service contracts; citizens receive wages, public services,
-credit access, verified civic-work income, and equal Digital IQD dividends from
-audited surplus.
+state subsidiaries expand domestic supply; domestic data/cloud/AI infrastructure
+keeps critical digital services auditable and locally operable; ministries are
+funded from explicit taxes, levies, and service contracts; citizens receive
+wages, public services, credit access, verified civic-work income, and equal
+Digital IQD dividends from audited surplus.
 
 ### System Boundary
 
-The system has twenty-four layers:
+The system has twenty-five layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
 | Digital IQD transaction layer | Wallets, POS, offline transactions, settlement, policy primitives, AML, audit, credit features, dashboards. | `README.md`, `docs/technical-primitives.md`, `docs/system-and-financial-flow-diagrams.md` |
 | Economic operating layer | Six ledgers, canonical economic events, hard gates, portfolio modes, scorecards, cash/benefit conversion, waterfalls, capital allocation, dashboards, and escalation rules. | `docs/national-economic-operating-logic.md` |
+| Data centre, cloud, social media, and AI sovereignty layer | Domestic open-source data-centre, cloud, collaboration, social, AI inference, public data, and cyber infrastructure that supports Cylinder Seal, ministries, universities, banks, producers, citizens, and diaspora channels without proprietary foreign platform dependency. | `docs/national-data-centre-cloud-ai-sovereignty.md` |
 | Legal and institutional layer | Authority path for oil lockbox, INDHC, citizen shares, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals. | `docs/national-legal-institutional-roadmap.md` |
 | Project pipeline layer | Project-family gates for capex, opex, revenue source, DSCR, FX exposure, facility reuse, environmental/cultural safeguards, legal authority, and evidence bundles. | `docs/project-pipeline-and-investment-gates.md` |
 | Political-economy and anti-capture layer | Resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, and pause/rollback rules. | `docs/political-economy-transition-and-anti-capture.md` |
@@ -6007,7 +6562,31 @@ not a hidden subsidy or opaque procurement channel.
 Economic purpose: citizens benefit through wages, ownership income, services,
 credit access, and better local supply.
 
-#### 3A. Revenue Generation Loop
+#### 3A. Digital Sovereignty Loop
+
+1. INDHC, telecoms, banks, universities, and private Iraqi cloud firms invest in
+   domestic data centres, open-source cloud services, public-interest social
+   media, collaboration tools, and AI infrastructure.
+2. Government, banks, hospitals, schools, universities, producers, tourism
+   platforms, media firms, and municipalities migrate eligible workloads from
+   foreign proprietary platforms to domestic open-source services.
+3. Domestic cloud, AI inference, cybersecurity, backup, creator, education,
+   social, and data services earn booked cash through subscriptions, service
+   contracts, regulated hosting, and regional exports.
+4. The same infrastructure hosts Cylinder Seal audit logs, civic-work evidence,
+   procurement records, public dashboards, local-content evidence, and
+   benefit-realization datasets.
+5. Iraqi engineers, data-centre technicians, cybersecurity analysts, AI
+   specialists, content creators, and digital-service firms become a high-skill
+   services workforce.
+6. Open-source mirrors, local model serving, domestic social protocols, and
+   public data catalogues reduce dependence on foreign proprietary cloud,
+   social-media, advertising, and AI API systems.
+
+Economic purpose: compute becomes productive national infrastructure, not a
+foreign subscription drain or a state surveillance monopoly.
+
+#### 3B. Revenue Generation Loop
 
 1. INDHC and private partners build assets that sell real goods and services:
    industrial inputs, food processing, water equipment, power, rail, logistics,
@@ -6534,7 +7113,7 @@ The point is not only to digitize money. The point is to make Iraq's economic
 feedback loops visible, governable, productive, and citizen-owned.
 
 
-# Part 25: National Dividend Holding Company
+# Part 26: National Dividend Holding Company
 
 ## National Dividend Holding Company Architecture
 
@@ -6837,7 +7416,7 @@ for the proposed investment program, capital stack, staffing model, sector
 priorities, reinvestment waterfall, and implementation primitives.
 
 
-# Part 26: INDHC Ten-Year Plan
+# Part 27: INDHC Ten-Year Plan
 
 ## INDHC Ten-Year Industrial And Infrastructure Plan
 
@@ -7710,7 +8289,7 @@ productive-capital machine:
 - remaining distributable surplus is paid as a Digital IQD citizen dividend.
 
 
-# Part 27: Import, Services, And Diaspora Expansion
+# Part 28: Import, Services, And Diaspora Expansion
 
 ## Import, Services, And Diaspora Expansion
 
@@ -7886,7 +8465,7 @@ dashboard a way to distinguish cash income, remittance formalization, export
 distribution, expertise value, marketing value, and investment pipeline risk.
 
 
-# Part 28: Facility Recycling And Capital Markets
+# Part 29: Facility Recycling And Capital Markets
 
 ## Facility Recycling And Capital Markets
 
@@ -8109,7 +8688,7 @@ ranked, financeable where justified, and impossible to dress up as value when it
 is actually a liability.
 
 
-# Part 29: Digitally Governed Industrial Champions
+# Part 30: Digitally Governed Industrial Champions
 
 ## Digitally Governed Industrial Champions
 
@@ -8608,7 +9187,7 @@ No competition review, no champion status renewal.
 ```
 
 
-# Part 30: National Civic Work System
+# Part 31: National Civic Work System
 
 ## National Civic Work System
 
@@ -9010,7 +9589,7 @@ productivity gains
 ```
 
 
-# Part 31: Ministry Transition Roadmap
+# Part 32: Ministry Transition Roadmap
 
 ## Ministry Transition And Deprecation Roadmap
 
@@ -9246,7 +9825,7 @@ The end-state is a smaller cabinet with stronger sovereign functions:
 - productive national capital through INDHC.
 
 
-# Part 32: Security Model
+# Part 33: Security Model
 
 ## Security Model And Threat Notes
 
@@ -9449,7 +10028,7 @@ replace it with a dedicated security contact, patch SLA, coordinated-disclosure
 timeline, and legal safe-harbor language.
 
 
-# Part 33: Current Implementation Status
+# Part 34: Current Implementation Status
 
 ## Implementation Status
 
@@ -9466,13 +10045,14 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - CBI dashboard Axum service with PostgreSQL pool, Redis sessions, and route modules.
 - Testable dashboard app builder plus route-level tests for session middleware, CSRF checks, logout invalidation, current role gates, and admin action audit recording.
 - PostgreSQL-backed admin audit recorder for current sensitive dashboard actions, with in-memory test recorder.
-- Opt-in live PostgreSQL/Redis integration test for operator login, Redis session persistence, role-gated protected routes, audit recording, protected dashboard actions, logout, and post-logout denial.
+- Opt-in live PostgreSQL/Redis integration test for operator login, Redis session persistence, protected pages and APIs, current intentionally-unimplemented analytics responses, role-gated protected routes, audit recording, project/report/directive/account dashboard actions, logout, and post-logout denial.
 - PostgreSQL migrations for the main application stack.
 - Specification tests for many protocol and policy behaviors.
 - Unified economic model documented as an integrated planning layer across Digital IQD, INDHC, ministries, credit, domestic production, strategic resilience manufacturing, tourism/exports, green/rail infrastructure, reinvestment, and dividends.
+- National Data Centre, Cloud, Social Media, and AI Sovereignty System documented as a planning layer for domestic open-source data centres, cloud services, social/media protocols, AI inference, public data, financing, power demand, revenue lanes, and social safeguards.
 - National Dividend Holding Company policy architecture documented as a proposal, including oil-income lockbox, citizen share entitlements, cash formalization controls, ten-year investment plan, ministry funding, and monthly dividend flows.
 - Ministry transition roadmap documented as a governance scenario and represented by a scenario-control engine for moving selected ministry functions into regulators, service contracts, municipalities, INDHC subsidiaries, autonomous institutions, digital transfer platforms, or sunset agencies.
-- National Civic Work System documented as a policy scenario and represented by both a scenario engine and the `cs-civic-work` crate for task lifecycle models, evidence requirements, verification decisions, duplicate-risk holds, safety holds, authority checks, and payment-eligibility tests.
+- National Civic Work System documented as a policy scenario and represented by both a scenario engine and the `cs-civic-work` crate for task lifecycle models, operational task-to-audit workflow, grievance records, evidence requirements, verification decisions, duplicate-risk holds, safety holds, authority checks, and payment-eligibility tests.
 - National Legal and Institutional Roadmap documented as an authority checklist for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, securities, privacy, federalism, emergency powers, and appeals.
 - Project Pipeline and Investment Gates documented as a project-family structure for capex, revenue sources, DSCR, FX exposure, facility reuse, environmental gates, legal authority, and evidence bundles.
 - Political-Economy Transition and Anti-Capture model documented as a reform-readiness layer for capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, federalism, emergency powers, and citizen appeals.
@@ -9491,7 +10071,7 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 
 ### Important Gaps
 
-- Dashboard route integration tests now cover security middleware, selected skeletal handlers, and one opt-in live PostgreSQL/Redis auth/session/audit path; broader live endpoint coverage is still incomplete.
+- Dashboard route integration tests now cover security middleware, selected skeletal handlers, and broader opt-in live PostgreSQL/Redis auth/session/audit endpoint smoke paths; realistic fixture-backed endpoint coverage is still incomplete.
 - Some route handlers remain skeletal or demo-oriented.
 - Role enforcement must continue to be applied as future sensitive handlers are implemented.
 - Browser security hardening has a basic cookie/CSRF foundation but still needs full browser automation and deployment review.
@@ -9502,8 +10082,9 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - Offline double-spend handling is not yet backed by audited secure hardware/attestation.
 - HSM custody, national identity/KYC integration, CBI/core-banking integration, DR, and privacy review remain future work.
 - The National Dividend Holding Company proposal and ten-year investment plan are only partially represented in scenario code and need legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation before data models or routes are treated as deployable.
-- The National Civic Work System now has a small `cs-civic-work` domain crate, but not a deployable wallet, route set, verifier workflow, wage-payment service, or municipal operations platform. It still needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, safety, fiscal, and independent audit validation before any operational module is treated as deployable.
+- The National Civic Work System now has a small `cs-civic-work` domain crate with an operational case workflow, but not a deployable wallet, route set, verifier UI, wage-payment service, or municipal operations platform. It still needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, safety, fiscal, and independent audit validation before any operational module is treated as deployable.
 - The legal/institutional roadmap and project pipeline are documentation layers only; they need independent legal opinions, official authority mapping, project feasibility studies, procurement review, environmental/social safeguards, and audited baseline data before any project is treated as investable.
+- The data-centre/cloud/AI sovereignty plan is a scenario chapter, not a procurement authority, site selection, grid connection approval, privacy law, AI safety certification, or proof of demand. It needs power-sector review, water/cooling studies, cyber review, open-source supply-chain audit, telecom and bank offtake agreements, procurement validation, data-rights law, and independent business-case review before capital commitment.
 - The political-economy engine is scenario scoring, not a real power map or legitimacy assessment. It needs independent Iraqi constitutional, federalism, anti-corruption, civil-service, labor, competition, citizen-rights, and security-sector review before it can guide any real transition.
 - The citizen rights engine is a scenario control, not a national identity, entitlement, privacy, or appeal system. It needs legal authority, civil registry integration, privacy-regulator review, administrative-justice review, disability/accessibility validation, sanctions/AML due-process rules, independent audit, public dashboard governance, and tested appeal operations before any citizen-share or dividend batch is treated as deployable.
 - The cash formalization engine is a scenario control, not an AML/CFT clearance, tax settlement, sanctions decision, monetary-law order, or demonetization plan. It needs CBI, Treasury, AML/CFT, tax, sanctions, courts/appeals, operator, audit, and public-dashboard validation before any physical cash is converted into Digital IQD, transition balance, or supplemental entitlement.
@@ -9536,7 +10117,7 @@ CBI_DASHBOARD_LIVE_TESTS=1 cargo test -p cbi-dashboard --test live_postgres_redi
 Passing these checks should be described as prototype verification, not production certification.
 
 
-# Part 34: Technical Primitives
+# Part 35: Technical Primitives
 
 ## Technical Primitives And Readiness Notes
 

@@ -13,6 +13,7 @@
 - `docs/economic-assumptions.md` - source discipline and current public facts for Iraq-specific claims.
 - `docs/unified-economic-model.md` - integrated economic model linking Digital IQD, INDHC, ministries, banks, producers, strategic resilience manufacturing, infrastructure, tourism, credit, taxes, civic work, reinvestment, and citizen dividends.
 - `docs/national-economic-operating-logic.md` - management spine for the model: ledgers, hard gates, portfolio modes, scoring, cash/benefit conversion, capital allocation, dashboards, and escalation rules.
+- `docs/national-data-centre-cloud-ai-sovereignty.md` - domestic data-centre, open-source cloud, social media, and AI infrastructure plan with cost bands, power demand, financing, revenue lanes, social safeguards, and growth benefits.
 - `docs/national-legal-institutional-roadmap.md` - authority path for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, domestic securities, privacy, emergency powers, federalism, and appeals.
 - `docs/project-pipeline-and-investment-gates.md` - project-family pipeline with capex, revenue source, DSCR, FX exposure, facility reuse, environmental, legal, and evidence gates.
 - `docs/political-economy-transition-and-anti-capture.md` - resistance, capture-risk, coalition, service-continuity, staff-transition, procurement-transparency, and pause/rollback logic.

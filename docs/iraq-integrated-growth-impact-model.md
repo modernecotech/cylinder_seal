@@ -1,8 +1,9 @@
 # Iraq Integrated Growth Impact Model
 
 This document quantifies how the Cylinder Seal, INDHC, open-source rail,
-industrial, infrastructure, tourism, green, food/water, Digital IQD, and civic
-work model could affect Iraq's non-oil growth path over ten years.
+industrial, infrastructure, tourism, green, food/water, domestic data/cloud/AI,
+Digital IQD, and civic work model could affect Iraq's non-oil growth path over
+ten years.
 
 Status: scenario model. It is not an official forecast, budget law, investment
 prospectus, debt recommendation, or externally validated macroeconomic model.
@@ -72,6 +73,7 @@ Scenario non-oil growth
   + green power/grid contribution
   + food/water/irrigation contribution
   + tourism/services contribution
+  + domestic data/cloud/AI contribution
   + Digital IQD formalization/credit contribution
   + civic-work/workforce contribution
 ```
@@ -127,6 +129,14 @@ real growth. The strategic-upper case adds 4.37 percentage points.
 | Digital IQD formalization, SME credit, and tax visibility | 0.25pp | 0.41pp | More bankable merchants, better receivables finance, lower leakage, faster settlement, wider tax base without crushing microbusinesses. |
 | Civic work, workforce, and public-value maintenance | 0.15pp | 0.25pp | Paid maintenance, environmental work, municipal repair, training records, bridge-to-work pathways, social legitimacy during productivity transition. |
 | **Total** | **2.65pp** | **4.37pp** | Non-oil growth acceleration by Year 10. |
+
+The current executable table groups domestic data-centre, cloud, social media,
+and AI effects inside the tourism/services and Digital IQD formalization
+channels. The separate
+[National Data Centre, Cloud, Social Media, And AI Sovereignty System](national-data-centre-cloud-ai-sovereignty.md)
+chapter breaks out that layer for the next calibration pass. Until the CSV and
+analytics module are recalibrated, the headline growth totals above should not
+be increased merely because the data/cloud/AI sector has been documented.
 
 These are contribution estimates. The system must publish them as model
 assumptions with confidence levels, not as independently proven outcomes.

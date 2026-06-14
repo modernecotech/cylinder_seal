@@ -51,9 +51,44 @@ Pilot cell:
 | Explicit exclusions | No CBDC issuance, no oil lockbox, no citizen dividends, no ministry restructuring, no national macro claim. |
 
 Baghdad/Nahrawan municipal corridors and Najaf visitor corridors remain useful
-alternate templates if legal authority, local compact, and operating readiness
-are stronger there. The pilot structure can also move to another governorate or
-municipality after legal and political review.
+non-primary alternate templates if legal authority, local compact, and
+operating readiness are stronger there. The default recommendation remains
+Samawah / Al-Muthanna unless legal authority, local compact, or field readiness
+make another municipality demonstrably safer.
+
+## Pilot Governance Table
+
+The pilot should not begin until these operating roles are named in writing.
+One institution can hold more than one role only if conflict-of-interest rules
+and independent audit coverage remain intact.
+
+| Role | Required owner | Core responsibility | Evidence produced |
+| --- | --- | --- | --- |
+| Pilot sponsor | Named national or governorate sponsor with legal pilot authority | Authorizes the bounded pilot, budget ceiling, explicit exclusions, and stop conditions. | Signed pilot authority, budget note, exclusions register, rollback trigger list. |
+| Municipality | Samawah / Al-Muthanna municipal operating team | Defines task areas, confirms local service need, supplies supervisors, and protects public access. | Local compact, task map, supervisor roster, service-output baseline. |
+| Verifier | Independent verifier or municipal verifier under auditor sampling | Checks worker output, supplier delivery, geotagged evidence, safety, and duplicate-risk flags. | Verification decisions, rejected-claim log, sample-audit file. |
+| Payment sandbox owner | CBI-approved bank, PSP, or controlled settlement operator | Holds pilot funds, releases only verified wage/vendor instructions, and reports exceptions. | Settlement ledger, payment exception report, reversal/rollback log. |
+| Procurement reviewer | Procurement unit with beneficial-ownership and price-benchmark support | Reviews one supplier category, vendor eligibility, award basis, delivery evidence, and invoice timing. | Vendor file, price benchmark, award memo, delivery acceptance, payment-timing report. |
+| Grievance body | Local grievance committee with escalation route | Receives worker, supplier, resident, privacy, safety, and exclusion complaints. | Grievance register, resolution clock, appeal outcomes, unresolved-risk list. |
+| Public dashboard publisher | Dashboard operator approved by sponsor and municipality | Publishes aggregate task, payment, procurement, grievance, and audit indicators without personal data. | Public aggregate dashboard, privacy threshold checks, publication log. |
+| Independent evaluator | University, audit firm, civil-society evaluator, or MDB-style reviewer | Tests whether evidence supports pilot claims and whether scale gates are met. | 90-day, 180-day, and 12-month evaluation memos with stop/go recommendation. |
+
+## First Pilot Dataset
+
+The first dataset should be narrow enough to inspect manually. It should cover
+one civic-work package, one supplier category, one payment lane, and one public
+dashboard view before any larger rail or municipal claim is made.
+
+| Dataset | Minimum fields | Purpose |
+| --- | --- | --- |
+| Pilot authority register | authority reference, sponsor, municipality, budget ceiling, start/end dates, exclusions, stop triggers | Proves the pilot is legally bounded and not a national rollout. |
+| Task registry | task ID, location, category, safety class, evidence rules, supervisor, status, planned worker slots | Connects public work to a visible place and defined output. |
+| Worker enrollment file | worker ID, eligibility basis, consent marker, assignment, payout account/wallet, appeal channel | Prevents ghost-worker claims and supports wage/payment review. |
+| Evidence bundle | photo/document URI, geotag bucket, timestamp, supervisor note, verifier decision, rejected reason if any | Proves work was submitted and reviewed before payment. |
+| Wage instruction file | assignment ID, hours, rate, gross amount, withholding if any, payment status, exception reason | Connects verified work to controlled settlement. |
+| Supplier file | vendor ID, beneficial-owner screen, local-content marker, price benchmark, delivery acceptance, invoice status | Keeps the procurement package auditable and locally legible. |
+| Grievance register | complainant class, issue type, opened date, responsible body, resolution, appeal status | Tests whether workers, vendors, and residents can contest outcomes. |
+| Public dashboard extract | aggregate tasks, paid wages, supplier payments, exceptions, grievances, audit hashes, privacy threshold status | Lets observers see outputs without exposing personal data. |
 
 ## One Payment Flow
 
@@ -105,16 +140,33 @@ Task families:
 
 Lifecycle:
 
-1. `Draft` - task proposed with location, purpose, safety class, payment rate,
+1. `PendingApproval` - task proposed with location, purpose, safety class, payment rate,
    evidence requirements, and sponsor.
 2. `Approved` - legal authority, budget, safeguards, and supervisor capacity are
    confirmed.
-3. `Assigned` - eligible workers accept or are matched to tasks without
-   coercive workfare.
-4. `EvidenceSubmitted` - worker or team submits required proof.
-5. `Verified` - supervisor and sampling checks accept output.
-6. `Paid` - payment released.
-7. `Appealed` or `Rejected` - disputed or failed work enters review.
+3. `OpenForEnrollment` - eligible workers can accept or be matched to tasks
+   without coercive workfare.
+4. `InProgress` - enrolled worker or team performs the assigned task.
+5. `EvidenceSubmitted` - worker or team submits required proof.
+6. `Verified` - supervisor and sampling checks accept output.
+7. `PaymentReleased` - wage instruction is created only after verification.
+8. `Suspended`, `Rejected`, or grievance record - disputed, unsafe, or failed
+   work enters review and can be exported for audit.
+
+Operational workflow:
+
+1. Task creation records jurisdiction, category, title, worker slots, rate,
+   evidence rules, and safety class.
+2. Governance approval attaches the local authority and supervisor.
+3. Enrollment creates a worker assignment under the approved task.
+4. Evidence submission attaches photo/document URI, geotag bucket, supervisor
+   marker, and timestamp.
+5. Verification approves, rejects, or suspends the assignment.
+6. Wage instruction is generated only if authority, supervisor, evidence,
+   geotag, hours, duplicate-risk, safety, and verification checks pass.
+7. Grievances can be opened and resolved against the assignment.
+8. Audit export returns the task, assignment, payment instruction, grievance
+   register, and ordered lifecycle events.
 
 Controls:
 
@@ -217,6 +269,7 @@ Executable screen:
 Code surface:
 
 - `crates/cs-analytics/src/minimum_viable_pilot.rs`
+- `crates/cs-civic-work/src/lib.rs`
 - `migrations/20260724000001_minimum_viable_pilot.sql`
 
 ## 180-Day Pilot

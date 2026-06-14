@@ -13,8 +13,8 @@ Iraq project, and not a validated investment program.
 Cylinder Seal is an economic, environmental, social, and cultural operating
 model for Iraq. Its purpose is to turn oil income, project finance, domestic
 facilities, Iraqi labor, tourism, culture, services, industrial production,
-green infrastructure, and civic work into auditable cashflows and public
-benefits.
+green infrastructure, domestic data/cloud/AI infrastructure, and civic work
+into auditable cashflows and public benefits.
 
 The Digital IQD software prototype sits behind the economic model. It is an
 evidence rail for testing how contracts, payments, invoices, tax flows,
@@ -37,13 +37,16 @@ The model is designed around eight linked Iraqi economic problems:
 5. Tourism, culture, heritage, medical services, education services, and
    diaspora distribution channels are not yet treated as coordinated export and
    foreign-currency industries.
-6. Productivity gains from automation, digitization, and industrial champions
+6. Critical cloud, social media, collaboration, public data, and AI services
+   remain vulnerable to foreign proprietary platform dependency unless Iraq
+   builds domestic open-source operating capacity.
+7. Productivity gains from automation, digitization, and industrial champions
    could displace low-productivity work unless a civic-work and training layer
    converts spare labor capacity into public value.
-7. Public-benefit claims can become fiscal illusion unless cash revenue,
+8. Public-benefit claims can become fiscal illusion unless cash revenue,
    avoided losses, second-order benefits, and distributable surplus are kept in
    separate ledgers.
-8. Reform designs that look rational on a spreadsheet can fail if they ignore
+9. Reform designs that look rational on a spreadsheet can fail if they ignore
    political capture, ministry resistance, staff transition, federal/governorate
    authority, public-service continuity, and citizen appeal rights.
 
@@ -78,6 +81,10 @@ dividends only after the portfolio produces audited surplus.
 - **Industrial champions:** sectoral Iraqi production groups with conditional
   demand, conditional credit, export discipline, competition gates, debt caps,
   local-content evidence, and anti-capture controls.
+- **Data, cloud, social media, and AI sovereignty:** domestic data centres,
+  open-source cloud, public-interest social protocols, collaboration tools, and
+  AI infrastructure reduce dependency on foreign proprietary platforms while
+  creating a high-skill services sector.
 - **Constrained-base capital plan:** a USD 115B ten-year scenario is the
   default planning case under the IMF-baseline affordability discipline. USD
   190B is treated only as a strategic upper envelope after fiscal, debt, cashflow,

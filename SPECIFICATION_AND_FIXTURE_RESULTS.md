@@ -4,10 +4,11 @@ This document records what the current checks demonstrate and what they do not
 demonstrate. It intentionally avoids calling the backend production-ready.
 
 These checks validate schema expectations, seed data, selected domain
-invariants, pilot stop/go logic, route middleware behavior, one opt-in live
-PostgreSQL/Redis auth-session-audit path, and specification-level transaction
-logic. They do not prove broad live dashboard endpoint coverage, browser
-sessions, or production-like infrastructure.
+invariants, pilot stop/go logic, civic-work operational workflow primitives,
+route middleware behavior, opt-in live PostgreSQL/Redis auth-session-audit
+paths, protected dashboard endpoint smoke coverage, and specification-level
+transaction logic. They do not prove realistic live dashboard fixtures, browser
+sessions, load behavior, or production-like infrastructure.
 
 ## Current Evidence
 
@@ -34,8 +35,10 @@ for broad live PostgreSQL/Redis endpoint coverage.
 `crates/cbi-dashboard/tests/live_postgres_redis.rs` is opt-in with
 `CBI_DASHBOARD_LIVE_TESTS=1`. It exercises the real Axum router with
 PostgreSQL-backed operator login and audit recording plus Redis-backed session
-creation, protected-route access, role denial, protected dashboard actions,
-logout, and post-logout denial.
+creation, protected-route access, protected page/API smoke coverage, current
+intentionally-unimplemented analytics responses, role denial, protected
+dashboard actions, project/report/directive/account audit writes, logout, and
+post-logout denial.
 
 `crates/cbi-dashboard/tests/integration_dashboard.rs` and
 `crates/cbi-dashboard/tests/fixture_inventory.rs` are structural fixture and
@@ -44,7 +47,8 @@ has been exercised against a real database and Redis session store.
 
 ## Current Limitations
 
-- Dashboard route tests cover one live PostgreSQL/Redis auth-session-audit path, but not the full endpoint set with realistic fixtures.
+- Dashboard route tests now include broader opt-in live PostgreSQL/Redis smoke
+  coverage, but not the full endpoint set with realistic domain fixtures.
 - Some tests validate expected shapes and constants rather than executing production handlers.
 - No load, soak, partition, recovery, or security regression test suite is present.
 - Browser flows now have route-level session and CSRF checks, but not full browser automation coverage.
@@ -63,12 +67,9 @@ cargo test --package cbi-dashboard --test route_integration
 CBI_DASHBOARD_LIVE_TESTS=1 cargo test --package cbi-dashboard --test live_postgres_redis
 ```
 
-For the next dashboard integration step, broaden the live PostgreSQL/Redis test
-harness and assert real HTTP responses for:
-
-- `/api/overview`
-- `/api/compliance/reports`
-- `/api/audit/logs`
+For the next dashboard integration step, replace skeletal endpoint responses
+with realistic fixture-backed project, compliance, monetary, account, risk,
+producer, audit, and analytics datasets.
 
 ## Readiness Label
 
