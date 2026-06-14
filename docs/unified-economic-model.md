@@ -430,6 +430,7 @@ separate dashboard widgets.
 | `FacilityRecyclingProjection` | Existing facility inventory, utilization, rehab capex, greenfield replacement cost, environmental liabilities, DSCR, FX cover, disclosure, investor protection | Brownfield reuse, international credit readiness, domestic capital-market readiness, and finance-lane view. |
 | `EnvironmentalSocialSafeguardAssessment` | Environmental assessment status, water budget, pollution risk, climate resilience, biodiversity/marshland, heritage, resettlement, livelihood, consultation, safety, maintenance, remediation, monitoring, audit, and accessibility evidence | Project safeguard stop/go, redesign, mitigation, evidence-only, pilot, monitoring, or eligibility view. |
 | `MacroStabilityAssessment` | Inflation, food inflation, FX premium, reserves, import cover, FX demand, non-oil FX receipts, money and credit growth, bank liquidity, domestic supply, import leakage, Digital IQD injections, dividends, civic wages, local project spend, sterilization, treasury buffers, and CBI-governance evidence | Macro mode, liquidity phasing, distribution safety, FX pressure, inflation pressure, and absorption-capacity view. |
+| `MinimumViablePilotAssessment` | Pilot stage, Samawah / Al-Muthanna scope, OpenSourceRail reference confirmation, rail enabling works, explicit national exclusions, legal/local authority, payment, civic-work, procurement, dashboard, evidence, audit, grievances, privacy, safety, capture, and stop-condition evidence | Pilot authorize, extend, pause, stop, or graduate-to-governorate-review view. |
 | `StrategicResilienceProjection` | Defense-sector licenses, electronics/HVAC output, water/desalination equipment, irrigation systems, food-substitution capacity, end-use controls | Critical domestic capability and import-vulnerability view. |
 | `TourismServiceClusterProjection` | Attractions, visitor counts, spend, formal payment capture, local procurement, safety, conservation, lodging, transport, guide capacity | Booked service revenue, non-oil FX capture, local supplier demand, and second-order benefit view. |
 | `DiasporaChannelProjection` | Diaspora region, channel, member conversion, product share, export orders, remittances, expertise, investment pipeline, marketing reach, compliance gates | Diaspora income, formalized remittance, export distribution, expertise, investment, marketing, and no-dividend benefit view. |
@@ -560,9 +561,12 @@ The model gives each existing Cylinder Seal component a place:
 15. Add `CivicWorkAssessment` for verified tasks, wage release, payment holds,
    dignity safeguards, anti-ghost-worker controls, safety, privacy, training,
    impact, audits, and bridge-to-work outcomes.
-16. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
-17. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
-18. Gate all public claims behind source labels, model assumptions, and confidence
+16. Add `MinimumViablePilotAssessment` for the Samawah / Al-Muthanna bounded
+   pilot stop/go decision, OpenSourceRail reference confirmation, rail enabling
+   works, explicit exclusions, and evidence gates.
+17. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
+18. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
+19. Gate all public claims behind source labels, model assumptions, and confidence
    levels from `docs/economic-assumptions.md`.
 
 Initial implementation status:

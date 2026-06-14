@@ -35,6 +35,10 @@ Institutional entry points:
 - [Arabic institutional brief](INSTITUTIONAL_BRIEF_AR.md)
 - [Institutional brief](INSTITUTIONAL_BRIEF.md)
 - [Pilot design](PILOT_DESIGN.md)
+- [OpenSourceRail](https://github.com/modernecotech/OpenSourceRail) is the
+  companion rail design, simulator, operations, and safety-case project. In this
+  repo, rail-related work is treated as governed enabling works and evidence,
+  not as a duplicated rail engineering stack.
 
 ![Cylinder Seal business value chain](docs/diagrams/business-value-chain-overview.svg)
 
@@ -225,6 +229,7 @@ forecasts.
 | Political-economy transition and anti-capture | `crates/cs-analytics/src/political_economy.rs` | `migrations/20260712000001_political_economy_transition.sql` |
 | Fiscal stress and contingent liabilities | `crates/cs-analytics/src/fiscal_stress.rs` | `migrations/20260713000001_fiscal_stress_projection.sql` |
 | Program sequencing and dependencies | `crates/cs-analytics/src/program_sequencing.rs` | `migrations/20260714000001_program_sequencing.sql` |
+| Minimum viable pilot readiness | `crates/cs-analytics/src/minimum_viable_pilot.rs` | `migrations/20260724000001_minimum_viable_pilot.sql` |
 | Benefit realization and claim audit | `crates/cs-analytics/src/benefit_realization.rs` | `migrations/20260715000001_benefit_realization_claim_audit.sql` |
 | Procurement integrity and market discipline | `crates/cs-analytics/src/procurement_integrity.rs` | `migrations/20260716000001_procurement_integrity.sql` |
 | Federalism, governorate equity, and local compacts | `crates/cs-analytics/src/federalism_equity.rs` | `migrations/20260717000001_federalism_equity_compact.sql` |

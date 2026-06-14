@@ -101,7 +101,9 @@ The program controller uses these inputs:
 The executable implementation is:
 
 - `crates/cs-analytics/src/program_sequencing.rs`
+- `crates/cs-analytics/src/minimum_viable_pilot.rs`
 - `migrations/20260714000001_program_sequencing.sql`
+- `migrations/20260724000001_minimum_viable_pilot.sql`
 
 Core objects:
 
@@ -110,6 +112,9 @@ Core objects:
 | `ProgramSequencingInput` | Captures legal, data, audit, procurement, delivery, operator, staff, trust, service, cashflow, predecessor, political, and fiscal readiness. |
 | `ProgramSequencingDecision` | Computes readiness, dependency, operating-capacity, legitimacy scores, recommended phase, blocked dependencies, and required next actions. |
 | `ProgramSequencingGateResult` | Records pass/warn/fail state for sequencing gates. |
+| `MinimumViablePilotInput` | Captures the Samawah / Al-Muthanna pilot boundary, OpenSourceRail reference confirmation, rail enabling works, explicit exclusions, legal/local authority, payment, civic-work, procurement, dashboard, evidence, privacy, safety, and stop-condition inputs. |
+| `MinimumViablePilotAssessment` | Computes scope, operations, evidence, integrity, readiness, stop conditions, required actions, and stage decision for the bounded pilot. |
+| `PilotGateResult` | Records pass/warn/fail state for pilot scope, exclusions, authority, payment, civic work, procurement, dashboard, privacy, audit, evidence, payments, suppliers, grievances, capture, safety, and stop conditions. |
 
 ## Management Rule
 

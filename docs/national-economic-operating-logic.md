@@ -293,6 +293,7 @@ kernel, not a complete national operating system.
 | `MacroStabilityAssessment` | Unsterilized liquidity, inflation pressure, FX pressure, credit heat, absorption capacity, macro risk, recommended mode, and required actions. |
 | `FiscalStressProjection` | Stressed oil-equity capacity, fiscal-rule breach, DSCR, FX mismatch, maintenance gap, contingent liability, dividend gap, and recommended stress mode. |
 | `ProgramSequencingDecision` | Domain readiness, dependency completion, operating capacity, legitimacy, recommended phase, blocked dependencies, and next required actions. |
+| `MinimumViablePilotAssessment` | Samawah / Al-Muthanna pilot boundary, OpenSourceRail reference confirmation, rail enabling works, explicit exclusions, legal/local authority, payment, civic-work, procurement, dashboard, evidence, integrity, stop conditions, and required actions. |
 | `ProcurementIntegrityAssessment` | Competition, integrity, value-for-money, delivery, market-development, overall risk, decision, and required actions for awards and privileges. |
 | `BenefitRealizationReport` | Claim achievement, target variance, evidence score, realization score, cash eligibility, public-benefit-only value, disposition, and corrective actions. |
 
@@ -415,6 +416,14 @@ Initial executable coverage:
   political mode, fiscal stress mode, recommended phase, blocked dependencies,
   and next required actions. `migrations/20260714000001_program_sequencing.sql`
   adds decision and gate tables.
+- `crates/cs-analytics/src/minimum_viable_pilot.rs` adds the first bounded
+  pilot stop/go layer for Samawah / Al-Muthanna: one municipality, one payment
+  flow, one civic-work flow, one procurement flow, one supplier category, one
+  dashboard, OpenSourceRail reference confirmation, rail enabling works,
+  explicit national exclusions, evidence quality, payment exceptions, supplier
+  timing, grievances, capture, safety, privacy, and stop conditions.
+  `migrations/20260724000001_minimum_viable_pilot.sql` adds assessment and gate
+  tables.
 - `crates/cs-analytics/src/procurement_integrity.rs` adds the first procurement
   integrity and market-discipline layer: beneficial ownership, PEP/sanctions,
   competition depth, single-source justification, open contracting data,

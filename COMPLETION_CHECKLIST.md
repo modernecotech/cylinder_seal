@@ -16,6 +16,7 @@
 - [x] Basic HttpOnly cookie support for dashboard page sessions alongside bearer-token API calls.
 - [x] Admin action audit recorder wired for current sensitive dashboard handlers.
 - [x] Initial `cs-civic-work` domain crate with lifecycle, evidence, verification, risk-hold, and payment-eligibility tests.
+- [x] Minimum viable pilot stop/go engine for Samawah / Al-Muthanna scope, OpenSourceRail reference confirmation, rail enabling works, explicit exclusions, evidence gates, privacy, safety, capture risk, and pause/stop conditions.
 
 ## Still Required Before Production Claims
 

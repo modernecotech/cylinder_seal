@@ -5,7 +5,8 @@
 - `README.md` - economic-system front door, source discipline, production-readiness boundary, and software appendix.
 - `INSTITUTIONAL_BRIEF_AR.md` - Arabic institutional brief for CBI, Ministry of Finance, MDB/development-finance, Iraqi investor, and diaspora readers.
 - `INSTITUTIONAL_BRIEF.md` - two-page institutional brief for CBI, Ministry of Finance, MDB/development-finance, Iraqi investor, and diaspora readers.
-- `PILOT_DESIGN.md` - Baghdad/Nahrawan minimum viable jurisdiction pilot with 90-day, 180-day, and 12-month gates.
+- `PILOT_DESIGN.md` - Samawah / Al-Muthanna minimum viable jurisdiction pilot with Open Source Rail enabling works, 90-day, 180-day, 12-month, and executable stop/go gates.
+- `https://github.com/modernecotech/OpenSourceRail` - companion rail design, simulator, operations, manufacturing, and safety-case project referenced by the Samawah pilot.
 - `EXECUTIVE_SUMMARY.md` - economic-system summary for expert review.
 - `FINAL_SUMMARY.md` - current repository summary with economic model first and software appendix second.
 - `docs/business-value-chain-charts.md` - rendered SVG business charts for all sector value chains, capital and repayment lanes, and society/economy feedback loops.

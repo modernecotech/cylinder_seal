@@ -9,17 +9,29 @@ reform. The objective is to prove that public economic activity can be made
 measurable, auditable, and contestable at small scale before larger legal and
 fiscal commitments are considered.
 
+Rail boundary: Samawah is chosen partly because the companion
+[OpenSourceRail](https://github.com/modernecotech/OpenSourceRail) project
+already carries the rail design, simulator, operations, manufacturing, and
+safety-case surface. Cylinder Seal should not duplicate that engineering stack.
+It should test whether rail-adjacent enabling works, municipal tasks,
+procurement, payments, audit records, and public-benefit claims can be governed
+with evidence before any rail capital commitment.
+
 ## Minimum Viable Jurisdiction
 
-Recommended pilot: **Baghdad/Nahrawan municipal civic-work and procurement
-evidence pilot**.
+Recommended pilot: **Samawah / Al-Muthanna municipal civic-work, Open Source
+Rail enabling-works, and procurement evidence pilot**.
 
 Rationale:
 
 - It can be defined as one municipality or service zone rather than a national
   reform programme.
-- It has visible municipal-service pressure around parks, canals, roadsides,
-  drainage, lighting, waste, heat-risk, and local access.
+- It aligns with the Open Source Rail strategy while staying small: the pilot
+  can prepare station-area, roadside, drainage, access, shade, signage, and
+  municipal-service evidence before any large rail capital commitment.
+- Samawah is a better test bed than Baghdad for first discipline: smaller
+  institutional surface, visible municipal needs, lower coordination
+  complexity, and easier public observation.
 - It can use small, observable civic-work tasks rather than abstract national
   claims.
 - It can test local vendors, small procurement, wage payment, supervisor
@@ -30,18 +42,18 @@ Pilot cell:
 
 | Element | Concrete scope |
 | --- | --- |
-| Jurisdiction | One Baghdad/Nahrawan municipal service zone. |
-| Civic-work programme | One park, canal, or roadside maintenance programme with visible public outputs. |
-| Supplier category | One local supplier category, such as tools, PPE, signage, drainage-cleaning materials, water points, or small repair support. |
+| Jurisdiction | One Samawah / Al-Muthanna municipal service zone. |
+| Civic-work programme | One station-area, park, canal, roadside, or access-route maintenance programme with visible public outputs. |
+| Supplier category | One local supplier category, such as tools, PPE, signage, drainage-cleaning materials, shade/water points, access-route materials, or small repair support. |
 | Payment flow | Verified civic-work wage or stipend release through controlled settlement accounts. |
 | Procurement flow | Small local procurement package paid only after delivery evidence and supervisor acceptance. |
 | Dashboard | One operator/auditor/public aggregate dashboard covering tasks, payments, procurement, exceptions, grievances, and audit hashes. |
 | Explicit exclusions | No CBDC issuance, no oil lockbox, no citizen dividends, no ministry restructuring, no national macro claim. |
 
-Najaf municipal visitor corridors remain a useful alternate template if legal
-authority, local compact, and operating readiness are stronger there. The pilot
-structure can also move to another governorate or municipality after legal and
-political review.
+Baghdad/Nahrawan municipal corridors and Najaf visitor corridors remain useful
+alternate templates if legal authority, local compact, and operating readiness
+are stronger there. The pilot structure can also move to another governorate or
+municipality after legal and political review.
 
 ## One Payment Flow
 
@@ -82,6 +94,7 @@ Success metrics:
 Task families:
 
 - park maintenance and shade repair reporting;
+- station-area cleaning, access mapping, and signage readiness;
 - canal, ditch, and drainage cleanup;
 - roadside cleaning and waste hot-spot reporting;
 - drainage clearing and flood-prevention checks;
@@ -116,8 +129,8 @@ Controls:
 **Flow:** small local procurement package for municipal service inputs.
 
 Example package: cleaning tools, reflective vests, water points, signage,
-lighting consumables, drainage clearing materials, mobile repair support, or
-verified local transport for civic-work teams.
+lighting consumables, drainage clearing materials, access-route materials,
+mobile repair support, or verified local transport for civic-work teams.
 
 The first package should use one supplier category only. Adding multiple
 categories too early makes price benchmarking, beneficial-ownership screening,
@@ -175,6 +188,36 @@ Go/no-go gates:
 - no unresolved severe privacy, safety, corruption, or coercion incidents;
 - Redis/PostgreSQL session, role, and audit controls pass live tests;
 - public aggregate dashboard hides personal data.
+
+Executable screen:
+
+- `MinimumViablePilotInput` captures the pilot boundary, explicit exclusions,
+  legal/local authority, payment readiness, civic-work readiness, procurement
+  readiness, dashboard readiness, OpenSourceRail reference confirmation,
+  evidence quality, payment exceptions, supplier timing, grievances, capture
+  risk, safety, privacy, and stop conditions.
+- `MinimumViablePilotAssessment` computes scope, operations, evidence,
+  integrity, readiness, stop conditions, required actions, and the stage
+  decision.
+- `PilotDecision` can return `not_ready`, `evidence_only`, `authorize_90_day`,
+  `extend_to_180_day`, `extend_to_12_month`,
+  `graduate_to_governorate_review`, `pause`, or `stop`.
+- The engine hard-caps the pilot at `evidence_only` if the scope is no longer
+  one municipality, one payment flow, one civic-work flow, one procurement
+  flow, one supplier category, and one dashboard, or if CBDC issuance, oil
+  lockbox, citizen dividends, ministry restructuring, or national macro claims
+  enter the pilot scope.
+- The engine can stop the pilot for missing legal authority, personal-data
+  exposure, fabricated evidence, capture risk, coercion, severe safety
+  incidents, or off-book arrears.
+- The engine records a failed `opensource_rail_reference` gate when rail-enabling
+  works are not tied back to the existing OpenSourceRail design/simulator/ops
+  and safety-case artifacts.
+
+Code surface:
+
+- `crates/cs-analytics/src/minimum_viable_pilot.rs`
+- `migrations/20260724000001_minimum_viable_pilot.sql`
 
 ## 180-Day Pilot
 

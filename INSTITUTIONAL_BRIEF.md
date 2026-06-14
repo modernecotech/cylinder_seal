@@ -83,20 +83,30 @@ flow. The pilot should not try to prove the national model. It should test
 whether verified public money can move through a small operating loop with
 visible evidence and enforceable gates.
 
-The recommended concrete pilot shape is a Baghdad/Nahrawan municipal
-civic-work and procurement evidence pilot: one municipality, one park, canal, or
-roadside maintenance programme, one local supplier category, one civic-work
-payment flow, and one dashboard. It should use controlled settlement accounts,
-not CBDC issuance; it should not involve an oil lockbox; and it should not pay
-citizen dividends. A Najaf municipal corridor remains a useful alternate
-template if local authority and operating readiness are stronger there.
+The recommended concrete pilot shape is a Samawah / Al-Muthanna municipal
+civic-work, Open Source Rail enabling-works, and procurement evidence pilot:
+one municipality, one station-area, park, canal, roadside, or access-route
+maintenance programme, one local supplier category, one civic-work payment
+flow, and one dashboard. It should use controlled settlement accounts, not CBDC
+issuance; it should not involve an oil lockbox; and it should not pay citizen
+dividends. Baghdad/Nahrawan municipal corridors and Najaf visitor corridors
+remain useful alternate templates if local authority and operating readiness are
+stronger there.
+
+The rail design source is the existing
+[OpenSourceRail](https://github.com/modernecotech/OpenSourceRail) project. The
+Samawah pilot should reference that repository for rail design, simulator,
+operations, manufacturing, and safety-case artifacts; Cylinder Seal should only
+govern evidence, payments, procurement, audit, and public-benefit claims around
+bounded enabling works.
 
 The pilot flow is:
 
 1. A municipality approves a bounded civic-work and procurement program.
-2. Workers are enrolled for visible tasks such as park maintenance, canal
-   cleanup, roadside cleaning, drainage clearing, lighting inspection, tree
-   care, or safety reporting.
+2. Workers are enrolled for visible tasks such as station-area cleaning, access
+   mapping, signage readiness, park maintenance, canal cleanup, roadside
+   cleaning, drainage clearing, lighting inspection, tree care, or safety
+   reporting.
 3. A small procurement package supplies one local category such as tools, PPE,
    signage, drainage-cleaning materials, water points, or repair support from
    verified local vendors.

@@ -84,19 +84,27 @@ Cylinder Seal (سيلندر سيل) هو نموذج وطني قائم على ا�
 إذا كان المال العام الموثق يمكن أن يتحرك داخل حلقة تشغيل صغيرة ذات أدلة مرئية
 وبوابات قابلة للإنفاذ.
 
-الشكل التجريبي الملموس الموصى به هو نموذج بلدي في بغداد/النهروان لأدلة العمل
-المدني والمشتريات: بلدية واحدة، وبرنامج واحد لصيانة حديقة أو قناة أو جانب طريق،
-وفئة موردين محليين واحدة، وتدفق دفع واحد للعمل المدني، ولوحة بيانات واحدة.
-ويجب أن يستخدم حسابات تسوية مضبوطة، لا إصدار عملة رقمية وطنية؛ وألا يتضمن
-صندوقا لإيرادات النفط؛ وألا يدفع أرباحا للمواطنين. ويبقى ممر بلدي في النجف
-قالبا بديلا مفيدا إذا كانت السلطة المحلية والجاهزية التشغيلية أقوى هناك.
+الشكل التجريبي الملموس الموصى به هو نموذج بلدي في السماوة/المثنى لأدلة العمل
+المدني وأعمال التمهيد للسكك المفتوحة والمشتريات: بلدية واحدة، وبرنامج واحد
+لصيانة منطقة محطة أو حديقة أو قناة أو جانب طريق أو مسار وصول، وفئة موردين
+محليين واحدة، وتدفق دفع واحد للعمل المدني، ولوحة بيانات واحدة. ويجب أن يستخدم
+حسابات تسوية مضبوطة، لا إصدار عملة رقمية وطنية؛ وألا يتضمن صندوقا لإيرادات
+النفط؛ وألا يدفع أرباحا للمواطنين. وتبقى ممرات بغداد/النهروان البلدية وممرات
+الزوار في النجف قوالب بديلة مفيدة إذا كانت السلطة المحلية والجاهزية التشغيلية
+أقوى هناك.
+
+مصدر تصميم السكك هو مشروع
+[OpenSourceRail](https://github.com/modernecotech/OpenSourceRail) القائم.
+وينبغي أن يرجع نموذج السماوة إلى ذلك المستودع في التصميم، والمحاكاة، والتشغيل،
+والتصنيع، وأدلة السلامة؛ أما Cylinder Seal فيجب أن يحكم فقط الأدلة، والمدفوعات،
+والمشتريات، والتدقيق، ومطالبات المنفعة العامة حول أعمال تمهيدية محدودة.
 
 يتكون تدفق النموذج التجريبي من الآتي:
 
 1. توافق البلدية على برنامج محدود للعمل المدني والمشتريات.
-2. يسجل العاملون لمهام مرئية مثل صيانة الحدائق، وتنظيف القنوات، وتنظيف جوانب
-   الطرق، وتنظيف المصارف، وفحص الإنارة، ورعاية الأشجار، أو الإبلاغ عن مخاطر
-   السلامة.
+2. يسجل العاملون لمهام مرئية مثل تنظيف منطقة محطة، ورسم خرائط الوصول، وتجهيز
+   اللافتات، وصيانة الحدائق، وتنظيف القنوات، وتنظيف جوانب الطرق، وتنظيف
+   المصارف، وفحص الإنارة، ورعاية الأشجار، أو الإبلاغ عن مخاطر السلامة.
 3. توفر حزمة مشتريات صغيرة فئة محلية واحدة مثل الأدوات، ومعدات السلامة، واللافتات،
    ومواد تنظيف المصارف، ونقاط المياه، أو دعم الإصلاح من موردين محليين موثقين.
 4. تدفع المبالغ من خلال محافظ رقمية مضبوطة أو حسابات تسوية تجريبية.
@@ -209,20 +217,30 @@ flow. The pilot should not try to prove the national model. It should test
 whether verified public money can move through a small operating loop with
 visible evidence and enforceable gates.
 
-The recommended concrete pilot shape is a Baghdad/Nahrawan municipal
-civic-work and procurement evidence pilot: one municipality, one park, canal, or
-roadside maintenance programme, one local supplier category, one civic-work
-payment flow, and one dashboard. It should use controlled settlement accounts,
-not CBDC issuance; it should not involve an oil lockbox; and it should not pay
-citizen dividends. A Najaf municipal corridor remains a useful alternate
-template if local authority and operating readiness are stronger there.
+The recommended concrete pilot shape is a Samawah / Al-Muthanna municipal
+civic-work, Open Source Rail enabling-works, and procurement evidence pilot:
+one municipality, one station-area, park, canal, roadside, or access-route
+maintenance programme, one local supplier category, one civic-work payment
+flow, and one dashboard. It should use controlled settlement accounts, not CBDC
+issuance; it should not involve an oil lockbox; and it should not pay citizen
+dividends. Baghdad/Nahrawan municipal corridors and Najaf visitor corridors
+remain useful alternate templates if local authority and operating readiness are
+stronger there.
+
+The rail design source is the existing
+[OpenSourceRail](https://github.com/modernecotech/OpenSourceRail) project. The
+Samawah pilot should reference that repository for rail design, simulator,
+operations, manufacturing, and safety-case artifacts; Cylinder Seal should only
+govern evidence, payments, procurement, audit, and public-benefit claims around
+bounded enabling works.
 
 The pilot flow is:
 
 1. A municipality approves a bounded civic-work and procurement program.
-2. Workers are enrolled for visible tasks such as park maintenance, canal
-   cleanup, roadside cleaning, drainage clearing, lighting inspection, tree
-   care, or safety reporting.
+2. Workers are enrolled for visible tasks such as station-area cleaning, access
+   mapping, signage readiness, park maintenance, canal cleanup, roadside
+   cleaning, drainage clearing, lighting inspection, tree care, or safety
+   reporting.
 3. A small procurement package supplies one local category such as tools, PPE,
    signage, drainage-cleaning materials, water points, or repair support from
    verified local vendors.
@@ -289,6 +307,10 @@ Institutional entry points:
 - [Arabic institutional brief](INSTITUTIONAL_BRIEF_AR.md)
 - [Institutional brief](INSTITUTIONAL_BRIEF.md)
 - [Pilot design](PILOT_DESIGN.md)
+- [OpenSourceRail](https://github.com/modernecotech/OpenSourceRail) is the
+  companion rail design, simulator, operations, and safety-case project. In this
+  repo, rail-related work is treated as governed enabling works and evidence,
+  not as a duplicated rail engineering stack.
 
 ![Cylinder Seal business value chain](docs/ebook/assets/business-value-chain-overview.png)
 
@@ -479,6 +501,7 @@ forecasts.
 | Political-economy transition and anti-capture | `crates/cs-analytics/src/political_economy.rs` | `migrations/20260712000001_political_economy_transition.sql` |
 | Fiscal stress and contingent liabilities | `crates/cs-analytics/src/fiscal_stress.rs` | `migrations/20260713000001_fiscal_stress_projection.sql` |
 | Program sequencing and dependencies | `crates/cs-analytics/src/program_sequencing.rs` | `migrations/20260714000001_program_sequencing.sql` |
+| Minimum viable pilot readiness | `crates/cs-analytics/src/minimum_viable_pilot.rs` | `migrations/20260724000001_minimum_viable_pilot.sql` |
 | Benefit realization and claim audit | `crates/cs-analytics/src/benefit_realization.rs` | `migrations/20260715000001_benefit_realization_claim_audit.sql` |
 | Procurement integrity and market discipline | `crates/cs-analytics/src/procurement_integrity.rs` | `migrations/20260716000001_procurement_integrity.sql` |
 | Federalism, governorate equity, and local compacts | `crates/cs-analytics/src/federalism_equity.rs` | `migrations/20260717000001_federalism_equity_compact.sql` |
@@ -536,17 +559,29 @@ reform. The objective is to prove that public economic activity can be made
 measurable, auditable, and contestable at small scale before larger legal and
 fiscal commitments are considered.
 
+Rail boundary: Samawah is chosen partly because the companion
+[OpenSourceRail](https://github.com/modernecotech/OpenSourceRail) project
+already carries the rail design, simulator, operations, manufacturing, and
+safety-case surface. Cylinder Seal should not duplicate that engineering stack.
+It should test whether rail-adjacent enabling works, municipal tasks,
+procurement, payments, audit records, and public-benefit claims can be governed
+with evidence before any rail capital commitment.
+
 ### Minimum Viable Jurisdiction
 
-Recommended pilot: **Baghdad/Nahrawan municipal civic-work and procurement
-evidence pilot**.
+Recommended pilot: **Samawah / Al-Muthanna municipal civic-work, Open Source
+Rail enabling-works, and procurement evidence pilot**.
 
 Rationale:
 
 - It can be defined as one municipality or service zone rather than a national
   reform programme.
-- It has visible municipal-service pressure around parks, canals, roadsides,
-  drainage, lighting, waste, heat-risk, and local access.
+- It aligns with the Open Source Rail strategy while staying small: the pilot
+  can prepare station-area, roadside, drainage, access, shade, signage, and
+  municipal-service evidence before any large rail capital commitment.
+- Samawah is a better test bed than Baghdad for first discipline: smaller
+  institutional surface, visible municipal needs, lower coordination
+  complexity, and easier public observation.
 - It can use small, observable civic-work tasks rather than abstract national
   claims.
 - It can test local vendors, small procurement, wage payment, supervisor
@@ -557,18 +592,18 @@ Pilot cell:
 
 | Element | Concrete scope |
 | --- | --- |
-| Jurisdiction | One Baghdad/Nahrawan municipal service zone. |
-| Civic-work programme | One park, canal, or roadside maintenance programme with visible public outputs. |
-| Supplier category | One local supplier category, such as tools, PPE, signage, drainage-cleaning materials, water points, or small repair support. |
+| Jurisdiction | One Samawah / Al-Muthanna municipal service zone. |
+| Civic-work programme | One station-area, park, canal, roadside, or access-route maintenance programme with visible public outputs. |
+| Supplier category | One local supplier category, such as tools, PPE, signage, drainage-cleaning materials, shade/water points, access-route materials, or small repair support. |
 | Payment flow | Verified civic-work wage or stipend release through controlled settlement accounts. |
 | Procurement flow | Small local procurement package paid only after delivery evidence and supervisor acceptance. |
 | Dashboard | One operator/auditor/public aggregate dashboard covering tasks, payments, procurement, exceptions, grievances, and audit hashes. |
 | Explicit exclusions | No CBDC issuance, no oil lockbox, no citizen dividends, no ministry restructuring, no national macro claim. |
 
-Najaf municipal visitor corridors remain a useful alternate template if legal
-authority, local compact, and operating readiness are stronger there. The pilot
-structure can also move to another governorate or municipality after legal and
-political review.
+Baghdad/Nahrawan municipal corridors and Najaf visitor corridors remain useful
+alternate templates if legal authority, local compact, and operating readiness
+are stronger there. The pilot structure can also move to another governorate or
+municipality after legal and political review.
 
 ### One Payment Flow
 
@@ -609,6 +644,7 @@ Success metrics:
 Task families:
 
 - park maintenance and shade repair reporting;
+- station-area cleaning, access mapping, and signage readiness;
 - canal, ditch, and drainage cleanup;
 - roadside cleaning and waste hot-spot reporting;
 - drainage clearing and flood-prevention checks;
@@ -643,8 +679,8 @@ Controls:
 **Flow:** small local procurement package for municipal service inputs.
 
 Example package: cleaning tools, reflective vests, water points, signage,
-lighting consumables, drainage clearing materials, mobile repair support, or
-verified local transport for civic-work teams.
+lighting consumables, drainage clearing materials, access-route materials,
+mobile repair support, or verified local transport for civic-work teams.
 
 The first package should use one supplier category only. Adding multiple
 categories too early makes price benchmarking, beneficial-ownership screening,
@@ -702,6 +738,36 @@ Go/no-go gates:
 - no unresolved severe privacy, safety, corruption, or coercion incidents;
 - Redis/PostgreSQL session, role, and audit controls pass live tests;
 - public aggregate dashboard hides personal data.
+
+Executable screen:
+
+- `MinimumViablePilotInput` captures the pilot boundary, explicit exclusions,
+  legal/local authority, payment readiness, civic-work readiness, procurement
+  readiness, dashboard readiness, OpenSourceRail reference confirmation,
+  evidence quality, payment exceptions, supplier timing, grievances, capture
+  risk, safety, privacy, and stop conditions.
+- `MinimumViablePilotAssessment` computes scope, operations, evidence,
+  integrity, readiness, stop conditions, required actions, and the stage
+  decision.
+- `PilotDecision` can return `not_ready`, `evidence_only`, `authorize_90_day`,
+  `extend_to_180_day`, `extend_to_12_month`,
+  `graduate_to_governorate_review`, `pause`, or `stop`.
+- The engine hard-caps the pilot at `evidence_only` if the scope is no longer
+  one municipality, one payment flow, one civic-work flow, one procurement
+  flow, one supplier category, and one dashboard, or if CBDC issuance, oil
+  lockbox, citizen dividends, ministry restructuring, or national macro claims
+  enter the pilot scope.
+- The engine can stop the pilot for missing legal authority, personal-data
+  exposure, fabricated evidence, capture risk, coercion, severe safety
+  incidents, or off-book arrears.
+- The engine records a failed `opensource_rail_reference` gate when rail-enabling
+  works are not tied back to the existing OpenSourceRail design/simulator/ops
+  and safety-case artifacts.
+
+Code surface:
+
+- `crates/cs-analytics/src/minimum_viable_pilot.rs`
+- `migrations/20260724000001_minimum_viable_pilot.sql`
 
 ### 180-Day Pilot
 
@@ -1623,6 +1689,7 @@ kernel, not a complete national operating system.
 | `MacroStabilityAssessment` | Unsterilized liquidity, inflation pressure, FX pressure, credit heat, absorption capacity, macro risk, recommended mode, and required actions. |
 | `FiscalStressProjection` | Stressed oil-equity capacity, fiscal-rule breach, DSCR, FX mismatch, maintenance gap, contingent liability, dividend gap, and recommended stress mode. |
 | `ProgramSequencingDecision` | Domain readiness, dependency completion, operating capacity, legitimacy, recommended phase, blocked dependencies, and next required actions. |
+| `MinimumViablePilotAssessment` | Samawah / Al-Muthanna pilot boundary, OpenSourceRail reference confirmation, rail enabling works, explicit exclusions, legal/local authority, payment, civic-work, procurement, dashboard, evidence, integrity, stop conditions, and required actions. |
 | `ProcurementIntegrityAssessment` | Competition, integrity, value-for-money, delivery, market-development, overall risk, decision, and required actions for awards and privileges. |
 | `BenefitRealizationReport` | Claim achievement, target variance, evidence score, realization score, cash eligibility, public-benefit-only value, disposition, and corrective actions. |
 
@@ -1745,6 +1812,14 @@ Initial executable coverage:
   political mode, fiscal stress mode, recommended phase, blocked dependencies,
   and next required actions. `migrations/20260714000001_program_sequencing.sql`
   adds decision and gate tables.
+- `crates/cs-analytics/src/minimum_viable_pilot.rs` adds the first bounded
+  pilot stop/go layer for Samawah / Al-Muthanna: one municipality, one payment
+  flow, one civic-work flow, one procurement flow, one supplier category, one
+  dashboard, OpenSourceRail reference confirmation, rail enabling works,
+  explicit national exclusions, evidence quality, payment exceptions, supplier
+  timing, grievances, capture, safety, privacy, and stop conditions.
+  `migrations/20260724000001_minimum_viable_pilot.sql` adds assessment and gate
+  tables.
 - `crates/cs-analytics/src/procurement_integrity.rs` adds the first procurement
   integrity and market-discipline layer: beneficial ownership, PEP/sanctions,
   competition depth, single-source justification, open contracting data,
@@ -3519,7 +3594,9 @@ The program controller uses these inputs:
 The executable implementation is:
 
 - `crates/cs-analytics/src/program_sequencing.rs`
+- `crates/cs-analytics/src/minimum_viable_pilot.rs`
 - `migrations/20260714000001_program_sequencing.sql`
+- `migrations/20260724000001_minimum_viable_pilot.sql`
 
 Core objects:
 
@@ -3528,6 +3605,9 @@ Core objects:
 | `ProgramSequencingInput` | Captures legal, data, audit, procurement, delivery, operator, staff, trust, service, cashflow, predecessor, political, and fiscal readiness. |
 | `ProgramSequencingDecision` | Computes readiness, dependency, operating-capacity, legitimacy scores, recommended phase, blocked dependencies, and required next actions. |
 | `ProgramSequencingGateResult` | Records pass/warn/fail state for sequencing gates. |
+| `MinimumViablePilotInput` | Captures the Samawah / Al-Muthanna pilot boundary, OpenSourceRail reference confirmation, rail enabling works, explicit exclusions, legal/local authority, payment, civic-work, procurement, dashboard, evidence, privacy, safety, and stop-condition inputs. |
+| `MinimumViablePilotAssessment` | Computes scope, operations, evidence, integrity, readiness, stop conditions, required actions, and stage decision for the bounded pilot. |
+| `PilotGateResult` | Records pass/warn/fail state for pilot scope, exclusions, authority, payment, civic work, procurement, dashboard, privacy, audit, evidence, payments, suppliers, grievances, capture, safety, and stop conditions. |
 
 ### Management Rule
 
@@ -6218,6 +6298,7 @@ separate dashboard widgets.
 | `FacilityRecyclingProjection` | Existing facility inventory, utilization, rehab capex, greenfield replacement cost, environmental liabilities, DSCR, FX cover, disclosure, investor protection | Brownfield reuse, international credit readiness, domestic capital-market readiness, and finance-lane view. |
 | `EnvironmentalSocialSafeguardAssessment` | Environmental assessment status, water budget, pollution risk, climate resilience, biodiversity/marshland, heritage, resettlement, livelihood, consultation, safety, maintenance, remediation, monitoring, audit, and accessibility evidence | Project safeguard stop/go, redesign, mitigation, evidence-only, pilot, monitoring, or eligibility view. |
 | `MacroStabilityAssessment` | Inflation, food inflation, FX premium, reserves, import cover, FX demand, non-oil FX receipts, money and credit growth, bank liquidity, domestic supply, import leakage, Digital IQD injections, dividends, civic wages, local project spend, sterilization, treasury buffers, and CBI-governance evidence | Macro mode, liquidity phasing, distribution safety, FX pressure, inflation pressure, and absorption-capacity view. |
+| `MinimumViablePilotAssessment` | Pilot stage, Samawah / Al-Muthanna scope, OpenSourceRail reference confirmation, rail enabling works, explicit national exclusions, legal/local authority, payment, civic-work, procurement, dashboard, evidence, audit, grievances, privacy, safety, capture, and stop-condition evidence | Pilot authorize, extend, pause, stop, or graduate-to-governorate-review view. |
 | `StrategicResilienceProjection` | Defense-sector licenses, electronics/HVAC output, water/desalination equipment, irrigation systems, food-substitution capacity, end-use controls | Critical domestic capability and import-vulnerability view. |
 | `TourismServiceClusterProjection` | Attractions, visitor counts, spend, formal payment capture, local procurement, safety, conservation, lodging, transport, guide capacity | Booked service revenue, non-oil FX capture, local supplier demand, and second-order benefit view. |
 | `DiasporaChannelProjection` | Diaspora region, channel, member conversion, product share, export orders, remittances, expertise, investment pipeline, marketing reach, compliance gates | Diaspora income, formalized remittance, export distribution, expertise, investment, marketing, and no-dividend benefit view. |
@@ -6348,9 +6429,12 @@ The model gives each existing Cylinder Seal component a place:
 15. Add `CivicWorkAssessment` for verified tasks, wage release, payment holds,
    dignity safeguards, anti-ghost-worker controls, safety, privacy, training,
    impact, audits, and bridge-to-work outcomes.
-16. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
-17. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
-18. Gate all public claims behind source labels, model assumptions, and confidence
+16. Add `MinimumViablePilotAssessment` for the Samawah / Al-Muthanna bounded
+   pilot stop/go decision, OpenSourceRail reference confirmation, rail enabling
+   works, explicit exclusions, and evidence gates.
+17. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
+18. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
+19. Gate all public claims behind source labels, model assumptions, and confidence
    levels from `docs/economic-assumptions.md`.
 
 Initial implementation status:
@@ -9399,9 +9483,10 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - Macro, Monetary, Inflation, and FX Stability documented as a scale-control layer for inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization capacity, credit growth, domestic absorption, import leakage, non-oil FX cover, distribution phasing, policy coordination, CBI independence, and FX transparency.
 - Fiscal Stress and Contingent Liability model documented as a downside-control layer for stressed oil-equity capacity, DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability.
 - National Program Sequencing and Dependency Control documented as a phase-control layer for not-ready, evidence-only, pilot, build, controlled-scale, and hold/rollback decisions.
+- Minimum viable pilot control implemented as a scenario engine for the Samawah / Al-Muthanna pilot boundary: one municipality, one payment flow, one civic-work flow, one procurement flow, one supplier category, one dashboard, OpenSourceRail reference confirmation, rail enabling works, explicit exclusions, evidence quality, payment exceptions, supplier timing, grievances, capture risk, safety, privacy, and stop conditions.
 - Benefit Realization and Claim Audit documented as an accountability layer for baseline, target, observed value, source confidence, attribution confidence, evidence quality, audit status, cash settlement, no-dividend flags, and corrective actions.
 - Procurement Integrity and Market Discipline documented as an award/privilege-control layer for beneficial ownership, competition, single-source justification, open data, independent evaluation, price benchmarks, contract changes, advances, milestone evidence, delivery, payment discipline, quality, and SME participation.
-- Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, citizen rights, cash formalization, civic work, ministry transition, federalism/governorate equity, environmental/social safeguards, macro stability, fiscal stress, program sequencing, benefit realization, and procurement integrity. These are planning primitives, not calibrated national forecasts.
+- Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, citizen rights, cash formalization, civic work, ministry transition, federalism/governorate equity, environmental/social safeguards, macro stability, fiscal stress, program sequencing, minimum viable pilot readiness, benefit realization, and procurement integrity. These are planning primitives, not calibrated national forecasts.
 - Rendered SVG value-chain charts now cover sector business chains, capital and repayment lanes, and society/economy feedback loops.
 
 ### Important Gaps
@@ -9427,6 +9512,7 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - The macro stability engine is a scenario control, not a monetary-policy framework or exchange-rate forecast. It needs CBI, Ministry of Finance, banking-sector, IMF/MDB-style, and independent macroeconomic validation before it can guide Digital IQD issuance, dividends, liquidity, bank credit, FX intervention, or reserve policy.
 - The fiscal stress engine is a planning control, not a sovereign debt-sustainability analysis. It needs Ministry of Finance, debt-office, CBI, IMF/MDB-style, auditor, and project-finance validation before any real capital allocation or dividend decision.
 - The program sequencer is a dependency-control model, not an official rollout plan. It needs real institutional owners, statutory milestones, operator readiness testing, citizen consultation, and independent PMO review before any public timeline is claimed.
+- The minimum viable pilot engine is a stop/go screening primitive, not legal pilot authority, municipal approval, payment authorization, procurement approval, or proof of public benefit. It still needs real pilot law, local compact, operator staffing, municipal budget authority, field evidence, privacy review, and independent audit before any pilot begins.
 - The benefit-realization engine is a claim-audit model, not proof that benefits exist. It needs real baselines, audited source systems, attribution methods, evaluator independence, and publication governance before any outcome is treated as delivered.
 - The procurement integrity engine is a screening primitive, not a legal procurement decision or debarment system. It needs procurement-law review, official supplier data, beneficial-owner registries, sanctions/PEP feeds, price benchmarks, bid records, and independent audit before operational use.
 

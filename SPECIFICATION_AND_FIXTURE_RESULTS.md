@@ -4,10 +4,10 @@ This document records what the current checks demonstrate and what they do not
 demonstrate. It intentionally avoids calling the backend production-ready.
 
 These checks validate schema expectations, seed data, selected domain
-invariants, route middleware behavior, one opt-in live PostgreSQL/Redis
-auth-session-audit path, and specification-level transaction logic. They do not
-prove broad live dashboard endpoint coverage, browser sessions, or
-production-like infrastructure.
+invariants, pilot stop/go logic, route middleware behavior, one opt-in live
+PostgreSQL/Redis auth-session-audit path, and specification-level transaction
+logic. They do not prove broad live dashboard endpoint coverage, browser
+sessions, or production-like infrastructure.
 
 ## Current Evidence
 
@@ -19,6 +19,10 @@ The repository includes Rust tests under `crates/cs-tests/tests/` for:
 - Merchant tiers, hard restrictions, and programmability primitives.
 - AML flagging, rule-engine behavior, risk scoring, and regulatory reporting models.
 - Credit scoring, account types, invoice flow, wire formats, and offline-payment serialization.
+- Analytics screens for the bounded Samawah / Al-Muthanna pilot,
+  OpenSourceRail reference confirmation, civic work, program sequencing,
+  procurement integrity, benefit realization, fiscal stress, macro stability,
+  safeguards, federalism equity, and related scenario gates.
 
 The dashboard also has route-level coverage in
 `crates/cbi-dashboard/tests/route_integration.rs`. These tests exercise the real
@@ -51,6 +55,7 @@ has been exercised against a real database and Redis session store.
 
 ```bash
 cargo test --workspace
+cargo test --package cs-analytics minimum_viable_pilot
 cargo check --package cbi-dashboard
 cargo test --package cbi-dashboard --test fixture_inventory
 cargo test --package cbi-dashboard --test integration_dashboard
