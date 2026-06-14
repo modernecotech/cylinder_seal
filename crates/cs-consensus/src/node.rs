@@ -17,7 +17,7 @@
 //!   the election-timeout jitter. Aligns with the architecture decision in
 //!   the project README (Raft CFT, not BFT, not blockchain).
 
-use crate::log::{EntryKind, LogEntry, LogIndex, RaftLog, RaftTerm};
+use crate::log::{EntryKind, LogIndex, RaftLog, RaftTerm};
 use crate::rpc::{
     AppendEntriesRequest, AppendEntriesResponse, RequestVoteRequest, RequestVoteResponse,
 };
@@ -640,6 +640,7 @@ fn randomized_election_timeout(min: Duration) -> Duration {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::log::LogEntry;
     use crate::state_machine::{ApplyError, LedgerStateMachine, ProposalResult};
     use crate::transport::NoopTransport;
     use async_trait::async_trait;

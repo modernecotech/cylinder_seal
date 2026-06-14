@@ -18,6 +18,19 @@ Current posture:
 - **Political-economy discipline:** modeled through explicit capture,
   resistance, coalition, service-continuity, staff-transition, federalism,
   emergency-power, and citizen-appeal gates before reforms can scale.
+- **Citizen-rights discipline:** modeled through legal authority, identity
+  integrity, non-saleability, pledge/collateral protection,
+  inheritance/minors/deceased rules, diaspora/displaced claims, privacy,
+  appeals, suspension due process, accessibility, dashboard, and audit gates.
+- **Cash-window discipline:** modeled through one-year window timing, supervised
+  intake, KYC, per-citizen caps, source-of-funds scoring, EDD, quarantine,
+  tax settlement, signed receipts, audit hashes, appeals, dashboards, and
+  post-window rejection.
+- **Civic-work discipline:** modeled through authority, explicit budgets,
+  dividend-pool separation, voluntariness, labor/child/vulnerable safeguards,
+  accessibility, evidence, verifier independence, anti-ghost-worker controls,
+  safety, privacy, wage rules, appeals, dashboards, audit, and bridge-to-work
+  gates.
 - **Federalism discipline:** modeled through authority mapping, governorate or
   regional compacts, allocation-gap checks, local revenue/jobs/suppliers,
   grievance resolution, audit, appeals, and land/water/heritage dispute gates.
@@ -68,7 +81,8 @@ Current posture:
   and equal Digital IQD dividend distribution from audited surplus.
 - Ministry transition roadmap for deprecating, merging, regulating,
   corporatizing, or sunsetting low-feedback ministry functions only after legal,
-  service-continuity, staff-transition, and audit gates.
+  service-continuity, staff-transition, payroll, appeal, audit, anti-capture,
+  and local-compact gates.
 - National Civic Work System policy architecture for turning productivity
   displacement into verified Digital IQD civic wages, training records, care,
   environmental restoration, sport, culture, municipal repair, and
@@ -80,6 +94,16 @@ Current posture:
 - Political-economy transition and anti-capture logic that can force a reform
   into visibility-only, pilot, pause, rollback, or redesign even when the
   financial case is attractive.
+- Citizen entitlement, privacy, and appeals logic that can block, hold at
+  evidence-only, require remediation, limit to pilot, or suspend a dividend
+  batch when identity, non-saleability, privacy, appeal, suspension,
+  accessibility, dashboard, or audit gates fail.
+- Cash formalization and demonetization-window logic that can accept, partially
+  accept, hold for EDD, refer, reject, or expire physical-cash deposits before
+  they become transition balances or supplemental entitlements.
+- Civic-work verification and public-value logic that can block, hold payments,
+  require remediation, limit to pilot, or release verified wage hours based on
+  evidence, dignity, fraud, safety, privacy, public value, and transition gates.
 - Federalism, governorate-equity, and local-compact logic that blocks national
   scale-up when authority, allocation, local benefit capture, grievances,
   appeals, audit, or land/water/heritage issues are unresolved.
@@ -132,6 +156,18 @@ Current posture:
 - Independent political-economy validation that maps real actors, incentives,
   veto points, coercive risks, governorate authority, citizen trust, and
   implementation capacity.
+- Independent citizen-rights validation covering civil-registry data,
+  non-saleability, inheritance, minors, deceased reconciliation, diaspora and
+  displaced-person claims, privacy separation, appeal operations,
+  suspension-due-process rules, accessibility, public dashboards, and rights
+  audits.
+- Independent cash-window validation covering monetary authority, AML/CFT,
+  sanctions, tax settlement, supervised operators, source-of-funds scoring,
+  caps, EDD, quarantine, appeals, dashboard publication, and post-window
+  rejection.
+- Independent civic-work validation covering labor law, child protection,
+  disability access, municipal authority, task safety, anti-corruption,
+  verifier independence, privacy, wage rules, fiscal source, appeals, and audit.
 - Independent local-compact validation using official authority maps,
   governorate/KRG/municipal input where applicable, real needs data, grievance
   records, and land/water/environment/heritage status.

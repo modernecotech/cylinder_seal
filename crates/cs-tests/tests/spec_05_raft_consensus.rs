@@ -9,7 +9,7 @@ use cs_consensus::rpc::{
     AppendEntriesRequest, AppendEntriesResponse, RequestVoteRequest, RequestVoteResponse,
 };
 use cs_consensus::state_machine::{ApplyError, LedgerStateMachine, ProposalResult};
-use cs_consensus::transport::{NoopTransport, PeerTransport};
+use cs_consensus::transport::NoopTransport;
 use std::sync::Arc;
 use std::time::Duration;
 

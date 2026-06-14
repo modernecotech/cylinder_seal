@@ -59,9 +59,8 @@ impl FeedAggregator {
         self.cross_rates.insert("USD".into(), Decimal::ONE);
         self.cross_rates.insert("IQD".into(), cbi_rate.iqd_per_usd);
 
-        // TODO: fetch live cross-rates from external APIs
-        // (exchangerate.host, Open Exchange Rates, etc.) for non-IQD pairs.
-        // For now, use representative reference rates.
+        // Prototype boundary: non-IQD pairs use representative reference rates
+        // until a production deployment wires approved market-data providers.
         self.seed_reference_cross_rates();
 
         Ok(())

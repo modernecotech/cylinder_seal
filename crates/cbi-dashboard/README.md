@@ -166,5 +166,5 @@ See `cs-tests/` for spec test patterns. For cbi-dashboard:
 
 ---
 
-**Last Updated:** 2026-04-19  
+**Last reviewed:** 2026-06-14
 **Status:** Prototype scaffold with route-level security tests. Awaiting full handler implementation and live PostgreSQL/Redis integration testing.

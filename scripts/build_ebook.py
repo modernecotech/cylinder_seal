@@ -44,6 +44,8 @@ BOOK_PARTS = [
     BookPart("National Legal And Institutional Roadmap", ROOT / "docs" / "national-legal-institutional-roadmap.md"),
     BookPart("Project Pipeline And Investment Gates", ROOT / "docs" / "project-pipeline-and-investment-gates.md"),
     BookPart("Political-Economy Transition And Anti-Capture", ROOT / "docs" / "political-economy-transition-and-anti-capture.md"),
+    BookPart("Citizen Entitlement Privacy And Appeals", ROOT / "docs" / "citizen-entitlement-privacy-and-appeals.md"),
+    BookPart("Cash Formalization And Demonetization Window", ROOT / "docs" / "cash-formalization-and-demonetization-window.md"),
     BookPart("Federalism Governorate Equity And Local Compacts", ROOT / "docs" / "federalism-governorate-equity-and-local-compacts.md"),
     BookPart("Environmental Social Water And Cultural Safeguards", ROOT / "docs" / "environmental-social-cultural-safeguards.md"),
     BookPart("Macro Monetary Inflation And FX Stability", ROOT / "docs" / "macro-monetary-fx-stability.md"),

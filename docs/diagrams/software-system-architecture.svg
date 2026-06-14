@@ -208,5 +208,5 @@
   <rect class="box external" x="330" y="1033" width="24" height="18"/>
   <text class="small" x="364" y="1047">Production integration requirement</text>
   <rect class="box partial" x="80" y="1056" width="24" height="18"/>
-  <text class="small" x="114" y="1070">Policy/design module, not implemented</text>
+  <text class="small" x="114" y="1070">Analytics primitive exists; app module pending</text>
 </svg>

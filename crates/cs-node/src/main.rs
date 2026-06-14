@@ -97,6 +97,7 @@ async fn main() -> Result<()> {
 
     let args = Args::parse();
     let cfg = Config::load(&args.config, &args.environment)?;
+    startup::initialize(&cfg).await?;
 
     // Dispatch one-shot subcommands (admin bootstrap, etc.) before
     // bringing up Raft / gRPC / HTTP servers.

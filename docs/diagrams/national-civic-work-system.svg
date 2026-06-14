@@ -92,7 +92,7 @@
 
   <rect class="zone module-zone" x="875" y="130" width="430" height="760"/>
   <text class="zone-title" x="908" y="170">cs-civic-work design module</text>
-  <text class="zone-note" x="908" y="194">Policy/design only; not implemented</text>
+  <text class="zone-note" x="908" y="194">Analytics control exists; task platform pending</text>
 
   <rect class="box module" x="920" y="225" width="340" height="58"/>
   <text class="box-title" x="946" y="250">1. Task posting</text>

@@ -207,7 +207,7 @@
     <text class="cell-text" x="540" y="1103">Standard, FX-tagged receipt, refund</text>
     <text class="cell-text" x="890" y="1103">Diaspora purchase, tourism, pilgrimage service</text>
     <text class="cell-text" x="1245" y="1103">Captures external demand in merchant cash flow</text>
-    <text class="cell-text" x="1660" y="1103">Cross-border and FX compliance not implemented</text>
+    <text class="cell-text" x="1660" y="1103">Future regulated cross-border and FX integration</text>
   </g>
   <line class="line" x1="48" y1="1141" x2="2052" y2="1141"/>
 

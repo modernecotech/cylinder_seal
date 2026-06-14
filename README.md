@@ -58,6 +58,8 @@ The model has six practical rules:
 | Legal roadmap | Maps the authority path for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals. | [National legal and institutional roadmap](docs/national-legal-institutional-roadmap.md) |
 | Project pipeline | Converts sector ambition into project families with capex, revenue source, DSCR, FX exposure, facility reuse, environmental, legal, and evidence gates. | [Project pipeline and investment gates](docs/project-pipeline-and-investment-gates.md) |
 | Political economy | Models resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, and pause/rollback rules. | [Political-economy transition and anti-capture model](docs/political-economy-transition-and-anti-capture.md) |
+| Citizen rights | Controls citizen-share legal authority, identity integrity, non-saleability, pledge/collateral protection, inheritance, minors, deceased records, diaspora/displaced claims, privacy separation, data minimization, payment exceptions, appeals, suspensions, accessibility, public dashboard, and independent audit. | [Citizen entitlement, privacy, and appeals](docs/citizen-entitlement-privacy-and-appeals.md) |
+| Cash formalization | Controls the one-year physical-cash transition window through legal authority, supervised conversion points, KYC, caps, source-of-funds scoring, EDD, quarantine, tax settlement, receipts, audit hashes, appeals, dashboards, and post-window rejection. | [Cash formalization and demonetization window](docs/cash-formalization-and-demonetization-window.md) |
 | Federalism equity | Controls governorate/regional authority, local compact readiness, needs-adjusted allocation fairness, local revenue/jobs/suppliers, grievance resolution, data publication, audit, appeals, and land/water/heritage disputes. | [Federalism, governorate equity, and local compacts](docs/federalism-governorate-equity-and-local-compacts.md) |
 | Environmental and social safeguards | Blocks or redesigns projects when water, pollution, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, or accessibility gates fail. | [Environmental, social, water, and cultural safeguards](docs/environmental-social-cultural-safeguards.md) |
 | Macro stability | Controls inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization capacity, credit growth, domestic absorption, import leakage, non-oil FX cover, distribution phasing, CBI independence, and FX transparency. | [Macro, monetary, inflation, and FX stability](docs/macro-monetary-fx-stability.md) |
@@ -72,8 +74,8 @@ The model has six practical rules:
 | Facility recycling | Screens underutilized Iraqi assets before greenfield builds and maps international credit, PPP, domestic bond/sukuk/equity, local-bank, and diaspora finance lanes. | [Facility recycling and capital markets](docs/facility-recycling-and-capital-markets.md) |
 | Import, services, diaspora | Adds missing import screens, attraction-based service production, and diaspora income, expertise, capital, marketing, and distribution channels. | [Import, services, and diaspora expansion](docs/import-services-diaspora-expansion.md) |
 | Industrial champions | Reframes the industrial-group idea as sectoral Iraqi production champions with conditional demand, credit, export discipline, competition gates, and anti-capture controls. | [Digitally governed industrial champions](docs/digitally-governed-industrial-champions.md) |
-| Civic work | Defines verified public-value work, training, care, environmental restoration, sport, culture, municipal repair, and disaster resilience. | [National civic work system](docs/national-civic-work-system.md) |
-| Ministry transition | Lists candidate functions to deprecate, merge, regulate, corporatize, or sunset after legal, service-continuity, staff, and audit gates pass. | [Ministry transition roadmap](docs/ministry-transition-roadmap.md) |
+| Civic work | Defines and screens verified public-value work, training, care, environmental restoration, sport, culture, municipal repair, disaster resilience, wage release, anti-ghost-worker controls, dignity safeguards, and bridge-to-work outcomes. | [National civic work system](docs/national-civic-work-system.md) |
+| Ministry transition | Screens candidate functions for deprecation, merger, regulation, corporatization, or sunset after legal, service-continuity, staff, audit, anti-capture, and citizen-appeal gates pass. | [Ministry transition roadmap](docs/ministry-transition-roadmap.md) |
 
 ## Business Charts
 
@@ -121,7 +123,7 @@ Current public facts that shape the framing:
   [Arab Monetary Fund](https://www.amf.org.ae/en/news/25-05-2025/iraq-launches-national-financial-inclusion-strategy-2025-2029).
 - On June 12, 2026, S&P affirmed Iraq at `B-/B`, removed the long-term rating
   from CreditWatch negative, and kept a negative outlook. Source:
-  [S&P Global Ratings](https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3580473).
+  [S&P Global Ratings](https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3580474).
 - Public sources continue to describe Iraq as highly oil-revenue-dependent and
   fiscally exposed to rigid spending and weak non-oil revenues. Sources:
   [EIA Iraq analysis](https://www.eia.gov/international/analysis/country/irq),
@@ -212,6 +214,10 @@ forecasts.
 | Federalism, governorate equity, and local compacts | `crates/cs-analytics/src/federalism_equity.rs` | `migrations/20260717000001_federalism_equity_compact.sql` |
 | Environmental, social, water, and cultural safeguards | `crates/cs-analytics/src/environmental_social_safeguards.rs` | `migrations/20260718000001_environmental_social_safeguards.sql` |
 | Macro, monetary, inflation, and FX stability | `crates/cs-analytics/src/macro_stability.rs` | `migrations/20260719000001_macro_stability.sql` |
+| Citizen entitlement, privacy, and appeals | `crates/cs-analytics/src/citizen_rights.rs` | `migrations/20260720000001_citizen_rights.sql` |
+| Cash formalization and demonetization window | `crates/cs-analytics/src/cash_formalization.rs` | `migrations/20260721000001_cash_formalization.sql` |
+| Civic work verification and public value | `crates/cs-analytics/src/civic_work.rs` | `migrations/20260722000001_civic_work.sql` |
+| Ministry transition and deprecation controls | `crates/cs-analytics/src/ministry_transition.rs` | `migrations/20260723000001_ministry_transition.sql` |
 
 ## Developer Appendix: Local Software Demo
 

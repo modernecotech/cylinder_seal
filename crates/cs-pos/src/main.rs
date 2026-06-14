@@ -235,9 +235,9 @@ async fn main() -> Result<()> {
                     .upgrade()
                     .map(|ui| ui.get_last_tx_id().to_string())
                     .unwrap_or_default();
-                // Look up the receipt bundle in the store — cheap here since
-                // we know receipts are keyed by transaction_id.
-                // TODO: proper SELECT; for now we reprint best-effort using UI state.
+                // Receipt reprint currently uses UI state as a prototype
+                // fallback. A production POS should load the receipt bundle by
+                // transaction_id from the local store before printing.
                 let amount_str = ui_weak
                     .upgrade()
                     .map(|ui| ui.get_amount_display().to_string())

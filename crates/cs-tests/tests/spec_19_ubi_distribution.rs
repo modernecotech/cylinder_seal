@@ -268,6 +268,8 @@ mod ubi_distribution_tests {
         assert!(p2_citizens > p1_citizens);
         assert!(p3_citizens > p2_citizens);
         assert!(p4_citizens > p3_citizens);
+        assert!(p2_budget > p1_budget);
+        assert!(p3_budget > p2_budget);
         assert!(p4_budget > p3_budget);
     }
 }

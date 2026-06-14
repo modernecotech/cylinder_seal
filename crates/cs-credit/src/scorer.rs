@@ -23,10 +23,9 @@
 //! | Cash-flow stability     | 30%        | inverse of daily-net-flow stddev         |
 //! | Income/expense health   | 30%        | inflow vs. outflow ratio                 |
 //!
-//! Cash-flow features are the research consensus for thin-file underwriting
-//! (FICO × Plaid UltraFICO 2026, Experian Credit+Cashflow 2025, AFI 2025
-//! alt-data report). They materially improve predictive accuracy for the
-//! borrower population that existing collateral-based lending excludes.
+//! Cash-flow features are treated here as transparent alternative-data signals
+//! for thin-file underwriting. They must be validated against local repayment,
+//! bias, and consumer-protection evidence before any production lending use.
 //!
 //! When there's insufficient history (<5 confirmed transactions) the
 //! scorer returns `None` — callers should not surface a score. This keeps
@@ -205,7 +204,7 @@ struct Factors {
 
 /// Breakdown of the five aggregate factors (each clipped to [0, 1]).
 /// Exposed for explanation so a lender or borrower can see which factors
-/// drove the score — addresses the WEF Oct-2025 explainability guidance.
+/// drove the score.
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct AggregateBreakdown {
     pub tx_count: f64,
@@ -256,9 +255,8 @@ fn aggregate_breakdown(f: &Factors) -> AggregateBreakdown {
 }
 
 fn cashflow_weighted(c: &CashFlowFeatures) -> f64 {
-    // Within the cash-flow component: periodicity is the strongest single
-    // signal per the FICO UltraFICO 2026 and AFI 2025 findings, so it gets
-    // the largest sub-weight.
+    // Within the cash-flow component, regular income cadence gets the largest
+    // sub-weight because it is the most interpretable stability signal.
     0.40 * c.income_periodicity + 0.30 * c.cashflow_stability + 0.30 * c.income_expense_health
 }
 

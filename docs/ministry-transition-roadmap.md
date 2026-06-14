@@ -5,10 +5,10 @@ eventually deprecate ministry structures that become duplicative, low-feedback,
 or primarily commercial once Digital IQD, INDHC subsidiaries, regulators,
 municipal service contracts, and public dashboards are operating.
 
-Status: governance-transition scenario. It is not a legal recommendation, not a
-constitutional plan, and not a claim that any current ministry can be abolished
-without parliamentary action, staff transition, service-continuity guarantees,
-and public audit.
+Status: governance-transition scenario with an executable analytics primitive.
+It is not a legal recommendation, not a constitutional plan, and not a claim
+that any current ministry can be abolished without parliamentary action, staff
+transition, service-continuity guarantees, and public audit.
 
 ## Source Discipline
 
@@ -23,6 +23,10 @@ feasibility of any transition.
 
 Use this roadmap with the
 [Political-Economy Transition And Anti-Capture Model](political-economy-transition-and-anti-capture.md).
+The first per-function control primitive now lives in
+`crates/cs-analytics/src/ministry_transition.rs`, with persistence in
+`migrations/20260723000001_ministry_transition.sql`. It screens the roadmap; it
+does not execute a legal transition.
 No ministry function should move beyond visibility or pilot mode when legal
 authority, service continuity, staff transition, procurement transparency,
 federal/governorate authority, citizen appeals, or anti-capture controls are not
@@ -66,6 +70,8 @@ No ministry can be deprecated until all gates pass:
    politically directed layoffs.
 9. The political-economy readiness engine permits pilot, controlled transition,
    or scale mode for the specific function and governorates affected.
+10. `MinistryTransitionAssessment` does not return blocked, visibility-only, or
+    retained-sovereign status for the proposed transfer.
 
 ## Permanent Sovereign Core
 
@@ -172,12 +178,35 @@ from low-feedback bureaucracy into productive, regulated, or local service work.
 | Inspectors | Independent regulators, standards labs, environmental/water/food safety authorities. |
 | Administrative staff | Retraining into digital service centers, audit support, records management, citizen appeal desks. |
 
+## Current Analytics Primitive
+
+The roadmap is now represented by a scenario-control primitive:
+
+| Object | Purpose |
+| --- | --- |
+| `MinistryTransitionInput` | Records function type, replacement home, target year, budget, staff count, essential-service status, oil-funding dependency, duplicate administration, commercial potential, legal approval, service continuity, replacement mandate, staff map, payroll reconciliation, procurement transparency, beneficial ownership, audit, appeals, local compact, service metrics, asset registry, operator readiness, digital-payment coverage, service milestones, capture risk, layoff risk, and citizen-service risk. |
+| `MinistryTransitionAssessment` | Scores governance, continuity, staff protection, financial control, anti-capture, deprecation readiness, transferable budget, staff ready for transition, decision, and required actions. |
+| `MinistryTransitionGateResult` | Stores pass/warn/fail gates for legal authority, sovereign-core retention, service continuity, replacement mandate, regulator/operator separation, staff transition, payroll, financial disclosure, procurement transparency, beneficial ownership, independent audit, citizen appeals, local compact, operator readiness, service metrics, and capture risk. |
+
+Decision states:
+
+| Decision | Meaning |
+| --- | --- |
+| Retain sovereign | The function is a sovereign core and should be modernized, not deprecated. |
+| Blocked | Legal authority, approval, capture risk, or citizen-service risk blocks transition. |
+| Visibility only | Publish data and prepare gates, but move no budget or staff. |
+| Pilot only | Limited pilots may proceed under tight gate review. |
+| Controlled transfer | Budget and staff can move gradually under quarterly review. |
+| Sunset eligible | A final sunset audit can be prepared before formal deprecation. |
+
 ## Cylinder Seal Implementation Surface
 
 | Model | Purpose |
 | --- | --- |
-| `MinistryFunctionRegistry` | Lists each ministry function, legal basis, budget, staff, service metrics, and replacement home. |
-| `DeprecationGate` | Tracks legal approval, service continuity, audit, staff transition, and citizen appeal readiness. |
+| `MinistryTransitionAssessment` | Current analytics primitive for transition readiness, budget movement, staff protection, anti-capture, and required actions. |
+| `MinistryTransitionGateResult` | Current gate result for legal, continuity, staff, payroll, audit, appeal, local compact, and capture controls. |
+| `MinistryFunctionRegistry` | Future registry listing each ministry function, legal basis, budget, staff, service metrics, and replacement home. |
+| `DeprecationGate` | Future operational workflow for legal approval, service continuity, audit, staff transition, and citizen appeal readiness. |
 | `ServiceContractBudget` | Moves budget from ministry payroll/procurement into priced outputs and milestones. |
 | `RegulatorMandate` | Defines what remains as sovereign regulation or standards authority. |
 | `StaffTransitionLedger` | Tracks staff transfer, retraining, compensation, and receiving institution. |

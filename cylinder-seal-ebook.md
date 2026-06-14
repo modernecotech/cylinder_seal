@@ -21,30 +21,32 @@ infrastructure and is not an official Central Bank of Iraq project.
 6. National Legal And Institutional Roadmap
 7. Project Pipeline And Investment Gates
 8. Political-Economy Transition And Anti-Capture
-9. Federalism Governorate Equity And Local Compacts
-10. Environmental Social Water And Cultural Safeguards
-11. Macro Monetary Inflation And FX Stability
-12. Fiscal Stress And Contingent Liability
-13. National Program Sequencing And Dependency Control
-14. Procurement Integrity And Market Discipline
-15. Benefit Realization And Claim Audit
-16. Iraq Integrated Growth Impact Model
-17. Iraq Comprehensive Benefits Model
-18. Iraq Quantified Affordability And Cashflow Model
-19. System And Financial Flow Diagrams
-20. Business Value Chain Charts
-21. Unified Economic Model
-22. National Dividend Holding Company
-23. INDHC Ten-Year Plan
-24. Import, Services, And Diaspora Expansion
-25. Facility Recycling And Capital Markets
-26. Digitally Governed Industrial Champions
-27. National Civic Work System
-28. Ministry Transition Roadmap
-29. Security Model
-30. Current Implementation Status
-31. Technical Primitives
-32. Legacy Policy Paper Boundary
+9. Citizen Entitlement Privacy And Appeals
+10. Cash Formalization And Demonetization Window
+11. Federalism Governorate Equity And Local Compacts
+12. Environmental Social Water And Cultural Safeguards
+13. Macro Monetary Inflation And FX Stability
+14. Fiscal Stress And Contingent Liability
+15. National Program Sequencing And Dependency Control
+16. Procurement Integrity And Market Discipline
+17. Benefit Realization And Claim Audit
+18. Iraq Integrated Growth Impact Model
+19. Iraq Comprehensive Benefits Model
+20. Iraq Quantified Affordability And Cashflow Model
+21. System And Financial Flow Diagrams
+22. Business Value Chain Charts
+23. Unified Economic Model
+24. National Dividend Holding Company
+25. INDHC Ten-Year Plan
+26. Import, Services, And Diaspora Expansion
+27. Facility Recycling And Capital Markets
+28. Digitally Governed Industrial Champions
+29. National Civic Work System
+30. Ministry Transition Roadmap
+31. Security Model
+32. Current Implementation Status
+33. Technical Primitives
+34. Legacy Policy Paper Boundary
 
 # Diagram Atlas
 
@@ -154,6 +156,8 @@ The model has six practical rules:
 | Legal roadmap | Maps the authority path for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals. | [National legal and institutional roadmap](docs/national-legal-institutional-roadmap.md) |
 | Project pipeline | Converts sector ambition into project families with capex, revenue source, DSCR, FX exposure, facility reuse, environmental, legal, and evidence gates. | [Project pipeline and investment gates](docs/project-pipeline-and-investment-gates.md) |
 | Political economy | Models resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, and pause/rollback rules. | [Political-economy transition and anti-capture model](docs/political-economy-transition-and-anti-capture.md) |
+| Citizen rights | Controls citizen-share legal authority, identity integrity, non-saleability, pledge/collateral protection, inheritance, minors, deceased records, diaspora/displaced claims, privacy separation, data minimization, payment exceptions, appeals, suspensions, accessibility, public dashboard, and independent audit. | [Citizen entitlement, privacy, and appeals](docs/citizen-entitlement-privacy-and-appeals.md) |
+| Cash formalization | Controls the one-year physical-cash transition window through legal authority, supervised conversion points, KYC, caps, source-of-funds scoring, EDD, quarantine, tax settlement, receipts, audit hashes, appeals, dashboards, and post-window rejection. | [Cash formalization and demonetization window](docs/cash-formalization-and-demonetization-window.md) |
 | Federalism equity | Controls governorate/regional authority, local compact readiness, needs-adjusted allocation fairness, local revenue/jobs/suppliers, grievance resolution, data publication, audit, appeals, and land/water/heritage disputes. | [Federalism, governorate equity, and local compacts](docs/federalism-governorate-equity-and-local-compacts.md) |
 | Environmental and social safeguards | Blocks or redesigns projects when water, pollution, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, or accessibility gates fail. | [Environmental, social, water, and cultural safeguards](docs/environmental-social-cultural-safeguards.md) |
 | Macro stability | Controls inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization capacity, credit growth, domestic absorption, import leakage, non-oil FX cover, distribution phasing, CBI independence, and FX transparency. | [Macro, monetary, inflation, and FX stability](docs/macro-monetary-fx-stability.md) |
@@ -168,8 +172,8 @@ The model has six practical rules:
 | Facility recycling | Screens underutilized Iraqi assets before greenfield builds and maps international credit, PPP, domestic bond/sukuk/equity, local-bank, and diaspora finance lanes. | [Facility recycling and capital markets](docs/facility-recycling-and-capital-markets.md) |
 | Import, services, diaspora | Adds missing import screens, attraction-based service production, and diaspora income, expertise, capital, marketing, and distribution channels. | [Import, services, and diaspora expansion](docs/import-services-diaspora-expansion.md) |
 | Industrial champions | Reframes the industrial-group idea as sectoral Iraqi production champions with conditional demand, credit, export discipline, competition gates, and anti-capture controls. | [Digitally governed industrial champions](docs/digitally-governed-industrial-champions.md) |
-| Civic work | Defines verified public-value work, training, care, environmental restoration, sport, culture, municipal repair, and disaster resilience. | [National civic work system](docs/national-civic-work-system.md) |
-| Ministry transition | Lists candidate functions to deprecate, merge, regulate, corporatize, or sunset after legal, service-continuity, staff, and audit gates pass. | [Ministry transition roadmap](docs/ministry-transition-roadmap.md) |
+| Civic work | Defines and screens verified public-value work, training, care, environmental restoration, sport, culture, municipal repair, disaster resilience, wage release, anti-ghost-worker controls, dignity safeguards, and bridge-to-work outcomes. | [National civic work system](docs/national-civic-work-system.md) |
+| Ministry transition | Screens candidate functions for deprecation, merger, regulation, corporatization, or sunset after legal, service-continuity, staff, audit, anti-capture, and citizen-appeal gates pass. | [Ministry transition roadmap](docs/ministry-transition-roadmap.md) |
 
 ### Business Charts
 
@@ -217,7 +221,7 @@ Current public facts that shape the framing:
   [Arab Monetary Fund](https://www.amf.org.ae/en/news/25-05-2025/iraq-launches-national-financial-inclusion-strategy-2025-2029).
 - On June 12, 2026, S&P affirmed Iraq at `B-/B`, removed the long-term rating
   from CreditWatch negative, and kept a negative outlook. Source:
-  [S&P Global Ratings](https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3580473).
+  [S&P Global Ratings](https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3580474).
 - Public sources continue to describe Iraq as highly oil-revenue-dependent and
   fiscally exposed to rigid spending and weak non-oil revenues. Sources:
   [EIA Iraq analysis](https://www.eia.gov/international/analysis/country/irq),
@@ -308,6 +312,10 @@ forecasts.
 | Federalism, governorate equity, and local compacts | `crates/cs-analytics/src/federalism_equity.rs` | `migrations/20260717000001_federalism_equity_compact.sql` |
 | Environmental, social, water, and cultural safeguards | `crates/cs-analytics/src/environmental_social_safeguards.rs` | `migrations/20260718000001_environmental_social_safeguards.sql` |
 | Macro, monetary, inflation, and FX stability | `crates/cs-analytics/src/macro_stability.rs` | `migrations/20260719000001_macro_stability.sql` |
+| Citizen entitlement, privacy, and appeals | `crates/cs-analytics/src/citizen_rights.rs` | `migrations/20260720000001_citizen_rights.sql` |
+| Cash formalization and demonetization window | `crates/cs-analytics/src/cash_formalization.rs` | `migrations/20260721000001_cash_formalization.sql` |
+| Civic work verification and public value | `crates/cs-analytics/src/civic_work.rs` | `migrations/20260722000001_civic_work.sql` |
+| Ministry transition and deprecation controls | `crates/cs-analytics/src/ministry_transition.rs` | `migrations/20260723000001_ministry_transition.sql` |
 
 ### Developer Appendix: Local Software Demo
 
@@ -414,6 +422,14 @@ dividends only after the portfolio produces audited surplus.
 - **Oil Income Lockbox and INDHC:** a proposed national dividend holding-company
   architecture that converts a capped share of oil income into productive
   capital rather than automatic ministry funding.
+- **Citizen-rights gates:** citizen-share and dividend rollout slows or stops
+  when legal authority, identity integrity, non-saleability, inheritance,
+  minor/deceased rules, privacy separation, appeal SLA, suspension due process,
+  accessibility, public dashboard, or independent audit fails.
+- **Cash-window gates:** the one-year physical-cash transition accepts value
+  only through legal authority, supervised intake, KYC, caps, source-of-funds
+  scoring, EDD, quarantine, tax settlement, signed receipts, audit hashes,
+  appeals, dashboards, and post-window rejection.
 - **Industrial champions:** sectoral Iraqi production groups with conditional
   demand, conditional credit, export discipline, competition gates, debt caps,
   local-content evidence, and anti-capture controls.
@@ -462,7 +478,8 @@ dividends only after the portfolio produces audited surplus.
 - **Civic work:** productivity displacement is managed through verified paid
   work in municipal repair, care, education support, environmental restoration,
   sport, culture, disaster resilience, food security, and bridge-to-work
-  training.
+  training, with payments held when evidence, safety, dignity, fraud, privacy,
+  wage, appeal, or bridge-to-work gates fail.
 - **Legal and institutional roadmap:** the model requires enabling laws,
   federal/governorate compacts, CBI/payment authority decisions, Treasury rules,
   securities safeguards, privacy and audit authority, procurement controls, and
@@ -478,8 +495,9 @@ dividends only after the portfolio produces audited surplus.
   kernel, sovereign holding plan, economic cycle, growth impact, comprehensive
   benefits, production capacity, strategic resilience, tourism services,
   diaspora channels, facility recycling, political-economy transition
-  readiness, federalism/governorate equity, environmental/social safeguards,
-  macro stability, fiscal stress, program sequencing, benefit realization, and
+  readiness, citizen rights, cash formalization, civic work, ministry transition,
+  federalism/governorate equity, environmental/social safeguards, macro
+  stability, fiscal stress, program sequencing, benefit realization, and
   procurement integrity.
 - A pilot-grade Digital IQD software appendix covering transaction models,
   signing primitives, policy modules, POS/mobile codecs, dashboard routes,
@@ -511,6 +529,15 @@ dividends only after the portfolio produces audited surplus.
   price-benchmarking, supplier-market, and audit validation.
 - Independent monitoring, evaluation, and audit review before any scenario
   output becomes a delivered-outcome claim.
+- Independent citizen-rights, identity, privacy, accessibility, appeal, and
+  suspension due-process validation before any citizen-share or dividend batch
+  is treated as deployable.
+- Independent AML/CFT, tax, sanctions, monetary-law, operator-control, appeal,
+  and audit validation before any physical cash is converted into Digital IQD,
+  transition balance, or supplemental entitlement.
+- Independent labor-law, child-protection, disability-access, privacy,
+  municipal-authority, anti-corruption, safety, verifier, and fiscal validation
+  before any civic-work task platform or wage-payment service is deployable.
 - Independent political-economy validation, including real actor incentives,
   veto points, anti-capture enforcement capacity, federal/governorate authority,
   civil-service transition, and citizen legitimacy.
@@ -556,6 +583,19 @@ Current posture:
 - **Political-economy discipline:** modeled through explicit capture,
   resistance, coalition, service-continuity, staff-transition, federalism,
   emergency-power, and citizen-appeal gates before reforms can scale.
+- **Citizen-rights discipline:** modeled through legal authority, identity
+  integrity, non-saleability, pledge/collateral protection,
+  inheritance/minors/deceased rules, diaspora/displaced claims, privacy,
+  appeals, suspension due process, accessibility, dashboard, and audit gates.
+- **Cash-window discipline:** modeled through one-year window timing, supervised
+  intake, KYC, per-citizen caps, source-of-funds scoring, EDD, quarantine,
+  tax settlement, signed receipts, audit hashes, appeals, dashboards, and
+  post-window rejection.
+- **Civic-work discipline:** modeled through authority, explicit budgets,
+  dividend-pool separation, voluntariness, labor/child/vulnerable safeguards,
+  accessibility, evidence, verifier independence, anti-ghost-worker controls,
+  safety, privacy, wage rules, appeals, dashboards, audit, and bridge-to-work
+  gates.
 - **Federalism discipline:** modeled through authority mapping, governorate or
   regional compacts, allocation-gap checks, local revenue/jobs/suppliers,
   grievance resolution, audit, appeals, and land/water/heritage dispute gates.
@@ -606,7 +646,8 @@ Current posture:
   and equal Digital IQD dividend distribution from audited surplus.
 - Ministry transition roadmap for deprecating, merging, regulating,
   corporatizing, or sunsetting low-feedback ministry functions only after legal,
-  service-continuity, staff-transition, and audit gates.
+  service-continuity, staff-transition, payroll, appeal, audit, anti-capture,
+  and local-compact gates.
 - National Civic Work System policy architecture for turning productivity
   displacement into verified Digital IQD civic wages, training records, care,
   environmental restoration, sport, culture, municipal repair, and
@@ -618,6 +659,16 @@ Current posture:
 - Political-economy transition and anti-capture logic that can force a reform
   into visibility-only, pilot, pause, rollback, or redesign even when the
   financial case is attractive.
+- Citizen entitlement, privacy, and appeals logic that can block, hold at
+  evidence-only, require remediation, limit to pilot, or suspend a dividend
+  batch when identity, non-saleability, privacy, appeal, suspension,
+  accessibility, dashboard, or audit gates fail.
+- Cash formalization and demonetization-window logic that can accept, partially
+  accept, hold for EDD, refer, reject, or expire physical-cash deposits before
+  they become transition balances or supplemental entitlements.
+- Civic-work verification and public-value logic that can block, hold payments,
+  require remediation, limit to pilot, or release verified wage hours based on
+  evidence, dignity, fraud, safety, privacy, public value, and transition gates.
 - Federalism, governorate-equity, and local-compact logic that blocks national
   scale-up when authority, allocation, local benefit capture, grievances,
   appeals, audit, or land/water/heritage issues are unresolved.
@@ -670,6 +721,18 @@ Current posture:
 - Independent political-economy validation that maps real actors, incentives,
   veto points, coercive risks, governorate authority, citizen trust, and
   implementation capacity.
+- Independent citizen-rights validation covering civil-registry data,
+  non-saleability, inheritance, minors, deceased reconciliation, diaspora and
+  displaced-person claims, privacy separation, appeal operations,
+  suspension-due-process rules, accessibility, public dashboards, and rights
+  audits.
+- Independent cash-window validation covering monetary authority, AML/CFT,
+  sanctions, tax settlement, supervised operators, source-of-funds scoring,
+  caps, EDD, quarantine, appeals, dashboard publication, and post-window
+  rejection.
+- Independent civic-work validation covering labor law, child protection,
+  disability access, municipal authority, task safety, anti-corruption,
+  verifier independence, privacy, wage rules, fiscal source, appeals, and audit.
 - Independent local-compact validation using official authority maps,
   governorate/KRG/municipal input where applicable, real needs data, grievance
   records, and land/water/environment/heritage status.
@@ -749,7 +812,7 @@ The economic narrative is the strongest part of Cylinder Seal, but it must be pr
 | Financial inclusion | Iraq's NFIS says inclusion is low, with cited ranges around 11% to 19% depending on the data source. It also notes persistent cash use and weak credit infrastructure. | [CBI NFIS PDF](https://cbi.iq/static/uploads/up/file-175032973296039.pdf) |
 | NFIS targets | Iraq's 2025-2029 strategy targets 50% adult bank or digital account ownership by 2030 and 85% digital payment usage. | [Arab Monetary Fund, May 25, 2025](https://www.amf.org.ae/en/news/25-05-2025/iraq-launches-national-financial-inclusion-strategy-2025-2029), [AFI](https://afi-global.org/news/iraq-launches-national-financial-inclusion-strategy-2025-2029/) |
 | Credit infrastructure | The NFIS states that the credit reporting system covers only 1.3% of adults, below the MENA average cited in the strategy. | [CBI NFIS PDF](https://cbi.iq/static/uploads/up/file-175032973296039.pdf) |
-| Sovereign rating | On June 12, 2026, S&P affirmed Iraq at `B-/B`, removed the long-term rating from CreditWatch negative, and kept a negative outlook. Do not describe the rating as still on CreditWatch negative after that date. | [S&P Global Ratings, Jun. 12, 2026](https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3580473) |
+| Sovereign rating | On June 12, 2026, S&P affirmed Iraq at `B-/B`, removed the long-term rating from CreditWatch negative, and kept a negative outlook. Do not describe the rating as still on CreditWatch negative after that date. | [S&P Global Ratings, Jun. 12, 2026](https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3580474) |
 | Oil-revenue dependence | Current framing may state that Iraq remains highly dependent on oil revenue, but exact percentages must be dated and sourced. | [EIA Iraq analysis](https://www.eia.gov/international/analysis/country/irq), [EITI Iraq country page](https://eiti.org/countries/iraq) |
 | Fiscal rigidity and non-oil revenue | Current framing may state that IMF staff have highlighted rigid fiscal spending, subdued non-oil revenues, and vulnerability to lower oil prices. Do not treat any policy remedy as IMF-endorsed unless directly stated by the IMF. | [IMF Iraq 2025 Article IV](https://www.imf.org/-/media/files/publications/cr/2025/english/1irqea2025001-source-pdf.pdf), [IMF Iraq 2024 Article IV](https://www.imf.org/en/publications/cr/issues/2024/05/15/iraq-2024-article-iv-consultation-press-release-staff-report-and-statement-by-the-executive-549028) |
 
@@ -850,6 +913,8 @@ No scale-up under fiscal stress.
 No scale before predecessor dependencies pass.
 No award or privilege without procurement integrity.
 No delivered-outcome claim without benefit-realization audit.
+No citizen batch without entitlement, privacy, and appeal readiness.
+No cash conversion without window authority, KYC, caps, AML review, receipt, audit, and post-window rejection.
 ```
 
 The purpose is to stop oil income from flowing directly into passive ministry
@@ -965,11 +1030,13 @@ forward no matter how attractive the narrative is.
 | Benefit discipline | Second-order benefits are source-tagged and excluded from dividend cash. |
 | Local capability | Iraqi staffing, training transfer, supplier upgrading, and handover plan exist. |
 | Anti-capture | Related-party exposure, monopoly risk, PEP/sanctions risk, and procurement concentration are within limits. |
+| Cash formalization | The cash window is legally open, supervised, identity-verified, capped, source-of-funds scored, EDD-ready, quarantinable, receipted, audited, appealable, publicly reported, and backed by post-window rejection authority. |
 | Local compact readiness | Governorate, municipal, regional, or disputed-authority compact exists where required; allocation variance is explained; local revenue, jobs, suppliers, benefits, grievances, audit, appeals, and land/water/heritage issues are controlled. |
 | Environmental and social safeguards | Water, pollution, climate, biodiversity, marshland, heritage, resettlement, livelihood, consultation, grievance, safety, maintenance, remediation, monitoring, audit, and accessibility gates pass. |
 | Macro and FX stability | Inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization capacity, credit growth, domestic absorption, import leakage, non-oil FX cover, distribution phasing, CBI independence, and FX transparency remain inside limits. |
 | Privacy and security | Data use, access controls, auditability, offline settlement, and operator powers meet the security model. |
 | Citizen fairness | Dividends, civic work, transfers, and appeals are rules-based and auditable. |
+| Citizen entitlement rights | Legal authority, identity coverage, non-saleability, pledge/collateral protection, inheritance, minors, deceased reconciliation, diaspora/displaced claims, privacy separation, payment exceptions, appeals, sanctions due process, accessibility, public dashboard, and independent audit pass. |
 | Political-economy readiness | Resistance, capture risk, coalition support, service continuity, staff transition, procurement transparency, competition control, federalism, and appeals support the proposed transition mode. |
 | Fiscal stress | Oil-equity draw, stressed DSCR, FX cover, maintenance reserves, contingent liabilities, collection efficiency, capex overruns, and dividend affordability remain inside limits. |
 
@@ -1095,6 +1162,10 @@ kernel, not a complete national operating system.
 | `CapitalAllocationDecision` | Board-approved movement of oil equity, loans, PPP capital, or retained earnings. |
 | `DividendGateDecision` | Monthly eligibility, reserve, DSCR, audit, and distribution decision. |
 | `PublicDashboardSnapshot` | Published aggregate view with confidence levels and privacy protection. |
+| `CitizenRightsAssessment` | Identity integrity, rights readiness, privacy, appeals, inclusion, operational risk, decision, and required actions. |
+| `CashFormalizationAssessment` | Remaining cap, eligible conversion amount, converted value, quarantined amount, rejected amount, identity score, provenance score, operator-control score, AML risk score, settlement-readiness score, decision, and required actions. |
+| `CivicWorkAssessment` | Verification, integrity, dignity, public value, transition, safety/privacy, verified-hour ratio, payable hours, held hours, decision, and required actions. |
+| `MinistryTransitionAssessment` | Governance, continuity, staff protection, financial control, anti-capture, deprecation readiness, transferable budget, staff transition count, decision, and required actions. |
 | `GrowthImpactProjection` | Baseline, constrained-base, and strategic-upper non-oil growth paths from [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md). |
 | `ComprehensiveBenefitProjection` | Long-horizon economic, infrastructure, environmental, social, and cultural benefit paths from [Iraq Comprehensive Benefits Model](iraq-comprehensive-benefits-model.md). |
 | `ProductionCapacityProjection` | Domestic output, local content, quality, cost discipline, booked sales, verified import substitution, FX savings, and procurement-dependence gates. |
@@ -1243,6 +1314,41 @@ Initial executable coverage:
   settlement, dividend boundary, achievement, variance, disposition, and
   corrective actions. `migrations/20260715000001_benefit_realization_claim_audit.sql`
   adds report and gate tables.
+- `crates/cs-analytics/src/citizen_rights.rs` adds the first citizen
+  entitlement, privacy, and appeals layer: legal authority, identity integrity,
+  non-saleability, pledge/collateral protection, inheritance, minors, deceased
+  reconciliation, diaspora/displaced claims, privacy separation, data
+  minimization, payment exceptions, appeals, suspension due process,
+  accessibility, public dashboard, independent audit, decision state, and
+  required actions. `migrations/20260720000001_citizen_rights.sql` adds
+  assessment and gate tables.
+- `crates/cs-analytics/src/cash_formalization.rs` adds the first cash
+  formalization and demonetization-window layer: legal authority, timing,
+  supervised conversion points, operator training, identity, cash
+  authentication, amount caps, source-of-funds confidence, PEP/sanctions,
+  adverse media, structuring, suspicious activity, EDD, tax settlement,
+  signed receipts, audit hashes, quarantine, appeals, public dashboard,
+  post-window rejection, decision state, and required actions.
+  `migrations/20260721000001_cash_formalization.sql` adds assessment and gate
+  tables.
+- `crates/cs-analytics/src/civic_work.rs` adds the first civic-work
+  verification and public-value layer: authority, budget source, dividend-pool
+  separation, voluntariness, labor/child/vulnerable safeguards, accessibility,
+  task quality, public value, evidence completion, verifier independence,
+  worker identity, duplicate claims, ghost-worker and nepotism risk, safety,
+  privacy, wage rules, skilled-labor crowding, payment exceptions, training,
+  bridge-to-work, appeals, public dashboard, independent audit, decision state,
+  and required actions. `migrations/20260722000001_civic_work.sql` adds
+  assessment and gate tables.
+- `crates/cs-analytics/src/ministry_transition.rs` adds the first ministry
+  transition and deprecation-control layer: function type, replacement home,
+  legal approval, service continuity, replacement mandate, staff map, payroll
+  reconciliation, procurement transparency, beneficial ownership, independent
+  audit, citizen appeals, local compact, service metrics, asset registry,
+  operator readiness, digital-payment coverage, service milestones, capture
+  risk, layoff risk, citizen-service risk, decision state, transferable budget,
+  and required actions. `migrations/20260723000001_ministry_transition.sql`
+  adds assessment and gate tables.
 
 ### Management Dashboards
 
@@ -1262,7 +1368,11 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Attraction services | Which natural, cultural, religious, medical, education, and business-service clusters are capturing formal revenue without exceeding safety or conservation gates? |
 | Diaspora channels | Which diaspora markets are producing settled income, export orders, expertise, investment leads, marketing conversion, or formalized remittances? |
 | Ministry productivity | Which public budgets now buy measured outputs? |
+| Ministry transition | Which functions are retained-sovereign, blocked, visibility-only, pilot-only, controlled-transfer, or sunset-eligible after legal, continuity, staff, payroll, audit, appeal, local-compact, operator-readiness, and capture-risk gates? |
 | Citizen welfare | What changed in wages, transfers, civic income, dividends, prices, and credit access? |
+| Civic work | Which programs can release verified wage hours, and which are blocked, evidence-only, remediation-required, pilot-only, or held for evidence, dignity, safety, privacy, fraud, payment, or bridge-to-work failures? |
+| Citizen rights | Which registry snapshots, dividend batches, identity exceptions, payment errors, privacy controls, appeals, suspensions, accessibility channels, dashboards, or rights audits block citizen rollout? |
+| Cash formalization | Which cash deposits are accepted, partially accepted, held for EDD, referred, rejected, expired, capped, quarantined, tax-settled, appealed, or missing audit evidence? |
 | Political economy | Which reforms face capture, resistance, weak coalition support, service-continuity failure, staff-transition failure, or federalism risk? |
 | Federalism equity | Which governorates or regions have signed compacts, allocation gaps, weak local benefit capture, unresolved grievances, authority disputes, or appeal/audit gaps? |
 | Environmental and social safeguards | Which projects have water, pollution, marshland, biodiversity, heritage, resettlement, livelihood, safety, maintenance, remediation, monitoring, audit, or accessibility risks? |
@@ -1287,7 +1397,9 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Macro-stability breach | Pause dividend growth, slow Digital IQD injections, tighten credit, increase sterilization, phase FX demand, and publish macro dashboard. |
 | FX mismatch | Restrict new foreign-currency borrowing unless offset by FX revenue, hedge, or approved reserve. |
 | Benefit overclaim | Move claim to low-confidence public-benefit ledger and remove from policy headline. |
-| Civic-work evidence failure | Hold payment, trigger appeal or re-verification, and flag verifier reliability. |
+| Civic-work evidence failure | Hold payment, trigger appeal or re-verification, flag verifier reliability, publish aggregate exception metrics, and redesign low-value or unsafe task tracks. |
+| Citizen-rights failure | Suspend affected batch, open appeal or correction queue, publish aggregate exception metrics, and keep rollout evidence-only until remediated. |
+| Cash-window failure | Hold, refer, reject, or expire the affected deposit; publish aggregate metrics; and prevent conversion until legal, AML, cap, receipt, audit, tax, quarantine, appeal, and dashboard controls pass. |
 | Privacy or security breach | Suspend affected data product, access role, or operator privilege. |
 
 ### Why This Encompasses The Whole Model
@@ -1379,8 +1491,10 @@ Economic design
 | Oil Income Lockbox | Who may receive, classify, hold, allocate, and report oil receipts before Treasury appropriation? | Framework law, budget law amendments, revenue-management law, federal/governorate compact. | Constitutional and public-finance review complete. |
 | INDHC charter | Is INDHC a public corporation, sovereign holding company, statutory fund, trust-like vehicle, or state-owned enterprise group? | INDHC enabling law and charter. | Ownership, board powers, audit rights, dividend rules, debt limits, and anti-capture controls enacted. |
 | Citizen beneficial shares | What legal right does each citizen hold, and how are inheritance, minors, death, displacement, fraud, and appeals handled? | Citizen entitlement law and registry rules. | Non-saleability, equal treatment, inheritance, appeals, and data correction rules are live. |
+| Cash formalization window | Who may accept physical cash, for how long, under which caps, AML/CFT checks, tax settlement, holds, referrals, appeals, and post-window rejection rules? | Monetary law, AML/CFT rulebook, tax settlement rule, CBI/Treasury instructions, court/appeal procedure. | One-year window authority, supervised conversion points, KYC, caps, EDD, quarantine, signed receipts, audit hashes, appeal path, dashboard, and post-window rejection rule are live. |
 | Digital IQD | Does the model require a CBDC, tokenized claim, payment instrument, regulated wallet, or only payment evidence rails? | CBI regulation, payment-system rulebook, statutory amendment if required. | CBI and legal review define monetary status, settlement finality, wallet limits, and operator duties. |
 | Ministry funding transition | Which functions can move to service contracts, regulators, municipalities, operators, or sunset agencies? | Budget law, civil-service law, procurement rules, service-contract rules. | Service continuity, staff transition, and citizen appeal gates pass before any function moves. |
+| Civic work | Who may post tasks, verify work, pay civic wages, protect workers, handle minors/care/sensitive tasks, audit verifiers, and hear appeals? | Civic-work charter, labor law, municipal authority, child-protection rules, privacy rulebook, safety standards, anti-corruption rules, budget appropriation. | Voluntary participation, no benefit penalty, explicit budget, dividend separation, labor/safety/privacy/child/vulnerable safeguards, verifier independence, dashboards, and appeals are live. |
 | Project borrowing | Who may borrow, in what currency, against which revenue, with which sovereign support? | Public debt rules, project-finance SPV contracts, guarantees law. | DSCR, FX, contingent-liability, and disclosure rules pass. |
 | Domestic securities | Can project sukuk, bonds, or minority equity be issued to domestic or diaspora investors? | Securities approval, prospectus, trustee, depository, listing rules. | Investor protection, AML/CFT, no-forced-purchase, and use-of-proceeds controls pass. |
 | PPP/JV concessions | Which assets may be concessioned, leased, operated, or co-owned? | PPP/concession law, procurement law, public-asset rules. | Competitive procurement, public value test, termination rights, and audit access pass. |
@@ -1463,14 +1577,20 @@ or hidden exchange-rate pressure.
 | 4. Project finance and securities | 2-4 | Define SPV standards, DSCR covenants, FX rules, guarantees, green sukuk/bond rules, project-company disclosure, trustee, depository, and investor-protection requirements. | Project finance and domestic capital-market readiness package. |
 | 5. Ministry service transition | 2-6 | Convert selected functions into service contracts, regulators, municipalities, autonomous operators, or sunset agencies with civil-service and continuity protections. | Ministry function registry and transition decrees. |
 | 6. Citizen rights and appeals | 2-5 | Define entitlement registry, inheritance, minors, death, displacement, diaspora eligibility, fraud review, correction, privacy, and dividend appeals. | Citizen entitlement and appeals code. |
-| 7. Environmental/cultural safeguards | 2-6 | Define marshland, water, heritage, resettlement, pollution, carrying-capacity, conservation, and community-benefit rules. | Environmental and cultural project gate rulebook. |
-| 8. Pilot authority | 3-6 | Authorize limited pilots by sector, governorate, project type, payment channel, data scope, and fiscal exposure. | Time-bounded pilot licenses and public reporting. |
-| 9. Scale authority | 6-10 | Scale only after audited cashflow, service continuity, legal compliance, citizen appeals, and independent review. | Annual operating plan and parliamentary/audit report. |
+| 7. Cash formalization authority | 2-5 | Define physical-cash intake points, KYC, source-of-funds scoring, caps, EDD, tax settlement, quarantine, referrals, receipts, appeals, dashboards, and post-window rejection. | Cash formalization and demonetization-window rulebook. |
+| 8. Environmental/cultural safeguards | 2-6 | Define marshland, water, heritage, resettlement, pollution, carrying-capacity, conservation, and community-benefit rules. | Environmental and cultural project gate rulebook. |
+| 9. Pilot authority | 3-6 | Authorize limited pilots by sector, governorate, project type, payment channel, data scope, and fiscal exposure. | Time-bounded pilot licenses and public reporting. |
+| 10. Scale authority | 6-10 | Scale only after audited cashflow, service continuity, legal compliance, citizen appeals, and independent review. | Annual operating plan and parliamentary/audit report. |
 
 ### Citizen Share And Dividend Law Questions
 
 The citizen share is the most politically sensitive part of the model. It must
 be a rule-bound public entitlement, not a tradable private asset.
+
+The working control document is
+[Citizen Entitlement, Privacy, And Appeals](citizen-entitlement-privacy-and-appeals.md).
+The executable planning primitive is `crates/cs-analytics/src/citizen_rights.rs`,
+with persistence in `migrations/20260720000001_citizen_rights.sql`.
 
 | Question | Required answer before deployment |
 | --- | --- |
@@ -1508,7 +1628,7 @@ Cylinder Seal can be useful only if evidence is trusted and privacy is bounded.
 | Project evidence | Procurement record, milestone proof, inspection authority, engineering signoff, and audit hash. |
 | Citizen evidence | Identity, eligibility, appeal history, wallet status, and privacy tier. |
 | Tax and levy evidence | Legal basis for collection, reconciliation, audit, and taxpayer/business rights. |
-| Civic-work evidence | Labor status, safety, child protection, disability access, municipal authority, and task verification. |
+| Civic-work evidence | Labor status, voluntary participation, safety, child protection, disability access, municipal authority, task verification, verifier independence, wage rules, privacy, and appeals. |
 | Public dashboard evidence | Aggregation, anonymization, confidence labels, source tags, and redaction rules. |
 
 ### Decision Gate
@@ -1523,7 +1643,10 @@ The legal roadmap should produce a single public stop/go dashboard:
 | Fiscal/debt | Oil-equity cap, guarantees, project debt, and budget treatment are disclosed and approved. |
 | Fiscal stress | Oil-equity draw, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability remain inside limits. |
 | INDHC governance | Board, audit, procurement, related-party, competition, and dividend rules are enforceable. |
-| Citizen rights | Eligibility, inheritance, appeals, privacy, and fraud controls are operational. |
+| Citizen rights | Eligibility, non-saleability, pledge/collateral protection, inheritance, minors, deceased records, diaspora/displaced claims, privacy, suspension due process, accessibility, dashboards, fraud controls, and appeals are operational. |
+| Cash formalization | Window timing, supervised conversion, KYC, caps, source-of-funds scoring, EDD, quarantine, tax settlement, signed receipts, audit hashes, appeal path, public dashboard, and post-window rejection are operational. |
+| Civic work | Authority, explicit budget, dividend separation, voluntary participation, no benefit penalty, labor/child/vulnerable safeguards, safety, accessibility, evidence, verifier independence, anti-ghost-worker controls, wage rules, appeals, dashboard, and audit are operational. |
+| Ministry transition | Legal approval, service continuity, replacement mandate, staff map, payroll reconciliation, financial disclosure, regulator/operator separation, procurement transparency, beneficial ownership, independent audit, citizen appeals, local compact, service metrics, operator readiness, and capture-risk gates pass before any budget or staff transfer. |
 | Environment/culture | Water, marshland, biodiversity, heritage, pollution, resettlement, livelihood, safety, maintenance, remediation, monitoring, audit, carrying-capacity, and accessibility gates are enforceable. |
 | Local authority | Governorate, municipality, regional/KRG, producing-governorate, and disputed-authority issues are mapped; local compact, allocation, grievance, audit, appeal, land/water, environmental, and heritage gates pass for each project. |
 | Political economy | Capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, and citizen appeals support the proposed transition mode. |
@@ -1940,7 +2063,291 @@ If dividends compete with maintenance or debt service, dividends lose.
 ```
 
 
-# Part 9: Federalism Governorate Equity And Local Compacts
+# Part 9: Citizen Entitlement Privacy And Appeals
+
+## Citizen Entitlement, Privacy, And Appeals
+
+Status: citizen-rights control model. This is not an identity law, social
+protection law, inheritance law, sanctions decision, privacy authorization,
+dividend entitlement determination, or official citizen registry design.
+
+The national dividend idea is politically powerful because every citizen is
+treated as a beneficiary of national productive capital. That makes the
+citizen-rights layer one of the highest-risk parts of the model. If identity,
+inheritance, privacy, appeals, payment exceptions, accessibility, or suspension
+rules are weak, the system can become arbitrary even if the economic model is
+financially sound.
+
+### Core Rule
+
+```text
+No citizen-share registry, dividend batch, civic entitlement, wallet suspension,
+or Digital IQD benefit rollout should scale unless legal authority, identity
+integrity, non-saleability, inheritance, minors, deceased records, diaspora and
+displacement rules, privacy separation, appeal paths, accessibility, public
+dashboards, and independent rights audit pass.
+```
+
+The citizen share must be a public entitlement, not a tradable asset, a coerced
+collateral object, a patronage channel, or a surveillance bargain.
+
+### What This Layer Controls
+
+| Risk area | Control requirement |
+| --- | --- |
+| Legal authority | Citizen entitlement, dividend, correction, privacy, and appeal authority exists before rollout. |
+| Identity coverage | Registry coverage is high enough that exclusion risk is controlled. |
+| Duplicate identities | Duplicate, forged, or conflicting identities remain below tolerance. |
+| Identity exceptions | Unresolved records are tracked before dividend batches. |
+| Non-saleability | Citizen base shares cannot be sold, pledged, seized, collateralized, or coercively transferred. |
+| Inheritance | Share transfer to eligible heirs is rules-based, auditable, and appealable. |
+| Minors and guardians | Minor dividend flows have guardian controls and misuse-prevention rules. |
+| Deceased records | Death, dormant wallet, fraud, and estate records are reconciled before distributions. |
+| Diaspora eligibility | Diaspora, residency, and documentation rules are published before claims. |
+| Displaced-person claims | Displaced citizens have a usable claims and correction path. |
+| Privacy separation | Identity, entitlement, wallet, regulatory, and analytics data are separated. |
+| Data minimization | Benefits and analytics use only the minimum data needed for lawful purpose. |
+| Payment exceptions | Failed, duplicate, blocked, or disputed payments stay below tolerance. |
+| Appeals | Citizens can challenge exclusion, payment error, privacy breach, suspension, inheritance, or identity disputes. |
+| Sanctions due process | Suspension for sanctions, AML, fraud, court order, or investigation has a lawful review path. |
+| Accessibility | Offline, disabled, elderly, rural, displaced, and low-literacy users can use service channels. |
+| Public dashboard | Aggregate rights, exceptions, appeals, privacy, and payment-health metrics are published. |
+| Independent audit | External rights audit exists before scale. |
+
+### Decision States
+
+| Decision | Meaning | Required response |
+| --- | --- | --- |
+| Blocked | Legal authority, non-saleability, or pledge/collateral protections are missing. | Do not launch entitlement or dividend rollout. |
+| Evidence only | Public dashboard or independent rights audit is missing. | Continue registry testing only; do not present as citizen-ready. |
+| Remediation required | Privacy, appeals, due process, or identity integrity is too weak. | Fix controls before expanding rollout. |
+| Pilot only | Core controls work, but inclusion or operational risk is not yet good enough for national scale. | Limit scope and publish pilot exception metrics. |
+| Suspend batch | Payment exceptions, duplicate identities, or unresolved identity exceptions exceed tolerance. | Suspend affected batch until the exception queue is remediated. |
+| Eligible | Legal, identity, share, privacy, appeal, inclusion, dashboard, and audit gates pass. | Proceed with monitored batch and public rights reporting. |
+
+### Dividend Batch Firewall
+
+The dividend batch should be blocked or suspended when:
+
+- legal authority is missing;
+- citizen shares can be sold, pledged, seized, or collateralized;
+- identity duplicates or unresolved exceptions exceed tolerance;
+- deceased records are poorly reconciled;
+- appeal mechanisms are not live;
+- sanctions or AML suspensions have no due process;
+- privacy separation is weak;
+- payment exception rates are high;
+- accessibility channels exclude vulnerable users;
+- public dashboard or independent rights audit is missing.
+
+This firewall protects citizens and protects the legitimacy of the model. A
+wrongful exclusion can be more politically damaging than a delayed batch.
+
+### Software And Data Surface
+
+The executable implementation is:
+
+- `crates/cs-analytics/src/citizen_rights.rs`
+- `migrations/20260720000001_citizen_rights.sql`
+
+Core objects:
+
+| Object | Purpose |
+| --- | --- |
+| `CitizenRightsInput` | Captures registry reference, legal authority, identity coverage, duplicate and exception rates, non-saleability, pledge/collateral protections, inheritance, minors, deceased reconciliation, diaspora and displaced-person rules, privacy, data minimization, payment exceptions, appeals, sanctions due process, accessibility, dashboard, and audit status. |
+| `CitizenRightsAssessment` | Scores identity integrity, rights readiness, privacy, appeals, inclusion, operational risk, decision, and required actions. |
+| `CitizenRightsGateResult` | Records pass/warn/fail state for legal, identity, share, inheritance, minor, deceased, diaspora, displaced, privacy, payment, appeal, sanctions, accessibility, dashboard, and audit gates. |
+
+### Dashboard Requirements
+
+The citizen-rights dashboard should show:
+
+- registry snapshot reference;
+- legal-authority status;
+- identity coverage;
+- duplicate identity rate;
+- unresolved identity exception rate;
+- non-saleability and pledge/collateral status;
+- inheritance and minor/guardian controls;
+- deceased-record reconciliation;
+- diaspora and displaced-person claims status;
+- privacy separation and data-minimization scores;
+- payment exception rate;
+- appeal mechanism, SLA, backlog, and resolution rate;
+- suspension due-process status;
+- accessibility channel coverage;
+- public dashboard and independent audit status;
+- decision and required actions.
+
+### Governance Boundary
+
+This layer should be conservative:
+
+```text
+If shares can be sold or pledged, block.
+If legal authority is missing, block.
+If identity or payment exceptions are high, suspend affected batch.
+If citizens cannot appeal, remediate before scale.
+If privacy separation is weak, remediate before scale.
+If audit or public dashboard is missing, stay evidence-only.
+```
+
+### Bottom Line
+
+The citizen dividend is not only a cashflow. It is a public-rights system. If
+citizens cannot understand, challenge, inherit, protect, and privately receive
+their entitlement, the model loses legitimacy at the exact point where it is
+supposed to become most universal.
+
+
+# Part 10: Cash Formalization And Demonetization Window
+
+## Cash Formalization And Demonetization Window
+
+Status: cash-transition control model. This is not a monetary-law instruction,
+AML approval, tax amnesty, sanctions determination, or official demonetization
+plan.
+
+The cash window is the highest-abuse-risk bridge between the old economy and
+the formal Digital IQD / INDHC model. It must pull legitimate physical cash into
+auditable channels without laundering corruption, sanctions exposure, theft,
+terror finance, or unexplained public-office wealth.
+
+### Core Rule
+
+```text
+No physical cash should become a transition balance, supplemental entitlement,
+or dividend-adjacent claim unless the window is legally open, the deposit is
+supervised, the depositor is identified, the amount fits caps, source-of-funds
+risk is controlled, high-risk cases receive EDD, the receipt is signed, the
+audit hash exists, appeals are live, and post-window rejection authority exists.
+```
+
+The one-year window is not an amnesty. It is a time-limited conversion process
+with risk scoring, holds, referrals, caps, tax settlement, and public aggregate
+reporting.
+
+### What This Layer Controls
+
+| Risk area | Control requirement |
+| --- | --- |
+| Legal authority | Cash conversion, post-window rejection, holds, referrals, tax settlement, and appeals have a lawful basis. |
+| Window timing | Deposits are accepted only during the announced window, normally 365 days. |
+| Supervision | Conversion points are licensed or otherwise supervised and staffed by trained operators. |
+| Identity | Depositors are matched to eligible citizen or legal-person records before any receipt becomes convertible. |
+| Cash authenticity | Physical notes are authenticated before any value is credited. |
+| Per-citizen cap | Conversion is capped so unexplained cash cannot buy disproportionate benefit. |
+| Source of funds | Deposits receive source-of-funds confidence scoring. Low-confidence cases go to enhanced due diligence. |
+| Public-office risk | Politically exposed persons, public officials, related parties, and high-risk actors face stricter EDD. |
+| Sanctions/watchlist | Hits are referred; they do not quietly convert. |
+| Structuring | Split deposits, repeated small deposits, and pattern avoidance trigger EDD or referral. |
+| Tax settlement | Required settlement, haircut, quarantine, or disclosure must complete before conversion. |
+| Quarantine | Held funds sit in a controlled account until EDD, tax, or referral status is resolved. |
+| Receipt and audit | Every deposit has a signed receipt, operator identity, location, timestamp, risk status, and audit hash. |
+| Appeal path | Citizens can challenge holds, rejections, identity errors, and post-window disputes. |
+| Public dashboard | Aggregate accepted, held, referred, rejected, and expired values are published without exposing private data. |
+
+### Decision States
+
+| Decision | Meaning | Required response |
+| --- | --- | --- |
+| Blocked | Legal authority or post-window rule is missing. | Do not open the cash window. |
+| Not yet open | Deposit arrived before the legal start date. | Reject or record as pre-window inquiry only. |
+| Window expired | Deposit arrived after the statutory window. | Reject under the post-window rule and report aggregate expiry metrics. |
+| Rejected | Identity, supervision, cash authentication, receipt, audit, appeal, amount, or cap controls fail. | Reject or correct the failed control before re-submission. |
+| Referred | Sanctions/watchlist or critical AML risk requires competent-authority review. | Freeze or quarantine under law; do not convert. |
+| Hold for EDD | Source-of-funds, PEP, adverse media, structuring, suspicious activity, or tax settlement needs review. | Hold in quarantine until EDD/tax/referral outcome. |
+| Accepted with settlement | Required tax or settlement has been collected. | Issue locked receipt after settlement evidence. |
+| Accepted partial | Amount exceeds the cap, but a capped portion can convert. | Convert eligible amount and reject or quarantine excess. |
+| Accepted | Deposit passes timing, identity, cap, provenance, receipt, audit, appeal, and dashboard gates. | Issue locked transition balance or supplemental entitlement receipt. |
+
+### Why It Matters
+
+The model originally needs a way to bring legacy cash into the new formal
+system. Without this layer, the cash window can become the easiest way for
+unknown provenance money to become state-recognized wealth. With this layer,
+cash conversion becomes a controlled migration path:
+
+```text
+Physical cash
+  -> supervised intake
+  -> identity and cash authentication
+  -> source-of-funds and AML screening
+  -> cap, tax, quarantine, or referral decision
+  -> signed receipt and audit hash
+  -> locked transition balance or supplemental entitlement
+  -> post-window rejection after expiry
+```
+
+### Conversion Boundaries
+
+- Base citizen shares remain equal and non-saleable.
+- Cash deposits do not buy control rights.
+- Cash deposits do not bypass sanctions, AML, tax, or corruption review.
+- Supplemental entitlements or transition balances are capped, locked, and
+  auditable.
+- Excess, suspicious, or post-window cash is rejected, held, or referred.
+- Physical cash after the window has no conversion value unless explicit law
+  creates a narrow appeal or correction exception.
+
+### Software And Data Surface
+
+The executable implementation is:
+
+- `crates/cs-analytics/src/cash_formalization.rs`
+- `migrations/20260721000001_cash_formalization.sql`
+
+Core objects:
+
+| Object | Purpose |
+| --- | --- |
+| `CashFormalizationInput` | Captures deposit reference, citizen reference, window day, legal authority, conversion-point supervision, operator training, identity, cash authentication, amount, cap, source-of-funds score, PEP/sanctions/adverse-media/structuring/suspicious flags, EDD, tax settlement, receipt, audit, quarantine, appeal, and dashboard status. |
+| `CashFormalizationAssessment` | Computes remaining cap, eligible amount, converted value, quarantined amount, rejected amount, identity score, provenance score, operator-control score, AML risk score, settlement-readiness score, decision, and required actions. |
+| `CashFormalizationGateResult` | Records pass/warn/fail state for legal, timing, supervision, identity, authenticity, cap, source-of-funds, PEP, sanctions, adverse media, structuring, suspicious activity, EDD, tax, receipt, audit, quarantine, appeal, and dashboard gates. |
+
+### Dashboard Requirements
+
+The cash-window dashboard should show aggregate metrics only:
+
+- window start and expiry status;
+- number and value of accepted deposits;
+- number and value of partial acceptances;
+- number and value of held deposits;
+- number and value of referrals;
+- number and value of rejections;
+- number and value of expired/post-window attempts;
+- source-of-funds confidence distribution;
+- EDD backlog and resolution rate;
+- tax settlement status;
+- appeal backlog and resolution rate;
+- conversion point performance and operator exception rates;
+- cap-excess metrics;
+- audit coverage.
+
+### Governance Boundary
+
+This layer should be stricter than ordinary retail wallet onboarding:
+
+```text
+If the legal window is missing, block.
+If the window has expired, reject.
+If identity or cash authentication fails, reject.
+If sanctions or critical AML risk appears, refer.
+If provenance is weak, hold for EDD.
+If caps are exceeded, convert only the eligible portion.
+If receipts or audit hashes are missing, reject.
+If appeal paths or dashboards are missing, do not scale.
+```
+
+### Bottom Line
+
+The cash formalization window is credible only if it makes unexplained cash
+less powerful, not more powerful. The system should welcome legitimate cash
+into formal channels while making corruption, coercion, sanctions evasion, and
+post-window arbitrage harder to hide.
+
+
+# Part 11: Federalism Governorate Equity And Local Compacts
 
 ## Federalism, Governorate Equity, And Local Compacts
 
@@ -2114,7 +2521,7 @@ counterparties with measurable rights, rather than treating them as passive
 locations where capital happens to land.
 
 
-# Part 10: Environmental Social Water And Cultural Safeguards
+# Part 12: Environmental Social Water And Cultural Safeguards
 
 ## Environmental, Social, Water, And Cultural Safeguards
 
@@ -2262,7 +2669,7 @@ borrowing from Iraq's people, places, and future budgets without recording the
 liability.
 
 
-# Part 11: Macro Monetary Inflation And FX Stability
+# Part 13: Macro Monetary Inflation And FX Stability
 
 ## Macro, Monetary, Inflation, And FX Stability
 
@@ -2406,7 +2813,7 @@ state see liquidity and prices earlier, but it does not repeal monetary
 constraints.
 
 
-# Part 12: Fiscal Stress And Contingent Liability
+# Part 14: Fiscal Stress And Contingent Liability
 
 ## Fiscal Stress And Contingent Liability Model
 
@@ -2563,7 +2970,7 @@ If dividends compete with solvency, dividends lose.
 ```
 
 
-# Part 13: National Program Sequencing And Dependency Control
+# Part 15: National Program Sequencing And Dependency Control
 
 ## National Program Sequencing And Dependency Control
 
@@ -2587,6 +2994,9 @@ No service continuity -> no ministry transition.
 No cashflow evidence -> no debt or dividend.
 No political readiness -> no scale.
 No fiscal stress pass -> no expansion.
+No citizen-rights pass -> no citizen dividend rollout.
+No cash-window authority -> no physical-cash conversion.
+No ministry-transition assessment -> no deprecation or budget transfer.
 ```
 
 The purpose is to stop the model from becoming a giant simultaneous reform
@@ -2618,6 +3028,8 @@ where every component depends on every other component working immediately.
 | Cashflow evidence | Debt, dividends, domestic securities, project-company floats. | Invoices, benefits, and narratives are not cash. |
 | Staff transition | Ministry transition and civic-work substitution. | Reform should not become arbitrary dismissal or sabotage incentive. |
 | Citizen trust and appeal path | Entitlements, dividends, civic work, data sharing, payment suspensions. | Digital governance fails if citizens cannot challenge errors. |
+| Citizen rights pass | Citizen dividend, civic entitlements, share registry, wallet suspensions. | Without identity, privacy, accessibility, and appeal readiness, citizen rollout can exclude or coerce people. |
+| Cash-window controls | Physical cash conversion, transition balances, supplemental entitlements, post-window rejection. | Without AML, caps, EDD, quarantine, receipts, audit, appeal, and dashboard controls, the window can legalize unexplained wealth. |
 
 ### Domain Sequence
 
@@ -2629,9 +3041,10 @@ where every component depends on every other component working immediately.
 | INDHC capital allocation | Evidence only | Charter, board, procurement rules, capital cap, project pipeline. | Clean audits, cashflow evidence, fiscal stress pass, anti-capture controls. |
 | Project pipeline | Evidence only | Project registry, facility screen, legal owner, DSCR, FX, safeguards. | Bankability package, procurement evidence, stress and political gates. |
 | Industrial champions | Pilot | Sector registry, scorecard, demand contracts, competition authority. | Export/FX path, price discipline, SME inclusion, no hidden bailout. |
-| Ministry transition | Evidence only | Service continuity pilot, staff transition fund, appeal desk. | 12-month continuity, parliamentary/audit report, citizen complaint metrics. |
-| Civic work | Pilot | Labor-law/privacy review, municipal authority, task verification. | Verified public value, bridge-to-work outcomes, grievance and disability access. |
-| Citizen dividend | Evidence only | Entitlement law, identity correction, cashflow waterfall, audit. | Audited distributable surplus after maintenance, debt, levy, reserves, macro-stability, and stress gates. |
+| Ministry transition | Evidence only | Service continuity pilot, staff transition fund, payroll reconciliation, replacement mandate, appeal desk, local compact, and `MinistryTransitionAssessment`. | 12-month continuity, parliamentary/audit report, citizen complaint metrics, controlled-transfer or sunset-eligible decision. |
+| Civic work | Pilot | Labor-law/privacy review, municipal authority, explicit budget, dividend separation, voluntariness, task verification, safety, anti-ghost-worker, appeal, and dashboard gates. | Verified public value, payable-hour evidence, bridge-to-work outcomes, grievance, disability access, audit, and payment-exception controls. |
+| Citizen dividend | Evidence only | Entitlement law, identity correction, cashflow waterfall, citizen-rights gates, and audit. | Audited distributable surplus after maintenance, debt, levy, reserves, macro-stability, stress gates, and citizen-rights pass. |
+| Cash formalization window | Evidence only | Monetary/AML authority, supervised intake points, KYC, cap, EDD, quarantine, tax, receipt, audit, appeal, and dashboard controls. | 12-month window operations remain inside AML, cap, appeal, tax, audit, and post-window rejection rules. |
 | Domestic capital markets | Evidence only | Securities approval, trustee/depository, disclosure, investor protection. | Audited project cashflow, no forced purchase, suitability and AML/CFT controls. |
 | Tourism services | Pilot | Safety, conservation, lodging/transport, guides, payment rails. | Carrying capacity, quality certification, local supplier benefit, collection evidence. |
 | Facility recycling | Evidence only | Asset registry, title, engineering, environmental, labor transition. | Revenue contract, DSCR, investor protection, finance-lane readiness. |
@@ -2652,6 +3065,7 @@ The program controller uses these inputs:
 | Citizen trust | Complaints, appeals, privacy, uptime, access, and visible benefits support legitimacy. |
 | Service continuity | Critical services have operated under replacement model for enough time. |
 | Cashflow evidence | Settled revenue, not just invoices or estimated benefits. |
+| Ministry-transition evidence | Function type, replacement home, legal approval, service continuity, staff map, payroll reconciliation, financial disclosure, operator readiness, service metrics, capture risk, layoff risk, and citizen-service risk. |
 | Predecessor dependency completion | Required earlier steps are complete enough. |
 | Political mode | Output from the political-economy engine. |
 | Fiscal mode | Output from the fiscal stress engine. |
@@ -2700,7 +3114,7 @@ Rollback before denial.
 ```
 
 
-# Part 14: Procurement Integrity And Market Discipline
+# Part 16: Procurement Integrity And Market Discipline
 
 ## Procurement Integrity And Market Discipline
 
@@ -2866,7 +3280,7 @@ If champions crush suppliers, remove privilege.
 ```
 
 
-# Part 15: Benefit Realization And Claim Audit
+# Part 17: Benefit Realization And Claim Audit
 
 ## Benefit Realization And Claim Audit
 
@@ -3007,7 +3421,7 @@ If it underperforms, publish the variance.
 ```
 
 
-# Part 16: Iraq Integrated Growth Impact Model
+# Part 18: Iraq Integrated Growth Impact Model
 
 ## Iraq Integrated Growth Impact Model
 
@@ -3332,7 +3746,7 @@ citizen-facing accountability.
 ```
 
 
-# Part 17: Iraq Comprehensive Benefits Model
+# Part 19: Iraq Comprehensive Benefits Model
 
 ## Iraq Comprehensive Benefits Model
 
@@ -3804,7 +4218,7 @@ substrate for a post-oil, post-automation Iraqi development model:
 That is the unified economic, environmental, social, and cultural model.
 
 
-# Part 18: Iraq Quantified Affordability And Cashflow Model
+# Part 20: Iraq Quantified Affordability And Cashflow Model
 
 ## Iraq Quantified Affordability And Cashflow Model
 
@@ -4329,7 +4743,7 @@ That is the point of quantifying the model: it converts a sovereign-economic
 vision into a financeable sequence with hard stop/go gates.
 
 
-# Part 19: System And Financial Flow Diagrams
+# Part 21: System And Financial Flow Diagrams
 
 ## System And Financial Flow Diagrams
 
@@ -4557,12 +4971,12 @@ validation, audit, and projection paths.
 | 12 | C2B | Online, recurring | Repayment, auto-debit, refinance settlement | Loan or mortgage repayment | Stable repayment history improves credit scoring | Debt-service caps and consent controls required |
 | 13 | B2M | Online, batch | Invoice finance, working-capital escrow, spend constraint | SME working capital and industrial finance | Reduces collateral dependence by using transaction history | Bank risk model validation required |
 | 14 | M2B | Online, batch | Repayment, invoice settlement | Merchant loan repayment or deposit sweep | Gives lenders real cash-flow visibility | Deposit and settlement rules required |
-| 15 | D2M | Online, merchant QR, future correspondent bridge | Standard, FX-tagged receipt, refund | Diaspora purchase, tourism, pilgrimage services, Iraqi-origin goods | Captures foreign-customer demand through documented merchants | Cross-border and FX compliance not implemented |
+| 15 | D2M | Online, merchant QR, future correspondent bridge | Standard, FX-tagged receipt, refund | Diaspora purchase, tourism, pilgrimage services, Iraqi-origin goods | Captures foreign-customer demand through documented merchants | Cross-border and FX compliance remains a future regulated integration |
 | 16 | CBI2B | Bank batch | Liquidity allocation, policy instruction | Liquidity provision or program funding to banks | Clean separation between policy funding and retail disbursement | CBI/core-banking integration required |
 | 17 | B2CBI | Bank batch | Settlement, reserve movement, report | Bank settlement and supervisory reporting | Supports monetary oversight and reconciliation | Production settlement rails required |
 | 18 | Any valid payer to any valid payee | Online only for action; offline receipt may later sync | Freeze, cap, reject, report, reverse by compensating transfer | Emergency directive, AML hold, fraud response | Provides supervisory control without mutating history | Requires strict emergency powers, audit, and due process |
 | 19 | G2CI | Government batch, civic-work workflow | Conditional release, spend constraint | Treasury, municipality, climate, or INDHC community-benefit budget funds approved civic tasks | Keeps civic-work budgets explicit and separate from citizen dividend funds | Appropriation law, municipal authority, and anti-corruption controls required |
-| 20 | CI2CW or G2CW | Civic-work task workflow, online wallet | Civic wage, civic credit bonus, conditional release | Verified care, sport, environmental, municipal, culture, education, food-security, or resilience task | Turns spare labor capacity into paid public value, training records, and income history | `cs-civic-work` is design-only; evidence rules, labor law, privacy, safety, and appeal process required |
+| 20 | CI2CW or G2CW | Civic-work task workflow, online wallet | Civic wage, civic credit bonus, conditional release | Verified care, sport, environmental, municipal, culture, education, food-security, or resilience task | Turns spare labor capacity into paid public value, training records, and income history | Analytics control exists; deployable `cs-civic-work` task platform, evidence workflow, labor law, privacy, safety, and appeal process still required |
 | 21 | CW2M or CW2IP | Online, QR, NFC, BLE where allowed | Standard transfer, spend constraint for civic credits | Civic worker spends wage or category-limited credit at merchants, transport, training, childcare, local goods, or housing-deposit programs | Converts civic income into local demand while preserving transparent program limits | Spend-limited credits need legal basis and appealable merchant/category rules |
 | 22 | CW2G or CW2B | Online, recurring | Standard transfer, recurring debit | Fees, training co-payments, savings, loan repayment, or bank account linkage from verified civic income | Creates formal financial history for thin-file workers | Consent, debt-service caps, and privacy-bounded credit use required |
 
@@ -4746,9 +5160,11 @@ Advantages:
 - Gives unemployed and underemployed workers Digital IQD income history,
   training records, and privacy-bounded employability signals.
 
-Boundary: the module is not implemented. Real deployment requires labor-law,
-child-protection, care-work, privacy, municipal-authority, anti-corruption,
-budget, verifier, safety, and appeal rules.
+Boundary: the analytics-control primitive exists; the operational task,
+wallet, verifier, evidence, and wage-payment platform remains future work. Real
+deployment requires labor-law, child-protection, care-work, privacy,
+municipal-authority, anti-corruption, budget, verifier, safety, and appeal
+rules.
 
 ### Flow Advantages By Policy Objective
 
@@ -4775,7 +5191,8 @@ budget, verifier, safety, and appeal rules.
 | Merchant tiers and hard restrictions | `crates/cs-policy`, `crates/cs-tests/tests/spec_23_tier_policy.rs` |
 | AML and reporting | `crates/cs-policy/src/aml.rs`, `crates/cs-policy/src/reporting.rs`, `crates/cbi-dashboard/src/routes/compliance.rs`, `crates/cbi-dashboard/src/routes/risk.rs` |
 | Credit features | `crates/cs-credit`, `crates/cs-policy/src/risk_scoring.rs` |
-| Civic-work architecture | `docs/national-civic-work-system.md` only; proposed `cs-civic-work` models are not implemented |
+| Civic-work architecture | `docs/national-civic-work-system.md`; `crates/cs-analytics/src/civic_work.rs`; `migrations/20260722000001_civic_work.sql`; deployable `cs-civic-work` task platform remains future work |
+| Ministry-transition architecture | `docs/ministry-transition-roadmap.md`; `crates/cs-analytics/src/ministry_transition.rs`; `migrations/20260723000001_ministry_transition.sql`; legal reorganization, civil-service, service-contract, and sunset-audit workflows remain future work |
 | Consensus boundary | `crates/cs-consensus`, `crates/cs-sync/src/sync_service.rs`, `crates/cs-sync/src/state_machine.rs` |
 | Dashboard sessions and roles | `crates/cbi-dashboard/src/auth.rs`, `crates/cbi-dashboard/src/middleware.rs`, `crates/cbi-dashboard/src/main.rs` |
 
@@ -4789,11 +5206,16 @@ remaining engineering gaps:
   or an equivalent attested mechanism.
 - Real PostgreSQL/Redis endpoint integration tests are needed for dashboard
   route credibility.
-- Cross-border, FX, diaspora, and correspondent-bank flows are scenario designs,
-  not implemented rails.
+- Cross-border, FX, diaspora, and correspondent-bank flows are scenario designs
+  that still require regulated integration rails.
 - Civic-work task posting, evidence verification, civic wage release, civic
-  credits, and impact metrics are policy/design artifacts only; no
-  `cs-civic-work` crate, schemas, routes, or tests exist yet.
+  credits, and impact metrics now have an analytics-control primitive, but no
+  deployable `cs-civic-work` crate, wallet flow, operational schemas, routes,
+  verifier workflow, or wage-payment service exists yet.
+- Ministry-transition screening now has an analytics-control primitive, but no
+  legal reorganization workflow, civil-service placement system, service
+  contract platform, governorate compact workflow, or sunset-audit office exists
+  yet.
 - Production privacy, legal authority, appeal, and emergency-power procedures
   must be specified before using real citizen or business data.
 - The national dividend holding-company model is a policy architecture proposal;
@@ -4801,7 +5223,7 @@ remaining engineering gaps:
   governance, and dividend formula require independent review.
 
 
-# Part 20: Business Value Chain Charts
+# Part 22: Business Value Chain Charts
 
 ## Business Value Chain Charts
 
@@ -4918,7 +5340,7 @@ This chart pack also clarifies three repository boundaries:
   confuse GDP, avoided imports, or social outcomes with dividend capacity.
 
 
-# Part 21: Unified Economic Model
+# Part 23: Unified Economic Model
 
 ## Unified Economic Model
 
@@ -4944,7 +5366,7 @@ audited surplus.
 
 ### System Boundary
 
-The system has twenty-two layers:
+The system has twenty-four layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
@@ -4953,6 +5375,8 @@ The system has twenty-two layers:
 | Legal and institutional layer | Authority path for oil lockbox, INDHC, citizen shares, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals. | `docs/national-legal-institutional-roadmap.md` |
 | Project pipeline layer | Project-family gates for capex, opex, revenue source, DSCR, FX exposure, facility reuse, environmental/cultural safeguards, legal authority, and evidence bundles. | `docs/project-pipeline-and-investment-gates.md` |
 | Political-economy and anti-capture layer | Resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, and pause/rollback rules. | `docs/political-economy-transition-and-anti-capture.md` |
+| Citizen entitlement, privacy, and appeals layer | Controls citizen-share legal authority, identity integrity, non-saleability, pledge/collateral protection, inheritance, minors, deceased records, diaspora/displaced claims, privacy separation, payment exceptions, appeals, suspensions, accessibility, dashboard, and independent audit. | `docs/citizen-entitlement-privacy-and-appeals.md` |
+| Cash formalization and demonetization-window layer | Controls the one-year physical-cash transition through legal authority, supervised conversion points, KYC, caps, source-of-funds scoring, EDD, quarantine, tax settlement, signed receipts, audit hashes, appeals, dashboards, and post-window rejection. | `docs/cash-formalization-and-demonetization-window.md` |
 | Federalism and governorate-equity layer | Local authority mapping, governorate/regional compacts, allocation fairness, local revenue/jobs/suppliers, grievance resolution, audit, appeals, and land/water/heritage disputes. | `docs/federalism-governorate-equity-and-local-compacts.md` |
 | Environmental, social, water, and cultural safeguard layer | Blocks or redesigns projects when water, pollution, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, or accessibility gates fail. | `docs/environmental-social-cultural-safeguards.md` |
 | Macro, monetary, inflation, and FX stability layer | Controls inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization, credit growth, domestic absorption, import leakage, non-oil FX, distribution phasing, CBI independence, and FX transparency. | `docs/macro-monetary-fx-stability.md` |
@@ -4969,7 +5393,7 @@ The system has twenty-two layers:
 | Import, services, and diaspora expansion layer | Missing import screens, attraction-based service production, and diaspora income, expertise, capital, marketing, and distribution channels. | `docs/import-services-diaspora-expansion.md` |
 | Industrial champion governance layer | Sectoral production groups receive conditional demand, credit, and payment privileges only while they meet local-content, price, quality, export, tax, debt, SME-inclusion, and audit gates. | `docs/digitally-governed-industrial-champions.md` |
 | Civic work and dignity layer | Productivity gains fund verified public-value work, training, care, environmental restoration, sport, culture, municipal repair, and disaster resilience. | `docs/national-civic-work-system.md` |
-| Ministry transition layer | Deprecates, merges, regulates, corporatizes, or sunsets ministry functions once service-continuity, legal, audit, and staff-transition gates pass. | `docs/ministry-transition-roadmap.md` |
+| Ministry transition layer | Deprecates, merges, regulates, corporatizes, or sunsets ministry functions only after legal authority, service continuity, staff protection, payroll reconciliation, audit, anti-capture, appeal, and local-compact gates pass. | `docs/ministry-transition-roadmap.md` |
 
 The layers should not be read separately. The payment layer provides the
 evidence and controls; the economic operating layer decides how events are
@@ -5342,6 +5766,8 @@ separate dashboard widgets.
 | `EconomicOperatingPeriod` | Ledger close calendar, macro mode, portfolio mode, source snapshots, gate settings | Monthly, quarterly, and annual operating cycle view. |
 | `EconomicEventProjection` | Payment events, project events, benefit events, risk events, audit hashes, source tags | Canonical event and ledger-impact view. |
 | `EconomicCycleProjection` | Oil receipts, INDHC allocations, project revenues, taxes, dividends, domestic spend | National feedback-loop view. |
+| `CitizenRightsAssessment` | Legal authority, identity coverage, duplicate and exception rates, non-saleability, pledge/collateral protection, inheritance, minors, deceased reconciliation, diaspora/displaced claims, privacy, data minimization, payment exceptions, appeals, sanctions due process, accessibility, dashboard, and audit evidence | Citizen entitlement, privacy, appeal, exclusion, suspension, and dividend-batch readiness view. |
+| `CashFormalizationAssessment` | Deposit timing, legal authority, supervision, operator training, identity, cash authentication, amount, cap, source-of-funds score, PEP/sanctions/adverse-media/structuring/suspicious flags, EDD, tax settlement, receipt, audit, quarantine, appeal, and dashboard evidence | One-year cash-window accept, partial-accept, hold, referral, rejection, and expiry view. |
 | `GrowthImpactProjection` | Baseline non-oil growth, sector add-ons, real non-oil GDP index, additional GDP vs baseline, confidence labels | Macro growth-impact and timeline view. |
 | `ComprehensiveBenefitProjection` | GDP, booked revenue, dividend range, rail capacity, clean power, tourism, civic-work capacity, avoided environmental loss, social value, cultural value, confidence labels | Long-horizon economic, infrastructure, environmental, social, and cultural benefits view. |
 | `ProductionCapacityProjection` | Merchant tiers, local-content attestations, project outputs, inventory, procurement | Import substitution, food substitution, and domestic supply view. |
@@ -5354,7 +5780,8 @@ separate dashboard widgets.
 | `AffordabilityProjection` | IMF baseline, oil-equity draw, project loans, PPP capital, DSCR, stress cases, dividend math | Financeability and stop/go gate view. |
 | `RevenueGenerationProjection` | Revenue streams, contracts, invoices, collection, currency, offtake, savings contracts, platform fees, land-value capture | Broad recurring revenue, collection quality, and closed-loop cash view. |
 | `IndustrialChampionProjection` | Champion registry, conditional demand contracts, tier privileges, debt caps, export discipline, related-party exposure, SME inclusion | Anti-capture and sectoral champion performance view. |
-| `CivicWorkProjection` | Civic tasks, workers, verifiers, evidence bundles, payments, training, impact metrics, appeals | Productivity-transition, social cohesion, and verified public-value view. |
+| `CivicWorkAssessment` | Program, governorate, category, task risk, authority, budget, dividend separation, voluntariness, labor/child/vulnerable safeguards, accessibility, task quality, public value, evidence, verifiers, identity, claimed and verified hours, duplicate/ghost/nepotism risk, safety, privacy, wage rules, crowding, payment exceptions, training, bridge-to-work, appeals, dashboard, and audit evidence | Civic-work wage release, payment hold, pilot, remediation, dignity, anti-ghost-worker, safety, and bridge-to-work view. |
+| `MinistryTransitionAssessment` | Ministry function type, replacement home, target year, budget, staff, essential-service status, oil-funding dependency, duplicate administration, commercial potential, legal approval, continuity, mandate, staff map, payroll, procurement, ownership, audit, appeals, local compact, service metrics, assets, operator readiness, payments, milestones, capture risk, layoff risk, and citizen-service risk | Retain-sovereign, blocked, visibility-only, pilot-only, controlled-transfer, or sunset-eligible view. |
 | `CitizenIncomeProjection` | Wages, transfers, dividends, IP income, repayments, spending | Household welfare and inclusion view. |
 | `MinistryPerformanceProjection` | Budgets, service contracts, milestones, delivery evidence | Ministry feedback and productivity view. |
 | `CreditExpansionProjection` | Transaction histories, risk features, loan disbursements, repayments | SME finance and formalization view. |
@@ -5365,7 +5792,7 @@ separate dashboard widgets.
 
 ### Dashboard Design
 
-The unified dashboard should answer sixteen questions:
+The unified dashboard should answer seventeen questions:
 
 1. Where did oil income go?
 2. Which investments are producing cash, jobs, and domestic supply?
@@ -5385,12 +5812,15 @@ The unified dashboard should answer sixteen questions:
 12. Which diaspora channels are producing settled income, export orders,
     expertise, investment leads, marketing conversion, or formalized
     remittances?
-13. Is the citizen dividend funded by real surplus?
-14. Is productivity displacement being absorbed into verified civic work,
+13. Is the cash formalization window accepting only legal, capped,
+    identity-verified, AML-screened, receipted, audited, and appealable deposits
+    before post-window rejection begins?
+14. Is the citizen dividend funded by real surplus?
+15. Is productivity displacement being absorbed into verified civic work,
     training, and bridge-to-work pathways?
-15. Are capex, debt service, retained earnings, and dividends consistent with the
+16. Are capex, debt service, retained earnings, and dividends consistent with the
     ten-year cashflow model?
-16. Are long-horizon environmental, social, cultural, and infrastructure
+17. Are long-horizon environmental, social, cultural, and infrastructure
     benefits source-tagged separately from booked cash?
 
 ### Failure Modes The Model Must Surface
@@ -5402,6 +5832,7 @@ The unified dashboard should answer sixteen questions:
 | Defense manufacturing becomes opaque patronage | Weak statutory authority, hidden procurement, poor end-use controls, or classified spending outside audit boundaries. |
 | Food/water substitution fails | Desalination, irrigation, cold-chain, or food projects lack unit-cost discipline, maintenance plans, or farmer/SME adoption. |
 | Revenue circle does not close | Revenue is mostly one-off construction spend, unpaid public invoices, unverified savings, or circular subsidy rather than settled customer cash. |
+| Cash window launders unexplained wealth | Weak KYC, high cap-excess rates, missing source-of-funds evidence, PEP/sanctions hits without referral, no quarantine, or post-window cash accepted. |
 | Industrial champions become protected monopolies | Tier privileges persist despite weak exports, high prices, related-party abuse, debt stress, or SME crowd-out. |
 | Civic work becomes fake jobs | Payments rise while verified outputs, training, audits, and bridge-to-work outcomes remain weak. |
 | Dividends become oil handouts | Dividend pool tracks oil receipts instead of audited surplus. |
@@ -5422,6 +5853,8 @@ The model gives each existing Cylinder Seal component a place:
 - **Merchant tiers and spend constraints** steer demand toward domestic supply.
 - **INDHC** turns oil and debt into productive assets.
 - **The ten-year plan** defines where capital goes.
+- **Cash formalization** moves legacy physical cash into supervised,
+  identity-verified, capped, AML-screened, auditable transition balances.
 - **Industrial champion gates** prevent the INDHC model from becoming a
   protected monopoly system.
 - **Strategic resilience manufacturing** covers defense-controlled supply,
@@ -5444,29 +5877,36 @@ The model gives each existing Cylinder Seal component a place:
 3. Add `InvestmentPlan`, `CapitalStack`, `ProjectMilestone`,
    `GrossProfitLevy`, `RetainedEarningsAllocation`, and
    `DividendDistribution` models.
-4. Add `EconomicCycleProjection` and `CitizenIncomeProjection` dashboard views.
-5. Add `GrowthImpactProjection` and `SectorGrowthContribution` using
+4. Add `CashFormalizationAssessment` for the one-year cash window, caps, EDD,
+   tax settlement, quarantine, referrals, receipts, audit, appeals, and
+   post-window rejection.
+5. Add `EconomicCycleProjection` and `CitizenIncomeProjection` dashboard views.
+6. Add `GrowthImpactProjection` and `SectorGrowthContribution` using
    [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md).
-6. Add `ComprehensiveBenefitProjection` using
+7. Add `ComprehensiveBenefitProjection` using
    [Iraq Comprehensive Benefits Model](iraq-comprehensive-benefits-model.md).
-7. Add `ProductionCapacityProjection` for import substitution and local content.
-8. Add `FacilityRecyclingProjection` for underutilized facility screening,
+8. Add `ProductionCapacityProjection` for import substitution and local content.
+9. Add `FacilityRecyclingProjection` for underutilized facility screening,
    brownfield-versus-greenfield economics, international credit readiness,
    domestic bond/sukuk/equity readiness, and investor-protection gates.
-9. Add `StrategicResilienceProjection` for defense-controlled supply,
+10. Add `StrategicResilienceProjection` for defense-controlled supply,
    electronics, HVAC, water/desalination, irrigation, and food substitution.
-10. Add `TourismServiceClusterProjection` for attraction-based services, formal
+11. Add `TourismServiceClusterProjection` for attraction-based services, formal
    payment capture, visitor capacity, conservation, local procurement, and
    second-order benefit separation.
-11. Add `DiasporaChannelProjection` for remittance formalization, Iraqi-product
+12. Add `DiasporaChannelProjection` for remittance formalization, Iraqi-product
    demand, export distribution, expertise, investment pipeline, marketing, and
    compliance gates.
-12. Add `MinistryPerformanceProjection` for service contracts and budget feedback.
-13. Add `CivicWorkProjection` for verified tasks, payments, training, impact,
-   audits, and bridge-to-work outcomes.
-14. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
-15. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
-16. Gate all public claims behind source labels, model assumptions, and confidence
+13. Add `MinistryTransitionAssessment` for legal authority, service continuity,
+   staff protection, payroll, audit, appeals, local compacts, operator readiness,
+   capture risk, budget movement, and sunset eligibility.
+14. Add `MinistryPerformanceProjection` for service contracts and budget feedback.
+15. Add `CivicWorkAssessment` for verified tasks, wage release, payment holds,
+   dignity safeguards, anti-ghost-worker controls, safety, privacy, training,
+   impact, audits, and bridge-to-work outcomes.
+16. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
+17. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
+18. Gate all public claims behind source labels, model assumptions, and confidence
    levels from `docs/economic-assumptions.md`.
 
 Initial implementation status:
@@ -5479,54 +5919,75 @@ Initial implementation status:
   gates for ownership separation, board independence, audit transparency,
   citizen share protection, competitive neutrality, related-party exposure,
   procurement integrity, political instruction controls, and citizen appeals.
-- Step 4 has begun in `crates/cs-analytics/src/economic_cycle.rs` and
+- Step 4 has begun in `crates/cs-analytics/src/cash_formalization.rs` and
+  `migrations/20260721000001_cash_formalization.sql`. It controls one-year
+  cash-window timing, supervised intake, KYC, caps, source-of-funds scoring,
+  EDD, quarantine, tax settlement, signed receipts, audit hashes, appeals,
+  dashboards, and post-window rejection.
+- Step 5 has begun in `crates/cs-analytics/src/economic_cycle.rs` and
   `migrations/20260704000001_economic_cycle_projection.sql`. It tracks the
   economic loop from oil-equity allocation and external capital to booked
   portfolio revenue, treasury revenue, citizen income, domestic recirculation,
   import leakage, non-oil FX capture, dividend cover, and household income.
-- Step 5 has begun in `crates/cs-analytics/src/growth_impact.rs` and
+- Step 6 has begun in `crates/cs-analytics/src/growth_impact.rs` and
   `migrations/20260705000001_growth_impact_projection.sql`. It mirrors the
   integrated growth timeline as auditable scenario projections, sector
   contribution rows, and claim-audit labels so high-growth statements remain
   source-tagged and caveated.
-- Step 6 has begun in `crates/cs-analytics/src/comprehensive_benefits.rs` and
+- Step 7 has begun in `crates/cs-analytics/src/comprehensive_benefits.rs` and
   `migrations/20260706000001_comprehensive_benefits_projection.sql`. It turns
   the 2036/2040/2050 comprehensive model into benefit-ledger entries and
   claim-audit records, separating booked cash from real output, infrastructure,
   environmental resilience, social capability, cultural tourism, and citizen
   distribution metrics.
-- Step 7 has begun in `crates/cs-analytics/src/production_capacity.rs` and
+- Step 8 has begun in `crates/cs-analytics/src/production_capacity.rs` and
   `migrations/20260707000001_production_capacity_projection.sql`. It tracks
   effective output, utilization, local content, quality certification,
   delivered-cost discipline, booked domestic sales, verified import
   substitution, local-content-adjusted FX savings, public procurement
   dependence, and production-capacity gates.
-- Step 8 has begun in `crates/cs-analytics/src/facility_recycling.rs` and
+- Step 9 has begun in `crates/cs-analytics/src/facility_recycling.rs` and
   `migrations/20260711000001_facility_recycling_projection.sql`. It screens
   underutilized facilities by utilization gain, rehabilitation capex,
   greenfield replacement cost, environmental liabilities, DSCR, FX cover,
   revenue-contract cover, maintenance reserves, government-guarantee exposure,
   international credit readiness, domestic capital-market readiness, and
   recommended finance lane.
-- Step 9 has begun in `crates/cs-analytics/src/strategic_resilience.rs` and
+- Step 10 has begun in `crates/cs-analytics/src/strategic_resilience.rs` and
   `migrations/20260708000001_strategic_resilience_projection.sql`. It tracks
   critical domestic capability for regulated defense sustainment, electronics,
   HVAC, water/desalination equipment, irrigation equipment, food staples, rail
   components, grid equipment, and medical supplies while enforcing license,
   end-use, export-control, audit-boundary, supplier-diversification, and
   responsible-supply-chain gates.
-- Step 10 has begun in `crates/cs-analytics/src/tourism_services.rs` and
+- Step 11 has begun in `crates/cs-analytics/src/tourism_services.rs` and
   `migrations/20260709000001_tourism_services_projection.sql`. It quantifies
   services built around pilgrimage, heritage, marshlands, mountains, rivers,
   urban culture, medical, education, and business travel assets while enforcing
   safety, conservation, capacity, formal-payment, local-procurement, guide,
   lodging/transport, and maintenance-reserve gates.
-- Step 11 has begun in `crates/cs-analytics/src/diaspora_channels.rs` and
+- Step 12 has begun in `crates/cs-analytics/src/diaspora_channels.rs` and
   `migrations/20260710000001_diaspora_channels_projection.sql`. It separates
   diaspora booked income, formalized remittances, export distribution revenue,
   expertise value, investment pipeline, and marketing attribution while
   enforcing KYC/AML, sanctions, quality, consumer-protection, privacy,
   distribution, conversion, and investment-suitability gates.
+- Step 13 has begun in `crates/cs-analytics/src/ministry_transition.rs` and
+  `migrations/20260723000001_ministry_transition.sql`. It screens ministry
+  function transfers by legal authority, competent approval, service continuity,
+  replacement mandate, regulator/operator separation, staff transition, payroll
+  reconciliation, financial disclosure, procurement transparency, beneficial
+  ownership, independent audit, citizen appeals, local compacts, operator
+  readiness, service metrics, capture risk, layoff risk, citizen-service risk,
+  transferable budget, staff transition count, decision state, and required
+  actions.
+- Step 15 has begun in `crates/cs-analytics/src/civic_work.rs` and
+  `migrations/20260722000001_civic_work.sql`. It controls civic-work authority,
+  explicit budgets, dividend-pool separation, voluntary participation, labor,
+  child and vulnerable-group safeguards, accessibility, task public value,
+  evidence, verifier independence, identity, duplicate claims, ghost-worker and
+  nepotism risk, safety, privacy, wage rules, skilled-labor crowding, payment
+  exceptions, training, bridge-to-work outcomes, appeals, dashboards, and audit.
 
 ### Bottom Line
 
@@ -5545,7 +6006,7 @@ The point is not only to digitize money. The point is to make Iraq's economic
 feedback loops visible, governable, productive, and citizen-owned.
 
 
-# Part 22: National Dividend Holding Company
+# Part 24: National Dividend Holding Company
 
 ## National Dividend Holding Company Architecture
 
@@ -5617,6 +6078,11 @@ For the industrial operating model, use
 rather than the shorthand "chaebol." The intended lesson is coordinated scale,
 export discipline, and technology absorption, not family-controlled monopolies
 or permanent protection.
+
+For citizen entitlement, privacy, suspension, and appeal controls, use
+[Citizen Entitlement, Privacy, And Appeals](citizen-entitlement-privacy-and-appeals.md).
+For the physical-cash transition, use
+[Cash Formalization And Demonetization Window](cash-formalization-and-demonetization-window.md).
 
 #### Ownership
 
@@ -5710,6 +6176,8 @@ productive investment, ministry funding, and citizen capital income.
 | Monthly dividend | Equal Digital IQD dividend distribution to citizen wallets. |
 | Anti-corruption controls | Immutable audit target, public aggregate dashboards, role-gated interventions, and suspicious deposit reports. |
 | Post-automation income | A recurring citizen capital dividend independent of formal wage employment. |
+| Citizen rights firewall | Dividend batches pause when legal authority, identity integrity, privacy, appeals, suspension due process, accessibility, dashboard, or independent audit gates fail. |
+| Cash-window firewall | Cash conversion pauses or rejects when authority, timing, supervision, identity, cap, source-of-funds, EDD, tax, receipt, audit, quarantine, appeal, dashboard, or post-window rules fail. |
 
 ### Flow Combination Matrix
 
@@ -5828,8 +6296,9 @@ Rules:
 
 1. Add a `ShareEntitlement` registry model and migration.
 2. Add a `DividendDistribution` batch model and route-level tests.
-3. Add a `CashConversionReceipt` model with risk states: `accepted`, `held`,
-   `rejected`, `referred`.
+3. Add a `CashConversionReceipt` model with risk states: `accepted`,
+   `accepted_partial`, `hold_for_edd`, `rejected`, `referred`, and
+   `window_expired`.
 4. Add an Oil Income Lockbox projection and dashboard.
 5. Add a public aggregate dividend dashboard.
 6. Add governance and legal review notes before any implementation is described
@@ -5840,7 +6309,7 @@ for the proposed investment program, capital stack, staffing model, sector
 priorities, reinvestment waterfall, and implementation primitives.
 
 
-# Part 23: INDHC Ten-Year Plan
+# Part 25: INDHC Ten-Year Plan
 
 ## INDHC Ten-Year Industrial And Infrastructure Plan
 
@@ -6713,7 +7182,7 @@ productive-capital machine:
 - remaining distributable surplus is paid as a Digital IQD citizen dividend.
 
 
-# Part 24: Import, Services, And Diaspora Expansion
+# Part 26: Import, Services, And Diaspora Expansion
 
 ## Import, Services, And Diaspora Expansion
 
@@ -6889,7 +7358,7 @@ dashboard a way to distinguish cash income, remittance formalization, export
 distribution, expertise value, marketing value, and investment pipeline risk.
 
 
-# Part 25: Facility Recycling And Capital Markets
+# Part 27: Facility Recycling And Capital Markets
 
 ## Facility Recycling And Capital Markets
 
@@ -7112,7 +7581,7 @@ ranked, financeable where justified, and impossible to dress up as value when it
 is actually a liability.
 
 
-# Part 26: Digitally Governed Industrial Champions
+# Part 28: Digitally Governed Industrial Champions
 
 ## Digitally Governed Industrial Champions
 
@@ -7611,7 +8080,7 @@ No competition review, no champion status renewal.
 ```
 
 
-# Part 27: National Civic Work System
+# Part 29: National Civic Work System
 
 ## National Civic Work System
 
@@ -7622,8 +8091,9 @@ digitally verified, locally administered, dignity-preserving labor platform that
 pays citizens for measurable social, environmental, cultural, sport, care,
 education, municipal, food-security, and disaster-resilience work.
 
-Status: policy-design scenario. It is not a welfare law, labor-market forecast,
-budget appropriation, or implemented software module.
+Status: policy-design scenario with an executable analytics primitive. It is
+not a welfare law, labor-market forecast, budget appropriation, production task
+platform, or payment system.
 
 The objective is not to hide unemployment. The objective is to convert spare
 labor capacity into public value.
@@ -7700,6 +8170,11 @@ Purpose:
 The module connects to Digital IQD wallets but should not expose full payment
 history to local supervisors. Task verification, wage payment, identity, and
 reputation need separate permissions.
+
+The current repository implements the first planning primitive in
+`crates/cs-analytics/src/civic_work.rs`, with persistence in
+`migrations/20260722000001_civic_work.sql`. The deployable `cs-civic-work`
+task platform, routes, wallets, and payment release service remain future work.
 
 ### Civic Work Flow
 
@@ -7871,7 +8346,7 @@ Required controls:
 
 ### Data Model
 
-Suggested primitives:
+Suggested product primitives:
 
 | Model | Purpose |
 | --- | --- |
@@ -7888,6 +8363,14 @@ Suggested primitives:
 | `CivicImpactMetric` | Public output measure linked to verified work. |
 | `CivicAppeal` | Worker, verifier, or institution appeal. |
 | `VerifierRegistry` | Approved supervisors, NGOs, schools, clubs, universities, agencies, and auditors. |
+
+Current analytics primitive:
+
+| Object | Purpose |
+| --- | --- |
+| `CivicWorkInput` | Captures program, governorate, category, task risk, authority, budget source, dividend separation, voluntariness, labor/child/vulnerable safeguards, accessibility, task quality, public value, evidence, verifier independence, identity, hours, duplicate/ghost/nepotism risk, safety, privacy, wage rules, crowding risk, payment exceptions, training, bridge-to-work, appeals, dashboard, and audit status. |
+| `CivicWorkAssessment` | Scores verification, integrity, dignity, public value, transition pathway, safety/privacy, verified-hour ratio, payable hours, held hours, decision, and required actions. |
+| `CivicWorkGateResult` | Records pass/warn/fail state for authority, budget, dividend separation, voluntariness, labor, safety, accessibility, evidence, verifier, identity, fraud, nepotism, privacy, wage, crowding, payment, training, bridge-to-work, appeal, dashboard, and audit gates. |
 
 Suggested events:
 
@@ -7969,14 +8452,16 @@ Suggested events:
 
 1. Keep the civic-work architecture in policy-design status until legal,
    privacy, labor, and fiscal review are complete.
-2. Add `CivicTask`, `VerifierRegistry`, `CivicEvidenceBundle`,
+2. Use `CivicWorkAssessment` to hold payments or limit pilots when authority,
+   budget, evidence, safety, privacy, fraud, or bridge-to-work gates fail.
+3. Add `CivicTask`, `VerifierRegistry`, `CivicEvidenceBundle`,
    `CivicWorkClaim`, and `CivicWagePayment` design models.
-3. Add route-level prototype tests for task posting, evidence submission,
+4. Add route-level prototype tests for task posting, evidence submission,
    verification, payment release, and appeal.
-4. Add dashboard projections: active workers, verified hours, public outputs,
+5. Add dashboard projections: active workers, verified hours, public outputs,
    audit flags, payments, and bridge-to-work outcomes.
-5. Integrate with credit scoring only after privacy review.
-6. Add legal review for labor law, child protection, care work, biometric use,
+6. Integrate with credit scoring only after privacy review.
+7. Add legal review for labor law, child protection, care work, biometric use,
    data protection, municipal authority, and anti-corruption enforcement.
 
 ### Bottom Line
@@ -7995,7 +8480,7 @@ productivity gains
 ```
 
 
-# Part 28: Ministry Transition Roadmap
+# Part 30: Ministry Transition Roadmap
 
 ## Ministry Transition And Deprecation Roadmap
 
@@ -8004,10 +8489,10 @@ eventually deprecate ministry structures that become duplicative, low-feedback,
 or primarily commercial once Digital IQD, INDHC subsidiaries, regulators,
 municipal service contracts, and public dashboards are operating.
 
-Status: governance-transition scenario. It is not a legal recommendation, not a
-constitutional plan, and not a claim that any current ministry can be abolished
-without parliamentary action, staff transition, service-continuity guarantees,
-and public audit.
+Status: governance-transition scenario with an executable analytics primitive.
+It is not a legal recommendation, not a constitutional plan, and not a claim
+that any current ministry can be abolished without parliamentary action, staff
+transition, service-continuity guarantees, and public audit.
 
 ### Source Discipline
 
@@ -8022,6 +8507,10 @@ feasibility of any transition.
 
 Use this roadmap with the
 [Political-Economy Transition And Anti-Capture Model](political-economy-transition-and-anti-capture.md).
+The first per-function control primitive now lives in
+`crates/cs-analytics/src/ministry_transition.rs`, with persistence in
+`migrations/20260723000001_ministry_transition.sql`. It screens the roadmap; it
+does not execute a legal transition.
 No ministry function should move beyond visibility or pilot mode when legal
 authority, service continuity, staff transition, procurement transparency,
 federal/governorate authority, citizen appeals, or anti-capture controls are not
@@ -8065,6 +8554,8 @@ No ministry can be deprecated until all gates pass:
    politically directed layoffs.
 9. The political-economy readiness engine permits pilot, controlled transition,
    or scale mode for the specific function and governorates affected.
+10. `MinistryTransitionAssessment` does not return blocked, visibility-only, or
+    retained-sovereign status for the proposed transfer.
 
 ### Permanent Sovereign Core
 
@@ -8171,12 +8662,35 @@ from low-feedback bureaucracy into productive, regulated, or local service work.
 | Inspectors | Independent regulators, standards labs, environmental/water/food safety authorities. |
 | Administrative staff | Retraining into digital service centers, audit support, records management, citizen appeal desks. |
 
+### Current Analytics Primitive
+
+The roadmap is now represented by a scenario-control primitive:
+
+| Object | Purpose |
+| --- | --- |
+| `MinistryTransitionInput` | Records function type, replacement home, target year, budget, staff count, essential-service status, oil-funding dependency, duplicate administration, commercial potential, legal approval, service continuity, replacement mandate, staff map, payroll reconciliation, procurement transparency, beneficial ownership, audit, appeals, local compact, service metrics, asset registry, operator readiness, digital-payment coverage, service milestones, capture risk, layoff risk, and citizen-service risk. |
+| `MinistryTransitionAssessment` | Scores governance, continuity, staff protection, financial control, anti-capture, deprecation readiness, transferable budget, staff ready for transition, decision, and required actions. |
+| `MinistryTransitionGateResult` | Stores pass/warn/fail gates for legal authority, sovereign-core retention, service continuity, replacement mandate, regulator/operator separation, staff transition, payroll, financial disclosure, procurement transparency, beneficial ownership, independent audit, citizen appeals, local compact, operator readiness, service metrics, and capture risk. |
+
+Decision states:
+
+| Decision | Meaning |
+| --- | --- |
+| Retain sovereign | The function is a sovereign core and should be modernized, not deprecated. |
+| Blocked | Legal authority, approval, capture risk, or citizen-service risk blocks transition. |
+| Visibility only | Publish data and prepare gates, but move no budget or staff. |
+| Pilot only | Limited pilots may proceed under tight gate review. |
+| Controlled transfer | Budget and staff can move gradually under quarterly review. |
+| Sunset eligible | A final sunset audit can be prepared before formal deprecation. |
+
 ### Cylinder Seal Implementation Surface
 
 | Model | Purpose |
 | --- | --- |
-| `MinistryFunctionRegistry` | Lists each ministry function, legal basis, budget, staff, service metrics, and replacement home. |
-| `DeprecationGate` | Tracks legal approval, service continuity, audit, staff transition, and citizen appeal readiness. |
+| `MinistryTransitionAssessment` | Current analytics primitive for transition readiness, budget movement, staff protection, anti-capture, and required actions. |
+| `MinistryTransitionGateResult` | Current gate result for legal, continuity, staff, payroll, audit, appeal, local compact, and capture controls. |
+| `MinistryFunctionRegistry` | Future registry listing each ministry function, legal basis, budget, staff, service metrics, and replacement home. |
+| `DeprecationGate` | Future operational workflow for legal approval, service continuity, audit, staff transition, and citizen appeal readiness. |
 | `ServiceContractBudget` | Moves budget from ministry payroll/procurement into priced outputs and milestones. |
 | `RegulatorMandate` | Defines what remains as sovereign regulation or standards authority. |
 | `StaffTransitionLedger` | Tracks staff transfer, retraining, compensation, and receiving institution. |
@@ -8202,7 +8716,7 @@ The end-state is a smaller cabinet with stronger sovereign functions:
 - productive national capital through INDHC.
 
 
-# Part 29: Security Model
+# Part 31: Security Model
 
 ## Security Model And Threat Notes
 
@@ -8405,7 +8919,7 @@ replace it with a dedicated security contact, patch SLA, coordinated-disclosure
 timeline, and legal safe-harbor language.
 
 
-# Part 30: Current Implementation Status
+# Part 32: Current Implementation Status
 
 ## Implementation Status
 
@@ -8426,11 +8940,13 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - Specification tests for many protocol and policy behaviors.
 - Unified economic model documented as an integrated planning layer across Digital IQD, INDHC, ministries, credit, domestic production, strategic resilience manufacturing, tourism/exports, green/rail infrastructure, reinvestment, and dividends.
 - National Dividend Holding Company policy architecture documented as a proposal, including oil-income lockbox, citizen share entitlements, cash formalization controls, ten-year investment plan, ministry funding, and monthly dividend flows.
-- Ministry transition roadmap documented as a governance scenario for moving selected ministry functions into regulators, service contracts, municipalities, INDHC subsidiaries, or sunset agencies.
-- National Civic Work System documented as a policy scenario for verified civic wages, civic credits, training records, public-value tasks, and productivity-transition support.
+- Ministry transition roadmap documented as a governance scenario and represented by a scenario-control engine for moving selected ministry functions into regulators, service contracts, municipalities, INDHC subsidiaries, autonomous institutions, digital transfer platforms, or sunset agencies.
+- National Civic Work System documented as a policy scenario and represented by a scenario engine for verified civic wages, civic credits, training records, public-value tasks, anti-ghost-worker controls, dignity safeguards, and productivity-transition support.
 - National Legal and Institutional Roadmap documented as an authority checklist for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, securities, privacy, federalism, emergency powers, and appeals.
 - Project Pipeline and Investment Gates documented as a project-family structure for capex, revenue sources, DSCR, FX exposure, facility reuse, environmental gates, legal authority, and evidence bundles.
 - Political-Economy Transition and Anti-Capture model documented as a reform-readiness layer for capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, federalism, emergency powers, and citizen appeals.
+- Citizen Entitlement, Privacy, and Appeals documented as a citizen-facing scale-control layer for legal authority, identity integrity, non-saleability, pledge/collateral protection, inheritance, minors, deceased reconciliation, diaspora/displaced claims, privacy separation, data minimization, payment exceptions, appeals, sanctions due process, accessibility, public dashboard, and independent audit.
+- Cash Formalization and Demonetization Window documented as a cash-transition control layer for legal authority, window timing, supervised conversion points, KYC, cash authentication, per-citizen caps, source-of-funds scoring, EDD, PEP/sanctions/adverse-media/structuring/suspicious flags, tax settlement, quarantine, signed receipts, audit hashes, appeals, public dashboards, and post-window rejection.
 - Federalism, Governorate Equity, and Local Compacts documented as a scale-control layer for authority mapping, compact status, allocation fairness, local revenue, local employment, supplier participation, benefit capture, grievances, local audit, citizen appeals, and land/water/heritage disputes.
 - Environmental, Social, Water, and Cultural Safeguards documented as a project-control layer for environmental assessment, water budgets, pollution controls, climate resilience, biodiversity/marshlands, heritage, resettlement, livelihood restoration, consultation, grievance, safety, maintenance, remediation, monitoring, audit, waste/circularity, and disability access.
 - Macro, Monetary, Inflation, and FX Stability documented as a scale-control layer for inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization capacity, credit growth, domestic absorption, import leakage, non-oil FX cover, distribution phasing, policy coordination, CBI independence, and FX transparency.
@@ -8438,7 +8954,7 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - National Program Sequencing and Dependency Control documented as a phase-control layer for not-ready, evidence-only, pilot, build, controlled-scale, and hold/rollback decisions.
 - Benefit Realization and Claim Audit documented as an accountability layer for baseline, target, observed value, source confidence, attribution confidence, evidence quality, audit status, cash settlement, no-dividend flags, and corrective actions.
 - Procurement Integrity and Market Discipline documented as an award/privilege-control layer for beneficial ownership, competition, single-source justification, open data, independent evaluation, price benchmarks, contract changes, advances, milestone evidence, delivery, payment discipline, quality, and SME participation.
-- Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, federalism/governorate equity, environmental/social safeguards, macro stability, fiscal stress, program sequencing, benefit realization, and procurement integrity. These are planning primitives, not calibrated national forecasts.
+- Scenario analytics now cover the economic operating kernel, sovereign holding plan, economic cycle, growth impact, comprehensive benefits, production capacity, strategic resilience, tourism services, diaspora channels, facility recycling, political-economy transition readiness, citizen rights, cash formalization, civic work, ministry transition, federalism/governorate equity, environmental/social safeguards, macro stability, fiscal stress, program sequencing, benefit realization, and procurement integrity. These are planning primitives, not calibrated national forecasts.
 - Rendered SVG value-chain charts now cover sector business chains, capital and repayment lanes, and society/economy feedback loops.
 
 ### Important Gaps
@@ -8449,14 +8965,16 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - Browser security hardening has a basic cookie/CSRF foundation but still needs full browser automation and deployment review.
 - Admin audit logging is not yet a complete immutable retention system or regulator evidence-pack workflow.
 - The unified economic model has scenario engines and persistence tables for several layers, but it is still not calibrated, independently validated, or suitable for real budget, debt, investment, or dividend decisions.
-- The ministry transition roadmap is not implemented and would require legislation, civil-service transition, federal/governorate coordination, service-continuity testing, and independent audit before any real-world use.
+- The ministry transition roadmap has a scenario-control engine, not a legal reorganization authority, civil-service transition system, governorate compact workflow, service-contract platform, or sunset-audit office. It still requires legislation, civil-service transition, federal/governorate coordination, service-continuity testing, and independent audit before any real-world use.
 - SQLite is not a supported dashboard runtime despite the presence of historical fixture scripts.
 - Offline double-spend handling is not yet backed by audited secure hardware/attestation.
 - HSM custody, national identity/KYC integration, CBI/core-banking integration, DR, and privacy review remain future work.
 - The National Dividend Holding Company proposal and ten-year investment plan are only partially represented in scenario code and need legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation before data models or routes are treated as deployable.
-- The National Civic Work System is not implemented in code and needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, and fiscal validation before any `cs-civic-work` module is treated as deployable.
+- The National Civic Work System has a scenario-control engine, not a deployable `cs-civic-work` task platform, wallet, route set, verifier workflow, or wage-payment service. It still needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, safety, fiscal, and independent audit validation before any operational module is treated as deployable.
 - The legal/institutional roadmap and project pipeline are documentation layers only; they need independent legal opinions, official authority mapping, project feasibility studies, procurement review, environmental/social safeguards, and audited baseline data before any project is treated as investable.
 - The political-economy engine is scenario scoring, not a real power map or legitimacy assessment. It needs independent Iraqi constitutional, federalism, anti-corruption, civil-service, labor, competition, citizen-rights, and security-sector review before it can guide any real transition.
+- The citizen rights engine is a scenario control, not a national identity, entitlement, privacy, or appeal system. It needs legal authority, civil registry integration, privacy-regulator review, administrative-justice review, disability/accessibility validation, sanctions/AML due-process rules, independent audit, public dashboard governance, and tested appeal operations before any citizen-share or dividend batch is treated as deployable.
+- The cash formalization engine is a scenario control, not an AML/CFT clearance, tax settlement, sanctions decision, monetary-law order, or demonetization plan. It needs CBI, Treasury, AML/CFT, tax, sanctions, courts/appeals, operator, audit, and public-dashboard validation before any physical cash is converted into Digital IQD, transition balance, or supplemental entitlement.
 - The federalism equity engine is a compact-readiness screen, not a legal allocation formula or constitutional settlement. It needs official authority maps, governorate/KRG/municipal review where applicable, real population and needs data, grievance records, land/water/heritage status, and independent legal validation before it can guide any allocation or project scale-up.
 - The environmental/social safeguard engine is a planning screen, not an environmental permit, heritage clearance, water-rights decision, resettlement plan, safety certification, or MDB safeguard approval. It needs regulator review, field studies, community consultation, monitoring systems, liability estimates, and independent audit before any project is treated as safeguard-cleared.
 - The macro stability engine is a scenario control, not a monetary-policy framework or exchange-rate forecast. It needs CBI, Ministry of Finance, banking-sector, IMF/MDB-style, and independent macroeconomic validation before it can guide Digital IQD issuance, dividends, liquidity, bank credit, FX intervention, or reserve policy.
@@ -8484,7 +9002,7 @@ cargo test --workspace
 Passing these checks should be described as prototype verification, not production certification.
 
 
-# Part 31: Technical Primitives
+# Part 33: Technical Primitives
 
 ## Technical Primitives And Readiness Notes
 

@@ -1,7 +1,8 @@
 //! Database repositories for analytics — scoped to the four analytics tables that
 //! exist in migration `20260419000001_analytics.sql`. Cross-table aggregation
 //! (against `business_profiles`, `merchant_tier_decisions`, `ledger_entries`,
-//! etc.) is not yet implemented because those schemas have not landed.
+//! etc.) is an ETL boundary until those source schemas land in the analytics
+//! migration set.
 
 use async_trait::async_trait;
 use chrono::{DateTime, NaiveDate, Utc};

@@ -1,11 +1,9 @@
 //! Cash-flow credit-scoring features.
 //!
 //! The original five-factor scorer (`scorer.rs`) uses aggregates — count,
-//! age, average amount, conflict ratio, current balance. Research on
-//! thin-file credit (FICO/Plaid UltraFICO 2026, Experian Credit+Cashflow
-//! 2025, AFI 2025 report on alt-credit for informal workers) consistently
-//! finds three *cash-flow* features more predictive for borrowers without
-//! long credit histories:
+//! age, average amount, conflict ratio, current balance. Alternative-data
+//! underwriting literature commonly treats three *cash-flow* features as
+//! useful signals for borrowers without long credit histories:
 //!
 //!   1. **Income periodicity** — how regular the inflow cadence is. A
 //!      salaried worker receives a large inflow at the same day-of-month
@@ -21,7 +19,7 @@
 //! values in `[0.0, 1.0]` ready to mix into the weighted composite score
 //! without further normalization. The output is also returned as a
 //! `CashFlowFeatures` struct so the explanation of a score can surface the
-//! per-feature contribution (WEF Oct-2025 explainability guidance).
+//! per-feature contribution.
 //!
 //! Deliberately free of any async / repository coupling so they're
 //! straightforward to unit-test and to run against historical data for

@@ -13,11 +13,11 @@ use crate::{IncomingPayload, Transport};
 use anyhow::{Context, Result};
 use bluer::adv::Advertisement;
 use bluer::gatt::local::{
-    characteristic_control, service_control, Application, Characteristic,
-    CharacteristicControlEvent, CharacteristicWrite, CharacteristicWriteMethod, Service,
+    characteristic_control, service_control, Application, Characteristic, CharacteristicWrite,
+    CharacteristicWriteMethod, Service,
 };
 use bluer::Uuid;
-use futures::{FutureExt, StreamExt};
+use futures::FutureExt;
 use std::collections::BTreeMap;
 use std::sync::Arc;
 use tokio::sync::mpsc;
@@ -47,7 +47,7 @@ pub async fn serve(sender: mpsc::Sender<IncomingPayload>) -> Result<()> {
                 uuid: PAYLOAD_CHAR_UUID,
                 write: Some(CharacteristicWrite {
                     write_without_response: true,
-                    method: CharacteristicWriteMethod::Fun(Box::new(move |new_value, req| {
+                    method: CharacteristicWriteMethod::Fun(Box::new(move |new_value, _req| {
                         let buffer = buffer.clone();
                         let sender = sender.clone();
                         async move {

@@ -357,7 +357,6 @@ async fn build_tier_log_entry(
 // ---------------------------------------------------------------------------
 
 mod proto_dto {
-    use super::*;
     use crate::proto::chain_sync as pb;
 
     #[derive(serde::Serialize)]

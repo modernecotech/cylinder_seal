@@ -7,8 +7,9 @@ digitally verified, locally administered, dignity-preserving labor platform that
 pays citizens for measurable social, environmental, cultural, sport, care,
 education, municipal, food-security, and disaster-resilience work.
 
-Status: policy-design scenario. It is not a welfare law, labor-market forecast,
-budget appropriation, or implemented software module.
+Status: policy-design scenario with an executable analytics primitive. It is
+not a welfare law, labor-market forecast, budget appropriation, production task
+platform, or payment system.
 
 The objective is not to hide unemployment. The objective is to convert spare
 labor capacity into public value.
@@ -85,6 +86,11 @@ Purpose:
 The module connects to Digital IQD wallets but should not expose full payment
 history to local supervisors. Task verification, wage payment, identity, and
 reputation need separate permissions.
+
+The current repository implements the first planning primitive in
+`crates/cs-analytics/src/civic_work.rs`, with persistence in
+`migrations/20260722000001_civic_work.sql`. The deployable `cs-civic-work`
+task platform, routes, wallets, and payment release service remain future work.
 
 ## Civic Work Flow
 
@@ -256,7 +262,7 @@ Required controls:
 
 ## Data Model
 
-Suggested primitives:
+Suggested product primitives:
 
 | Model | Purpose |
 | --- | --- |
@@ -273,6 +279,14 @@ Suggested primitives:
 | `CivicImpactMetric` | Public output measure linked to verified work. |
 | `CivicAppeal` | Worker, verifier, or institution appeal. |
 | `VerifierRegistry` | Approved supervisors, NGOs, schools, clubs, universities, agencies, and auditors. |
+
+Current analytics primitive:
+
+| Object | Purpose |
+| --- | --- |
+| `CivicWorkInput` | Captures program, governorate, category, task risk, authority, budget source, dividend separation, voluntariness, labor/child/vulnerable safeguards, accessibility, task quality, public value, evidence, verifier independence, identity, hours, duplicate/ghost/nepotism risk, safety, privacy, wage rules, crowding risk, payment exceptions, training, bridge-to-work, appeals, dashboard, and audit status. |
+| `CivicWorkAssessment` | Scores verification, integrity, dignity, public value, transition pathway, safety/privacy, verified-hour ratio, payable hours, held hours, decision, and required actions. |
+| `CivicWorkGateResult` | Records pass/warn/fail state for authority, budget, dividend separation, voluntariness, labor, safety, accessibility, evidence, verifier, identity, fraud, nepotism, privacy, wage, crowding, payment, training, bridge-to-work, appeal, dashboard, and audit gates. |
 
 Suggested events:
 
@@ -354,14 +368,16 @@ Suggested events:
 
 1. Keep the civic-work architecture in policy-design status until legal,
    privacy, labor, and fiscal review are complete.
-2. Add `CivicTask`, `VerifierRegistry`, `CivicEvidenceBundle`,
+2. Use `CivicWorkAssessment` to hold payments or limit pilots when authority,
+   budget, evidence, safety, privacy, fraud, or bridge-to-work gates fail.
+3. Add `CivicTask`, `VerifierRegistry`, `CivicEvidenceBundle`,
    `CivicWorkClaim`, and `CivicWagePayment` design models.
-3. Add route-level prototype tests for task posting, evidence submission,
+4. Add route-level prototype tests for task posting, evidence submission,
    verification, payment release, and appeal.
-4. Add dashboard projections: active workers, verified hours, public outputs,
+5. Add dashboard projections: active workers, verified hours, public outputs,
    audit flags, payments, and bridge-to-work outcomes.
-5. Integrate with credit scoring only after privacy review.
-6. Add legal review for labor law, child protection, care work, biometric use,
+6. Integrate with credit scoring only after privacy review.
+7. Add legal review for labor law, child protection, care work, biometric use,
    data protection, municipal authority, and anti-corruption enforcement.
 
 ## Bottom Line

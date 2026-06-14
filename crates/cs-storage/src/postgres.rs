@@ -23,7 +23,8 @@ impl PostgresConfig {
                 .unwrap_or(5432),
             database: std::env::var("DB_NAME").unwrap_or_else(|_| "cylinder_seal".to_string()),
             username: std::env::var("DB_USER").unwrap_or_else(|_| "postgres".to_string()),
-            password: std::env::var("DB_PASSWORD").unwrap_or_else(|_| "password".to_string()),
+            password: std::env::var("DB_PASSWORD")
+                .unwrap_or_else(|_| "change-me-dev-only".to_string()),
             max_connections: std::env::var("DB_MAX_CONNECTIONS")
                 .ok()
                 .and_then(|c| c.parse().ok())

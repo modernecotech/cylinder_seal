@@ -47,8 +47,10 @@ Economic design
 | Oil Income Lockbox | Who may receive, classify, hold, allocate, and report oil receipts before Treasury appropriation? | Framework law, budget law amendments, revenue-management law, federal/governorate compact. | Constitutional and public-finance review complete. |
 | INDHC charter | Is INDHC a public corporation, sovereign holding company, statutory fund, trust-like vehicle, or state-owned enterprise group? | INDHC enabling law and charter. | Ownership, board powers, audit rights, dividend rules, debt limits, and anti-capture controls enacted. |
 | Citizen beneficial shares | What legal right does each citizen hold, and how are inheritance, minors, death, displacement, fraud, and appeals handled? | Citizen entitlement law and registry rules. | Non-saleability, equal treatment, inheritance, appeals, and data correction rules are live. |
+| Cash formalization window | Who may accept physical cash, for how long, under which caps, AML/CFT checks, tax settlement, holds, referrals, appeals, and post-window rejection rules? | Monetary law, AML/CFT rulebook, tax settlement rule, CBI/Treasury instructions, court/appeal procedure. | One-year window authority, supervised conversion points, KYC, caps, EDD, quarantine, signed receipts, audit hashes, appeal path, dashboard, and post-window rejection rule are live. |
 | Digital IQD | Does the model require a CBDC, tokenized claim, payment instrument, regulated wallet, or only payment evidence rails? | CBI regulation, payment-system rulebook, statutory amendment if required. | CBI and legal review define monetary status, settlement finality, wallet limits, and operator duties. |
 | Ministry funding transition | Which functions can move to service contracts, regulators, municipalities, operators, or sunset agencies? | Budget law, civil-service law, procurement rules, service-contract rules. | Service continuity, staff transition, and citizen appeal gates pass before any function moves. |
+| Civic work | Who may post tasks, verify work, pay civic wages, protect workers, handle minors/care/sensitive tasks, audit verifiers, and hear appeals? | Civic-work charter, labor law, municipal authority, child-protection rules, privacy rulebook, safety standards, anti-corruption rules, budget appropriation. | Voluntary participation, no benefit penalty, explicit budget, dividend separation, labor/safety/privacy/child/vulnerable safeguards, verifier independence, dashboards, and appeals are live. |
 | Project borrowing | Who may borrow, in what currency, against which revenue, with which sovereign support? | Public debt rules, project-finance SPV contracts, guarantees law. | DSCR, FX, contingent-liability, and disclosure rules pass. |
 | Domestic securities | Can project sukuk, bonds, or minority equity be issued to domestic or diaspora investors? | Securities approval, prospectus, trustee, depository, listing rules. | Investor protection, AML/CFT, no-forced-purchase, and use-of-proceeds controls pass. |
 | PPP/JV concessions | Which assets may be concessioned, leased, operated, or co-owned? | PPP/concession law, procurement law, public-asset rules. | Competitive procurement, public value test, termination rights, and audit access pass. |
@@ -131,14 +133,20 @@ or hidden exchange-rate pressure.
 | 4. Project finance and securities | 2-4 | Define SPV standards, DSCR covenants, FX rules, guarantees, green sukuk/bond rules, project-company disclosure, trustee, depository, and investor-protection requirements. | Project finance and domestic capital-market readiness package. |
 | 5. Ministry service transition | 2-6 | Convert selected functions into service contracts, regulators, municipalities, autonomous operators, or sunset agencies with civil-service and continuity protections. | Ministry function registry and transition decrees. |
 | 6. Citizen rights and appeals | 2-5 | Define entitlement registry, inheritance, minors, death, displacement, diaspora eligibility, fraud review, correction, privacy, and dividend appeals. | Citizen entitlement and appeals code. |
-| 7. Environmental/cultural safeguards | 2-6 | Define marshland, water, heritage, resettlement, pollution, carrying-capacity, conservation, and community-benefit rules. | Environmental and cultural project gate rulebook. |
-| 8. Pilot authority | 3-6 | Authorize limited pilots by sector, governorate, project type, payment channel, data scope, and fiscal exposure. | Time-bounded pilot licenses and public reporting. |
-| 9. Scale authority | 6-10 | Scale only after audited cashflow, service continuity, legal compliance, citizen appeals, and independent review. | Annual operating plan and parliamentary/audit report. |
+| 7. Cash formalization authority | 2-5 | Define physical-cash intake points, KYC, source-of-funds scoring, caps, EDD, tax settlement, quarantine, referrals, receipts, appeals, dashboards, and post-window rejection. | Cash formalization and demonetization-window rulebook. |
+| 8. Environmental/cultural safeguards | 2-6 | Define marshland, water, heritage, resettlement, pollution, carrying-capacity, conservation, and community-benefit rules. | Environmental and cultural project gate rulebook. |
+| 9. Pilot authority | 3-6 | Authorize limited pilots by sector, governorate, project type, payment channel, data scope, and fiscal exposure. | Time-bounded pilot licenses and public reporting. |
+| 10. Scale authority | 6-10 | Scale only after audited cashflow, service continuity, legal compliance, citizen appeals, and independent review. | Annual operating plan and parliamentary/audit report. |
 
 ## Citizen Share And Dividend Law Questions
 
 The citizen share is the most politically sensitive part of the model. It must
 be a rule-bound public entitlement, not a tradable private asset.
+
+The working control document is
+[Citizen Entitlement, Privacy, And Appeals](citizen-entitlement-privacy-and-appeals.md).
+The executable planning primitive is `crates/cs-analytics/src/citizen_rights.rs`,
+with persistence in `migrations/20260720000001_citizen_rights.sql`.
 
 | Question | Required answer before deployment |
 | --- | --- |
@@ -176,7 +184,7 @@ Cylinder Seal can be useful only if evidence is trusted and privacy is bounded.
 | Project evidence | Procurement record, milestone proof, inspection authority, engineering signoff, and audit hash. |
 | Citizen evidence | Identity, eligibility, appeal history, wallet status, and privacy tier. |
 | Tax and levy evidence | Legal basis for collection, reconciliation, audit, and taxpayer/business rights. |
-| Civic-work evidence | Labor status, safety, child protection, disability access, municipal authority, and task verification. |
+| Civic-work evidence | Labor status, voluntary participation, safety, child protection, disability access, municipal authority, task verification, verifier independence, wage rules, privacy, and appeals. |
 | Public dashboard evidence | Aggregation, anonymization, confidence labels, source tags, and redaction rules. |
 
 ## Decision Gate
@@ -191,7 +199,10 @@ The legal roadmap should produce a single public stop/go dashboard:
 | Fiscal/debt | Oil-equity cap, guarantees, project debt, and budget treatment are disclosed and approved. |
 | Fiscal stress | Oil-equity draw, stressed DSCR, FX mismatch, maintenance gaps, guarantees, availability payments, collections, capex overruns, and dividend affordability remain inside limits. |
 | INDHC governance | Board, audit, procurement, related-party, competition, and dividend rules are enforceable. |
-| Citizen rights | Eligibility, inheritance, appeals, privacy, and fraud controls are operational. |
+| Citizen rights | Eligibility, non-saleability, pledge/collateral protection, inheritance, minors, deceased records, diaspora/displaced claims, privacy, suspension due process, accessibility, dashboards, fraud controls, and appeals are operational. |
+| Cash formalization | Window timing, supervised conversion, KYC, caps, source-of-funds scoring, EDD, quarantine, tax settlement, signed receipts, audit hashes, appeal path, public dashboard, and post-window rejection are operational. |
+| Civic work | Authority, explicit budget, dividend separation, voluntary participation, no benefit penalty, labor/child/vulnerable safeguards, safety, accessibility, evidence, verifier independence, anti-ghost-worker controls, wage rules, appeals, dashboard, and audit are operational. |
+| Ministry transition | Legal approval, service continuity, replacement mandate, staff map, payroll reconciliation, financial disclosure, regulator/operator separation, procurement transparency, beneficial ownership, independent audit, citizen appeals, local compact, service metrics, operator readiness, and capture-risk gates pass before any budget or staff transfer. |
 | Environment/culture | Water, marshland, biodiversity, heritage, pollution, resettlement, livelihood, safety, maintenance, remediation, monitoring, audit, carrying-capacity, and accessibility gates are enforceable. |
 | Local authority | Governorate, municipality, regional/KRG, producing-governorate, and disputed-authority issues are mapped; local compact, allocation, grievance, audit, appeal, land/water, environmental, and heritage gates pass for each project. |
 | Political economy | Capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, and citizen appeals support the proposed transition mode. |

@@ -4,6 +4,9 @@
 //! and credit portfolio analytics derived from the core transaction ledger and merchant tier data.
 
 pub mod benefit_realization;
+pub mod cash_formalization;
+pub mod citizen_rights;
+pub mod civic_work;
 pub mod comprehensive_benefits;
 pub mod diaspora_channels;
 pub mod economic_cycle;
@@ -16,6 +19,7 @@ pub mod fiscal_stress;
 pub mod growth_impact;
 pub mod import_substitution;
 pub mod macro_stability;
+pub mod ministry_transition;
 pub mod models;
 pub mod political_economy;
 pub mod procurement_integrity;
@@ -32,6 +36,9 @@ pub use error::{Error, Result};
 pub use models::*;
 
 pub use benefit_realization::BenefitRealizationEngine;
+pub use cash_formalization::CashFormalizationEngine;
+pub use citizen_rights::CitizenRightsEngine;
+pub use civic_work::CivicWorkEngine;
 pub use comprehensive_benefits::ComprehensiveBenefitsModel;
 pub use diaspora_channels::DiasporaChannelsEngine;
 pub use economic_cycle::EconomicCycleEngine;
@@ -43,6 +50,7 @@ pub use fiscal_stress::FiscalStressEngine;
 pub use growth_impact::GrowthImpactModel;
 pub use import_substitution::ImportSubstitutionAnalyzer;
 pub use macro_stability::MacroStabilityEngine;
+pub use ministry_transition::MinistryTransitionEngine;
 pub use political_economy::PoliticalEconomyEngine;
 pub use procurement_integrity::ProcurementIntegrityEngine;
 pub use production_capacity::ProductionCapacityEngine;

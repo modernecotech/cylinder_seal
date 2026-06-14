@@ -27,6 +27,8 @@ No scale-up under fiscal stress.
 No scale before predecessor dependencies pass.
 No award or privilege without procurement integrity.
 No delivered-outcome claim without benefit-realization audit.
+No citizen batch without entitlement, privacy, and appeal readiness.
+No cash conversion without window authority, KYC, caps, AML review, receipt, audit, and post-window rejection.
 ```
 
 The purpose is to stop oil income from flowing directly into passive ministry
@@ -142,11 +144,13 @@ forward no matter how attractive the narrative is.
 | Benefit discipline | Second-order benefits are source-tagged and excluded from dividend cash. |
 | Local capability | Iraqi staffing, training transfer, supplier upgrading, and handover plan exist. |
 | Anti-capture | Related-party exposure, monopoly risk, PEP/sanctions risk, and procurement concentration are within limits. |
+| Cash formalization | The cash window is legally open, supervised, identity-verified, capped, source-of-funds scored, EDD-ready, quarantinable, receipted, audited, appealable, publicly reported, and backed by post-window rejection authority. |
 | Local compact readiness | Governorate, municipal, regional, or disputed-authority compact exists where required; allocation variance is explained; local revenue, jobs, suppliers, benefits, grievances, audit, appeals, and land/water/heritage issues are controlled. |
 | Environmental and social safeguards | Water, pollution, climate, biodiversity, marshland, heritage, resettlement, livelihood, consultation, grievance, safety, maintenance, remediation, monitoring, audit, and accessibility gates pass. |
 | Macro and FX stability | Inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization capacity, credit growth, domestic absorption, import leakage, non-oil FX cover, distribution phasing, CBI independence, and FX transparency remain inside limits. |
 | Privacy and security | Data use, access controls, auditability, offline settlement, and operator powers meet the security model. |
 | Citizen fairness | Dividends, civic work, transfers, and appeals are rules-based and auditable. |
+| Citizen entitlement rights | Legal authority, identity coverage, non-saleability, pledge/collateral protection, inheritance, minors, deceased reconciliation, diaspora/displaced claims, privacy separation, payment exceptions, appeals, sanctions due process, accessibility, public dashboard, and independent audit pass. |
 | Political-economy readiness | Resistance, capture risk, coalition support, service continuity, staff transition, procurement transparency, competition control, federalism, and appeals support the proposed transition mode. |
 | Fiscal stress | Oil-equity draw, stressed DSCR, FX cover, maintenance reserves, contingent liabilities, collection efficiency, capex overruns, and dividend affordability remain inside limits. |
 
@@ -272,6 +276,10 @@ kernel, not a complete national operating system.
 | `CapitalAllocationDecision` | Board-approved movement of oil equity, loans, PPP capital, or retained earnings. |
 | `DividendGateDecision` | Monthly eligibility, reserve, DSCR, audit, and distribution decision. |
 | `PublicDashboardSnapshot` | Published aggregate view with confidence levels and privacy protection. |
+| `CitizenRightsAssessment` | Identity integrity, rights readiness, privacy, appeals, inclusion, operational risk, decision, and required actions. |
+| `CashFormalizationAssessment` | Remaining cap, eligible conversion amount, converted value, quarantined amount, rejected amount, identity score, provenance score, operator-control score, AML risk score, settlement-readiness score, decision, and required actions. |
+| `CivicWorkAssessment` | Verification, integrity, dignity, public value, transition, safety/privacy, verified-hour ratio, payable hours, held hours, decision, and required actions. |
+| `MinistryTransitionAssessment` | Governance, continuity, staff protection, financial control, anti-capture, deprecation readiness, transferable budget, staff transition count, decision, and required actions. |
 | `GrowthImpactProjection` | Baseline, constrained-base, and strategic-upper non-oil growth paths from [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md). |
 | `ComprehensiveBenefitProjection` | Long-horizon economic, infrastructure, environmental, social, and cultural benefit paths from [Iraq Comprehensive Benefits Model](iraq-comprehensive-benefits-model.md). |
 | `ProductionCapacityProjection` | Domestic output, local content, quality, cost discipline, booked sales, verified import substitution, FX savings, and procurement-dependence gates. |
@@ -420,6 +428,41 @@ Initial executable coverage:
   settlement, dividend boundary, achievement, variance, disposition, and
   corrective actions. `migrations/20260715000001_benefit_realization_claim_audit.sql`
   adds report and gate tables.
+- `crates/cs-analytics/src/citizen_rights.rs` adds the first citizen
+  entitlement, privacy, and appeals layer: legal authority, identity integrity,
+  non-saleability, pledge/collateral protection, inheritance, minors, deceased
+  reconciliation, diaspora/displaced claims, privacy separation, data
+  minimization, payment exceptions, appeals, suspension due process,
+  accessibility, public dashboard, independent audit, decision state, and
+  required actions. `migrations/20260720000001_citizen_rights.sql` adds
+  assessment and gate tables.
+- `crates/cs-analytics/src/cash_formalization.rs` adds the first cash
+  formalization and demonetization-window layer: legal authority, timing,
+  supervised conversion points, operator training, identity, cash
+  authentication, amount caps, source-of-funds confidence, PEP/sanctions,
+  adverse media, structuring, suspicious activity, EDD, tax settlement,
+  signed receipts, audit hashes, quarantine, appeals, public dashboard,
+  post-window rejection, decision state, and required actions.
+  `migrations/20260721000001_cash_formalization.sql` adds assessment and gate
+  tables.
+- `crates/cs-analytics/src/civic_work.rs` adds the first civic-work
+  verification and public-value layer: authority, budget source, dividend-pool
+  separation, voluntariness, labor/child/vulnerable safeguards, accessibility,
+  task quality, public value, evidence completion, verifier independence,
+  worker identity, duplicate claims, ghost-worker and nepotism risk, safety,
+  privacy, wage rules, skilled-labor crowding, payment exceptions, training,
+  bridge-to-work, appeals, public dashboard, independent audit, decision state,
+  and required actions. `migrations/20260722000001_civic_work.sql` adds
+  assessment and gate tables.
+- `crates/cs-analytics/src/ministry_transition.rs` adds the first ministry
+  transition and deprecation-control layer: function type, replacement home,
+  legal approval, service continuity, replacement mandate, staff map, payroll
+  reconciliation, procurement transparency, beneficial ownership, independent
+  audit, citizen appeals, local compact, service metrics, asset registry,
+  operator readiness, digital-payment coverage, service milestones, capture
+  risk, layoff risk, citizen-service risk, decision state, transferable budget,
+  and required actions. `migrations/20260723000001_ministry_transition.sql`
+  adds assessment and gate tables.
 
 ## Management Dashboards
 
@@ -439,7 +482,11 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Attraction services | Which natural, cultural, religious, medical, education, and business-service clusters are capturing formal revenue without exceeding safety or conservation gates? |
 | Diaspora channels | Which diaspora markets are producing settled income, export orders, expertise, investment leads, marketing conversion, or formalized remittances? |
 | Ministry productivity | Which public budgets now buy measured outputs? |
+| Ministry transition | Which functions are retained-sovereign, blocked, visibility-only, pilot-only, controlled-transfer, or sunset-eligible after legal, continuity, staff, payroll, audit, appeal, local-compact, operator-readiness, and capture-risk gates? |
 | Citizen welfare | What changed in wages, transfers, civic income, dividends, prices, and credit access? |
+| Civic work | Which programs can release verified wage hours, and which are blocked, evidence-only, remediation-required, pilot-only, or held for evidence, dignity, safety, privacy, fraud, payment, or bridge-to-work failures? |
+| Citizen rights | Which registry snapshots, dividend batches, identity exceptions, payment errors, privacy controls, appeals, suspensions, accessibility channels, dashboards, or rights audits block citizen rollout? |
+| Cash formalization | Which cash deposits are accepted, partially accepted, held for EDD, referred, rejected, expired, capped, quarantined, tax-settled, appealed, or missing audit evidence? |
 | Political economy | Which reforms face capture, resistance, weak coalition support, service-continuity failure, staff-transition failure, or federalism risk? |
 | Federalism equity | Which governorates or regions have signed compacts, allocation gaps, weak local benefit capture, unresolved grievances, authority disputes, or appeal/audit gaps? |
 | Environmental and social safeguards | Which projects have water, pollution, marshland, biodiversity, heritage, resettlement, livelihood, safety, maintenance, remediation, monitoring, audit, or accessibility risks? |
@@ -464,7 +511,9 @@ The operating dashboard should show the economy as a controlled portfolio:
 | Macro-stability breach | Pause dividend growth, slow Digital IQD injections, tighten credit, increase sterilization, phase FX demand, and publish macro dashboard. |
 | FX mismatch | Restrict new foreign-currency borrowing unless offset by FX revenue, hedge, or approved reserve. |
 | Benefit overclaim | Move claim to low-confidence public-benefit ledger and remove from policy headline. |
-| Civic-work evidence failure | Hold payment, trigger appeal or re-verification, and flag verifier reliability. |
+| Civic-work evidence failure | Hold payment, trigger appeal or re-verification, flag verifier reliability, publish aggregate exception metrics, and redesign low-value or unsafe task tracks. |
+| Citizen-rights failure | Suspend affected batch, open appeal or correction queue, publish aggregate exception metrics, and keep rollout evidence-only until remediated. |
+| Cash-window failure | Hold, refer, reject, or expire the affected deposit; publish aggregate metrics; and prevent conversion until legal, AML, cap, receipt, audit, tax, quarantine, appeal, and dashboard controls pass. |
 | Privacy or security breach | Suspend affected data product, access role, or operator privilege. |
 
 ## Why This Encompasses The Whole Model

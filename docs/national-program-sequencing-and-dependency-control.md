@@ -20,6 +20,9 @@ No service continuity -> no ministry transition.
 No cashflow evidence -> no debt or dividend.
 No political readiness -> no scale.
 No fiscal stress pass -> no expansion.
+No citizen-rights pass -> no citizen dividend rollout.
+No cash-window authority -> no physical-cash conversion.
+No ministry-transition assessment -> no deprecation or budget transfer.
 ```
 
 The purpose is to stop the model from becoming a giant simultaneous reform
@@ -51,6 +54,8 @@ where every component depends on every other component working immediately.
 | Cashflow evidence | Debt, dividends, domestic securities, project-company floats. | Invoices, benefits, and narratives are not cash. |
 | Staff transition | Ministry transition and civic-work substitution. | Reform should not become arbitrary dismissal or sabotage incentive. |
 | Citizen trust and appeal path | Entitlements, dividends, civic work, data sharing, payment suspensions. | Digital governance fails if citizens cannot challenge errors. |
+| Citizen rights pass | Citizen dividend, civic entitlements, share registry, wallet suspensions. | Without identity, privacy, accessibility, and appeal readiness, citizen rollout can exclude or coerce people. |
+| Cash-window controls | Physical cash conversion, transition balances, supplemental entitlements, post-window rejection. | Without AML, caps, EDD, quarantine, receipts, audit, appeal, and dashboard controls, the window can legalize unexplained wealth. |
 
 ## Domain Sequence
 
@@ -62,9 +67,10 @@ where every component depends on every other component working immediately.
 | INDHC capital allocation | Evidence only | Charter, board, procurement rules, capital cap, project pipeline. | Clean audits, cashflow evidence, fiscal stress pass, anti-capture controls. |
 | Project pipeline | Evidence only | Project registry, facility screen, legal owner, DSCR, FX, safeguards. | Bankability package, procurement evidence, stress and political gates. |
 | Industrial champions | Pilot | Sector registry, scorecard, demand contracts, competition authority. | Export/FX path, price discipline, SME inclusion, no hidden bailout. |
-| Ministry transition | Evidence only | Service continuity pilot, staff transition fund, appeal desk. | 12-month continuity, parliamentary/audit report, citizen complaint metrics. |
-| Civic work | Pilot | Labor-law/privacy review, municipal authority, task verification. | Verified public value, bridge-to-work outcomes, grievance and disability access. |
-| Citizen dividend | Evidence only | Entitlement law, identity correction, cashflow waterfall, audit. | Audited distributable surplus after maintenance, debt, levy, reserves, macro-stability, and stress gates. |
+| Ministry transition | Evidence only | Service continuity pilot, staff transition fund, payroll reconciliation, replacement mandate, appeal desk, local compact, and `MinistryTransitionAssessment`. | 12-month continuity, parliamentary/audit report, citizen complaint metrics, controlled-transfer or sunset-eligible decision. |
+| Civic work | Pilot | Labor-law/privacy review, municipal authority, explicit budget, dividend separation, voluntariness, task verification, safety, anti-ghost-worker, appeal, and dashboard gates. | Verified public value, payable-hour evidence, bridge-to-work outcomes, grievance, disability access, audit, and payment-exception controls. |
+| Citizen dividend | Evidence only | Entitlement law, identity correction, cashflow waterfall, citizen-rights gates, and audit. | Audited distributable surplus after maintenance, debt, levy, reserves, macro-stability, stress gates, and citizen-rights pass. |
+| Cash formalization window | Evidence only | Monetary/AML authority, supervised intake points, KYC, cap, EDD, quarantine, tax, receipt, audit, appeal, and dashboard controls. | 12-month window operations remain inside AML, cap, appeal, tax, audit, and post-window rejection rules. |
 | Domestic capital markets | Evidence only | Securities approval, trustee/depository, disclosure, investor protection. | Audited project cashflow, no forced purchase, suitability and AML/CFT controls. |
 | Tourism services | Pilot | Safety, conservation, lodging/transport, guides, payment rails. | Carrying capacity, quality certification, local supplier benefit, collection evidence. |
 | Facility recycling | Evidence only | Asset registry, title, engineering, environmental, labor transition. | Revenue contract, DSCR, investor protection, finance-lane readiness. |
@@ -85,6 +91,7 @@ The program controller uses these inputs:
 | Citizen trust | Complaints, appeals, privacy, uptime, access, and visible benefits support legitimacy. |
 | Service continuity | Critical services have operated under replacement model for enough time. |
 | Cashflow evidence | Settled revenue, not just invoices or estimated benefits. |
+| Ministry-transition evidence | Function type, replacement home, legal approval, service continuity, staff map, payroll reconciliation, financial disclosure, operator readiness, service metrics, capture risk, layoff risk, and citizen-service risk. |
 | Predecessor dependency completion | Required earlier steps are complete enough. |
 | Political mode | Output from the political-economy engine. |
 | Fiscal mode | Output from the fiscal stress engine. |

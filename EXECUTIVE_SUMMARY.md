@@ -67,6 +67,14 @@ dividends only after the portfolio produces audited surplus.
 - **Oil Income Lockbox and INDHC:** a proposed national dividend holding-company
   architecture that converts a capped share of oil income into productive
   capital rather than automatic ministry funding.
+- **Citizen-rights gates:** citizen-share and dividend rollout slows or stops
+  when legal authority, identity integrity, non-saleability, inheritance,
+  minor/deceased rules, privacy separation, appeal SLA, suspension due process,
+  accessibility, public dashboard, or independent audit fails.
+- **Cash-window gates:** the one-year physical-cash transition accepts value
+  only through legal authority, supervised intake, KYC, caps, source-of-funds
+  scoring, EDD, quarantine, tax settlement, signed receipts, audit hashes,
+  appeals, dashboards, and post-window rejection.
 - **Industrial champions:** sectoral Iraqi production groups with conditional
   demand, conditional credit, export discipline, competition gates, debt caps,
   local-content evidence, and anti-capture controls.
@@ -115,7 +123,8 @@ dividends only after the portfolio produces audited surplus.
 - **Civic work:** productivity displacement is managed through verified paid
   work in municipal repair, care, education support, environmental restoration,
   sport, culture, disaster resilience, food security, and bridge-to-work
-  training.
+  training, with payments held when evidence, safety, dignity, fraud, privacy,
+  wage, appeal, or bridge-to-work gates fail.
 - **Legal and institutional roadmap:** the model requires enabling laws,
   federal/governorate compacts, CBI/payment authority decisions, Treasury rules,
   securities safeguards, privacy and audit authority, procurement controls, and
@@ -131,8 +140,9 @@ dividends only after the portfolio produces audited surplus.
   kernel, sovereign holding plan, economic cycle, growth impact, comprehensive
   benefits, production capacity, strategic resilience, tourism services,
   diaspora channels, facility recycling, political-economy transition
-  readiness, federalism/governorate equity, environmental/social safeguards,
-  macro stability, fiscal stress, program sequencing, benefit realization, and
+  readiness, citizen rights, cash formalization, civic work, ministry transition,
+  federalism/governorate equity, environmental/social safeguards, macro
+  stability, fiscal stress, program sequencing, benefit realization, and
   procurement integrity.
 - A pilot-grade Digital IQD software appendix covering transaction models,
   signing primitives, policy modules, POS/mobile codecs, dashboard routes,
@@ -164,6 +174,15 @@ dividends only after the portfolio produces audited surplus.
   price-benchmarking, supplier-market, and audit validation.
 - Independent monitoring, evaluation, and audit review before any scenario
   output becomes a delivered-outcome claim.
+- Independent citizen-rights, identity, privacy, accessibility, appeal, and
+  suspension due-process validation before any citizen-share or dividend batch
+  is treated as deployable.
+- Independent AML/CFT, tax, sanctions, monetary-law, operator-control, appeal,
+  and audit validation before any physical cash is converted into Digital IQD,
+  transition balance, or supplemental entitlement.
+- Independent labor-law, child-protection, disability-access, privacy,
+  municipal-authority, anti-corruption, safety, verifier, and fiscal validation
+  before any civic-work task platform or wage-payment service is deployable.
 - Independent political-economy validation, including real actor incentives,
   veto points, anti-capture enforcement capacity, federal/governorate authority,
   civil-service transition, and citizen legitimacy.

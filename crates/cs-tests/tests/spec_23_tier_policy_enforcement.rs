@@ -173,12 +173,20 @@ fn resolve_tier_and_category(repo: &StubMerchantRepository, pk: &[u8; 32]) -> (u
     (tier, Some(m.category))
 }
 
-fn rules_active_today(repo: &StubRestrictedCategoryRepository) -> Vec<RestrictedCategory> {
+fn active_policy_date() -> NaiveDate {
+    NaiveDate::from_ymd_opt(2026, 12, 1).unwrap()
+}
+
+fn q4_2026_restriction_start() -> NaiveDate {
+    NaiveDate::from_ymd_opt(2026, 10, 1).unwrap()
+}
+
+fn rules_active_on_policy_date(repo: &StubRestrictedCategoryRepository) -> Vec<RestrictedCategory> {
     let rt = tokio::runtime::Builder::new_current_thread()
         .enable_all()
         .build()
         .expect("rt");
-    rt.block_on(repo.list_active_on(chrono::Utc::now().date_naive()))
+    rt.block_on(repo.list_active_on(active_policy_date()))
         .expect("list_active")
 }
 
@@ -224,12 +232,7 @@ fn spec_salary_blocked_at_tier4_food_merchant() {
     merchants.register(tier4_pk, 0, "food");
 
     let mut restrictions = StubRestrictedCategoryRepository::new();
-    restrictions.add(
-        "food",
-        2,
-        NaiveDate::from_ymd_opt(2025, 10, 1).unwrap(),
-        "CBI-2026-Q4-001",
-    );
+    restrictions.add("food", 2, q4_2026_restriction_start(), "CBI-2026-Q4-001");
 
     let tx = signed_tx(sender, tier4_pk, 5_000_000, Some(FundsOrigin::Salary));
 
@@ -238,9 +241,9 @@ fn spec_salary_blocked_at_tier4_food_merchant() {
         funds_origin: tx.funds_origin.unwrap(),
         product_category: category,
         merchant_tier: tier,
-        today: chrono::Utc::now().date_naive(),
+        today: active_policy_date(),
     };
-    let rules = rules_active_today(&restrictions);
+    let rules = rules_active_on_policy_date(&restrictions);
 
     match evaluate(&ctx, &rules) {
         HardRestrictionOutcome::Blocked { reason } => {
@@ -265,7 +268,7 @@ fn spec_pension_blocked_at_tier3_textile_merchant() {
     restrictions.add(
         "textiles",
         2,
-        NaiveDate::from_ymd_opt(2025, 10, 1).unwrap(),
+        q4_2026_restriction_start(),
         "CBI-2026-Q4-001",
     );
 
@@ -275,9 +278,9 @@ fn spec_pension_blocked_at_tier3_textile_merchant() {
         funds_origin: tx.funds_origin.unwrap(),
         product_category: category,
         merchant_tier: tier,
-        today: chrono::Utc::now().date_naive(),
+        today: active_policy_date(),
     };
-    let rules = rules_active_today(&restrictions);
+    let rules = rules_active_on_policy_date(&restrictions);
 
     assert!(matches!(
         evaluate(&ctx, &rules),
@@ -296,12 +299,7 @@ fn spec_ubi_allowed_at_tier1_food_merchant() {
     merchants.register(tier1_pk, 100, "food");
 
     let mut restrictions = StubRestrictedCategoryRepository::new();
-    restrictions.add(
-        "food",
-        2,
-        NaiveDate::from_ymd_opt(2025, 10, 1).unwrap(),
-        "CBI-2026-Q4-001",
-    );
+    restrictions.add("food", 2, q4_2026_restriction_start(), "CBI-2026-Q4-001");
 
     let tx = signed_tx(sender, tier1_pk, 2_000_000, Some(FundsOrigin::Ubi));
     let (tier, category) = resolve_tier_and_category(&merchants, &tx.to_public_key);
@@ -309,9 +307,9 @@ fn spec_ubi_allowed_at_tier1_food_merchant() {
         funds_origin: tx.funds_origin.unwrap(),
         product_category: category,
         merchant_tier: tier,
-        today: chrono::Utc::now().date_naive(),
+        today: active_policy_date(),
     };
-    let rules = rules_active_today(&restrictions);
+    let rules = rules_active_on_policy_date(&restrictions);
 
     assert_eq!(evaluate(&ctx, &rules), HardRestrictionOutcome::Allowed);
 }
@@ -327,12 +325,7 @@ fn spec_personal_funds_always_allowed_even_at_tier4() {
     merchants.register(tier4_pk, 0, "food");
 
     let mut restrictions = StubRestrictedCategoryRepository::new();
-    restrictions.add(
-        "food",
-        2,
-        NaiveDate::from_ymd_opt(2025, 10, 1).unwrap(),
-        "CBI-2026-Q4-001",
-    );
+    restrictions.add("food", 2, q4_2026_restriction_start(), "CBI-2026-Q4-001");
 
     // Explicit Personal — or None, which is interpreted as Personal.
     for origin in [Some(FundsOrigin::Personal), None] {
@@ -343,9 +336,9 @@ fn spec_personal_funds_always_allowed_even_at_tier4() {
             funds_origin: declared,
             product_category: category,
             merchant_tier: tier,
-            today: chrono::Utc::now().date_naive(),
+            today: active_policy_date(),
         };
-        let rules = rules_active_today(&restrictions);
+        let rules = rules_active_on_policy_date(&restrictions);
         assert_eq!(evaluate(&ctx, &rules), HardRestrictionOutcome::Allowed);
     }
 }
@@ -361,12 +354,7 @@ fn spec_salary_allowed_in_unrestricted_category() {
     merchants.register(tier4_pk, 0, "electronics"); // not on the list
 
     let mut restrictions = StubRestrictedCategoryRepository::new();
-    restrictions.add(
-        "food",
-        2,
-        NaiveDate::from_ymd_opt(2025, 10, 1).unwrap(),
-        "CBI-2026-Q4-001",
-    );
+    restrictions.add("food", 2, q4_2026_restriction_start(), "CBI-2026-Q4-001");
 
     let tx = signed_tx(sender, tier4_pk, 5_000_000, Some(FundsOrigin::Salary));
     let (tier, category) = resolve_tier_and_category(&merchants, &tx.to_public_key);
@@ -374,9 +362,9 @@ fn spec_salary_allowed_in_unrestricted_category() {
         funds_origin: tx.funds_origin.unwrap(),
         product_category: category,
         merchant_tier: tier,
-        today: chrono::Utc::now().date_naive(),
+        today: active_policy_date(),
     };
-    let rules = rules_active_today(&restrictions);
+    let rules = rules_active_on_policy_date(&restrictions);
 
     assert_eq!(evaluate(&ctx, &rules), HardRestrictionOutcome::Allowed);
 }
@@ -392,12 +380,7 @@ fn spec_salary_blocked_to_unregistered_receiver_in_restricted_category() {
     let merchants = StubMerchantRepository::new(); // empty — receiver unknown
 
     let mut restrictions = StubRestrictedCategoryRepository::new();
-    restrictions.add(
-        "food",
-        2,
-        NaiveDate::from_ymd_opt(2025, 10, 1).unwrap(),
-        "CBI-2026-Q4-001",
-    );
+    restrictions.add("food", 2, q4_2026_restriction_start(), "CBI-2026-Q4-001");
 
     // Caller claims the transfer is for food — gate should block because
     // unregistered counterparty + restricted category + gov funds = risk.
@@ -405,9 +388,9 @@ fn spec_salary_blocked_to_unregistered_receiver_in_restricted_category() {
         funds_origin: FundsOrigin::Salary,
         product_category: Some("food".into()),
         merchant_tier: resolve_tier_and_category(&merchants, &random_pk).0,
-        today: chrono::Utc::now().date_naive(),
+        today: active_policy_date(),
     };
-    let rules = rules_active_today(&restrictions);
+    let rules = rules_active_on_policy_date(&restrictions);
 
     assert!(matches!(
         evaluate(&ctx, &rules),
@@ -440,9 +423,9 @@ fn spec_rules_not_yet_effective_are_ignored() {
         funds_origin: tx.funds_origin.unwrap(),
         product_category: category,
         merchant_tier: tier,
-        today: chrono::Utc::now().date_naive(),
+        today: active_policy_date(),
     };
-    let rules = rules_active_today(&restrictions);
+    let rules = rules_active_on_policy_date(&restrictions);
 
     assert_eq!(evaluate(&ctx, &rules), HardRestrictionOutcome::Allowed);
 }

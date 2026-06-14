@@ -75,6 +75,7 @@ mod ubi_feedback_algorithm_tests {
         // After UBI implementation (Q2 2027, 10M citizens at $150/month)
         let post_ubi_transactions = 14_000_000_000_i64; // 40% increase
         let sustainable_threshold = 13_000_000_000_i64; // Target capacity
+        assert!(post_ubi_transactions > baseline_transactions);
 
         let transaction_ratio = (post_ubi_transactions as f64) / (sustainable_threshold as f64);
 
@@ -248,6 +249,7 @@ mod ubi_feedback_algorithm_tests {
         let ubi_q4_target = 200.0_f64;
         let production_capacity = (production_q3 as f64) / (production_q1 as f64); // 1.56× growth
         assert!(production_capacity > 1.5); // Supports 1.5× UBI increase
+        assert!(ubi_q4_target <= 200.0);
     }
 
     /// Test quarterly timeline: 2026-2028 projection
@@ -268,6 +270,7 @@ mod ubi_feedback_algorithm_tests {
         let production_growth_q2 =
             ((q2_2027_production as f64 / q4_2026_production as f64) - 1.0) * 100.0;
         assert!(production_growth_q2 > 50.0); // >50% growth
+        assert!(q2_2027_ubi > q4_2026_ubi);
 
         // Q4 2027
         let q4_2027_ubi = 175.0_f64;
@@ -275,6 +278,7 @@ mod ubi_feedback_algorithm_tests {
         let production_growth_q4_27 =
             ((q4_2027_production as f64 / q4_2026_production as f64) - 1.0) * 100.0;
         assert!(production_growth_q4_27 > 150.0); // >150% growth
+        assert!(q4_2027_ubi > q2_2027_ubi);
 
         // Q2 2028
         let q2_2028_ubi = 200.0_f64;

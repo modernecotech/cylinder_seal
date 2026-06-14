@@ -1,9 +1,9 @@
 //! Sectoral economic analysis — reads/writes `sector_economic_snapshots`.
 //!
 //! Cross-table aggregation (against `business_profiles.industry_code`,
-//! `ledger_entries`, etc.) is intentionally not implemented; those schemas are
-//! not part of the current migration set. Snapshots are expected to be produced
-//! by an upstream ETL and persisted via [`SectorAnalytics::save_snapshot`].
+//! `ledger_entries`, etc.) is an ETL boundary because those source schemas are
+//! outside the current analytics migration set. Snapshots are expected to be
+//! produced upstream and persisted via [`SectorAnalytics::save_snapshot`].
 
 use chrono::{DateTime, Utc};
 use rust_decimal::prelude::ToPrimitive;

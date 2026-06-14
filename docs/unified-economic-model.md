@@ -22,7 +22,7 @@ audited surplus.
 
 ## System Boundary
 
-The system has twenty-two layers:
+The system has twenty-four layers:
 
 | Layer | Function | Main documents |
 | --- | --- | --- |
@@ -31,6 +31,8 @@ The system has twenty-two layers:
 | Legal and institutional layer | Authority path for oil lockbox, INDHC, citizen shares, Digital IQD, project debt, securities, privacy, emergency powers, federalism, and appeals. | `docs/national-legal-institutional-roadmap.md` |
 | Project pipeline layer | Project-family gates for capex, opex, revenue source, DSCR, FX exposure, facility reuse, environmental/cultural safeguards, legal authority, and evidence bundles. | `docs/project-pipeline-and-investment-gates.md` |
 | Political-economy and anti-capture layer | Resistance, capture risk, reform coalition strength, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, and pause/rollback rules. | `docs/political-economy-transition-and-anti-capture.md` |
+| Citizen entitlement, privacy, and appeals layer | Controls citizen-share legal authority, identity integrity, non-saleability, pledge/collateral protection, inheritance, minors, deceased records, diaspora/displaced claims, privacy separation, payment exceptions, appeals, suspensions, accessibility, dashboard, and independent audit. | `docs/citizen-entitlement-privacy-and-appeals.md` |
+| Cash formalization and demonetization-window layer | Controls the one-year physical-cash transition through legal authority, supervised conversion points, KYC, caps, source-of-funds scoring, EDD, quarantine, tax settlement, signed receipts, audit hashes, appeals, dashboards, and post-window rejection. | `docs/cash-formalization-and-demonetization-window.md` |
 | Federalism and governorate-equity layer | Local authority mapping, governorate/regional compacts, allocation fairness, local revenue/jobs/suppliers, grievance resolution, audit, appeals, and land/water/heritage disputes. | `docs/federalism-governorate-equity-and-local-compacts.md` |
 | Environmental, social, water, and cultural safeguard layer | Blocks or redesigns projects when water, pollution, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, or accessibility gates fail. | `docs/environmental-social-cultural-safeguards.md` |
 | Macro, monetary, inflation, and FX stability layer | Controls inflation, food prices, FX premium, reserve cover, liquidity injections, sterilization, credit growth, domestic absorption, import leakage, non-oil FX, distribution phasing, CBI independence, and FX transparency. | `docs/macro-monetary-fx-stability.md` |
@@ -47,7 +49,7 @@ The system has twenty-two layers:
 | Import, services, and diaspora expansion layer | Missing import screens, attraction-based service production, and diaspora income, expertise, capital, marketing, and distribution channels. | `docs/import-services-diaspora-expansion.md` |
 | Industrial champion governance layer | Sectoral production groups receive conditional demand, credit, and payment privileges only while they meet local-content, price, quality, export, tax, debt, SME-inclusion, and audit gates. | `docs/digitally-governed-industrial-champions.md` |
 | Civic work and dignity layer | Productivity gains fund verified public-value work, training, care, environmental restoration, sport, culture, municipal repair, and disaster resilience. | `docs/national-civic-work-system.md` |
-| Ministry transition layer | Deprecates, merges, regulates, corporatizes, or sunsets ministry functions once service-continuity, legal, audit, and staff-transition gates pass. | `docs/ministry-transition-roadmap.md` |
+| Ministry transition layer | Deprecates, merges, regulates, corporatizes, or sunsets ministry functions only after legal authority, service continuity, staff protection, payroll reconciliation, audit, anti-capture, appeal, and local-compact gates pass. | `docs/ministry-transition-roadmap.md` |
 
 The layers should not be read separately. The payment layer provides the
 evidence and controls; the economic operating layer decides how events are
@@ -420,6 +422,8 @@ separate dashboard widgets.
 | `EconomicOperatingPeriod` | Ledger close calendar, macro mode, portfolio mode, source snapshots, gate settings | Monthly, quarterly, and annual operating cycle view. |
 | `EconomicEventProjection` | Payment events, project events, benefit events, risk events, audit hashes, source tags | Canonical event and ledger-impact view. |
 | `EconomicCycleProjection` | Oil receipts, INDHC allocations, project revenues, taxes, dividends, domestic spend | National feedback-loop view. |
+| `CitizenRightsAssessment` | Legal authority, identity coverage, duplicate and exception rates, non-saleability, pledge/collateral protection, inheritance, minors, deceased reconciliation, diaspora/displaced claims, privacy, data minimization, payment exceptions, appeals, sanctions due process, accessibility, dashboard, and audit evidence | Citizen entitlement, privacy, appeal, exclusion, suspension, and dividend-batch readiness view. |
+| `CashFormalizationAssessment` | Deposit timing, legal authority, supervision, operator training, identity, cash authentication, amount, cap, source-of-funds score, PEP/sanctions/adverse-media/structuring/suspicious flags, EDD, tax settlement, receipt, audit, quarantine, appeal, and dashboard evidence | One-year cash-window accept, partial-accept, hold, referral, rejection, and expiry view. |
 | `GrowthImpactProjection` | Baseline non-oil growth, sector add-ons, real non-oil GDP index, additional GDP vs baseline, confidence labels | Macro growth-impact and timeline view. |
 | `ComprehensiveBenefitProjection` | GDP, booked revenue, dividend range, rail capacity, clean power, tourism, civic-work capacity, avoided environmental loss, social value, cultural value, confidence labels | Long-horizon economic, infrastructure, environmental, social, and cultural benefits view. |
 | `ProductionCapacityProjection` | Merchant tiers, local-content attestations, project outputs, inventory, procurement | Import substitution, food substitution, and domestic supply view. |
@@ -432,7 +436,8 @@ separate dashboard widgets.
 | `AffordabilityProjection` | IMF baseline, oil-equity draw, project loans, PPP capital, DSCR, stress cases, dividend math | Financeability and stop/go gate view. |
 | `RevenueGenerationProjection` | Revenue streams, contracts, invoices, collection, currency, offtake, savings contracts, platform fees, land-value capture | Broad recurring revenue, collection quality, and closed-loop cash view. |
 | `IndustrialChampionProjection` | Champion registry, conditional demand contracts, tier privileges, debt caps, export discipline, related-party exposure, SME inclusion | Anti-capture and sectoral champion performance view. |
-| `CivicWorkProjection` | Civic tasks, workers, verifiers, evidence bundles, payments, training, impact metrics, appeals | Productivity-transition, social cohesion, and verified public-value view. |
+| `CivicWorkAssessment` | Program, governorate, category, task risk, authority, budget, dividend separation, voluntariness, labor/child/vulnerable safeguards, accessibility, task quality, public value, evidence, verifiers, identity, claimed and verified hours, duplicate/ghost/nepotism risk, safety, privacy, wage rules, crowding, payment exceptions, training, bridge-to-work, appeals, dashboard, and audit evidence | Civic-work wage release, payment hold, pilot, remediation, dignity, anti-ghost-worker, safety, and bridge-to-work view. |
+| `MinistryTransitionAssessment` | Ministry function type, replacement home, target year, budget, staff, essential-service status, oil-funding dependency, duplicate administration, commercial potential, legal approval, continuity, mandate, staff map, payroll, procurement, ownership, audit, appeals, local compact, service metrics, assets, operator readiness, payments, milestones, capture risk, layoff risk, and citizen-service risk | Retain-sovereign, blocked, visibility-only, pilot-only, controlled-transfer, or sunset-eligible view. |
 | `CitizenIncomeProjection` | Wages, transfers, dividends, IP income, repayments, spending | Household welfare and inclusion view. |
 | `MinistryPerformanceProjection` | Budgets, service contracts, milestones, delivery evidence | Ministry feedback and productivity view. |
 | `CreditExpansionProjection` | Transaction histories, risk features, loan disbursements, repayments | SME finance and formalization view. |
@@ -443,7 +448,7 @@ separate dashboard widgets.
 
 ## Dashboard Design
 
-The unified dashboard should answer sixteen questions:
+The unified dashboard should answer seventeen questions:
 
 1. Where did oil income go?
 2. Which investments are producing cash, jobs, and domestic supply?
@@ -463,12 +468,15 @@ The unified dashboard should answer sixteen questions:
 12. Which diaspora channels are producing settled income, export orders,
     expertise, investment leads, marketing conversion, or formalized
     remittances?
-13. Is the citizen dividend funded by real surplus?
-14. Is productivity displacement being absorbed into verified civic work,
+13. Is the cash formalization window accepting only legal, capped,
+    identity-verified, AML-screened, receipted, audited, and appealable deposits
+    before post-window rejection begins?
+14. Is the citizen dividend funded by real surplus?
+15. Is productivity displacement being absorbed into verified civic work,
     training, and bridge-to-work pathways?
-15. Are capex, debt service, retained earnings, and dividends consistent with the
+16. Are capex, debt service, retained earnings, and dividends consistent with the
     ten-year cashflow model?
-16. Are long-horizon environmental, social, cultural, and infrastructure
+17. Are long-horizon environmental, social, cultural, and infrastructure
     benefits source-tagged separately from booked cash?
 
 ## Failure Modes The Model Must Surface
@@ -480,6 +488,7 @@ The unified dashboard should answer sixteen questions:
 | Defense manufacturing becomes opaque patronage | Weak statutory authority, hidden procurement, poor end-use controls, or classified spending outside audit boundaries. |
 | Food/water substitution fails | Desalination, irrigation, cold-chain, or food projects lack unit-cost discipline, maintenance plans, or farmer/SME adoption. |
 | Revenue circle does not close | Revenue is mostly one-off construction spend, unpaid public invoices, unverified savings, or circular subsidy rather than settled customer cash. |
+| Cash window launders unexplained wealth | Weak KYC, high cap-excess rates, missing source-of-funds evidence, PEP/sanctions hits without referral, no quarantine, or post-window cash accepted. |
 | Industrial champions become protected monopolies | Tier privileges persist despite weak exports, high prices, related-party abuse, debt stress, or SME crowd-out. |
 | Civic work becomes fake jobs | Payments rise while verified outputs, training, audits, and bridge-to-work outcomes remain weak. |
 | Dividends become oil handouts | Dividend pool tracks oil receipts instead of audited surplus. |
@@ -500,6 +509,8 @@ The model gives each existing Cylinder Seal component a place:
 - **Merchant tiers and spend constraints** steer demand toward domestic supply.
 - **INDHC** turns oil and debt into productive assets.
 - **The ten-year plan** defines where capital goes.
+- **Cash formalization** moves legacy physical cash into supervised,
+  identity-verified, capped, AML-screened, auditable transition balances.
 - **Industrial champion gates** prevent the INDHC model from becoming a
   protected monopoly system.
 - **Strategic resilience manufacturing** covers defense-controlled supply,
@@ -522,29 +533,36 @@ The model gives each existing Cylinder Seal component a place:
 3. Add `InvestmentPlan`, `CapitalStack`, `ProjectMilestone`,
    `GrossProfitLevy`, `RetainedEarningsAllocation`, and
    `DividendDistribution` models.
-4. Add `EconomicCycleProjection` and `CitizenIncomeProjection` dashboard views.
-5. Add `GrowthImpactProjection` and `SectorGrowthContribution` using
+4. Add `CashFormalizationAssessment` for the one-year cash window, caps, EDD,
+   tax settlement, quarantine, referrals, receipts, audit, appeals, and
+   post-window rejection.
+5. Add `EconomicCycleProjection` and `CitizenIncomeProjection` dashboard views.
+6. Add `GrowthImpactProjection` and `SectorGrowthContribution` using
    [Iraq Integrated Growth Impact Model](iraq-integrated-growth-impact-model.md).
-6. Add `ComprehensiveBenefitProjection` using
+7. Add `ComprehensiveBenefitProjection` using
    [Iraq Comprehensive Benefits Model](iraq-comprehensive-benefits-model.md).
-7. Add `ProductionCapacityProjection` for import substitution and local content.
-8. Add `FacilityRecyclingProjection` for underutilized facility screening,
+8. Add `ProductionCapacityProjection` for import substitution and local content.
+9. Add `FacilityRecyclingProjection` for underutilized facility screening,
    brownfield-versus-greenfield economics, international credit readiness,
    domestic bond/sukuk/equity readiness, and investor-protection gates.
-9. Add `StrategicResilienceProjection` for defense-controlled supply,
+10. Add `StrategicResilienceProjection` for defense-controlled supply,
    electronics, HVAC, water/desalination, irrigation, and food substitution.
-10. Add `TourismServiceClusterProjection` for attraction-based services, formal
+11. Add `TourismServiceClusterProjection` for attraction-based services, formal
    payment capture, visitor capacity, conservation, local procurement, and
    second-order benefit separation.
-11. Add `DiasporaChannelProjection` for remittance formalization, Iraqi-product
+12. Add `DiasporaChannelProjection` for remittance formalization, Iraqi-product
    demand, export distribution, expertise, investment pipeline, marketing, and
    compliance gates.
-12. Add `MinistryPerformanceProjection` for service contracts and budget feedback.
-13. Add `CivicWorkProjection` for verified tasks, payments, training, impact,
-   audits, and bridge-to-work outcomes.
-14. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
-15. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
-16. Gate all public claims behind source labels, model assumptions, and confidence
+13. Add `MinistryTransitionAssessment` for legal authority, service continuity,
+   staff protection, payroll, audit, appeals, local compacts, operator readiness,
+   capture risk, budget movement, and sunset eligibility.
+14. Add `MinistryPerformanceProjection` for service contracts and budget feedback.
+15. Add `CivicWorkAssessment` for verified tasks, wage release, payment holds,
+   dignity safeguards, anti-ghost-worker controls, safety, privacy, training,
+   impact, audits, and bridge-to-work outcomes.
+16. Add `ForeignCurrencyProjection` for tourism, diaspora channels, and exports.
+17. Add `GreenRailCostProjection` for rail, grid, energy, and logistics effects.
+18. Gate all public claims behind source labels, model assumptions, and confidence
    levels from `docs/economic-assumptions.md`.
 
 Initial implementation status:
@@ -557,54 +575,75 @@ Initial implementation status:
   gates for ownership separation, board independence, audit transparency,
   citizen share protection, competitive neutrality, related-party exposure,
   procurement integrity, political instruction controls, and citizen appeals.
-- Step 4 has begun in `crates/cs-analytics/src/economic_cycle.rs` and
+- Step 4 has begun in `crates/cs-analytics/src/cash_formalization.rs` and
+  `migrations/20260721000001_cash_formalization.sql`. It controls one-year
+  cash-window timing, supervised intake, KYC, caps, source-of-funds scoring,
+  EDD, quarantine, tax settlement, signed receipts, audit hashes, appeals,
+  dashboards, and post-window rejection.
+- Step 5 has begun in `crates/cs-analytics/src/economic_cycle.rs` and
   `migrations/20260704000001_economic_cycle_projection.sql`. It tracks the
   economic loop from oil-equity allocation and external capital to booked
   portfolio revenue, treasury revenue, citizen income, domestic recirculation,
   import leakage, non-oil FX capture, dividend cover, and household income.
-- Step 5 has begun in `crates/cs-analytics/src/growth_impact.rs` and
+- Step 6 has begun in `crates/cs-analytics/src/growth_impact.rs` and
   `migrations/20260705000001_growth_impact_projection.sql`. It mirrors the
   integrated growth timeline as auditable scenario projections, sector
   contribution rows, and claim-audit labels so high-growth statements remain
   source-tagged and caveated.
-- Step 6 has begun in `crates/cs-analytics/src/comprehensive_benefits.rs` and
+- Step 7 has begun in `crates/cs-analytics/src/comprehensive_benefits.rs` and
   `migrations/20260706000001_comprehensive_benefits_projection.sql`. It turns
   the 2036/2040/2050 comprehensive model into benefit-ledger entries and
   claim-audit records, separating booked cash from real output, infrastructure,
   environmental resilience, social capability, cultural tourism, and citizen
   distribution metrics.
-- Step 7 has begun in `crates/cs-analytics/src/production_capacity.rs` and
+- Step 8 has begun in `crates/cs-analytics/src/production_capacity.rs` and
   `migrations/20260707000001_production_capacity_projection.sql`. It tracks
   effective output, utilization, local content, quality certification,
   delivered-cost discipline, booked domestic sales, verified import
   substitution, local-content-adjusted FX savings, public procurement
   dependence, and production-capacity gates.
-- Step 8 has begun in `crates/cs-analytics/src/facility_recycling.rs` and
+- Step 9 has begun in `crates/cs-analytics/src/facility_recycling.rs` and
   `migrations/20260711000001_facility_recycling_projection.sql`. It screens
   underutilized facilities by utilization gain, rehabilitation capex,
   greenfield replacement cost, environmental liabilities, DSCR, FX cover,
   revenue-contract cover, maintenance reserves, government-guarantee exposure,
   international credit readiness, domestic capital-market readiness, and
   recommended finance lane.
-- Step 9 has begun in `crates/cs-analytics/src/strategic_resilience.rs` and
+- Step 10 has begun in `crates/cs-analytics/src/strategic_resilience.rs` and
   `migrations/20260708000001_strategic_resilience_projection.sql`. It tracks
   critical domestic capability for regulated defense sustainment, electronics,
   HVAC, water/desalination equipment, irrigation equipment, food staples, rail
   components, grid equipment, and medical supplies while enforcing license,
   end-use, export-control, audit-boundary, supplier-diversification, and
   responsible-supply-chain gates.
-- Step 10 has begun in `crates/cs-analytics/src/tourism_services.rs` and
+- Step 11 has begun in `crates/cs-analytics/src/tourism_services.rs` and
   `migrations/20260709000001_tourism_services_projection.sql`. It quantifies
   services built around pilgrimage, heritage, marshlands, mountains, rivers,
   urban culture, medical, education, and business travel assets while enforcing
   safety, conservation, capacity, formal-payment, local-procurement, guide,
   lodging/transport, and maintenance-reserve gates.
-- Step 11 has begun in `crates/cs-analytics/src/diaspora_channels.rs` and
+- Step 12 has begun in `crates/cs-analytics/src/diaspora_channels.rs` and
   `migrations/20260710000001_diaspora_channels_projection.sql`. It separates
   diaspora booked income, formalized remittances, export distribution revenue,
   expertise value, investment pipeline, and marketing attribution while
   enforcing KYC/AML, sanctions, quality, consumer-protection, privacy,
   distribution, conversion, and investment-suitability gates.
+- Step 13 has begun in `crates/cs-analytics/src/ministry_transition.rs` and
+  `migrations/20260723000001_ministry_transition.sql`. It screens ministry
+  function transfers by legal authority, competent approval, service continuity,
+  replacement mandate, regulator/operator separation, staff transition, payroll
+  reconciliation, financial disclosure, procurement transparency, beneficial
+  ownership, independent audit, citizen appeals, local compacts, operator
+  readiness, service metrics, capture risk, layoff risk, citizen-service risk,
+  transferable budget, staff transition count, decision state, and required
+  actions.
+- Step 15 has begun in `crates/cs-analytics/src/civic_work.rs` and
+  `migrations/20260722000001_civic_work.sql`. It controls civic-work authority,
+  explicit budgets, dividend-pool separation, voluntary participation, labor,
+  child and vulnerable-group safeguards, accessibility, task public value,
+  evidence, verifier independence, identity, duplicate claims, ghost-worker and
+  nepotism risk, safety, privacy, wage rules, skilled-labor crowding, payment
+  exceptions, training, bridge-to-work outcomes, appeals, dashboards, and audit.
 
 ## Bottom Line
 

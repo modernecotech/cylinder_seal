@@ -12,6 +12,8 @@
 - `docs/national-legal-institutional-roadmap.md` - authority path for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, domestic securities, privacy, emergency powers, federalism, and appeals.
 - `docs/project-pipeline-and-investment-gates.md` - project-family pipeline with capex, revenue source, DSCR, FX exposure, facility reuse, environmental, legal, and evidence gates.
 - `docs/political-economy-transition-and-anti-capture.md` - resistance, capture-risk, coalition, service-continuity, staff-transition, procurement-transparency, and pause/rollback logic.
+- `docs/citizen-entitlement-privacy-and-appeals.md` - citizen-share, dividend, identity, inheritance, minors, deceased records, diaspora/displaced claims, privacy, data minimization, payment exceptions, suspension, accessibility, dashboard, audit, and appeal gates.
+- `docs/cash-formalization-and-demonetization-window.md` - one-year physical-cash transition controls for legal authority, supervised conversion points, KYC, caps, source-of-funds scoring, EDD, quarantine, tax settlement, signed receipts, audit hashes, appeals, dashboards, and post-window rejection.
 - `docs/federalism-governorate-equity-and-local-compacts.md` - governorate, municipal, regional, and disputed-authority compact gates for allocation fairness, local benefit capture, grievances, audit, appeals, and land/water/heritage disputes.
 - `docs/environmental-social-cultural-safeguards.md` - environmental, social, water, marshland, biodiversity, heritage, resettlement, safety, maintenance, remediation, monitoring, audit, and accessibility gates.
 - `docs/macro-monetary-fx-stability.md` - macro, monetary, inflation, food-price, FX, reserve-cover, liquidity, credit, import-leakage, distribution-phasing, CBI-independence, and FX-transparency gates.
@@ -28,8 +30,8 @@
 - `docs/import-services-diaspora-expansion.md` - missing import screens, attraction-based service production, and diaspora income, expertise, capital, marketing, and distribution channels.
 - `docs/facility-recycling-and-capital-markets.md` - brownfield-first facility-reuse screening plus international credit, PPP, domestic bond/sukuk/equity, local bank, and diaspora financing lanes.
 - `docs/digitally-governed-industrial-champions.md` - anti-capture model for sectoral Iraqi industrial champion groups with conditional demand, conditional credit, export discipline, competition gates, and public audit.
-- `docs/national-civic-work-system.md` - digitally verified civic labor, wage, training, care, environmental, sport, culture, municipal, and climate-resilience transition layer.
-- `docs/ministry-transition-roadmap.md` - staged roadmap for deprecating, merging, regulating, corporatizing, or sunsetting ministry functions once service continuity and audit gates are met.
+- `docs/national-civic-work-system.md` - digitally verified civic labor, wage, training, care, environmental, sport, culture, municipal, climate-resilience, anti-ghost-worker, dignity, public-value, and bridge-to-work transition layer.
+- `docs/ministry-transition-roadmap.md` - staged roadmap and scenario-control primitive for retaining sovereign functions or deprecating, merging, regulating, corporatizing, or sunsetting ministry functions once legal, service-continuity, staff, payroll, audit, appeal, anti-capture, and local-compact gates are met.
 - `docs/system-and-financial-flow-diagrams.md` - rendered SVG architecture diagrams, transaction lifecycles, and financial-flow combinations, with software treated as implementation appendix.
 
 ## API And Implementation

@@ -863,7 +863,8 @@ pub fn default_rules() -> Vec<AmlRule> {
             severity: RuleSeverity::High,
             enabled: true,
             condition: RuleCondition::HighRiskJurisdiction {
-                // FATF blacklist/greylist as of 2025
+                // Prototype seed list. Production deployments must refresh
+                // jurisdiction status from an approved sanctions/AML feed.
                 country_codes: vec![
                     "KP".into(),
                     "IR".into(),

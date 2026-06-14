@@ -69,6 +69,11 @@ rather than the shorthand "chaebol." The intended lesson is coordinated scale,
 export discipline, and technology absorption, not family-controlled monopolies
 or permanent protection.
 
+For citizen entitlement, privacy, suspension, and appeal controls, use
+[Citizen Entitlement, Privacy, And Appeals](citizen-entitlement-privacy-and-appeals.md).
+For the physical-cash transition, use
+[Cash Formalization And Demonetization Window](cash-formalization-and-demonetization-window.md).
+
 ### Ownership
 
 - Every eligible Iraqi citizen receives one equal base share class.
@@ -161,6 +166,8 @@ productive investment, ministry funding, and citizen capital income.
 | Monthly dividend | Equal Digital IQD dividend distribution to citizen wallets. |
 | Anti-corruption controls | Immutable audit target, public aggregate dashboards, role-gated interventions, and suspicious deposit reports. |
 | Post-automation income | A recurring citizen capital dividend independent of formal wage employment. |
+| Citizen rights firewall | Dividend batches pause when legal authority, identity integrity, privacy, appeals, suspension due process, accessibility, dashboard, or independent audit gates fail. |
+| Cash-window firewall | Cash conversion pauses or rejects when authority, timing, supervision, identity, cap, source-of-funds, EDD, tax, receipt, audit, quarantine, appeal, dashboard, or post-window rules fail. |
 
 ## Flow Combination Matrix
 
@@ -279,8 +286,9 @@ Rules:
 
 1. Add a `ShareEntitlement` registry model and migration.
 2. Add a `DividendDistribution` batch model and route-level tests.
-3. Add a `CashConversionReceipt` model with risk states: `accepted`, `held`,
-   `rejected`, `referred`.
+3. Add a `CashConversionReceipt` model with risk states: `accepted`,
+   `accepted_partial`, `hold_for_edd`, `rejected`, `referred`, and
+   `window_expired`.
 4. Add an Oil Income Lockbox projection and dashboard.
 5. Add a public aggregate dividend dashboard.
 6. Add governance and legal review notes before any implementation is described
