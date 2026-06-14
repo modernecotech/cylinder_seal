@@ -399,6 +399,57 @@ fn spec_salary_blocked_to_unregistered_receiver_in_restricted_category() {
 }
 
 #[test]
+fn spec_salary_p2p_without_category_fails_closed() {
+    // Regression for the one-hop laundering gap: government salary sent to a
+    // cooperating peer with no category must not pass as an ordinary P2P
+    // transfer while restricted categories are active.
+    let _sender = cryptography::generate_keypair();
+    let (peer_pk, _) = cryptography::generate_keypair();
+
+    let merchants = StubMerchantRepository::new();
+    let mut restrictions = StubRestrictedCategoryRepository::new();
+    restrictions.add("food", 2, q4_2026_restriction_start(), "CBI-2026-Q4-001");
+
+    let ctx = TransferContext {
+        funds_origin: FundsOrigin::Salary,
+        product_category: None,
+        merchant_tier: resolve_tier_and_category(&merchants, &peer_pk).0,
+        today: active_policy_date(),
+    };
+    let rules = rules_active_on_policy_date(&restrictions);
+
+    assert!(matches!(
+        evaluate(&ctx, &rules),
+        HardRestrictionOutcome::Blocked { .. }
+    ));
+}
+
+#[test]
+fn spec_salary_p2p_declared_unrestricted_category_fails_closed() {
+    // A category string supplied by an unregistered counterparty is not a
+    // verifiable merchant classification. It must not reopen the P2P bypass.
+    let _sender = cryptography::generate_keypair();
+    let (peer_pk, _) = cryptography::generate_keypair();
+
+    let merchants = StubMerchantRepository::new();
+    let mut restrictions = StubRestrictedCategoryRepository::new();
+    restrictions.add("food", 2, q4_2026_restriction_start(), "CBI-2026-Q4-001");
+
+    let ctx = TransferContext {
+        funds_origin: FundsOrigin::Salary,
+        product_category: Some("electronics".into()),
+        merchant_tier: resolve_tier_and_category(&merchants, &peer_pk).0,
+        today: active_policy_date(),
+    };
+    let rules = rules_active_on_policy_date(&restrictions);
+
+    assert!(matches!(
+        evaluate(&ctx, &rules),
+        HardRestrictionOutcome::Blocked { .. }
+    ));
+}
+
+#[test]
 fn spec_rules_not_yet_effective_are_ignored() {
     // CBI adds a category with future effective_from. Until that date
     // passes, the gate must allow even gov transfers to Tier 4.

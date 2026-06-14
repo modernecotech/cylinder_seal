@@ -1,6 +1,7 @@
 //! CylinderSeal storage layer: PostgreSQL + Redis repositories.
 
 pub mod compliance;
+pub mod funds_origin;
 pub mod iraq_phase2;
 pub mod models;
 pub mod postgres;
@@ -11,6 +12,7 @@ pub mod redis;
 pub mod redis_impl;
 pub mod repository;
 
+pub use funds_origin::{FundsOriginBalanceRepository, PgFundsOriginBalanceRepository};
 pub use primitives_repo::PgEntryPrimitivesRepository;
 pub use producer_repo::{
     DocRepository, IndividualProducerRepository, PgDocRepository, PgIndividualProducerRepository,

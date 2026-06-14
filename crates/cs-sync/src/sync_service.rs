@@ -15,7 +15,7 @@ use async_trait::async_trait;
 use cs_consensus::log::EntryKind;
 use cs_consensus::node::RaftNode;
 use cs_core::error::CylinderSealError;
-use cs_core::models::{JournalEntry, Transaction};
+use cs_core::models::{JournalEntry, Transaction, User};
 use cs_core::primitives::{ExpiryOutcome, ReleaseOutcome, SpendConstraintOutcome};
 use cs_core::producer::FundsOrigin;
 use cs_policy::hard_restrictions::{
@@ -24,6 +24,7 @@ use cs_policy::hard_restrictions::{
 use cs_policy::merchant_tier::{MerchantRepository, MerchantTier};
 use cs_policy::{evaluate_expiry, evaluate_release_condition, evaluate_spend_constraint};
 use cs_storage::repository::{JournalRepository, NonceStore};
+use cs_storage::FundsOriginBalanceRepository;
 use cs_storage::RestrictedCategoryRepository;
 use futures::Stream;
 use futures::StreamExt;
@@ -58,6 +59,11 @@ pub struct ChainSyncService {
     /// categories. When `None`, the gate is inert — same permissive
     /// behaviour as before the tier system was wired.
     restricted_categories: Option<Arc<dyn RestrictedCategoryRepository>>,
+    /// Optional source-bucket ledger. When present, users with bucketed
+    /// balances must declare an origin with enough balance for each outbound
+    /// transaction. Users with no bucket rows are treated as legacy/unbucketed
+    /// until a bucketed credit is applied.
+    funds_origin_balances: Option<Arc<dyn FundsOriginBalanceRepository>>,
     super_peer_id: String,
 }
 
@@ -78,6 +84,7 @@ impl ChainSyncService {
             invoices,
             merchants: None,
             restricted_categories: None,
+            funds_origin_balances: None,
             super_peer_id,
         }
     }
@@ -99,6 +106,16 @@ impl ChainSyncService {
         restricted: Arc<dyn RestrictedCategoryRepository>,
     ) -> Self {
         self.restricted_categories = Some(restricted);
+        self
+    }
+
+    /// Attach source-of-funds buckets so `funds_origin` is checked against the
+    /// sender's tracked provenance balance.
+    pub fn with_funds_origin_balances(
+        mut self,
+        balances: Arc<dyn FundsOriginBalanceRepository>,
+    ) -> Self {
+        self.funds_origin_balances = Some(balances);
         self
     }
 
@@ -135,10 +152,18 @@ impl ChainSyncService {
         //    entries never reach Raft.
         let now_micros = chrono::Utc::now().timestamp_micros();
         for tx in &entry.transactions {
+            self.validate_funds_origin_balance(tx).await?;
             self.validate_primitives(tx, now_micros).await?;
         }
 
         Ok(())
+    }
+
+    async fn validate_funds_origin_balance(&self, tx: &Transaction) -> Result<(), Status> {
+        let Some(repo) = &self.funds_origin_balances else {
+            return Ok(());
+        };
+        validate_funds_origin_balance_for_tx(tx, repo.as_ref()).await
     }
 
     /// Check the three wire-format programmability primitives on a single tx.
@@ -359,6 +384,32 @@ fn storage_err(e: CylinderSealError) -> Status {
     Status::internal(e.to_string())
 }
 
+async fn validate_funds_origin_balance_for_tx(
+    tx: &Transaction,
+    repo: &dyn FundsOriginBalanceRepository,
+) -> Result<(), Status> {
+    let sender_id = User::derive_user_id_from_public_key(&tx.from_public_key);
+    let tracked_total = repo.total_balance(sender_id).await.map_err(storage_err)?;
+    if tracked_total == 0 {
+        return Ok(());
+    }
+
+    let declared_origin = tx.funds_origin.unwrap_or(FundsOrigin::Personal);
+    let source_balance = repo
+        .balance(sender_id, declared_origin)
+        .await
+        .map_err(storage_err)?;
+    if source_balance < tx.amount_owc {
+        return Err(Status::failed_precondition(format!(
+            "insufficient {} provenance balance: available {}, required {}",
+            declared_origin.as_str(),
+            source_balance,
+            tx.amount_owc
+        )));
+    }
+    Ok(())
+}
+
 impl ChainSyncService {
     /// Scan each transaction's memo for a `CS1:INV:<hex>` reference. When
     /// found, and the on-disk invoice matches amount/currency/recipient,
@@ -433,6 +484,7 @@ impl pb::chain_sync_server::ChainSync for ChainSyncService {
         let invoices = self.invoices.clone();
         let merchants = self.merchants.clone();
         let restricted_categories = self.restricted_categories.clone();
+        let funds_origin_balances = self.funds_origin_balances.clone();
         let super_peer_id = self.super_peer_id.clone();
 
         tokio::spawn(async move {
@@ -444,6 +496,7 @@ impl pb::chain_sync_server::ChainSync for ChainSyncService {
                 invoices,
                 merchants,
                 restricted_categories,
+                funds_origin_balances,
                 super_peer_id,
             };
             while let Some(msg) = inbound.next().await {
@@ -604,5 +657,143 @@ impl pb::chain_sync_server::ChainSync for ChainSyncService {
             error_message: String::new(),
             relay_device_reputation: 100,
         }))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::validate_funds_origin_balance_for_tx;
+    use async_trait::async_trait;
+    use cs_core::cryptography::generate_keypair;
+    use cs_core::models::{LocationSource, PaymentChannel, Transaction, User};
+    use cs_core::producer::FundsOrigin;
+    use cs_storage::FundsOriginBalanceRepository;
+    use rust_decimal::Decimal;
+    use std::collections::HashMap;
+    use tonic::Code;
+    use uuid::Uuid;
+
+    struct StubOriginBalances {
+        balances: HashMap<(Uuid, &'static str), i64>,
+    }
+
+    impl StubOriginBalances {
+        fn empty() -> Self {
+            Self {
+                balances: HashMap::new(),
+            }
+        }
+
+        fn with_balance(user_id: Uuid, origin: FundsOrigin, amount_micro_owc: i64) -> Self {
+            Self {
+                balances: HashMap::from([((user_id, origin.as_str()), amount_micro_owc)]),
+            }
+        }
+    }
+
+    #[async_trait]
+    impl FundsOriginBalanceRepository for StubOriginBalances {
+        async fn balance(&self, user_id: Uuid, origin: FundsOrigin) -> cs_core::error::Result<i64> {
+            Ok(*self.balances.get(&(user_id, origin.as_str())).unwrap_or(&0))
+        }
+
+        async fn total_balance(&self, user_id: Uuid) -> cs_core::error::Result<i64> {
+            Ok(self
+                .balances
+                .iter()
+                .filter(|((bucket_user_id, _), _)| *bucket_user_id == user_id)
+                .map(|(_, amount)| *amount)
+                .sum())
+        }
+
+        async fn credit_for_tx(
+            &self,
+            _transaction_id: Uuid,
+            _user_id: Uuid,
+            _origin: FundsOrigin,
+            _amount_micro_owc: i64,
+        ) -> cs_core::error::Result<()> {
+            Ok(())
+        }
+
+        async fn debit_for_tx(
+            &self,
+            _transaction_id: Uuid,
+            _user_id: Uuid,
+            _origin: FundsOrigin,
+            _amount_micro_owc: i64,
+        ) -> cs_core::error::Result<bool> {
+            Ok(true)
+        }
+    }
+
+    fn test_tx(from_public_key: [u8; 32], amount_owc: i64) -> Transaction {
+        let (to_public_key, _) = generate_keypair();
+        Transaction::new(
+            from_public_key,
+            to_public_key,
+            amount_owc,
+            "OWC".to_string(),
+            Decimal::ONE,
+            PaymentChannel::Online,
+            String::new(),
+            Uuid::new_v4(),
+            [0; 32],
+            [1; 32],
+            0.0,
+            0.0,
+            0,
+            LocationSource::GPS,
+        )
+    }
+
+    #[tokio::test]
+    async fn bucketed_salary_cannot_be_spent_as_personal() {
+        let (from_public_key, _) = generate_keypair();
+        let sender_id = User::derive_user_id_from_public_key(&from_public_key);
+        let repo = StubOriginBalances::with_balance(sender_id, FundsOrigin::Salary, 5_000_000);
+        let tx = test_tx(from_public_key, 1_000_000);
+
+        let err = validate_funds_origin_balance_for_tx(&tx, &repo)
+            .await
+            .expect_err("salary bucket must not fund an implicit personal spend");
+
+        assert_eq!(err.code(), Code::FailedPrecondition);
+        assert!(err.message().contains("insufficient personal"));
+    }
+
+    #[tokio::test]
+    async fn bucketed_salary_can_be_spent_as_salary() {
+        let (from_public_key, _) = generate_keypair();
+        let sender_id = User::derive_user_id_from_public_key(&from_public_key);
+        let repo = StubOriginBalances::with_balance(sender_id, FundsOrigin::Salary, 5_000_000);
+        let tx = test_tx(from_public_key, 1_000_000).with_funds_origin(FundsOrigin::Salary);
+
+        validate_funds_origin_balance_for_tx(&tx, &repo)
+            .await
+            .expect("salary spend should use salary provenance bucket");
+    }
+
+    #[tokio::test]
+    async fn legacy_unbucketed_sender_skips_origin_enforcement() {
+        let (from_public_key, _) = generate_keypair();
+        let repo = StubOriginBalances::empty();
+        let tx = test_tx(from_public_key, 1_000_000);
+
+        validate_funds_origin_balance_for_tx(&tx, &repo)
+            .await
+            .expect("legacy accounts without bucket rows stay spendable");
+    }
+
+    #[tokio::test]
+    async fn implicit_personal_spend_uses_personal_bucket() {
+        let (from_public_key, _) = generate_keypair();
+        let sender_id = User::derive_user_id_from_public_key(&from_public_key);
+        let repo = StubOriginBalances::with_balance(sender_id, FundsOrigin::Personal, 5_000_000);
+        let tx = test_tx(from_public_key, 1_000_000);
+
+        validate_funds_origin_balance_for_tx(&tx, &repo)
+            .await
+            .expect("implicit personal spend should use personal provenance bucket");
     }
 }

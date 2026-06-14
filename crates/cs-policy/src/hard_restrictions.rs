@@ -17,9 +17,9 @@ use cs_core::producer::{FundsOrigin, RestrictedCategory};
 pub struct TransferContext {
     pub funds_origin: FundsOrigin,
     /// Declared product category for the purchase (e.g. "food", "textiles").
-    /// `None` means the caller couldn't determine a category — treated as
-    /// unrestricted unless funds_origin is a government transfer AND the
-    /// merchant is Tier 3/4.
+    /// `None` means the caller couldn't determine a category. Government
+    /// transfers fail closed when active restrictions exist, because otherwise
+    /// unknown/P2P categories become a one-hop escape from the policy.
     pub product_category: Option<String>,
     /// Effective tier of the receiving merchant (1..=4). 0 is sentinel for
     /// "not a merchant" (peer-to-peer).
@@ -51,7 +51,12 @@ impl HardRestrictionOutcome {
 ///
 /// Rules:
 /// - If `funds_origin` is not a government transfer → always allow.
-/// - If product_category is not on the restricted list → allow.
+/// - If active restrictions exist and a government-transfer category is
+///   unknown → block.
+/// - If active restrictions exist and government funds are sent to an
+///   unregistered recipient → block.
+/// - If product_category is not on the restricted list and the recipient is a
+///   registered merchant → allow.
 /// - If effective_from is in the future → allow (not yet active).
 /// - If merchant_tier > max_allowed_tier → block.
 pub fn evaluate(
@@ -61,27 +66,37 @@ pub fn evaluate(
     if !ctx.funds_origin.is_government_transfer() {
         return HardRestrictionOutcome::Allowed;
     }
-    let Some(category) = ctx.product_category.as_deref() else {
+    if restrictions.is_empty() {
         return HardRestrictionOutcome::Allowed;
+    }
+    let Some(category) = ctx.product_category.as_deref() else {
+        return HardRestrictionOutcome::Blocked {
+            reason: format!(
+                "{} funds require a registered merchant category while CBI restrictions are active",
+                ctx.funds_origin.as_str()
+            ),
+        };
     };
+
+    // Government-origin P2P is not category-verifiable, even when the sender
+    // supplies a category string. Without this fail-closed rule, salary/UBI
+    // funds can be laundered through a cooperating peer and spent as "personal"
+    // funds on the next hop.
+    if ctx.merchant_tier == 0 {
+        return HardRestrictionOutcome::Blocked {
+            reason: format!(
+                "{} funds cannot be sent to an unregistered counterparty while CBI restrictions are active",
+                ctx.funds_origin.as_str()
+            ),
+        };
+    }
+
     let hit = restrictions.iter().find(|r| {
         r.is_active && r.category.eq_ignore_ascii_case(category) && r.effective_from <= ctx.today
     });
     let Some(rule) = hit else {
         return HardRestrictionOutcome::Allowed;
     };
-
-    // Merchant tier 0 (P2P) in the restricted category with gov funds is
-    // suspicious — treat as blocked.
-    if ctx.merchant_tier == 0 {
-        return HardRestrictionOutcome::Blocked {
-            reason: format!(
-                "Government transfer in restricted category '{}' cannot be sent \
-                 to an unregistered counterparty",
-                rule.category
-            ),
-        };
-    }
 
     if ctx.merchant_tier > rule.max_allowed_tier {
         HardRestrictionOutcome::Blocked {
@@ -185,9 +200,27 @@ mod tests {
     }
 
     #[test]
-    fn unknown_category_allowed() {
+    fn unknown_category_blocks_government_transfer_when_rules_are_active() {
         let c = ctx(FundsOrigin::Salary, None, 4, (2026, 12, 1));
-        assert_eq!(evaluate(&c, &rules()), HardRestrictionOutcome::Allowed);
+        assert!(matches!(
+            evaluate(&c, &rules()),
+            HardRestrictionOutcome::Blocked { .. }
+        ));
+    }
+
+    #[test]
+    fn unknown_category_allowed_when_no_rules_are_active() {
+        let c = ctx(FundsOrigin::Salary, None, 4, (2026, 12, 1));
+        assert_eq!(evaluate(&c, &[]), HardRestrictionOutcome::Allowed);
+    }
+
+    #[test]
+    fn gov_funds_p2p_blocked_even_with_unrestricted_declared_category() {
+        let c = ctx(FundsOrigin::Salary, Some("electronics"), 0, (2026, 12, 1));
+        assert!(matches!(
+            evaluate(&c, &rules()),
+            HardRestrictionOutcome::Blocked { .. }
+        ));
     }
 
     #[test]

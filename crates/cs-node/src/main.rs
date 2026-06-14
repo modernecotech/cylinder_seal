@@ -200,10 +200,24 @@ async fn main() -> Result<()> {
         Arc::new(cs_storage::producer_repo::PgIndividualProducerRepository::new(pool.clone()));
     let restricted_categories: Arc<dyn cs_storage::producer_repo::RestrictedCategoryRepository> =
         Arc::new(cs_storage::producer_repo::PgRestrictedCategoryRepository::new(pool.clone()));
+    let merchants: Arc<dyn cs_policy::MerchantRepository> =
+        Arc::new(cs_policy::PgMerchantRepository::new(pool.clone()));
+    let primitives: Arc<dyn cs_storage::EntryPrimitivesRepository> =
+        Arc::new(cs_storage::PgEntryPrimitivesRepository::new(pool.clone()));
+    let tier_log: Arc<dyn cs_storage::producer_repo::TierTxLogRepository> = Arc::new(
+        cs_storage::producer_repo::PgTierTxLogRepository::new(pool.clone()),
+    );
+    let funds_origin_balances: Arc<dyn cs_storage::FundsOriginBalanceRepository> = Arc::new(
+        cs_storage::PgFundsOriginBalanceRepository::new(pool.clone()),
+    );
 
     // ---------------- Raft ----------------
-    let applier: Arc<dyn LedgerStateMachine> =
-        Arc::new(LedgerApplier::new(journal.clone(), users.clone()));
+    let applier: Arc<dyn LedgerStateMachine> = Arc::new(
+        LedgerApplier::new(journal.clone(), users.clone())
+            .with_primitives(primitives.clone())
+            .with_tier_log(merchants.clone(), tier_log.clone())
+            .with_funds_origin_balances(funds_origin_balances.clone()),
+    );
     let peers = cfg.super_peer.peers.clone();
     let raft = RaftNode::new(
         RaftConfig {
@@ -226,7 +240,10 @@ async fn main() -> Result<()> {
         resolver.clone(),
         invoices.clone(),
         cfg.server.node_id.clone(),
-    );
+    )
+    .with_merchants(merchants.clone())
+    .with_restricted_categories(restricted_categories.clone())
+    .with_funds_origin_balances(funds_origin_balances.clone());
     let gossip_svc = GossipService::new();
     let business_svc = cs_sync::BusinessApiService::new(
         users.clone(),

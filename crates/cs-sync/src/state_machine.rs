@@ -22,6 +22,7 @@ use cs_policy::merchant_tier::{MerchantRepository, MerchantTier};
 use cs_storage::models::{EntryPrimitivesRecord, JournalEntryRecord};
 use cs_storage::producer_repo::{TierTxLogEntry, TierTxLogRepository};
 use cs_storage::repository::{EntryPrimitivesRepository, JournalRepository, UserRepository};
+use cs_storage::FundsOriginBalanceRepository;
 
 use crate::convert::domain_entry_to_pb;
 
@@ -44,6 +45,9 @@ pub struct LedgerApplier {
     /// Captures per-transaction tier / fee / hard-restriction metadata so
     /// CBI can run import-substitution analytics and compliance audits.
     tier_log: Option<Arc<dyn TierTxLogRepository>>,
+    /// Optional provenance buckets. When present, committed transfers move
+    /// source-of-funds balances alongside the ordinary wallet balance.
+    funds_origin_balances: Option<Arc<dyn FundsOriginBalanceRepository>>,
 }
 
 impl LedgerApplier {
@@ -54,6 +58,7 @@ impl LedgerApplier {
             primitives: None,
             merchants: None,
             tier_log: None,
+            funds_origin_balances: None,
         }
     }
 
@@ -74,6 +79,14 @@ impl LedgerApplier {
     ) -> Self {
         self.merchants = Some(merchants);
         self.tier_log = Some(tier_log);
+        self
+    }
+
+    pub fn with_funds_origin_balances(
+        mut self,
+        balances: Arc<dyn FundsOriginBalanceRepository>,
+    ) -> Self {
+        self.funds_origin_balances = Some(balances);
         self
     }
 
@@ -125,6 +138,14 @@ impl LedgerApplier {
                     .map_err(|e| ApplyError::Storage(e.to_string()))?;
                 tier_log
                     .record(&log_entry)
+                    .await
+                    .map_err(|e| ApplyError::Storage(e.to_string()))?;
+            }
+        }
+
+        if let Some(repo) = &self.funds_origin_balances {
+            for tx in &entry.transactions {
+                apply_funds_origin_buckets(tx, repo.as_ref())
                     .await
                     .map_err(|e| ApplyError::Storage(e.to_string()))?;
             }
@@ -217,6 +238,37 @@ fn tx_credits_receiver(tx: &Transaction) -> bool {
             ReleaseOutcome::Released
         ),
     }
+}
+
+async fn apply_funds_origin_buckets(
+    tx: &Transaction,
+    repo: &dyn FundsOriginBalanceRepository,
+) -> Result<(), cs_core::error::CylinderSealError> {
+    let origin = tx.funds_origin.unwrap_or(FundsOrigin::Personal);
+    let from_id = cs_core::models::User::derive_user_id_from_public_key(&tx.from_public_key);
+    let to_id = cs_core::models::User::derive_user_id_from_public_key(&tx.to_public_key);
+
+    // Legacy/unbucketed senders are not debited until they receive their first
+    // bucketed credit or are backfilled. Once bucketed, relabelling is blocked
+    // both at validation time and here at apply time.
+    if repo.total_balance(from_id).await? > 0 {
+        let debited = repo
+            .debit_for_tx(tx.transaction_id, from_id, origin, tx.amount_owc)
+            .await?;
+        if !debited {
+            return Err(cs_core::error::CylinderSealError::ValidationError(format!(
+                "insufficient {} provenance balance",
+                origin.as_str()
+            )));
+        }
+    }
+
+    if tx_credits_receiver(tx) {
+        repo.credit_for_tx(tx.transaction_id, to_id, origin, tx.amount_owc)
+            .await?;
+    }
+
+    Ok(())
 }
 
 /// Build the sidecar row for a transaction if it carries any primitive.
@@ -326,7 +378,7 @@ async fn build_tier_log_entry(
         .to_string();
 
     Ok(TierTxLogEntry {
-        log_id: uuid::Uuid::new_v4(),
+        log_id: 0,
         transaction_id: tx.transaction_id,
         merchant_id,
         producer_id: None, // set by merchant-registry wiring (future)
@@ -403,6 +455,7 @@ mod proto_dto {
         pub to_public_key_hex: String,
         pub amount_owc: i64,
         pub currency_context: &'a str,
+        pub funds_origin: &'static str,
         pub channel: i32,
         pub memo: &'a str,
         pub latitude: f64,
@@ -421,6 +474,7 @@ mod proto_dto {
                 to_public_key_hex: hex::encode(&t.to_public_key),
                 amount_owc: t.amount_owc,
                 currency_context: &t.currency_context,
+                funds_origin: funds_origin_str(t.funds_origin),
                 channel: t.channel,
                 memo: &t.memo,
                 latitude: t.latitude,
@@ -430,6 +484,19 @@ mod proto_dto {
                 location_source: t.location_source,
                 timestamp_utc: t.timestamp_utc,
             }
+        }
+    }
+
+    fn funds_origin_str(origin: i32) -> &'static str {
+        match pb::FundsOrigin::try_from(origin).unwrap_or(pb::FundsOrigin::Unspecified) {
+            pb::FundsOrigin::Unspecified => "unspecified",
+            pb::FundsOrigin::Personal => "personal",
+            pb::FundsOrigin::Salary => "salary",
+            pb::FundsOrigin::Pension => "pension",
+            pb::FundsOrigin::Ubi => "ubi",
+            pb::FundsOrigin::SocialProtection => "social_protection",
+            pb::FundsOrigin::Business => "business",
+            pb::FundsOrigin::Refund => "refund",
         }
     }
 
@@ -448,5 +515,239 @@ mod proto_dto {
                 confirmed_at: c.confirmed_at,
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{apply_funds_origin_buckets, proto_dto::TransactionDto};
+    use crate::proto::chain_sync as pb;
+    use async_trait::async_trait;
+    use cs_core::cryptography::generate_keypair;
+    use cs_core::models::{LocationSource, PaymentChannel, Transaction, User};
+    use cs_core::producer::FundsOrigin;
+    use cs_storage::FundsOriginBalanceRepository;
+    use rust_decimal::Decimal;
+    use std::collections::HashMap;
+    use std::sync::Mutex;
+    use uuid::Uuid;
+
+    #[derive(Debug, PartialEq, Eq)]
+    struct BucketMove {
+        user_id: Uuid,
+        origin: FundsOrigin,
+        amount_micro_owc: i64,
+    }
+
+    struct RecordingOriginBalances {
+        balances: Mutex<HashMap<(Uuid, &'static str), i64>>,
+        credits: Mutex<Vec<BucketMove>>,
+        debits: Mutex<Vec<BucketMove>>,
+    }
+
+    impl RecordingOriginBalances {
+        fn new(balances: HashMap<(Uuid, &'static str), i64>) -> Self {
+            Self {
+                balances: Mutex::new(balances),
+                credits: Mutex::new(Vec::new()),
+                debits: Mutex::new(Vec::new()),
+            }
+        }
+    }
+
+    #[async_trait]
+    impl FundsOriginBalanceRepository for RecordingOriginBalances {
+        async fn balance(&self, user_id: Uuid, origin: FundsOrigin) -> cs_core::error::Result<i64> {
+            Ok(*self
+                .balances
+                .lock()
+                .expect("balances")
+                .get(&(user_id, origin.as_str()))
+                .unwrap_or(&0))
+        }
+
+        async fn total_balance(&self, user_id: Uuid) -> cs_core::error::Result<i64> {
+            Ok(self
+                .balances
+                .lock()
+                .expect("balances")
+                .iter()
+                .filter(|((bucket_user_id, _), _)| *bucket_user_id == user_id)
+                .map(|(_, amount)| *amount)
+                .sum())
+        }
+
+        async fn credit_for_tx(
+            &self,
+            _transaction_id: Uuid,
+            user_id: Uuid,
+            origin: FundsOrigin,
+            amount_micro_owc: i64,
+        ) -> cs_core::error::Result<()> {
+            let mut balances = self.balances.lock().expect("balances");
+            let key = (user_id, origin.as_str());
+            *balances.entry(key).or_insert(0) += amount_micro_owc;
+            self.credits.lock().expect("credits").push(BucketMove {
+                user_id,
+                origin,
+                amount_micro_owc,
+            });
+            Ok(())
+        }
+
+        async fn debit_for_tx(
+            &self,
+            _transaction_id: Uuid,
+            user_id: Uuid,
+            origin: FundsOrigin,
+            amount_micro_owc: i64,
+        ) -> cs_core::error::Result<bool> {
+            let mut balances = self.balances.lock().expect("balances");
+            let key = (user_id, origin.as_str());
+            let available = *balances.get(&key).unwrap_or(&0);
+            if available < amount_micro_owc {
+                return Ok(false);
+            }
+            balances.insert(key, available - amount_micro_owc);
+            self.debits.lock().expect("debits").push(BucketMove {
+                user_id,
+                origin,
+                amount_micro_owc,
+            });
+            Ok(true)
+        }
+    }
+
+    fn test_tx(from_public_key: [u8; 32], to_public_key: [u8; 32], amount_owc: i64) -> Transaction {
+        Transaction::new(
+            from_public_key,
+            to_public_key,
+            amount_owc,
+            "OWC".to_string(),
+            Decimal::ONE,
+            PaymentChannel::Online,
+            String::new(),
+            Uuid::new_v4(),
+            [0; 32],
+            [1; 32],
+            0.0,
+            0.0,
+            0,
+            LocationSource::GPS,
+        )
+    }
+
+    #[test]
+    fn transaction_dto_persists_funds_origin_for_audit() {
+        let tx = pb::Transaction {
+            transaction_id: vec![1; 16],
+            from_public_key: vec![2; 32],
+            to_public_key: vec![3; 32],
+            amount_owc: 1_000_000,
+            currency_context: "IQD".into(),
+            funds_origin: pb::FundsOrigin::Salary as i32,
+            ..Default::default()
+        };
+
+        let json = serde_json::to_value(TransactionDto::from(&tx)).expect("serialize tx dto");
+        assert_eq!(json["funds_origin"], "salary");
+    }
+
+    #[tokio::test]
+    async fn apply_funds_origin_buckets_debits_sender_and_credits_receiver() {
+        let (from_public_key, _) = generate_keypair();
+        let (to_public_key, _) = generate_keypair();
+        let sender_id = User::derive_user_id_from_public_key(&from_public_key);
+        let receiver_id = User::derive_user_id_from_public_key(&to_public_key);
+        let repo = RecordingOriginBalances::new(HashMap::from([(
+            (sender_id, FundsOrigin::Salary.as_str()),
+            5_000_000,
+        )]));
+        let tx = test_tx(from_public_key, to_public_key, 1_000_000)
+            .with_funds_origin(FundsOrigin::Salary);
+
+        apply_funds_origin_buckets(&tx, &repo)
+            .await
+            .expect("bucket movement should apply");
+
+        let debits = repo.debits.lock().expect("debits");
+        assert_eq!(
+            debits.as_slice(),
+            &[BucketMove {
+                user_id: sender_id,
+                origin: FundsOrigin::Salary,
+                amount_micro_owc: 1_000_000,
+            }]
+        );
+        drop(debits);
+
+        let credits = repo.credits.lock().expect("credits");
+        assert_eq!(
+            credits.as_slice(),
+            &[BucketMove {
+                user_id: receiver_id,
+                origin: FundsOrigin::Salary,
+                amount_micro_owc: 1_000_000,
+            }]
+        );
+        drop(credits);
+        assert_eq!(
+            repo.balance(sender_id, FundsOrigin::Salary).await.unwrap(),
+            4_000_000
+        );
+        assert_eq!(
+            repo.balance(receiver_id, FundsOrigin::Salary)
+                .await
+                .unwrap(),
+            1_000_000
+        );
+    }
+
+    #[tokio::test]
+    async fn apply_funds_origin_buckets_rejects_insufficient_sender_bucket() {
+        let (from_public_key, _) = generate_keypair();
+        let (to_public_key, _) = generate_keypair();
+        let sender_id = User::derive_user_id_from_public_key(&from_public_key);
+        let repo = RecordingOriginBalances::new(HashMap::from([(
+            (sender_id, FundsOrigin::Salary.as_str()),
+            500_000,
+        )]));
+        let tx = test_tx(from_public_key, to_public_key, 1_000_000)
+            .with_funds_origin(FundsOrigin::Salary);
+
+        let err = apply_funds_origin_buckets(&tx, &repo)
+            .await
+            .expect_err("insufficient provenance should fail at apply time");
+
+        assert!(err.to_string().contains("insufficient salary"));
+        assert!(repo.credits.lock().expect("credits").is_empty());
+    }
+
+    #[tokio::test]
+    async fn apply_funds_origin_buckets_credits_legacy_sender_transfer_without_debit() {
+        let (from_public_key, _) = generate_keypair();
+        let (to_public_key, _) = generate_keypair();
+        let sender_id = User::derive_user_id_from_public_key(&from_public_key);
+        let receiver_id = User::derive_user_id_from_public_key(&to_public_key);
+        let repo = RecordingOriginBalances::new(HashMap::new());
+        let tx = test_tx(from_public_key, to_public_key, 1_000_000);
+
+        apply_funds_origin_buckets(&tx, &repo)
+            .await
+            .expect("legacy sender transfer should apply");
+
+        assert!(repo.debits.lock().expect("debits").is_empty());
+        assert_eq!(
+            repo.balance(sender_id, FundsOrigin::Personal)
+                .await
+                .unwrap(),
+            0
+        );
+        assert_eq!(
+            repo.balance(receiver_id, FundsOrigin::Personal)
+                .await
+                .unwrap(),
+            1_000_000
+        );
     }
 }

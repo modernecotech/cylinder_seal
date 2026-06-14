@@ -142,6 +142,27 @@ fn ip_flag_severity_from_str(s: &str) -> IpFlagSeverity {
     }
 }
 
+fn tier_to_log_str(tier: u8) -> &'static str {
+    match tier {
+        1 => "tier_1",
+        2 => "tier_2",
+        3 => "tier_3",
+        4 => "tier_4",
+        _ => "unclassified",
+    }
+}
+
+fn tier_from_log_str(tier: &str) -> u8 {
+    match tier {
+        "tier_1" | "tier1" => 1,
+        "tier_2" | "tier2" => 2,
+        "tier_3" | "tier3" => 3,
+        "tier_4" | "tier4" => 4,
+        "unclassified" => 0,
+        _ => 0,
+    }
+}
+
 // ---------------------------------------------------------------------------
 // Restricted categories repo
 // ---------------------------------------------------------------------------
@@ -199,7 +220,9 @@ impl RestrictedCategoryRepository for PgRestrictedCategoryRepository {
         let rows = sqlx::query(
             "SELECT category, effective_from, max_allowed_tier, cbi_circular_ref, is_active, notes
              FROM restricted_categories
-             WHERE is_active = TRUE AND effective_from <= $1
+             WHERE is_active = TRUE
+               AND effective_from <= $1
+               AND (effective_until IS NULL OR effective_until >= $1)
              ORDER BY category ASC",
         )
         .bind(on)
@@ -224,9 +247,10 @@ impl RestrictedCategoryRepository for PgRestrictedCategoryRepository {
     async fn upsert(&self, cat: &RestrictedCategory) -> Result<()> {
         sqlx::query(
             "INSERT INTO restricted_categories
-               (category, effective_from, max_allowed_tier, cbi_circular_ref, is_active, notes)
-             VALUES ($1,$2,$3,$4,$5,$6)
+               (category, display_name, effective_from, max_allowed_tier, cbi_circular_ref, is_active, notes)
+             VALUES ($1,$2,$3,$4,$5,$6,$7)
              ON CONFLICT (category) DO UPDATE SET
+               display_name = EXCLUDED.display_name,
                effective_from = EXCLUDED.effective_from,
                max_allowed_tier = EXCLUDED.max_allowed_tier,
                cbi_circular_ref = EXCLUDED.cbi_circular_ref,
@@ -235,6 +259,7 @@ impl RestrictedCategoryRepository for PgRestrictedCategoryRepository {
                updated_at = NOW()",
         )
         .bind(&cat.category)
+        .bind(cat.category.replace('_', " "))
         .bind(cat.effective_from)
         .bind(cat.max_allowed_tier as i16)
         .bind(&cat.cbi_circular_ref)
@@ -818,7 +843,7 @@ impl IndividualProducerRepository for PgIndividualProducerRepository {
 
 #[derive(Clone, Debug)]
 pub struct TierTxLogEntry {
-    pub log_id: Uuid,
+    pub log_id: i64,
     pub transaction_id: Uuid,
     pub merchant_id: Option<Uuid>,
     pub producer_id: Option<Uuid>,
@@ -855,29 +880,29 @@ impl PgTierTxLogRepository {
 #[async_trait]
 impl TierTxLogRepository for PgTierTxLogRepository {
     async fn record(&self, e: &TierTxLogEntry) -> Result<()> {
+        let fee_applied_owc = e
+            .amount_micro_owc
+            .saturating_mul(i64::from(e.fee_applied_bps))
+            / 10_000;
         sqlx::query(
             "INSERT INTO tier_transaction_log
-               (log_id, transaction_id, merchant_id, producer_id, doc_id, ip_id,
-                effective_tier, iraqi_content_pct, fee_applied_bps, funds_origin,
-                product_category, hard_restriction_applied, restriction_reason,
-                amount_iqd, amount_micro_owc, micro_tax_withheld_owc, logged_at)
-             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)",
+               (transaction_id, merchant_id, doc_id, individual_producer_id,
+                tier_applied, fee_applied_bps, fee_applied_owc, amount_owc,
+                restricted_category, funds_origin, hard_restriction_applied,
+                micro_tax_withheld_owc, transaction_date)
+             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)",
         )
-        .bind(e.log_id)
         .bind(e.transaction_id)
         .bind(e.merchant_id)
-        .bind(e.producer_id)
         .bind(e.doc_id)
         .bind(e.ip_id)
-        .bind(e.effective_tier as i16)
-        .bind(e.iraqi_content_pct.map(|p| p as i16))
+        .bind(tier_to_log_str(e.effective_tier))
         .bind(e.fee_applied_bps)
-        .bind(&e.funds_origin)
-        .bind(&e.product_category)
-        .bind(e.hard_restriction_applied)
-        .bind(&e.restriction_reason)
-        .bind(e.amount_iqd)
+        .bind(fee_applied_owc)
         .bind(e.amount_micro_owc)
+        .bind(&e.product_category)
+        .bind(&e.funds_origin)
+        .bind(e.hard_restriction_applied)
         .bind(e.micro_tax_withheld_owc)
         .bind(e.logged_at)
         .execute(&self.pool)
@@ -888,14 +913,19 @@ impl TierTxLogRepository for PgTierTxLogRepository {
 
     async fn list_for_user(&self, user_id: Uuid, limit: i64) -> Result<Vec<TierTxLogEntry>> {
         let rows = sqlx::query(
-            "SELECT l.log_id, l.transaction_id, l.merchant_id, l.producer_id, l.doc_id, l.ip_id,
-                    l.effective_tier, l.iraqi_content_pct, l.fee_applied_bps, l.funds_origin,
-                    l.product_category, l.hard_restriction_applied, l.restriction_reason,
-                    l.amount_iqd, l.amount_micro_owc, l.micro_tax_withheld_owc, l.logged_at
+            "SELECT l.log_id, l.transaction_id, l.merchant_id, l.doc_id,
+                    l.individual_producer_id, l.tier_applied, l.fee_applied_bps,
+                    l.funds_origin, l.restricted_category, l.hard_restriction_applied,
+                    l.amount_owc, l.micro_tax_withheld_owc, l.transaction_date
              FROM tier_transaction_log l
-             JOIN ledger_entries le ON le.transaction_id = l.transaction_id
-             WHERE le.user_id = $1
-             ORDER BY l.logged_at DESC
+             WHERE EXISTS (
+                 SELECT 1
+                 FROM ledger_entries le
+                 CROSS JOIN LATERAL jsonb_array_elements(le.entry_data->'transactions') tx
+                 WHERE le.user_id = $1
+                   AND tx->>'transaction_id_hex' = replace(l.transaction_id::text, '-', '')
+             )
+             ORDER BY l.transaction_date DESC
              LIMIT $2",
         )
         .bind(user_id)
@@ -910,22 +940,20 @@ impl TierTxLogRepository for PgTierTxLogRepository {
                 log_id: row.get("log_id"),
                 transaction_id: row.get("transaction_id"),
                 merchant_id: row.get("merchant_id"),
-                producer_id: row.get("producer_id"),
+                producer_id: None,
                 doc_id: row.get("doc_id"),
-                ip_id: row.get("ip_id"),
-                effective_tier: row.get::<i16, _>("effective_tier") as u8,
-                iraqi_content_pct: row
-                    .get::<Option<i16>, _>("iraqi_content_pct")
-                    .map(|v| v as u8),
+                ip_id: row.get("individual_producer_id"),
+                effective_tier: tier_from_log_str(row.get::<String, _>("tier_applied").as_str()),
+                iraqi_content_pct: None,
                 fee_applied_bps: row.get("fee_applied_bps"),
                 funds_origin: row.get("funds_origin"),
-                product_category: row.get("product_category"),
+                product_category: row.get("restricted_category"),
                 hard_restriction_applied: row.get("hard_restriction_applied"),
-                restriction_reason: row.get("restriction_reason"),
-                amount_iqd: row.get("amount_iqd"),
-                amount_micro_owc: row.get("amount_micro_owc"),
+                restriction_reason: None,
+                amount_iqd: None,
+                amount_micro_owc: row.get("amount_owc"),
                 micro_tax_withheld_owc: row.get("micro_tax_withheld_owc"),
-                logged_at: row.get("logged_at"),
+                logged_at: row.get("transaction_date"),
             })
             .collect())
     }
