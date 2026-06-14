@@ -87,10 +87,12 @@ The module connects to Digital IQD wallets but should not expose full payment
 history to local supervisors. Task verification, wage payment, identity, and
 reputation need separate permissions.
 
-The current repository implements the first planning primitive in
-`crates/cs-analytics/src/civic_work.rs`, with persistence in
-`migrations/20260722000001_civic_work.sql`. The deployable `cs-civic-work`
-task platform, routes, wallets, and payment release service remain future work.
+The current repository implements a planning primitive in
+`crates/cs-analytics/src/civic_work.rs`, persistence in
+`migrations/20260722000001_civic_work.sql`, and initial task lifecycle,
+evidence, verification, risk-hold, and payment-eligibility models in
+`crates/cs-civic-work`. A deployable civic-work platform with routes, wallets,
+municipal verifier operations, and wage-payment release remains future work.
 
 ## Civic Work Flow
 

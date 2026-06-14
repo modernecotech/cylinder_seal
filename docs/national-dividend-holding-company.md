@@ -199,7 +199,7 @@ productive investment, ministry funding, and citizen capital income.
 | `GrossProfitLevy` | Treasury claim on productive operating surplus. | New accounting primitive. |
 | `DividendDistribution` | Monthly equal dividend to all eligible citizen wallets. | New distribution primitive. |
 | `CashConversionReceipt` | Time-limited cash deposit record with KYC, risk score, cap, hold, and conversion status. | New design primitive. |
-| `InheritanceTransfer` | Legally approved movement of share entitlement to eligible offspring or heirs. | New design primitive. |
+| `InheritanceTransfer` | Legally approved movement of share entitlement to eligible heirs. | New design primitive. |
 
 ## Financial Flows
 

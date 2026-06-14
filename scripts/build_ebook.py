@@ -21,6 +21,8 @@ PDF_PATH = EBOOK_OUT_DIR / "cylinder-seal-ebook.pdf"
 HTML_PATH = EBOOK_OUT_DIR / "cylinder-seal-ebook.html"
 MD_PATH = EBOOK_OUT_DIR / "cylinder-seal-ebook.md"
 RASTER_MAP: dict[Path, Path] = {}
+ARABIC_BRIEF_PATH = ROOT / "INSTITUTIONAL_BRIEF_AR.md"
+INSTITUTIONAL_BRIEF_PATH = ROOT / "INSTITUTIONAL_BRIEF.md"
 
 
 @dataclass(frozen=True)
@@ -37,6 +39,7 @@ BOOK_STATUS = "Prototype and policy-design ebook. Not production CBDC infrastruc
 
 BOOK_PARTS = [
     BookPart("Project Overview", ROOT / "README.md"),
+    BookPart("Pilot Design", ROOT / "PILOT_DESIGN.md"),
     BookPart("Executive Summary", ROOT / "EXECUTIVE_SUMMARY.md"),
     BookPart("Final Summary", ROOT / "FINAL_SUMMARY.md"),
     BookPart("Economic Assumptions And Source Discipline", ROOT / "docs" / "economic-assumptions.md"),
@@ -115,13 +118,17 @@ def rel_url(path: Path) -> str:
 def rasterize_diagrams() -> None:
     ASSET_DIR.mkdir(parents=True, exist_ok=True)
     svg_paths = {path.resolve() for _, path in DIAGRAMS}
-    for part in BOOK_PARTS:
-        text = part.path.read_text(encoding="utf-8")
+    markdown_sources = [ARABIC_BRIEF_PATH, INSTITUTIONAL_BRIEF_PATH]
+    markdown_sources.extend(part.path for part in BOOK_PARTS)
+    for source_path in markdown_sources:
+        if not source_path.exists():
+            continue
+        text = source_path.read_text(encoding="utf-8")
         for match in re.finditer(r"!\[[^\]]*\]\(([^)]+)\)", text):
             target = match.group(1).strip().split()[0]
             if re.match(r"^[a-z]+://", target) or target.startswith("#"):
                 continue
-            candidate = (part.path.parent / target).resolve()
+            candidate = (source_path.parent / target).resolve()
             if candidate.suffix.lower() == ".svg" and candidate.exists():
                 svg_paths.add(candidate)
 
@@ -172,29 +179,33 @@ def preprocess_part(part: BookPart) -> str:
     return text
 
 
+def preprocess_front_matter(path: Path, *, css_class: str = "", direction: str = "") -> str:
+    text = path.read_text(encoding="utf-8")
+    text = rewrite_image_paths(text, path)
+    text = strip_mermaid(text)
+    if css_class or direction:
+        attrs = []
+        if css_class:
+            attrs.append(f'class="{css_class}"')
+        if direction:
+            attrs.append(f'dir="{direction}"')
+        attrs.append('markdown="1"')
+        return f"<section {' '.join(attrs)}>\n\n{text}\n\n</section>"
+    return text
+
+
 def build_markdown() -> str:
-    today = date.today().isoformat()
     lines = [
-        f"# {BOOK_TITLE}",
+        preprocess_front_matter(ARABIC_BRIEF_PATH, css_class="arabic-brief", direction="rtl"),
         "",
-        BOOK_SUBTITLE,
-        "",
-        f"**Status:** {BOOK_STATUS}",
-        "",
-        f"**Generated:** {today}",
-        "",
-        "This ebook is generated from the repository documentation. It preserves the",
-        "prototype boundary: Cylinder Seal is suitable for technical review, policy",
-        "exploration, and demo workflows, but it is not production-ready payment",
-        "infrastructure and is not an official Central Bank of Iraq project.",
-        "",
-        "# Contents",
+        preprocess_front_matter(INSTITUTIONAL_BRIEF_PATH),
         "",
     ]
     for idx, part in enumerate(BOOK_PARTS, 1):
-        lines.append(f"{idx}. {part.title}")
-    lines.append(f"{len(BOOK_PARTS) + 1}. Legacy Policy Paper Boundary")
-    lines.append("")
+        lines.append(f"# Part {idx}: {part.title}")
+        lines.append("")
+        lines.append(preprocess_part(part))
+        lines.append("")
     lines.append("# Diagram Atlas")
     lines.append("")
     for title, path in DIAGRAMS:
@@ -202,11 +213,6 @@ def build_markdown() -> str:
         lines.append("")
         image_path = RASTER_MAP.get(path.resolve(), path)
         lines.append(f"![{title}]({rel_url(image_path)})")
-        lines.append("")
-    for idx, part in enumerate(BOOK_PARTS, 1):
-        lines.append(f"# Part {idx}: {part.title}")
-        lines.append("")
-        lines.append(preprocess_part(part))
         lines.append("")
     lines.append(LEGACY_POLICY_NOTE.strip())
     lines.append("")
@@ -362,6 +368,25 @@ img {
 .diagram-atlas img {
   max-height: 176mm;
 }
+.arabic-brief {
+  direction: rtl;
+  font-family: "Noto Naskh Arabic", "Amiri", "DejaVu Sans", Arial, sans-serif;
+  text-align: right;
+  unicode-bidi: isolate;
+}
+.arabic-brief blockquote {
+  border-left: 0;
+  border-right: 4px solid #98a2b3;
+  padding: 2mm 5mm 2mm 0;
+}
+.arabic-brief ul,
+.arabic-brief ol {
+  margin: 1mm 7mm 4mm 0;
+}
+.arabic-brief td,
+.arabic-brief th {
+  text-align: right;
+}
 .source-note {
   background: #fff7e6;
   border: 1px solid #fedf89;
@@ -380,13 +405,11 @@ img {
 def build_html(markdown_text: str) -> str:
     body_html = markdown.markdown(
         markdown_text,
-        extensions=["extra", "tables", "fenced_code", "sane_lists", "toc"],
+        extensions=["extra", "tables", "fenced_code", "sane_lists", "toc", "md_in_html"],
         output_format="html5",
     )
-    # Add classes to the generated contents and diagram atlas sections.
-    body_html = body_html.replace("<h1 id=\"contents\">Contents</h1>", "<h1 id=\"contents\">Contents</h1><div class=\"contents\">", 1)
-    body_html = body_html.replace("<h1 id=\"diagram-atlas\">Diagram Atlas</h1>", "</div><section class=\"diagram-atlas\"><h1 id=\"diagram-atlas\">Diagram Atlas</h1>", 1)
-    body_html = body_html.replace("<h1 id=\"part-1-project-overview\">", "</section><h1 id=\"part-1-project-overview\">", 1)
+    body_html = body_html.replace("<h1 id=\"diagram-atlas\">Diagram Atlas</h1>", "<section class=\"diagram-atlas\"><h1 id=\"diagram-atlas\">Diagram Atlas</h1>", 1)
+    body_html = body_html.replace("<h1 id=\"legacy-policy-paper-boundary\">", "</section><h1 id=\"legacy-policy-paper-boundary\">", 1)
     generated = date.today().isoformat()
     return f"""<!doctype html>
 <html lang="en">

@@ -40,6 +40,7 @@ The CBI Dashboard is a dedicated web application for Iraqi Central Bank staff to
 - **Account management** (`src/routes/accounts.rs`) — search/detail route shapes and freeze/unfreeze audit gates exist; live search/detail data is partial.
 - **Risk & AML** (`src/routes/risk.rs`) — route shapes exist with placeholder risk output until AML queue/history repositories are wired.
 - **Audit & governance** (`src/routes/audit.rs`) — directive creation is gated/audited; list views still need live repository-backed data.
+- **Live integration test** (`tests/live_postgres_redis.rs`) — opt-in coverage for PostgreSQL-backed login/audit and Redis-backed session lifecycle with role-gated dashboard actions.
 
 ## Next Steps for Implementation Team
 
@@ -151,7 +152,7 @@ No new dependencies on payment processing, cryptography, or consensus — those 
 See `cs-tests/` for spec test patterns. For cbi-dashboard:
 
 - `tests/route_integration.rs` exercises the real Axum router with in-memory stores for session enforcement, CSRF checks, logout invalidation, current role gates, and admin action audit recording.
-- Live PostgreSQL/Redis integration tests are still needed for database-backed endpoints and migrations.
+- `tests/live_postgres_redis.rs` is opt-in with `CBI_DASHBOARD_LIVE_TESTS=1` and exercises PostgreSQL-backed login/audit plus Redis-backed session lifecycle.
 - Future handler work should add realistic payload tests and audit-log assertions.
 
 ## Security Considerations
@@ -167,4 +168,4 @@ See `cs-tests/` for spec test patterns. For cbi-dashboard:
 ---
 
 **Last reviewed:** 2026-06-14
-**Status:** Prototype scaffold with route-level security tests. Awaiting full handler implementation and live PostgreSQL/Redis integration testing.
+**Status:** Prototype scaffold with route-level security tests and one opt-in live PostgreSQL/Redis auth/session/audit path. Awaiting full handler implementation and broader live endpoint coverage.

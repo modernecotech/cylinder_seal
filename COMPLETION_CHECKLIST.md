@@ -12,12 +12,14 @@
 - [x] Economic assumptions and source discipline documented.
 - [x] Security/threat-model requirements documented in `SECURITY.md`.
 - [x] Route-level dashboard tests for session middleware, CSRF checks, logout invalidation, and current role gates.
+- [x] Initial opt-in live PostgreSQL/Redis integration test for login, sessions, role gates, audit recording, protected actions, logout, and post-logout denial.
 - [x] Basic HttpOnly cookie support for dashboard page sessions alongside bearer-token API calls.
 - [x] Admin action audit recorder wired for current sensitive dashboard handlers.
+- [x] Initial `cs-civic-work` domain crate with lifecycle, evidence, verification, risk-hold, and payment-eligibility tests.
 
 ## Still Required Before Production Claims
 
-- [ ] Live PostgreSQL/Redis integration tests for dashboard endpoints and migrations.
+- [ ] Broader live PostgreSQL/Redis integration tests for the full dashboard endpoint set and realistic fixtures.
 - [ ] Role-based authorization checks for every future sensitive route as handlers become real.
 - [ ] Full browser-session security review, including automated browser tests and deployment cookie flags.
 - [ ] HSM or secure-element custody design for privileged keys.

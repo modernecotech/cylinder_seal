@@ -67,6 +67,9 @@ curl http://localhost:8081/api/overview \
 ```bash
 cargo test --workspace
 cargo check --package cbi-dashboard
+CBI_DASHBOARD_LIVE_TESTS=1 cargo test --package cbi-dashboard --test live_postgres_redis
 ```
 
-Current tests provide useful specification coverage, but real PostgreSQL/Redis endpoint tests are still needed before calling the backend production-ready.
+Current tests provide useful specification coverage and one opt-in live
+PostgreSQL/Redis auth/session/audit path. Broader live endpoint tests are still
+needed before calling the backend production-ready.

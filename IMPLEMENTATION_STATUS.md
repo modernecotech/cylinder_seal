@@ -13,12 +13,13 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - CBI dashboard Axum service with PostgreSQL pool, Redis sessions, and route modules.
 - Testable dashboard app builder plus route-level tests for session middleware, CSRF checks, logout invalidation, current role gates, and admin action audit recording.
 - PostgreSQL-backed admin audit recorder for current sensitive dashboard actions, with in-memory test recorder.
+- Opt-in live PostgreSQL/Redis integration test for operator login, Redis session persistence, role-gated protected routes, audit recording, protected dashboard actions, logout, and post-logout denial.
 - PostgreSQL migrations for the main application stack.
 - Specification tests for many protocol and policy behaviors.
 - Unified economic model documented as an integrated planning layer across Digital IQD, INDHC, ministries, credit, domestic production, strategic resilience manufacturing, tourism/exports, green/rail infrastructure, reinvestment, and dividends.
 - National Dividend Holding Company policy architecture documented as a proposal, including oil-income lockbox, citizen share entitlements, cash formalization controls, ten-year investment plan, ministry funding, and monthly dividend flows.
 - Ministry transition roadmap documented as a governance scenario and represented by a scenario-control engine for moving selected ministry functions into regulators, service contracts, municipalities, INDHC subsidiaries, autonomous institutions, digital transfer platforms, or sunset agencies.
-- National Civic Work System documented as a policy scenario and represented by a scenario engine for verified civic wages, civic credits, training records, public-value tasks, anti-ghost-worker controls, dignity safeguards, and productivity-transition support.
+- National Civic Work System documented as a policy scenario and represented by both a scenario engine and the `cs-civic-work` crate for task lifecycle models, evidence requirements, verification decisions, duplicate-risk holds, safety holds, authority checks, and payment-eligibility tests.
 - National Legal and Institutional Roadmap documented as an authority checklist for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, securities, privacy, federalism, emergency powers, and appeals.
 - Project Pipeline and Investment Gates documented as a project-family structure for capex, revenue sources, DSCR, FX exposure, facility reuse, environmental gates, legal authority, and evidence bundles.
 - Political-Economy Transition and Anti-Capture model documented as a reform-readiness layer for capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, federalism, emergency powers, and citizen appeals.
@@ -36,7 +37,7 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 
 ## Important Gaps
 
-- Dashboard route integration tests now cover security middleware and selected skeletal handlers, but live PostgreSQL/Redis endpoint coverage is still incomplete.
+- Dashboard route integration tests now cover security middleware, selected skeletal handlers, and one opt-in live PostgreSQL/Redis auth/session/audit path; broader live endpoint coverage is still incomplete.
 - Some route handlers remain skeletal or demo-oriented.
 - Role enforcement must continue to be applied as future sensitive handlers are implemented.
 - Browser security hardening has a basic cookie/CSRF foundation but still needs full browser automation and deployment review.
@@ -47,7 +48,7 @@ Cylinder Seal is a prototype implementation with meaningful code coverage across
 - Offline double-spend handling is not yet backed by audited secure hardware/attestation.
 - HSM custody, national identity/KYC integration, CBI/core-banking integration, DR, and privacy review remain future work.
 - The National Dividend Holding Company proposal and ten-year investment plan are only partially represented in scenario code and need legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation before data models or routes are treated as deployable.
-- The National Civic Work System has a scenario-control engine, not a deployable `cs-civic-work` task platform, wallet, route set, verifier workflow, or wage-payment service. It still needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, safety, fiscal, and independent audit validation before any operational module is treated as deployable.
+- The National Civic Work System now has a small `cs-civic-work` domain crate, but not a deployable wallet, route set, verifier workflow, wage-payment service, or municipal operations platform. It still needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, safety, fiscal, and independent audit validation before any operational module is treated as deployable.
 - The legal/institutional roadmap and project pipeline are documentation layers only; they need independent legal opinions, official authority mapping, project feasibility studies, procurement review, environmental/social safeguards, and audited baseline data before any project is treated as investable.
 - The political-economy engine is scenario scoring, not a real power map or legitimacy assessment. It needs independent Iraqi constitutional, federalism, anti-corruption, civil-service, labor, competition, citizen-rights, and security-sector review before it can guide any real transition.
 - The citizen rights engine is a scenario control, not a national identity, entitlement, privacy, or appeal system. It needs legal authority, civil registry integration, privacy-regulator review, administrative-justice review, disability/accessibility validation, sanctions/AML due-process rules, independent audit, public dashboard governance, and tested appeal operations before any citizen-share or dividend batch is treated as deployable.
@@ -74,6 +75,7 @@ cargo run --package cbi-dashboard
 ```bash
 cargo check --package cbi-dashboard
 cargo test --workspace
+CBI_DASHBOARD_LIVE_TESTS=1 cargo test -p cbi-dashboard --test live_postgres_redis
 ```
 
 Passing these checks should be described as prototype verification, not production certification.

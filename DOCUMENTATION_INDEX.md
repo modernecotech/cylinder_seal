@@ -3,6 +3,9 @@
 ## Start Here
 
 - `README.md` - economic-system front door, source discipline, production-readiness boundary, and software appendix.
+- `INSTITUTIONAL_BRIEF_AR.md` - Arabic institutional brief for CBI, Ministry of Finance, MDB/development-finance, Iraqi investor, and diaspora readers.
+- `INSTITUTIONAL_BRIEF.md` - two-page institutional brief for CBI, Ministry of Finance, MDB/development-finance, Iraqi investor, and diaspora readers.
+- `PILOT_DESIGN.md` - 90-day, 180-day, and 12-month minimum viable jurisdiction pilot design.
 - `EXECUTIVE_SUMMARY.md` - economic-system summary for expert review.
 - `FINAL_SUMMARY.md` - current repository summary with economic model first and software appendix second.
 - `docs/business-value-chain-charts.md` - rendered SVG business charts for all sector value chains, capital and repayment lanes, and society/economy feedback loops.
@@ -41,7 +44,7 @@
 - `docs/technical-primitives.md` - implementation evidence and gaps for offline payments, consensus, AML, privacy, and disaster recovery.
 - `API_REFERENCE.md` - dashboard endpoint reference and local demo operator notes.
 - `IMPLEMENTATION_STATUS.md` - honest prototype status and gaps.
-- `SPECIFICATION_AND_FIXTURE_RESULTS.md` - specification checks, fixture checks, route-level evidence, and missing live integration/security coverage.
+- `SPECIFICATION_AND_FIXTURE_RESULTS.md` - specification checks, fixture checks, route-level evidence, and remaining integration/security coverage.
 - `COMPLETION_CHECKLIST.md` - production-readiness checklist.
 
 ## Runtime Note

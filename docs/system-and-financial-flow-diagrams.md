@@ -509,7 +509,7 @@ validation, audit, and projection paths.
 | 17 | B2CBI | Bank batch | Settlement, reserve movement, report | Bank settlement and supervisory reporting | Supports monetary oversight and reconciliation | Production settlement rails required |
 | 18 | Any valid payer to any valid payee | Online only for action; offline receipt may later sync | Freeze, cap, reject, report, reverse by compensating transfer | Emergency directive, AML hold, fraud response | Provides supervisory control without mutating history | Requires strict emergency powers, audit, and due process |
 | 19 | G2CI | Government batch, civic-work workflow | Conditional release, spend constraint | Treasury, municipality, climate, or INDHC community-benefit budget funds approved civic tasks | Keeps civic-work budgets explicit and separate from citizen dividend funds | Appropriation law, municipal authority, and anti-corruption controls required |
-| 20 | CI2CW or G2CW | Civic-work task workflow, online wallet | Civic wage, civic credit bonus, conditional release | Verified care, sport, environmental, municipal, culture, education, food-security, or resilience task | Turns spare labor capacity into paid public value, training records, and income history | Analytics control exists; deployable `cs-civic-work` task platform, evidence workflow, labor law, privacy, safety, and appeal process still required |
+| 20 | CI2CW or G2CW | Civic-work task workflow, online wallet | Civic wage, civic credit bonus, conditional release | Verified care, sport, environmental, municipal, culture, education, food-security, or resilience task | Turns spare labor capacity into paid public value, training records, and income history | Analytics and initial `cs-civic-work` lifecycle controls exist; deployable routes, wallets, labor law, privacy, safety, and appeal process still required |
 | 21 | CW2M or CW2IP | Online, QR, NFC, BLE where allowed | Standard transfer, spend constraint for civic credits | Civic worker spends wage or category-limited credit at merchants, transport, training, childcare, local goods, or housing-deposit programs | Converts civic income into local demand while preserving transparent program limits | Spend-limited credits need legal basis and appealable merchant/category rules |
 | 22 | CW2G or CW2B | Online, recurring | Standard transfer, recurring debit | Fees, training co-payments, savings, loan repayment, or bank account linkage from verified civic income | Creates formal financial history for thin-file workers | Consent, debt-service caps, and privacy-bounded credit use required |
 
@@ -840,7 +840,7 @@ rules.
 | Merchant tiers and hard restrictions | `crates/cs-policy`, `crates/cs-tests/tests/spec_23_tier_policy.rs` |
 | AML and reporting | `crates/cs-policy/src/aml.rs`, `crates/cs-policy/src/reporting.rs`, `crates/cbi-dashboard/src/routes/compliance.rs`, `crates/cbi-dashboard/src/routes/risk.rs` |
 | Credit features | `crates/cs-credit`, `crates/cs-policy/src/risk_scoring.rs` |
-| Civic-work architecture | `docs/national-civic-work-system.md`; `crates/cs-analytics/src/civic_work.rs`; `migrations/20260722000001_civic_work.sql`; deployable `cs-civic-work` task platform remains future work |
+| Civic-work architecture | `docs/national-civic-work-system.md`; `crates/cs-analytics/src/civic_work.rs`; `crates/cs-civic-work`; `migrations/20260722000001_civic_work.sql`; deployable civic-work routes, wallets, verifier operations, and wage-payment services remain future work |
 | Ministry-transition architecture | `docs/ministry-transition-roadmap.md`; `crates/cs-analytics/src/ministry_transition.rs`; `migrations/20260723000001_ministry_transition.sql`; legal reorganization, civil-service, service-contract, and sunset-audit workflows remain future work |
 | Consensus boundary | `crates/cs-consensus`, `crates/cs-sync/src/sync_service.rs`, `crates/cs-sync/src/state_machine.rs` |
 | Dashboard sessions and roles | `crates/cbi-dashboard/src/auth.rs`, `crates/cbi-dashboard/src/middleware.rs`, `crates/cbi-dashboard/src/main.rs` |
@@ -853,14 +853,14 @@ remaining engineering gaps:
 - HSM and secure-element attestation need a concrete design and tests.
 - Offline double-spend prevention still needs hardware-backed monotonic counters
   or an equivalent attested mechanism.
-- Real PostgreSQL/Redis endpoint integration tests are needed for dashboard
-  route credibility.
+- One opt-in live PostgreSQL/Redis auth-session-audit test exists; broader live
+  endpoint coverage is still needed for dashboard route credibility.
 - Cross-border, FX, diaspora, and correspondent-bank flows are scenario designs
   that still require regulated integration rails.
 - Civic-work task posting, evidence verification, civic wage release, civic
-  credits, and impact metrics now have an analytics-control primitive, but no
-  deployable `cs-civic-work` crate, wallet flow, operational schemas, routes,
-  verifier workflow, or wage-payment service exists yet.
+  credits, and impact metrics now have analytics and initial `cs-civic-work`
+  lifecycle controls, but no deployable wallet flow, operational schemas,
+  routes, verifier workflow, or wage-payment service exists yet.
 - Ministry-transition screening now has an analytics-control primitive, but no
   legal reorganization workflow, civil-service placement system, service
   contract platform, governorate compact workflow, or sunset-audit office exists

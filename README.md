@@ -1,11 +1,14 @@
 # Cylinder Seal
 
-Economic, environmental, social, and cultural operating model for Iraq.
+Cylinder Seal is an evidence-based national economic operating model for Iraq,
+using digital transaction infrastructure to make capital allocation, public
+benefits, local production, civic work, ministry funding, credit, and citizen
+dividends measurable, auditable, and contestable.
 
-Cylinder Seal is primarily a national economic-system proposal: a way to
-convert oil income, project finance, existing Iraqi facilities, Iraqi labor,
-domestic production, tourism, civic works, culture, and environmental repair
-into auditable cashflows and public benefits.
+It is primarily a national economic-system proposal: a way to convert oil
+income, project finance, existing Iraqi facilities, Iraqi labor, domestic
+production, tourism, civic works, culture, and environmental repair into
+auditable cashflows and public benefits.
 
 The main subject is the economy. Oil income becomes productive capital; domestic
 industry, services, tourism, infrastructure, finance, and civic work create
@@ -20,6 +23,12 @@ dashboards could be measured. The code is a pilot-grade prototype, not the main
 claim of the repository. It is not production CBDC infrastructure, not an
 official Central Bank of Iraq project, and not an externally validated
 macroeconomic forecast.
+
+Institutional entry points:
+
+- [Arabic institutional brief](INSTITUTIONAL_BRIEF_AR.md)
+- [Institutional brief](INSTITUTIONAL_BRIEF.md)
+- [Pilot design](PILOT_DESIGN.md)
 
 ![Cylinder Seal business value chain](docs/diagrams/business-value-chain-overview.svg)
 
@@ -173,6 +182,7 @@ The workspace is organized as focused Rust crates:
 | APIs and node runtime | `crates/cs-api`, `crates/cs-node` |
 | POS and mobile surfaces | `crates/cs-pos`, `crates/cs-mobile-core`, `android/`, `ios/` |
 | CBI-style dashboard and analytics | `crates/cbi-dashboard`, `crates/cs-analytics` |
+| Civic-work evidence models | `crates/cs-civic-work` |
 | Specification tests | `crates/cs-tests` |
 
 Technical review entry points:
@@ -183,8 +193,8 @@ Technical review entry points:
 - [Implementation status](IMPLEMENTATION_STATUS.md) summarizes current prototype
   scope and important gaps.
 - [Specification and fixture results](SPECIFICATION_AND_FIXTURE_RESULTS.md) and
-  [cs-tests README](crates/cs-tests/README.md) describe test evidence and missing
-  live PostgreSQL/Redis coverage.
+  [cs-tests README](crates/cs-tests/README.md) describe test evidence and the
+  remaining live integration coverage.
 - [API reference](API_REFERENCE.md) documents dashboard endpoints.
 - [Security model](SECURITY.md) lists threat areas and production requirements.
 

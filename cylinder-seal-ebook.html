@@ -151,6 +151,25 @@ img {
 .diagram-atlas img {
   max-height: 176mm;
 }
+.arabic-brief {
+  direction: rtl;
+  font-family: "Noto Naskh Arabic", "Amiri", "DejaVu Sans", Arial, sans-serif;
+  text-align: right;
+  unicode-bidi: isolate;
+}
+.arabic-brief blockquote {
+  border-left: 0;
+  border-right: 4px solid #98a2b3;
+  padding: 2mm 5mm 2mm 0;
+}
+.arabic-brief ul,
+.arabic-brief ol {
+  margin: 1mm 7mm 4mm 0;
+}
+.arabic-brief td,
+.arabic-brief th {
+  text-align: right;
+}
 .source-note {
   background: #fff7e6;
   border: 1px solid #fedf89;
@@ -173,81 +192,211 @@ img {
     <div class="status">Prototype and policy-design ebook. Not production CBDC infrastructure.<br>Generated 2026-06-14</div>
   </section>
   <main>
-    <h1 id="cylinder-seal">Cylinder Seal</h1>
-<p>Digital IQD, Industrial Dividends, Civic Work, and Iraq's Unified Economic Model</p>
-<p><strong>Status:</strong> Prototype and policy-design ebook. Not production CBDC infrastructure.</p>
-<p><strong>Generated:</strong> 2026-06-14</p>
-<p>This ebook is generated from the repository documentation. It preserves the
-prototype boundary: Cylinder Seal is suitable for technical review, policy
-exploration, and demo workflows, but it is not production-ready payment
-infrastructure and is not an official Central Bank of Iraq project.</p>
-<h1 id="contents">Contents</h1><div class="contents">
+    <section class="arabic-brief" dir="rtl">
+<h1 id="_1">الموجز المؤسسي</h1>
+<p>Cylinder Seal (سيلندر سيل) هو نموذج وطني قائم على الأدلة لتشغيل الاقتصاد
+العراقي، يستخدم بنية تحتية للمعاملات الرقمية لجعل تخصيص رأس المال، والمنافع
+العامة، والإنتاج المحلي، والعمل المدني، وتمويل الوزارات، والائتمان، وأرباح
+المواطنين قابلة للقياس والتدقيق والمراجعة والاعتراض.</p>
+<p>لا ينبغي قراءة هذا المشروع على أنه ادعاء بأن منظومة عملة رقمية وطنية جاهزة
+للإطلاق. فالبرمجيات هنا مسار أدلة تجريبي خلف النموذج الاقتصادي. الادعاء الأقوى
+هو ادعاء مؤسسي: يمكن للعراق أن يختبر ما إذا كان المال العام، وإيرادات النفط،
+وتمويل المشاريع، والمشتريات، والعمل المدني، والإنتاج المحلي يمكن ربطها بنتائج
+اقتصادية موثقة بدلا من الاكتفاء بالسرديات العامة.</p>
+<h2 id="_2">المشكلة</h2>
+<p>يمكن لإيرادات النفط في العراق أن تمول الوزارات مباشرة حتى عندما لا تتحسن
+القدرة الإنتاجية، وجودة الخدمات، وتحصيل الضرائب، والصناعة المحلية، ونتائج
+المواطنين. وهذا يضعف آلية التغذية الراجعة. فالوزارات قد تتلقى الأموال من دون
+تسعير واضح للأداء؛ والمنتجون المحليون قد يزاحمون بالاستيراد؛ والمواطنون يرون
+الإنفاق من دون رابط شفاف بالأجور، أو الخدمات، أو الائتمان، أو الأرباح؛
+والمقرضون لا يستطيعون بسهولة التمييز بين تخصيص رأس المال المنتج والإنفاق
+السياسي.</p>
+<p>يقترح Cylinder Seal حلقة تشغيل مختلفة:</p>
 <ol>
-<li>Project Overview</li>
-<li>Executive Summary</li>
-<li>Final Summary</li>
-<li>Economic Assumptions And Source Discipline</li>
-<li>National Economic Operating Logic</li>
-<li>National Legal And Institutional Roadmap</li>
-<li>Project Pipeline And Investment Gates</li>
-<li>Political-Economy Transition And Anti-Capture</li>
-<li>Citizen Entitlement Privacy And Appeals</li>
-<li>Cash Formalization And Demonetization Window</li>
-<li>Federalism Governorate Equity And Local Compacts</li>
-<li>Environmental Social Water And Cultural Safeguards</li>
-<li>Macro Monetary Inflation And FX Stability</li>
-<li>Fiscal Stress And Contingent Liability</li>
-<li>National Program Sequencing And Dependency Control</li>
-<li>Procurement Integrity And Market Discipline</li>
-<li>Benefit Realization And Claim Audit</li>
-<li>Iraq Integrated Growth Impact Model</li>
-<li>Iraq Comprehensive Benefits Model</li>
-<li>Iraq Quantified Affordability And Cashflow Model</li>
-<li>System And Financial Flow Diagrams</li>
-<li>Business Value Chain Charts</li>
-<li>Unified Economic Model</li>
-<li>National Dividend Holding Company</li>
-<li>INDHC Ten-Year Plan</li>
-<li>Import, Services, And Diaspora Expansion</li>
-<li>Facility Recycling And Capital Markets</li>
-<li>Digitally Governed Industrial Champions</li>
-<li>National Civic Work System</li>
-<li>Ministry Transition Roadmap</li>
-<li>Security Model</li>
-<li>Current Implementation Status</li>
-<li>Technical Primitives</li>
-<li>Legacy Policy Paper Boundary</li>
+<li>تدخل إيرادات النفط وتمويل المشاريع في قنوات تخصيص محكومة.</li>
+<li>لا يذهب رأس المال إلا إلى المشاريع التي تجتاز بوابات قانونية ومالية
+   وشرائية وديونية وبيئية ومحلية المحتوى ومضادة للاستحواذ.</li>
+<li>تسجل الأدلة الرقمية العقود، والفواتير، وكشوف الرواتب، ومراحل المشتريات،
+   ومخرجات العمل المدني، ومطالبات المحتوى المحلي، والسلوك الائتماني، والضرائب،
+   والرسوم، والأرباح المحتجزة، والمنافع العامة.</li>
+<li>تتلقى الوزارات التمويل من خلال ضرائب ورسوم وعقود خدمة صريحة مرتبطة بنتائج
+   قابلة للقياس، لا من خلال حق مباشر في إيرادات النفط الخام.</li>
+<li>يستفيد المواطنون من الأجور، والخدمات العامة، ودخل العمل المدني، والسجلات
+   الائتمانية، وانخفاض كلفة المعروض المحلي، وأرباح لا تدفع إلا من فائض قابل
+   للتوزيع ومدقق.</li>
 </ol>
-</div><section class="diagram-atlas"><h1 id="diagram-atlas">Diagram Atlas</h1>
-<h2 id="software-system-architecture">Software System Architecture</h2>
-<p><img alt="Software System Architecture" src="docs/ebook/assets/software-system-architecture.png"></p>
-<h2 id="unified-economic-model">Unified Economic Model</h2>
-<p><img alt="Unified Economic Model" src="docs/ebook/assets/unified-economic-model.png"></p>
-<h2 id="transaction-lifecycle">Transaction Lifecycle</h2>
-<p><img alt="Transaction Lifecycle" src="docs/ebook/assets/transaction-lifecycle.png"></p>
-<h2 id="financial-flow-combinations">Financial Flow Combinations</h2>
-<p><img alt="Financial Flow Combinations" src="docs/ebook/assets/financial-flow-combinations.png"></p>
-<h2 id="transaction-combination-matrix">Transaction Combination Matrix</h2>
-<p><img alt="Transaction Combination Matrix" src="docs/ebook/assets/transaction-combination-matrix.png"></p>
-<h2 id="national-dividend-holding-company">National Dividend Holding Company</h2>
-<p><img alt="National Dividend Holding Company" src="docs/ebook/assets/national-dividend-holding-company.png"></p>
-<h2 id="national-civic-work-system">National Civic Work System</h2>
-<p><img alt="National Civic Work System" src="docs/ebook/assets/national-civic-work-system.png"></p>
-<h2 id="business-value-chain-overview">Business Value Chain Overview</h2>
-<p><img alt="Business Value Chain Overview" src="docs/ebook/assets/business-value-chain-overview.png"></p>
-<h2 id="sector-value-chain-matrix">Sector Value Chain Matrix</h2>
-<p><img alt="Sector Value Chain Matrix" src="docs/ebook/assets/sector-value-chain-matrix.png"></p>
-<h2 id="capital-and-repayment-lanes">Capital And Repayment Lanes</h2>
-<p><img alt="Capital And Repayment Lanes" src="docs/ebook/assets/capital-and-repayment-lanes.png"></p>
-<h2 id="society-and-economy-feedback-loop">Society And Economy Feedback Loop</h2>
-<p><img alt="Society And Economy Feedback Loop" src="docs/ebook/assets/society-economy-feedback-loop.png"></p>
-</section><h1 id="part-1-project-overview">Part 1: Project Overview</h1>
-<h2 id="cylinder-seal_1">Cylinder Seal</h2>
-<p>Economic, environmental, social, and cultural operating model for Iraq.</p>
-<p>Cylinder Seal is primarily a national economic-system proposal: a way to
-convert oil income, project finance, existing Iraqi facilities, Iraqi labor,
-domestic production, tourism, civic works, culture, and environmental repair
-into auditable cashflows and public benefits.</p>
+<h2 id="_3">ما الذي تحصل عليه كل جهة مؤسسية</h2>
+<p>بالنسبة إلى البنك المركزي العراقي، يقدم Cylinder Seal طريقة مضبوطة لاختبار
+أدلة المعاملات، وسياسات المحافظ، وصلاحيات المشغلين، وضوابط التسوية، ومراجعة
+مكافحة غسل الأموال وتمويل الإرهاب، ومسارات التدقيق، ولوحات البيانات الاقتصادية
+المجمعة، من دون ادعاء الجاهزية لعملة رقمية وطنية. والسؤال الموجه للبنك المركزي
+هو ما إذا كانت بنية المعاملات الرقمية تستطيع تحسين الرؤية الاقتصادية، وأدلة
+الشمول المالي، وحماية المستهلك، والرقابة الاحترازية الكلية، مع الحفاظ على
+الانضباط النقدي وحدود الخصوصية.</p>
+<p>بالنسبة إلى وزارة المالية، يمثل النموذج محرك تغذية راجعة مالية. فهو يفصل
+إيرادات النفط عن الأرباح القابلة للتوزيع، ويختبر بوابات تخصيص رأس المال قبل
+الإنفاق، ويسعر خدمات الوزارات من خلال عقود صريحة، ويسجل تدفقات الرسوم والضرائب،
+ويمنع دفع الأرباح من الاقتراض، أو إعادة تقييم الأصول، أو إيرادات النفط، أو
+تقديرات آثار الناتج المحلي. والسؤال المالي هو ما إذا كان العراق يستطيع تحويل
+حصة محددة من إيرادات النفط إلى أصول منتجة من دون خلق ضمانات خفية أو التزامات
+تشغيلية غير مستدامة.</p>
+<p>بالنسبة إلى البنك الأوروبي لإعادة الإعمار والتنمية، وبنوك التنمية متعددة
+الأطراف، وجهات التمويل التنموي، يمثل النموذج إطارا للقابلية المصرفية والضمانات.
+فهو ينشئ أدلة على مستوى المشروع عن المشتريات، والملكية المستفيدة، والضمانات
+البيئية والاجتماعية، والموردين المحليين، واحتياطيات الصيانة، وتغطية خدمة الدين،
+والتعرض لمخاطر الصرف، وتصنيف المنافع العامة، والتدقيق المستقل. والسؤال التنموي
+هو ما إذا كان مسار البيانات نفسه يستطيع تقليل غموض المشاريع بما يكفي لدعم
+القروض، والضمانات، والتمويل المشترك، والشراكات بين القطاعين العام والخاص،
+وإصدارات السوق المالية المحلية.</p>
+<p>بالنسبة إلى المستثمرين العراقيين، والمصارف، والمنتجين، والشتات، يمثل النموذج
+طريقة لجعل الاستثمار المحلي مقروءا وقابلا للتمويل. فهو يفحص المنشآت غير
+المستغلة قبل الإنفاق الرأسمالي الجديد، ويقيس المحتوى المحلي، وينشئ ذمما مدينة
+وسجلات تدفق نقدي قابلة للتدقيق، ويدعم التقييم الائتماني من السلوك التجاري
+الحقيقي، ويفتح مسارات أوضح لخبرات الشتات، وتوزيع الصادرات، وتسويق السياحة،
+وقنوات الاستثمار الرسمي.</p>
+<h2 id="_4">النموذج التجريبي الأدنى القابل للتنفيذ</h2>
+<p>النموذج التجريبي الأول الموصى به هو ولاية أو بلدية واحدة بالحد الأدنى: محافظة
+أو بلدية واحدة، وتدفق دفع واحد، وتدفق عمل مدني واحد، وتدفق مشتريات واحد. ولا
+ينبغي أن يحاول النموذج التجريبي إثبات النموذج الوطني كله. بل يجب أن يختبر ما
+إذا كان المال العام الموثق يمكن أن يتحرك داخل حلقة تشغيل صغيرة ذات أدلة مرئية
+وبوابات قابلة للإنفاذ.</p>
+<p>أحد الأشكال المناسبة هو ممر بلدي في النجف، لأنه يستطيع الجمع بين الخدمات
+البلدية، وضغط السياحة والزيارة، والمشتريات الصغيرة، والعمل المدني، والموردين
+المحليين، والنتائج العامة المرئية. ويمكن تكييف البنية نفسها مع محافظة أخرى بعد
+المراجعة القانونية والسياسية.</p>
+<p>يتكون تدفق النموذج التجريبي من الآتي:</p>
+<ol>
+<li>توافق البلدية على برنامج محدود للعمل المدني والمشتريات.</li>
+<li>يسجل العاملون لمهام مرئية مثل تنظيف المسارات، وتنظيف المصارف، وفحص الإنارة،
+   ورسم خرائط الوصول، ورعاية الأشجار، أو دعم خدمات الزوار.</li>
+<li>توفر حزمة مشتريات صغيرة المواد أو الخدمات من موردين محليين موثقين.</li>
+<li>تدفع المبالغ من خلال محافظ رقمية مضبوطة أو حسابات تسوية تجريبية.</li>
+<li>تسجل لوحة البيانات حالة الهوية، وأدلة المهمة، وموافقة المشرف، ومرحلة
+   المشتريات، ودفع المورد، وبصمة التدقيق، وحالة الشكوى، والنتائج العامة
+   المجمعة.</li>
+</ol>
+<p>لا ينجح النموذج التجريبي إلا إذا أثبت قياسا منضبطا: مطالبات أقل غير مدفوعة أو
+غير موثقة، ودفعا أسرع للموردين، ومخرجات مرئية للعمل المدني، وخفضا لمخاطر
+العاملين الوهميين، وضوابط تشغيل قابلة للاستخدام، ولوحات بيانات تحترم الخصوصية،
+وشروط توقف واضحة.</p>
+<h2 id="_5">ما لا يجوز ادعاؤه</h2>
+<p>لا يثبت النموذج التجريبي وجود عملة رقمية وطنية. ولا يثبت ترقية للتصنيف السيادي.
+ولا يثبت توقعات وطنية للناتج المحلي أو الأرباح أو التوظيف. ولا يجيز إعادة توجيه
+إيرادات النفط، أو إعادة هيكلة الوزارات، أو إصدار حصص للمواطنين. فهذه كلها
+تتطلب قانونا، وسلطة عامة، وتدقيقا مستقلا، ومراجعة مالية كلية، ومراجعة أمنية،
+واتفاقا سياسيا.</p>
+<p>الادعاء الموثوق أضيق وأقوى: يمكن اختبار Cylinder Seal كنموذج تشغيل اقتصادي
+قائم على الأدلة يجعل القرارات الاقتصادية العامة قابلة للقياس والتدقيق والمراجعة
+والاعتراض قبل توسيعها.</p>
+</section>
+<h1 id="institutional-brief">Institutional Brief</h1>
+<p>Cylinder Seal is an evidence-based national economic operating model for Iraq,
+using digital transaction infrastructure to make capital allocation, public
+benefits, local production, civic work, ministry funding, credit, and citizen
+dividends measurable, auditable, and contestable.</p>
+<p>It should not be read as a claim that a national CBDC system is ready. The
+software is a pilot-grade evidence rail behind the economic model. The stronger
+claim is institutional: Iraq can test whether public money, oil income, project
+finance, procurement, civic work, and local production can be tied to verified
+economic outcomes instead of narrative claims.</p>
+<h2 id="the-problem">The Problem</h2>
+<p>Iraq's oil income can fund ministries directly even when wider productive
+capacity, service quality, tax collection, local industry, and citizen outcomes
+do not improve. That weakens feedback. Ministries can receive money without
+clear performance pricing; producers can be crowded out by imports; citizens see
+spending without a transparent link to wages, services, credit, or dividends;
+and lenders cannot easily distinguish productive capital allocation from
+political expenditure.</p>
+<p>Cylinder Seal proposes a different operating loop:</p>
+<ol>
+<li>Oil income and project finance enter governed allocation channels.</li>
+<li>Capital goes only to projects that pass legal, fiscal, procurement, debt,
+   environmental, local-content, and anti-capture gates.</li>
+<li>Digital evidence records contracts, invoices, payroll, procurement
+   milestones, civic-work output, local-content claims, credit behavior, taxes,
+   levies, retained earnings, and public benefits.</li>
+<li>Ministries receive funding through explicit taxes, levies, and service
+   contracts tied to measurable outcomes rather than direct entitlement to raw
+   oil receipts.</li>
+<li>Citizens benefit through wages, public services, civic-work income, credit
+   histories, cheaper domestic supply, and dividends only from audited
+   distributable surplus.</li>
+</ol>
+<h2 id="what-each-institution-gets">What Each Institution Gets</h2>
+<p>For the Central Bank of Iraq, Cylinder Seal is a controlled way to test
+transaction evidence, wallet policy, operator permissions, settlement controls,
+AML/CFT review, audit trails, and aggregate economic dashboards without claiming
+national CBDC readiness. The CBI-facing question is whether digital transaction
+infrastructure can improve economic visibility, financial inclusion evidence,
+consumer protection, and macro-prudential monitoring while preserving monetary
+discipline and privacy boundaries.</p>
+<p>For the Ministry of Finance, the model is a fiscal feedback engine. It separates
+oil receipts from distributable dividends, tests capital-allocation gates before
+spending, prices ministry services through explicit contracts, records levy and
+tax flows, and prevents dividends from being paid out of borrowing, asset
+revaluation, oil receipts, or estimated GDP effects. The finance question is
+whether Iraq can turn a capped share of oil income into productive assets
+without creating hidden guarantees or unsustainable recurrent liabilities.</p>
+<p>For EBRD, MDB, and development-finance audiences, the model is a bankability and
+safeguards framework. It creates project-level evidence for procurement,
+beneficial ownership, environmental and social safeguards, local suppliers,
+maintenance reserves, debt-service coverage, FX exposure, public-benefit
+classification, and independent audit. The MDB question is whether the same
+data rail can reduce project opacity enough to support loans, guarantees,
+co-financing, PPPs, and domestic capital-market issuance.</p>
+<p>For Iraqi investors, banks, producers, and the diaspora, the model is a way to
+make domestic investment legible. It screens underutilized facilities before
+greenfield capex, measures local content, creates auditable receivables and
+cashflow histories, supports credit scoring from real commercial behavior, and
+opens clearer routes for diaspora expertise, export distribution, tourism
+marketing, and formal investment channels.</p>
+<h2 id="minimum-viable-pilot">Minimum Viable Pilot</h2>
+<p>The recommended first pilot is one minimum viable jurisdiction: one governorate
+or municipality, one payment flow, one civic-work flow, and one procurement
+flow. The pilot should not try to prove the national model. It should test
+whether verified public money can move through a small operating loop with
+visible evidence and enforceable gates.</p>
+<p>One suitable pilot shape is a Najaf municipal corridor, because it can combine
+municipal services, tourism pressure, small procurement, civic work, local
+vendors, and visible public outcomes. The same structure could be adapted to
+another governorate after legal and political review.</p>
+<p>The pilot flow is:</p>
+<ol>
+<li>A municipality approves a bounded civic-work and procurement program.</li>
+<li>Workers are enrolled for visible tasks such as route cleaning, drainage
+   clearing, lighting inspection, accessibility mapping, tree care, or visitor
+   service support.</li>
+<li>A small procurement package supplies materials or services from verified
+   local vendors.</li>
+<li>Payments are made through controlled digital wallets or sandbox settlement
+   accounts.</li>
+<li>The dashboard records identity status, task evidence, supervisor signoff,
+   procurement milestone, vendor payment, audit hash, grievance status, and
+   aggregate public results.</li>
+</ol>
+<p>The pilot succeeds only if it proves disciplined measurement: fewer unpaid or
+unverified claims, faster supplier payment, visible civic-work output, lower
+ghost-worker risk, usable operator controls, privacy-respecting dashboards, and
+clear stop conditions.</p>
+<h2 id="what-must-not-be-claimed">What Must Not Be Claimed</h2>
+<p>The pilot does not prove a national CBDC. It does not prove a sovereign-rating
+upgrade. It does not validate national GDP, dividend, or employment forecasts.
+It does not authorize oil-revenue redirection, ministry restructuring, or
+citizen-share issuance. Those require law, public authority, independent audit,
+macro-fiscal review, security review, and political agreement.</p>
+<p>The credible claim is narrower and stronger: Cylinder Seal can be tested as an
+evidence-based operating model for making public economic decisions measurable,
+auditable, and contestable before they are scaled.</p>
+<h1 id="part-1-project-overview">Part 1: Project Overview</h1>
+<h2 id="cylinder-seal">Cylinder Seal</h2>
+<p>Cylinder Seal is an evidence-based national economic operating model for Iraq,
+using digital transaction infrastructure to make capital allocation, public
+benefits, local production, civic work, ministry funding, credit, and citizen
+dividends measurable, auditable, and contestable.</p>
+<p>It is primarily a national economic-system proposal: a way to convert oil
+income, project finance, existing Iraqi facilities, Iraqi labor, domestic
+production, tourism, civic works, culture, and environmental repair into
+auditable cashflows and public benefits.</p>
 <p>The main subject is the economy. Oil income becomes productive capital; domestic
 industry, services, tourism, infrastructure, finance, and civic work create
 measured value; ministries are funded through explicit taxes, levies, and
@@ -260,6 +409,12 @@ dashboards could be measured. The code is a pilot-grade prototype, not the main
 claim of the repository. It is not production CBDC infrastructure, not an
 official Central Bank of Iraq project, and not an externally validated
 macroeconomic forecast.</p>
+<p>Institutional entry points:</p>
+<ul>
+<li><a href="INSTITUTIONAL_BRIEF_AR.md">Arabic institutional brief</a></li>
+<li><a href="INSTITUTIONAL_BRIEF.md">Institutional brief</a></li>
+<li><a href="PILOT_DESIGN.md">Pilot design</a></li>
+</ul>
 <p><img alt="Cylinder Seal business value chain" src="docs/ebook/assets/business-value-chain-overview.png"></p>
 <h3 id="economic-model">Economic Model</h3>
 <p>The front-door subject is the national economic cycle:</p>
@@ -568,6 +723,10 @@ claims alone.</p>
 <td><code>crates/cbi-dashboard</code>, <code>crates/cs-analytics</code></td>
 </tr>
 <tr>
+<td>Civic-work evidence models</td>
+<td><code>crates/cs-civic-work</code></td>
+</tr>
+<tr>
 <td>Specification tests</td>
 <td><code>crates/cs-tests</code></td>
 </tr>
@@ -581,8 +740,8 @@ claims alone.</p>
 <li><a href="IMPLEMENTATION_STATUS.md">Implementation status</a> summarizes current prototype
   scope and important gaps.</li>
 <li><a href="SPECIFICATION_AND_FIXTURE_RESULTS.md">Specification and fixture results</a> and
-  <a href="crates/cs-tests/README.md">cs-tests README</a> describe test evidence and missing
-  live PostgreSQL/Redis coverage.</li>
+  <a href="crates/cs-tests/README.md">cs-tests README</a> describe test evidence and the
+  remaining live integration coverage.</li>
 <li><a href="API_REFERENCE.md">API reference</a> documents dashboard endpoints.</li>
 <li><a href="SECURITY.md">Security model</a> lists threat areas and production requirements.</li>
 </ul>
@@ -736,7 +895,229 @@ deploying, or connecting real systems.</p>
 <p>Local artifacts such as generated databases, Redis dumps, virtualenvs, local
 env files, ad hoc logs, and build outputs are ignored. Do not commit generated
 database state.</p>
-<h1 id="part-2-executive-summary">Part 2: Executive Summary</h1>
+<h1 id="part-2-pilot-design">Part 2: Pilot Design</h1>
+<h2 id="pilot-design">Pilot Design</h2>
+<p>Cylinder Seal should move from national narrative to a bounded operating test:
+one minimum viable jurisdiction, one payment flow, one civic-work flow, one
+procurement flow, and one dashboard that records the evidence trail.</p>
+<p>The pilot objective is not to prove a national CBDC or a complete economic
+reform. The objective is to prove that public economic activity can be made
+measurable, auditable, and contestable at small scale before larger legal and
+fiscal commitments are considered.</p>
+<h3 id="minimum-viable-jurisdiction">Minimum Viable Jurisdiction</h3>
+<p>Recommended pilot: <strong>Najaf municipal service and visitor corridor</strong>.</p>
+<p>Rationale:</p>
+<ul>
+<li>It has visible municipal-service pressure and tourism/visitor flows.</li>
+<li>It can use small, observable civic-work tasks rather than abstract national
+  claims.</li>
+<li>It can test local vendors, small procurement, wage payment, supervisor
+  signoff, public dashboarding, and grievance handling in one place.</li>
+<li>It is large enough to be meaningful but small enough to stop safely.</li>
+</ul>
+<p>The same structure can be moved to another governorate or municipality if legal
+authority, local compact, and operating readiness are stronger elsewhere.</p>
+<h3 id="one-payment-flow">One Payment Flow</h3>
+<p><strong>Flow:</strong> municipal civic-work stipend or wage release.</p>
+<ol>
+<li>Worker is enrolled with identity, eligibility, role, task category, wallet or
+   payout account, and consent records.</li>
+<li>Task is assigned by a municipal sponsor.</li>
+<li>Evidence is submitted: photo, geotag, supervisor note, time window, material
+   receipt, or public validation sample.</li>
+<li>Supervisor verifies output and flags exceptions.</li>
+<li>Payment is released through a controlled digital wallet or sandbox
+   settlement account.</li>
+<li>Dashboard records gross payment, tax/withholding if any, audit hash,
+   grievance status, and payment exception rate.</li>
+</ol>
+<p>Pilot limits:</p>
+<ul>
+<li>No national dividend.</li>
+<li>No irreversible monetary claim.</li>
+<li>No payment without task evidence and supervisor signoff.</li>
+<li>No sensitive personal data in public dashboards.</li>
+</ul>
+<p>Success metrics:</p>
+<ul>
+<li>Payment release time after verification.</li>
+<li>Share of payments with complete evidence.</li>
+<li>Exception rate by worker, task type, and supervisor.</li>
+<li>Worker grievance resolution time.</li>
+<li>Repeatable audit trace from assignment to payment.</li>
+</ul>
+<h3 id="one-civic-work-flow">One Civic-Work Flow</h3>
+<p><strong>Flow:</strong> visible municipal and visitor-service tasks.</p>
+<p>Task families:</p>
+<ul>
+<li>street and shrine-route cleaning;</li>
+<li>drainage clearing and flood-prevention checks;</li>
+<li>lighting inspection and minor repair reporting;</li>
+<li>tree care, shade maintenance, and heat-risk mitigation;</li>
+<li>accessibility mapping for disabled and elderly visitors;</li>
+<li>visitor information support during peak periods;</li>
+<li>cultural-site stewardship and low-risk heritage protection.</li>
+</ul>
+<p>Lifecycle:</p>
+<ol>
+<li><code>Draft</code> - task proposed with location, purpose, safety class, payment rate,
+   evidence requirements, and sponsor.</li>
+<li><code>Approved</code> - legal authority, budget, safeguards, and supervisor capacity are
+   confirmed.</li>
+<li><code>Assigned</code> - eligible workers accept or are matched to tasks without
+   coercive workfare.</li>
+<li><code>EvidenceSubmitted</code> - worker or team submits required proof.</li>
+<li><code>Verified</code> - supervisor and sampling checks accept output.</li>
+<li><code>Paid</code> - payment released.</li>
+<li><code>Appealed</code> or <code>Rejected</code> - disputed or failed work enters review.</li>
+</ol>
+<p>Controls:</p>
+<ul>
+<li>no payment if evidence is missing;</li>
+<li>hold if duplicate-worker, duplicate-location, or ghost-worker risk is high;</li>
+<li>block if task is unsafe, coercive, politically captured, or lacks legal
+  authority;</li>
+<li>publish only aggregate outputs above privacy thresholds.</li>
+</ul>
+<h3 id="one-procurement-flow">One Procurement Flow</h3>
+<p><strong>Flow:</strong> small local procurement package for municipal service inputs.</p>
+<p>Example package: cleaning tools, reflective vests, water points, signage,
+lighting consumables, drainage clearing materials, mobile repair support, or
+verified local transport for civic-work teams.</p>
+<p>Lifecycle:</p>
+<ol>
+<li>Municipality defines need and budget.</li>
+<li>Vendor eligibility is checked: registration, beneficial ownership,
+   sanctions/PEP screening, tax identifier, local content, delivery capacity.</li>
+<li>Price benchmark is recorded.</li>
+<li>Contract is awarded through competitive or justified small-value procedure.</li>
+<li>Delivery evidence is recorded: invoice, receipt, supervisor acceptance,
+   location, item count, quality note.</li>
+<li>Payment is released only after milestone evidence.</li>
+<li>Audit record links procurement to civic-work output and public benefit.</li>
+</ol>
+<p>Success metrics:</p>
+<ul>
+<li>supplier payment time after verified delivery;</li>
+<li>price variance against benchmark;</li>
+<li>local supplier share;</li>
+<li>rejected invoice rate;</li>
+<li>delivery disputes;</li>
+<li>audit completeness.</li>
+</ul>
+<h3 id="90-day-pilot">90-Day Pilot</h3>
+<p>Purpose: prove the evidence loop without scale risk.</p>
+<p>Scope:</p>
+<ul>
+<li>one municipality or service corridor;</li>
+<li>250-500 workers;</li>
+<li>20-40 local vendors;</li>
+<li>5-8 task categories;</li>
+<li>one supervisor chain;</li>
+<li>one payment rail in sandbox or controlled fiat-backed settlement;</li>
+<li>one dashboard used by municipal operators, auditors, and observers.</li>
+</ul>
+<p>Deliverables:</p>
+<ul>
+<li>legal pilot authority and local compact;</li>
+<li>worker eligibility and appeals policy;</li>
+<li>procurement rules and vendor onboarding checklist;</li>
+<li>task registry and evidence schema;</li>
+<li>dashboard for payments, tasks, procurement, audit, grievances, and public
+  aggregate reporting;</li>
+<li>incident and rollback runbook.</li>
+</ul>
+<p>Go/no-go gates:</p>
+<ul>
+<li>at least 90% of payments have complete evidence;</li>
+<li>audit trail reconstructs assignment-to-payment for sampled items;</li>
+<li>no unresolved severe privacy, safety, corruption, or coercion incidents;</li>
+<li>Redis/PostgreSQL session, role, and audit controls pass live tests;</li>
+<li>public aggregate dashboard hides personal data.</li>
+</ul>
+<h3 id="180-day-pilot">180-Day Pilot</h3>
+<p>Purpose: test repeatability, procurement discipline, and service outcomes.</p>
+<p>Expanded scope:</p>
+<ul>
+<li>1,500-3,000 workers;</li>
+<li>75-150 vendors;</li>
+<li>three municipal service areas;</li>
+<li>one tourism or visitor-service cluster;</li>
+<li>one verified local-material procurement lane;</li>
+<li>one bank or payment-service-provider integration in a supervised sandbox;</li>
+<li>monthly public report.</li>
+</ul>
+<p>Deliverables:</p>
+<ul>
+<li>independent audit of first 90 days;</li>
+<li>procurement price benchmark table;</li>
+<li>worker grievance and appeal statistics;</li>
+<li>service-output indicators such as cleaned kilometers, drainage points
+  cleared, lights inspected, accessibility issues mapped, visitor-support
+  shifts delivered, and heat-risk mitigation assets maintained;</li>
+<li>fiscal report showing payments, procurement, admin cost, exceptions, and
+  rejected claims.</li>
+</ul>
+<p>Scale gates:</p>
+<ul>
+<li>administrative cost remains within pilot budget;</li>
+<li>supplier payment delays do not create hidden arrears;</li>
+<li>evidence quality improves rather than deteriorates with scale;</li>
+<li>grievance resolution is timely and documented;</li>
+<li>no political capture pattern dominates task assignment, vendor awards, or
+  supervisor signoff.</li>
+</ul>
+<h3 id="12-month-pilot">12-Month Pilot</h3>
+<p>Purpose: decide whether the model can become a governorate-level operating
+system component.</p>
+<p>Expanded scope:</p>
+<ul>
+<li>10,000-25,000 workers or rotating participants;</li>
+<li>300-600 vendors;</li>
+<li>linked municipal, tourism, small infrastructure, and environmental tasks;</li>
+<li>procurement packages large enough to test competitive discipline;</li>
+<li>credit-history export for consenting workers and vendors;</li>
+<li>integration with a local public dashboard and independent audit body.</li>
+</ul>
+<p>Deliverables:</p>
+<ul>
+<li>governorate pilot report;</li>
+<li>audited payment and procurement dataset;</li>
+<li>civic-work outcome report;</li>
+<li>local-content and vendor-development report;</li>
+<li>credit-readiness assessment for workers, vendors, and small contractors;</li>
+<li>legal and fiscal recommendations for controlled expansion or shutdown.</li>
+</ul>
+<p>Expansion gates:</p>
+<ul>
+<li>audited public benefits are distinguishable from cash revenues;</li>
+<li>payment, procurement, and civic-work records are independently verifiable;</li>
+<li>no dividend or national claim is made from pilot evidence alone;</li>
+<li>macro, legal, privacy, security, and fiscal reviews approve the next stage;</li>
+<li>citizens can appeal identity, eligibility, payment, and task decisions.</li>
+</ul>
+<h3 id="stop-conditions">Stop Conditions</h3>
+<p>The pilot should pause or stop if any of the following occurs:</p>
+<ul>
+<li>legal authority is unclear or withdrawn;</li>
+<li>payment exceptions exceed agreed thresholds;</li>
+<li>evidence is routinely fabricated or unverifiable;</li>
+<li>vendor awards show capture or undisclosed beneficial ownership;</li>
+<li>worker participation becomes coercive;</li>
+<li>personal data appears in public reports;</li>
+<li>arrears or off-book guarantees emerge;</li>
+<li>supervisors approve work without inspection;</li>
+<li>local conflict, land, heritage, or safety risk cannot be controlled.</li>
+</ul>
+<h3 id="what-the-pilot-proves">What The Pilot Proves</h3>
+<p>A successful pilot proves only this:</p>
+<p>Cylinder Seal can make a bounded public economic flow measurable, auditable,
+and contestable across identity, payment, civic work, procurement, audit, and
+dashboard layers.</p>
+<p>It does not prove national CBDC readiness, national dividend affordability,
+ministry restructuring, sovereign-credit improvement, or macroeconomic growth.
+Those remain separate legal, fiscal, technical, and political decisions.</p>
+<h1 id="part-3-executive-summary">Part 3: Executive Summary</h1>
 <h2 id="cylinder-seal-executive-summary">Cylinder Seal Executive Summary</h2>
 <p><strong>Contact:</strong> Hayder Aziz, Modern EcoTech - hayder@modernecotech.com
 <strong>Repository:</strong> internal / provided on request
@@ -932,7 +1313,7 @@ dividends only after the portfolio produces audited surplus.</p>
 </ol>
 <p>Not seeking: procurement conversations, claims of official endorsement, or
 representation that this is production-ready infrastructure.</p>
-<h1 id="part-3-final-summary">Part 3: Final Summary</h1>
+<h1 id="part-4-final-summary">Part 4: Final Summary</h1>
 <h2 id="cylinder-seal-summary">Cylinder Seal Summary</h2>
 <h3 id="status">Status</h3>
 <p>Cylinder Seal is an economic-system proposal for Iraq with a pilot-grade Digital
@@ -1159,7 +1540,7 @@ investment program.</p>
 <li>Add CSRF/session hardening for browser flows.</li>
 <li>Implement and test immutable audit logging.</li>
 </ol>
-<h1 id="part-4-economic-assumptions-and-source-discipline">Part 4: Economic Assumptions And Source Discipline</h1>
+<h1 id="part-5-economic-assumptions-and-source-discipline">Part 5: Economic Assumptions And Source Discipline</h1>
 <h2 id="economic-assumptions-and-source-discipline">Economic Assumptions And Source Discipline</h2>
 <p>The economic narrative is the strongest part of Cylinder Seal, but it must be presented as an illustrative model until every number is independently sourced, dated, and stress-tested.</p>
 <h3 id="current-public-facts-to-use">Current Public Facts To Use</h3>
@@ -1260,7 +1641,7 @@ investment program.</p>
 <li>Diaspora capital claims should be framed as merchant, tourism, service-export,
   and formal-payment-channel hypotheses unless backed by measured flow data.</li>
 <li>"Cylinder Seal is a complete economic operating system" should become "unified economic model proposal requiring legal authority, audited data, calibrated equations, policy review, and independent macroeconomic validation."</li>
-<li>"Cylinder Seal will abolish frivolous ministries" should become "ministry-transition scenario in which specific functions are deprecated, merged, regulated, corporatized, or sunset only after legal authority, service-continuity gates, staff-transition plans, and independent audits."</li>
+<li>"Cylinder Seal will abolish ministries" should become "ministry-transition scenario in which specific functions are deprecated, merged, regulated, corporatized, or sunset only after legal authority, service-continuity gates, staff-transition plans, and independent audits."</li>
 <li>"Oil income should fund a citizen-owned state industrial holding company" should become "proposed national dividend holding-company architecture requiring constitutional, fiscal, oil-revenue, AML/CFT, competition, and governance review."</li>
 <li>"The holding company will invest $190B over ten years" should become "strategic upper envelope requiring fiscal reform, oil-revenue stress testing, debt-capacity analysis, procurement sequencing, audited cashflow, and independent project finance review; the constrained-base front plan is USD 115B."</li>
 <li>"INDHC will make Iraq self-sufficient in defense, electronics, HVAC, water, irrigation, and food" should become "strategic resilience manufacturing objective requiring delivered-cost tests, quality certification, legal controls, supplier development, and security/procurement review."</li>
@@ -1289,7 +1670,7 @@ transfers, and citizen dividends could be measured.</p>
 </blockquote>
 <p>That claim keeps the national economic model in front while preserving the
 prototype boundary around the software.</p>
-<h1 id="part-5-national-economic-operating-logic">Part 5: National Economic Operating Logic</h1>
+<h1 id="part-6-national-economic-operating-logic">Part 6: National Economic Operating Logic</h1>
 <h2 id="national-economic-operating-logic">National Economic Operating Logic</h2>
 <p>This document defines the management logic that holds the Cylinder Seal,
 Digital IQD, INDHC, ministry-transition, industrial-champion, civic-work,
@@ -2328,7 +2709,7 @@ Reallocate away from failure.
 second-order benefits, civic work, credit, and citizen dividends without
 collapsing into either a passive sovereign fund or another opaque state
 bureaucracy.</p>
-<h1 id="part-6-national-legal-and-institutional-roadmap">Part 6: National Legal And Institutional Roadmap</h1>
+<h1 id="part-7-national-legal-and-institutional-roadmap">Part 7: National Legal And Institutional Roadmap</h1>
 <h2 id="national-legal-and-institutional-roadmap">National Legal And Institutional Roadmap</h2>
 <p>Status: legal-design checklist. This is not legal advice, not a draft bill, not
 an opinion on Iraqi constitutional law, and not a claim that any public body has
@@ -2895,7 +3276,7 @@ out every failed project.</p>
 </table>
 <p>If any gate is red, the model remains a planning architecture and may not be
 presented as deployable public infrastructure.</p>
-<h1 id="part-7-project-pipeline-and-investment-gates">Part 7: Project Pipeline And Investment Gates</h1>
+<h1 id="part-8-project-pipeline-and-investment-gates">Part 8: Project Pipeline And Investment Gates</h1>
 <h2 id="project-pipeline-and-investment-gates">Project Pipeline And Investment Gates</h2>
 <p>Status: investment-pipeline design. This is not an investment recommendation,
 procurement plan, financing offer, project-feasibility study, or budget
@@ -3402,7 +3783,7 @@ or dividends.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="stop-conditions">Stop Conditions</h3>
+<h3 id="stop-conditions_1">Stop Conditions</h3>
 <p>A project should be paused, restructured, or cancelled when any of these occur:</p>
 <ul>
 <li>Legal authority is challenged and no dispute forum is available.</li>
@@ -3476,7 +3857,7 @@ committing to scale.</p>
 <li>Fund no dividends from the first-year pipeline.</li>
 </ol>
 <p>This makes the model credible: capital follows evidence, not enthusiasm.</p>
-<h1 id="part-8-political-economy-transition-and-anti-capture">Part 8: Political-Economy Transition And Anti-Capture</h1>
+<h1 id="part-9-political-economy-transition-and-anti-capture">Part 9: Political-Economy Transition And Anti-Capture</h1>
 <h2 id="political-economy-transition-and-anti-capture-model">Political-Economy Transition And Anti-Capture Model</h2>
 <p>Status: governance-risk model. This is not a political forecast, legal opinion,
 security assessment, party strategy, procurement accusation, or claim that any
@@ -3974,7 +4355,7 @@ If citizens cannot appeal, do not scale.
 If procurement is opaque, no privilege.
 If dividends compete with maintenance or debt service, dividends lose.
 </code></pre>
-<h1 id="part-9-citizen-entitlement-privacy-and-appeals">Part 9: Citizen Entitlement Privacy And Appeals</h1>
+<h1 id="part-10-citizen-entitlement-privacy-and-appeals">Part 10: Citizen Entitlement Privacy And Appeals</h1>
 <h2 id="citizen-entitlement-privacy-and-appeals">Citizen Entitlement, Privacy, And Appeals</h2>
 <p>Status: citizen-rights control model. This is not an identity law, social
 protection law, inheritance law, sanctions decision, privacy authorization,
@@ -4198,7 +4579,7 @@ If audit or public dashboard is missing, stay evidence-only.
 citizens cannot understand, challenge, inherit, protect, and privately receive
 their entitlement, the model loses legitimacy at the exact point where it is
 supposed to become most universal.</p>
-<h1 id="part-10-cash-formalization-and-demonetization-window">Part 10: Cash Formalization And Demonetization Window</h1>
+<h1 id="part-11-cash-formalization-and-demonetization-window">Part 11: Cash Formalization And Demonetization Window</h1>
 <h2 id="cash-formalization-and-demonetization-window">Cash Formalization And Demonetization Window</h2>
 <p>Status: cash-transition control model. This is not a monetary-law instruction,
 AML approval, tax amnesty, sanctions determination, or official demonetization
@@ -4433,7 +4814,7 @@ If appeal paths or dashboards are missing, do not scale.
 less powerful, not more powerful. The system should welcome legitimate cash
 into formal channels while making corruption, coercion, sanctions evasion, and
 post-window arbitrage harder to hide.</p>
-<h1 id="part-11-federalism-governorate-equity-and-local-compacts">Part 11: Federalism Governorate Equity And Local Compacts</h1>
+<h1 id="part-12-federalism-governorate-equity-and-local-compacts">Part 12: Federalism Governorate Equity And Local Compacts</h1>
 <h2 id="federalism-governorate-equity-and-local-compacts">Federalism, Governorate Equity, And Local Compacts</h2>
 <p>Status: governance control model. This is not a constitutional opinion,
 revenue-sharing law, KRG settlement, land-title determination, governorate
@@ -4680,7 +5061,7 @@ in control. The federalism-equity layer turns governorates, municipalities,
 producing regions, regional authorities, and affected communities into explicit
 counterparties with measurable rights, rather than treating them as passive
 locations where capital happens to land.</p>
-<h1 id="part-12-environmental-social-water-and-cultural-safeguards">Part 12: Environmental Social Water And Cultural Safeguards</h1>
+<h1 id="part-13-environmental-social-water-and-cultural-safeguards">Part 13: Environmental Social Water And Cultural Safeguards</h1>
 <h2 id="environmental-social-water-and-cultural-safeguards_1">Environmental, Social, Water, And Cultural Safeguards</h2>
 <p>Status: safeguard control model. This is not an environmental approval,
 heritage authorization, water-rights decision, resettlement plan, safety
@@ -4943,7 +5324,7 @@ environmental debt. A project that cannot protect water, heritage, communities,
 workers, accessibility, and future maintenance is not cheap. It is simply
 borrowing from Iraq's people, places, and future budgets without recording the
 liability.</p>
-<h1 id="part-13-macro-monetary-inflation-and-fx-stability">Part 13: Macro Monetary Inflation And FX Stability</h1>
+<h1 id="part-14-macro-monetary-inflation-and-fx-stability">Part 14: Macro Monetary Inflation And FX Stability</h1>
 <h2 id="macro-monetary-inflation-and-fx-stability_1">Macro, Monetary, Inflation, And FX Stability</h2>
 <p>Status: macro-stability control model. This is not a central-bank rulebook,
 exchange-rate forecast, monetary-policy recommendation, debt-sustainability
@@ -5151,7 +5532,7 @@ If CBI independence or policy coordination is missing, do not scale.
 valuable only if its purchasing power survives. Digital IQD visibility helps the
 state see liquidity and prices earlier, but it does not repeal monetary
 constraints.</p>
-<h1 id="part-14-fiscal-stress-and-contingent-liability">Part 14: Fiscal Stress And Contingent Liability</h1>
+<h1 id="part-15-fiscal-stress-and-contingent-liability">Part 15: Fiscal Stress And Contingent Liability</h1>
 <h2 id="fiscal-stress-and-contingent-liability-model">Fiscal Stress And Contingent Liability Model</h2>
 <p>Status: downside-control model. This is not a sovereign-debt recommendation,
 budget forecast, financing offer, rating view, or investment prospectus.</p>
@@ -5454,7 +5835,7 @@ If FX revenue cannot cover FX debt, do not borrow in FX.
 If collections are weak, do not count invoices as cash.
 If dividends compete with solvency, dividends lose.
 </code></pre>
-<h1 id="part-15-national-program-sequencing-and-dependency-control">Part 15: National Program Sequencing And Dependency Control</h1>
+<h1 id="part-16-national-program-sequencing-and-dependency-control">Part 16: National Program Sequencing And Dependency Control</h1>
 <h2 id="national-program-sequencing-and-dependency-control">National Program Sequencing And Dependency Control</h2>
 <p>Status: program-control model. This is not a government implementation plan,
 legal instruction, procurement timetable, financing commitment, or claim that
@@ -5832,7 +6213,7 @@ Continuity before ministry transition.
 Stress pass before expansion.
 Rollback before denial.
 </code></pre>
-<h1 id="part-16-procurement-integrity-and-market-discipline">Part 16: Procurement Integrity And Market Discipline</h1>
+<h1 id="part-17-procurement-integrity-and-market-discipline">Part 17: Procurement Integrity And Market Discipline</h1>
 <h2 id="procurement-integrity-and-market-discipline">Procurement Integrity And Market Discipline</h2>
 <p>Status: control model. This is not a procurement accusation, legal opinion,
 bid evaluation, tender document, debarment decision, or claim that any specific
@@ -6065,7 +6446,7 @@ If evidence is weak, withhold payment.
 If SMEs are paid late, fix the buyer before blaming the market.
 If champions crush suppliers, remove privilege.
 </code></pre>
-<h1 id="part-17-benefit-realization-and-claim-audit">Part 17: Benefit Realization And Claim Audit</h1>
+<h1 id="part-18-benefit-realization-and-claim-audit">Part 18: Benefit Realization And Claim Audit</h1>
 <h2 id="benefit-realization-and-claim-audit">Benefit Realization And Claim Audit</h2>
 <p>Status: accountability model. This is not an official monitoring framework,
 audit opinion, macroeconomic validation, or project-feasibility result.</p>
@@ -6333,7 +6714,7 @@ If it is not attributable, lower confidence.
 If it is public benefit only, keep it out of dividends.
 If it underperforms, publish the variance.
 </code></pre>
-<h1 id="part-18-iraq-integrated-growth-impact-model">Part 18: Iraq Integrated Growth Impact Model</h1>
+<h1 id="part-19-iraq-integrated-growth-impact-model">Part 19: Iraq Integrated Growth Impact Model</h1>
 <h2 id="iraq-integrated-growth-impact-model">Iraq Integrated Growth Impact Model</h2>
 <p>This document quantifies how the Cylinder Seal, INDHC, open-source rail,
 industrial, infrastructure, tourism, green, food/water, Digital IQD, and civic
@@ -6904,7 +7285,7 @@ to high non-oil growth, if capital is governed through hard gates, booked cash,
 public-benefit ledgers, reinvestment discipline, open infrastructure, and
 citizen-facing accountability.
 </code></pre>
-<h1 id="part-19-iraq-comprehensive-benefits-model">Part 19: Iraq Comprehensive Benefits Model</h1>
+<h1 id="part-20-iraq-comprehensive-benefits-model">Part 20: Iraq Comprehensive Benefits Model</h1>
 <h2 id="iraq-comprehensive-benefits-model">Iraq Comprehensive Benefits Model</h2>
 <p>This document reworks the Cylinder Seal, Digital IQD, INDHC, open-source rail,
 green power, food/water, tourism, civic-work, and ministry-transition proposal
@@ -7733,7 +8114,7 @@ substrate for a post-oil, post-automation Iraqi development model:</p>
   renewal, public trust, and audited distributable surplus.</li>
 </ul>
 <p>That is the unified economic, environmental, social, and cultural model.</p>
-<h1 id="part-20-iraq-quantified-affordability-and-cashflow-model">Part 20: Iraq Quantified Affordability And Cashflow Model</h1>
+<h1 id="part-21-iraq-quantified-affordability-and-cashflow-model">Part 21: Iraq Quantified Affordability And Cashflow Model</h1>
 <h2 id="iraq-quantified-affordability-and-cashflow-model">Iraq Quantified Affordability And Cashflow Model</h2>
 <p>This document adds a quantified affordability layer to the INDHC, citizen
 dividend, industrial-champion, and civic-work architecture.</p>
@@ -9200,7 +9581,7 @@ then it cannot receive debt and cannot be counted in the dividend forecast.
 </code></pre>
 <p>That is the point of quantifying the model: it converts a sovereign-economic
 vision into a financeable sequence with hard stop/go gates.</p>
-<h1 id="part-21-system-and-financial-flow-diagrams">Part 21: System And Financial Flow Diagrams</h1>
+<h1 id="part-22-system-and-financial-flow-diagrams">Part 22: System And Financial Flow Diagrams</h1>
 <h2 id="system-and-financial-flow-diagrams">System And Financial Flow Diagrams</h2>
 <p>This document maps the Cylinder Seal prototype as a software system and as a set
 of financial-flow patterns. It is intentionally conservative: diagrams describe
@@ -9213,19 +9594,19 @@ programmability primitive, settlement mode, and oversight path.</p>
 <p>These SVGs are the primary reviewer-facing diagrams. They are kept as standalone
 files so they render cleanly in GitHub, can be reused in presentations, and can
 be inspected in code review.</p>
-<h4 id="software-system-architecture_1">Software System Architecture</h4>
+<h4 id="software-system-architecture">Software System Architecture</h4>
 <p><img alt="Cylinder Seal software system architecture" src="docs/ebook/assets/software-system-architecture.png"></p>
-<h4 id="unified-economic-model_1">Unified Economic Model</h4>
+<h4 id="unified-economic-model">Unified Economic Model</h4>
 <p><img alt="Cylinder Seal unified economic model" src="docs/ebook/assets/unified-economic-model.png"></p>
-<h4 id="transaction-lifecycle_1">Transaction Lifecycle</h4>
+<h4 id="transaction-lifecycle">Transaction Lifecycle</h4>
 <p><img alt="Cylinder Seal transaction lifecycle" src="docs/ebook/assets/transaction-lifecycle.png"></p>
-<h4 id="financial-flow-combinations_1">Financial Flow Combinations</h4>
+<h4 id="financial-flow-combinations">Financial Flow Combinations</h4>
 <p><img alt="Cylinder Seal financial flow combinations" src="docs/ebook/assets/financial-flow-combinations.png"></p>
-<h4 id="transaction-combination-matrix_1">Transaction Combination Matrix</h4>
+<h4 id="transaction-combination-matrix">Transaction Combination Matrix</h4>
 <p><img alt="Cylinder Seal transaction combination matrix" src="docs/ebook/assets/transaction-combination-matrix.png"></p>
-<h4 id="national-dividend-holding-company_1">National Dividend Holding Company</h4>
+<h4 id="national-dividend-holding-company">National Dividend Holding Company</h4>
 <p><img alt="National dividend holding company financial architecture" src="docs/ebook/assets/national-dividend-holding-company.png"></p>
-<h4 id="national-civic-work-system_1">National Civic Work System</h4>
+<h4 id="national-civic-work-system">National Civic Work System</h4>
 <p><img alt="National civic work verification and payment architecture" src="docs/ebook/assets/national-civic-work-system.png"></p>
 <h3 id="related-business-charts">Related Business Charts</h3>
 <p>The software and financial-flow diagrams above show the payment and governance
@@ -9271,7 +9652,7 @@ architecture. The business side is mapped separately in
 </tr>
 </tbody>
 </table>
-<h3 id="unified-economic-model_2">Unified Economic Model</h3>
+<h3 id="unified-economic-model_1">Unified Economic Model</h3>
 <p>The unified model is documented in
 <a href="unified-economic-model.md">Unified Economic Model</a>. It connects the software
 system, financial flows, INDHC, ministries, banks, producers, tourism, green
@@ -9417,7 +9798,7 @@ of reusable rails that combine into retail, government, bank, producer, and
 diaspora flows.</p>
 <p>Advantage: reduces product sprawl. New use cases should reuse the same envelope,
 validation, audit, and projection paths.</p>
-<h3 id="transaction-combination-matrix_2">Transaction Combination Matrix</h3>
+<h3 id="transaction-combination-matrix_1">Transaction Combination Matrix</h3>
 <table>
 <thead>
 <tr>
@@ -9609,7 +9990,7 @@ validation, audit, and projection paths.</p>
 <td>Civic wage, civic credit bonus, conditional release</td>
 <td>Verified care, sport, environmental, municipal, culture, education, food-security, or resilience task</td>
 <td>Turns spare labor capacity into paid public value, training records, and income history</td>
-<td>Analytics control exists; deployable <code>cs-civic-work</code> task platform, evidence workflow, labor law, privacy, safety, and appeal process still required</td>
+<td>Analytics and initial <code>cs-civic-work</code> lifecycle controls exist; deployable routes, wallets, labor law, privacy, safety, and appeal process still required</td>
 </tr>
 <tr>
 <td>21</td>
@@ -9906,7 +10287,7 @@ rules.</p>
 </tr>
 <tr>
 <td>Civic-work architecture</td>
-<td><code>docs/national-civic-work-system.md</code>; <code>crates/cs-analytics/src/civic_work.rs</code>; <code>migrations/20260722000001_civic_work.sql</code>; deployable <code>cs-civic-work</code> task platform remains future work</td>
+<td><code>docs/national-civic-work-system.md</code>; <code>crates/cs-analytics/src/civic_work.rs</code>; <code>crates/cs-civic-work</code>; <code>migrations/20260722000001_civic_work.sql</code>; deployable civic-work routes, wallets, verifier operations, and wage-payment services remain future work</td>
 </tr>
 <tr>
 <td>Ministry-transition architecture</td>
@@ -9929,14 +10310,14 @@ remaining engineering gaps:</p>
 <li>HSM and secure-element attestation need a concrete design and tests.</li>
 <li>Offline double-spend prevention still needs hardware-backed monotonic counters
   or an equivalent attested mechanism.</li>
-<li>Real PostgreSQL/Redis endpoint integration tests are needed for dashboard
-  route credibility.</li>
+<li>One opt-in live PostgreSQL/Redis auth-session-audit test exists; broader live
+  endpoint coverage is still needed for dashboard route credibility.</li>
 <li>Cross-border, FX, diaspora, and correspondent-bank flows are scenario designs
   that still require regulated integration rails.</li>
 <li>Civic-work task posting, evidence verification, civic wage release, civic
-  credits, and impact metrics now have an analytics-control primitive, but no
-  deployable <code>cs-civic-work</code> crate, wallet flow, operational schemas, routes,
-  verifier workflow, or wage-payment service exists yet.</li>
+  credits, and impact metrics now have analytics and initial <code>cs-civic-work</code>
+  lifecycle controls, but no deployable wallet flow, operational schemas,
+  routes, verifier workflow, or wage-payment service exists yet.</li>
 <li>Ministry-transition screening now has an analytics-control primitive, but no
   legal reorganization workflow, civil-service placement system, service
   contract platform, governorate compact workflow, or sunset-audit office exists
@@ -9947,7 +10328,7 @@ remaining engineering gaps:</p>
   its legal authority, oil-revenue handling, share-entitlement rules, investment
   governance, and dividend formula require independent review.</li>
 </ul>
-<h1 id="part-22-business-value-chain-charts">Part 22: Business Value Chain Charts</h1>
+<h1 id="part-23-business-value-chain-charts">Part 23: Business Value Chain Charts</h1>
 <h2 id="business-value-chain-charts">Business Value Chain Charts</h2>
 <p>Status: visual planning aid. These charts explain the business logic of the
 Cylinder Seal economic model. They are not forecasts, investment offers,
@@ -9963,22 +10344,22 @@ questions:</p>
 <li>Which Digital IQD evidence and governance gates prevent overclaiming?</li>
 </ul>
 <h3 id="rendered-chart-atlas">Rendered Chart Atlas</h3>
-<h4 id="business-value-chain-overview_1">Business Value Chain Overview</h4>
+<h4 id="business-value-chain-overview">Business Value Chain Overview</h4>
 <p><img alt="Business value chain overview" src="docs/ebook/assets/business-value-chain-overview.png"></p>
 <p>This chart shows the end-to-end circuit: capital sources, Digital IQD evidence,
 facility recycling, sector production, markets, cash waterfall, public benefits,
 and risk gates.</p>
-<h4 id="sector-value-chain-matrix_1">Sector Value Chain Matrix</h4>
+<h4 id="sector-value-chain-matrix">Sector Value Chain Matrix</h4>
 <p><img alt="Sector value chain matrix" src="docs/ebook/assets/sector-value-chain-matrix.png"></p>
 <p>This chart maps all current sectors across asset base, operations, customers,
 revenue, public benefit, and evidence controls. It is the broadest business
 chart in the repo.</p>
-<h4 id="capital-and-repayment-lanes_1">Capital And Repayment Lanes</h4>
+<h4 id="capital-and-repayment-lanes">Capital And Repayment Lanes</h4>
 <p><img alt="Capital and repayment lanes" src="docs/ebook/assets/capital-and-repayment-lanes.png"></p>
 <p>This chart explains which sources of capital fit which sectors, how repayment
 works, and which guardrails block hidden bailouts or forced domestic-market
 funding.</p>
-<h4 id="society-and-economy-feedback-loop_1">Society And Economy Feedback Loop</h4>
+<h4 id="society-and-economy-feedback-loop">Society And Economy Feedback Loop</h4>
 <p><img alt="Society and economy feedback loop" src="docs/ebook/assets/society-economy-feedback-loop.png"></p>
 <p>This chart connects the business model to society: citizens benefit through
 wages, domestic goods, civic-work income, public services, credit histories, and
@@ -10088,8 +10469,8 @@ flows.</p>
 <li>It separates cashflow charts from public-benefit charts so readers do not
   confuse GDP, avoided imports, or social outcomes with dividend capacity.</li>
 </ul>
-<h1 id="part-23-unified-economic-model">Part 23: Unified Economic Model</h1>
-<h2 id="unified-economic-model_3">Unified Economic Model</h2>
+<h1 id="part-24-unified-economic-model">Part 24: Unified Economic Model</h1>
+<h2 id="unified-economic-model_2">Unified Economic Model</h2>
 <p>This document ties the Cylinder Seal payment rail, policy primitives, INDHC,
 ministries, banks, producers, infrastructure projects, tourism, green capital,
 citizen dividends, and verified civic work into one economic model.</p>
@@ -11089,7 +11470,7 @@ separate dashboard widgets.</p>
 </code></pre>
 <p>The point is not only to digitize money. The point is to make Iraq's economic
 feedback loops visible, governable, productive, and citizen-owned.</p>
-<h1 id="part-24-national-dividend-holding-company">Part 24: National Dividend Holding Company</h1>
+<h1 id="part-25-national-dividend-holding-company">Part 25: National Dividend Holding Company</h1>
 <h2 id="national-dividend-holding-company-architecture">National Dividend Holding Company Architecture</h2>
 <p>This document adds a policy architecture to Cylinder Seal: Iraq's oil income is
 not treated as a direct ministry-funding stream. It is treated as national
@@ -11470,7 +11851,7 @@ productive investment, ministry funding, and citizen capital income.</p>
 </tr>
 <tr>
 <td><code>InheritanceTransfer</code></td>
-<td>Legally approved movement of share entitlement to eligible offspring or heirs.</td>
+<td>Legally approved movement of share entitlement to eligible heirs.</td>
 <td>New design primitive.</td>
 </tr>
 </tbody>
@@ -11592,7 +11973,7 @@ political payroll vehicles.</p>
 <p>See <a href="indhc-10-year-plan.md">INDHC ten-year industrial and infrastructure plan</a>
 for the proposed investment program, capital stack, staffing model, sector
 priorities, reinvestment waterfall, and implementation primitives.</p>
-<h1 id="part-25-indhc-ten-year-plan">Part 25: INDHC Ten-Year Plan</h1>
+<h1 id="part-26-indhc-ten-year-plan">Part 26: INDHC Ten-Year Plan</h1>
 <h2 id="indhc-ten-year-industrial-and-infrastructure-plan">INDHC Ten-Year Industrial And Infrastructure Plan</h2>
 <p>This document translates the National Dividend Holding Company architecture into
 a ten-year investment plan. It is a planning scenario, not a budget law, a
@@ -13503,7 +13884,7 @@ productive-capital machine:</p>
 <li>profits are reinvested into domestic capacity;</li>
 <li>remaining distributable surplus is paid as a Digital IQD citizen dividend.</li>
 </ul>
-<h1 id="part-26-import-services-and-diaspora-expansion">Part 26: Import, Services, And Diaspora Expansion</h1>
+<h1 id="part-27-import-services-and-diaspora-expansion">Part 27: Import, Services, And Diaspora Expansion</h1>
 <h2 id="import-services-and-diaspora-expansion">Import, Services, And Diaspora Expansion</h2>
 <p>Status: strategy and implementation-extension note. This is not a forecast, a
 trade policy order, a tourism concession, a migration policy, or an investment
@@ -13850,7 +14231,7 @@ receipts.</p>
 <p>The new <code>DiasporaChannelsEngine</code> represents this model in code and gives the
 dashboard a way to distinguish cash income, remittance formalization, export
 distribution, expertise value, marketing value, and investment pipeline risk.</p>
-<h1 id="part-27-facility-recycling-and-capital-markets">Part 27: Facility Recycling And Capital Markets</h1>
+<h1 id="part-28-facility-recycling-and-capital-markets">Part 28: Facility Recycling And Capital Markets</h1>
 <h2 id="facility-recycling-and-capital-markets">Facility Recycling And Capital Markets</h2>
 <p>Status: strategy and implementation-extension note. This is not an investment
 offering, securities prospectus, credit recommendation, privatization order, or
@@ -14393,7 +14774,7 @@ collected.</p>
 capital base it needs. Cylinder Seal should make that latent asset base visible,
 ranked, financeable where justified, and impossible to dress up as value when it
 is actually a liability.</p>
-<h1 id="part-28-digitally-governed-industrial-champions">Part 28: Digitally Governed Industrial Champions</h1>
+<h1 id="part-29-digitally-governed-industrial-champions">Part 29: Digitally Governed Industrial Champions</h1>
 <h2 id="digitally-governed-industrial-champions">Digitally Governed Industrial Champions</h2>
 <p>This document refines the INDHC industrial-conglomerate idea. The model should
 not be described as copying Korean chaebols. It should be described as building
@@ -15456,8 +15837,8 @@ No export or cost discipline, no protection.
 No audit, no public demand contract.
 No competition review, no champion status renewal.
 </code></pre>
-<h1 id="part-29-national-civic-work-system">Part 29: National Civic Work System</h1>
-<h2 id="national-civic-work-system_2">National Civic Work System</h2>
+<h1 id="part-30-national-civic-work-system">Part 30: National Civic Work System</h1>
+<h2 id="national-civic-work-system_1">National Civic Work System</h2>
 <p>As Iraq formalizes, automates, and industrializes through Digital IQD, INDHC,
 and digitally governed industrial champions, some low-productivity work will
 disappear. Cylinder Seal therefore includes a National Civic Work System: a
@@ -15548,10 +15929,12 @@ permanent low-wage public tasks.</p>
 <p>The module connects to Digital IQD wallets but should not expose full payment
 history to local supervisors. Task verification, wage payment, identity, and
 reputation need separate permissions.</p>
-<p>The current repository implements the first planning primitive in
-<code>crates/cs-analytics/src/civic_work.rs</code>, with persistence in
-<code>migrations/20260722000001_civic_work.sql</code>. The deployable <code>cs-civic-work</code>
-task platform, routes, wallets, and payment release service remain future work.</p>
+<p>The current repository implements a planning primitive in
+<code>crates/cs-analytics/src/civic_work.rs</code>, persistence in
+<code>migrations/20260722000001_civic_work.sql</code>, and initial task lifecycle,
+evidence, verification, risk-hold, and payment-eligibility models in
+<code>crates/cs-civic-work</code>. A deployable civic-work platform with routes, wallets,
+municipal verifier operations, and wage-payment release remains future work.</p>
 <h3 id="civic-work-flow">Civic Work Flow</h3>
 <ol>
 <li>Municipality, school, sports club, NGO, environmental agency, health clinic,
@@ -16247,7 +16630,7 @@ lost low-value work into income, dignity, skill, and visible contribution.</p>
   -&gt; income history, skills, public value, and social cohesion
   -&gt; better private-sector and INDHC employability
 </code></pre>
-<h1 id="part-30-ministry-transition-roadmap">Part 30: Ministry Transition Roadmap</h1>
+<h1 id="part-31-ministry-transition-roadmap">Part 31: Ministry Transition Roadmap</h1>
 <h2 id="ministry-transition-and-deprecation-roadmap">Ministry Transition And Deprecation Roadmap</h2>
 <p>This document describes how the unified Cylinder Seal / INDHC model could
 eventually deprecate ministry structures that become duplicative, low-feedback,
@@ -16861,7 +17244,7 @@ contracts, INDHC subsidiaries, and public dashboards.</p>
 <li>audited service contracts;</li>
 <li>productive national capital through INDHC.</li>
 </ul>
-<h1 id="part-31-security-model">Part 31: Security Model</h1>
+<h1 id="part-32-security-model">Part 32: Security Model</h1>
 <h2 id="security-model-and-threat-notes">Security Model And Threat Notes</h2>
 <p>Cylinder Seal is a prototype. This document describes the security posture expected before production use and highlights the current gaps. It is not a completed audit.</p>
 <h3 id="supported-security-claims-today">Supported Security Claims Today</h3>
@@ -17045,7 +17428,7 @@ project contact listed in <code>EXECUTIVE_SUMMARY.md</code>. Include:</p>
 <p>This process is a prototype disclosure policy. Before external deployment,
 replace it with a dedicated security contact, patch SLA, coordinated-disclosure
 timeline, and legal safe-harbor language.</p>
-<h1 id="part-32-current-implementation-status">Part 32: Current Implementation Status</h1>
+<h1 id="part-33-current-implementation-status">Part 33: Current Implementation Status</h1>
 <h2 id="implementation-status">Implementation Status</h2>
 <h3 id="honest-status">Honest Status</h3>
 <p>Cylinder Seal is a prototype implementation with meaningful code coverage across domain modules, policy logic, dashboard routes, and tests. It is not production-ready CBDC/payment infrastructure.</p>
@@ -17058,12 +17441,13 @@ timeline, and legal safe-harbor language.</p>
 <li>CBI dashboard Axum service with PostgreSQL pool, Redis sessions, and route modules.</li>
 <li>Testable dashboard app builder plus route-level tests for session middleware, CSRF checks, logout invalidation, current role gates, and admin action audit recording.</li>
 <li>PostgreSQL-backed admin audit recorder for current sensitive dashboard actions, with in-memory test recorder.</li>
+<li>Opt-in live PostgreSQL/Redis integration test for operator login, Redis session persistence, role-gated protected routes, audit recording, protected dashboard actions, logout, and post-logout denial.</li>
 <li>PostgreSQL migrations for the main application stack.</li>
 <li>Specification tests for many protocol and policy behaviors.</li>
 <li>Unified economic model documented as an integrated planning layer across Digital IQD, INDHC, ministries, credit, domestic production, strategic resilience manufacturing, tourism/exports, green/rail infrastructure, reinvestment, and dividends.</li>
 <li>National Dividend Holding Company policy architecture documented as a proposal, including oil-income lockbox, citizen share entitlements, cash formalization controls, ten-year investment plan, ministry funding, and monthly dividend flows.</li>
 <li>Ministry transition roadmap documented as a governance scenario and represented by a scenario-control engine for moving selected ministry functions into regulators, service contracts, municipalities, INDHC subsidiaries, autonomous institutions, digital transfer platforms, or sunset agencies.</li>
-<li>National Civic Work System documented as a policy scenario and represented by a scenario engine for verified civic wages, civic credits, training records, public-value tasks, anti-ghost-worker controls, dignity safeguards, and productivity-transition support.</li>
+<li>National Civic Work System documented as a policy scenario and represented by both a scenario engine and the <code>cs-civic-work</code> crate for task lifecycle models, evidence requirements, verification decisions, duplicate-risk holds, safety holds, authority checks, and payment-eligibility tests.</li>
 <li>National Legal and Institutional Roadmap documented as an authority checklist for the oil lockbox, INDHC, citizen entitlements, Digital IQD, project debt, securities, privacy, federalism, emergency powers, and appeals.</li>
 <li>Project Pipeline and Investment Gates documented as a project-family structure for capex, revenue sources, DSCR, FX exposure, facility reuse, environmental gates, legal authority, and evidence bundles.</li>
 <li>Political-Economy Transition and Anti-Capture model documented as a reform-readiness layer for capture risk, resistance pressure, coalition support, service continuity, staff transition, procurement transparency, beneficial ownership, competition controls, federalism, emergency powers, and citizen appeals.</li>
@@ -17081,7 +17465,7 @@ timeline, and legal safe-harbor language.</p>
 </ul>
 <h3 id="important-gaps">Important Gaps</h3>
 <ul>
-<li>Dashboard route integration tests now cover security middleware and selected skeletal handlers, but live PostgreSQL/Redis endpoint coverage is still incomplete.</li>
+<li>Dashboard route integration tests now cover security middleware, selected skeletal handlers, and one opt-in live PostgreSQL/Redis auth/session/audit path; broader live endpoint coverage is still incomplete.</li>
 <li>Some route handlers remain skeletal or demo-oriented.</li>
 <li>Role enforcement must continue to be applied as future sensitive handlers are implemented.</li>
 <li>Browser security hardening has a basic cookie/CSRF foundation but still needs full browser automation and deployment review.</li>
@@ -17092,7 +17476,7 @@ timeline, and legal safe-harbor language.</p>
 <li>Offline double-spend handling is not yet backed by audited secure hardware/attestation.</li>
 <li>HSM custody, national identity/KYC integration, CBI/core-banking integration, DR, and privacy review remain future work.</li>
 <li>The National Dividend Holding Company proposal and ten-year investment plan are only partially represented in scenario code and need legal, fiscal, debt-capacity, AML/CFT, competition, and governance validation before data models or routes are treated as deployable.</li>
-<li>The National Civic Work System has a scenario-control engine, not a deployable <code>cs-civic-work</code> task platform, wallet, route set, verifier workflow, or wage-payment service. It still needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, safety, fiscal, and independent audit validation before any operational module is treated as deployable.</li>
+<li>The National Civic Work System now has a small <code>cs-civic-work</code> domain crate, but not a deployable wallet, route set, verifier workflow, wage-payment service, or municipal operations platform. It still needs labor-law, privacy, child-protection, municipal-authority, anti-corruption, disability-access, safety, fiscal, and independent audit validation before any operational module is treated as deployable.</li>
 <li>The legal/institutional roadmap and project pipeline are documentation layers only; they need independent legal opinions, official authority mapping, project feasibility studies, procurement review, environmental/social safeguards, and audited baseline data before any project is treated as investable.</li>
 <li>The political-economy engine is scenario scoring, not a real power map or legitimacy assessment. It needs independent Iraqi constitutional, federalism, anti-corruption, civil-service, labor, competition, citizen-rights, and security-sector review before it can guide any real transition.</li>
 <li>The citizen rights engine is a scenario control, not a national identity, entitlement, privacy, or appeal system. It needs legal authority, civil registry integration, privacy-regulator review, administrative-justice review, disability/accessibility validation, sanctions/AML due-process rules, independent audit, public dashboard governance, and tested appeal operations before any citizen-share or dividend batch is treated as deployable.</li>
@@ -17114,9 +17498,10 @@ cargo run --package cbi-dashboard
 <h3 id="verification">Verification</h3>
 <pre><code class="language-bash">cargo check --package cbi-dashboard
 cargo test --workspace
+CBI_DASHBOARD_LIVE_TESTS=1 cargo test -p cbi-dashboard --test live_postgres_redis
 </code></pre>
 <p>Passing these checks should be described as prototype verification, not production certification.</p>
-<h1 id="part-33-technical-primitives">Part 33: Technical Primitives</h1>
+<h1 id="part-34-technical-primitives">Part 34: Technical Primitives</h1>
 <h2 id="technical-primitives-and-readiness-notes">Technical Primitives And Readiness Notes</h2>
 <p>This document maps the main technical claims to code that exists today and to the production gaps that still need to be closed. It is intentionally conservative: if something has a prototype implementation but lacks deployment hardening, it is marked as partial.</p>
 <p>For visual maps of the software architecture, transaction lifecycle, and financial-flow combinations, see <a href="system-and-financial-flow-diagrams.md">System And Financial Flow Diagrams</a>.</p>
@@ -17319,7 +17704,30 @@ cargo test --workspace
 <li>Key ceremony and break-glass runbooks.</li>
 <li>Immutable audit log retention plan.</li>
 </ul>
-<h1 id="legacy-policy-paper-boundary">Legacy Policy Paper Boundary</h1>
+<section class="diagram-atlas"><h1 id="diagram-atlas">Diagram Atlas</h1>
+<h2 id="software-system-architecture_1">Software System Architecture</h2>
+<p><img alt="Software System Architecture" src="docs/ebook/assets/software-system-architecture.png"></p>
+<h2 id="unified-economic-model_3">Unified Economic Model</h2>
+<p><img alt="Unified Economic Model" src="docs/ebook/assets/unified-economic-model.png"></p>
+<h2 id="transaction-lifecycle_1">Transaction Lifecycle</h2>
+<p><img alt="Transaction Lifecycle" src="docs/ebook/assets/transaction-lifecycle.png"></p>
+<h2 id="financial-flow-combinations_1">Financial Flow Combinations</h2>
+<p><img alt="Financial Flow Combinations" src="docs/ebook/assets/financial-flow-combinations.png"></p>
+<h2 id="transaction-combination-matrix_2">Transaction Combination Matrix</h2>
+<p><img alt="Transaction Combination Matrix" src="docs/ebook/assets/transaction-combination-matrix.png"></p>
+<h2 id="national-dividend-holding-company_1">National Dividend Holding Company</h2>
+<p><img alt="National Dividend Holding Company" src="docs/ebook/assets/national-dividend-holding-company.png"></p>
+<h2 id="national-civic-work-system_2">National Civic Work System</h2>
+<p><img alt="National Civic Work System" src="docs/ebook/assets/national-civic-work-system.png"></p>
+<h2 id="business-value-chain-overview_1">Business Value Chain Overview</h2>
+<p><img alt="Business Value Chain Overview" src="docs/ebook/assets/business-value-chain-overview.png"></p>
+<h2 id="sector-value-chain-matrix_1">Sector Value Chain Matrix</h2>
+<p><img alt="Sector Value Chain Matrix" src="docs/ebook/assets/sector-value-chain-matrix.png"></p>
+<h2 id="capital-and-repayment-lanes_1">Capital And Repayment Lanes</h2>
+<p><img alt="Capital And Repayment Lanes" src="docs/ebook/assets/capital-and-repayment-lanes.png"></p>
+<h2 id="society-and-economy-feedback-loop_1">Society And Economy Feedback Loop</h2>
+<p><img alt="Society And Economy Feedback Loop" src="docs/ebook/assets/society-economy-feedback-loop.png"></p>
+</section><h1 id="legacy-policy-paper-boundary">Legacy Policy Paper Boundary</h1>
 <p>The long-form <code>docs/policy-paper.md</code> is intentionally not included as a main
 ebook chapter. It is a legacy scenario workbook and narrative archive, not the
 implementation status of the repository and not an externally validated

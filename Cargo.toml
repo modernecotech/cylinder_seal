@@ -14,6 +14,7 @@ members = [
     "crates/cs-feeds",
     "crates/cs-tests",
     "crates/cs-analytics",
+    "crates/cs-civic-work",
     "crates/cbi-dashboard",
 ]
 resolver = "2"
@@ -42,9 +43,9 @@ tokio-stream = "0.1"
 async-trait = "0.1"
 
 # Database
-sqlx = { version = "0.7", default-features = false, features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono", "json", "macros", "migrate", "rust_decimal"] }
-deadpool-redis = "0.15"
-redis = { version = "0.25", features = ["aio", "tokio-comp", "connection-manager"] }
+sqlx = { version = "0.8.6", default-features = false, features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono", "json", "macros", "migrate", "rust_decimal"] }
+deadpool-redis = "0.16"
+redis = { version = "0.26", features = ["aio", "tokio-comp", "connection-manager"] }
 
 # Cryptography
 blake2 = "0.10"
