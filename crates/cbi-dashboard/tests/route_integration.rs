@@ -300,6 +300,92 @@ async fn supervisor_can_create_directive_with_audit_record() {
 }
 
 #[tokio::test]
+async fn monetary_budget_dashboard_is_protected_read_route() {
+    let app = app_with_role("analyst").await;
+
+    let response = app
+        .router
+        .oneshot(
+            bearer_request("GET", "/api/monetary/broad-money-budget")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(response.status(), StatusCode::OK);
+}
+
+#[tokio::test]
+async fn auditor_cannot_set_broad_money_budget() {
+    let app = app_with_role("auditor").await;
+    let body = serde_json::to_vec(&json!({
+        "period_code": "2026-Q4",
+        "broad_money_ceiling_iqd": 220000000000000.0,
+        "civic_worker_budget_iqd": 5000000000000.0,
+        "non_usd_origin_floor_pct": 100.0,
+        "non_usd_origin_allocated_iqd": 5000000000000.0,
+        "planned_worker_count": 250000,
+        "average_monthly_wage_iqd": 400000.0,
+        "notes": "route test"
+    }))
+    .unwrap();
+
+    let response = app
+        .router
+        .oneshot(
+            bearer_request("POST", "/api/monetary/broad-money-budget")
+                .header(header::CONTENT_TYPE, "application/json")
+                .body(Body::from(body))
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(response.status(), StatusCode::FORBIDDEN);
+    let records = app.audit_recorder.records().await;
+    assert_eq!(records.len(), 1);
+    assert_eq!(records[0].action, "monetary.broad_money_budget.set");
+    assert_eq!(
+        records[0].target_kind.as_deref(),
+        Some("cbi_broad_money_budget_policy")
+    );
+    assert_eq!(records[0].result, "denied");
+}
+
+#[tokio::test]
+async fn auditor_cannot_create_civic_payroll_batch() {
+    let app = app_with_role("auditor").await;
+    let body = serde_json::to_vec(&json!({
+        "period_code": "2026-Q4",
+        "hourly_wage_iqd": 2500.0,
+        "notes": "route test"
+    }))
+    .unwrap();
+
+    let response = app
+        .router
+        .oneshot(
+            bearer_request("POST", "/api/monetary/civic-payroll-batches")
+                .header(header::CONTENT_TYPE, "application/json")
+                .body(Body::from(body))
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(response.status(), StatusCode::FORBIDDEN);
+    let records = app.audit_recorder.records().await;
+    assert_eq!(records.len(), 1);
+    assert_eq!(records[0].action, "monetary.civic_payroll_batch.create");
+    assert_eq!(
+        records[0].target_kind.as_deref(),
+        Some("civic_worker_payroll_batch")
+    );
+    assert_eq!(records[0].result, "denied");
+}
+
+#[tokio::test]
 async fn officer_cannot_freeze_account() {
     let app = app_with_role("officer").await;
     let body = serde_json::to_vec(&json!({ "reason": "test" })).unwrap();

@@ -8,6 +8,7 @@
 //! is a no-op (the repository's `INSERT … ON CONFLICT DO NOTHING` guards
 //! the write).
 
+use std::collections::HashMap;
 use std::sync::Arc;
 
 use async_trait::async_trait;
@@ -109,6 +110,12 @@ impl LedgerApplier {
             confirmed_at: Some(Utc::now()), // Raft commit == CBI confirmation
             conflict_status: None,
         };
+
+        if let Some(repo) = &self.funds_origin_balances {
+            ensure_funds_origin_buckets_available(&entry.transactions, repo.as_ref())
+                .await
+                .map_err(|e| ApplyError::Storage(e.to_string()))?;
+        }
 
         self.journal
             .insert_entry(&record)
@@ -266,6 +273,54 @@ async fn apply_funds_origin_buckets(
     if tx_credits_receiver(tx) {
         repo.credit_for_tx(tx.transaction_id, to_id, origin, tx.amount_owc)
             .await?;
+    }
+
+    Ok(())
+}
+
+async fn ensure_funds_origin_buckets_available(
+    transactions: &[Transaction],
+    repo: &dyn FundsOriginBalanceRepository,
+) -> Result<(), cs_core::error::CylinderSealError> {
+    let mut required_by_bucket: HashMap<(uuid::Uuid, &'static str), (FundsOrigin, i64)> =
+        HashMap::new();
+    for tx in transactions {
+        if tx.amount_owc < 0 {
+            return Err(cs_core::error::CylinderSealError::ValidationError(
+                "transaction amount cannot be negative".into(),
+            ));
+        }
+        let sender_id = cs_core::models::User::derive_user_id_from_public_key(&tx.from_public_key);
+        let origin = tx.funds_origin.unwrap_or(FundsOrigin::Personal);
+        let (_, required) = required_by_bucket
+            .entry((sender_id, origin.as_str()))
+            .or_insert((origin, 0));
+        *required = required.saturating_add(tx.amount_owc);
+    }
+
+    let mut tracked_totals: HashMap<uuid::Uuid, i64> = HashMap::new();
+    for ((sender_id, _), (origin, required)) in required_by_bucket {
+        let tracked_total = match tracked_totals.get(&sender_id) {
+            Some(total) => *total,
+            None => {
+                let total = repo.total_balance(sender_id).await?;
+                tracked_totals.insert(sender_id, total);
+                total
+            }
+        };
+        if tracked_total == 0 {
+            continue;
+        }
+
+        let source_balance = repo.balance(sender_id, origin).await?;
+        if source_balance < required {
+            return Err(cs_core::error::CylinderSealError::ValidationError(format!(
+                "insufficient {} provenance balance: available {}, required {}",
+                origin.as_str(),
+                source_balance,
+                required
+            )));
+        }
     }
 
     Ok(())
@@ -520,7 +575,10 @@ mod proto_dto {
 
 #[cfg(test)]
 mod tests {
-    use super::{apply_funds_origin_buckets, proto_dto::TransactionDto};
+    use super::{
+        apply_funds_origin_buckets, ensure_funds_origin_buckets_available,
+        proto_dto::TransactionDto,
+    };
     use crate::proto::chain_sync as pb;
     use async_trait::async_trait;
     use cs_core::cryptography::generate_keypair;
@@ -720,6 +778,46 @@ mod tests {
             .expect_err("insufficient provenance should fail at apply time");
 
         assert!(err.to_string().contains("insufficient salary"));
+        assert!(repo.credits.lock().expect("credits").is_empty());
+    }
+
+    #[tokio::test]
+    async fn ensure_funds_origin_buckets_available_rejects_batch_overspend() {
+        let (from_public_key, _) = generate_keypair();
+        let (to_public_key, _) = generate_keypair();
+        let sender_id = User::derive_user_id_from_public_key(&from_public_key);
+        let repo = RecordingOriginBalances::new(HashMap::from([(
+            (sender_id, FundsOrigin::Salary.as_str()),
+            5_000_000,
+        )]));
+        let tx1 = test_tx(from_public_key, to_public_key, 3_000_000)
+            .with_funds_origin(FundsOrigin::Salary);
+        let tx2 = test_tx(from_public_key, to_public_key, 3_000_000)
+            .with_funds_origin(FundsOrigin::Salary);
+
+        let err = ensure_funds_origin_buckets_available(&[tx1, tx2], &repo)
+            .await
+            .expect_err("aggregate salary spend must not exceed bucket");
+
+        assert!(err.to_string().contains("available 5000000"));
+        assert!(err.to_string().contains("required 6000000"));
+        assert!(repo.debits.lock().expect("debits").is_empty());
+        assert!(repo.credits.lock().expect("credits").is_empty());
+    }
+
+    #[tokio::test]
+    async fn ensure_funds_origin_buckets_available_rejects_negative_amount() {
+        let (from_public_key, _) = generate_keypair();
+        let (to_public_key, _) = generate_keypair();
+        let repo = RecordingOriginBalances::new(HashMap::new());
+        let tx = test_tx(from_public_key, to_public_key, -1);
+
+        let err = ensure_funds_origin_buckets_available(&[tx], &repo)
+            .await
+            .expect_err("negative amounts must not enter provenance accounting");
+
+        assert!(err.to_string().contains("amount cannot be negative"));
+        assert!(repo.debits.lock().expect("debits").is_empty());
         assert!(repo.credits.lock().expect("credits").is_empty());
     }
 

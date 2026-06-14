@@ -28,6 +28,7 @@ pub fn build_app(app_state: Arc<AppState>) -> Router {
         .route("/projects", get(routes::pages::projects_page))
         .route("/analytics", get(routes::pages::analytics_page))
         .route("/compliance", get(routes::pages::compliance_page))
+        .route("/monetary", get(routes::pages::monetary_page))
         .route("/accounts", get(routes::pages::accounts_page))
         .layer(axum::middleware::from_fn_with_state(
             app_state.clone(),
@@ -85,6 +86,18 @@ pub fn build_app(app_state: Arc<AppState>) -> Router {
         .route(
             "/api/monetary/exchange-rates",
             get(routes::monetary::exchange_rates),
+        )
+        .route(
+            "/api/monetary/broad-money-budget",
+            get(routes::monetary::broad_money_budget_dashboard),
+        )
+        .route(
+            "/api/monetary/broad-money-budget",
+            post(routes::monetary::set_broad_money_budget),
+        )
+        .route(
+            "/api/monetary/civic-payroll-batches",
+            post(routes::monetary::create_civic_payroll_batch),
         )
         .route("/api/accounts/search", get(routes::accounts::search_users))
         .route("/api/accounts/{user_id}", get(routes::accounts::get_user))

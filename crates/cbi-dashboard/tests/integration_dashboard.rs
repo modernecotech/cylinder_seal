@@ -32,9 +32,11 @@ mod tests {
             "admin_audit_log",
             "account_status_log",
             "merchant_tier_decisions",
+            "cbi_broad_money_budget_policies",
+            "civic_worker_payroll_batches",
         ];
 
-        assert_eq!(expected_tables.len(), 20, "Expected 20 tables in schema");
+        assert_eq!(expected_tables.len(), 22, "Expected 22 tables in schema");
     }
 
     #[test]
@@ -61,6 +63,9 @@ mod tests {
             ("/api/monetary/policy-rates", "GET"),
             ("/api/monetary/velocity-limits", "GET"),
             ("/api/monetary/exchange-rates", "GET"),
+            ("/api/monetary/broad-money-budget", "GET"),
+            ("/api/monetary/broad-money-budget", "POST"),
+            ("/api/monetary/civic-payroll-batches", "POST"),
             // Accounts (4)
             ("/api/accounts/search", "GET"),
             ("/api/accounts/:user_id", "GET"),
@@ -81,15 +86,15 @@ mod tests {
             ("/readiness", "GET"),
         ];
 
-        assert_eq!(endpoints.len(), 28, "Expected 28 route inventory entries");
+        assert_eq!(endpoints.len(), 31, "Expected 31 route inventory entries");
 
         // Verify route inventory distribution.
         let get_count = endpoints.iter().filter(|(_, m)| *m == "GET").count();
         let post_count = endpoints.iter().filter(|(_, m)| *m == "POST").count();
         let patch_count = endpoints.iter().filter(|(_, m)| *m == "PATCH").count();
 
-        assert_eq!(get_count, 19, "Expected 19 GET route entries");
-        assert_eq!(post_count, 7, "Expected 7 POST route entries");
+        assert_eq!(get_count, 20, "Expected 20 GET route entries");
+        assert_eq!(post_count, 9, "Expected 9 POST route entries");
         assert_eq!(patch_count, 2, "Expected 2 PATCH route entries");
     }
 
