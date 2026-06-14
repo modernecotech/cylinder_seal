@@ -7,6 +7,11 @@ Cylinder Seal (سيلندر سيل) هو نموذج وطني قائم على ا�
 العامة، والإنتاج المحلي، والعمل المدني، وتمويل الوزارات، والائتمان، وأرباح
 المواطنين قابلة للقياس والتدقيق والمراجعة والاعتراض.
 
+أقوى ادعاء حالي للمشروع هو أنه يمتلك برمجيات تجريبية ومحركات سيناريو لاختبار
+ما إذا كان الإنفاق العام، والإنتاج المحلي، والعمل المدني، وتخصيص رأس المال،
+والمنافع، والضرائب، والائتمان، وأرباح المواطنين يمكن قياسها وتدقيقها والاعتراض
+عليها وحوكمتها قبل تقديم التزامات وطنية واسعة النطاق.
+
 لا ينبغي قراءة هذا المشروع على أنه ادعاء بأن منظومة عملة رقمية وطنية جاهزة
 للإطلاق. فالبرمجيات هنا مسار أدلة تجريبي خلف النموذج الاقتصادي. الادعاء الأقوى
 هو ادعاء مؤسسي: يمكن للعراق أن يختبر ما إذا كان المال العام، وإيرادات النفط،
@@ -79,17 +84,21 @@ Cylinder Seal (سيلندر سيل) هو نموذج وطني قائم على ا�
 إذا كان المال العام الموثق يمكن أن يتحرك داخل حلقة تشغيل صغيرة ذات أدلة مرئية
 وبوابات قابلة للإنفاذ.
 
-أحد الأشكال المناسبة هو ممر بلدي في النجف، لأنه يستطيع الجمع بين الخدمات
-البلدية، وضغط السياحة والزيارة، والمشتريات الصغيرة، والعمل المدني، والموردين
-المحليين، والنتائج العامة المرئية. ويمكن تكييف البنية نفسها مع محافظة أخرى بعد
-المراجعة القانونية والسياسية.
+الشكل التجريبي الملموس الموصى به هو نموذج بلدي في بغداد/النهروان لأدلة العمل
+المدني والمشتريات: بلدية واحدة، وبرنامج واحد لصيانة حديقة أو قناة أو جانب طريق،
+وفئة موردين محليين واحدة، وتدفق دفع واحد للعمل المدني، ولوحة بيانات واحدة.
+ويجب أن يستخدم حسابات تسوية مضبوطة، لا إصدار عملة رقمية وطنية؛ وألا يتضمن
+صندوقا لإيرادات النفط؛ وألا يدفع أرباحا للمواطنين. ويبقى ممر بلدي في النجف
+قالبا بديلا مفيدا إذا كانت السلطة المحلية والجاهزية التشغيلية أقوى هناك.
 
 يتكون تدفق النموذج التجريبي من الآتي:
 
 1. توافق البلدية على برنامج محدود للعمل المدني والمشتريات.
-2. يسجل العاملون لمهام مرئية مثل تنظيف المسارات، وتنظيف المصارف، وفحص الإنارة،
-   ورسم خرائط الوصول، ورعاية الأشجار، أو دعم خدمات الزوار.
-3. توفر حزمة مشتريات صغيرة المواد أو الخدمات من موردين محليين موثقين.
+2. يسجل العاملون لمهام مرئية مثل صيانة الحدائق، وتنظيف القنوات، وتنظيف جوانب
+   الطرق، وتنظيف المصارف، وفحص الإنارة، ورعاية الأشجار، أو الإبلاغ عن مخاطر
+   السلامة.
+3. توفر حزمة مشتريات صغيرة فئة محلية واحدة مثل الأدوات، ومعدات السلامة، واللافتات،
+   ومواد تنظيف المصارف، ونقاط المياه، أو دعم الإصلاح من موردين محليين موثقين.
 4. تدفع المبالغ من خلال محافظ رقمية مضبوطة أو حسابات تسوية تجريبية.
 5. تسجل لوحة البيانات حالة الهوية، وأدلة المهمة، وموافقة المشرف، ومرحلة
    المشتريات، ودفع المورد، وبصمة التدقيق، وحالة الشكوى، والنتائج العامة
@@ -121,6 +130,12 @@ Cylinder Seal is an evidence-based national economic operating model for Iraq,
 using digital transaction infrastructure to make capital allocation, public
 benefits, local production, civic work, ministry funding, credit, and citizen
 dividends measurable, auditable, and contestable.
+
+Its strongest current claim is that it has pilot-grade software and scenario
+engines for testing whether public spending, local production, civic work,
+capital allocation, benefits, taxes, credit, and citizen dividends can be
+measured, audited, contested, and governed before national-scale commitments are
+made.
 
 It should not be read as a claim that a national CBDC system is ready. The
 software is a pilot-grade evidence rail behind the economic model. The stronger
@@ -194,19 +209,23 @@ flow. The pilot should not try to prove the national model. It should test
 whether verified public money can move through a small operating loop with
 visible evidence and enforceable gates.
 
-One suitable pilot shape is a Najaf municipal corridor, because it can combine
-municipal services, tourism pressure, small procurement, civic work, local
-vendors, and visible public outcomes. The same structure could be adapted to
-another governorate after legal and political review.
+The recommended concrete pilot shape is a Baghdad/Nahrawan municipal
+civic-work and procurement evidence pilot: one municipality, one park, canal, or
+roadside maintenance programme, one local supplier category, one civic-work
+payment flow, and one dashboard. It should use controlled settlement accounts,
+not CBDC issuance; it should not involve an oil lockbox; and it should not pay
+citizen dividends. A Najaf municipal corridor remains a useful alternate
+template if local authority and operating readiness are stronger there.
 
 The pilot flow is:
 
 1. A municipality approves a bounded civic-work and procurement program.
-2. Workers are enrolled for visible tasks such as route cleaning, drainage
-   clearing, lighting inspection, accessibility mapping, tree care, or visitor
-   service support.
-3. A small procurement package supplies materials or services from verified
-   local vendors.
+2. Workers are enrolled for visible tasks such as park maintenance, canal
+   cleanup, roadside cleaning, drainage clearing, lighting inspection, tree
+   care, or safety reporting.
+3. A small procurement package supplies one local category such as tools, PPE,
+   signage, drainage-cleaning materials, water points, or repair support from
+   verified local vendors.
 4. Payments are made through controlled digital wallets or sandbox settlement
    accounts.
 5. The dashboard records identity status, task evidence, supervisor signoff,
@@ -231,7 +250,6 @@ evidence-based operating model for making public economic decisions measurable,
 auditable, and contestable before they are scaled.
 
 
-
 # Part 1: Project Overview
 
 ## Cylinder Seal
@@ -240,6 +258,12 @@ Cylinder Seal is an evidence-based national economic operating model for Iraq,
 using digital transaction infrastructure to make capital allocation, public
 benefits, local production, civic work, ministry funding, credit, and citizen
 dividends measurable, auditable, and contestable.
+
+The strongest current claim is that Cylinder Seal has pilot-grade software and
+scenario engines for testing whether public spending, local production, civic
+work, capital allocation, benefits, taxes, credit, and citizen dividends can be
+measured, audited, contested, and governed before national-scale commitments are
+made.
 
 It is primarily a national economic-system proposal: a way to convert oil
 income, project finance, existing Iraqi facilities, Iraqi labor, domestic
@@ -514,19 +538,37 @@ fiscal commitments are considered.
 
 ### Minimum Viable Jurisdiction
 
-Recommended pilot: **Najaf municipal service and visitor corridor**.
+Recommended pilot: **Baghdad/Nahrawan municipal civic-work and procurement
+evidence pilot**.
 
 Rationale:
 
-- It has visible municipal-service pressure and tourism/visitor flows.
+- It can be defined as one municipality or service zone rather than a national
+  reform programme.
+- It has visible municipal-service pressure around parks, canals, roadsides,
+  drainage, lighting, waste, heat-risk, and local access.
 - It can use small, observable civic-work tasks rather than abstract national
   claims.
 - It can test local vendors, small procurement, wage payment, supervisor
   signoff, public dashboarding, and grievance handling in one place.
 - It is large enough to be meaningful but small enough to stop safely.
 
-The same structure can be moved to another governorate or municipality if legal
-authority, local compact, and operating readiness are stronger elsewhere.
+Pilot cell:
+
+| Element | Concrete scope |
+| --- | --- |
+| Jurisdiction | One Baghdad/Nahrawan municipal service zone. |
+| Civic-work programme | One park, canal, or roadside maintenance programme with visible public outputs. |
+| Supplier category | One local supplier category, such as tools, PPE, signage, drainage-cleaning materials, water points, or small repair support. |
+| Payment flow | Verified civic-work wage or stipend release through controlled settlement accounts. |
+| Procurement flow | Small local procurement package paid only after delivery evidence and supervisor acceptance. |
+| Dashboard | One operator/auditor/public aggregate dashboard covering tasks, payments, procurement, exceptions, grievances, and audit hashes. |
+| Explicit exclusions | No CBDC issuance, no oil lockbox, no citizen dividends, no ministry restructuring, no national macro claim. |
+
+Najaf municipal visitor corridors remain a useful alternate template if legal
+authority, local compact, and operating readiness are stronger there. The pilot
+structure can also move to another governorate or municipality after legal and
+political review.
 
 ### One Payment Flow
 
@@ -546,6 +588,8 @@ authority, local compact, and operating readiness are stronger elsewhere.
 Pilot limits:
 
 - No national dividend.
+- No oil-income lockbox.
+- No CBDC issuance or sovereign monetary claim.
 - No irreversible monetary claim.
 - No payment without task evidence and supervisor signoff.
 - No sensitive personal data in public dashboards.
@@ -560,17 +604,18 @@ Success metrics:
 
 ### One Civic-Work Flow
 
-**Flow:** visible municipal and visitor-service tasks.
+**Flow:** visible municipal service tasks.
 
 Task families:
 
-- street and shrine-route cleaning;
+- park maintenance and shade repair reporting;
+- canal, ditch, and drainage cleanup;
+- roadside cleaning and waste hot-spot reporting;
 - drainage clearing and flood-prevention checks;
 - lighting inspection and minor repair reporting;
 - tree care, shade maintenance, and heat-risk mitigation;
-- accessibility mapping for disabled and elderly visitors;
-- visitor information support during peak periods;
-- cultural-site stewardship and low-risk heritage protection.
+- accessibility mapping for disabled and elderly residents;
+- safety-hazard reporting for sidewalks, crossings, canals, and school routes.
 
 Lifecycle:
 
@@ -600,6 +645,10 @@ Controls:
 Example package: cleaning tools, reflective vests, water points, signage,
 lighting consumables, drainage clearing materials, mobile repair support, or
 verified local transport for civic-work teams.
+
+The first package should use one supplier category only. Adding multiple
+categories too early makes price benchmarking, beneficial-ownership screening,
+delivery verification, and supplier-payment timing harder to interpret.
 
 Lifecycle:
 
@@ -744,7 +793,6 @@ dashboard layers.
 It does not prove national CBDC readiness, national dividend affordability,
 ministry restructuring, sovereign-credit improvement, or macroeconomic growth.
 Those remain separate legal, fiscal, technical, and political decisions.
-
 
 
 # Part 3: Executive Summary

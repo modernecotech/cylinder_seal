@@ -5,6 +5,12 @@ using digital transaction infrastructure to make capital allocation, public
 benefits, local production, civic work, ministry funding, credit, and citizen
 dividends measurable, auditable, and contestable.
 
+The strongest current claim is that Cylinder Seal has pilot-grade software and
+scenario engines for testing whether public spending, local production, civic
+work, capital allocation, benefits, taxes, credit, and citizen dividends can be
+measured, audited, contested, and governed before national-scale commitments are
+made.
+
 It is primarily a national economic-system proposal: a way to convert oil
 income, project finance, existing Iraqi facilities, Iraqi labor, domestic
 production, tourism, civic works, culture, and environmental repair into

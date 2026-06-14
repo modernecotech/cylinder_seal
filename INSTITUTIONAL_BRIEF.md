@@ -5,6 +5,12 @@ using digital transaction infrastructure to make capital allocation, public
 benefits, local production, civic work, ministry funding, credit, and citizen
 dividends measurable, auditable, and contestable.
 
+Its strongest current claim is that it has pilot-grade software and scenario
+engines for testing whether public spending, local production, civic work,
+capital allocation, benefits, taxes, credit, and citizen dividends can be
+measured, audited, contested, and governed before national-scale commitments are
+made.
+
 It should not be read as a claim that a national CBDC system is ready. The
 software is a pilot-grade evidence rail behind the economic model. The stronger
 claim is institutional: Iraq can test whether public money, oil income, project
@@ -77,19 +83,23 @@ flow. The pilot should not try to prove the national model. It should test
 whether verified public money can move through a small operating loop with
 visible evidence and enforceable gates.
 
-One suitable pilot shape is a Najaf municipal corridor, because it can combine
-municipal services, tourism pressure, small procurement, civic work, local
-vendors, and visible public outcomes. The same structure could be adapted to
-another governorate after legal and political review.
+The recommended concrete pilot shape is a Baghdad/Nahrawan municipal
+civic-work and procurement evidence pilot: one municipality, one park, canal, or
+roadside maintenance programme, one local supplier category, one civic-work
+payment flow, and one dashboard. It should use controlled settlement accounts,
+not CBDC issuance; it should not involve an oil lockbox; and it should not pay
+citizen dividends. A Najaf municipal corridor remains a useful alternate
+template if local authority and operating readiness are stronger there.
 
 The pilot flow is:
 
 1. A municipality approves a bounded civic-work and procurement program.
-2. Workers are enrolled for visible tasks such as route cleaning, drainage
-   clearing, lighting inspection, accessibility mapping, tree care, or visitor
-   service support.
-3. A small procurement package supplies materials or services from verified
-   local vendors.
+2. Workers are enrolled for visible tasks such as park maintenance, canal
+   cleanup, roadside cleaning, drainage clearing, lighting inspection, tree
+   care, or safety reporting.
+3. A small procurement package supplies one local category such as tools, PPE,
+   signage, drainage-cleaning materials, water points, or repair support from
+   verified local vendors.
 4. Payments are made through controlled digital wallets or sandbox settlement
    accounts.
 5. The dashboard records identity status, task evidence, supervisor signoff,
@@ -112,4 +122,3 @@ macro-fiscal review, security review, and political agreement.
 The credible claim is narrower and stronger: Cylinder Seal can be tested as an
 evidence-based operating model for making public economic decisions measurable,
 auditable, and contestable before they are scaled.
-

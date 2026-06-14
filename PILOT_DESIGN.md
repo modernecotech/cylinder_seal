@@ -11,19 +11,37 @@ fiscal commitments are considered.
 
 ## Minimum Viable Jurisdiction
 
-Recommended pilot: **Najaf municipal service and visitor corridor**.
+Recommended pilot: **Baghdad/Nahrawan municipal civic-work and procurement
+evidence pilot**.
 
 Rationale:
 
-- It has visible municipal-service pressure and tourism/visitor flows.
+- It can be defined as one municipality or service zone rather than a national
+  reform programme.
+- It has visible municipal-service pressure around parks, canals, roadsides,
+  drainage, lighting, waste, heat-risk, and local access.
 - It can use small, observable civic-work tasks rather than abstract national
   claims.
 - It can test local vendors, small procurement, wage payment, supervisor
   signoff, public dashboarding, and grievance handling in one place.
 - It is large enough to be meaningful but small enough to stop safely.
 
-The same structure can be moved to another governorate or municipality if legal
-authority, local compact, and operating readiness are stronger elsewhere.
+Pilot cell:
+
+| Element | Concrete scope |
+| --- | --- |
+| Jurisdiction | One Baghdad/Nahrawan municipal service zone. |
+| Civic-work programme | One park, canal, or roadside maintenance programme with visible public outputs. |
+| Supplier category | One local supplier category, such as tools, PPE, signage, drainage-cleaning materials, water points, or small repair support. |
+| Payment flow | Verified civic-work wage or stipend release through controlled settlement accounts. |
+| Procurement flow | Small local procurement package paid only after delivery evidence and supervisor acceptance. |
+| Dashboard | One operator/auditor/public aggregate dashboard covering tasks, payments, procurement, exceptions, grievances, and audit hashes. |
+| Explicit exclusions | No CBDC issuance, no oil lockbox, no citizen dividends, no ministry restructuring, no national macro claim. |
+
+Najaf municipal visitor corridors remain a useful alternate template if legal
+authority, local compact, and operating readiness are stronger there. The pilot
+structure can also move to another governorate or municipality after legal and
+political review.
 
 ## One Payment Flow
 
@@ -43,6 +61,8 @@ authority, local compact, and operating readiness are stronger elsewhere.
 Pilot limits:
 
 - No national dividend.
+- No oil-income lockbox.
+- No CBDC issuance or sovereign monetary claim.
 - No irreversible monetary claim.
 - No payment without task evidence and supervisor signoff.
 - No sensitive personal data in public dashboards.
@@ -57,17 +77,18 @@ Success metrics:
 
 ## One Civic-Work Flow
 
-**Flow:** visible municipal and visitor-service tasks.
+**Flow:** visible municipal service tasks.
 
 Task families:
 
-- street and shrine-route cleaning;
+- park maintenance and shade repair reporting;
+- canal, ditch, and drainage cleanup;
+- roadside cleaning and waste hot-spot reporting;
 - drainage clearing and flood-prevention checks;
 - lighting inspection and minor repair reporting;
 - tree care, shade maintenance, and heat-risk mitigation;
-- accessibility mapping for disabled and elderly visitors;
-- visitor information support during peak periods;
-- cultural-site stewardship and low-risk heritage protection.
+- accessibility mapping for disabled and elderly residents;
+- safety-hazard reporting for sidewalks, crossings, canals, and school routes.
 
 Lifecycle:
 
@@ -97,6 +118,10 @@ Controls:
 Example package: cleaning tools, reflective vests, water points, signage,
 lighting consumables, drainage clearing materials, mobile repair support, or
 verified local transport for civic-work teams.
+
+The first package should use one supplier category only. Adding multiple
+categories too early makes price benchmarking, beneficial-ownership screening,
+delivery verification, and supplier-payment timing harder to interpret.
 
 Lifecycle:
 
@@ -241,4 +266,3 @@ dashboard layers.
 It does not prove national CBDC readiness, national dividend affordability,
 ministry restructuring, sovereign-credit improvement, or macroeconomic growth.
 Those remain separate legal, fiscal, technical, and political decisions.
-
