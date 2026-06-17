@@ -4,9 +4,8 @@
 //! plugs those CBOR payloads back into [`cs_core::models::JournalEntry`]s
 //! and persists them through [`cs_storage::repository::JournalRepository`].
 //!
-//! The state machine is idempotent: reapplying a previously-applied entry
-//! is a no-op (the repository's `INSERT … ON CONFLICT DO NOTHING` guards
-//! the write).
+//! The state machine is idempotent: reapplying a previously-applied entry is
+//! detected before any balance, primitive, or audit-log side effects run.
 
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -15,7 +14,7 @@ use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 use cs_consensus::log::LogEntry;
 use cs_consensus::state_machine::{ApplyError, LedgerStateMachine, ProposalResult};
-use cs_core::models::{JournalEntry, Transaction};
+use cs_core::models::{JournalEntry, Transaction, User};
 use cs_core::primitives::ReleaseOutcome;
 use cs_core::producer::FundsOrigin;
 use cs_policy::evaluate_release_condition;
@@ -24,6 +23,7 @@ use cs_storage::models::{EntryPrimitivesRecord, JournalEntryRecord};
 use cs_storage::producer_repo::{TierTxLogEntry, TierTxLogRepository};
 use cs_storage::repository::{EntryPrimitivesRepository, JournalRepository, UserRepository};
 use cs_storage::FundsOriginBalanceRepository;
+use uuid::Uuid;
 
 use crate::convert::domain_entry_to_pb;
 
@@ -92,7 +92,19 @@ impl LedgerApplier {
     }
 
     async fn persist(&self, entry: &JournalEntry) -> Result<i64, ApplyError> {
-        let user_id = cs_core::models::User::derive_user_id_from_public_key(&entry.user_public_key);
+        if self
+            .journal
+            .get_by_entry_hash(&entry.entry_hash)
+            .await
+            .map_err(|e| ApplyError::Storage(e.to_string()))?
+            .is_some()
+        {
+            return Ok(entry.sequence_number as i64);
+        }
+
+        let user_id = User::derive_user_id_from_public_key(&entry.user_public_key);
+        let sequence_number = i64::try_from(entry.sequence_number)
+            .map_err(|_| ApplyError::Rejected("journal sequence exceeds storage range".into()))?;
 
         // Serialize the full proto entry as JSON for the `entry_data` column.
         let pb_entry = domain_entry_to_pb(entry);
@@ -105,11 +117,14 @@ impl LedgerApplier {
             entry_hash: entry.entry_hash.to_vec(),
             prev_entry_hash: entry.prev_entry_hash.to_vec(),
             entry_data: entry_json,
-            sequence_number: entry.sequence_number as i64,
+            sequence_number,
             submitted_at: Utc::now(),
             confirmed_at: Some(Utc::now()), // Raft commit == CBI confirmation
             conflict_status: None,
         };
+
+        let balance_deltas = balance_deltas_for_transactions(&entry.transactions)?;
+        let updated_balances = self.updated_balances_for_deltas(&balance_deltas).await?;
 
         if let Some(repo) = &self.funds_origin_balances {
             ensure_funds_origin_buckets_available(&entry.transactions, repo.as_ref())
@@ -158,33 +173,7 @@ impl LedgerApplier {
             }
         }
 
-        // Update user balance: sum deltas across the entry's transactions.
-        // Escrowed entries (release_condition set, no valid counter-signature
-        // yet) do NOT count toward the receiver's balance — the funds are
-        // held pending. The sender's side still debits; the escrow is
-        // conceptually held in a locked portion of the sender's balance.
-        // This is the on-ledger realisation of the README's "entry does not
-        // count toward the receiver's balance until released" rule.
-        let mut delta: i64 = 0;
-        for tx in &entry.transactions {
-            let from_id =
-                cs_core::models::User::derive_user_id_from_public_key(&tx.from_public_key);
-            let to_id = cs_core::models::User::derive_user_id_from_public_key(&tx.to_public_key);
-            let credits_receiver = tx_credits_receiver(tx);
-            if from_id == user_id {
-                delta = delta.saturating_sub(tx.amount_owc);
-            }
-            if to_id == user_id && credits_receiver {
-                delta = delta.saturating_add(tx.amount_owc);
-            }
-        }
-        if delta != 0 {
-            let current = self
-                .journal
-                .get_user_balance(user_id)
-                .await
-                .map_err(|e| ApplyError::Storage(e.to_string()))?;
-            let new_balance = current.saturating_add(delta);
+        for (user_id, new_balance) in updated_balances {
             self.users
                 .update_balance(user_id, new_balance)
                 .await
@@ -192,6 +181,42 @@ impl LedgerApplier {
         }
 
         Ok(record.sequence_number)
+    }
+
+    async fn updated_balances_for_deltas(
+        &self,
+        deltas: &HashMap<Uuid, i64>,
+    ) -> Result<HashMap<Uuid, i64>, ApplyError> {
+        let mut updated = HashMap::new();
+        for (user_id, delta) in deltas {
+            if self
+                .users
+                .get_user(*user_id)
+                .await
+                .map_err(|e| ApplyError::Storage(e.to_string()))?
+                .is_none()
+            {
+                return Err(ApplyError::Rejected(format!(
+                    "unknown user {user_id} in transaction"
+                )));
+            }
+
+            let current = self
+                .journal
+                .get_user_balance(*user_id)
+                .await
+                .map_err(|e| ApplyError::Storage(e.to_string()))?;
+            let new_balance = current.checked_add(*delta).ok_or_else(|| {
+                ApplyError::Rejected(format!("balance overflow for user {user_id}"))
+            })?;
+            if new_balance < 0 {
+                return Err(ApplyError::Rejected(format!(
+                    "insufficient balance for user {user_id}: available {current}, delta {delta}"
+                )));
+            }
+            updated.insert(*user_id, new_balance);
+        }
+        Ok(updated)
     }
 }
 
@@ -245,6 +270,41 @@ fn tx_credits_receiver(tx: &Transaction) -> bool {
             ReleaseOutcome::Released
         ),
     }
+}
+
+fn balance_deltas_for_transactions(
+    transactions: &[Transaction],
+) -> Result<HashMap<Uuid, i64>, ApplyError> {
+    let mut deltas = HashMap::new();
+    for tx in transactions {
+        if tx.amount_owc < 0 {
+            return Err(ApplyError::Rejected(
+                "transaction amount cannot be negative".into(),
+            ));
+        }
+
+        let from_id = User::derive_user_id_from_public_key(&tx.from_public_key);
+        add_balance_delta(&mut deltas, from_id, -tx.amount_owc)?;
+
+        if tx_credits_receiver(tx) {
+            let to_id = User::derive_user_id_from_public_key(&tx.to_public_key);
+            add_balance_delta(&mut deltas, to_id, tx.amount_owc)?;
+        }
+    }
+    deltas.retain(|_, delta| *delta != 0);
+    Ok(deltas)
+}
+
+fn add_balance_delta(
+    deltas: &mut HashMap<Uuid, i64>,
+    user_id: Uuid,
+    delta: i64,
+) -> Result<(), ApplyError> {
+    let entry = deltas.entry(user_id).or_insert(0);
+    *entry = entry.checked_add(delta).ok_or_else(|| {
+        ApplyError::Rejected(format!("balance delta overflow for user {user_id}"))
+    })?;
+    Ok(())
 }
 
 async fn apply_funds_origin_buckets(
@@ -577,17 +637,20 @@ mod proto_dto {
 mod tests {
     use super::{
         apply_funds_origin_buckets, ensure_funds_origin_buckets_available,
-        proto_dto::TransactionDto,
+        proto_dto::TransactionDto, LedgerApplier,
     };
     use crate::proto::chain_sync as pb;
     use async_trait::async_trait;
     use cs_core::cryptography::generate_keypair;
-    use cs_core::models::{LocationSource, PaymentChannel, Transaction, User};
+    use cs_core::error::Result as CsResult;
+    use cs_core::models::{JournalEntry, LocationSource, PaymentChannel, Transaction, User};
     use cs_core::producer::FundsOrigin;
+    use cs_storage::models::{ConflictLog, JournalEntryRecord, UserRecord};
+    use cs_storage::repository::{JournalRepository, UserRepository};
     use cs_storage::FundsOriginBalanceRepository;
     use rust_decimal::Decimal;
     use std::collections::HashMap;
-    use std::sync::Mutex;
+    use std::sync::{Arc, Mutex};
     use uuid::Uuid;
 
     #[derive(Debug, PartialEq, Eq)]
@@ -695,6 +758,225 @@ mod tests {
         )
     }
 
+    fn test_entry(
+        owner_public_key: [u8; 32],
+        sequence_number: u64,
+        prev_entry_hash: [u8; 32],
+        txs: Vec<Transaction>,
+    ) -> JournalEntry {
+        let mut entry = JournalEntry::new(
+            owner_public_key,
+            Uuid::new_v4(),
+            sequence_number,
+            prev_entry_hash,
+            txs,
+            HashMap::new(),
+        );
+        entry.compute_entry_hash().expect("entry hash");
+        entry
+    }
+
+    #[derive(Default)]
+    struct MemJournal {
+        entries: Mutex<Vec<JournalEntryRecord>>,
+        balances: Arc<Mutex<HashMap<Uuid, i64>>>,
+        conflict_counter: Mutex<i64>,
+    }
+
+    impl MemJournal {
+        fn with_balances(balances: Arc<Mutex<HashMap<Uuid, i64>>>) -> Self {
+            Self {
+                entries: Mutex::new(Vec::new()),
+                balances,
+                conflict_counter: Mutex::new(0),
+            }
+        }
+    }
+
+    #[async_trait]
+    impl JournalRepository for MemJournal {
+        async fn insert_entry(&self, entry: &JournalEntryRecord) -> CsResult<()> {
+            let mut entries = self.entries.lock().expect("entries");
+            if !entries.iter().any(|e| e.entry_hash == entry.entry_hash) {
+                entries.push(entry.clone());
+            }
+            Ok(())
+        }
+
+        async fn get_by_entry_hash(
+            &self,
+            entry_hash: &[u8],
+        ) -> CsResult<Option<JournalEntryRecord>> {
+            Ok(self
+                .entries
+                .lock()
+                .expect("entries")
+                .iter()
+                .find(|entry| entry.entry_hash == entry_hash)
+                .cloned())
+        }
+
+        async fn get_entries_for_user(&self, user_id: Uuid) -> CsResult<Vec<JournalEntryRecord>> {
+            Ok(self
+                .entries
+                .lock()
+                .expect("entries")
+                .iter()
+                .filter(|entry| entry.user_id == user_id)
+                .cloned()
+                .collect())
+        }
+
+        async fn confirm_entry(&self, _entry_hash: &[u8]) -> CsResult<()> {
+            Ok(())
+        }
+
+        async fn mark_conflicted(&self, entry_hash: &[u8], _reason: &str) -> CsResult<()> {
+            for entry in self.entries.lock().expect("entries").iter_mut() {
+                if entry.entry_hash == entry_hash {
+                    entry.conflict_status = Some("quarantined".into());
+                }
+            }
+            Ok(())
+        }
+
+        async fn get_user_balance(&self, user_id: Uuid) -> CsResult<i64> {
+            Ok(*self
+                .balances
+                .lock()
+                .expect("balances")
+                .get(&user_id)
+                .unwrap_or(&0))
+        }
+
+        async fn latest_for_user(&self, user_id: Uuid) -> CsResult<Option<JournalEntryRecord>> {
+            Ok(self
+                .entries
+                .lock()
+                .expect("entries")
+                .iter()
+                .filter(|entry| entry.user_id == user_id)
+                .max_by_key(|entry| entry.sequence_number)
+                .cloned())
+        }
+
+        async fn find_conflicting(
+            &self,
+            user_id: Uuid,
+            prev_entry_hash: &[u8],
+        ) -> CsResult<Vec<JournalEntryRecord>> {
+            Ok(self
+                .entries
+                .lock()
+                .expect("entries")
+                .iter()
+                .filter(|entry| {
+                    entry.user_id == user_id && entry.prev_entry_hash == prev_entry_hash
+                })
+                .cloned()
+                .collect())
+        }
+
+        async fn insert_conflict_log(&self, _log: &ConflictLog) -> CsResult<i64> {
+            let mut counter = self.conflict_counter.lock().expect("counter");
+            *counter += 1;
+            Ok(*counter)
+        }
+
+        async fn resolve_conflict(&self, _id: i64, _resolution_notes: &str) -> CsResult<()> {
+            Ok(())
+        }
+
+        async fn transaction_count_for_user(&self, _user_id: Uuid) -> CsResult<i64> {
+            Ok(0)
+        }
+    }
+
+    struct MemUsers {
+        balances: Arc<Mutex<HashMap<Uuid, i64>>>,
+    }
+
+    #[async_trait]
+    impl UserRepository for MemUsers {
+        async fn create_user(&self, user: &UserRecord) -> CsResult<()> {
+            self.balances
+                .lock()
+                .expect("balances")
+                .insert(user.user_id, user.balance_owc);
+            Ok(())
+        }
+
+        async fn upsert_user(&self, user: &UserRecord) -> CsResult<()> {
+            self.create_user(user).await
+        }
+
+        async fn get_user(&self, user_id: Uuid) -> CsResult<Option<UserRecord>> {
+            Ok(self
+                .balances
+                .lock()
+                .expect("balances")
+                .get(&user_id)
+                .copied()
+                .map(|balance| test_user_record(user_id, balance)))
+        }
+
+        async fn get_user_by_public_key(&self, _public_key: &[u8]) -> CsResult<Option<UserRecord>> {
+            Ok(None)
+        }
+
+        async fn update_balance(&self, user_id: Uuid, balance: i64) -> CsResult<()> {
+            self.balances
+                .lock()
+                .expect("balances")
+                .insert(user_id, balance);
+            Ok(())
+        }
+
+        async fn update_credit_score(&self, _user_id: Uuid, _score: Decimal) -> CsResult<()> {
+            Ok(())
+        }
+    }
+
+    fn test_user_record(user_id: Uuid, balance_owc: i64) -> UserRecord {
+        UserRecord {
+            user_id,
+            public_key: Vec::new(),
+            display_name: "test user".into(),
+            phone_number: None,
+            kyc_tier: "full_kyc".into(),
+            account_type: "individual".into(),
+            balance_owc,
+            credit_score: None,
+            account_status: "active".into(),
+            account_status_reason: None,
+            account_status_changed_at: None,
+            region: "federal".into(),
+            device_signature: None,
+            device_signature_set_at: None,
+            created_at: chrono::Utc::now(),
+            updated_at: chrono::Utc::now(),
+        }
+    }
+
+    fn test_applier(
+        initial_balances: HashMap<Uuid, i64>,
+    ) -> (
+        LedgerApplier,
+        Arc<MemJournal>,
+        Arc<Mutex<HashMap<Uuid, i64>>>,
+    ) {
+        let balances = Arc::new(Mutex::new(initial_balances));
+        let journal = Arc::new(MemJournal::with_balances(balances.clone()));
+        let users = Arc::new(MemUsers {
+            balances: balances.clone(),
+        });
+        (
+            LedgerApplier::new(journal.clone(), users),
+            journal,
+            balances,
+        )
+    }
+
     #[test]
     fn transaction_dto_persists_funds_origin_for_audit() {
         let tx = pb::Transaction {
@@ -759,6 +1041,94 @@ mod tests {
                 .unwrap(),
             1_000_000
         );
+    }
+
+    #[tokio::test]
+    async fn persist_debits_sender_and_credits_receiver_even_when_receiver_relays() {
+        let (sender_public_key, _) = generate_keypair();
+        let (receiver_public_key, _) = generate_keypair();
+        let sender_id = User::derive_user_id_from_public_key(&sender_public_key);
+        let receiver_id = User::derive_user_id_from_public_key(&receiver_public_key);
+        let (applier, journal, balances) = test_applier(HashMap::from([
+            (sender_id, 10_000_000),
+            (receiver_id, 1_000_000),
+        ]));
+        let tx = test_tx(sender_public_key, receiver_public_key, 2_500_000);
+        let entry = test_entry(receiver_public_key, 1, [0u8; 32], vec![tx]);
+
+        applier
+            .persist(&entry)
+            .await
+            .expect("receiver-relayed payment should apply double-entry deltas");
+
+        let balances = balances.lock().expect("balances");
+        assert_eq!(balances.get(&sender_id), Some(&7_500_000));
+        assert_eq!(balances.get(&receiver_id), Some(&3_500_000));
+        assert_eq!(journal.entries.lock().expect("entries").len(), 1);
+    }
+
+    #[tokio::test]
+    async fn persist_rejects_insufficient_sender_balance_before_writing_entry() {
+        let (sender_public_key, _) = generate_keypair();
+        let (receiver_public_key, _) = generate_keypair();
+        let sender_id = User::derive_user_id_from_public_key(&sender_public_key);
+        let receiver_id = User::derive_user_id_from_public_key(&receiver_public_key);
+        let (applier, journal, balances) =
+            test_applier(HashMap::from([(sender_id, 1_000_000), (receiver_id, 0)]));
+        let tx = test_tx(sender_public_key, receiver_public_key, 2_500_000);
+        let entry = test_entry(receiver_public_key, 1, [0u8; 32], vec![tx]);
+
+        let err = applier
+            .persist(&entry)
+            .await
+            .expect_err("insufficient sender balance should reject");
+
+        assert!(err.to_string().contains("insufficient balance"));
+        assert!(journal.entries.lock().expect("entries").is_empty());
+        let balances = balances.lock().expect("balances");
+        assert_eq!(balances.get(&sender_id), Some(&1_000_000));
+        assert_eq!(balances.get(&receiver_id), Some(&0));
+    }
+
+    #[tokio::test]
+    async fn persist_rejects_sequence_numbers_outside_storage_range() {
+        let (owner_public_key, _) = generate_keypair();
+        let owner_id = User::derive_user_id_from_public_key(&owner_public_key);
+        let (applier, journal, _balances) = test_applier(HashMap::from([(owner_id, 0)]));
+        let entry = test_entry(owner_public_key, u64::MAX, [0u8; 32], vec![]);
+
+        let err = applier
+            .persist(&entry)
+            .await
+            .expect_err("oversized sequence number should reject");
+
+        assert!(err.to_string().contains("sequence exceeds storage range"));
+        assert!(journal.entries.lock().expect("entries").is_empty());
+    }
+
+    #[tokio::test]
+    async fn persist_is_idempotent_for_reapplied_entry() {
+        let (sender_public_key, _) = generate_keypair();
+        let (receiver_public_key, _) = generate_keypair();
+        let sender_id = User::derive_user_id_from_public_key(&sender_public_key);
+        let receiver_id = User::derive_user_id_from_public_key(&receiver_public_key);
+        let (applier, journal, balances) = test_applier(HashMap::from([
+            (sender_id, 10_000_000),
+            (receiver_id, 1_000_000),
+        ]));
+        let tx = test_tx(sender_public_key, receiver_public_key, 2_500_000);
+        let entry = test_entry(receiver_public_key, 1, [0u8; 32], vec![tx]);
+
+        applier.persist(&entry).await.expect("first apply");
+        applier
+            .persist(&entry)
+            .await
+            .expect("second apply should be a no-op");
+
+        let balances = balances.lock().expect("balances");
+        assert_eq!(balances.get(&sender_id), Some(&7_500_000));
+        assert_eq!(balances.get(&receiver_id), Some(&3_500_000));
+        assert_eq!(journal.entries.lock().expect("entries").len(), 1);
     }
 
     #[tokio::test]

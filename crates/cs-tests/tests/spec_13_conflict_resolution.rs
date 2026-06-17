@@ -1,6 +1,8 @@
 #![cfg(feature = "cs-sync")]
-//! Spec §Security Model — "Conflict resolution: Earlier timestamp wins
-//! (soft heuristic); if tied, NFC/BLE receipt evidence wins".
+//! Spec §Security Model — conflict resolution detects sibling journal entries.
+//! Earlier timestamps and NFC/BLE receipt evidence are review evidence, but a
+//! later-arriving fork must not be accepted over an already-stored sibling
+//! without rollback/recompute support.
 //!
 //! We exercise `ConflictResolver::check` directly. An in-memory journal
 //! repository implements just enough of the trait for resolution tests.
@@ -8,7 +10,7 @@
 use async_trait::async_trait;
 use chrono::Utc;
 use cs_core::error::Result;
-use cs_core::models::{JournalEntry, User};
+use cs_core::models::User;
 use cs_storage::models::{ConflictLog, JournalEntryRecord};
 use cs_storage::repository::JournalRepository;
 use cs_sync::conflict_resolver::{ConflictResolver, Resolution};
@@ -110,6 +112,24 @@ fn stored_entry(
     submitted_at: chrono::DateTime<Utc>,
     channel: &str,
 ) -> JournalEntryRecord {
+    stored_entry_with_sequence(
+        user_id,
+        prev_entry_hash,
+        entry_hash,
+        1,
+        submitted_at,
+        channel,
+    )
+}
+
+fn stored_entry_with_sequence(
+    user_id: Uuid,
+    prev_entry_hash: [u8; 32],
+    entry_hash: [u8; 32],
+    sequence_number: i64,
+    submitted_at: chrono::DateTime<Utc>,
+    channel: &str,
+) -> JournalEntryRecord {
     JournalEntryRecord {
         id: 0,
         user_id,
@@ -118,7 +138,7 @@ fn stored_entry(
         entry_data: serde_json::json!({
             "transactions": [{"channel": channel, "amount_owc": 1_000_000}]
         }),
-        sequence_number: 1,
+        sequence_number,
         submitted_at,
         confirmed_at: None,
         conflict_status: None,
@@ -137,6 +157,108 @@ async fn spec_accept_when_no_sibling_exists() {
 
     let resolution = resolver.check(&entry).await.unwrap();
     assert!(matches!(resolution, Resolution::Accept));
+}
+
+#[tokio::test]
+async fn spec_accept_when_entry_extends_latest_head() {
+    let journal = Arc::new(MemJournal::default());
+    let resolver = ConflictResolver::new(journal.clone());
+
+    let kp = seeded_keypair("u");
+    let (to_pk, _) = seeded_keypair("m");
+    let user_id = User::derive_user_id_from_public_key(&kp.0);
+
+    let latest_hash = [0x11u8; 32];
+    journal
+        .insert_entry(&stored_entry_with_sequence(
+            user_id,
+            [0x10u8; 32],
+            latest_hash,
+            7,
+            Utc::now(),
+            "Online",
+        ))
+        .await
+        .unwrap();
+
+    let tx = signed_tx(kp, to_pk, 1_000);
+    let entry = signed_entry(kp, 8, latest_hash, vec![tx]);
+
+    let resolution = resolver.check(&entry).await.unwrap();
+    assert!(
+        matches!(resolution, Resolution::Accept),
+        "Spec violation: an entry that extends the latest stored head must be accepted"
+    );
+}
+
+#[tokio::test]
+async fn spec_unknown_predecessor_after_history_loses_to_latest_head() {
+    let journal = Arc::new(MemJournal::default());
+    let resolver = ConflictResolver::new(journal.clone());
+
+    let kp = seeded_keypair("u");
+    let (to_pk, _) = seeded_keypair("m");
+    let user_id = User::derive_user_id_from_public_key(&kp.0);
+
+    let latest_hash = [0x22u8; 32];
+    journal
+        .insert_entry(&stored_entry_with_sequence(
+            user_id,
+            [0x21u8; 32],
+            latest_hash,
+            2,
+            Utc::now(),
+            "Online",
+        ))
+        .await
+        .unwrap();
+
+    let tx = signed_tx(kp, to_pk, 1_000);
+    let entry = signed_entry(kp, 3, [0x99u8; 32], vec![tx]);
+
+    let resolution = resolver.check(&entry).await.unwrap();
+    assert_eq!(
+        resolution,
+        Resolution::RejectInFavorOf {
+            winning_entry_hash: latest_hash.to_vec()
+        },
+        "Spec violation: an entry with an unknown predecessor must not start a parallel branch"
+    );
+}
+
+#[tokio::test]
+async fn spec_sequence_jump_after_history_loses_to_latest_head() {
+    let journal = Arc::new(MemJournal::default());
+    let resolver = ConflictResolver::new(journal.clone());
+
+    let kp = seeded_keypair("u");
+    let (to_pk, _) = seeded_keypair("m");
+    let user_id = User::derive_user_id_from_public_key(&kp.0);
+
+    let latest_hash = [0x33u8; 32];
+    journal
+        .insert_entry(&stored_entry_with_sequence(
+            user_id,
+            [0x32u8; 32],
+            latest_hash,
+            4,
+            Utc::now(),
+            "Online",
+        ))
+        .await
+        .unwrap();
+
+    let tx = signed_tx(kp, to_pk, 1_000);
+    let entry = signed_entry(kp, 9, latest_hash, vec![tx]);
+
+    let resolution = resolver.check(&entry).await.unwrap();
+    assert_eq!(
+        resolution,
+        Resolution::RejectInFavorOf {
+            winning_entry_hash: latest_hash.to_vec()
+        },
+        "Spec violation: an entry that skips sequence numbers must not be accepted"
+    );
 }
 
 #[tokio::test]
@@ -174,7 +296,7 @@ async fn spec_earlier_timestamp_wins() {
 }
 
 #[tokio::test]
-async fn spec_nfc_receipt_beats_online_in_a_tie() {
+async fn spec_nfc_receipt_over_existing_online_conflict_quarantines() {
     let journal = Arc::new(MemJournal::default());
     let resolver = ConflictResolver::new(journal.clone());
 
@@ -203,8 +325,13 @@ async fn spec_nfc_receipt_beats_online_in_a_tie() {
 
     let resolution = resolver.check(&entry).await.unwrap();
     assert!(
-        matches!(resolution, Resolution::Accept),
-        "Spec violation: NFC/BLE receipt must beat Online in a timestamp tie"
+        matches!(resolution, Resolution::Quarantined { .. }),
+        "Spec violation: stronger incoming channel evidence against an already-stored sibling must be reviewed, not applied"
+    );
+    assert_eq!(
+        journal.conflicts.lock().unwrap().len(),
+        1,
+        "quarantine must produce a conflict-log row"
     );
 }
 
@@ -234,5 +361,104 @@ async fn spec_full_tie_gets_quarantined() {
     assert!(
         matches!(resolution, Resolution::Quarantined { .. }),
         "Spec violation: unresolved tie must escalate to quarantine"
+    );
+}
+
+#[tokio::test]
+async fn spec_backdated_incoming_fork_gets_quarantined_not_accepted() {
+    let journal = Arc::new(MemJournal::default());
+    let resolver = ConflictResolver::new(journal.clone());
+
+    let kp = seeded_keypair("u");
+    let (to_pk, _) = seeded_keypair("m");
+    let user_id = User::derive_user_id_from_public_key(&kp.0);
+
+    let now = Utc::now();
+    let sibling_hash = [0xDDu8; 32];
+    journal
+        .insert_entry(&stored_entry(
+            user_id,
+            [0u8; 32],
+            sibling_hash,
+            now,
+            "Online",
+        ))
+        .await
+        .unwrap();
+
+    // A malicious offline device can self-declare an older transaction clock.
+    // That must not let a later-arriving fork replace or double-apply alongside
+    // the sibling that is already in the ledger.
+    let mut tx = signed_tx(kp, to_pk, 1_000);
+    tx.timestamp_utc = (now - chrono::Duration::seconds(30)).timestamp_micros();
+    let entry = signed_entry(kp, 1, [0u8; 32], vec![tx]);
+
+    let resolution = resolver.check(&entry).await.unwrap();
+    assert!(
+        matches!(resolution, Resolution::Quarantined { .. }),
+        "Spec violation: a backdated incoming fork must not be accepted"
+    );
+    let conflicts = journal.conflicts.lock().unwrap();
+    assert_eq!(conflicts.len(), 1);
+    let evidence = &conflicts[0].conflicting_entries;
+    assert_eq!(
+        evidence["reason"],
+        "incoming timestamp predates already-committed sibling"
+    );
+    assert_eq!(evidence["sibling"]["entry_hash"], hex::encode(sibling_hash));
+    assert!(
+        !evidence["incoming"]["entry_cbor_hex"]
+            .as_str()
+            .unwrap_or("")
+            .is_empty(),
+        "conflict log must preserve raw incoming evidence for review"
+    );
+    assert_eq!(
+        evidence["incoming"]["transactions"][0]["amount_micro_owc"],
+        1_000
+    );
+    drop(conflicts);
+
+    let entries = journal.entries.lock().unwrap();
+    let stored_sibling = entries
+        .iter()
+        .find(|e| e.entry_hash == sibling_hash)
+        .expect("sibling stored");
+    assert_eq!(
+        stored_sibling.conflict_status.as_deref(),
+        Some("quarantined")
+    );
+}
+
+#[tokio::test]
+async fn spec_existing_quarantined_sibling_keeps_new_fork_pending() {
+    let journal = Arc::new(MemJournal::default());
+    let resolver = ConflictResolver::new(journal.clone());
+
+    let kp = seeded_keypair("u");
+    let (to_pk, _) = seeded_keypair("m");
+    let user_id = User::derive_user_id_from_public_key(&kp.0);
+
+    let now = Utc::now();
+    let sibling_hash = [0xEEu8; 32];
+    let mut sibling = stored_entry(user_id, [0u8; 32], sibling_hash, now, "Online");
+    sibling.conflict_status = Some("quarantined".into());
+    journal.insert_entry(&sibling).await.unwrap();
+
+    let mut tx = signed_tx(kp, to_pk, 1_000);
+    tx.timestamp_utc = (now + chrono::Duration::seconds(30)).timestamp_micros();
+    let entry = signed_entry(kp, 1, [0u8; 32], vec![tx]);
+
+    let resolution = resolver.check(&entry).await.unwrap();
+    assert!(
+        matches!(resolution, Resolution::Quarantined { .. }),
+        "Spec violation: a new fork against an already-quarantined sibling must stay under review"
+    );
+
+    let conflicts = journal.conflicts.lock().unwrap();
+    assert_eq!(conflicts.len(), 1);
+    assert_eq!(
+        conflicts[0].conflicting_entries["reason"],
+        "existing sibling is already under conflict review"
     );
 }

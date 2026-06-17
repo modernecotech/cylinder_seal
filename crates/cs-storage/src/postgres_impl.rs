@@ -355,12 +355,23 @@ impl UserRepository for PgUserRepository {
     }
 
     async fn update_balance(&self, user_id: Uuid, balance: i64) -> Result<()> {
-        sqlx::query(r#"UPDATE users SET balance_owc = $2, updated_at = NOW() WHERE user_id = $1"#)
-            .bind(user_id)
-            .bind(balance)
-            .execute(&self.pool)
-            .await
-            .map_err(db_err)?;
+        if balance < 0 {
+            return Err(CylinderSealError::ValidationError(
+                "balance_owc cannot be negative".into(),
+            ));
+        }
+
+        let result = sqlx::query(
+            r#"UPDATE users SET balance_owc = $2, updated_at = NOW() WHERE user_id = $1"#,
+        )
+        .bind(user_id)
+        .bind(balance)
+        .execute(&self.pool)
+        .await
+        .map_err(db_err)?;
+        if result.rows_affected() == 0 {
+            return Err(CylinderSealError::UserNotFound);
+        }
         Ok(())
     }
 

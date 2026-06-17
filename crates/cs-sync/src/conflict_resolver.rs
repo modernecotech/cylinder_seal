@@ -6,18 +6,23 @@
 //! same user submitted concurrent entries offline.
 //!
 //! Policy (matches the architecture decision in the project README):
-//! 1. **Earlier `timestamp_utc` wins** as the soft heuristic.
-//! 2. **Tie-breaker:** if timestamps are within 1 second, prefer the entry
-//!    whose transactions reference NFC/BLE receipts (channel proof) since
-//!    that evidence implies the counter-party device saw the transfer.
-//! 3. **Escalation:** if still tied, both entries are quarantined and a
-//!    conflict log is inserted for human review.
+//! 1. **Entries must extend the current head.** Once a user has history, an
+//!    incoming entry must point at the latest stored entry hash and use the next
+//!    sequence number.
+//! 2. **Earlier `timestamp_utc` is evidence, not authority.** Once a sibling
+//!    has already been committed, a later-arriving fork cannot safely replace it
+//!    without balance rollback/recompute support.
+//! 3. **Tie-breaker evidence:** NFC/BLE receipts are stronger than Online, but
+//!    stronger incoming evidence against an already-committed sibling is
+//!    quarantined for review instead of being accepted.
+//! 4. **Escalation:** unresolved or suspicious forks quarantine the stored
+//!    sibling and insert a conflict log for human review.
 
 use std::sync::Arc;
 
 use cs_core::error::{CylinderSealError, Result};
-use cs_core::models::{JournalEntry, PaymentChannel};
-use cs_storage::models::ConflictLog;
+use cs_core::models::{JournalEntry, PaymentChannel, Transaction};
+use cs_storage::models::{ConflictLog, JournalEntryRecord};
 use cs_storage::repository::JournalRepository;
 use serde_json::json;
 use uuid::Uuid;
@@ -28,8 +33,8 @@ pub enum Resolution {
     Accept,
     /// Incoming loses to an existing entry; reject without quarantine.
     RejectInFavorOf { winning_entry_hash: Vec<u8> },
-    /// Both entries quarantined; conflict_log row id returned so the caller
-    /// can surface it in an alert.
+    /// Stored sibling quarantined and incoming evidence logged; conflict_log
+    /// row id returned so the caller can surface it in an alert.
     Quarantined { conflict_log_id: i64 },
 }
 
@@ -60,7 +65,8 @@ impl ConflictResolver {
             .collect();
 
         if siblings.is_empty() {
-            return Ok(Resolution::Accept);
+            let latest = self.journal.latest_for_user(user_id).await?;
+            return self.check_head_continuity(user_id, incoming, latest).await;
         }
 
         // Resolve against the best sibling.
@@ -72,20 +78,36 @@ impl ConflictResolver {
         }
 
         // 1. Earlier timestamp wins.
-        let incoming_micros = incoming
-            .transactions
-            .iter()
-            .map(|t| t.timestamp_utc)
-            .min()
-            .unwrap_or(incoming.created_at);
+        let incoming_micros = incoming_timestamp_micros(incoming);
 
         let sibling_micros = best.submitted_at.timestamp_micros();
         let delta_us = (incoming_micros - sibling_micros).abs();
+        if siblings.iter().any(|s| s.conflict_status.is_some()) {
+            return self
+                .quarantine(
+                    user_id,
+                    incoming,
+                    &best,
+                    delta_us,
+                    "existing sibling is already under conflict review",
+                )
+                .await;
+        }
 
         if delta_us > 1_000_000 {
-            // > 1 second apart: older wins.
+            // > 1 second apart: a newer incoming fork loses to the stored
+            // sibling. A backdated incoming fork is suspicious because the
+            // sender controls offline device clocks, so quarantine for review.
             if incoming_micros < sibling_micros {
-                return Ok(Resolution::Accept);
+                return self
+                    .quarantine(
+                        user_id,
+                        incoming,
+                        &best,
+                        delta_us,
+                        "incoming timestamp predates already-committed sibling",
+                    )
+                    .await;
             } else {
                 return Ok(Resolution::RejectInFavorOf {
                     winning_entry_hash: best.entry_hash,
@@ -99,7 +121,15 @@ impl ConflictResolver {
         let incoming_channel_strength = channel_strength(incoming);
         let sibling_channel_strength = sibling_channel_strength(&best.entry_data);
         if incoming_channel_strength > sibling_channel_strength {
-            return Ok(Resolution::Accept);
+            return self
+                .quarantine(
+                    user_id,
+                    incoming,
+                    &best,
+                    delta_us,
+                    "incoming channel evidence stronger than already-committed sibling",
+                )
+                .await;
         }
         if sibling_channel_strength > incoming_channel_strength {
             return Ok(Resolution::RejectInFavorOf {
@@ -108,11 +138,29 @@ impl ConflictResolver {
         }
 
         // 3. Escalate: quarantine both and log.
+        self.quarantine(
+            user_id,
+            incoming,
+            &best,
+            delta_us,
+            "timestamp and channel-evidence tie",
+        )
+        .await
+    }
+
+    async fn quarantine(
+        &self,
+        user_id: Uuid,
+        incoming: &JournalEntry,
+        best: &JournalEntryRecord,
+        delta_us: i64,
+        reason: &str,
+    ) -> Result<Resolution> {
         self.journal
-            .mark_conflicted(&incoming.entry_hash, "timestamp+channel tie")
+            .mark_conflicted(&incoming.entry_hash, reason)
             .await?;
         self.journal
-            .mark_conflicted(&best.entry_hash, "timestamp+channel tie")
+            .mark_conflicted(&best.entry_hash, reason)
             .await?;
 
         let log_id = self
@@ -120,12 +168,7 @@ impl ConflictResolver {
             .insert_conflict_log(&ConflictLog {
                 id: 0,
                 user_id,
-                conflicting_entries: json!({
-                    "incoming_entry_hash": hex::encode(&incoming.entry_hash),
-                    "sibling_entry_hash": hex::encode(&best.entry_hash),
-                    "timestamp_delta_us": delta_us,
-                    "reason": "timestamp and channel-evidence tie",
-                }),
+                conflicting_entries: conflict_evidence(incoming, best, delta_us, reason)?,
                 resolution_status: "pending".into(),
                 created_at: chrono::Utc::now(),
                 resolved_at: None,
@@ -136,6 +179,114 @@ impl ConflictResolver {
             conflict_log_id: log_id,
         })
     }
+
+    async fn check_head_continuity(
+        &self,
+        user_id: Uuid,
+        incoming: &JournalEntry,
+        latest: Option<JournalEntryRecord>,
+    ) -> Result<Resolution> {
+        let Some(latest) = latest else {
+            // First entries are still accepted here. The codebase has legacy
+            // callers that do not all agree on the genesis prev hash.
+            return Ok(Resolution::Accept);
+        };
+
+        if latest.entry_hash == incoming.entry_hash {
+            return Ok(Resolution::RejectInFavorOf {
+                winning_entry_hash: latest.entry_hash,
+            });
+        }
+
+        let incoming_micros = incoming_timestamp_micros(incoming);
+        let delta_us = (incoming_micros - latest.submitted_at.timestamp_micros()).abs();
+        if latest.conflict_status.is_some() {
+            return self
+                .quarantine(
+                    user_id,
+                    incoming,
+                    &latest,
+                    delta_us,
+                    "latest ledger head is already under conflict review",
+                )
+                .await;
+        }
+
+        let expected_sequence = latest.sequence_number.saturating_add(1);
+        if latest.entry_hash.as_slice() != incoming.prev_entry_hash.as_slice()
+            || expected_sequence < 0
+            || incoming.sequence_number != expected_sequence as u64
+        {
+            return Ok(Resolution::RejectInFavorOf {
+                winning_entry_hash: latest.entry_hash,
+            });
+        }
+
+        Ok(Resolution::Accept)
+    }
+}
+
+fn incoming_timestamp_micros(incoming: &JournalEntry) -> i64 {
+    incoming
+        .transactions
+        .iter()
+        .map(|t| t.timestamp_utc)
+        .min()
+        .unwrap_or(incoming.created_at)
+}
+
+fn conflict_evidence(
+    incoming: &JournalEntry,
+    sibling: &JournalEntryRecord,
+    delta_us: i64,
+    reason: &str,
+) -> Result<serde_json::Value> {
+    let incoming_cbor = serde_cbor::to_vec(incoming)
+        .map_err(|e| CylinderSealError::SerializationError(e.to_string()))?;
+    Ok(json!({
+        "reason": reason,
+        "timestamp_delta_us": delta_us,
+        "incoming_entry_hash": hex::encode(incoming.entry_hash),
+        "sibling_entry_hash": hex::encode(&sibling.entry_hash),
+        "incoming": {
+            "entry_id": incoming.entry_id.to_string(),
+            "entry_hash": hex::encode(incoming.entry_hash),
+            "prev_entry_hash": hex::encode(incoming.prev_entry_hash),
+            "device_id": incoming.device_id.to_string(),
+            "sequence_number": incoming.sequence_number,
+            "created_at": incoming.created_at,
+            "monotonic_created_nanos": incoming.monotonic_created_nanos,
+            "channel_strength": channel_strength(incoming),
+            "entry_cbor_hex": hex::encode(incoming_cbor),
+            "transactions": incoming.transactions.iter().map(transaction_summary).collect::<Vec<_>>(),
+        },
+        "sibling": {
+            "entry_hash": hex::encode(&sibling.entry_hash),
+            "prev_entry_hash": hex::encode(&sibling.prev_entry_hash),
+            "sequence_number": sibling.sequence_number,
+            "submitted_at": sibling.submitted_at.to_rfc3339(),
+            "confirmed_at": sibling.confirmed_at.map(|t| t.to_rfc3339()),
+            "conflict_status": sibling.conflict_status.as_deref(),
+            "channel_strength": sibling_channel_strength(&sibling.entry_data),
+            "entry_data": sibling.entry_data.clone(),
+        },
+    }))
+}
+
+fn transaction_summary(tx: &Transaction) -> serde_json::Value {
+    json!({
+        "transaction_id": tx.transaction_id.to_string(),
+        "from_public_key": hex::encode(tx.from_public_key),
+        "to_public_key": hex::encode(tx.to_public_key),
+        "amount_micro_owc": tx.amount_owc,
+        "currency_context": &tx.currency_context,
+        "timestamp_utc": tx.timestamp_utc,
+        "channel": format!("{:?}", tx.channel),
+        "device_id": tx.device_id.to_string(),
+        "current_nonce": hex::encode(tx.current_nonce),
+        "previous_nonce": hex::encode(tx.previous_nonce),
+        "funds_origin": tx.funds_origin.map(|origin| origin.as_str()),
+    })
 }
 
 fn channel_strength(entry: &JournalEntry) -> u8 {
